@@ -395,8 +395,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "prepack": "cp ../../README.md README.md && pnpm build",
-    "postpack": "rm README.md"
+    "prepack": "cp ../../README.md README.md && pnpm build"
   },
   "publishConfig": {
     "access": "public"
