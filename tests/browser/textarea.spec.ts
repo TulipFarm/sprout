@@ -170,6 +170,7 @@ test("rows set the starting height and content grows it", async ({ page }) => {
   for (const [rows, px] of Object.entries(expected)) {
     const area = page.getByTestId(`rows-${rows}`).locator("textarea");
     if (rows !== "auto") await expect(area).toHaveAttribute("rows", rows);
+    await area.fill("");
     expect(Math.round(await height(area))).toBe(px);
   }
   const notes = page.getByTestId("rows-auto").locator("textarea");

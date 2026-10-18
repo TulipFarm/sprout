@@ -55,6 +55,8 @@ async function expectStartAligned(popup: Locator, trigger: Locator) {
 
 const popups = (page: Page) =>
   page.locator('[data-slot="popover-content"][data-open]');
+const statusPopups = (page: Page) =>
+  page.locator('[data-slot="toolbar-status-content"][data-open]');
 
 async function axe(page: Page) {
   // Base UI adds hidden 1px focus guards beside an open popup so Tab leaves the portal in order.
@@ -345,15 +347,17 @@ test("toolbar status announces, uses the destructive trigger, and opens with def
   const failed = status.getByRole("button", { name: "Sync failed" });
   await expect(failed).toHaveClass(/sprout-button-variant-destructive/);
   await failed.click();
-  await expect(popups(page)).toHaveAttribute("data-align", "end");
-  await popups(page).getByRole("button", { name: "Try sync again" }).click();
+  await expect(statusPopups(page)).toHaveAttribute("data-align", "end");
+  await statusPopups(page)
+    .getByRole("button", { name: "Try sync again" })
+    .click();
   await expect(status.getByRole("button", { name: "Syncing…" })).toHaveClass(
     /sprout-button-variant-outline/,
   );
   await closeAll(page);
 
   await status.getByRole("button", { name: "Mount with defaultOpen" }).click();
-  await expect(popups(page)).toContainText("You’re offline");
+  await expect(statusPopups(page)).toContainText("You’re offline");
   await settle(page);
   await shot(page, testInfo, "popover-status-default-open");
 });

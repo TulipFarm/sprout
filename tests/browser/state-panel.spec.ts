@@ -199,6 +199,8 @@ test("playground is fully keyboard operable", async ({ page }) => {
 test("sample layout responds to its container, not the viewport", async ({
   page,
 }, testInfo) => {
+  // The 48rem two-column breakpoint needs the wider docs column at 1440px.
+  await page.setViewportSize({ width: 1440, height: 900 });
   await openStatePanel(page);
   const region = page.getByRole("region", { name: "Sample layout" });
   const panel = region.locator('[data-slot="state-panel"]');

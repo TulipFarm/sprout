@@ -199,6 +199,8 @@ test("keyboard: typing, arrows, Home/End, Backspace, Delete, Tab, paste", async 
     .getByTestId("state-progress")
     .locator(".input-otp-demo-label")
     .click();
+  // The click focuses <main tabindex="-1">; blur it so Tab starts from the label.
+  await page.evaluate(() => (document.activeElement as HTMLElement).blur());
   await page.keyboard.press("Tab");
   await expect(progress.nth(2)).toBeFocused();
   await expect(progress.nth(2)).toHaveCSS(
