@@ -1,0 +1,151 @@
+@layer components {
+  .sprout-context-menu-trigger {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-context-menu-trigger:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+
+  .sprout-context-menu-positioner {
+    z-index: 50;
+    isolation: isolate;
+    outline: none;
+  }
+
+  .sprout-context-menu-content {
+    box-sizing: border-box;
+    min-width: 9rem;
+    max-width: var(--available-width);
+    max-height: var(--available-height);
+    padding: 4px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: none;
+    scrollbar-width: thin;
+    transform-origin: var(--transform-origin);
+  }
+
+  .sprout-context-menu-label {
+    padding: 4px 6px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+    overflow-wrap: break-word;
+  }
+
+  .sprout-context-menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 4px 6px;
+    border-radius: var(--sprout-radius-control);
+    color: var(--sprout-text);
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    overflow-wrap: break-word;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-context-menu-item :where(svg) {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+  .sprout-context-menu-item[data-highlighted],
+  .sprout-context-menu-sub-trigger[data-popup-open] {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-context-menu-item[data-variant="destructive"] {
+    color: var(--sprout-danger);
+  }
+  .sprout-context-menu-item[data-variant="destructive"][data-highlighted] {
+    background: var(--sprout-danger-subtle);
+    color: var(--sprout-danger);
+  }
+  .sprout-context-menu-item[data-disabled] {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+  :is(.sprout-context-menu-item, .sprout-context-menu-label)[data-inset] {
+    padding-inline-start: 28px;
+  }
+
+  .sprout-context-menu-sub-chevron {
+    margin-inline-start: auto;
+    color: var(--sprout-muted);
+  }
+
+  .sprout-context-menu-choice {
+    padding-inline-end: 32px;
+  }
+  .sprout-context-menu-indicator {
+    position: absolute;
+    inset-inline-end: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .sprout-context-menu-separator {
+    height: 1px;
+    margin: 4px -4px;
+    background: var(--sprout-line);
+  }
+
+  .sprout-context-menu-shortcut {
+    flex-shrink: 0;
+    margin-inline-start: auto;
+    padding-inline-start: 12px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .sprout-context-menu-item[data-highlighted] .sprout-context-menu-shortcut {
+    color: var(--sprout-text);
+  }
+
+  @media (forced-colors: active) {
+    .sprout-context-menu-item[data-highlighted],
+    .sprout-context-menu-sub-trigger[data-popup-open] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-context-menu-content {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-context-menu-content[data-starting-style],
+    .sprout-context-menu-content[data-ending-style] {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+}

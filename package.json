@@ -1,0 +1,54 @@
+{
+  "name": "sprout-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.5.3",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "build": "pnpm --filter @tulipfarm/sprout build && pnpm --filter @sprout/docs build",
+    "dev": "pnpm --filter @tulipfarm/sprout build && pnpm --filter @sprout/docs dev",
+    "board": "node tools/component-board/server.mjs",
+    "test:board": "node --test --test-concurrency=1 tools/component-board/*.test.mjs",
+    "typecheck": "pnpm --filter @tulipfarm/sprout typecheck && pnpm --filter @tulipfarm/sprout build && pnpm --filter @sprout/docs typecheck",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:browser": "playwright test",
+    "test:install": "node tests/install.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "release": "GITHUB_TOKEN=${GITHUB_TOKEN:-$(gh auth token)} pnpm -C packages/sprout exec release-it",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "@playwright/test": "1.64.1",
+    "@release-it/conventional-changelog": "12.0.2",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "5.0.5",
+    "jsdom": "^30.1.3",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "release-it": "21.1.1",
+    "shadcn": "4.22.0",
+    "simple-git-hooks": "2.14.0",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "simple-git-hooks": {
+    "commit-msg": "pnpm exec commitlint --edit \"$1\""
+  }
+}

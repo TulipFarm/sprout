@@ -1,0 +1,71 @@
+.input-otp-demo {
+  display: grid;
+  gap: 20px;
+}
+/* The docs page draws a global focus outline; keep the slot's own ring. */
+.input-otp-demo .sprout-input-otp-slot:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--sprout-focus) 50%, transparent);
+  outline-offset: 0;
+}
+.input-otp-demo .sprout-input-otp-slot[aria-invalid="true"]:focus-visible {
+  outline-color: color-mix(in oklab, var(--sprout-danger) 40%, transparent);
+}
+.input-otp-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.input-otp-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.input-otp-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.input-otp-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.input-otp-demo-card-body {
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.input-otp-demo-states {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 24px;
+}
+.input-otp-demo-state {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+.input-otp-demo-label {
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 20px;
+}
+.input-otp-demo-helper,
+.input-otp-demo-error {
+  min-width: 0;
+  max-width: 22rem;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sprout-muted);
+  overflow-wrap: anywhere;
+}
+.input-otp-demo-error {
+  color: var(--sprout-danger);
+}
+@media (max-width: 480px) {
+  .input-otp-demo-card-body {
+    padding: 14px;
+  }
+}

@@ -1,0 +1,88 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  GlassBannerPlayground,
+  GlassBannerStarters,
+  GlassBannerLayouts,
+  GlassBannerIntegrations,
+} from "../../components/GlassBannerDemo";
+---
+
+<Docs
+  title="Glass Banner"
+  description="A frosted showcase banner with glass chips you can drag and fling."
+>
+  <h1 class="docs-title">Glass Banner</h1>
+  <p class="docs-lead">
+    A soft blue glass panel for a page's opening moment. A title and caption sit
+    on bubble art, and a few glass chips show what happens next. Drag a chip and
+    let go: it stretches with its speed and springs home.
+  </p>
+  <div class="mt-8"><GlassBannerPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Glass banner usage"
+      code={`import { BrandIcon } from "@tulipfarm/sprout/brand-icon";
+import { GlassBanner, GlassChip } from "@tulipfarm/sprout/glass-banner";
+
+<GlassBanner title="Connect once. Your agents work there." caption="Example activity">
+  <GlassChip icon={<BrandIcon brand="gmail" size="glyph" />}>Drafted 3 follow-ups</GlassChip>
+  <GlassChip icon={<BrandIcon brand="slack" size="glyph" />}>Answered in #support</GlassChip>
+  <GlassChip icon={<BrandIcon brand="jira" size="glyph" />}>Triaged 5 new issues</GlassChip>
+</GlassBanner>`}
+    />
+    <p>
+      <code>GlassBanner</code> takes a <code>title</code>, an optional <code
+        >caption</code
+      >, and <code>GlassChip</code> children. Each chip takes text and an optional
+      <code>icon</code>, drawn in a 28px white bubble. Brand glyphs and 16px
+      icons both fit. The banner has one size: at least 240px tall with 24px
+      padding. Light and dark modes each have their own glass colors.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Icons and text chips</h2>
+    <p>
+      Chips with an icon pad tightly around the bubble; text-only chips get even
+      padding on both ends. This set mixes both.
+    </p>
+    <GlassBannerStarters client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Layout</h2>
+    <p>
+      The banner reads its own width, not the window. From 704px wide, up to
+      three chips float over the art at fixed spots, each tilted a little.
+      Narrower banners, or banners with four or more chips, wrap the chips in
+      rows under the title. Long chip text wraps instead of overflowing.
+    </p>
+    <GlassBannerLayouts client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Integrations page</h2>
+    <p>
+      The integrations page opens with the banner when the <b>All</b> filter is on
+      and the search is empty. Searching or picking another filter hides it so results
+      come first. Try it below.
+    </p>
+    <GlassBannerIntegrations client:load />
+    <p>
+      Apps, filters, and activity here are sample data. The package only draws
+      the banner and its chips.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The bubble art is <code>aria-hidden</code>. Chips are a list named by the
+      caption, or by the title when there is no caption. Dragging is pointer
+      play only: chips are not controls, so they take no focus and keyboard
+      users read them as plain list items. Chips float gently and spring back
+      after a drag; with reduced motion they hold still and snap home as soon as
+      you let go.
+    </p>
+  </section>
+</Docs>

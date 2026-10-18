@@ -1,0 +1,159 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  SchemaDiagramEdgeCases,
+  SchemaDiagramLayouts,
+  SchemaDiagramPlayground,
+  SchemaDiagramStates,
+} from "../../components/SchemaDiagramDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Schema Diagram"
+  description="A pannable, zoomable map of tables, their fields, and the links between them, with proposed additions, changes, and removals marked."
+>
+  <h1 class="docs-title">Schema Diagram</h1>
+  <p class="docs-lead">
+    Shows tables as cards, fields as rows, and links as lines between them. New,
+    changed, and removed fields are marked so someone can review a proposed
+    schema before it is applied. Tables sit in columns on wide screens and stack
+    on phones.
+  </p>
+  <div class="mt-8"><SchemaDiagramPlayground client:load /></div>
+
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Review a schema proposal"
+      code={`import { SchemaDiagram, SchemaLegend } from "@tulipfarm/sprout/schema-diagram";
+
+const tables = [
+  {
+    id: "deals",
+    label: "Deals",
+    state: "new",
+    fields: [
+      { id: "title", label: "Title", type: "text", required: true, unique: true },
+      { id: "stage", label: "Stage", type: "select", required: true, detail: "Qualified · Won · Lost" },
+      { id: "customer", label: "Customer", type: "link", required: true },
+    ],
+  },
+  {
+    id: "customers",
+    label: "Customers",
+    state: "changed",
+    fields: [
+      { id: "email", label: "Billing email", type: "text", required: true, change: "added" },
+      { id: "fax", label: "Fax number", type: "text", required: false, change: "removed" },
+    ],
+  },
+];
+const links = [
+  { id: "customer", source: "deals", field: "customer", target: "customers", label: "N:1" },
+];
+
+<SchemaDiagram tables={tables} links={links} label="Schema diagram for Sales pipeline" />
+<SchemaLegend />`}
+    />
+    <p>
+      The diagram fills its parent and is at least 24rem tall. Give the parent a
+      height, such as <code>h-128</code>, to show more.
+    </p>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Table states and field changes</h2>
+    <p>
+      <code>state</code> is <code>new</code>, <code>changed</code>, <code
+        >linked</code
+      > (an existing table shown only because a link points to it), or <code
+        >unchanged</code
+      >. A field's <code>change</code> is <code>added</code>, <code
+        >changed</code
+      >, or <code>removed</code>. Required fields show <code>*</code>, unique
+      fields show a key, and <code>detail</code> adds a second line such as select
+      options.
+    </p>
+    <div class="mt-6"><SchemaDiagramStates client:load /></div>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Layouts</h2>
+    <p>
+      <code>layout="auto"</code> uses columns from 768px up and a stack below it.
+      Columns place each linked table one step right of the table that links to it.
+      The stack follows link order. Pass <code>horizontal</code> or
+      <code>vertical</code> to fix the layout.
+    </p>
+    <div class="mt-6"><SchemaDiagramLayouts client:load /></div>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Content and overflow</h2>
+    <p>
+      Cards are 264px wide. Long table names, field names, and details truncate,
+      and hovering shows the full text. A linked table with no fields reads
+      "Fields not shown"; any other empty table reads "No fields". Links can
+      point back to their own table.
+    </p>
+    <div class="mt-6"><SchemaDiagramEdgeCases client:load /></div>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Props</h2>
+    <ul>
+      <li>
+        <code>tables</code>: <code>SchemaTable[]</code> with <code>id</code>, <code
+          >label</code
+        >, <code>state</code>, and <code>fields</code>.
+      </li>
+      <li>
+        <code>links</code>: <code>SchemaLink[]</code> from a <code>source</code> table's
+        <code>field</code> to a <code>target</code> table, with a short <code
+          >label</code
+        > such as <code>N:1</code>.
+      </li>
+      <li><code>label</code>: the accessible name of the diagram.</li>
+      <li>
+        <code>layout</code>: <code>auto</code> (default), <code>horizontal</code
+        >, or <code>vertical</code>.
+      </li>
+      <li>
+        <code>SchemaLegend</code> renders a labelled list and takes the props of a
+        <code>ul</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Keyboard and accessibility</h2>
+    <p>
+      Tab moves to the diagram, then to each table card, then to the zoom
+      controls. With the diagram or a card focused, the arrow keys pan (hold
+      Shift to move faster), <kbd>+</kbd> and <kbd>-</kbd> zoom, and <kbd>0</kbd
+      >
+      fits everything in view. Each card is a named group, each link is described
+      as "Deals Customer links to Customers: N:1", and changes, required fields, and
+      unique keys have text for screen readers, not only color. Zoom and pan animate
+      for 120–180ms and stop animating when reduced motion is requested.
+    </p>
+    <p>
+      Loading, load errors, removed proposals, and approval status belong to
+      your application. The playground above shows them with sample data.
+    </p>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Uses <code>--sprout-surface</code>, <code>--sprout-canvas</code>, <code
+        >--sprout-line</code
+      >, <code>--sprout-text</code>, <code>--sprout-muted</code>, and the <code
+        >--sprout-success</code
+      >, <code>--sprout-warning</code>, and <code>--sprout-danger</code> pairs. Badges
+      for table state use the Badge tokens.
+    </p>
+  </section>
+</Docs>

@@ -1,0 +1,23 @@
+/* The docs page draws a global focus outline; the search field is the dialog's only resting focus and shows a caret. */
+.sprout-search-input .sprout-command-input:focus-visible {
+  outline: none;
+}
+
+.search-dialog-demo {
+  display: grid;
+  gap: 20px;
+}
+
+.search-dialog-demo-status {
+  margin: 0;
+  padding-top: 8px;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}
+
+.search-dialog-demo-kbd {
+  margin-inline-start: 0.25rem;
+  color: var(--sprout-muted);
+  font-family: inherit;
+  font-size: var(--sprout-text-xs);
+}

@@ -1,0 +1,135 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import InputDemo from "../../components/InputDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Input"
+  description="A single-line text field for names, emails, numbers, dates, and searches."
+>
+  <h1 class="docs-title">Input</h1>
+  <p class="docs-lead">
+    A single-line text field. Use it for names, emails, tokens, numbers, dates,
+    times, and inline searches.
+  </p>
+  <div class="mt-8"><InputDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Input usage"
+      code={`import { Field } from "@base-ui/react/field";
+import { Input } from "@tulipfarm/sprout/input";
+
+const [name, setName] = useState("");
+
+<Field.Root invalid={!name.trim()}>
+  <Field.Label>Agent name</Field.Label>
+  <Input
+    value={name}
+    maxLength={120}
+    placeholder="People Ops helper"
+    onChange={(event) => setName(event.target.value)}
+  />
+  <Field.Error match>Enter a name.</Field.Error>
+</Field.Root>
+
+<label htmlFor="site">Site ID</label>
+<Input id="site" aria-describedby="site-help" />
+
+<Input scale="lg" type="email" placeholder="you@company.com" autoComplete="email" />`}
+    />
+    <p>
+      Input renders a native <code>input</code> and takes every input prop:
+      <code>value</code> or <code>defaultValue</code>, <code>onChange</code>
+      (or Base UI's <code>onValueChange</code>), <code>ref</code>,
+      <code>required</code>, <code>maxLength</code>, <code>pattern</code>,
+      <code>autoComplete</code>, <code>inputMode</code>, and event handlers such
+      as <code>onKeyDown</code> and <code>onPaste</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Props</h2>
+    <p>
+      <code>scale</code> is <code>"default"</code> (32px tall, 10px side padding,
+      14px text) or <code>"lg"</code> (44px, 12px padding, 16px text). Use <code
+        >lg</code
+      > for sign-in and onboarding forms.
+    </p>
+    <p>
+      <code>type</code> can be any native type. Cloud uses text, email, password,
+      number, url, date, time, datetime-local, and file. A visible file input styles
+      its button to match. A hidden file input (<code>hidden</code>, <code
+        >tabIndex={"{-1}"}</code
+      >,
+      <code>aria-hidden</code>) can be opened with <code
+        >ref.current.click()</code
+      >.
+    </p>
+    <p>
+      <code>disabled</code> dims the input and blocks edits.
+      <code>readOnly</code> keeps it focusable and selectable, which suits copy fields
+      and saving states. <code>aria-invalid</code> draws a danger border and focus
+      ring. The input sets <code>data-slot="input"</code> and
+      <code>data-scale</code>; you can pass your own <code>data-slot</code> and
+      <code>className</code> to set it inside another control.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">With a field</h2>
+    <p>
+      Input is a Base UI <code>Input</code>, so it works inside Base UI
+      <code>Field.Root</code>. The field gives it an id, labels it with
+      <code>Field.Label</code>, describes it with <code>Field.Description</code>
+      and <code>Field.Error</code>, and passes <code>disabled</code> and
+      <code>invalid</code>. Without a field, pair <code>id</code> with a label's <code
+        >htmlFor</code
+      >, or use <code>aria-label</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">SidebarInput</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Sidebar search"
+      code={`import { SidebarHeader, SidebarInput } from "@tulipfarm/sprout/sidebar";
+
+<SidebarHeader>
+  <SidebarInput aria-label="Search sample sidebar" placeholder="Search locally…" />
+</SidebarHeader>`}
+    />
+    <p>
+      <code>SidebarInput</code> is a default-scale Input on the canvas color, with
+      <code>data-slot="sidebar-input"</code> and
+      <code>data-sidebar="input"</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Every input needs a name: a field label, a label with
+      <code>htmlFor</code>, or <code>aria-label</code>. Point
+      <code>aria-describedby</code> at help and error text. A focused input shows
+      a 2px focus ring, red when invalid. Read-only inputs stay in the tab order;
+      disabled ones leave it.
+    </p>
+    <p>
+      Color changes take 120ms and stop when reduced motion is requested. In
+      forced colors mode the input keeps a system border and a highlight focus
+      ring.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The border uses <code>--sprout-input</code>, the fill
+      <code>--sprout-surface</code>, text <code>--sprout-text</code>, and the
+      placeholder <code>--sprout-muted</code>. Focus uses
+      <code>--sprout-focus</code>, invalid <code>--sprout-danger</code>, and
+      disabled <code>--sprout-hover</code>. Radius follows
+      <code>--sprout-radius-control</code>. The opt-in TulipFarm theme tints the
+      focus ring through these tokens.
+    </p>
+  </section>
+</Docs>

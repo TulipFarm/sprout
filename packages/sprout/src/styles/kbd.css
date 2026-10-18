@@ -1,0 +1,59 @@
+@layer components {
+  .sprout-kbd {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: 4px;
+    width: fit-content;
+    min-width: 20px;
+    height: 20px;
+    padding-inline: 4px;
+    border: 1px solid transparent;
+    border-radius: calc(var(--sprout-radius-control) - 2px);
+    background: var(--sprout-secondary);
+    color: var(--sprout-muted);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    pointer-events: none;
+  }
+  .sprout-kbd[data-variant="outline"] {
+    border-color: var(--sprout-line);
+    background: var(--sprout-surface);
+  }
+  .sprout-kbd :where(svg) {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+  }
+
+  .sprout-kbd-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font: inherit;
+    vertical-align: middle;
+  }
+
+  @media (forced-colors: active) {
+    .sprout-kbd {
+      border-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-kbd {
+      transition:
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        border-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+  }
+}

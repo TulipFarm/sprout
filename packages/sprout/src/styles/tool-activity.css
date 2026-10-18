@@ -1,0 +1,396 @@
+@layer components {
+  .sprout-activity-panel {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    min-height: 0;
+    max-height: 40%;
+    padding: 16px;
+    font-family: var(--sprout-font);
+  }
+  .sprout-activity-panel[data-has-result] {
+    border-bottom: 1px solid var(--sprout-line);
+  }
+  .sprout-activity-panel-trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-self: flex-start;
+    align-items: center;
+    gap: 8px;
+    min-height: 28px;
+    max-width: 100%;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  .sprout-activity-panel-trigger:hover {
+    color: var(--sprout-text);
+  }
+  .sprout-activity-panel-status {
+    flex-shrink: 0;
+  }
+  .sprout-activity-panel-label {
+    min-width: 0;
+    overflow: hidden;
+    font-size: var(--sprout-text-xs);
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-activity-panel-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .sprout-activity-panel-frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  /* A soft fade over the first row once the timeline scrolls. */
+  .sprout-activity-panel-frame::before {
+    position: absolute;
+    z-index: 1;
+    inset: 0 0 auto;
+    height: 20px;
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      color-mix(
+        in srgb,
+        var(--sprout-activity-panel-fade, var(--sprout-surface)) 94%,
+        transparent
+      ),
+      transparent
+    );
+    backdrop-filter: blur(3px);
+  }
+  .sprout-activity-panel-frame[data-scrolled]::before {
+    opacity: 1;
+  }
+  .sprout-activity-panel-viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding-top: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: var(--sprout-radius-control);
+    scrollbar-width: none;
+  }
+  .sprout-activity-panel-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .sprout-activity-panel-viewport:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+
+  .sprout-tool-activity {
+    width: 100%;
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  .sprout-tool-activity-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 28px;
+    max-width: 100%;
+    margin-inline-start: -6px;
+    padding: 0 6px;
+    color: var(--sprout-muted);
+    text-align: start;
+  }
+  .sprout-tool-activity-trigger:hover {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-tool-activity-trigger:focus-visible {
+    outline-offset: 1px;
+  }
+  .sprout-tool-activity-trigger > svg {
+    flex-shrink: 0;
+  }
+  .sprout-tool-activity-title {
+    min-width: 0;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+  .sprout-tool-activity-progress,
+  .sprout-tool-activity-older {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--sprout-muted);
+    font-family: var(--sprout-font);
+  }
+  .sprout-tool-activity-progress {
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  .sprout-tool-activity-older {
+    flex-wrap: wrap;
+    padding: 8px 0;
+    font-size: var(--sprout-text-xs);
+  }
+  .sprout-tool-activity-older[data-tone="danger"] {
+    color: var(--sprout-danger);
+  }
+  .sprout-tool-activity-list {
+    position: relative;
+    display: grid;
+    gap: 2px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-tool-activity-sentinel {
+    height: 1px;
+  }
+  .sprout-tool-activity-row {
+    position: relative;
+    min-width: 0;
+    padding: 4px 0;
+  }
+  .sprout-tool-activity-connector {
+    position: absolute;
+    top: 24px;
+    bottom: -10px;
+    left: 7px;
+    width: 2px;
+    border-radius: 1px;
+    background: color-mix(in srgb, var(--sprout-border) 45%, transparent);
+  }
+  .sprout-tool-activity-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+  }
+  .sprout-tool-activity-mark,
+  .sprout-tool-activity-visual {
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    color: var(--sprout-muted);
+  }
+  .sprout-tool-activity-visual > svg {
+    max-width: 16px;
+    max-height: 16px;
+  }
+  .sprout-tool-activity-label {
+    flex: 1;
+    min-width: 0;
+    color: var(--sprout-muted);
+    overflow-wrap: anywhere;
+  }
+  .sprout-tool-activity-row[data-status="running"]
+    .sprout-tool-activity-label-text {
+    color: var(--sprout-text);
+  }
+  .sprout-tool-activity-query,
+  .sprout-tool-activity-detail,
+  .sprout-tool-activity-details,
+  .sprout-tool-activity-sources {
+    margin: 0;
+    margin-inline-start: 48px;
+    min-width: 0;
+  }
+  .sprout-tool-activity-query {
+    margin-top: 2px;
+    color: color-mix(in srgb, var(--sprout-text) 78%, var(--sprout-muted));
+    overflow-wrap: anywhere;
+  }
+  .sprout-tool-activity-detail {
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-tool-activity-detail[data-tone="danger"] {
+    color: var(--sprout-danger);
+  }
+  .sprout-tool-activity-details {
+    padding-top: 4px;
+  }
+  .sprout-tool-activity-sources {
+    margin-top: 4px;
+  }
+  .sprout-tool-activity-source-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-tool-activity-source {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .sprout-tool-activity-source-chip {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    max-width: 100%;
+    padding: 4px 8px 4px 4px;
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-secondary);
+    color: color-mix(in srgb, var(--sprout-text) 78%, var(--sprout-muted));
+    font-size: var(--sprout-text-sm);
+    text-decoration: none;
+  }
+  a.sprout-tool-activity-source-chip:hover {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  a.sprout-tool-activity-source-chip:active {
+    background: var(--sprout-active);
+  }
+  .sprout-tool-activity-source-chip:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-tool-activity-favicon {
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--sprout-surface);
+    color: var(--sprout-muted);
+  }
+  .sprout-tool-activity-favicon > img {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+  .sprout-tool-activity-favicon[data-status="loading"] > img {
+    opacity: 0;
+  }
+  .sprout-tool-activity-source-title {
+    min-width: 0;
+    max-width: 13rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-tool-activity-source-failed,
+  .sprout-tool-activity-mark-problem {
+    flex-shrink: 0;
+    color: var(--sprout-danger);
+  }
+  .sprout-tool-activity-more {
+    margin-top: 4px;
+  }
+
+  .sprout-tool-activity-mark-running,
+  .sprout-tool-activity-mark-waiting {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .sprout-tool-activity-mark-track {
+    color: var(--sprout-input);
+  }
+  .sprout-tool-activity-mark-arc {
+    color: var(--sprout-success);
+    transform-origin: center;
+  }
+  .sprout-tool-activity-mark-waiting {
+    color: var(--sprout-info);
+  }
+  .sprout-tool-activity-mark-completed {
+    display: grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: var(--sprout-primary);
+    color: var(--sprout-on-primary);
+  }
+  .sprout-tool-activity-mark-queued {
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--sprout-muted);
+    border-radius: 999px;
+  }
+  .sprout-tool-activity-mark-cancelled {
+    color: var(--sprout-muted);
+  }
+
+  .sprout-tool-activity-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (pointer: coarse) {
+    .sprout-tool-activity-trigger,
+    .sprout-tool-activity-source-chip {
+      min-height: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-activity-panel-trigger,
+    .sprout-tool-activity-trigger,
+    .sprout-tool-activity-source-chip {
+      transition:
+        color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-activity-panel-frame::before {
+      transition: opacity var(--sprout-motion-fast) ease-out;
+    }
+    .sprout-tool-activity-row {
+      animation: sprout-tool-activity-in var(--sprout-motion-normal) ease-out
+        both;
+    }
+    .sprout-tool-activity-mark-arc {
+      animation: sprout-tool-activity-spin 1s linear infinite;
+    }
+    .sprout-tool-activity-favicon > img {
+      transition: opacity var(--sprout-motion-fast) ease-out;
+    }
+  }
+}
+
+@keyframes sprout-tool-activity-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes sprout-tool-activity-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

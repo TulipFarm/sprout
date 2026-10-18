@@ -1,0 +1,220 @@
+---
+import { Code } from "astro:components";
+import { Copy } from "reicon-react/icons/Copy";
+import { Check } from "reicon-react/icons/Check";
+
+interface Props {
+  code: string;
+  lang: "tsx" | "css" | "bash";
+  title?: string;
+}
+
+const { code, lang, title } = Astro.props;
+const language = { tsx: "TSX", css: "CSS", bash: "Terminal" }[lang];
+const label = title ?? language;
+---
+
+<sprout-code-block
+  class="code-block"
+  data-code={code}
+  role="group"
+  aria-label={label}
+>
+  <div class="code-toolbar">
+    <span class="code-heading">
+      {label}
+      {title && <span class="code-language">{language}</span>}
+    </span>
+    <button
+      type="button"
+      class="code-copy"
+      aria-label={`Copy ${label} code`}
+      hidden
+    >
+      <span class="copy-icon"><Copy size={15} aria-hidden="true" /></span>
+      <span class="copied-icon"><Check size={15} aria-hidden="true" /></span>
+      <span data-copy-label>Copy</span>
+    </button>
+  </div>
+  <Code
+    code={code}
+    lang={lang}
+    themes={{
+      light: "github-light-high-contrast",
+      dark: "github-dark-default",
+    }}
+    defaultColor={false}
+    tabindex="0"
+    aria-label={`${label} code`}
+  />
+  <p class="code-status sr-only" role="status" aria-live="polite"></p>
+</sprout-code-block>
+
+<script>
+  class SproutCodeBlock extends HTMLElement {
+    private timer: ReturnType<typeof setTimeout> | undefined;
+
+    connectedCallback() {
+      const button = this.querySelector<HTMLButtonElement>(".code-copy")!;
+      button.hidden = false;
+      button.addEventListener("click", this.copy);
+    }
+
+    disconnectedCallback() {
+      clearTimeout(this.timer);
+      this.querySelector(".code-copy")?.removeEventListener("click", this.copy);
+    }
+
+    private setFeedback(state: "idle" | "copied" | "error", message = "") {
+      this.dataset.copyState = state;
+      this.querySelector("[data-copy-label]")!.textContent =
+        state === "copied"
+          ? "Copied"
+          : state === "error"
+            ? "Try again"
+            : "Copy";
+      const status = this.querySelector<HTMLElement>(".code-status")!;
+      status.classList.toggle("sr-only", state !== "error");
+      status.textContent = message;
+    }
+
+    private copy = async () => {
+      const button = this.querySelector<HTMLButtonElement>(".code-copy")!;
+      clearTimeout(this.timer);
+      this.setFeedback("idle");
+      button.disabled = true;
+      try {
+        if (!navigator.clipboard?.writeText) {
+          throw new Error("Clipboard access is unavailable.");
+        }
+        await navigator.clipboard.writeText(this.dataset.code!);
+        if (!this.isConnected) return;
+        this.setFeedback("copied", "Code copied to clipboard.");
+        this.timer = setTimeout(() => this.setFeedback("idle"), 1600);
+      } catch (error) {
+        console.error("Could not copy the code example.", error);
+        if (this.isConnected) {
+          this.setFeedback(
+            "error",
+            "Copy failed. Select the code and copy it manually.",
+          );
+        }
+      } finally {
+        button.disabled = false;
+      }
+    };
+  }
+
+  if (!customElements.get("sprout-code-block")) {
+    customElements.define("sprout-code-block", SproutCodeBlock);
+  }
+</script>
+
+<style>
+  .code-block {
+    display: block;
+    min-width: 0;
+    margin-top: 24px;
+    overflow: hidden;
+    border: 1px solid var(--sprout-line);
+    border-radius: 8px;
+    background: var(--sprout-surface);
+  }
+  .code-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    padding: 4px 12px 4px 20px;
+    border-bottom: 1px solid var(--sprout-line);
+    color: var(--sprout-muted);
+    font-size: 12px;
+  }
+  .code-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 80px;
+    min-height: 32px;
+    padding: 4px 8px;
+    border-radius: var(--sprout-radius-control);
+    color: var(--sprout-muted);
+    cursor: pointer;
+  }
+  .code-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .code-language {
+    font-size: 10px;
+  }
+  .code-copy:hover,
+  .code-copy:focus-visible {
+    color: var(--sprout-text);
+    background: var(--sprout-hover);
+  }
+  .code-copy:focus-visible {
+    outline-offset: 0;
+  }
+  .code-copy:disabled {
+    cursor: wait;
+  }
+  .code-copy[hidden],
+  .copied-icon,
+  [data-copy-state="copied"] .copy-icon {
+    display: none;
+  }
+  [data-copy-state="copied"] .copied-icon {
+    display: inline-flex;
+  }
+  .code-status:not(.sr-only) {
+    padding: 0 20px 16px;
+    color: var(--sprout-danger);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .code-block :global(pre) {
+    margin: 0;
+    padding: 20px;
+    overflow-x: auto;
+    background: transparent;
+    font-size: 12px;
+    line-height: 1.8;
+    tab-size: 2;
+  }
+  .code-block :global(pre:focus-visible) {
+    outline-offset: -2px;
+  }
+  .code-block :global(pre),
+  .code-block :global(pre span) {
+    color: var(--shiki-light);
+  }
+  :global(.dark) .code-block :global(pre),
+  :global(.dark) .code-block :global(pre span) {
+    color: var(--shiki-dark);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not(.light):not(.dark)) .code-block :global(pre),
+    :global(:root:not(.light):not(.dark)) .code-block :global(pre span) {
+      color: var(--shiki-dark);
+    }
+  }
+  @media (max-width: 767px) {
+    .code-copy {
+      min-height: 44px;
+    }
+    .code-block :global(pre) {
+      padding: 16px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .code-copy {
+      transition:
+        color var(--sprout-motion-fast) ease-out,
+        background-color var(--sprout-motion-fast) ease-out;
+    }
+  }
+</style>

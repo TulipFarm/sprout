@@ -1,0 +1,117 @@
+.notice-banner-demo {
+  display: grid;
+  gap: 20px;
+}
+.notice-banner-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.notice-banner-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.notice-banner-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.notice-banner-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.notice-banner-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+
+.notice-banner-demo-gallery {
+  display: grid;
+  gap: 16px;
+}
+.notice-banner-demo-figure {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+}
+.notice-banner-demo-figure figcaption {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--sprout-muted);
+}
+.notice-banner-demo-frame {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 112px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+  overflow: hidden;
+}
+.notice-banner-demo-page {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+}
+.notice-banner-demo-page span {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--sprout-hover);
+}
+.notice-banner-demo-page span:first-child {
+  width: 40%;
+  height: 12px;
+}
+.notice-banner-demo-page span:nth-child(2) {
+  width: 72%;
+}
+.notice-banner-demo-page span:nth-child(3) {
+  width: 56%;
+}
+
+.notice-banner-demo-lead {
+  font-weight: 500;
+  color: var(--sprout-warning);
+}
+.notice-banner-demo-picker {
+  width: 100%;
+  min-width: 0;
+}
+@media (min-width: 640px) {
+  .notice-banner-demo-picker {
+    width: 16rem;
+  }
+}
+
+.notice-banner-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.notice-banner-demo-log {
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+
+.notice-banner-demo-playground {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.notice-banner-demo-playground > .sprout-notice-banner {
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+}

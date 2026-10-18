@@ -1,0 +1,186 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  ChartCanvas,
+  ChartComposition,
+  ChartCredits,
+  ChartOptions,
+  ChartPlayground,
+} from "../../components/ChartDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Chart"
+  description="Bar charts for daily usage and categories, built on Recharts, with themed series colors, tooltips, and legends."
+>
+  <h1 class="docs-title">Chart</h1>
+  <p class="docs-lead">
+    Draws usage over days and values across categories. Two ready charts cover
+    the common cases; <code>ChartContainer</code> wraps any other Recharts chart with
+    the same colors, tooltip, and legend.
+  </p>
+  <div class="mt-8" id="chart-demo"><ChartCredits client:load /></div>
+
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Daily usage"
+      code={`import { UsageChart, type UsageSeries } from "@tulipfarm/sprout/chart";
+
+const series: UsageSeries[] = [
+  { key: "s0", label: "claude-sonnet-4.5", color: "var(--sprout-chart-1)" },
+  { key: "s1", label: "gpt-5", color: "var(--sprout-chart-2)" },
+  { key: "s2", label: "2 more", color: "var(--sprout-muted)" },
+];
+
+<UsageChart
+  days={[
+    { date: "2026-10-16", s0: 12.5, s1: 4, s2: 0.6 },
+    { date: "2026-10-17", s0: 9, s1: null },
+  ]}
+  series={series}
+/>`}
+    />
+    <ul>
+      <li>
+        <code>UsageChart</code> stacks one bar per day, 256px tall. Each day is a
+        row with a UTC <code>date</code> (<code>YYYY-MM-DD</code>) and a value
+        per series key. A missing or <code>null</code> value leaves that series out
+        of the day’s tooltip. Day labels read like “Oct 17”;
+        <code>locale</code> changes the language.
+      </li>
+      <li>
+        <code>CategoryChart</code> draws side-by-side bars per category with a legend,
+        288px tall. <code>category</code> names the row key that labels each group.
+      </li>
+      <li>
+        Both take <code>title</code>, which names the chart for screen readers,
+        and <code>className</code> to change the height.
+      </li>
+      <li>
+        Series colors are any CSS color. The palette is
+        <code>--sprout-chart-1</code> to <code>--sprout-chart-5</code>, with
+        <code>--sprout-muted</code> for a folded “N more” series.
+      </li>
+    </ul>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Canvas results</h2>
+    <div class="mt-4"><ChartCanvas client:load /></div>
+    <CodeBlock
+      lang="tsx"
+      title="A chart canvas item"
+      code={`import { CanvasSection } from "@tulipfarm/sprout/canvas";
+import { CategoryChart } from "@tulipfarm/sprout/chart";
+
+<CanvasSection title={item.title}>
+  <CategoryChart rows={content.rows} category={content.category} series={content.series} />
+</CanvasSection>`}
+    />
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Playground</h2>
+    <div class="mt-4"><ChartPlayground client:load /></div>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Tooltip and legend</h2>
+    <div class="mt-4"><ChartOptions client:load /></div>
+    <ul>
+      <li>
+        <code>ChartTooltipContent</code>: <code>indicator</code> is
+        <code>"dot"</code> (default), <code>"line"</code>, or
+        <code>"dashed"</code>. With one series and a line or dashed indicator,
+        the label moves into the row. <code>hideLabel</code>,
+        <code>hideIndicator</code>, <code>labelFormatter</code>,
+        <code>labelClassName</code>, <code>formatter</code>,
+        <code>color</code>, <code>nameKey</code>, and <code>labelKey</code>
+        change what it shows.
+      </li>
+      <li>
+        <code>ChartLegendContent</code>: <code>hideIcon</code> shows swatches instead
+        of config icons, and <code>nameKey</code> picks the config entry. On a top
+        legend, the 12px gap moves below it.
+      </li>
+    </ul>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Custom charts</h2>
+    <div class="mt-4"><ChartComposition client:load /></div>
+    <CodeBlock
+      lang="tsx"
+      title="ChartContainer around a Recharts chart"
+      code={`import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+  chartColor,
+  type ChartConfig,
+} from "@tulipfarm/sprout/chart";
+
+const config = {
+  chats: { label: "Chats", theme: { light: "#245cba", dark: "#9cbdff" } },
+  agentRuns: { label: "Agent runs", color: "var(--sprout-chart-4)" },
+} satisfies ChartConfig;
+
+<ChartContainer config={config} style={{ height: 256 }}>
+  <LineChart data={weeks} accessibilityLayer title="Chats and agent runs by week">
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="week" tickLine={false} axisLine={false} />
+    <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+    <ChartLegend verticalAlign="top" itemSorter={null} content={<ChartLegendContent />} />
+    <Line dataKey="chats" stroke={chartColor("chats")} dot={false} />
+    <Line dataKey="agentRuns" stroke={chartColor("agentRuns")} dot={false} />
+  </LineChart>
+</ChartContainer>`}
+    />
+    <p>
+      <code>ChartContainer</code> is 16:9 unless you give it a height. It writes <code
+        >--sprout-chart-color-&lt;key&gt;</code
+      > for each config entry; <code>chartColor(key)</code> returns that variable.
+      Entries with <code>theme</code> switch value in dark mode. <code
+        >ChartStyle</code
+      >
+      is the style tag it renders. <code>ChartTooltip</code> and
+      <code>ChartLegend</code> are Recharts’ <code>Tooltip</code> and
+      <code>Legend</code>.
+    </p>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The ready charts turn on Recharts’ accessibility layer. The chart is one
+      tab stop, named by <code>title</code>. Left and Right arrow keys move the
+      tooltip between days or categories, and a 2px focus ring shows. Keep the
+      real numbers in text or a table next to the chart, as the credits page
+      does.
+    </p>
+    <p>
+      The tooltip moves in 160ms and stays still with reduced motion. Bars draw
+      without animation. In forced colors, the tooltip is outlined and swatches
+      keep their colors.
+    </p>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Series use <code>--sprout-chart-1</code> to
+      <code>--sprout-chart-5</code>, with light and dark values. Tailwind gets
+      them as <code>bg-sprout-chart-1</code> and so on, for swatches beside a chart.
+      Ticks use <code>--sprout-muted</code>, grid lines
+      <code>--sprout-line</code>, the hover band <code>--sprout-hover</code>,
+      and the tooltip <code>--sprout-surface</code> with
+      <code>--sprout-line</code>.
+    </p>
+  </section>
+</Docs>

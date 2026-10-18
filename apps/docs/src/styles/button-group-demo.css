@@ -1,0 +1,88 @@
+.button-group-demo {
+  display: grid;
+  gap: 20px;
+}
+.button-group-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.button-group-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.button-group-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.button-group-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.button-group-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.button-group-demo-muted {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--sprout-muted);
+}
+.button-group-demo-label {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sprout-muted);
+}
+.button-group-demo-label code {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--sprout-text);
+}
+
+.button-group-demo-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+.button-group-demo-panel {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.button-group-demo-stack {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+.button-group-demo-rows {
+  display: grid;
+  gap: 8px;
+}
+.button-group-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+}

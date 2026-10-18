@@ -1,0 +1,39 @@
+@layer components {
+  /* The class name holds "size-", so buttons keep the spinner's own size. */
+  .sprout-spinner {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: inherit;
+    vertical-align: -0.125em;
+    pointer-events: none;
+  }
+  .sprout-spinner-size-sm {
+    width: 12px;
+    height: 12px;
+  }
+  .sprout-spinner-size-lg {
+    width: 20px;
+    height: 20px;
+  }
+  .sprout-spinner-size-xl {
+    width: 64px;
+    height: 64px;
+  }
+  .sprout-spinner[data-variant="thinking"] {
+    vertical-align: middle;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-spinner[data-variant="default"] {
+      animation: sprout-spinner-spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes sprout-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

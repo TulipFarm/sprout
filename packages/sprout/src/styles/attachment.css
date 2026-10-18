@@ -1,0 +1,720 @@
+@layer base {
+  :root,
+  .light {
+    --sprout-file-paper: #ffffff;
+    --sprout-file-edge: #d4d4da;
+    --sprout-file-generic: #8e8f97;
+    --sprout-file-pdf: #e2463f;
+    --sprout-file-sheet: #1f8f4a;
+    --sprout-file-document: #2b67d1;
+    --sprout-file-slides: #d9622b;
+    --sprout-file-image: #a8d4f7;
+    --sprout-file-label: #ffffff;
+  }
+
+  .dark {
+    --sprout-file-paper: #2a2b30;
+    --sprout-file-edge: #4a4b52;
+    --sprout-file-image: #4d7ea8;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark) {
+      --sprout-file-paper: #2a2b30;
+      --sprout-file-edge: #4a4b52;
+      --sprout-file-image: #4d7ea8;
+    }
+  }
+}
+
+@layer components {
+  /* Attachment */
+  .sprout-attachment {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    border: 1px solid var(--sprout-line);
+    border-radius: 12px;
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: inherit;
+  }
+  .sprout-attachment:has(> a, > button):hover {
+    background: color-mix(
+      in oklab,
+      var(--sprout-hover) 50%,
+      var(--sprout-surface)
+    );
+  }
+  .sprout-attachment:has(> .sprout-attachment-trigger:focus-visible) {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-attachment[data-state="idle"] {
+    border-style: dashed;
+  }
+  .sprout-attachment[data-state="error"] {
+    border-color: color-mix(in oklab, var(--sprout-danger) 35%, transparent);
+  }
+
+  .sprout-attachment-size-default {
+    gap: 8px;
+    font-size: var(--sprout-text-sm);
+  }
+  .sprout-attachment-size-default:has([data-slot="attachment-content"]) {
+    padding: 8px 10px;
+  }
+  .sprout-attachment-size-default:has([data-slot="attachment-media"]) {
+    padding: 8px;
+  }
+  .sprout-attachment-size-sm {
+    gap: 10px;
+    font-size: var(--sprout-text-xs);
+  }
+  .sprout-attachment-size-sm:has([data-slot="attachment-content"]) {
+    padding: 6px 8px;
+  }
+  .sprout-attachment-size-sm:has([data-slot="attachment-media"]) {
+    padding: 6px;
+  }
+  .sprout-attachment-size-xs {
+    gap: 6px;
+    border-radius: 8px;
+    font-size: var(--sprout-text-xs);
+  }
+  .sprout-attachment-size-xs:has([data-slot="attachment-content"]) {
+    padding: 4px 6px;
+  }
+  .sprout-attachment-size-xs:has([data-slot="attachment-media"]) {
+    padding: 4px;
+  }
+
+  .sprout-attachment-horizontal {
+    min-width: 10rem;
+    align-items: center;
+  }
+  .sprout-attachment-vertical {
+    width: 6rem;
+    flex-direction: column;
+  }
+  .sprout-attachment-vertical:has([data-slot="attachment-content"]) {
+    width: 7.5rem;
+  }
+
+  .sprout-attachment-media {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-attachment-size-sm .sprout-attachment-media {
+    width: 32px;
+  }
+  .sprout-attachment-size-xs .sprout-attachment-media {
+    width: 28px;
+    border-radius: 6px;
+  }
+  .sprout-attachment-vertical .sprout-attachment-media {
+    width: 100%;
+  }
+  .sprout-attachment[data-state="error"] .sprout-attachment-media {
+    background: var(--sprout-danger-subtle);
+    color: var(--sprout-danger);
+  }
+  .sprout-attachment-media svg {
+    pointer-events: none;
+  }
+  .sprout-attachment-media svg:not([class*="size-"]) {
+    width: 16px;
+    height: 16px;
+  }
+  .sprout-attachment-vertical
+    .sprout-attachment-media
+    svg:not([class*="size-"]),
+  .sprout-attachment-vertical .sprout-attachment-media > [data-slot="spinner"] {
+    width: 24px;
+    height: 24px;
+  }
+  .sprout-attachment-size-xs
+    .sprout-attachment-media
+    svg:not([class*="size-"]) {
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-attachment-media[data-variant="image"] {
+    opacity: 0.6;
+  }
+  .sprout-attachment:is([data-state="done"], [data-state="idle"])
+    .sprout-attachment-media[data-variant="image"] {
+    opacity: 1;
+  }
+  .sprout-attachment-media[data-variant="image"] > img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .sprout-attachment-content {
+    flex: 1 1 0%;
+    max-width: 100%;
+    min-width: 0;
+    line-height: 1.25;
+  }
+  .sprout-attachment-vertical .sprout-attachment-content {
+    padding-inline: 4px;
+  }
+  .sprout-attachment-title {
+    display: block;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-attachment-description {
+    display: block;
+    max-width: 100%;
+    min-width: 0;
+    margin-top: 2px;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-attachment[data-state="error"] .sprout-attachment-description {
+    color: var(--sprout-danger);
+  }
+
+  .sprout-attachment-actions {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .sprout-attachment-vertical .sprout-attachment-actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    gap: 4px;
+  }
+  .sprout-attachment-vertical .sprout-attachment-actions .sprout-button {
+    background: color-mix(in oklab, var(--sprout-surface) 88%, transparent);
+  }
+  .sprout-attachment-size-xs.sprout-attachment-vertical
+    .sprout-attachment-actions {
+    top: 6px;
+    right: 6px;
+  }
+
+  .sprout-attachment-trigger {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* The name shimmers while the file uploads or processes. */
+  .sprout-attachment:is([data-state="uploading"], [data-state="processing"])
+    .sprout-attachment-title,
+  .sprout-file-attachment:is(
+      [data-state="uploading"],
+      [data-state="processing"]
+    )
+    .sprout-file-attachment-name {
+    color: var(--sprout-muted);
+  }
+
+  /* Groups */
+  .sprout-attachment-group {
+    min-width: 0;
+  }
+  .sprout-attachment-group-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  @media (min-width: 40rem) {
+    .sprout-attachment-group-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .sprout-attachment-group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sprout-attachment-group-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sprout-attachment-group-carousel {
+    --sprout-attachment-fade: var(--sprout-surface);
+    position: relative;
+  }
+  .sprout-attachment-carousel-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-padding-inline: 32px;
+  }
+  .sprout-attachment-carousel-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .sprout-attachment-carousel-track {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+    padding: 4px 3px;
+  }
+  .sprout-attachment-carousel-item {
+    flex-shrink: 0;
+    min-width: 0;
+  }
+  .sprout-attachment-carousel-edge {
+    position: absolute;
+    inset-block: 0;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+  .sprout-attachment-carousel-edge[data-side="start"] {
+    left: 0;
+    padding-right: 32px;
+    background: linear-gradient(
+      to right,
+      var(--sprout-attachment-fade),
+      transparent
+    );
+  }
+  .sprout-attachment-carousel-edge[data-side="end"] {
+    right: 0;
+    padding-left: 32px;
+    background: linear-gradient(
+      to left,
+      var(--sprout-attachment-fade),
+      transparent
+    );
+  }
+  .sprout-attachment-carousel-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid var(--sprout-line);
+    border-radius: 8px;
+    background: var(--sprout-surface);
+    box-shadow: var(--sprout-shadow-control);
+    color: var(--sprout-muted);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: auto;
+  }
+  .sprout-attachment-group-carousel:hover .sprout-attachment-carousel-arrow,
+  .sprout-attachment-group-carousel:focus-within
+    .sprout-attachment-carousel-arrow,
+  .sprout-attachment-carousel-arrow:focus-visible {
+    opacity: 1;
+  }
+  @media (pointer: coarse) {
+    .sprout-attachment-carousel-arrow {
+      opacity: 1;
+    }
+  }
+  .sprout-attachment-carousel-arrow:hover {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-attachment-carousel-arrow:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 1px;
+  }
+
+  /* File type icon */
+  .sprout-file-type-icon {
+    flex-shrink: 0;
+  }
+  .sprout-file-type-icon-size-sm {
+    width: 20px;
+    height: 24px;
+  }
+  .sprout-file-type-icon-size-lg {
+    width: 30px;
+    height: 36px;
+  }
+  .sprout-file-type-icon-paper {
+    fill: var(--sprout-file-paper);
+    stroke: var(--sprout-file-edge);
+  }
+  .sprout-file-type-icon-fold {
+    fill: none;
+    stroke: var(--sprout-file-edge);
+  }
+  .sprout-file-type-icon-lines {
+    stroke: var(--sprout-file-edge);
+  }
+  .sprout-file-type-icon-badge {
+    fill: var(--sprout-file-generic);
+  }
+  .sprout-file-type-icon[data-kind="pdf"] .sprout-file-type-icon-badge {
+    fill: var(--sprout-file-pdf);
+  }
+  .sprout-file-type-icon[data-kind="sheet"] .sprout-file-type-icon-badge {
+    fill: var(--sprout-file-sheet);
+  }
+  .sprout-file-type-icon:is([data-kind="document"], [data-kind="google"])
+    .sprout-file-type-icon-badge {
+    fill: var(--sprout-file-document);
+  }
+  .sprout-file-type-icon[data-kind="slides"] .sprout-file-type-icon-badge {
+    fill: var(--sprout-file-slides);
+  }
+  .sprout-file-type-icon[data-kind="image"] .sprout-file-type-icon-badge {
+    fill: var(--sprout-file-image);
+  }
+  .sprout-file-type-icon-label {
+    fill: var(--sprout-file-label);
+    font-family: inherit;
+  }
+
+  /* File attachment */
+  .sprout-file-attachment {
+    position: relative;
+    box-sizing: border-box;
+    min-width: 0;
+    border: 1px solid var(--sprout-line);
+    border-radius: 12px;
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: inherit;
+  }
+  .sprout-file-attachment[data-state="error"] {
+    border-color: var(--sprout-danger);
+  }
+  .sprout-file-attachment[data-variant="list"] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+  }
+  .sprout-file-attachment[data-variant="inline"] {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 100%;
+    padding-left: 8px;
+  }
+  .sprout-file-attachment[data-variant="inline"]:not(
+      :has(.sprout-file-attachment-actions)
+    ) {
+    padding-right: 10px;
+  }
+  .sprout-file-attachment[data-variant="grid"] {
+    display: flex;
+    flex-direction: column;
+  }
+  .sprout-file-attachment[data-variant="chip"] {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 4px;
+    height: 36px;
+    max-width: 12rem;
+    padding: 0 12px 0 10px;
+    box-shadow: var(--sprout-shadow-control);
+  }
+  .sprout-file-attachment[data-variant="chip"][data-removable] {
+    padding-right: 4px;
+  }
+
+  .sprout-file-attachment-open {
+    display: block;
+    flex: 1 1 0%;
+    min-width: 0;
+    margin: 0;
+    padding: 4px 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+  }
+  button.sprout-file-attachment-open {
+    cursor: pointer;
+  }
+  button.sprout-file-attachment-open:disabled {
+    cursor: default;
+  }
+  .sprout-file-attachment[data-variant="grid"] .sprout-file-attachment-open {
+    padding: 12px;
+  }
+  .sprout-file-attachment[data-variant="chip"] .sprout-file-attachment-open {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+  }
+  .sprout-file-attachment-peek {
+    width: 22rem;
+    padding: 4px;
+  }
+  .sprout-file-attachment-open:focus-visible,
+  .sprout-file-attachment-preview:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-file-attachment:has(
+      button.sprout-file-attachment-open:not(:disabled)
+    ):hover {
+    background: color-mix(
+      in oklab,
+      var(--sprout-hover) 50%,
+      var(--sprout-surface)
+    );
+  }
+
+  .sprout-file-attachment-name {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-file-attachment[data-variant="chip"] .sprout-file-attachment-name {
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-file-attachment-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-file-attachment[data-state="error"] .sprout-file-attachment-status,
+  .sprout-file-attachment-failed {
+    color: var(--sprout-danger);
+  }
+  .sprout-file-attachment-failed {
+    flex-shrink: 0;
+    font-size: var(--sprout-text-xs);
+  }
+
+  .sprout-file-attachment-media {
+    display: flex;
+    flex-shrink: 0;
+    color: var(--sprout-muted);
+  }
+  .sprout-file-attachment[data-variant="list"] .sprout-file-attachment-media {
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--sprout-hover);
+  }
+  .sprout-file-attachment-media > .sprout-attachment-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sprout-file-attachment-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 11px 11px 0 0;
+    background: var(--sprout-hover);
+    color: var(--sprout-muted);
+    font: inherit;
+  }
+  button.sprout-file-attachment-preview {
+    cursor: pointer;
+  }
+  .sprout-file-attachment-preview > .sprout-attachment-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sprout-file-attachment-thumb {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--sprout-file-image);
+  }
+  .sprout-file-attachment-thumb > .sprout-attachment-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .sprout-file-attachment-thumb > .sprout-attachment-image-failed {
+    padding: 0;
+    font-size: 0;
+  }
+  .sprout-file-attachment-thumb > .sprout-attachment-image-failed svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .sprout-file-attachment-actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .sprout-file-attachment[data-variant="grid"] .sprout-file-attachment-actions {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    border-radius: 6px;
+    background: var(--sprout-surface);
+  }
+
+  .sprout-attachment-image-failed {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+  }
+
+  /* Dropzone */
+  .sprout-attachment-dropzone {
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px dashed var(--sprout-input);
+    border-radius: 12px;
+    background: color-mix(
+      in oklab,
+      var(--sprout-hover) 30%,
+      var(--sprout-surface)
+    );
+    color: var(--sprout-text);
+    text-align: center;
+  }
+  .sprout-attachment-dropzone[data-dragging] {
+    border-color: var(--sprout-focus);
+    background: var(--sprout-primary-subtle);
+  }
+  .sprout-attachment-dropzone[data-disabled] {
+    cursor: not-allowed;
+  }
+  .sprout-attachment-dropzone[data-disabled] .sprout-attachment-dropzone-icon {
+    opacity: 0.5;
+  }
+  .sprout-attachment-dropzone-icon {
+    display: block;
+    margin: 0 auto 8px;
+    color: var(--sprout-muted);
+  }
+  .sprout-attachment-dropzone-text {
+    margin: 0 0 12px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-attachment,
+    .sprout-file-attachment,
+    .sprout-attachment-dropzone {
+      transition:
+        background-color var(--sprout-motion-normal) var(--sprout-motion-ease),
+        border-color var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-attachment-media[data-variant="image"] {
+      transition: opacity var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-attachment-carousel-arrow {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-attachment-carousel-viewport {
+      scroll-behavior: smooth;
+    }
+    .sprout-attachment:is([data-state="uploading"], [data-state="processing"])
+      .sprout-attachment-title,
+    .sprout-file-attachment:is(
+        [data-state="uploading"],
+        [data-state="processing"]
+      )
+      .sprout-file-attachment-name {
+      background: linear-gradient(
+          90deg,
+          var(--sprout-muted) 0%,
+          var(--sprout-muted) 40%,
+          var(--sprout-text) 50%,
+          var(--sprout-muted) 60%,
+          var(--sprout-muted) 100%
+        )
+        0 0 / 250% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: sprout-attachment-shimmer 1.8s linear infinite;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-attachment-title,
+    .sprout-file-attachment-name {
+      background: none !important;
+      -webkit-text-fill-color: currentColor !important;
+    }
+  }
+}
+
+@keyframes sprout-attachment-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}

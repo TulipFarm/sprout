@@ -1,0 +1,108 @@
+.toast-demo-stage,
+.toast-demo-card {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.toast-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.toast-demo-caption {
+  margin: 0;
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.toast-demo-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 20px;
+  background: var(--sprout-canvas);
+}
+
+.toast-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.toast-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.toast-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.toast-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.toast-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.toast-demo-frame {
+  position: relative;
+  min-height: 248px;
+  border: 1px dashed var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.toast-demo-frame-viewport.sprout-toast-viewport {
+  position: absolute;
+  inset: auto 12px 12px;
+  width: auto;
+  max-width: 24rem;
+  margin-inline: auto;
+}
+.toast-demo-file {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+  color: var(--sprout-muted);
+}
+.toast-demo-file > svg {
+  width: 16px;
+  height: 16px;
+}
+.toast-demo-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.toast-demo-empty {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  min-height: 248px;
+  padding: 16px;
+  text-align: center;
+}
+.toast-demo-empty p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sprout-muted);
+}

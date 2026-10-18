@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: var(--primary);
+}
+
+:root {
+  --primary: #613dba;
+  --sprout-radius-control: 0.625rem;
+}

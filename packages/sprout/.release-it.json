@@ -1,0 +1,36 @@
+{
+  "$schema": "https://unpkg.com/release-it@21/schema/release-it.json",
+  "git": {
+    "requireBranch": "main",
+    "commitMessage": "chore(release): v${version}",
+    "tagName": "v${version}"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}",
+    "assets": [".release/*.tgz"]
+  },
+  "npm": {
+    "publish": true
+  },
+  "hooks": {
+    "before:init": [
+      "pnpm -C ../.. build",
+      "pnpm -C ../.. typecheck",
+      "pnpm -C ../.. test"
+    ],
+    "before:release": "git add ../../CHANGELOG.md",
+    "after:bump": "rm -rf .release && pnpm pack --pack-destination .release",
+    "after:release": "npm publish .release/*.tgz --registry=https://npm.pkg.github.com --//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": {
+        "name": "conventionalcommits"
+      },
+      "infile": "../../CHANGELOG.md",
+      "header": "# Changelog",
+      "ignoreRecommendedBump": true
+    }
+  }
+}

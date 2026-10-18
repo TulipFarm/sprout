@@ -1,0 +1,406 @@
+/* Content inside sheets. Sprout owns the sheet chrome; these are sample layouts. */
+
+.sheet-demo-muted {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-sm);
+  line-height: 1.25rem;
+}
+.sheet-demo-note {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}
+.sheet-demo-truncate {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sheet-demo-status:empty {
+  display: none;
+}
+.sheet-demo-status {
+  margin: 0;
+}
+
+.sheet-demo-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.sheet-demo-row-end {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.sheet-demo-pad {
+  padding-top: 0;
+}
+
+.sheet-demo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+}
+.sheet-demo-list > li + li {
+  border-top: 1px solid var(--sprout-line);
+}
+.sheet-demo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 14px;
+}
+.sheet-demo-item-text {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.sheet-demo-item-title {
+  margin: 0;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.sheet-demo-member {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 14px;
+}
+
+.sheet-demo-fields {
+  display: grid;
+  gap: 12px;
+  padding: 0 16px;
+}
+@media (min-width: 40rem) {
+  .sheet-demo-fields {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.sheet-demo-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.sheet-demo-field-label {
+  font-size: var(--sprout-text-sm);
+  font-weight: 500;
+}
+.sheet-demo-select {
+  width: 100%;
+}
+
+.sheet-demo-fieldset {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.sheet-demo-fieldset > legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 550;
+}
+
+/* Integration detail */
+.sheet-demo-bar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  height: 52px;
+  padding: 0 56px 0 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+}
+.sheet-demo-bar-current {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--sprout-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sheet-demo-scroll {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  padding-bottom: 24px;
+  overflow-y: auto;
+}
+.sheet-demo-scroll.sheet-demo-pad {
+  padding: 16px;
+}
+.sheet-demo-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding-top: 8px;
+}
+.sheet-demo-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+.sheet-demo-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+}
+.sheet-demo-blurb {
+  padding-top: 8px;
+}
+.sheet-demo-section {
+  display: grid;
+  gap: 12px;
+  padding: 16px 16px 0;
+  border-top: 1px solid var(--sprout-line);
+}
+.sheet-demo-section h3,
+.sheet-demo-photo h3 {
+  margin: 0;
+  font-size: var(--sprout-text-sm);
+  font-weight: 600;
+}
+.sheet-demo-can {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+}
+.sheet-demo-can > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 14px;
+}
+.sheet-demo-can > li + li {
+  border-top: 1px solid var(--sprout-line);
+}
+.sheet-demo-audience {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--sprout-muted);
+}
+.sheet-demo-panel {
+  margin: 0 16px;
+  border-top: 1px solid var(--sprout-line);
+}
+.sheet-demo-panel-trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--sprout-radius-control);
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 550;
+  text-align: start;
+  cursor: pointer;
+}
+.sheet-demo-panel-trigger:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: 2px;
+}
+.sheet-demo-panel-body {
+  padding-bottom: 12px;
+}
+.sheet-demo-footer-bar {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0;
+  padding: 12px 16px;
+  border-top: 1px solid var(--sprout-line);
+}
+.sheet-demo-footer-bar > p {
+  margin-inline-end: auto;
+}
+
+/* Calendar event */
+.sheet-demo-dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 12px;
+  margin: 0;
+}
+.sheet-demo-dl dt {
+  color: var(--sprout-muted);
+}
+.sheet-demo-dl dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.sheet-demo-badges:first-child {
+  padding-top: 0;
+}
+
+/* Member profile */
+.sheet-demo-photo {
+  display: grid;
+  gap: 12px;
+}
+.sheet-demo-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--sprout-secondary);
+  font-weight: 600;
+}
+.sheet-demo-skeletons {
+  display: grid;
+  gap: 12px;
+}
+
+/* Record editor */
+.sheet-demo-editor {
+  padding-bottom: 0;
+}
+.sheet-demo-editor-fields {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.sheet-demo-sticky {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: auto;
+  padding: 12px 0 16px;
+  border-top: 1px solid var(--sprout-line);
+  background: var(--sprout-surface);
+}
+.sheet-demo-sticky > p {
+  margin-inline-end: auto;
+}
+
+/* Agent preview */
+.sheet-demo-chat {
+  display: grid;
+  gap: 12px;
+}
+.sheet-demo-bubble {
+  max-width: 85%;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+  border: 1px solid var(--sprout-line);
+}
+.sheet-demo-bubble-user {
+  justify-self: end;
+  border-color: transparent;
+  background: var(--sprout-secondary);
+}
+
+/* Canvas */
+.sheet-demo-canvas-bar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  height: 52px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--sprout-line);
+  font-weight: 550;
+}
+.sheet-demo-canvas-body {
+  padding-top: 16px;
+}
+
+/* Sidebar drawer: Cloud overrides width, background, and padding. */
+.sheet-demo-nav {
+  width: min(var(--sheet-demo-nav-width), calc(100vw - 2rem));
+  background: var(--sprout-canvas);
+}
+.sheet-demo-nav > [data-slot="sheet-close"] {
+  top: 10px;
+  right: 8px;
+}
+.sheet-demo-nav-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px 8px;
+}
+.sheet-demo-nav-workspace {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin: 0 0 8px;
+  padding: 0 8px;
+  font-weight: 600;
+}
+.sheet-demo-nav ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sheet-demo-nav a {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: var(--sprout-radius-control);
+  color: var(--sprout-muted);
+  text-decoration: none;
+}
+.sheet-demo-nav a[aria-current="page"] {
+  background: var(--sprout-active);
+  color: var(--sprout-text);
+  font-weight: 550;
+}
+.sheet-demo-nav a:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: -2px;
+}
+@media (hover: hover) {
+  .sheet-demo-nav a:hover {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sheet-demo-panel-trigger:hover {
+    color: var(--sprout-muted);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sheet-demo-nav a {
+    transition:
+      background-color var(--sprout-motion-fast) ease-out,
+      color var(--sprout-motion-fast) ease-out;
+  }
+}

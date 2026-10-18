@@ -1,0 +1,162 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  ResultAppActionsDemo,
+  ResultCardApps,
+  ResultCardPlayground,
+  ResultCardRecipes,
+  ResultCardStates,
+} from "../../components/ResultCardDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Result Card"
+  description="A compact card for a file, plan, workflow, action, calendar read, or table an agent produced, with the apps it used, a live status, and one action."
+>
+  <h1 class="docs-title">Result Card</h1>
+  <p class="docs-lead">
+    Shows something an agent made or did in chat. It names the apps used, shows
+    a live status, and offers one action, such as opening the result in a
+    canvas. <code>ResultAppActions</code> lists what each app did.
+  </p>
+  <div class="mt-8"><ResultCardPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A saved presentation"
+      code={`import { ResultCard } from "@tulipfarm/sprout/result-card";
+
+<ResultCard
+  title="Investor pitch"
+  kind="File"
+  status="Saved in Google Slides"
+  state="success"
+  apps={[
+    {
+      brand: "google-slides",
+      name: "Google Slides",
+      actions: [
+        { label: "Created the investor pitch presentation", state: "completed" },
+        { label: "Added the two pitch slides", state: "completed" },
+      ],
+    },
+  ]}
+  action={{ label: "View slides", onClick: openInCanvas }}
+/>`}
+    />
+    <ul>
+      <li>
+        <code>kind</code>: <code>"File"</code>, <code>"Plan"</code>,
+        <code>"Workflow"</code>, <code>"Action"</code>,
+        <code>"Calendar"</code>, <code>"Table"</code>,
+        <code>"Activity"</code>, <code>"Agent"</code>, or
+        <code>"Skill"</code>. It shows before the status and names the card
+        “Kind: title”.
+      </li>
+      <li>
+        <code>status</code>: short text, such as “Waiting for review” or “Action
+        not confirmed”.
+      </li>
+      <li>
+        <code>action</code>: one outline button. It sits beside the text when
+        the card is at least 28rem wide, and below it when narrower. Pass
+        <code>disabled</code> to turn it off.
+      </li>
+      <li>
+        <code>icon</code>: shown in a tile when <code>apps</code> is empty, such as
+        a file, table, plan, or workflow icon.
+      </li>
+      <li>
+        <code>children</code>: extra content under the header, such as plan
+        progress and controls.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <div class="mt-4"><ResultCardStates client:load /></div>
+    <ul class="mt-4">
+      <li><code>"default"</code>: a muted status.</li>
+      <li>
+        <code>"loading"</code>: a spinner and <code>aria-busy</code>; the action
+        is disabled while the card checks.
+      </li>
+      <li>
+        <code>"running"</code>: a spinner and <code>aria-busy</code>; the action
+        stays available.
+      </li>
+      <li><code>"disabled"</code>: the action and app tiles are disabled.</li>
+      <li><code>"error"</code>: a red status with a warning icon.</li>
+      <li><code>"success"</code>: a green status with a check.</li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Apps used</h2>
+    <div class="mt-4"><ResultCardApps client:load /></div>
+    <p>
+      Each app is a tile. Entries with the same <code>brand</code> (or the same <code
+        >name</code
+      > when <code>brand</code> is <code>null</code>) merge into one tile. Two
+      tiles show; the rest fold into a “+N” tile. A tile opens its actions after
+      800ms of hover, or on click, Enter, or Space. An app with <code
+        >brand: null</code
+      > shows a plug icon.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Actions by app</h2>
+    <div class="mt-4"><ResultAppActionsDemo client:load /></div>
+    <CodeBlock
+      lang="tsx"
+      title="Detail panel"
+      code={`import { ResultAppActions } from "@tulipfarm/sprout/result-card";
+
+<h3>Actions by app</h3>
+<ResultAppActions apps={result.apps} />
+
+// One app, without its name above the list
+<ResultAppActions apps={[slackApp]} showAppNames={false} />`}
+    />
+    <p>
+      A check marks <code>"completed"</code>. Other states are spelled out:
+      “Pending:”, “In progress:”, “Failed:” (red), “Unconfirmed:”, “Blocked:”,
+      “Cancelled:”, and “Skipped:”. An app with no actions says “No action
+      details were recorded.”
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">In TulipFarm</h2>
+    <p>
+      Each sample below uses local data shaped like a TulipFarm screen. Pick an
+      outcome to see how its status, state, and app actions change.
+    </p>
+    <div class="mt-4"><ResultCardRecipes client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The card is a <code>section</code> named “Kind: title”, with the title as an
+      <code>h3</code>. The status is a live <code>status</code>, so changes are
+      announced. Busy cards set <code>aria-busy</code>. App tiles sit in a group
+      named “Apps used”; each is a button named “Slack actions” or “3 more
+      apps”. Opening one by keyboard moves focus into the panel; Escape closes
+      it and returns focus. Icons are hidden from assistive tech, and completed
+      actions read “Completed:”.
+    </p>
+    <p>
+      On touch screens the action button and tiles grow to 44px. Status colors
+      fade in 180ms; with reduced motion the fade and spinner stop.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The card uses <code>--sprout-surface</code>,
+      <code>--sprout-input</code> for its border, <code>--sprout-muted</code>,
+      <code>--sprout-success</code>, and <code>--sprout-danger</code>. App tiles
+      use the Brand Icon tokens.
+    </p>
+  </section>
+</Docs>

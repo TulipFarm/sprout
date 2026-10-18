@@ -1,0 +1,64 @@
+.skill-prose > h1 {
+  display: none;
+}
+.skill-prose > h2 {
+  margin-top: 56px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.skill-prose > h3 {
+  margin-top: 32px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.skill-prose > p,
+.skill-prose > ul {
+  max-width: 70ch;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--sprout-muted);
+}
+.skill-prose > ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+.skill-prose a {
+  color: var(--sprout-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.skill-prose > pre {
+  margin-top: 16px;
+  padding: 16px;
+  overflow-x: auto;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.skill-prose > table {
+  display: block;
+  margin-top: 16px;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.skill-prose th,
+.skill-prose td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--sprout-line);
+  text-align: left;
+  vertical-align: top;
+}
+.skill-prose th {
+  font-weight: 600;
+}
+.skill-prose td {
+  color: var(--sprout-muted);
+}
+.skill-prose td:first-child {
+  color: var(--sprout-text);
+  white-space: nowrap;
+}

@@ -1,0 +1,120 @@
+@layer components {
+  .sprout-radio-group {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sprout-radio-group-item {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: 1px solid var(--sprout-border);
+    border-radius: 999px;
+    background-color: var(--sprout-surface);
+    color: var(--sprout-on-primary);
+    vertical-align: middle;
+    cursor: pointer;
+    outline: 0 solid transparent;
+    outline-offset: 2px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* A 40 x 32px hit area around the 16px dot. */
+  .sprout-radio-group-item::after {
+    content: "";
+    position: absolute;
+    inset: -8px -12px;
+  }
+  @media (hover: hover) {
+    .sprout-radio-group-item:not(
+        [data-disabled],
+        [data-readonly],
+        [data-checked]
+      ):hover {
+      border-color: var(--sprout-border-strong);
+    }
+  }
+  .sprout-radio-group-item:focus-visible {
+    border-color: var(--sprout-focus);
+    outline: 2px solid var(--sprout-focus);
+  }
+  .sprout-radio-group-item[data-checked] {
+    border-color: var(--sprout-primary);
+    background-color: var(--sprout-primary);
+  }
+  .sprout-radio-group-item[aria-invalid="true"] {
+    box-shadow: 0 0 0 3px
+      color-mix(in oklab, var(--sprout-danger) 20%, transparent);
+  }
+  .sprout-radio-group-item[aria-invalid="true"]:not([data-checked]) {
+    border-color: var(--sprout-danger);
+  }
+  .sprout-radio-group-item[aria-invalid="true"]:focus-visible {
+    outline-color: var(--sprout-danger);
+  }
+  .sprout-radio-group-item[data-readonly] {
+    cursor: default;
+  }
+  .sprout-radio-group-item[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .sprout-radio-group-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: currentColor;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-radio-group-item {
+      transition:
+        background-color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        box-shadow var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-radio-group-indicator {
+      transition:
+        opacity var(--sprout-motion-normal, 180ms)
+          var(--sprout-motion-ease, ease-out),
+        transform var(--sprout-motion-normal, 180ms)
+          var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-radio-group-indicator[data-starting-style],
+    .sprout-radio-group-indicator[data-ending-style] {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-radio-group-item {
+      border-color: CanvasText;
+    }
+    .sprout-radio-group-item[data-checked] {
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+    }
+    .sprout-radio-group-indicator {
+      background-color: HighlightText;
+    }
+    .sprout-radio-group-item:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

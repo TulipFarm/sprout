@@ -1,0 +1,104 @@
+.aspect-ratio-demo {
+  display: grid;
+  gap: 20px;
+}
+.aspect-ratio-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.aspect-ratio-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.aspect-ratio-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.aspect-ratio-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.aspect-ratio-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+
+.aspect-ratio-demo-ratios {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+}
+.aspect-ratio-demo-figure {
+  flex: 1 1 180px;
+  min-width: 0;
+  max-width: 288px;
+}
+.aspect-ratio-demo-figure figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.25rem;
+}
+/* Matches the playground: a rounded frame that clips the image. */
+.aspect-ratio-demo-frame {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.aspect-ratio-demo-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aspect-ratio-demo-live {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+}
+.aspect-ratio-demo-status {
+  font-size: 13px;
+  color: var(--sprout-muted);
+}
+
+.aspect-ratio-demo-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border: 1px dashed var(--sprout-line);
+  border-radius: inherit;
+  background: var(--sprout-secondary);
+  color: var(--sprout-muted);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+  overflow: hidden;
+}
+.aspect-ratio-demo-placeholder[data-state="error"] {
+  border-color: color-mix(in oklab, var(--sprout-danger) 35%, transparent);
+  background: var(--sprout-danger-subtle);
+  color: var(--sprout-danger);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aspect-ratio-demo-placeholder[data-state="loading"] {
+    animation: aspect-ratio-demo-pulse 1.6s ease-in-out infinite;
+  }
+}
+@keyframes aspect-ratio-demo-pulse {
+  50% {
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,116 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import TextareaDemo from "../../components/TextareaDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const usage = `import { Field } from "@tulipfarm/sprout/field";
+import { Textarea } from "@tulipfarm/sprout/textarea";
+
+const [prompt, setPrompt] = useState("");
+
+<Field
+  label="Task prompt"
+  required
+  counter={\`\${prompt.length.toLocaleString()} / 8,000\`}
+  error={prompt.trim() ? undefined : "Enter a prompt."}
+>
+  <Textarea
+    rows={3}
+    maxLength={8000}
+    value={prompt}
+    placeholder="Prepare the weekly People Ops update."
+    onChange={(event) => setPrompt(event.target.value)}
+  />
+</Field>
+
+<Label htmlFor="provider-instructions">Instructions</Label>
+<Textarea id="provider-instructions" value={instructions} readOnly rows={5} />`;
+---
+
+<Docs
+  title="Textarea"
+  description="A multi-line text field for prompts, instructions, notes, and replies."
+>
+  <h1 class="docs-title">Textarea</h1>
+  <p class="docs-lead">
+    A multi-line text field. Use it for agent instructions, task prompts, notes,
+    replies, and pasted text. It grows with its content.
+  </p>
+  <div class="mt-8"><TextareaDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock lang="tsx" title="Textarea usage" code={usage} />
+    <p>
+      Textarea renders a native <code>textarea</code> and takes every textarea prop:
+      <code>value</code> or <code>defaultValue</code>,
+      <code>onChange</code>, <code>ref</code>, <code>rows</code>,
+      <code>maxLength</code>, <code>required</code>, <code>readOnly</code>,
+      <code>spellCheck</code>, and event handlers such as
+      <code>onKeyDown</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Props</h2>
+    <p>
+      <code>variant</code> is <code>"default"</code> (1px border, surface fill, 2px
+      focus ring) or <code>"embedded"</code> (no border, fill, ring, or resize handle).
+      Use <code>embedded</code> inside a group that draws the frame, such as a message
+      composer. The group can draw its ring with <code
+        >:has(.sprout-textarea:focus-visible)</code
+      >.
+    </p>
+    <p>
+      Both variants use 14px text on 20px lines with 8px by 10px padding. The
+      field starts at 96px, or at <code>rows</code> lines when that is taller, and
+      grows with its content where the browser supports
+      <code>field-sizing: content</code>. Elsewhere it keeps that height and
+      scrolls. A default textarea can be resized vertically.
+    </p>
+    <p>
+      <code>disabled</code> dims the textarea and blocks edits.
+      <code>readOnly</code> keeps it focusable and selectable, which suits setup instructions
+      and saving states. <code>aria-invalid</code> draws a danger border and focus
+      ring. The textarea inherits its font family, so a monospace wrapper suits query
+      editors. It sets
+      <code>data-slot="textarea"</code> and <code>data-variant</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">With a field</h2>
+    <p>
+      Inside a Sprõut <code>Field</code>, Textarea reads the field through
+      <code>useFieldControl</code>. The field gives it an id, a label, the
+      helper, error, requirement, and counter descriptions, and its
+      <code>disabled</code>, <code>aria-invalid</code>, and
+      <code>aria-required</code> states. Without a field, pair
+      <code>id</code> with a <code>Label htmlFor</code>, wrap it in a
+      <code>Label</code>, or use <code>aria-label</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Every textarea needs a name. Point <code>aria-describedby</code> at help and
+      error text. Enter adds a line; when ⌘ Enter or Ctrl Enter submits, say so near
+      the field. Read-only textareas stay in the tab order; disabled ones, and ones
+      in a disabled <code>fieldset</code>, leave it.
+    </p>
+    <p>
+      Color changes take 120ms and stop when reduced motion is requested. In
+      forced colors mode the textarea keeps a system border and a highlight
+      focus ring.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The border uses <code>--sprout-input</code>, the fill
+      <code>--sprout-surface</code>, text <code>--sprout-text</code>, and the
+      placeholder <code>--sprout-muted</code>. Focus uses
+      <code>--sprout-focus</code>, invalid <code>--sprout-danger</code>, and
+      disabled <code>--sprout-hover</code>. Radius follows
+      <code>--sprout-radius-control</code>. The opt-in TulipFarm theme tints the
+      focus ring through these tokens.
+    </p>
+  </section>
+</Docs>

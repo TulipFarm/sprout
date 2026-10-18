@@ -1,0 +1,111 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  HoverCardInText,
+  HoverCardPlayground,
+} from "../../components/HoverCardDemo";
+---
+
+<Docs
+  title="Hover Card"
+  description="A preview card for links to people, projects, and pages."
+>
+  <h1 class="docs-title">Hover Card</h1>
+  <p class="docs-lead">
+    A small card that previews what a link points to. It opens when the link is
+    hovered or keyboard-focused. Use it for a profile or a page summary; the
+    link itself must still work without it.
+  </p>
+  <div class="mt-8" id="hover-card-demo">
+    <HoverCardPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Hover card usage"
+      code={`import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@tulipfarm/sprout/hover-card";
+
+<HoverCard>
+  <HoverCardTrigger render={<a href="/people/alex" />}>
+    Alex Meadow
+  </HoverCardTrigger>
+  <HoverCardContent side="top">
+    <p className="font-medium">Alex Meadow</p>
+    <p className="text-sm text-sprout-muted">
+      Fictional garden project coordinator.
+    </p>
+  </HoverCardContent>
+</HoverCard>`}
+    />
+    <p>
+      Pass your link or router link to <code>HoverCardTrigger</code> through <code
+        >render</code
+      >. Without it the trigger renders a plain <code>a</code>. Put a name in
+      the first line of the card and a muted description below it.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Mentions in text</h2>
+    <p>
+      Hover cards sit inside running text. Use <code>align="start"</code> to line
+      the card up with the start of the name. Long names wrap inside the 16rem card,
+      and the card shrinks to fit narrow screens.
+    </p>
+    <HoverCardInText client:load />
+  </section>
+  <section class="prose-section" id="hover-card-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>HoverCard</code> wraps the Base UI preview card root and takes <code
+        >open</code
+      >, <code>defaultOpen</code>, <code>onOpenChange</code>, and <code
+        >actionsRef</code
+      >.
+    </p>
+    <p>
+      <code>HoverCardTrigger</code> takes <code>render</code>, <code>delay</code
+      > (600ms), <code>closeDelay</code> (300ms), and every anchor prop.
+    </p>
+    <p>
+      <code>HoverCardContent</code> renders its own portal and positioner. It takes
+      <code>side</code> (<code>"bottom"</code>), <code>align</code> (<code
+        >"center"</code
+      >), <code>sideOffset</code> (4), <code>alignOffset</code> (4), <code
+        >collisionPadding</code
+      > (8), <code>anchor</code>, <code>keepMounted</code>, <code
+        >container</code
+      >, and every Base UI popup prop. Each part sets a <code>data-slot</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The card opens on hover and on keyboard focus, and closes on Escape, blur,
+      or pointer leave. Screen readers read the link, not the card, so the card
+      should only repeat or add to what the link’s page shows.
+    </p>
+    <p>
+      Cards fade, scale, and slide in from their side over 120ms. Motion turns
+      off when reduced motion is requested. In forced-colors mode the card keeps
+      a visible border.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Hover cards use <code>--sprout-surface</code>, <code>--sprout-line</code>,
+      <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
+        >--sprout-shadow-overlay</code
+      >, and the panel radius. The link uses <code>--sprout-border</code> for its
+      underline and <code>--sprout-focus</code> for its focus ring. They need no brand
+      color, so they look the same with the neutral and TulipFarm themes in light
+      and dark mode.
+    </p>
+  </section>
+</Docs>

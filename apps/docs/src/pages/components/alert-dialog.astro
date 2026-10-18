@@ -1,0 +1,182 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  AlertDialogConfirmations,
+  AlertDialogPending,
+  AlertDialogPlayground,
+  AlertDialogProgress,
+  AlertDialogReview,
+  AlertDialogSizes,
+  AlertDialogUnsaved,
+} from "../../components/AlertDialogDemo";
+---
+
+<Docs
+  title="Alert Dialog"
+  description="Confirmations that interrupt the person and wait for an answer."
+>
+  <h1 class="docs-title">Alert Dialog</h1>
+  <p class="docs-lead">
+    A modal question before something hard to undo: delete, disconnect, leave,
+    or discard. Outside clicks do not close it. Focus stays inside until the
+    person answers, then returns to where it was.
+  </p>
+  <div class="mt-8" id="alert-dialog-demo">
+    <AlertDialogPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Alert dialog usage"
+      code={`import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogTitle,
+} from "@tulipfarm/sprout/alert-dialog";
+
+<AlertDialog open={confirmStop} onOpenChange={(value) => { if (!busy) setConfirmStop(value); }}>
+  <AlertDialogContent>
+    <AlertDialogTitle>Stop this plan?</AlertDialogTitle>
+    <AlertDialogDescription>
+      Unfinished tasks are cancelled and saved agents pause. Finished work is kept.
+    </AlertDialogDescription>
+    {error && <p role="alert" className="text-sprout-danger">{error}</p>}
+    <AlertDialogFooter>
+      <AlertDialogCancel disabled={busy}>Keep running</AlertDialogCancel>
+      <AlertDialogAction variant="destructive" disabled={busy} aria-busy={busy} onClick={stop}>
+        {busy ? "Stopping…" : "Stop plan"}
+      </AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>`}
+    />
+    <p>
+      <code>AlertDialog</code> works controlled with <code>open</code> and <code
+        >onOpenChange</code
+      >, uncontrolled with <code>AlertDialogTrigger</code>, or mounted only
+      while open with <code>open</code> fixed to true. Ignore the change in <code
+        >onOpenChange</code
+      > to block Escape while work is pending.
+    </p>
+    <p>
+      <code>AlertDialogCancel</code> closes the dialog. <code
+        >AlertDialogAction</code
+      > is a <code>Button</code> and does not close it, so close it yourself on success
+      and keep it open to show progress or an error.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Sizes</h2>
+    <p>
+      <code>size</code> is <code>"default"</code> (20rem, 24rem from 640px) or <code
+        >"sm"</code
+      > (20rem). With <code>AlertDialogHeader</code>, a default dialog puts <code
+        >AlertDialogMedia</code
+      > beside the text from 640px; <code>sm</code> always centers it and splits the
+      footer into two equal buttons.
+    </p>
+    <AlertDialogSizes client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Confirmations</h2>
+    <p>
+      Most confirmations place the title and description straight in the content
+      without a header. Cancel can run its own <code>onClick</code>, for example
+      to clear a pending choice.
+    </p>
+    <AlertDialogConfirmations client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Pending and errors</h2>
+    <p>
+      Disable both buttons and set <code>aria-busy</code> on the action while work
+      runs. Show errors as a <code>role="alert"</code> paragraph or an <code
+        >Alert</code
+      > inside the dialog. When the result is known, hide the action and let Cancel's
+      label say what happens next.
+    </p>
+    <AlertDialogPending client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Progress</h2>
+    <p>
+      A plain <code>Button</code> in the footer can start work that runs inside the
+      dialog, with a <code>role="status"</code> count.
+    </p>
+    <AlertDialogProgress client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Review changes</h2>
+    <p>
+      Pick the action variant from what confirming does, and disable it when the
+      review is out of date.
+    </p>
+    <AlertDialogReview client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Unsaved changes</h2>
+    <p>
+      Guard navigation away from a dirty draft. Pass <code>finalFocus</code> a function
+      when focus should land somewhere other than the trigger.
+    </p>
+    <AlertDialogUnsaved client:load />
+  </section>
+  <section class="prose-section" id="alert-dialog-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>AlertDialog</code>, <code>AlertDialogTrigger</code>, <code
+        >AlertDialogPortal</code
+      >, <code>AlertDialogOverlay</code>, <code>AlertDialogTitle</code>, and <code
+        >AlertDialogDescription</code
+      > wrap the Base UI alert dialog parts and take their props, including <code
+        >render</code
+      >. <code>AlertDialogHeader</code>, <code>AlertDialogFooter</code>, and <code
+        >AlertDialogMedia</code
+      > render a <code>div</code> and accept <code>render</code>.
+    </p>
+    <p>
+      <code>AlertDialogContent</code> takes <code>size</code>, <code
+        >container</code
+      >, and every Base UI popup prop such as <code>initialFocus</code> and <code
+        >finalFocus</code
+      >. <code>AlertDialogAction</code> takes every <code>Button</code> prop. <code
+        >AlertDialogCancel</code
+      > takes Base UI close props plus <code>variant</code> (default <code
+        >"outline"</code
+      >) and <code>size</code>. <code>alertDialogSizeNames</code> lists the sizes.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The popup has <code>role="alertdialog"</code>, is named by <code
+        >AlertDialogTitle</code
+      >, and described by <code>AlertDialogDescription</code>. Tab and Shift+Tab
+      stay inside, Escape closes it unless you ignore the change, and outside
+      clicks never close it.
+    </p>
+    <p>
+      Opening fades and scales in over 180ms; closing takes 120ms. Both turn off
+      when reduced motion is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Alert dialogs use <code>--sprout-overlay</code>, <code
+        >--sprout-surface</code
+      >, <code>--sprout-canvas</code>, <code>--sprout-secondary</code>, <code
+        >--sprout-line</code
+      >, <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
+        >--sprout-shadow-overlay</code
+      >, and <code>--sprout-radius-panel</code>. They need no brand color, so
+      neutral and TulipFarm themes look alike in light and dark mode.
+    </p>
+  </section>
+</Docs>

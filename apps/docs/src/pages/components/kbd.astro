@@ -1,0 +1,98 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import KbdDemo from "../../components/KbdDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Kbd"
+  description="Keyboard keys and shortcut groups for hints, tooltips, and search footers."
+>
+  <h1 class="docs-title">Kbd</h1>
+  <p class="docs-lead">
+    Shows a keyboard key or a shortcut. Use it in text, tooltips, menu rows, and
+    footer hints.
+  </p>
+  <div class="mt-8"><KbdDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Kbd usage"
+      code={`import { Kbd, KbdGroup } from "@tulipfarm/sprout/kbd";
+
+<Kbd>Enter</Kbd>
+
+<KbdGroup>
+  <Kbd>⌘</Kbd>
+  <Kbd>K</Kbd>
+</KbdGroup>
+
+<p>Press <Kbd>Esc</Kbd> to close.</p>
+
+<span className="flex items-center gap-1.5">
+  <Kbd variant="outline">↵</Kbd>
+  Open
+</span>`}
+    />
+    <p>
+      <code>Kbd</code> renders a <code>kbd</code> element. It is 20px tall and at
+      least 20px wide, so one symbol is square and a word gets padding.
+      <code>variant</code> is <code>"default"</code>, a muted fill, or <code
+        >"outline"</code
+      >, a border on the surface color. Use outline on tinted strips, such as a
+      search footer, and on highlighted rows. There is one size.
+    </p>
+    <p>
+      <code>KbdGroup</code> holds keys pressed together and spaces them 4px apart.
+      It is also a <code>kbd</code>, which is how HTML marks a key combination.
+      An <code>svg</code> inside a key is 12px unless you give it a size class.
+    </p>
+    <p>
+      Keys ignore the pointer and cannot be selected, so a click on a row or
+      button with a key inside still reaches that row or button.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Selected row</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Enter key on the highlighted row"
+      code={`<CommandItem className="result">
+  {title}
+  <Kbd variant="outline" aria-hidden="true" className="result-enter">↵</Kbd>
+</CommandItem>
+
+/* CSS */
+.result-enter { display: none; }
+.result[data-selected] > .result-enter { display: inline-flex; }`}
+    />
+    <p>
+      Hide the key until its row is highlighted. Mark it <code>aria-hidden</code
+      > because the row already says it can be chosen.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Kbd is not focusable and has no role. Screen readers read its text. Some
+      symbols, such as <code>⌘</code>, are read in odd ways, so put the action
+      in words next to the key. For a key that shows only an icon, add visually
+      hidden text inside it. Do not put <code>aria-label</code> on the key.
+    </p>
+    <p>
+      Color changes follow the theme in 120ms and stop when reduced motion is
+      requested. In forced colors mode every key gets a visible border.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The default key uses <code>--sprout-secondary</code> and <code
+        >--sprout-muted</code
+      >. The outline key uses <code>--sprout-surface</code> and <code
+        >--sprout-line</code
+      >. Radius follows <code>--sprout-radius-control</code>.
+    </p>
+  </section>
+</Docs>

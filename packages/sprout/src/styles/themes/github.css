@@ -1,0 +1,125 @@
+/* GitHub: Primer grays and merge green.
+ *
+ * One file is the whole theme: font, radius, and every color token for light
+ * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
+ * data-sprout-theme="github" on <html>, or on any element to theme only
+ * that subtree.
+ */
+@layer base {
+  [data-sprout-theme="github"] {
+    --sprout-font: ui-sans-serif, system-ui, sans-serif;
+    --sprout-radius-control: 0.375rem;
+    --sprout-radius-panel: 0.75rem;
+  }
+
+  [data-sprout-theme="github"],
+  .light[data-sprout-theme="github"],
+  .light [data-sprout-theme="github"] {
+    --sprout-canvas: #f6f8fa;
+    --sprout-surface: #ffffff;
+    --sprout-hover: #f2f2f2;
+    --sprout-active: #e9e9ea;
+    --sprout-text: #1f2328;
+    --sprout-muted: #59636e;
+    --sprout-line: #d1d9e0;
+    --sprout-border: #8f9194;
+    --sprout-border-strong: #74777a;
+    --sprout-input: #dbdcdd;
+    --sprout-primary: #1a7f37;
+    --sprout-primary-hover: #177030;
+    --sprout-primary-active: #14632b;
+    --sprout-on-primary: #ffffff;
+    --sprout-focus: #1a7f37;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #eff0f0;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark[data-sprout-theme="github"],
+  .dark [data-sprout-theme="github"] {
+    --sprout-canvas: #010409;
+    --sprout-surface: #0d1117;
+    --sprout-hover: #1f2329;
+    --sprout-active: #2b2f35;
+    --sprout-text: #f0f6fc;
+    --sprout-muted: #9198a1;
+    --sprout-line: #3d444d;
+    --sprout-border: #73787e;
+    --sprout-border-strong: #91969c;
+    --sprout-input: #3a3f45;
+    --sprout-primary: #3fb950;
+    --sprout-primary-hover: #56c165;
+    --sprout-primary-active: #69c877;
+    --sprout-on-primary: #010409;
+    --sprout-focus: #3fb950;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #21262c;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)[data-sprout-theme="github"],
+    :root:not(.light):not(.dark) [data-sprout-theme="github"] {
+      --sprout-canvas: #010409;
+      --sprout-surface: #0d1117;
+      --sprout-hover: #1f2329;
+      --sprout-active: #2b2f35;
+      --sprout-text: #f0f6fc;
+      --sprout-muted: #9198a1;
+      --sprout-line: #3d444d;
+      --sprout-border: #73787e;
+      --sprout-border-strong: #91969c;
+      --sprout-input: #3a3f45;
+      --sprout-primary: #3fb950;
+      --sprout-primary-hover: #56c165;
+      --sprout-primary-active: #69c877;
+      --sprout-on-primary: #010409;
+      --sprout-focus: #3fb950;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #21262c;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

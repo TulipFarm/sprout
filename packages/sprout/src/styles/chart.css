@@ -1,0 +1,227 @@
+@layer base {
+  :root,
+  .light {
+    --sprout-chart-1: #188038;
+    --sprout-chart-2: #245cba;
+    --sprout-chart-3: #8a4b08;
+    --sprout-chart-4: #7c4eb0;
+    --sprout-chart-5: #b42332;
+  }
+
+  .dark {
+    --sprout-chart-1: #75ce8e;
+    --sprout-chart-2: #9cbdff;
+    --sprout-chart-3: #edc17c;
+    --sprout-chart-4: #c6a4ed;
+    --sprout-chart-5: #ff929d;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark) {
+      --sprout-chart-1: #75ce8e;
+      --sprout-chart-2: #9cbdff;
+      --sprout-chart-3: #edc17c;
+      --sprout-chart-4: #c6a4ed;
+      --sprout-chart-5: #ff929d;
+    }
+  }
+}
+
+@layer components {
+  .sprout-chart {
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+    aspect-ratio: 16 / 9;
+    container-type: inline-size;
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    color: var(--sprout-text);
+  }
+  /* Recharts gives non-chart children a 0×0 box; give them the chart's width. */
+  .sprout-chart .recharts-responsive-container > div > :not(.recharts-wrapper) {
+    width: 100cqi;
+  }
+  .sprout-chart-usage,
+  .sprout-chart-category {
+    width: 100%;
+    aspect-ratio: auto;
+  }
+  .sprout-chart-usage {
+    height: 16rem;
+  }
+  .sprout-chart-category {
+    height: 18rem;
+  }
+
+  .sprout-chart .recharts-cartesian-axis-tick-value {
+    fill: var(--sprout-muted);
+  }
+  .sprout-chart .recharts-cartesian-grid line[stroke="#ccc"],
+  .sprout-chart .recharts-polar-grid [stroke="#ccc"],
+  .sprout-chart .recharts-reference-line [stroke="#ccc"] {
+    stroke: var(--sprout-line);
+  }
+  .sprout-chart .recharts-curve.recharts-tooltip-cursor {
+    stroke: var(--sprout-border);
+  }
+  .sprout-chart .recharts-rectangle.recharts-tooltip-cursor {
+    fill: var(--sprout-hover);
+  }
+  .sprout-chart .recharts-radial-bar-background-sector {
+    fill: var(--sprout-secondary);
+  }
+  .sprout-chart .recharts-dot[stroke="#fff"],
+  .sprout-chart .recharts-sector[stroke="#fff"] {
+    stroke: transparent;
+  }
+  .sprout-chart .recharts-layer,
+  .sprout-chart .recharts-sector,
+  .sprout-chart .recharts-wrapper,
+  .sprout-chart .recharts-surface {
+    outline: none;
+  }
+  .sprout-chart .recharts-surface {
+    overflow: visible;
+    border-radius: var(--sprout-radius-control);
+  }
+  .sprout-chart .recharts-surface:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+
+  .sprout-chart-tooltip {
+    display: grid;
+    align-items: start;
+    gap: 6px;
+    width: max-content;
+    min-width: 8rem;
+    max-width: 20rem;
+    padding: 6px 10px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-chart-tooltip-label {
+    font-weight: 500;
+  }
+  .sprout-chart-tooltip-items {
+    display: grid;
+    gap: 6px;
+  }
+  .sprout-chart-tooltip-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+  }
+  .sprout-chart-tooltip[data-indicator="dot"] .sprout-chart-tooltip-item {
+    align-items: center;
+  }
+  .sprout-chart-tooltip-item > svg {
+    width: 10px;
+    height: 10px;
+    color: var(--sprout-muted);
+  }
+  .sprout-chart-tooltip-indicator {
+    flex-shrink: 0;
+    border-radius: 2px;
+    border: 0 solid var(--sprout-chart-indicator);
+    background: var(--sprout-chart-indicator);
+  }
+  [data-indicator="dot"] .sprout-chart-tooltip-indicator {
+    width: 10px;
+    height: 10px;
+  }
+  [data-indicator="line"] .sprout-chart-tooltip-indicator {
+    width: 4px;
+  }
+  [data-indicator="dashed"] .sprout-chart-tooltip-indicator {
+    width: 0;
+    border-width: 1.5px;
+    border-style: dashed;
+    background: transparent;
+  }
+  [data-indicator="dashed"]
+    .sprout-chart-tooltip-item:has([data-nested])
+    .sprout-chart-tooltip-indicator {
+    margin-block: 2px;
+  }
+  .sprout-chart-tooltip-row {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    line-height: 1;
+  }
+  .sprout-chart-tooltip-row[data-nested] {
+    align-items: flex-end;
+  }
+  .sprout-chart-tooltip-name {
+    display: grid;
+    gap: 6px;
+  }
+  .sprout-chart-tooltip-name > span {
+    color: var(--sprout-muted);
+  }
+  .sprout-chart-tooltip-value {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--sprout-text);
+  }
+
+  .sprout-chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 16px;
+    padding-top: 12px;
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    color: var(--sprout-text);
+  }
+  .sprout-chart-legend[data-align="top"] {
+    padding-top: 0;
+    padding-bottom: 12px;
+  }
+  .sprout-chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sprout-chart-legend-item > svg {
+    width: 12px;
+    height: 12px;
+    color: var(--sprout-muted);
+  }
+  .sprout-chart-legend-swatch {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+  }
+
+  @media (forced-colors: active) {
+    .sprout-chart-tooltip {
+      border-color: CanvasText;
+    }
+    .sprout-chart-tooltip-indicator,
+    .sprout-chart-legend-swatch {
+      forced-color-adjust: none;
+    }
+    .sprout-chart .recharts-surface:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

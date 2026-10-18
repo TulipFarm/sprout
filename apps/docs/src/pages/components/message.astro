@@ -1,0 +1,250 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import MessageDemo from "../../components/MessageDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Message"
+  description="Chat messages with bubbles in seven fills, reactions, avatars, names, and reply status."
+>
+  <h1 class="docs-title">Message</h1>
+  <p class="docs-lead">
+    Lays out one chat message: an avatar beside a column of bubbles, cards, and
+    actions, with a small name line above and a status line below. Bubbles come
+    in seven fills and can carry a pill of reactions.
+  </p>
+  <div class="mt-8"><MessageDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Message usage"
+      code={`import {
+  Message,
+  MessageAvatar,
+  MessageBubble,
+  MessageContent,
+  MessageFooter,
+  MessageGroup,
+  MessageHeader,
+} from "@tulipfarm/sprout/message";
+
+<MessageGroup>
+  <Message align="start">
+    <MessageAvatar>
+      <Avatar><AvatarFallback>AM</AvatarFallback></Avatar>
+    </MessageAvatar>
+    <MessageContent>
+      <MessageHeader>Alex Meadow · 10:30</MessageHeader>
+      <MessageBubble variant="secondary">Can you help plan the garden?</MessageBubble>
+      <MessageFooter>Delivered</MessageFooter>
+    </MessageContent>
+  </Message>
+  <Message align="end">
+    <MessageContent>
+      <MessageBubble>Yes. Let's start with the planting list.</MessageBubble>
+      <MessageBubble>Tomatoes and basil go in the south bed.</MessageBubble>
+    </MessageContent>
+  </Message>
+</MessageGroup>`}
+    />
+    <p>
+      Put bubbles, text, cards, or buttons inside <code>MessageContent</code>.
+      Consecutive bubbles from one sender go in the same
+      <code>MessageContent</code>.
+    </p>
+    <p>
+      <code>align</code> is <code>"start"</code>, the default, or <code
+        >"end"</code
+      >. An end message puts the avatar on the trailing side and moves every
+      direct child of <code>MessageContent</code> that has a <code
+        >data-slot</code
+      > to the end. A child without a slot, such as a plain <code>div</code>,
+      keeps its own width. The footer text also moves to the end. There are no
+      sizes: text is 14px, the header and footer are 12px.
+    </p>
+    <p>
+      <code>MessageGroup</code> stacks messages 8px apart. Inside a message, the avatar
+      and content are 8px apart and the content's children are 10px apart. <code
+        >MessageAvatar</code
+      > is at least 32px wide and sits at the bottom of the message. When the content
+      ends with a <code>MessageFooter</code>, the avatar moves up so it sits
+      beside the last bubble.
+    </p>
+    <p>
+      The header and footer are inset 12px so they line up with padded bubble
+      text. When a direct child of the content has <code
+        >data-variant="ghost"</code
+      >, a bubble without padding, the inset drops to 0.
+    </p>
+    <p>
+      Every part takes the props of a <code>div</code>, including <code
+        >ref</code
+      >, so you can read the rendered bubbles from <code>MessageContent</code>
+      for copy actions.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Bubbles</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Bubble variants"
+      code={`<Message align="end">
+  <MessageContent>
+    <MessageBubble variant="secondary">
+      Create a Customers table with Name, Email, Company, Phone, and Status.
+    </MessageBubble>
+  </MessageContent>
+</Message>
+
+<Message>
+  <MessageContent>
+    <MessageBubble variant="ghost">{answer}</MessageBubble>
+  </MessageContent>
+</Message>`}
+    />
+    <p>
+      <code>MessageBubble</code> is at most 80% of its column and as wide as its text.
+      There is one size: 14px text with 8px by 12px padding and the panel radius.
+      A bubble has no side of its own. It moves to the end inside
+      <code>Message align="end"</code>, or inside any element with
+      <code>data-slot="message"</code> and <code>data-align="end"</code>.
+    </p>
+    <p>
+      <code>variant</code> sets the fill. <code>"default"</code> uses the primary
+      color for your own messages. <code>"secondary"</code> is for prompts sent to
+      an agent. <code>"muted"</code> is a lighter fill for quiet notes. <code
+        >"tinted"</code
+      > mixes in the primary color so it follows a brand theme. <code
+        >"outline"</code
+      > draws a border for quoted text.
+      <code>"ghost"</code> drops the fill and padding and may span the full width,
+      for agent answers. <code>"destructive"</code> marks a message that failed.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Reactions</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A reaction pill"
+      code={`import { MessageBubble, MessageReactions } from "@tulipfarm/sprout/message";
+
+<MessageBubble
+  variant="secondary"
+  reactions={<MessageReactions align="start" side="bottom">🌱 2</MessageReactions>}
+>
+  Hello from Alex.
+</MessageBubble>`}
+    />
+    <p>
+      Pass a <code>MessageReactions</code> to the <code>reactions</code> prop. It
+      pins a pill over the <code>"top"</code> or <code>"bottom"</code> edge, 12px
+      in from the <code>"start"</code> or <code>"end"</code> corner. The defaults
+      are <code>side="bottom"</code> and <code>align="end"</code>. With
+      reactions, the bubble and pill are wrapped in an element with
+      <code>data-slot="message-bubble-frame"</code>.
+    </p>
+    <p>
+      Leave room around a bubble with reactions. The pill hangs three quarters
+      outside it. Its 3px ring uses <code>--sprout-message-reactions-ring</code
+      >, which defaults to the surface color. Set it to the background behind
+      the bubble.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Links and buttons</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Interactive bubbles"
+      code={`<MessageBubble variant="outline" render={<a href="/results/investor-update" />}>
+  Open result · Investor update draft
+</MessageBubble>
+
+<Message align="end">
+  <MessageContent>
+    <MessageBubble
+      variant="destructive"
+      render={<button type="button" />}
+      onClick={retry}
+    >
+      Couldn't send. Retry
+    </MessageBubble>
+  </MessageContent>
+</Message>`}
+    />
+    <p>
+      <code>render</code> swaps the bubble element. A link or button keeps the variant
+      fill, gets a slightly stronger fill on hover, and shows a focus ring when reached
+      with the keyboard. Reactions sit outside the bubble element, so a bubble rendered
+      as a button can still hold reaction buttons. Buttons inside <code
+        >MessageReactions</code
+      > become 24px toggles. Set <code>aria-pressed</code> and an <code
+        >aria-label</code
+      > with the count.
+    </p>
+    <p>
+      Every bubble has <code>data-slot="message-bubble"</code>, so a copy action
+      can collect the text of each bubble in a message.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Reply status</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Failed reply footer"
+      code={`<Message align="end">
+  <MessageContent>
+    <MessageBubble variant="secondary">{text}</MessageBubble>
+    <MessageFooter>
+      <p role="status"><Danger aria-hidden="true" /> The reply didn't finish.</p>
+      <Button size="sm" variant="outline" onClick={retry}>Retry reply</Button>
+    </MessageFooter>
+  </MessageContent>
+</Message>
+
+<Message align="start" aria-busy="true">
+  <MessageContent>
+    <span className="sr-only">TulipFarm said</span>
+    {streamedText}
+  </MessageContent>
+</Message>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Message and its bubbles add no role and are not focusable. Put messages in
+      a list or a labelled region and let links, buttons, and bubbles rendered
+      as either take focus in reading order. Make a scrolling conversation a
+      focusable, labelled region so it can be scrolled with the keyboard. When a
+      reply has no visible name, add visually hidden text such as "TulipFarm
+      said". Mark a reply that is still streaming with <code>aria-busy</code>,
+      and announce status changes with <code>role="status"</code> or <code
+        >role="alert"</code
+      >.
+    </p>
+    <p>
+      Colors and fills change in 120ms and stop when reduced motion is
+      requested. In forced colors mode every filled bubble and reaction pill
+      gets a border. The layout uses logical sides, so end messages flip in
+      right-to-left text.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The header and footer use <code>--sprout-muted</code>. The avatar slot
+      uses <code>--sprout-secondary</code> behind images that do not fill it. Text
+      uses <code>--sprout-text</code>, <code>--sprout-text-sm</code>, and
+      <code>--sprout-text-xs</code>.
+    </p>
+    <p>
+      Bubble fills use <code>--sprout-primary</code>,
+      <code>--sprout-secondary</code>, <code>--sprout-surface</code>,
+      <code>--sprout-line</code>, and <code>--sprout-danger-subtle</code>.
+      Radius follows <code>--sprout-radius-panel</code>. The reaction ring uses
+      <code>--sprout-message-reactions-ring</code>.
+    </p>
+  </section>
+</Docs>

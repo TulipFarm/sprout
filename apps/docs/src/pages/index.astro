@@ -1,0 +1,64 @@
+---
+import Docs from "../layouts/Docs.astro";
+import { buttonVariants } from "@tulipfarm/sprout/button";
+import HomePreview from "../components/HomePreview";
+import { componentCount, componentGroups } from "../data/nav";
+---
+
+<Docs title="Sprõut" home>
+  <section class="home-hero" aria-labelledby="home-title">
+    <h1 id="home-title">A foundation for your next interface.</h1>
+    <p>
+      Thoughtfully built React components. Accessible, composable, and ready to
+      become your design system. Built with Base UI and Tailwind CSS.
+    </p>
+    <div class="home-hero-actions">
+      <a href="/installation/" class={buttonVariants({ size: "lg" })}
+        >Get started</a
+      >
+      <a
+        href="#components"
+        class={buttonVariants({ variant: "outline", size: "lg" })}
+        >Browse components</a
+      >
+    </div>
+    <div class="home-stats">
+      <span><strong>{componentCount}</strong> components</span>
+      <span><strong>2</strong> themes, light and dark</span>
+      <span><strong>React 19</strong> and Tailwind 4</span>
+    </div>
+  </section>
+  <section id="components" class="home-catalog" aria-label="Components">
+    {
+      componentGroups.map((group) => (
+        <div class="home-group">
+          <h2>
+            {group.title}
+            <span>{group.items.length}</span>
+          </h2>
+          <ul>
+            {group.items.map((item) => (
+              <li class="home-card">
+                {/* figure, not div: React streams Suspense chunks as bare <li>, which would close this card's <li> early. */}
+                <figure class="home-preview">
+                  <HomePreview slug={item.href.split("/")[2]!} client:visible />
+                </figure>
+                <a href={item.href}>
+                  <strong>{item.name}</strong>
+                  <span>{item.description}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+  <footer class="home-footer">
+    <span
+      >Built in the open by <a href="https://github.com/TulipFarm">TulipFarm</a
+      >.</span
+    >
+    <span>MIT licensed. Made to be made yours.</span>
+  </footer>
+</Docs>

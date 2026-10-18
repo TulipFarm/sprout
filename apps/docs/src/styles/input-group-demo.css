@@ -1,0 +1,302 @@
+.input-group-demo {
+  display: grid;
+  gap: 20px;
+}
+.input-group-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.input-group-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.input-group-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.input-group-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.input-group-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+/* The docs page draws a global focus outline; the group draws its own ring. */
+.sprout-input-group [data-slot="input-group-control"]:focus-visible,
+.input-group-demo-command-control:focus-visible {
+  outline: none;
+}
+.input-group-demo-grid {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+@media (min-width: 720px) {
+  .input-group-demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+.input-group-demo-sample,
+.input-group-demo-stack {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.input-group-demo-stack {
+  gap: 16px;
+}
+.input-group-demo-note,
+.input-group-demo-muted,
+.input-group-demo-danger {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sprout-muted);
+}
+.input-group-demo-muted,
+.input-group-demo-danger {
+  font-size: 13px;
+}
+.input-group-demo-danger {
+  color: var(--sprout-danger);
+}
+.input-group-demo-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+}
+.input-group-demo-list li {
+  padding: 6px 8px;
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+}
+.input-group-demo-submit {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-primary);
+  color: var(--sprout-on-primary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.input-group-demo-submit:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+/* Combobox sample: Cloud's combobox hides its trigger once the clear button shows. */
+.input-group-demo-combobox:has([data-slot="combobox-clear"])
+  .input-group-demo-combobox-trigger {
+  display: none;
+}
+.sprout-button.input-group-demo-combobox-trigger[data-pressed],
+.sprout-button.input-group-demo-combobox-trigger[data-popup-open] {
+  background: transparent;
+}
+.input-group-demo-positioner {
+  z-index: 50;
+  outline: 0;
+}
+.input-group-demo-popup {
+  box-sizing: border-box;
+  width: var(--anchor-width);
+  max-height: min(var(--available-height), 18rem);
+  overflow-y: auto;
+  padding: 4px;
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  color: var(--sprout-text);
+  box-shadow: var(--sprout-shadow-overlay);
+  outline: 1px solid var(--sprout-line);
+  transform-origin: var(--transform-origin);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .input-group-demo-popup {
+    transition:
+      opacity 150ms ease-out,
+      transform 150ms ease-out;
+  }
+  .input-group-demo-popup[data-starting-style],
+  .input-group-demo-popup[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+.input-group-demo-options {
+  outline: 0;
+}
+.input-group-demo-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 8px;
+  border-radius: calc(var(--sprout-radius-panel) - 4px);
+  font-size: 14px;
+  cursor: default;
+  user-select: none;
+}
+.input-group-demo-option[data-highlighted] {
+  background: var(--sprout-hover);
+}
+.input-group-demo-option-check {
+  display: flex;
+  color: var(--sprout-text);
+}
+.input-group-demo-empty {
+  padding: 8px;
+  font-size: 13px;
+  color: var(--sprout-muted);
+}
+.input-group-demo-empty:empty {
+  display: none;
+}
+
+/* Command search sample: Cloud's picker search is a quiet filled group. */
+.input-group-demo-panel {
+  display: grid;
+  max-width: 22rem;
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  box-shadow: var(--sprout-shadow-panel);
+}
+.input-group-demo-command-input {
+  padding: 4px 4px 0;
+}
+.sprout-input-group.input-group-demo-command {
+  height: 32px;
+  border-color: color-mix(in srgb, var(--sprout-input) 30%, transparent);
+  background: color-mix(in srgb, var(--sprout-input) 30%, transparent);
+}
+.sprout-input-group.input-group-demo-command:focus-within {
+  border-color: var(--sprout-focus);
+}
+.input-group-demo-command > [data-slot="input-group-addon"] {
+  padding-left: 8px;
+}
+.input-group-demo-command > [data-slot="input-group-addon"] svg {
+  opacity: 0.5;
+}
+.input-group-demo-command-control {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 8px 0 6px;
+  border: 0;
+  background: transparent;
+  color: var(--sprout-text);
+  font: inherit;
+  font-size: 14px;
+}
+.input-group-demo-command-control::placeholder {
+  color: var(--sprout-muted);
+}
+.input-group-demo-command-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+}
+.input-group-demo-command-list button {
+  display: grid;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: calc(var(--sprout-radius-panel) - 4px);
+  background: transparent;
+  color: var(--sprout-text);
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+.input-group-demo-command-list button:hover,
+.input-group-demo-command-list button[aria-pressed="true"] {
+  background: var(--sprout-hover);
+}
+.input-group-demo-command-list button:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Composer samples */
+.input-group-demo-toolbar-end {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin-left: auto;
+}
+.input-group-demo-truncate {
+  min-width: 0;
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.input-group-demo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+  height: 28px;
+  padding: 0 2px 0 8px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-canvas);
+  color: var(--sprout-text);
+  font-size: 12px;
+  font-weight: 500;
+}
+.input-group-demo-menu-copy {
+  display: grid;
+  gap: 2px;
+  padding-block: 2px;
+}
+.input-group-demo-question {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--sprout-text);
+}
+.input-group-demo-rich-text {
+  min-height: 64px;
+  padding: 8px 10px;
+  color: var(--sprout-text);
+  font-size: 14px;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  cursor: text;
+  outline: none;
+}
+.input-group-demo-rich-text[data-empty]::before {
+  content: attr(aria-placeholder);
+  color: var(--sprout-muted);
+  pointer-events: none;
+}
+@media (max-width: 639px) {
+  .input-group-demo-wide-only {
+    display: none;
+  }
+}

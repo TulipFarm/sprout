@@ -1,0 +1,66 @@
+.calendar-demo-playground {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+}
+.calendar-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.calendar-demo-stage {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+}
+.calendar-demo-stage > .sprout-calendar,
+.calendar-demo-stack > .sprout-calendar {
+  border: 1px solid var(--sprout-line);
+  box-shadow: var(--sprout-shadow-panel);
+}
+.calendar-demo-stack {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.calendar-demo-status {
+  min-height: 1rem;
+  font-size: 12px;
+  line-height: 1rem;
+  color: var(--sprout-muted);
+}
+.calendar-demo-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+.calendar-demo-title {
+  min-width: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.calendar-demo-title-short {
+  display: none;
+}
+@media (max-width: 479px) {
+  .calendar-demo-title-full {
+    display: none;
+  }
+  .calendar-demo-title-short {
+    display: inline;
+  }
+}
+.calendar-demo-roomy {
+  --sprout-calendar-cell: 2.25rem;
+}

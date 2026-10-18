@@ -1,0 +1,29 @@
+@layer components {
+  .sprout-chat-confirmation {
+    width: 100%;
+    min-width: 0;
+  }
+  .sprout-chat-confirmation-description,
+  .sprout-chat-confirmation-result {
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-chat-confirmation-error {
+    margin: 0;
+    color: var(--sprout-danger);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-chat-confirmation-result {
+    border-radius: var(--sprout-radius-control);
+    outline: none;
+  }
+  .sprout-chat-confirmation-result:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+}

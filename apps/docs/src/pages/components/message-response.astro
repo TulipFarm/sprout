@@ -1,0 +1,140 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  MessageResponseFile,
+  MessageResponseHandoff,
+  MessageResponseLinks,
+  MessageResponseMarkdown,
+  MessageResponsePlayground,
+  MessageResponseStreaming,
+  MessageResponseTables,
+  MessageResponseTaskHistory,
+} from "../../components/MessageResponseDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Message Response"
+  description="Renders an assistant's Markdown reply: headings, lists, task lists, tables, code blocks, and links you can replace."
+>
+  <h1 class="docs-title">Message Response</h1>
+  <p class="docs-lead">
+    Turns the Markdown an agent writes into a readable reply. It supports GitHub
+    tables and task lists, shows fenced code in a Code Block, drops raw HTML and
+    images, and lets you replace links with citations or downloads.
+  </p>
+  <div class="mt-8"><MessageResponsePlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="An assistant reply"
+      code={`import { MessageResponse } from "@tulipfarm/sprout/message-response";
+
+<MessageResponse streaming={message.status === "streaming"}>
+  {message.text}
+</MessageResponse>`}
+    />
+    <p>
+      <code>children</code> is the Markdown string. There are no variants or sizes:
+      the reply uses the body text size and fills its column. Long words and URLs
+      wrap, so it never pushes a chat column wider.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Markdown</h2>
+    <p>
+      Headings, emphasis, strikethrough, nested and numbered lists, task lists,
+      quotes, rules, aligned tables, autolinks, and fenced code. A fence with a
+      language gets syntax colors; a fence without one shows as
+      <code>text</code>. Raw HTML is dropped and images are not shown.
+    </p>
+    <div class="mt-6"><MessageResponseMarkdown client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Streaming</h2>
+    <p>
+      Set <code>streaming</code> while tokens arrive. A pulsing caret follows the
+      text and the reply is marked busy. An empty reply that is streaming shows only
+      the caret, which is the waiting state.
+    </p>
+    <div class="mt-6"><MessageResponseStreaming client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Table viewport</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Cap tables when the reply shows row cards"
+      code={`import { MessageTableViewport } from "@tulipfarm/sprout/message-response";
+
+<MessageTableViewport bounded={rowViews.length > 0}>
+  <MessageResponse>{text}</MessageResponse>
+</MessageTableViewport>`}
+    />
+    <p>
+      Every table scrolls in its own focusable region. Inside a
+      <code>bounded</code> viewport a table stops at 12rem and scrolls both ways with
+      a sticky header, so row cards below it stay in view. Without one, tables grow
+      to their full height and scroll sideways only when their columns cannot fit.
+    </p>
+    <div class="mt-6"><MessageResponseTables client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Custom links</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Citations and workspace downloads"
+      code={`<MessageResponse
+  renderLink={(href, label) => {
+    const citation = citationId(href);
+    if (citation) return <Citation id={citation}>{label}</Citation>;
+    if (isWorkspaceDownload(href)) return <DownloadLink path={href}>{label}</DownloadLink>;
+    return <a href={href} target="_blank" rel="noopener noreferrer">{label}</a>;
+  }}
+>
+  {text}
+</MessageResponse>`}
+    />
+    <p>
+      Without <code>renderLink</code>, links open in a new tab with
+      <code>noopener</code>. With it, every link goes through your function, so
+      return a plain link for the ones you do not handle. The examples use
+      sample adapters: citations check access, then show the passage, a hidden
+      notice, or a retry; downloads report progress, success, or failure.
+    </p>
+    <div class="mt-6"><MessageResponseLinks client:load /></div>
+    <div class="mt-6"><MessageResponseTaskHistory client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Markdown files</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Format Markdown in the file viewer"
+      code={`<FileRenderersProvider
+  renderers={{ markdown: ({ text }) => <MessageResponse>{text}</MessageResponse> }}
+>
+  <FileViewer file={file} open={open} onOpenChange={setOpen} />
+</FileRenderersProvider>`}
+    />
+    <div class="mt-6"><MessageResponseFile client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">In a panel</h2>
+    <p>
+      Put a reply in a bordered panel when it sits among other details, such as
+      a chat handoff.
+    </p>
+    <div class="mt-6"><MessageResponseHandoff client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Headings, lists, quotes, and tables keep their native roles. Each table
+      scroll region is named “Response table” and takes focus, so keyboard users
+      can scroll it with the arrow keys. The reply sets
+      <code>aria-busy</code> while it streams and the caret is hidden from screen
+      readers. Links and table regions show a focus ring. The caret stops pulsing
+      with reduced motion and uses the system text color in forced colors mode.
+    </p>
+  </section>
+</Docs>

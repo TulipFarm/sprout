@@ -1,0 +1,174 @@
+.combobox-demo-panel {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.combobox-demo-stage {
+  display: flex;
+  justify-content: center;
+  padding: 28px 20px;
+  background: var(--sprout-canvas);
+}
+.combobox-demo-form {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  max-width: 26rem;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.combobox-demo-readout {
+  margin: 0;
+  padding: 10px 16px;
+  border-top: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.combobox-demo-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  align-content: start;
+}
+.combobox-demo-label {
+  color: var(--sprout-text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+.combobox-demo-helper,
+.combobox-demo-error {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+}
+.combobox-demo-helper {
+  color: var(--sprout-muted);
+}
+.combobox-demo-error {
+  color: var(--sprout-danger);
+}
+.combobox-demo-submit {
+  justify-self: start;
+}
+
+.combobox-demo-row {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--sprout-line);
+}
+.combobox-demo-row:first-child {
+  border-top: 0;
+}
+.combobox-demo-meta {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.combobox-demo-meta code {
+  color: var(--sprout-text);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.combobox-demo-control {
+  min-width: 0;
+  max-width: 22rem;
+}
+
+.combobox-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 16px;
+}
+
+.combobox-demo-person {
+  display: grid;
+  min-width: 0;
+}
+.combobox-demo-person > span:last-child {
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+.combobox-demo-hint {
+  margin-inline-start: auto;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+
+.combobox-demo-trigger.sprout-button {
+  justify-content: flex-start;
+  width: 100%;
+  font-weight: 400;
+}
+.combobox-demo-trigger [data-slot="combobox-value"] {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.combobox-demo-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--sprout-muted);
+  font-size: 13px;
+}
+.combobox-demo-value {
+  color: var(--sprout-text);
+  font-weight: 500;
+}
+
+.combobox-demo-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.combobox-demo-loading svg {
+  width: 14px;
+  height: 14px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .combobox-demo-loading svg {
+    animation: combobox-demo-spin 900ms linear infinite;
+  }
+}
+@keyframes combobox-demo-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (max-width: 640px) {
+  .combobox-demo-row,
+  .combobox-demo-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .combobox-demo-row {
+    gap: 8px;
+  }
+  .combobox-demo-control {
+    max-width: none;
+  }
+}
+
+/* The docs' global :focus-visible ring is unlayered; the group draws focus instead. */
+.sprout-combobox-input-group [data-slot="input-group-control"]:focus-visible,
+.sprout-combobox-chips .sprout-combobox-chips-input:focus-visible {
+  outline: none;
+}

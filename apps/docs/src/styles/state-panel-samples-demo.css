@@ -1,0 +1,117 @@
+.state-panel-samples-demo-playground,
+.state-panel-samples-demo-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.state-panel-samples-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.state-panel-samples-demo-toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.state-panel-samples-demo-stage {
+  display: grid;
+  align-items: center;
+  min-height: 360px;
+  padding: 24px;
+  background: var(--sprout-canvas);
+}
+.state-panel-samples-demo-stage[data-frame="window"] {
+  justify-items: center;
+}
+.state-panel-samples-demo-stage > * {
+  min-width: 0;
+  animation: state-panel-samples-demo-in var(--sprout-motion-normal)
+    var(--sprout-motion-ease) both;
+}
+.state-panel-samples-demo-stage[data-frame="window"]
+  > .state-panel-samples-demo-window {
+  width: 100%;
+  max-width: 36rem;
+}
+.state-panel-samples-demo-none {
+  max-width: 24rem;
+  margin: 0;
+  font-size: 13px;
+  text-align: center;
+  color: var(--sprout-muted);
+}
+.state-panel-samples-demo-foot {
+  margin: 0;
+  padding: 12px 16px;
+  border-top: 1px solid var(--sprout-line);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sprout-muted);
+  overflow-wrap: anywhere;
+}
+.state-panel-samples-demo-foot code {
+  color: var(--sprout-text);
+}
+
+.state-panel-samples-demo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.state-panel-samples-demo-card {
+  display: flex;
+  flex-direction: column;
+}
+.state-panel-samples-demo-card > figcaption {
+  display: grid;
+  gap: 2px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.state-panel-samples-demo-card > figcaption strong {
+  font-weight: 550;
+  color: var(--sprout-text);
+}
+.state-panel-samples-demo-card > figcaption span {
+  color: var(--sprout-muted);
+  overflow-wrap: anywhere;
+}
+.state-panel-samples-demo-card > .state-panel-samples-demo-window {
+  flex: 1;
+  margin: 16px;
+}
+.state-panel-samples-demo-window {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  box-shadow: var(--sprout-shadow-panel);
+}
+.state-panel-samples-demo-narrow {
+  max-width: 300px;
+}
+
+@keyframes state-panel-samples-demo-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .state-panel-samples-demo-stage > * {
+    animation: none;
+  }
+}

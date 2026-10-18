@@ -1,0 +1,176 @@
+.docs-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 72px;
+  min-height: 32px;
+  max-width: 100%;
+  padding: 5px 9px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+  color: var(--sprout-text);
+  font-family: var(--sprout-font);
+  font-size: 12px;
+  line-height: 20px;
+  text-align: start;
+  cursor: pointer;
+}
+.docs-select-trigger:hover,
+.docs-select-trigger[data-popup-open] {
+  background: var(--sprout-hover);
+}
+.docs-select-value {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.docs-select-chevron {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--sprout-muted);
+}
+.docs-select-trigger[data-popup-open] .docs-select-chevron {
+  transform: rotate(180deg);
+}
+.docs-select-positioner {
+  z-index: 70;
+}
+.docs-select-popup {
+  min-width: var(--anchor-width);
+  max-width: calc(100vw - 24px);
+  padding: 4px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 8px;
+  background: var(--sprout-surface);
+  color: var(--sprout-text);
+  box-shadow: var(--sprout-shadow-panel);
+  font-family: var(--sprout-font);
+  font-size: 12px;
+  line-height: 20px;
+  transform-origin: var(--transform-origin);
+}
+.docs-select-list {
+  max-height: min(320px, var(--available-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.docs-select-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 14px;
+  align-items: center;
+  gap: 16px;
+  min-height: 32px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+.docs-select-item[data-highlighted] {
+  background: var(--sprout-hover);
+}
+.docs-select-indicator {
+  display: inline-flex;
+  grid-column: 2;
+}
+@media (max-width: 767px) {
+  .docs-select-trigger,
+  .docs-select-item {
+    min-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .docs-select-trigger {
+    transition: background-color var(--sprout-motion-fast) ease-out;
+  }
+  .docs-select-chevron {
+    transition: transform var(--sprout-motion-fast) var(--sprout-motion-ease);
+  }
+  .docs-select-popup {
+    transition:
+      opacity var(--sprout-motion-fast) ease-out,
+      transform var(--sprout-motion-fast) var(--sprout-motion-ease);
+  }
+  .docs-select-popup[data-starting-style],
+  .docs-select-popup[data-ending-style] {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  .docs-select-popup[data-side="top"][data-starting-style],
+  .docs-select-popup[data-side="top"][data-ending-style] {
+    transform: translateY(3px);
+  }
+}
+
+.docs-theme-trigger {
+  justify-content: flex-start;
+  min-width: 148px;
+}
+.docs-theme-trigger .docs-select-value {
+  flex: 1;
+}
+@media (max-width: 480px) {
+  .docs-theme-trigger {
+    min-width: 0;
+  }
+  .docs-theme-trigger .docs-select-value {
+    display: none;
+  }
+}
+.docs-theme-swatches {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 2px;
+}
+.docs-theme-swatches i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px
+    color-mix(in oklab, var(--sprout-text) 12%, transparent);
+}
+.docs-theme-swatches i:nth-child(1) {
+  background: var(--sprout-primary);
+}
+.docs-theme-swatches i:nth-child(2) {
+  background: var(--sprout-primary-subtle);
+}
+.docs-theme-swatches i:nth-child(3) {
+  background: var(--sprout-canvas);
+}
+.docs-theme-swatches i:nth-child(4) {
+  background: var(--sprout-line);
+}
+.docs-theme-popup {
+  width: 280px;
+  padding: 0;
+  overflow: hidden;
+}
+.docs-theme-popup .sprout-command-input:focus-visible {
+  outline: none;
+}
+.docs-theme-popup .sprout-command-list {
+  max-height: min(360px, calc(var(--available-height) - 104px));
+}
+.docs-theme-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 4px 12px;
+  border-block: 1px solid var(--sprout-line);
+  margin-top: 4px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.docs-theme-bar .docs-icon-link {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.docs-theme-name {
+  flex: 1;
+}

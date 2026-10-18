@@ -1,0 +1,92 @@
+.separator-fade-demo {
+  display: grid;
+  gap: 20px;
+}
+.separator-fade-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.separator-fade-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.separator-fade-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.separator-fade-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.separator-fade-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+
+.separator-fade-demo-labels {
+  display: grid;
+  gap: 32px;
+  padding-block: 8px;
+}
+
+.separator-fade-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.separator-fade-demo-transcript {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.separator-fade-demo-message {
+  display: flex;
+  min-width: 0;
+}
+.separator-fade-demo-message[data-from="user"] {
+  justify-content: flex-end;
+}
+.separator-fade-demo-message p {
+  max-width: min(100%, 28rem);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.separator-fade-demo-message[data-from="user"] p {
+  padding: 8px 12px;
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-secondary);
+}
+.separator-fade-demo-status {
+  padding: 10px 14px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+  font-size: 13px;
+  color: var(--sprout-muted);
+}
+
+.separator-fade-demo-narrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.separator-fade-demo-narrow > div {
+  width: 140px;
+  padding: 12px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}

@@ -1,0 +1,21 @@
+@layer components {
+  .sprout-page-content {
+    --sprout-page-content-inline: 1rem;
+    --sprout-page-content-block: 1rem;
+    --sprout-page-content-gap: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: var(--sprout-page-content-block) var(--sprout-page-content-inline);
+  }
+  /* Zero specificity so a child's own margin utilities still win. */
+  :where(.sprout-page-content > :not(:last-child)) {
+    margin-block-end: var(--sprout-page-content-gap);
+  }
+  @media (min-width: 40rem) {
+    .sprout-page-content {
+      --sprout-page-content-inline: 1.5rem;
+      --sprout-page-content-block: 1.25rem;
+    }
+  }
+}

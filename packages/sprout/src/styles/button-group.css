@@ -1,0 +1,113 @@
+@layer components {
+  .sprout-button-group {
+    display: flex;
+    align-items: stretch;
+    width: fit-content;
+    max-width: 100%;
+  }
+  .sprout-button-group > :focus-visible {
+    position: relative;
+    z-index: 1;
+  }
+  .sprout-button-group:has(> [data-slot="button-group"]) {
+    gap: 8px;
+  }
+  .sprout-button-group > input {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .sprout-button-group.sprout-button-group-vertical {
+    flex-direction: column;
+  }
+
+  /* Doubled class so these joins outrank per-size button radii. */
+  .sprout-button-group.sprout-button-group-horizontal > [data-slot] {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+  .sprout-button-group.sprout-button-group-horizontal
+    > [data-slot]:not(:has(~ [data-slot])) {
+    border-start-end-radius: var(--sprout-radius-control);
+    border-end-end-radius: var(--sprout-radius-control);
+  }
+  .sprout-button-group.sprout-button-group-horizontal
+    > [data-slot]
+    ~ [data-slot] {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    border-inline-start-width: 0;
+  }
+
+  .sprout-button-group.sprout-button-group-vertical > [data-slot] {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+  .sprout-button-group.sprout-button-group-vertical
+    > [data-slot]:not(:has(~ [data-slot])) {
+    border-end-start-radius: var(--sprout-radius-control);
+    border-end-end-radius: var(--sprout-radius-control);
+  }
+  .sprout-button-group.sprout-button-group-vertical
+    > [data-slot]
+    ~ [data-slot] {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+    border-block-start-width: 0;
+  }
+
+  .sprout-button-group-text {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 28px;
+    padding-inline: 10px;
+    border: 1px solid var(--sprout-input);
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-secondary);
+    color: var(--sprout-text);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+  .sprout-button-group-text svg {
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+  .sprout-button-group-text svg:not([class*="size-"]) {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .sprout-button-group-separator {
+    position: relative;
+    align-self: stretch;
+  }
+  .sprout-separator.sprout-button-group-separator[data-orientation="horizontal"] {
+    width: auto;
+    margin-inline: 1px;
+  }
+  .sprout-separator.sprout-button-group-separator[data-orientation="vertical"] {
+    height: auto;
+    min-height: 0;
+    margin-block: 1px;
+  }
+
+  @media (forced-colors: active) {
+    .sprout-button-group-text {
+      border-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-button-group-text {
+      transition:
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        border-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+  }
+}

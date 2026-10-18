@@ -1,0 +1,197 @@
+.context-demo-playground {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.context-demo-stage {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 28px 20px;
+  background: var(--sprout-canvas);
+}
+.context-demo-target {
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  width: 100%;
+  max-width: 20rem;
+  min-height: 10rem;
+  padding: 16px;
+  border: 1px dashed var(--sprout-border);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  color: var(--sprout-text);
+  font-size: var(--sprout-text-sm);
+  text-align: center;
+  transition:
+    border-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+    background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+}
+.context-demo-target[data-popup-open] {
+  border-color: var(--sprout-border-strong);
+  background: var(--sprout-hover);
+}
+.context-demo-target-hint {
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}
+.context-demo-readout {
+  display: grid;
+  gap: 2px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.context-demo-readout .context-demo-status {
+  padding: 0;
+  color: var(--sprout-text);
+}
+.context-demo-status:not(:empty) {
+  padding-top: 8px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.context-demo-help {
+  padding-top: 8px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.context-demo-truncate {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.context-demo-files {
+  display: grid;
+  margin-block: 8px 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.context-demo-file {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding-inline-end: 8px;
+}
+.context-demo-file + .context-demo-file {
+  border-top: 1px solid var(--sprout-line);
+}
+.context-demo-file-target {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+  padding: 8px 12px;
+  border-radius: var(--sprout-radius-control);
+  font-size: var(--sprout-text-sm);
+  cursor: default;
+  transition: background-color var(--sprout-motion-fast)
+    var(--sprout-motion-ease);
+}
+.context-demo-file-target:hover,
+.context-demo-file-target[data-popup-open] {
+  background: var(--sprout-hover);
+}
+.context-demo-file-target:focus-visible {
+  outline-offset: -2px;
+}
+.context-demo-file-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--sprout-text);
+  font-weight: 500;
+}
+.context-demo-file-name svg {
+  flex-shrink: 0;
+  color: var(--sprout-muted);
+}
+.context-demo-file-meta {
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}
+.context-demo-file-menu {
+  width: 15rem;
+}
+.context-demo-move-menu {
+  width: 14rem;
+}
+
+.context-demo-table {
+  display: grid;
+  min-width: 0;
+  margin-top: 8px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  font-size: var(--sprout-text-sm);
+  overflow: hidden;
+}
+.context-demo-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.context-demo-header,
+.context-demo-row {
+  display: grid;
+  grid-template-columns: repeat(var(--context-demo-columns), minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+  padding-inline: 12px;
+}
+.context-demo-header {
+  padding-block: 8px;
+  border-bottom: 1px solid var(--sprout-line);
+  background: var(--sprout-canvas);
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+  font-weight: 500;
+  cursor: default;
+  transition: background-color var(--sprout-motion-fast)
+    var(--sprout-motion-ease);
+}
+.context-demo-header > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.context-demo-header[data-popup-open] {
+  background: var(--sprout-hover);
+}
+.context-demo-header:focus-visible {
+  outline-offset: -2px;
+}
+.context-demo-row {
+  padding-block: 10px;
+  color: var(--sprout-text);
+  transition: padding var(--sprout-motion-fast) var(--sprout-motion-ease);
+}
+.context-demo-row[data-density="compact"] {
+  padding-block: 4px;
+}
+.context-demo-row + .context-demo-row {
+  border-top: 1px solid var(--sprout-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .context-demo-target,
+  .context-demo-file-target,
+  .context-demo-header,
+  .context-demo-row {
+    transition: none;
+  }
+}

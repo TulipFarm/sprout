@@ -1,0 +1,78 @@
+@layer components {
+  .sprout-textarea {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    /* 96px, or `rows` lines plus padding and border when that is taller. */
+    min-height: max(6rem, calc(var(--sprout-textarea-rows, 0) * 20px + 18px));
+    margin: 0;
+    padding: 8px 10px;
+    border: 1px solid var(--sprout-input);
+    border-radius: var(--sprout-radius-control);
+    background-color: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 400;
+    line-height: 20px;
+    overflow-wrap: break-word;
+    field-sizing: content;
+    resize: vertical;
+    outline: 0 solid transparent;
+    outline-offset: 2px;
+  }
+  .sprout-textarea::placeholder {
+    color: var(--sprout-muted);
+    opacity: 1;
+  }
+  .sprout-textarea:focus-visible {
+    border-color: var(--sprout-focus);
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-textarea:disabled {
+    cursor: not-allowed;
+    resize: none;
+    background-color: var(--sprout-hover);
+    opacity: 0.5;
+  }
+  .sprout-textarea[aria-invalid="true"] {
+    border-color: var(--sprout-danger);
+  }
+  .sprout-textarea[aria-invalid="true"]:focus-visible {
+    outline-color: var(--sprout-danger);
+  }
+
+  .sprout-textarea-variant-embedded,
+  .sprout-textarea-variant-embedded:focus-visible,
+  .sprout-textarea-variant-embedded[aria-invalid="true"] {
+    border-color: transparent;
+    border-radius: 0;
+    background-color: transparent;
+    outline: 0 solid transparent;
+    resize: none;
+  }
+  .sprout-textarea-variant-embedded:disabled {
+    background-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-textarea {
+      transition:
+        color var(--sprout-motion-fast, 120ms) ease-out,
+        background-color var(--sprout-motion-fast, 120ms) ease-out,
+        border-color var(--sprout-motion-fast, 120ms) ease-out,
+        outline-color var(--sprout-motion-fast, 120ms) ease-out;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-textarea-variant-default {
+      border-color: FieldText;
+    }
+    .sprout-textarea:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@layer components {
+  .sprout-selection-slot {
+    container: sprout-selection / inline-size;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    min-width: 0;
+  }
+  .sprout-selection-slot-layer {
+    grid-area: 1 / 1;
+    min-width: 0;
+  }
+  .sprout-selection-slot-layer[inert] {
+    visibility: hidden;
+  }
+
+  /* The tools hide at once and the selection fades in, so they never overlap. */
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-selection-slot-selection {
+      animation: sprout-selection-slot-in var(--sprout-motion-normal)
+        var(--sprout-motion-ease);
+    }
+  }
+
+  @keyframes sprout-selection-slot-in {
+    from {
+      opacity: 0;
+      transform: translateY(2px);
+    }
+  }
+}

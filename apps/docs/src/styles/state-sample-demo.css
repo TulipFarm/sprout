@@ -1,0 +1,190 @@
+.state-sample-demo-playground,
+.state-sample-demo-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.state-sample-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.state-sample-demo-toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.state-sample-demo-stage {
+  display: grid;
+  align-items: center;
+  min-height: 360px;
+  padding: 24px;
+  background: var(--sprout-canvas);
+}
+.state-sample-demo-stage[data-frame="window"] {
+  justify-items: center;
+}
+.state-sample-demo-stage[data-frame="window"] > .state-sample-demo-window {
+  width: 100%;
+  max-width: 36rem;
+  animation: state-sample-demo-in var(--sprout-motion-normal)
+    var(--sprout-motion-ease) both;
+}
+.state-sample-demo-foot {
+  margin: 0;
+  padding: 12px 16px;
+  border-top: 1px solid var(--sprout-line);
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+
+.state-sample-demo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.state-sample-demo-card {
+  display: flex;
+  flex-direction: column;
+}
+.state-sample-demo-card > figcaption {
+  display: grid;
+  gap: 2px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.state-sample-demo-card > figcaption strong {
+  font-weight: 550;
+  color: var(--sprout-text);
+}
+.state-sample-demo-card > figcaption span {
+  color: var(--sprout-muted);
+}
+.state-sample-demo-card > .state-sample-demo-window,
+.state-sample-demo-body {
+  flex: 1;
+  margin: 16px;
+}
+.state-sample-demo-body {
+  margin: 0;
+  padding: 16px;
+  background: var(--sprout-canvas);
+}
+.state-sample-demo-window {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  box-shadow: var(--sprout-shadow-panel);
+}
+.state-sample-demo-body > .state-sample-demo-window {
+  margin: 0;
+}
+.state-sample-demo-narrow {
+  max-width: 300px;
+}
+
+.state-sample-demo-group {
+  margin: 0;
+  padding: 16px 16px 8px;
+  font-weight: 500;
+  color: var(--sprout-text);
+}
+.state-sample-demo-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+.state-sample-demo-bubble {
+  max-width: 18rem;
+  margin: 0 0 0 auto;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--sprout-hover);
+  color: var(--sprout-text);
+}
+.state-sample-demo-reply {
+  max-width: 20rem;
+  margin: 0;
+}
+.state-sample-demo-reply strong {
+  font-weight: 500;
+}
+.state-sample-demo-schema {
+  max-width: 20rem;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: 8px;
+}
+.state-sample-demo-schema .sprout-state-sample-row:last-child {
+  border-bottom: 0;
+}
+
+.state-sample-demo-file {
+  width: 20px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.state-sample-demo-file-paper {
+  fill: var(--sprout-surface);
+  stroke: var(--sprout-border);
+}
+.state-sample-demo-file-edge {
+  fill: none;
+  stroke: var(--sprout-border);
+}
+
+.state-sample-demo-rows {
+  display: grid;
+  gap: 12px;
+}
+.state-sample-demo-row {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 28px;
+  font-size: 12px;
+}
+.state-sample-demo-row > code {
+  color: var(--sprout-muted);
+}
+.state-sample-demo-row > :last-child {
+  justify-self: start;
+}
+.state-sample-demo-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.state-sample-demo-track {
+  display: flex;
+  justify-self: stretch !important;
+  width: 100%;
+}
+
+@keyframes state-sample-demo-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .state-sample-demo-stage[data-frame="window"] > .state-sample-demo-window {
+    animation: none;
+  }
+}

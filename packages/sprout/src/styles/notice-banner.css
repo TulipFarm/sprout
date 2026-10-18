@@ -1,0 +1,68 @@
+@layer components {
+  .sprout-notice-banner {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--sprout-line);
+    background: var(--sprout-surface);
+    color: var(--sprout-muted);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  .sprout-notice-banner-content {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-notice-banner-content :where(p) {
+    margin: 0;
+  }
+
+  .sprout-notice-banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .sprout-notice-banner {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      padding-inline: 24px;
+    }
+    .sprout-notice-banner-actions {
+      width: auto;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-notice-banner {
+      border-bottom-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-notice-banner {
+      animation: sprout-notice-banner-in var(--sprout-motion-normal)
+        var(--sprout-motion-ease);
+    }
+  }
+
+  @keyframes sprout-notice-banner-in {
+    from {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+  }
+}

@@ -1,0 +1,165 @@
+@layer components {
+  .sprout-prompt-list {
+    width: 100%;
+    min-width: 0;
+    font-family: var(--sprout-font);
+    color: var(--sprout-text);
+  }
+  .sprout-prompt-list-title {
+    margin: 0;
+    padding: 0 12px 6px;
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+    color: var(--sprout-muted);
+  }
+  .sprout-prompt-list-items {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sprout-prompt-list-item {
+    --sprout-brand-ring: var(--sprout-canvas);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    min-height: 32px;
+    padding: 0 12px;
+    border-radius: var(--sprout-radius-panel);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: 0 solid transparent;
+    outline-offset: 1px;
+  }
+  @media (pointer: coarse) {
+    .sprout-prompt-list-item {
+      min-height: 44px;
+    }
+  }
+  @media (hover: hover) {
+    .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):hover {
+      --sprout-brand-ring: var(--sprout-hover);
+      background: var(--sprout-hover);
+    }
+  }
+  .sprout-prompt-list-item:has(.sprout-prompt-list-button:focus-visible) {
+    --sprout-brand-ring: var(--sprout-hover);
+    background: var(--sprout-hover);
+    outline: 2px solid var(--sprout-focus);
+  }
+  .sprout-prompt-list-item:has(.sprout-prompt-list-button:disabled) {
+    opacity: 0.5;
+  }
+
+  .sprout-prompt-list-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    color: color-mix(in oklab, var(--sprout-text) 72%, var(--sprout-muted));
+  }
+  .sprout-prompt-list-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* The button's ::after covers the row, so the whole row is the target. */
+  .sprout-prompt-list-button {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-prompt-list-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .sprout-prompt-list-button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Brand tiles sit above the row target so their tooltips open on hover. */
+  .sprout-prompt-list-brands {
+    position: relative;
+    z-index: 1;
+  }
+
+  .sprout-prompt-list-arrow {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    margin-inline-start: auto;
+    color: var(--sprout-muted);
+  }
+  .sprout-prompt-list-item:dir(rtl) .sprout-prompt-list-arrow {
+    transform: scaleX(-1);
+  }
+
+  .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(
+      :hover,
+      :focus-within
+    )
+    :is(.sprout-prompt-list-icon, .sprout-prompt-list-arrow) {
+    color: var(--sprout-text);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-prompt-list-item {
+      animation: sprout-prompt-rise var(--sprout-motion-normal)
+        var(--sprout-motion-ease) both;
+      animation-delay: calc(var(--sprout-prompt-index, 0) * 40ms);
+      transition: background-color var(--sprout-motion-fast)
+        var(--sprout-motion-ease);
+    }
+    .sprout-prompt-list-icon,
+    .sprout-prompt-list-arrow {
+      transition:
+        transform var(--sprout-motion-fast) var(--sprout-motion-ease),
+        color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(
+        :hover,
+        :focus-within
+      )
+      .sprout-prompt-list-icon {
+      transform: scale(1.08);
+    }
+    .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(
+        :hover,
+        :focus-within
+      )
+      .sprout-prompt-list-arrow:not(:dir(rtl)) {
+      transform: translateX(2px);
+    }
+  }
+  @keyframes sprout-prompt-rise {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-prompt-list-item:has(.sprout-prompt-list-button:focus-visible) {
+      outline-color: Highlight;
+    }
+  }
+}

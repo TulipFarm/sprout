@@ -1,0 +1,99 @@
+@layer components {
+  .sprout-input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: 32px;
+    margin: 0;
+    padding: 4px 10px;
+    border: 1px solid var(--sprout-input);
+    border-radius: var(--sprout-radius-control);
+    background-color: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 400;
+    line-height: 20px;
+    outline: 0 solid transparent;
+    outline-offset: 2px;
+  }
+  .sprout-input::placeholder {
+    color: var(--sprout-muted);
+    opacity: 1;
+  }
+  .sprout-input:focus-visible {
+    border-color: var(--sprout-focus);
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-input:disabled,
+  .sprout-input[data-disabled] {
+    cursor: not-allowed;
+    background-color: var(--sprout-hover);
+    opacity: 0.5;
+  }
+  .sprout-input[aria-invalid="true"],
+  .sprout-input[data-invalid] {
+    border-color: var(--sprout-danger);
+  }
+  .sprout-input[aria-invalid="true"]:focus-visible,
+  .sprout-input[data-invalid]:focus-visible {
+    outline-color: var(--sprout-danger);
+  }
+
+  .sprout-input[type="file"] {
+    padding-block: 0;
+    line-height: 30px;
+    cursor: pointer;
+  }
+  .sprout-input[type="file"]:disabled {
+    cursor: not-allowed;
+  }
+  .sprout-input::file-selector-button {
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    margin: 0 8px 0 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--sprout-text);
+    font: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    cursor: inherit;
+  }
+  .sprout-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .sprout-input-scale-lg {
+    height: 44px;
+    padding-inline: 12px;
+    font-size: var(--sprout-text-base);
+    line-height: 24px;
+  }
+  .sprout-input-scale-lg[type="file"] {
+    line-height: 42px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-input {
+      transition:
+        color var(--sprout-motion-fast, 120ms) ease-out,
+        background-color var(--sprout-motion-fast, 120ms) ease-out,
+        border-color var(--sprout-motion-fast, 120ms) ease-out,
+        outline-color var(--sprout-motion-fast, 120ms) ease-out;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-input {
+      border-color: FieldText;
+    }
+    .sprout-input:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,256 @@
+@layer components {
+  .sprout-gradient-banner {
+    --sprout-gradient-banner-pearl: #fffdf7;
+    --sprout-gradient-banner-ink: #25282d;
+    --sprout-gradient-banner-panel-ink: #25282d;
+    --sprout-gradient-banner-paper: #ffffff;
+    --sprout-gradient-banner-night: #191d20;
+    --sprout-gradient-banner-badge-light: #f1f2f4;
+    --sprout-gradient-banner-badge-dark: #30373b;
+    --sprout-gradient-banner-edge: #ffffff6b;
+    --sprout-gradient-banner-base: #91caf0;
+    --sprout-gradient-banner-shadow: #7777d6;
+    --sprout-gradient-banner-glow: #b4eff4;
+    --sprout-gradient-banner-bloom: #c8a7ef;
+    --sprout-gradient-banner-fold-angle: -24deg;
+    --sprout-gradient-banner-fold-opacity: 0.85;
+    --sprout-gradient-banner-light-angle: 22deg;
+    --sprout-gradient-banner-light-opacity: 0.55;
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    min-width: 0;
+    min-height: 15rem;
+    padding: 1.5rem;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    font-family: var(--sprout-font);
+    color: var(--sprout-gradient-banner-ink);
+  }
+
+  .sprout-gradient-banner[data-variant="citrus"] {
+    --sprout-gradient-banner-base: #fbd65c;
+    --sprout-gradient-banner-shadow: #ec986f;
+    --sprout-gradient-banner-glow: #fff5b5;
+    --sprout-gradient-banner-bloom: #f6b9c8;
+    --sprout-gradient-banner-fold-angle: 28deg;
+  }
+  .sprout-gradient-banner[data-variant="lagoon"] {
+    --sprout-gradient-banner-base: #18bec4;
+    --sprout-gradient-banner-shadow: #007e83;
+    --sprout-gradient-banner-glow: #c8f2a3;
+    --sprout-gradient-banner-bloom: #43bf79;
+    --sprout-gradient-banner-fold-angle: -65deg;
+  }
+  .sprout-gradient-banner[data-variant="iris"] {
+    --sprout-gradient-banner-base: #bca3ef;
+    --sprout-gradient-banner-shadow: #7968d7;
+    --sprout-gradient-banner-glow: #dceffd;
+    --sprout-gradient-banner-bloom: #ecb6ec;
+  }
+  /* Deep blue art: text placed straight on it switches to pearl. */
+  .sprout-gradient-banner[data-variant="cobalt"] {
+    --sprout-gradient-banner-ink: var(--sprout-gradient-banner-pearl);
+    --sprout-gradient-banner-base: #2268b7;
+    --sprout-gradient-banner-shadow: #102c6b;
+    --sprout-gradient-banner-glow: #9dc8e8;
+    --sprout-gradient-banner-bloom: #377bbe;
+    --sprout-gradient-banner-fold-angle: 8deg;
+    --sprout-gradient-banner-fold-opacity: 0.3;
+    --sprout-gradient-banner-light-angle: -8deg;
+    --sprout-gradient-banner-light-opacity: 0.35;
+  }
+  .sprout-gradient-banner[data-variant="mint"] {
+    --sprout-gradient-banner-base: #e0ebce;
+    --sprout-gradient-banner-shadow: #9bcaba;
+    --sprout-gradient-banner-glow: #fcf7d5;
+    --sprout-gradient-banner-bloom: #c1e1cd;
+    --sprout-gradient-banner-fold-angle: 65deg;
+    --sprout-gradient-banner-fold-opacity: 0.35;
+  }
+
+  .sprout-gradient-banner[data-size="sm"] {
+    min-height: 6rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  .sprout-gradient-banner[data-size="md"] {
+    min-height: 10rem;
+    padding: 1.25rem;
+  }
+  .sprout-gradient-banner[data-size="xl"] {
+    min-height: 22.5rem;
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+
+  .sprout-gradient-banner-art {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse at 76% 0%,
+        var(--sprout-gradient-banner-glow),
+        transparent 46%
+      ),
+      radial-gradient(
+        ellipse at 5% 90%,
+        var(--sprout-gradient-banner-bloom),
+        transparent 56%
+      ),
+      radial-gradient(
+        ellipse at 100% 100%,
+        var(--sprout-gradient-banner-shadow),
+        transparent 58%
+      ),
+      var(--sprout-gradient-banner-base);
+    box-shadow: inset 0 0 0 1px var(--sprout-gradient-banner-edge);
+  }
+  .sprout-gradient-banner-fold {
+    position: absolute;
+    inset: -45% -20%;
+    border-radius: 50%;
+    transform: rotate(var(--sprout-gradient-banner-fold-angle));
+    background:
+      radial-gradient(
+        ellipse at 42% 28%,
+        transparent 31%,
+        var(--sprout-gradient-banner-pearl) 32%,
+        var(--sprout-gradient-banner-glow) 34%,
+        transparent 47%
+      ),
+      conic-gradient(
+        from 152deg at 48% 62%,
+        transparent 0deg,
+        var(--sprout-gradient-banner-bloom) 32deg,
+        var(--sprout-gradient-banner-pearl) 47deg,
+        var(--sprout-gradient-banner-base) 60deg,
+        transparent 88deg,
+        transparent 180deg,
+        var(--sprout-gradient-banner-shadow) 226deg,
+        var(--sprout-gradient-banner-glow) 255deg,
+        transparent 285deg
+      );
+    filter: blur(12px);
+    opacity: var(--sprout-gradient-banner-fold-opacity);
+  }
+  .sprout-gradient-banner-light {
+    position: absolute;
+    inset: -30% -10%;
+    transform: rotate(var(--sprout-gradient-banner-light-angle));
+    background:
+      radial-gradient(
+        ellipse at 72% 12%,
+        transparent 36%,
+        var(--sprout-gradient-banner-pearl) 37%,
+        transparent 44%
+      ),
+      linear-gradient(
+        100deg,
+        transparent 35%,
+        var(--sprout-gradient-banner-glow) 48%,
+        var(--sprout-gradient-banner-pearl) 51%,
+        transparent 63%
+      );
+    filter: blur(8px);
+    opacity: var(--sprout-gradient-banner-light-opacity);
+  }
+  .sprout-gradient-banner-texture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    mix-blend-mode: soft-light;
+  }
+
+  .sprout-gradient-banner-content {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .sprout-gradient-banner-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-gradient-banner-paper);
+    color: var(--sprout-gradient-banner-panel-ink);
+    font-size: var(--sprout-text-base);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    box-shadow: 0 1px 2px rgb(24 24 24 / 0.05);
+  }
+  .sprout-gradient-banner-panel[data-tone="dark"] {
+    background: var(--sprout-gradient-banner-night);
+    color: var(--sprout-gradient-banner-paper);
+  }
+  .sprout-gradient-banner-panel > svg {
+    flex-shrink: 0;
+  }
+
+  .sprout-gradient-banner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--sprout-gradient-banner-badge-light);
+    color: var(--sprout-gradient-banner-panel-ink);
+    font-size: var(--sprout-text-xs);
+    font-weight: 600;
+    line-height: 1rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-gradient-banner-badge > svg {
+    flex-shrink: 0;
+  }
+  [data-tone="dark"] .sprout-gradient-banner-badge {
+    background: var(--sprout-gradient-banner-badge-dark);
+    color: var(--sprout-gradient-banner-paper);
+  }
+
+  .sprout-gradient-banner-progress {
+    width: 100%;
+    height: 0.25rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: var(--sprout-gradient-banner-badge-light);
+  }
+  [data-tone="dark"] .sprout-gradient-banner-progress {
+    background: var(--sprout-gradient-banner-badge-dark);
+  }
+  .sprout-gradient-banner-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: currentColor;
+    transform: scaleX(var(--sprout-gradient-banner-progress, 0));
+    transform-origin: left;
+    transition: transform var(--sprout-motion-normal, 180ms)
+      var(--sprout-motion-ease, ease-out);
+  }
+  [dir="rtl"] .sprout-gradient-banner-progress-fill {
+    transform-origin: right;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-gradient-banner-progress-fill {
+      transition: none;
+    }
+  }
+}

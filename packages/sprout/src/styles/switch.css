@@ -1,0 +1,128 @@
+@layer components {
+  .sprout-switch {
+    --sprout-switch-thumb-off: var(--sprout-surface);
+    --sprout-switch-travel: 14px;
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    box-sizing: border-box;
+    width: 32px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background-color: var(--sprout-muted);
+    vertical-align: middle;
+    cursor: pointer;
+    outline: 0 solid transparent;
+    outline-offset: 2px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-switch-size-sm {
+    --sprout-switch-travel: 10px;
+    width: 24px;
+    height: 14px;
+  }
+  /* A 56 x 34px hit area around the default track. */
+  .sprout-switch::after {
+    content: "";
+    position: absolute;
+    inset: -8px -12px;
+  }
+  .dark .sprout-switch {
+    --sprout-switch-thumb-off: var(--sprout-text);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark) .sprout-switch {
+      --sprout-switch-thumb-off: var(--sprout-text);
+    }
+  }
+  .sprout-switch:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+  }
+  .sprout-switch[data-checked] {
+    background-color: var(--sprout-primary);
+  }
+  .sprout-switch[aria-invalid="true"] {
+    border-color: var(--sprout-danger);
+    box-shadow: 0 0 0 3px
+      color-mix(in oklab, var(--sprout-danger) 20%, transparent);
+  }
+  .sprout-switch[aria-invalid="true"]:focus-visible {
+    outline-color: var(--sprout-danger);
+  }
+  .sprout-switch[data-readonly] {
+    cursor: default;
+  }
+  .sprout-switch[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .sprout-switch[aria-busy="true"] {
+    cursor: progress;
+  }
+
+  .sprout-switch-thumb {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background-color: var(--sprout-switch-thumb-off);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+    pointer-events: none;
+  }
+  .sprout-switch-size-sm .sprout-switch-thumb {
+    width: 12px;
+    height: 12px;
+  }
+  .sprout-switch-thumb[data-checked] {
+    background-color: var(--sprout-on-primary);
+    transform: translateX(var(--sprout-switch-travel));
+  }
+  .sprout-switch-thumb[data-checked]:dir(rtl) {
+    transform: translateX(calc(var(--sprout-switch-travel) * -1));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-switch {
+      transition:
+        background-color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        box-shadow var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-switch-thumb {
+      transition:
+        transform var(--sprout-motion-normal, 180ms)
+          var(--sprout-motion-ease, ease-out),
+        background-color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-switch {
+      border-color: CanvasText;
+      background-color: Canvas;
+    }
+    .sprout-switch[data-checked] {
+      border-color: Highlight;
+      background-color: Highlight;
+    }
+    .sprout-switch-thumb {
+      background-color: CanvasText;
+    }
+    .sprout-switch-thumb[data-checked] {
+      background-color: HighlightText;
+    }
+    .sprout-switch:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

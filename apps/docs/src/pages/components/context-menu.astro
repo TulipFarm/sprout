@@ -1,0 +1,195 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  ContextMenuColumns,
+  ContextMenuFiles,
+  ContextMenuPlayground,
+} from "../../components/ContextMenuDemo";
+---
+
+<Docs
+  title="Context Menu"
+  description="Right-click and long-press menus with checkboxes, radio groups, submenus, and shortcuts."
+>
+  <h1 class="docs-title">Context Menu</h1>
+  <p class="docs-lead">
+    A menu that opens where the pointer is. Right-click a target, or long-press
+    it on a touch screen. Use it for shortcuts to actions that are also
+    reachable another way, such as a More button or a keyboard shortcut.
+  </p>
+  <div class="mt-8" id="context-menu-demo">
+    <ContextMenuPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Context menu usage"
+      code={`import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuTrigger,
+} from "@tulipfarm/sprout/context-menu";
+
+<ContextMenu>
+  <ContextMenuTrigger tabIndex={0} role="group" aria-label="Sample card actions">
+    Right-click this sample card
+  </ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuGroup>
+      <ContextMenuLabel>Example actions</ContextMenuLabel>
+      <ContextMenuItem onClick={open}>
+        Open<ContextMenuShortcut>Enter</ContextMenuShortcut>
+      </ContextMenuItem>
+      <ContextMenuItem disabled>Unavailable</ContextMenuItem>
+    </ContextMenuGroup>
+    <ContextMenuSeparator />
+    <ContextMenuItem variant="destructive" onClick={remove}>
+      Delete sample
+    </ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>`}
+    />
+    <p>
+      <code>ContextMenuTrigger</code> renders a <code>div</code> that wraps the target.
+      Pass <code>render</code> to use another element. Give it <code
+        >tabIndex={"{0}"}</code
+      >, a role, and an <code>aria-label</code> when people should reach it with the
+      keyboard.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Keyboard access</h2>
+    <p>
+      Right-click and long-press have no keyboard equivalent, so always offer
+      the same actions another way. The items are plain Base UI menu parts, so
+      the same elements work inside <code>DropdownMenuContent</code>. Open that
+      menu with <code>open</code> and <code>onOpenChange</code> when the focused target
+      receives Shift + F10 or the Menu key, and use <code>finalFocus</code> to return
+      focus to the target.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Shared items with a keyboard fallback"
+      code={`const items = <>{/* ContextMenuItem, ContextMenuSub, … */}</>;
+
+<ContextMenu>
+  <ContextMenuTrigger
+    tabIndex={0}
+    role="group"
+    aria-label="Sample card actions"
+    onKeyDown={(event) => {
+      if ((event.shiftKey && event.key === "F10") || event.key === "ContextMenu") {
+        event.preventDefault();
+        returnFocus.current = event.currentTarget;
+        setOpen(true);
+      }
+    }}
+  >
+    Right-click this sample card
+  </ContextMenuTrigger>
+  <ContextMenuContent>{items}</ContextMenuContent>
+</ContextMenu>
+<DropdownMenu open={open} onOpenChange={setOpen}>
+  <DropdownMenuTrigger render={<Button variant="outline" />}>Open sample actions</DropdownMenuTrigger>
+  <DropdownMenuContent size="menu" finalFocus={() => returnFocus.current ?? true}>
+    {items}
+  </DropdownMenuContent>
+</DropdownMenu>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Variants and states</h2>
+    <p>
+      <code>ContextMenuItem variant</code> is <code>"default"</code> or <code
+        >"destructive"</code
+      >; destructive items use the danger color and a tinted highlight. Items
+      with a leading icon line up with labels and items that set <code
+        >inset</code
+      >. <code>disabled</code> items stay readable at half opacity and can still be
+      reached with arrow keys. While a row syncs, disable the actions that would change
+      it and keep the rest.
+    </p>
+    <ContextMenuFiles client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Checkboxes and radios</h2>
+    <p>
+      <code>ContextMenuCheckboxItem</code> and <code>ContextMenuRadioItem</code> show
+      a check on the right. Checkboxes keep the menu open; pass <code
+        >closeOnClick</code
+      > to close after one choice. Disable the last visible column so the table never
+      goes empty. <code>ContextMenuSub</code> nests a menu: <code
+        >ContextMenuSubTrigger</code
+      > adds a chevron and opens <code>ContextMenuSubContent</code> to the side.
+    </p>
+    <ContextMenuColumns client:load />
+  </section>
+  <section class="prose-section" id="context-menu-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>ContextMenu</code>, <code>ContextMenuTrigger</code>, <code
+        >ContextMenuPortal</code
+      >, <code>ContextMenuGroup</code>, <code>ContextMenuSub</code>, <code
+        >ContextMenuRadioGroup</code
+      >, and <code>ContextMenuSeparator</code> wrap the Base UI context menu parts
+      and take their props, including <code>open</code>, <code
+        >onOpenChange</code
+      >, and <code>render</code>.
+    </p>
+    <p>
+      <code>ContextMenuContent</code> renders its own portal and positioner. It opens
+      beside the pointer and takes <code>side</code> (<code>"right"</code>), <code
+        >align</code
+      > (<code>"start"</code>), <code>sideOffset</code> (0),
+      <code>alignOffset</code> (4), <code>collisionPadding</code> (8), <code
+        >container</code
+      >, and every Base UI popup prop. It is at least 9rem wide and grows with
+      its items. <code>ContextMenuSubContent</code> takes the same props.
+    </p>
+    <p>
+      <code>ContextMenuItem</code> takes <code>variant</code> and <code
+        >inset</code
+      >. <code>ContextMenuLabel</code>, <code>ContextMenuSubTrigger</code>, and
+      the checkbox and radio items take <code>inset</code> too. Put a
+      <code>ContextMenuLabel</code> inside a <code>ContextMenuGroup</code>; the
+      group takes its name from the label. <code>ContextMenuShortcut</code> is a plain
+      <code>span</code> for hint text; it does not bind keys. Every part sets a <code
+        >data-slot</code
+      >.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The popup has <code>role="menu"</code>. Arrow keys move, typing jumps to a
+      matching item, Arrow Right opens a submenu and Arrow Left closes it, and
+      Escape closes the menu. A long press opens it on touch screens, and the
+      trigger turns off text selection and the system callout so the press isn’t
+      interrupted. A focused trigger shows a focus ring.
+    </p>
+    <p>
+      Menus fade and scale in over 120ms. Motion turns off when reduced motion
+      is requested. In forced-colors mode the highlighted item gets an outline.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Menus use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code
+        >--sprout-hover</code
+      >, <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
+        >--sprout-danger</code
+      >, <code>--sprout-danger-subtle</code>, <code>--sprout-focus</code>, <code
+        >--sprout-shadow-overlay</code
+      >, and the panel and control radii. They need no brand color, so they look
+      the same with the neutral and TulipFarm themes in light and dark mode.
+    </p>
+  </section>
+</Docs>

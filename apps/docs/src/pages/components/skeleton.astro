@@ -1,0 +1,121 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import SkeletonDemo from "../../components/SkeletonDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Skeleton"
+  description="Pulsing placeholders that hold the shape of content while it loads."
+>
+  <h1 class="docs-title">Skeleton</h1>
+  <p class="docs-lead">
+    Holds the space of content that is still loading. Use it for rows, titles,
+    panels, and table cells, so the page does not jump when data arrives.
+  </p>
+  <div class="mt-8"><SkeletonDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Skeleton usage"
+      code={`import { Skeleton, SkeletonGroup } from "@tulipfarm/sprout/skeleton";
+
+<SkeletonGroup label="Loading projects" gap="lg">
+  <Skeleton />
+  <Skeleton />
+  <Skeleton />
+</SkeletonGroup>
+
+<SkeletonGroup label="Loading workflow diagram">
+  <Skeleton shape="title" />
+  <Skeleton shape="panel" />
+</SkeletonGroup>`}
+    />
+    <p>
+      <code>Skeleton</code> renders an empty <code>div</code>. <code>shape</code
+      >
+      sets its size:
+    </p>
+    <ul>
+      <li><code>"line"</code>, the default: 16px tall, full width.</li>
+      <li><code>"title"</code>: 24px tall, two thirds wide.</li>
+      <li><code>"avatar"</code>: a 32px circle.</li>
+      <li><code>"panel"</code>: 128px tall, full width.</li>
+      <li><code>"checkbox"</code>: a 16px box.</li>
+      <li>
+        <code>"action"</code>: a 28px square, the size of a small icon button.
+      </li>
+    </ul>
+    <p>
+      <code>className</code>, <code>style</code>, and <code>data-*</code>
+      attributes pass through, so you can set a custom size or a width variable for
+      one placeholder.
+    </p>
+    <p>
+      <code>SkeletonGroup</code> stacks skeletons in a <code>status</code>
+      region. <code>gap</code> is <code>"sm"</code> (8px), <code>"md"</code>
+      (12px, the default), or <code>"lg"</code> (16px). Use <code>render</code>
+      to change the element, for example to a <code>section</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Table rows</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Placeholder table rows"
+      code={`<Table aria-label="Records" data={rows} columns={columns} getRowId={(row) => row.id} loading={isLoading} />`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Visible status text</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Group with a sentence"
+      code={`<SkeletonGroup gap="sm">
+  <p>Loading GitHub accounts…</p>
+  <Skeleton />
+  <Skeleton />
+</SkeletonGroup>`}
+    />
+    <p>
+      When the wait needs words, put them inside the group and leave out
+      <code>label</code>. The sentence then names the region.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Menu rows</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Icon and capped text bar"
+      code={`<div className="flex h-8 items-center gap-2 px-2">
+  <Skeleton className="size-4 rounded-md" />
+  <Skeleton
+    className="h-4 max-w-(--skeleton-width) flex-1"
+    style={{ "--skeleton-width": "72%" } as CSSProperties}
+  />
+</div>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Each skeleton is <code>aria-hidden</code>, so screen readers skip it.
+      <code>SkeletonGroup</code> has <code>role="status"</code>. Its
+      <code>label</code> becomes the accessible name and is also rendered as visually
+      hidden text, such as “Loading projects…”. Skeletons are not focusable and ignore
+      the pointer.
+    </p>
+    <p>
+      The pulse runs every 1.6 seconds and stops when reduced motion is
+      requested. In forced colors mode each skeleton gets a visible border.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The fill is <code>--sprout-secondary</code>. Corners follow
+      <code>--sprout-radius-control</code>.
+    </p>
+  </section>
+</Docs>

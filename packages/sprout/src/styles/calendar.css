@@ -1,0 +1,295 @@
+@layer components {
+  .sprout-calendar {
+    --sprout-calendar-cell: 1.75rem;
+    --sprout-calendar-radius: min(var(--sprout-radius-control), 0.5rem);
+    --sprout-calendar-band: var(--sprout-hover);
+    box-sizing: border-box;
+    width: fit-content;
+    padding: 8px;
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  /* Inside a popover or card the host owns the surface and padding. */
+  [data-slot="popover-content"] > .sprout-calendar {
+    width: 100%;
+    padding: 0;
+    background: transparent;
+  }
+  [data-slot="card-content"] .sprout-calendar {
+    background: transparent;
+  }
+
+  .sprout-calendar-months {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  @media (min-width: 768px) {
+    .sprout-calendar-months {
+      flex-direction: row;
+    }
+  }
+  .sprout-calendar-month {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sprout-calendar-nav {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    pointer-events: none;
+  }
+  .sprout-calendar-nav-button {
+    width: var(--sprout-calendar-cell);
+    height: var(--sprout-calendar-cell);
+    padding: 0;
+    border-radius: var(--sprout-calendar-radius);
+    pointer-events: auto;
+  }
+  .sprout-calendar-nav-button[aria-disabled="true"] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .sprout-calendar-chevron {
+    width: 1rem;
+    height: 1rem;
+  }
+  .sprout-calendar:dir(rtl):not([dir])
+    .sprout-calendar-nav-button
+    .sprout-calendar-chevron {
+    transform: rotate(180deg);
+  }
+
+  .sprout-calendar-caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--sprout-calendar-cell);
+    padding-inline: var(--sprout-calendar-cell);
+  }
+  .sprout-calendar-caption-label {
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .sprout-calendar-dropdowns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: var(--sprout-calendar-cell);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+  }
+  .sprout-calendar-dropdown.sprout-select-trigger {
+    height: var(--sprout-calendar-cell);
+    border-radius: var(--sprout-calendar-radius);
+    font-weight: 500;
+  }
+  .sprout-calendar-dropdown-content.sprout-select-content {
+    width: auto;
+    min-width: max(var(--anchor-width), 5rem);
+    max-height: min(16rem, var(--available-height));
+  }
+
+  .sprout-calendar-grid {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+  }
+  .sprout-calendar-weekdays,
+  .sprout-calendar-week {
+    display: flex;
+    width: 100%;
+  }
+  .sprout-calendar-week {
+    margin-top: 4px;
+  }
+  .sprout-calendar-weekday {
+    flex: 1 1 0;
+    min-width: var(--sprout-calendar-cell);
+    padding: 0 0 2px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-weight: 400;
+    line-height: 1rem;
+    text-align: center;
+    user-select: none;
+  }
+  .sprout-calendar-week-number-header,
+  .sprout-calendar-week-number {
+    flex: 0 0 var(--sprout-calendar-cell);
+    width: var(--sprout-calendar-cell);
+    padding: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-weight: 400;
+    user-select: none;
+  }
+  .sprout-calendar-week-number-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: var(--sprout-calendar-cell);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sprout-calendar-day {
+    position: relative;
+    flex: 1 1 0;
+    min-width: var(--sprout-calendar-cell);
+    aspect-ratio: 1;
+    padding: 0;
+    border-radius: var(--sprout-calendar-radius);
+    text-align: center;
+    user-select: none;
+  }
+  .sprout-calendar-today {
+    background: var(--sprout-calendar-band);
+  }
+  .sprout-calendar-today[data-selected] {
+    border-radius: 0;
+  }
+  .sprout-calendar-range-start,
+  .sprout-calendar-range-end {
+    isolation: isolate;
+    background: var(--sprout-calendar-band);
+  }
+  .sprout-calendar-range-start {
+    border-radius: var(--sprout-calendar-radius) 0 0
+      var(--sprout-calendar-radius);
+  }
+  .sprout-calendar-range-end {
+    border-radius: 0 var(--sprout-calendar-radius) var(--sprout-calendar-radius)
+      0;
+  }
+  .sprout-calendar-range-start.sprout-calendar-range-end {
+    border-radius: var(--sprout-calendar-radius);
+  }
+  .sprout-calendar-range-middle {
+    border-radius: 0;
+  }
+  .sprout-calendar:dir(rtl)
+    .sprout-calendar-range-start:not(.sprout-calendar-range-end) {
+    border-radius: 0 var(--sprout-calendar-radius) var(--sprout-calendar-radius)
+      0;
+  }
+  .sprout-calendar:dir(rtl)
+    .sprout-calendar-range-end:not(.sprout-calendar-range-start) {
+    border-radius: var(--sprout-calendar-radius) 0 0
+      var(--sprout-calendar-radius);
+  }
+  .sprout-calendar-hidden {
+    visibility: hidden;
+  }
+
+  .sprout-calendar-day-button.sprout-button {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    height: 100%;
+    min-width: var(--sprout-calendar-cell);
+    min-height: var(--sprout-calendar-cell);
+    padding: 0;
+    border: 0;
+    border-radius: var(--sprout-calendar-radius);
+    color: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .sprout-calendar-day-button.sprout-button:focus-visible {
+    z-index: 2;
+    outline-offset: 1px;
+  }
+  .sprout-calendar-day-button > span {
+    font-size: 0.625rem;
+    line-height: 0.75rem;
+    opacity: 0.7;
+  }
+  .sprout-calendar-outside .sprout-calendar-day-button {
+    color: var(--sprout-muted);
+  }
+  .sprout-calendar-today .sprout-calendar-day-button:hover {
+    background: var(--sprout-active);
+  }
+  .sprout-calendar-day-button[data-range-middle="true"] {
+    border-radius: 0;
+    background: var(--sprout-calendar-band);
+    color: var(--sprout-text);
+  }
+  .sprout-calendar-day-button[data-range-middle="true"]:hover {
+    background: var(--sprout-active);
+  }
+  .sprout-calendar-day-button[data-selected-single="true"],
+  .sprout-calendar-day-button[data-range-start="true"],
+  .sprout-calendar-day-button[data-range-end="true"] {
+    background: var(--sprout-primary);
+    color: var(--sprout-on-primary);
+  }
+  .sprout-calendar-day-button[data-selected-single="true"]:hover,
+  .sprout-calendar-day-button[data-range-start="true"]:hover,
+  .sprout-calendar-day-button[data-range-end="true"]:hover {
+    background: var(--sprout-primary-hover);
+  }
+  /* A selected run that wraps a week keeps rounded ends at the row edges. */
+  .sprout-calendar-day:last-child[data-selected] .sprout-calendar-day-button {
+    border-start-end-radius: var(--sprout-calendar-radius);
+    border-end-end-radius: var(--sprout-calendar-radius);
+  }
+  .sprout-calendar:not([data-week-numbers])
+    .sprout-calendar-day:first-child[data-selected]
+    .sprout-calendar-day-button,
+  .sprout-calendar[data-week-numbers]
+    .sprout-calendar-day:nth-child(2)[data-selected]
+    .sprout-calendar-day-button {
+    border-start-start-radius: var(--sprout-calendar-radius);
+    border-end-start-radius: var(--sprout-calendar-radius);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-calendar-day-button.sprout-button,
+    .sprout-calendar-nav-button {
+      transition:
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-calendar-day-button[data-selected-single="true"],
+    .sprout-calendar-day-button[data-range-start="true"],
+    .sprout-calendar-day-button[data-range-end="true"] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+    .sprout-calendar-day-button[data-range-middle="true"] {
+      outline: 1px dashed Highlight;
+      outline-offset: -2px;
+    }
+    .sprout-calendar-today .sprout-calendar-day-button {
+      text-decoration: underline;
+    }
+  }
+}

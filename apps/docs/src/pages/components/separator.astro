@@ -1,0 +1,252 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import SeparatorDemo from "../../components/SeparatorDemo";
+import SeparatorFadeDemo from "../../components/SeparatorFadeDemo";
+import SeparatorMarkerDemo from "../../components/SeparatorMarkerDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Separator"
+  description="Lines that divide content, label form sections, mark a point in a transcript, and note events in a timeline."
+>
+  <h1 class="docs-title">Separator</h1>
+  <p class="docs-lead">
+    A thin line that divides related content. It can be horizontal or vertical,
+    carry a centered label, fade toward a transcript label, or become a quiet
+    timeline note.
+  </p>
+  <div class="mt-8"><SeparatorDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Separator usage"
+      code={`import { Separator } from "@tulipfarm/sprout/separator";
+
+<p>Project details</p>
+<Separator />
+
+<div className="flex items-center gap-3">
+  <span>Meadow</span>
+  <Separator orientation="vertical" />
+  <span>Updated today</span>
+</div>
+
+<div role="group" aria-label="Pages" className="flex">
+  <Button variant="ghost">Previous</Button>
+  <Separator tone="input" orientation="vertical" />
+  <Button variant="ghost">Next</Button>
+</div>
+
+<Separator>or</Separator>`}
+    />
+    <p>
+      <code>orientation</code> is <code>"horizontal"</code> (default) or <code
+        >"vertical"</code
+      >. A horizontal line fills the width. A vertical line stretches to the
+      height of its flex row. <code>tone</code> is <code>"default"</code>, which
+      uses <code>--sprout-line</code>, or <code>"input"</code>, which uses <code
+        >--sprout-input</code
+      > to match control borders inside button groups. In a column of buttons, use
+      a horizontal separator.
+    </p>
+    <p>
+      Separator has no margin. Add spacing with <code>className</code>, for
+      example <code>my-2</code> between list rows. <code>className</code> may be a
+      function of <code>{"{ orientation }"}</code>, and the Base UI <code
+        >render</code
+      > prop swaps the element.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Variants</h2>
+    <p>
+      <code>variant</code> and <code>children</code> pick the shape. The root always
+      gets <code>data-slot="separator"</code> and a <code>data-variant</code>.
+    </p>
+    <ul>
+      <li>
+        <code>"line"</code> (default) draws a bare 1px rule in either orientation.
+      </li>
+      <li>
+        A line with <code>children</code> centers short content such as "or". Its
+        <code>data-variant</code> is <code>"label"</code>.
+      </li>
+      <li>
+        <code>"fade"</code> fades the line toward a centered text label. Use it to
+        mark a point in a transcript.
+      </li>
+      <li>
+        <code>"marker"</code> is a quiet, full-width timeline note with an icon and
+        text.
+      </li>
+      <li>
+        <code>"marker-border"</code> adds a line under the marker row. Use it to head
+        a group of events.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Labeled separator</h2>
+    <p>
+      Pass <code>children</code> to center short text such as "or" or a section name
+      on a horizontal line. The labeled row takes <code>div</code> props. Children
+      that render nothing, such as <code>false</code>, keep the same 20px
+      height, so form spacing stays even. Long text stays on one line and ends
+      with an ellipsis.
+    </p>
+    <p>
+      Put a <code>SeparatorIcon</code> before the text for an icon and label between
+      two lines. Use this to split a timeline by day.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Fade</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Fade usage"
+      code={`<Separator variant="fade">Auto compacted</Separator>
+<Separator variant="fade">Compacted</Separator>`}
+    />
+    <p>
+      With <code>variant="fade"</code>, <code>children</code> is a required string.
+      It is shown between the lines and also names the separator. The fade fills the
+      width of its container and has no margin, so add spacing with the parent's <code
+        >gap</code
+      > or with <code>className</code>. Other
+      <code>div</code> props and the Base UI <code>render</code> prop pass through.
+    </p>
+    <p>
+      The lines fade in from the edges toward the label. On hover, a soft
+      highlight sweeps across the lines and label once. Long labels stay on one
+      line and end with an ellipsis.
+    </p>
+    <div class="mt-6"><SeparatorFadeDemo client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Marker</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Marker usage"
+      code={`import {
+  Separator,
+  SeparatorContent,
+  SeparatorIcon,
+} from "@tulipfarm/sprout/separator";
+import { BookOpen } from "reicon-react/icons/BookOpen";
+import { Calendar } from "reicon-react/icons/Calendar";
+import { History } from "reicon-react/icons/History";
+
+<Separator variant="marker">
+  <SeparatorIcon><BookOpen size={16} /></SeparatorIcon>
+  <SeparatorContent>Used skill Weekly report · 3f9a2c1b</SeparatorContent>
+</Separator>
+
+<Separator>
+  <SeparatorIcon><Calendar /></SeparatorIcon>
+  Today
+</Separator>
+
+<Separator variant="marker-border">
+  <SeparatorIcon><History /></SeparatorIcon>
+  <SeparatorContent>Yesterday · 4 events</SeparatorContent>
+</Separator>`}
+    />
+    <p>
+      A marker renders a <code>div</code> with 14px muted text and 8px between its
+      parts. <code>"marker-border"</code> adds a 1px line and 8px of space under the
+      row. There is one size.
+    </p>
+    <p>
+      <code>SeparatorIcon</code> is a 16px slot. An <code>svg</code> inside it is
+      16px unless you give it a size class. <code>SeparatorContent</code>
+      holds the marker text. Long words wrap, so the row never overflows its column.
+    </p>
+    <div class="mt-6"><SeparatorMarkerDemo client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Marker links</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Links in a marker"
+      code={`<Separator variant="marker">
+  <SeparatorContent>
+    Robin edited the brief · <a href="/changes">View changes</a>
+  </SeparatorContent>
+</Separator>
+
+<Separator variant="marker" render={<a href="/skills/weekly-report" />}>
+  <SeparatorIcon><BookOpen size={16} /></SeparatorIcon>
+  <SeparatorContent>Open skill Weekly report</SeparatorContent>
+</Separator>`}
+    />
+    <p>
+      A link directly inside <code>SeparatorContent</code> is underlined. So is a
+      marker rendered as a link with <code>render</code>. Both turn to the text
+      color on hover and keyboard focus and get a focus ring.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Sidebar</h2>
+    <CodeBlock
+      lang="tsx"
+      title="SidebarSeparator usage"
+      code={`import { SidebarSeparator } from "@tulipfarm/sprout/sidebar";
+
+<SidebarGroup>…</SidebarGroup>
+<SidebarSeparator />
+<SidebarGroup>…</SidebarGroup>`}
+    />
+    <p>
+      <code>SidebarSeparator</code> is a Separator inset 8px from each edge, with
+      <code>data-sidebar="separator"</code>. <code>SidebarHeader</code> and <code
+        >SidebarFooter</code
+      > already draw their own border, so use it between groups.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      A line renders <code>role="separator"</code> with <code
+        >aria-orientation</code
+      >. It is not focusable and does not stop keyboard movement between the
+      controls around it. If a line is only decoration, pass <code
+        >role="none"</code
+      >.
+    </p>
+    <p>
+      The text in a labeled separator is read as normal text. The second line is
+      hidden from screen readers. <code>SeparatorIcon</code> is <code
+        >aria-hidden</code
+      >, so put the meaning in words.
+    </p>
+    <p>
+      A fade separator uses its label as its <code>aria-label</code>. The
+      highlight copy is hidden from screen readers. The hover sweep only runs on
+      devices that can hover, and never when reduced motion is requested.
+    </p>
+    <p>
+      A marker has no role and does not take focus. Screen readers read its
+      content as plain text. In forced colors mode the marker border uses the
+      system text color.
+    </p>
+    <p>
+      Line and link colors change in 120ms and do not animate when reduced
+      motion is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Lines use <code>--sprout-line</code>, and <code>tone="input"</code> uses
+      <code>--sprout-input</code>. Labels and marker text use <code
+        >--sprout-muted</code
+      >. Fade labels are <code>--sprout-text-xs</code>, and the hover highlight
+      uses <code>--sprout-text</code>. Hovered and focused marker links use
+      <code>--sprout-text</code>, and the focus ring uses <code
+        >--sprout-focus</code
+      >. Override them in light and dark modes like any other Sprõut token.
+    </p>
+  </section>
+</Docs>

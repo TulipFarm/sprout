@@ -1,0 +1,125 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import LabelDemo from "../../components/LabelDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Label"
+  description="Names a form control: above an input, around a checkbox, or beside a confirmation."
+>
+  <h1 class="docs-title">Label</h1>
+  <p class="docs-lead">
+    Names one form control. Put it above an input or select, wrap a checkbox,
+    switch, or radio with it, or place it beside a long confirmation.
+  </p>
+  <div class="mt-8"><LabelDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Label usage"
+      code={`import { Label } from "@tulipfarm/sprout/label";
+
+<div className="grid gap-1.5">
+  <Label htmlFor="workspace-name">Workspace name</Label>
+  <Input id="workspace-name" />
+</div>
+
+<Label>
+  <Checkbox checked={business} onCheckedChange={setBusiness} />
+  Shared business account
+</Label>
+
+<div className="flex items-start gap-3">
+  <Checkbox id="retained-data" checked={acknowledged} onCheckedChange={setAcknowledged} />
+  <Label htmlFor="retained-data">
+    I understand that workspace data is retained, not erased.
+  </Label>
+</div>`}
+    />
+    <p>
+      <code>Label</code> renders a <code>label</code> element and takes every
+      <code>label</code> prop. Text is 14px, medium weight. Children sit in a row
+      8px apart, so a control and its text line up without extra classes. There is
+      one size. It pairs with large and default inputs, 32px and 28px selects, and
+      both switch sizes.
+    </p>
+    <p>
+      Long text wraps, and long names or addresses break anywhere instead of
+      overflowing. When a checkbox, switch, or radio is inside the label or just
+      before it, the line height grows to 20px and the pointer becomes a hand,
+      since a click on the text toggles the control.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Wrapping a text control</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Label around a textarea"
+      code={`<Label>
+  {advanced ? "Response JSON" : "Decision or comment"}
+  <Textarea value={text} disabled={closed} onChange={…} />
+</Label>`}
+    />
+    <p>
+      When the label wraps a textarea, select, input, or select trigger, the
+      text stacks above the control with a 6px gap and the control fills the
+      width. The control needs no <code>id</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Disabled</h2>
+    <p>
+      Label has no <code>disabled</code> prop. It follows its control.
+    </p>
+    <p>
+      A label that wraps a disabled control turns muted and shows a not-allowed
+      cursor. The control keeps its own disabled look, so nothing is dimmed
+      twice.
+    </p>
+    <p>
+      A label just before or after a disabled control, such as a confirmation
+      beside its checkbox or a stacked label over a disabled input, fades to
+      50%.
+    </p>
+    <p>
+      Inside a wrapper with <code>data-slot="field"</code> and <code
+        >data-disabled</code
+      >, or inside a disabled <code>fieldset</code>, the label fades to 50% and
+      ignores clicks.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Every label must name a control. Use <code>htmlFor</code> with the control's
+      <code>id</code>, or wrap the control. Base UI checkboxes, switches, and
+      radios take the <code>id</code> on their hidden input, so both forms work, and
+      Space toggles the control once it has focus.
+    </p>
+    <p>
+      For a control that is not a form element, such as a rich text editor, give
+      the label an <code>id</code> and set <code>aria-labelledby</code> on the control.
+      A label with no control and no <code>id</code> names nothing.
+    </p>
+    <p>
+      When a grid of checkboxes has its names in row and column headers, wrap
+      each checkbox and add visually hidden text, such as “Use Maya Chen”.
+    </p>
+    <p>
+      Label text cannot be selected, so a double click on it does not highlight
+      words. Color and opacity changes take 120ms and stop when reduced motion
+      is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Text uses <code>--sprout-text</code>, and <code>--sprout-muted</code>
+      when it wraps a disabled control. Size and family follow <code
+        >--sprout-text-sm</code
+      > and <code>--sprout-font</code>.
+    </p>
+  </section>
+</Docs>

@@ -1,0 +1,233 @@
+@layer components {
+  .sprout-command {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    padding: 4px;
+    overflow: hidden;
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: none;
+  }
+  .sprout-command :where(p) {
+    margin: 0;
+  }
+
+  .sprout-command-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .sprout-command-input-wrapper {
+    padding: 4px 4px 0;
+  }
+  .sprout-command-input-group {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    min-width: 0;
+    padding-inline: 8px;
+    border: 1px solid color-mix(in oklab, var(--sprout-input) 30%, transparent);
+    border-radius: calc(var(--sprout-radius-panel) - 4px);
+    background: color-mix(in oklab, var(--sprout-input) 30%, transparent);
+    cursor: text;
+  }
+  .sprout-command-input-group:has(.sprout-command-input:focus-visible) {
+    border-color: var(--sprout-focus);
+  }
+  .sprout-command-input-group:has(.sprout-command-input:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .sprout-command-input-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--sprout-muted);
+    pointer-events: none;
+  }
+  .sprout-command-input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--sprout-text);
+    font: inherit;
+    outline: none;
+  }
+  .sprout-command-input::placeholder {
+    color: var(--sprout-muted);
+    opacity: 1;
+  }
+  .sprout-command-input:disabled {
+    cursor: not-allowed;
+  }
+
+  .sprout-command-list {
+    max-height: 18rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-padding-block: 4px;
+    scrollbar-width: none;
+    outline: none;
+  }
+  .sprout-command-list::-webkit-scrollbar {
+    display: none;
+  }
+  .sprout-command-list-sizer,
+  .sprout-command-group-items {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .sprout-command-empty {
+    padding: 24px 8px;
+    color: var(--sprout-muted);
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .sprout-command-group {
+    min-width: 0;
+    padding: 4px;
+    overflow: hidden;
+    color: var(--sprout-text);
+  }
+  .sprout-command-group[hidden] {
+    display: none;
+  }
+  .sprout-command-group-heading {
+    padding: 6px 8px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+    overflow-wrap: anywhere;
+  }
+
+  .sprout-command-separator {
+    flex-shrink: 0;
+    height: 1px;
+    margin-inline: -4px;
+    background: var(--sprout-line);
+  }
+
+  .sprout-command-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 6px 8px;
+    border-radius: calc(var(--sprout-radius-control) - 2px);
+    color: var(--sprout-text);
+    overflow-wrap: anywhere;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-slot="dialog-content"] .sprout-command-item {
+    border-radius: calc(var(--sprout-radius-panel) - 4px);
+  }
+  .sprout-command-item > :where(svg),
+  .sprout-command-item > :where(span) > :where(svg:only-child) {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+  .sprout-command-item[data-selected] {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-command-item[data-disabled] {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+  .sprout-command-item-check {
+    margin-inline-start: auto;
+    color: var(--sprout-text);
+    opacity: 0;
+  }
+  .sprout-command-item[data-checked="true"] > .sprout-command-item-check {
+    opacity: 1;
+  }
+  .sprout-command-item:has(> .sprout-command-shortcut)
+    > .sprout-command-item-check {
+    display: none;
+  }
+
+  .sprout-command-shortcut {
+    flex-shrink: 0;
+    margin-inline-start: auto;
+    padding-inline-start: 12px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .sprout-command-item[data-selected] .sprout-command-shortcut {
+    color: var(--sprout-text);
+  }
+
+  .sprout-dialog-content.sprout-command-dialog {
+    --sprout-dialog-padding: 0px;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: calc(var(--sprout-radius-panel) + 4px);
+  }
+  .sprout-command-dialog > .sprout-command {
+    border-radius: inherit;
+  }
+  .sprout-command-dialog .sprout-command-list {
+    max-height: min(20rem, calc(76dvh - 3rem));
+  }
+
+  @media (forced-colors: active) {
+    .sprout-command-item[data-selected] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+    .sprout-command-input-group {
+      border-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-command-item {
+      transition: background-color var(--sprout-motion-fast)
+        var(--sprout-motion-ease);
+    }
+    .sprout-command-item-check {
+      transition: opacity var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-command-input-group {
+      transition: border-color var(--sprout-motion-fast)
+        var(--sprout-motion-ease);
+    }
+  }
+}

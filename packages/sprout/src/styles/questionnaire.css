@@ -1,0 +1,323 @@
+@layer components {
+  .sprout-questionnaire {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    font-family: inherit;
+    color: var(--sprout-text);
+  }
+
+  .sprout-questionnaire-progress {
+    width: fit-content;
+    min-width: 14ch;
+    min-height: 1rem;
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--sprout-muted);
+  }
+
+  .sprout-questionnaire-item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+  }
+  .sprout-questionnaire-item[hidden] {
+    display: none;
+  }
+
+  /* A rendered legend sits outside the flex flow, so it carries its own gap. */
+  .sprout-questionnaire-title {
+    margin: 0 0 16px;
+    padding: 0;
+    font-size: var(--sprout-text-base);
+    font-weight: 500;
+    line-height: 1.375;
+    text-wrap: pretty;
+    overflow-wrap: anywhere;
+    color: var(--sprout-text);
+  }
+  .sprout-questionnaire-title:has(~ .sprout-questionnaire-description) {
+    margin-bottom: 4px;
+  }
+
+  .sprout-questionnaire-description {
+    margin: 0;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    text-wrap: pretty;
+    color: var(--sprout-muted);
+  }
+
+  .sprout-questionnaire-choices {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .sprout-questionnaire-choice {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 44px;
+    padding: 11px 12px;
+    border: 1px solid var(--sprout-input);
+    border-radius: var(--sprout-radius-panel);
+    background: transparent;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    text-align: start;
+    cursor: pointer;
+    user-select: none;
+    outline: 0 solid transparent;
+    outline-offset: 2px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (hover: hover) {
+    .sprout-questionnaire-choice:not([data-disabled]):hover {
+      background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
+    }
+  }
+  .sprout-questionnaire-choice:has(
+    > .sprout-questionnaire-choice-input:focus-visible
+  ) {
+    border-color: var(--sprout-focus);
+    outline: 2px solid var(--sprout-focus);
+  }
+  .sprout-questionnaire-choice[data-checked] {
+    border-color: var(--sprout-focus);
+    background: var(--sprout-primary-subtle);
+  }
+  .sprout-questionnaire-choice[data-invalid] {
+    border-color: var(--sprout-danger);
+  }
+  .sprout-questionnaire-choice[data-invalid]:has(
+      > .sprout-questionnaire-choice-input:focus-visible
+    ) {
+    outline-color: var(--sprout-danger);
+  }
+  .sprout-questionnaire-choice[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /* The real input covers the row so any click or tap reaches it. */
+  .sprout-questionnaire-choice-input {
+    position: absolute;
+    inset: -1px;
+    z-index: 1;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  .sprout-questionnaire-choice-indicator {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    border: 1px solid var(--sprout-border);
+    border-radius: 4px;
+    background: var(--sprout-surface);
+    color: var(--sprout-on-primary);
+    pointer-events: none;
+  }
+  .sprout-questionnaire-choice[data-type="radio"]
+    .sprout-questionnaire-choice-indicator {
+    border-radius: 999px;
+  }
+  .sprout-questionnaire-choice[data-checked]
+    .sprout-questionnaire-choice-indicator {
+    border-color: var(--sprout-primary);
+    background: var(--sprout-primary);
+  }
+  .sprout-questionnaire-choice-dot,
+  .sprout-questionnaire-choice-check {
+    display: none;
+  }
+  .sprout-questionnaire-choice-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--sprout-on-primary);
+  }
+  .sprout-questionnaire-choice-check {
+    width: 12px;
+    height: 12px;
+  }
+  .sprout-questionnaire-choice[data-type="radio"][data-checked]
+    .sprout-questionnaire-choice-dot,
+  .sprout-questionnaire-choice[data-type="checkbox"][data-checked]
+    .sprout-questionnaire-choice-check {
+    display: block;
+  }
+
+  .sprout-questionnaire-choice-label {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-questionnaire-choice-description {
+    color: var(--sprout-muted);
+  }
+
+  .sprout-questionnaire-choice-shortcut {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin-inline-start: auto;
+    border: 1px solid var(--sprout-line);
+    border-radius: calc(var(--sprout-radius-control) - 2px);
+    background: var(--sprout-surface);
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--sprout-muted);
+    pointer-events: none;
+  }
+  .sprout-questionnaire-choice[data-checked]
+    .sprout-questionnaire-choice-shortcut {
+    border-color: color-mix(
+      in oklab,
+      var(--sprout-focus) 40%,
+      var(--sprout-line)
+    );
+    color: var(--sprout-text);
+  }
+
+  .sprout-questionnaire-input-wrapper {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sprout-questionnaire-error {
+    margin: 0;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    color: var(--sprout-danger);
+  }
+  .sprout-questionnaire-error[hidden] {
+    display: none;
+  }
+
+  .sprout-questionnaire-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 28px;
+  }
+  .sprout-questionnaire-actions .sprout-questionnaire-action[hidden] {
+    display: none;
+  }
+  .sprout-questionnaire-previous {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: start;
+  }
+  .sprout-questionnaire-skip {
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: end;
+  }
+  .sprout-questionnaire-next,
+  .sprout-questionnaire-submit {
+    grid-row: 1;
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  /* Phones get 44px targets. */
+  @media (max-width: 639.98px) {
+    .sprout-questionnaire-actions {
+      min-height: 44px;
+    }
+    .sprout-questionnaire-action,
+    .sprout-questionnaire-input {
+      min-height: 44px;
+    }
+    .sprout-questionnaire-input {
+      font-size: var(--sprout-text-base);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-questionnaire-choice,
+    .sprout-questionnaire-choice-indicator,
+    .sprout-questionnaire-choice-shortcut {
+      transition:
+        background-color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out),
+        color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-questionnaire-item[data-active] {
+      animation: sprout-questionnaire-enter var(--sprout-motion-normal, 160ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-questionnaire-choice[data-checked]
+      :is(
+        .sprout-questionnaire-choice-dot,
+        .sprout-questionnaire-choice-check
+      ) {
+      animation: sprout-questionnaire-pop var(--sprout-motion-fast, 140ms)
+        ease-out both;
+    }
+  }
+  @keyframes sprout-questionnaire-enter {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+  @keyframes sprout-questionnaire-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-questionnaire-choice[data-checked],
+    .sprout-questionnaire-choice[data-checked]
+      .sprout-questionnaire-choice-indicator {
+      border-color: Highlight;
+    }
+    .sprout-questionnaire-choice:has(
+      > .sprout-questionnaire-choice-input:focus-visible
+    ) {
+      outline-color: Highlight;
+    }
+  }
+}

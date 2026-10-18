@@ -1,0 +1,125 @@
+/* Cloudflare: Bright orange on neutral grays.
+ *
+ * One file is the whole theme: font, radius, and every color token for light
+ * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
+ * data-sprout-theme="cloudflare" on <html>, or on any element to theme only
+ * that subtree.
+ */
+@layer base {
+  [data-sprout-theme="cloudflare"] {
+    --sprout-font: ui-sans-serif, system-ui, sans-serif;
+    --sprout-radius-control: 0.25rem;
+    --sprout-radius-panel: 0.5rem;
+  }
+
+  [data-sprout-theme="cloudflare"],
+  .light[data-sprout-theme="cloudflare"],
+  .light [data-sprout-theme="cloudflare"] {
+    --sprout-canvas: #f7f7f8;
+    --sprout-surface: #ffffff;
+    --sprout-hover: #f1f2f2;
+    --sprout-active: #e8e9e9;
+    --sprout-text: #1d1f20;
+    --sprout-muted: #5d6063;
+    --sprout-line: #e3e4e6;
+    --sprout-border: #8e8f90;
+    --sprout-border-strong: #737475;
+    --sprout-input: #dbdbdb;
+    --sprout-primary: #f38020;
+    --sprout-primary-hover: #d6711c;
+    --sprout-primary-active: #be6419;
+    --sprout-on-primary: #111111;
+    --sprout-focus: #f38020;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #efefef;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark[data-sprout-theme="cloudflare"],
+  .dark [data-sprout-theme="cloudflare"] {
+    --sprout-canvas: #1a1b1e;
+    --sprout-surface: #222327;
+    --sprout-hover: #323337;
+    --sprout-active: #3c3d41;
+    --sprout-text: #ececed;
+    --sprout-muted: #a5a7ab;
+    --sprout-line: #36373c;
+    --sprout-border: #7d7d80;
+    --sprout-border-strong: #97989a;
+    --sprout-input: #4a4b4f;
+    --sprout-primary: #f6821f;
+    --sprout-primary-hover: #f7913a;
+    --sprout-primary-active: #f89e50;
+    --sprout-on-primary: #111111;
+    --sprout-focus: #f6821f;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #343539;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)[data-sprout-theme="cloudflare"],
+    :root:not(.light):not(.dark) [data-sprout-theme="cloudflare"] {
+      --sprout-canvas: #1a1b1e;
+      --sprout-surface: #222327;
+      --sprout-hover: #323337;
+      --sprout-active: #3c3d41;
+      --sprout-text: #ececed;
+      --sprout-muted: #a5a7ab;
+      --sprout-line: #36373c;
+      --sprout-border: #7d7d80;
+      --sprout-border-strong: #97989a;
+      --sprout-input: #4a4b4f;
+      --sprout-primary: #f6821f;
+      --sprout-primary-hover: #f7913a;
+      --sprout-primary-active: #f89e50;
+      --sprout-on-primary: #111111;
+      --sprout-focus: #f6821f;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #343539;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

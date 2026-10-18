@@ -1,0 +1,604 @@
+@layer components {
+  .sprout-table-container {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .sprout-table-container:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+
+  .sprout-table {
+    --sprout-table-hover: color-mix(
+      in oklab,
+      var(--sprout-hover) 55%,
+      var(--sprout-surface)
+    );
+    --sprout-table-head-bg: color-mix(
+      in oklab,
+      var(--sprout-hover) 70%,
+      var(--sprout-surface)
+    );
+    width: 100%;
+    caption-side: bottom;
+    border-collapse: collapse;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    color: var(--sprout-text);
+  }
+
+  .sprout-table-row {
+    --sprout-table-row-bg: var(--sprout-surface);
+    border-bottom: 1px solid var(--sprout-line);
+  }
+  .sprout-table-body > .sprout-table-row:last-child,
+  .sprout-table-footer > .sprout-table-row:last-child {
+    border-bottom: 0;
+  }
+  .sprout-table-row[data-interactive] {
+    cursor: pointer;
+  }
+  @media (hover: hover) {
+    .sprout-table-body > .sprout-table-row:not([data-loading-row]):hover {
+      --sprout-table-row-bg: var(--sprout-table-hover);
+      background-color: var(--sprout-table-hover);
+    }
+  }
+  .sprout-table-row:has([aria-expanded="true"]),
+  .sprout-table-row[data-interactive]:has(:focus-visible) {
+    --sprout-table-row-bg: var(--sprout-table-hover);
+    background-color: var(--sprout-table-hover);
+  }
+  .sprout-table-row[data-state="selected"],
+  .sprout-table-body > .sprout-table-row[data-state="selected"]:hover {
+    --sprout-table-row-bg: var(--sprout-primary-subtle);
+    background-color: var(--sprout-primary-subtle);
+  }
+  .sprout-table-row[data-state="selected"] > td:first-child {
+    position: relative;
+  }
+  .sprout-table-row[data-state="selected"] > td:first-child::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 4px;
+    background: var(--sprout-primary);
+  }
+
+  .sprout-table-footer {
+    border-top: 1px solid var(--sprout-line);
+    background: color-mix(in oklab, var(--sprout-hover) 50%, transparent);
+    font-weight: 500;
+  }
+
+  .sprout-table-head {
+    height: 40px;
+    padding: 0 8px;
+    vertical-align: middle;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: start;
+    color: var(--sprout-text);
+  }
+  .sprout-table-cell {
+    padding: 8px;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: start;
+  }
+  .sprout-table-head[data-align="right"] {
+    text-align: end;
+  }
+  .sprout-table-cell[data-align="right"] {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-table-head[data-selection],
+  .sprout-table-cell[data-selection] {
+    width: 48px;
+    min-width: 48px;
+  }
+
+  .sprout-table-head[data-sticky-end],
+  .sprout-table-cell[data-sticky-end] {
+    position: sticky;
+    inset-inline-end: 0;
+    width: 1px;
+  }
+  .sprout-table-head[data-sticky-end] {
+    z-index: 20;
+    background: var(--sprout-table-head-bg);
+  }
+  .sprout-table-cell[data-sticky-end] {
+    z-index: 1;
+    background: var(--sprout-table-row-bg);
+  }
+  .sprout-table-head[data-sticky-end]::before,
+  .sprout-table-cell[data-sticky-end]::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 1px;
+    background: var(--sprout-input);
+  }
+
+  .sprout-table-caption {
+    margin-top: 16px;
+    font-size: var(--sprout-text-sm);
+    color: var(--sprout-muted);
+  }
+
+  .sprout-table[data-variant="grid"] .sprout-table-row {
+    border-color: var(--sprout-input);
+  }
+  .sprout-table[data-variant="grid"] > .sprout-table-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--sprout-table-head-bg);
+  }
+  .sprout-table[data-variant="grid"]
+    > .sprout-table-header
+    > .sprout-table-row {
+    border-bottom: 0;
+  }
+  .sprout-table[data-variant="grid"] .sprout-table-head {
+    padding: 0 12px;
+    box-shadow: inset 0 -1px var(--sprout-input);
+  }
+  .sprout-table[data-variant="grid"] .sprout-table-cell {
+    padding: 10px 12px;
+  }
+  .sprout-table[data-variant="grid"] .sprout-table-head,
+  .sprout-table[data-variant="grid"] .sprout-table-cell {
+    border-inline-end: 1px solid var(--sprout-input);
+  }
+  .sprout-table[data-variant="grid"] .sprout-table-head:last-child,
+  .sprout-table[data-variant="grid"] .sprout-table-cell:last-child {
+    border-inline-end: 0;
+  }
+
+  .sprout-table-root {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    container: sprout-table / inline-size;
+  }
+
+  .sprout-table-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .sprout-table-toolbar-end {
+    display: flex;
+    gap: 4px;
+    margin-inline-start: auto;
+  }
+  .sprout-table-chip {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    border: 1px solid var(--sprout-input);
+    border-radius: 999px;
+    background: var(--sprout-surface);
+    font-size: var(--sprout-text-sm);
+  }
+  .sprout-table-chip-label,
+  .sprout-table-chip-remove {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  .sprout-table-chip-label {
+    padding: 0 4px 0 12px;
+    border-radius: 999px 0 0 999px;
+  }
+  .sprout-table-chip-remove {
+    padding: 0 8px 0 4px;
+    border-radius: 0 999px 999px 0;
+    color: var(--sprout-muted);
+  }
+  .sprout-table-chip-label:hover,
+  .sprout-table-chip-remove:hover {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-table-chip-label:focus-visible,
+  .sprout-table-chip-remove:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+  .sprout-table-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 12rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .sprout-table-filter > legend {
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .sprout-table-filter-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .sprout-table-head {
+    position: relative;
+  }
+  .sprout-table-head-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .sprout-table-head[data-align="right"] > .sprout-table-head-inner {
+    flex-direction: row-reverse;
+  }
+  .sprout-table-hint,
+  .sprout-table-handle,
+  .sprout-table-toggle {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: calc(var(--sprout-radius-control) - 2px);
+    background: none;
+    color: var(--sprout-muted);
+    font: inherit;
+    cursor: pointer;
+  }
+  .sprout-table-handle {
+    justify-content: center;
+    min-width: 24px;
+    min-height: 24px;
+    margin-block: -5px;
+    cursor: grab;
+    touch-action: none;
+  }
+  .sprout-table-handle + .sprout-button-size-column-header {
+    margin-inline-start: 0;
+  }
+  .sprout-table-handle + .sprout-button-size-column-header-end {
+    margin-inline-end: 0;
+  }
+  .sprout-table-handle:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+  .sprout-table-hint:hover,
+  .sprout-table-handle:not(:disabled):hover,
+  .sprout-table-toggle:hover {
+    color: var(--sprout-text);
+  }
+  .sprout-table-hint:focus-visible,
+  .sprout-table-handle:focus-visible,
+  .sprout-table-toggle:focus-visible,
+  .sprout-table-resizer:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 1px;
+  }
+  .sprout-table-resizer {
+    position: absolute;
+    inset-block: 8px;
+    inset-inline-end: 0;
+    width: 6px;
+    cursor: col-resize;
+    touch-action: none;
+    user-select: none;
+  }
+  .sprout-table-resizer::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 2px;
+    width: 2px;
+    border-radius: 1px;
+    background: var(--sprout-input);
+    opacity: 0;
+  }
+  .sprout-table-head:hover > .sprout-table-resizer::after,
+  .sprout-table-resizer[data-resizing]::after,
+  .sprout-table-resizer:focus-visible::after {
+    background: var(--sprout-primary);
+    opacity: 1;
+  }
+  .sprout-table[data-sized] {
+    table-layout: fixed;
+  }
+  .sprout-table[data-sized] .sprout-table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sprout-table-head[data-pinned],
+  .sprout-table-cell[data-pinned] {
+    position: sticky;
+    z-index: 1;
+    background: var(--sprout-table-row-bg, var(--sprout-surface));
+  }
+  .sprout-table-head[data-pinned] {
+    z-index: 20;
+    background: var(--sprout-table-head-bg);
+  }
+  .sprout-table-head[data-pinned="start"],
+  .sprout-table-cell[data-pinned="start"] {
+    box-shadow: inset -1px 0 var(--sprout-input);
+  }
+  .sprout-table-head[data-pinned="end"],
+  .sprout-table-cell[data-pinned="end"] {
+    box-shadow: inset 1px 0 var(--sprout-input);
+  }
+  .sprout-table[data-pin-start]
+    :is(.sprout-table-head, .sprout-table-cell)[data-selection] {
+    position: sticky;
+    z-index: 1;
+    background: var(--sprout-table-row-bg, var(--sprout-surface));
+  }
+  .sprout-table[data-pin-start] .sprout-table-head[data-selection] {
+    z-index: 20;
+    background: var(--sprout-table-head-bg);
+  }
+  .sprout-table[data-pin-start] [data-selection]:first-child {
+    inset-inline-start: 0;
+  }
+  .sprout-table[data-pin-start] [data-selection] + [data-selection] {
+    inset-inline-start: var(--sprout-table-select-start, 48px);
+  }
+  .sprout-table-head[data-dragging],
+  .sprout-table-row[data-dragging] {
+    position: relative;
+    z-index: 30;
+    opacity: 0.8;
+  }
+
+  .sprout-table-row[data-group] {
+    --sprout-table-row-bg: var(--sprout-table-head-bg);
+    background: var(--sprout-table-head-bg);
+    font-weight: 500;
+  }
+  .sprout-table-toggle {
+    gap: 6px;
+    color: inherit;
+  }
+  .sprout-table-group-count {
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--sprout-hover);
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-table-first {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .sprout-table-row[data-linked] {
+    position: relative;
+  }
+  .sprout-table-link {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-weight: 500;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+  }
+  .sprout-table-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .sprout-table-link:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .sprout-table-row:has(.sprout-table-link:focus-visible) {
+    --sprout-table-row-bg: var(--sprout-table-hover);
+    background-color: var(--sprout-table-hover);
+    box-shadow: inset 0 0 0 2px var(--sprout-focus);
+  }
+  .sprout-table-row[data-linked]
+    :is(
+      .sprout-table-handle,
+      [data-slot="checkbox"],
+      .sprout-table-toggle,
+      .sprout-table-hint
+    ),
+  .sprout-table-row[data-linked] > td[data-selection],
+  .sprout-table-row[data-linked] > td[data-sticky-end] {
+    position: relative;
+    z-index: 10;
+  }
+  .sprout-table-row[data-linked] > td[data-sticky-end],
+  .sprout-table[data-pin-start]
+    .sprout-table-row[data-linked]
+    > td[data-selection] {
+    position: sticky;
+  }
+  .sprout-table-row[data-drop-target] {
+    --sprout-table-row-bg: var(--sprout-primary-subtle);
+    background: var(--sprout-primary-subtle);
+    box-shadow: inset 0 0 0 2px var(--sprout-focus);
+  }
+
+  .sprout-table-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+  .sprout-table-row[data-editing] > .sprout-table-cell {
+    padding-block: 4px;
+  }
+  .sprout-table-input {
+    min-width: 6rem;
+  }
+  .sprout-table-cell[data-align="right"] .sprout-table-input {
+    text-align: end;
+  }
+  .sprout-table-select {
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid var(--sprout-input);
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-surface);
+    color: inherit;
+    font: inherit;
+  }
+  .sprout-table-select:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 1px;
+  }
+  .sprout-table-error {
+    color: var(--sprout-danger);
+    white-space: normal;
+  }
+  .sprout-table-empty {
+    padding: 32px 8px;
+    color: var(--sprout-muted);
+    text-align: center;
+  }
+
+  .sprout-table-pages {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+  }
+  .sprout-table-pages > span {
+    margin-inline-end: auto;
+  }
+
+  .sprout-table-container[data-virtual] {
+    max-height: 60dvh;
+    overflow: auto;
+  }
+  .sprout-table-container[data-virtual] .sprout-table-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--sprout-table-head-bg);
+  }
+
+  .sprout-table-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Stack layout: under 36rem each row becomes a card of label and value pairs. */
+  @container sprout-table (width < 36rem) {
+    .sprout-table[data-narrow="stack"],
+    .sprout-table[data-narrow="stack"] > :is(thead, tbody, tfoot),
+    .sprout-table[data-narrow="stack"] .sprout-table-row,
+    .sprout-table[data-narrow="stack"] .sprout-table-cell {
+      display: block;
+    }
+    .sprout-table[data-narrow="stack"] {
+      min-width: 0 !important;
+    }
+    .sprout-table[data-narrow="stack"] > thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .sprout-table[data-narrow="stack"] .sprout-table-row {
+      position: relative;
+      padding: 10px 8px;
+    }
+    .sprout-table[data-narrow="stack"] .sprout-table-cell {
+      display: flex;
+      gap: 12px;
+      padding: 2px 0;
+      white-space: normal;
+      text-align: start;
+      overflow-wrap: anywhere;
+    }
+    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-label]::before {
+      content: attr(data-label);
+      flex: 0 0 40%;
+      color: var(--sprout-muted);
+      font-weight: 400;
+    }
+    .sprout-table[data-narrow="stack"]
+      .sprout-table-cell:first-of-type[data-label]::before,
+    .sprout-table[data-narrow="stack"]
+      .sprout-table-row[data-group]
+      .sprout-table-cell::before {
+      content: none;
+    }
+    .sprout-table[data-narrow="stack"] .sprout-table-cell:first-of-type {
+      font-weight: 500;
+    }
+    .sprout-table[data-narrow="stack"] .sprout-table-cell:empty,
+    .sprout-table[data-narrow="stack"]
+      .sprout-table-cell[data-selection]:empty {
+      display: none;
+    }
+    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-selection] {
+      position: absolute;
+      inset-block-start: 10px;
+      inset-inline-start: auto;
+      inset-inline-end: 8px;
+      width: auto;
+      min-width: 0;
+    }
+    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-sticky-end],
+    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-pinned] {
+      position: static;
+      width: auto;
+      background: none;
+      box-shadow: none;
+    }
+    .sprout-table[data-narrow="stack"]
+      .sprout-table-cell[data-sticky-end]::before {
+      content: none;
+    }
+    .sprout-table[data-narrow="stack"]
+      .sprout-table-row[data-state="selected"]
+      > td:first-child::before {
+      content: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-table-row,
+    .sprout-table-cell[data-sticky-end] {
+      transition: background-color var(--sprout-motion-fast)
+        var(--sprout-motion-ease);
+    }
+  }
+}

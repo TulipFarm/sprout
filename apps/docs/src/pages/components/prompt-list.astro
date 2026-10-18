@@ -1,0 +1,159 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  PromptListBrands,
+  PromptListDisabled,
+  PromptListFictional,
+  PromptListLongLabels,
+  PromptListStartingTasks,
+  PromptListTitles,
+} from "../../components/PromptListDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Prompt List"
+  description="A titled list of starter prompts. Each row has an icon, a one-line label, the apps it uses, and an arrow."
+>
+  <h1 class="docs-title">Prompt List</h1>
+  <p class="docs-lead">
+    Starter prompts to pick from at the start of a chat. Each row shows an icon,
+    a one-line label, the apps the prompt uses, and an arrow. Choosing a row
+    hands its id back to you, so you decide whether it sends a message or opens
+    a page.
+  </p>
+  <div class="mt-8"><PromptListStartingTasks client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Prompt List usage"
+      code={`import { PromptList, type PromptListItem } from "@tulipfarm/sprout/prompt-list";
+import { CalendarSearch } from "reicon-react/icons/CalendarSearch";
+import { Checklist } from "reicon-react/icons/Checklist";
+
+const items: PromptListItem[] = [
+  {
+    id: "meetings",
+    label: "Prepare me for tomorrow's meetings",
+    icon: <CalendarSearch />,
+    brands: [{ brand: "google-calendar", name: "Google Calendar" }],
+  },
+  { id: "follow-ups", label: "Plan customer follow-ups", icon: <Checklist /> },
+];
+
+<PromptList
+  title="Start with a task"
+  items={items}
+  disabled={sending}
+  onSelect={(id) => send(promptFor(id))}
+/>`}
+    />
+    <ul>
+      <li>
+        <code>title</code>: names the list. It shows as a small heading unless
+        <code>showTitle</code> is <code>false</code>; then it is only the list's
+        accessible name.
+      </li>
+      <li>
+        <code>items</code>: <code>{"{ id, label, icon, brands? }[]"}</code>.
+        <code>icon</code> is drawn at 16px. <code>brands</code> is a list of
+        <code>{"{ brand, name }"}</code> shown as a
+        <a href="/components/brand-icon/">Brand Stack</a>.
+      </li>
+      <li><code>onSelect(id)</code>: called when a row is chosen.</li>
+      <li>
+        <code>disabled</code>: locks every row, for example while a message
+        sends.
+      </li>
+    </ul>
+    <p>
+      Prompt List has one look and one size: 32px rows, 44px on touch screens.
+      It fills the width it gets.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Starting tasks</h2>
+    <p>
+      The example above is the chat start screen. Three tasks show first; the
+      rest sit in a second list with a hidden title inside a
+      <a href="/components/collapsible/">Collapsible</a>. Setup steps follow in
+      their own list. Load messages and errors use plain text, an
+      <a href="/components/alert/">Alert</a>, and a reload
+      <a href="/components/button/">Button</a>. Change the controls to see each
+      state.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      code={`<PromptList title="Start with a task" disabled={sending} onSelect={choose} items={rows(primary)} />
+<Collapsible open={moreOpen} onOpenChange={setMoreOpen}>
+  <CollapsibleContent>
+    <PromptList title="More tasks" showTitle={false} disabled={sending} onSelect={choose} items={rows(more)} />
+  </CollapsibleContent>
+  <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
+    {moreOpen ? "Fewer tasks" : \`More tasks (\${more.length})\`}
+  </CollapsibleTrigger>
+</Collapsible>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Title shown or hidden</h2>
+    <p>
+      Hide the title when the list continues one above it, such as “More tasks”.
+      Screen readers still hear the title.
+    </p>
+    <div class="mt-4"><PromptListTitles client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Apps a prompt uses</h2>
+    <p>
+      A row can show no apps, one, or several. Tiles overlap, and hovering one
+      shows the app name.
+    </p>
+    <div class="mt-4"><PromptListBrands client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Disabled</h2>
+    <p>Disabled rows fade to half opacity and ignore hover and clicks.</p>
+    <div class="mt-4"><PromptListDisabled client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Long labels</h2>
+    <p>
+      Labels stay on one line and end with an ellipsis. Hover shows the full
+      label.
+    </p>
+    <div class="mt-4"><PromptListLongLabels client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Starter prompts</h2>
+    <p>A short list with a status line that reports the choice.</p>
+    <div class="mt-4"><PromptListFictional client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The list is a <code>section</code> named by its title, which is an
+      <code>h3</code>, with a list of rows. Each row's label is a real
+      <code>button</code>, so Tab moves between rows and Enter or Space chooses
+      one. The whole row is the click target. A focused row gets the hover fill
+      and a 2px focus ring. Icons and arrows are hidden from screen readers; the
+      app tiles read as one image named by the app names.
+    </p>
+    <p>
+      Rows rise in one after another, and hovering one lifts its icon and nudges
+      its arrow over 120–180ms. With reduced motion nothing moves. In forced
+      colors mode the focus ring uses the system highlight.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Hover and focus fills use <code>--sprout-hover</code>, the focus ring
+      <code>--sprout-focus</code>, and the title and arrow
+      <code>--sprout-muted</code>. App tile rings follow the row fill. Prompt
+      List has no brand color of its own, so it looks the same in the neutral
+      and TulipFarm themes apart from the focus ring.
+    </p>
+  </section>
+</Docs>

@@ -1,0 +1,108 @@
+@layer components {
+  .sprout-resizable-group {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .sprout-resizable-group[data-orientation="vertical"] {
+    flex-direction: column;
+  }
+
+  .sprout-resizable-panel {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .sprout-resizable-handle {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    background: var(--sprout-line);
+    outline: none;
+    touch-action: none;
+    user-select: none;
+  }
+  .sprout-resizable-handle[data-orientation="vertical"] {
+    width: 1px;
+    cursor: col-resize;
+  }
+  .sprout-resizable-handle[data-orientation="horizontal"] {
+    height: 1px;
+    cursor: row-resize;
+  }
+  /* A wider invisible hit area keeps the 1px line easy to grab. */
+  .sprout-resizable-handle::after {
+    content: "";
+    position: absolute;
+  }
+  .sprout-resizable-handle[data-orientation="vertical"]::after {
+    inset-block: 0;
+    left: 50%;
+    width: 9px;
+    transform: translateX(-50%);
+  }
+  .sprout-resizable-handle[data-orientation="horizontal"]::after {
+    inset-inline: 0;
+    top: 50%;
+    height: 9px;
+    transform: translateY(-50%);
+  }
+  .sprout-resizable-handle:hover {
+    background: var(--sprout-border);
+  }
+  .sprout-resizable-handle[data-dragging],
+  .sprout-resizable-handle:focus-visible {
+    background: var(--sprout-focus);
+  }
+  .sprout-resizable-handle:focus-visible {
+    box-shadow: 0 0 0 1px var(--sprout-focus);
+  }
+
+  .sprout-resizable-grip {
+    flex: none;
+    border-radius: 999px;
+    background: var(--sprout-border);
+  }
+  .sprout-resizable-handle[data-orientation="vertical"] .sprout-resizable-grip {
+    width: 6px;
+    height: 24px;
+  }
+  .sprout-resizable-handle[data-orientation="horizontal"]
+    .sprout-resizable-grip {
+    width: 24px;
+    height: 6px;
+  }
+  .sprout-resizable-handle:hover .sprout-resizable-grip {
+    background: var(--sprout-border-strong);
+  }
+  .sprout-resizable-handle[data-dragging] .sprout-resizable-grip,
+  .sprout-resizable-handle:focus-visible .sprout-resizable-grip {
+    background: var(--sprout-focus);
+  }
+
+  @media (pointer: coarse) {
+    .sprout-resizable-handle[data-orientation="vertical"]::after {
+      width: 24px;
+    }
+    .sprout-resizable-handle[data-orientation="horizontal"]::after {
+      height: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-resizable-handle,
+    .sprout-resizable-grip {
+      transition:
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        box-shadow var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+  }
+}

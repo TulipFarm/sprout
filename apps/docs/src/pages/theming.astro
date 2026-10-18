@@ -1,0 +1,147 @@
+---
+import Docs from "../layouts/Docs.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+import { allThemes } from "../data/themes";
+import claudeTheme from "@tulipfarm/sprout/themes/claude.css?raw";
+const tokens = [
+  ["Surface", "surface"],
+  ["Canvas", "canvas"],
+  ["Primary", "primary"],
+  ["Text", "text"],
+];
+---
+
+<Docs title="Theming">
+  <h1 class="docs-title">Make it feel like you.</h1>
+  <p class="docs-lead">
+    Neutral by default, with {allThemes.length - 1} ready-made themes. Each theme
+    is one CSS file that sets every token for light and dark. No JavaScript.
+  </p>
+  <div class="token-grid">
+    {
+      tokens.map(([label, token]) => (
+        <div>
+          <>
+            <div
+              class="token-swatch"
+              style={`background: var(--sprout-${token})`}
+            />
+            <p class="text-xs font-medium">{label}</p>
+            <code class="text-[11px] text-sprout-muted">--sprout-{token}</code>
+          </>
+        </div>
+      ))
+    }
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Themes</h2>
+    <p>
+      Each card below is themed on its own with <code>data-sprout-theme</code>.
+      Pick a theme for the whole site from the header.
+    </p>
+    <ul class="theme-gallery">
+      {
+        allThemes.map((theme) => (
+          <li class="theme-card" data-sprout-theme={theme.slug}>
+            <div class="theme-card-sample">
+              <span class="theme-card-button">Save</span>
+              <span class="theme-card-input">Search…</span>
+            </div>
+            <div class="theme-card-meta">
+              <strong>{theme.name}</strong>
+              <code>themes/{theme.slug}.css</code>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Use a theme</h2>
+    <p>
+      Import the theme file after Sprõut's styles. Then set the attribute on
+      your document root. You can import more than one theme and switch the
+      attribute at runtime.
+    </p>
+    <CodeBlock
+      lang="css"
+      title="app.css"
+      code={`@import "tailwindcss";
+@import "@tulipfarm/sprout/styles.css";
+@import "@tulipfarm/sprout/themes/claude.css";
+
+/* On your document root: */
+/* <html data-sprout-theme="claude"> */`}
+    />
+    <p>
+      The default follows the system color preference. Set <code
+        >class="light"</code
+      >
+      or <code>class="dark"</code> on your document root to choose explicitly.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Make your own</h2>
+    <p>
+      A theme is one file. Copy any theme, change the slug in its selectors, and
+      edit the values. The font and radius apply in both modes. The colors come
+      in a light block and a dark block. The dark block appears twice: once for
+      <code>class="dark"</code> and once for the system preference.
+    </p>
+    <CodeBlock lang="css" title="themes/claude.css" code={claudeTheme.trim()} />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Override in your stylesheet</h2>
+    <p>
+      Place overrides after imports. Use root variables for runtime theme values
+      or Tailwind's <code>@theme inline</code> for utility mappings. Sprõut does not
+      set global fonts or page styles.
+    </p>
+    <CodeBlock
+      lang="css"
+      title="Theme overrides"
+      code={`@import "tailwindcss";
+@import "@tulipfarm/sprout/styles.css";
+
+:root {
+  --sprout-primary: #285b78;
+  --sprout-primary-hover: #204860;
+  --sprout-on-primary: #f6fbff;
+  --sprout-radius-control: 0.5rem;
+  --sprout-sidebar-width: 16rem;
+  --sprout-sidebar-mobile-width: 18rem;
+  --sprout-sidebar-icon-width: 3.5rem;
+  --sprout-font: "Your font", system-ui, sans-serif;
+}
+
+.dark {
+  --sprout-primary: #a3d2ec;
+  --sprout-primary-hover: #bee1f4;
+  --sprout-on-primary: #142c3a;
+}`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Mobile drawers and theme scope</h2>
+    <p>
+      The mobile drawer and tooltips render in portals under the document body.
+      Define your theme on the document root so it reaches overlays. For a theme
+      limited to a subtree, put <code>data-sprout-theme</code> on that subtree and
+      pass a container inside it to Sidebar through <code>portalContainer</code
+      >.
+    </p>
+    <p>
+      Overlay layers use 40 for the backdrop, 50 for the drawer, and 60 for
+      tooltips. Keep application chrome below those layers. Theme persistence
+      and mode controls belong to your app; Sprõut has no theme provider.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Keep contrast intact</h2>
+    <p>
+      Change foreground and background pairs together. Verify text contrast,
+      visible focus, and control borders in both light and dark modes after
+      changing colors.
+    </p>
+  </section>
+</Docs>

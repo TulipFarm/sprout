@@ -1,0 +1,92 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import ButtonGroupDemo from "../../components/ButtonGroupDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Button Group"
+  description="Joins related buttons, text cells, and separators into one control."
+>
+  <h1 class="docs-title">Button Group</h1>
+  <p class="docs-lead">
+    Joins related buttons into one control. Use it for pagers, steppers, split
+    actions, and toolbars.
+  </p>
+  <div class="mt-8"><ButtonGroupDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Button Group usage"
+      code={`import { Button } from "@tulipfarm/sprout/button";
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from "@tulipfarm/sprout/button-group";
+
+<ButtonGroup aria-label="Pages">
+  <Button variant="outline" disabled={page === 1}>Previous</Button>
+  <ButtonGroupSeparator />
+  <Button variant="outline" disabled={page === 3}>Next</Button>
+</ButtonGroup>
+
+<ButtonGroup orientation="vertical" aria-label="Quantity">
+  <ButtonGroupText>Quantity: {quantity}</ButtonGroupText>
+  <Button variant="outline" aria-label="Add one"><Plus /></Button>
+</ButtonGroup>`}
+    />
+    <p>
+      <code>ButtonGroup</code> renders a <code>div</code> with <code
+        >role="group"</code
+      >. <code>orientation</code> is <code>"horizontal"</code>, the default, or
+      <code>"vertical"</code>. Direct children with a <code>data-slot</code>,
+      such as Sprõut buttons, lose their inner corners and the border where they
+      meet. The outer corners use <code>--sprout-radius-control</code> for every button
+      size.
+    </p>
+    <p>
+      <code>ButtonGroupText</code> is a muted cell for a label or value. It accepts
+      <code>render</code>, so it can be an <code>output</code> or a
+      <code>label</code>. Icons inside it are 16px unless they have a size
+      class.
+    </p>
+    <p>
+      <code>ButtonGroupSeparator</code> is a <code>Separator</code> with the
+      <code>"input"</code> tone. It runs across the group, so it is <code
+        >"vertical"</code
+      > by default and must be <code>"horizontal"</code> in a vertical group. Use
+      it between filled buttons, which have no border of their own.
+    </p>
+    <p>
+      A group that holds other groups spaces them 8px apart. A direct
+      <code>input</code> child grows to fill the free space. <code
+        >buttonGroupVariants({"{ orientation }"})</code
+      > returns the same class names for other elements.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Give each group an <code>aria-label</code> that names what it controls. Every
+      button stays in the tab order, and a focused button draws its ring above its
+      neighbors. Icon-only buttons need their own <code>aria-label</code>.
+      Render a changing value with <code>render={"{<output />}"}</code> so screen
+      readers hear it.
+    </p>
+    <p>
+      Color changes follow the theme in 120ms and stop when reduced motion is
+      requested. In forced colors mode text cells keep a visible border.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Text cells use <code>--sprout-secondary</code>, <code>--sprout-text</code
+      >, and <code>--sprout-input</code>. Separators use <code
+        >--sprout-input</code
+      >. Radius follows <code>--sprout-radius-control</code>.
+    </p>
+  </section>
+</Docs>

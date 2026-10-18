@@ -1,0 +1,238 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  ToolActivityEmpty,
+  ToolActivityReceipt,
+  ToolActivityRecorded,
+  ToolActivityStatuses,
+  ToolActivityStepper,
+  ToolActivityTranscript,
+  ToolActivityVariants,
+} from "../../components/ToolActivityDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Tool Activity"
+  description="A live timeline of the tools an agent used, with a status mark per step, web sources, and a summary that counts problems."
+>
+  <h1 class="docs-title">Tool Activity</h1>
+  <p class="docs-lead">
+    Shows the tools an agent called while it worked: what ran, what is waiting,
+    and what needs attention. <code>ActivityPanel</code> frames a live run above its
+    result.
+  </p>
+  <div class="mt-8"><ToolActivityStatuses client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Tools behind a reply"
+      code={`import { BrandIcon } from "@tulipfarm/sprout/brand-icon";
+import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
+
+<ToolActivity
+  active={replyIsWorking}
+  items={[
+    {
+      id: "call_1",
+      label: "Searched the supplier inbox",
+      status: "completed",
+      visual: <BrandIcon brand="gmail" size="inline" />,
+    },
+    {
+      id: "call_2",
+      label: "Update the Northwind record",
+      status: "failed",
+      visual: <BrandIcon brand="hubspot" size="inline" />,
+      detail: "The action failed. Retry, or check the app connection.",
+      details: <Button variant="outline" size="sm" onClick={retry}>Retry update</Button>,
+    },
+  ]}
+/>`}
+    />
+    <ul>
+      <li>
+        <code>status</code>: <code>"queued"</code>, <code>"running"</code>,
+        <code>"waiting"</code>, <code>"completed"</code>,
+        <code>"blocked"</code>, <code>"failed"</code>,
+        <code>"cancelled"</code>, or <code>"unknown"</code>. Each has its own
+        mark and a spoken name, such as “In progress” or “Outcome unknown”.
+      </li>
+      <li>
+        <code>visual</code>: a 14px icon or an inline
+        <code>BrandIcon</code> for the tool or app.
+      </li>
+      <li>
+        <code>detail</code>: one short line under the label. It turns red for <code
+          >failed</code
+        > and <code>blocked</code>.
+      </li>
+      <li>
+        <code>details</code>: extra content lined up with the label, such as a
+        retry button or a “Details” toggle.
+      </li>
+      <li>
+        <code>active</code>: the reply is still working even when no step is
+        running, so the trigger shows a spinner.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Variants</h2>
+    <div class="mt-4"><ToolActivityVariants client:load /></div>
+    <ul class="mt-4">
+      <li>
+        <code>"collapsible"</code>: the default. It opens while work is pending
+        and closes once it settles. The trigger reads “Using 3 tools”, “2 tools
+        waiting”, or “Used 3 tools · 1 needs attention”.
+      </li>
+      <li>
+        <code>"transcript"</code>: starts closed under a chat reply. It reads
+        “Working… Searching the web”, “Work pending”, or “Tool activity · 3
+        tools · Access denied”.
+      </li>
+      <li>
+        <code>"stepper"</code>: always open, with no trigger. Items arrive
+        newest first and show oldest first; inside an
+        <code>ActivityPanel</code> it scrolls to the newest step.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">One tool</h2>
+    <div class="mt-4"><ToolActivityReceipt client:load /></div>
+    <p>
+      A single call, as on an agent request receipt. Pick a status to see its
+      mark and how the summary changes.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">In a chat reply</h2>
+    <div class="mt-4"><ToolActivityTranscript client:load /></div>
+    <CodeBlock
+      lang="tsx"
+      title="Transcript with web sources"
+      code={`<ToolActivity
+  variant="transcript"
+  items={tools}
+  active={isLatestTurn}
+  activityLabel="Searching the web"
+  sourceIcon={(url) => iconFor(new URL(url).hostname)}
+  onToggle={() => pauseFollowLatest()}
+/>
+
+// A web search step
+{
+  id: "call_7",
+  label: "Searched the web",
+  status: "completed",
+  visual: <Globe size={14} />,
+  query: "UK services inflation September 2026",
+  urls: ["https://www.ons.gov.uk/…", "https://www.bls.gov/…"],
+  failedUrls: ["https://www.ft.com/…"],
+  sources: [{ url: "https://www.ons.gov.uk/…", title: "Consumer price inflation, UK" }],
+}`}
+    />
+    <p>
+      Web steps show their search text and up to four source chips; a “2 more”
+      button shows the rest. A page in <code>failedUrls</code>
+      gets a warning icon. Chips without a title show the address without
+      <code>https://www.</code>. Only <code>http</code> and
+      <code>https</code> addresses become links, which open in a new tab.
+    </p>
+    <p>
+      Pass <code>sourceIcon</code> to show page icons. It returns an image address
+      for a page, or nothing for a globe; images that fail to load fall back to the
+      globe. Sprõut never calls an icon service itself.
+    </p>
+    <p>
+      With no items, an <code>active</code> transcript shows “Thinking…” or the <code
+        >activityLabel</code
+      >. Other variants render nothing.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Activity panel</h2>
+    <div class="mt-4"><ToolActivityStepper client:load /></div>
+    <CodeBlock
+      lang="tsx"
+      title="A live run above its result"
+      code={`import { ActivityPanel, ToolActivity } from "@tulipfarm/sprout/tool-activity";
+
+<ActivityPanel working={running} activityLabel={currentStep} hasResult collapseWhenDone>
+  <ToolActivity
+    variant="stepper"
+    items={steps}
+    hasOlder={page.hasMore}
+    loadingOlder={page.loading}
+    olderError={page.failed}
+    onLoadOlder={page.loadMore}
+    onRetryOlder={page.loadMore}
+  />
+</ActivityPanel>`}
+    />
+    <ul>
+      <li>
+        The panel takes at most 40% of its parent’s height and scrolls inside. A
+        soft fade covers the top once it scrolls.
+      </li>
+      <li>
+        <code>hasResult</code> draws a line under the panel.
+        <code>collapseWhenDone</code> closes it when work stops and reopens it when
+        work restarts.
+      </li>
+      <li>
+        When <code>hasOlder</code> is set, scrolling within 40px of the top calls
+        <code>onLoadOlder</code> once. While
+        <code>loadingOlder</code> it says “Loading earlier activity…”; on
+        <code>olderError</code> it shows “Retry loading”.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Recorded activity</h2>
+    <div class="mt-4"><ToolActivityRecorded client:load /></div>
+    <p>
+      A finished run can sit behind a <code>ResultCard</code>. Its details show
+      the stepper without a panel.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Empty</h2>
+    <div class="mt-4"><ToolActivityEmpty client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The trigger is a button named by its summary, and the summary is a live <code
+        >status</code
+      >. Steps are an ordered list named “Tool activity” (set <code>label</code> to
+      rename it). Each step says its status, such as “Failed”; a running step’s status
+      is announced outside the transcript. Source chips sit in a list named “Web sources”,
+      and failed pages say “Page unavailable”.
+    </p>
+    <p>
+      <code>ActivityPanel</code> is a region named “Chat activity”. Its timeline is
+      a focusable region named “Activity timeline”, so it scrolls by keyboard. Older-load
+      errors are an <code>alert</code>.
+    </p>
+    <p>
+      Steps fade in over 180ms and the chevron turns in 120ms. With reduced
+      motion, steps appear at once and running marks stop spinning. On touch
+      screens the trigger and source chips grow to 44px.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Rows use <code>--sprout-text</code> and <code>--sprout-muted</code>. Marks
+      use <code>--sprout-success</code> (running),
+      <code>--sprout-primary</code> (completed), <code>--sprout-info</code>
+      (waiting), and <code>--sprout-danger</code>. Chips use
+      <code>--sprout-secondary</code> and <code>--sprout-hover</code>. Set
+      <code>--sprout-activity-panel-fade</code> to the panel’s background when it
+      is not <code>--sprout-surface</code>.
+    </p>
+  </section>
+</Docs>

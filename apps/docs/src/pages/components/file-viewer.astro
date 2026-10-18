@@ -1,0 +1,186 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import FileViewerDemo from "../../components/FileViewerDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="File Viewer"
+  description="Open local, linked, and Google files in a full-screen dialog or inline, with loading, error, empty, and unsupported states."
+>
+  <h1 class="docs-title">File Viewer</h1>
+  <p class="docs-lead">
+    Shows a file without leaving the page: images, PDF, text, JSON, Markdown,
+    source code in any language, Google Docs links and shortcuts, plus
+    spreadsheets and Office files through renderers you register. Use <code
+      >FileViewer</code
+    > for a full-screen dialog, <code>ViewableFileContent</code> inline, and
+    <code>FileContent</code> when you load the bytes yourself.
+  </p>
+  <div class="mt-8"><FileViewerDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Dialog</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Open an attachment"
+      code={`import { FileAttachment } from "@tulipfarm/sprout/attachment";
+import { FileViewer } from "@tulipfarm/sprout/file-viewer";
+
+<FileAttachment file={attachment} preview viewable />
+
+<FileViewer
+  file={{ name: "Returns policy.pdf", mediaType: "application/pdf", source: { kind: "local", file } }}
+  open={open}
+  onOpenChange={setOpen}
+/>`}
+    />
+    <p>
+      <code>file.source</code> is <code>{'{ kind: "local", file }'}</code> for a
+      <code>File</code> in browser memory or <code
+        >{'{ kind: "remote", url }'}</code
+      >
+      for a link. The header shows the name and “Local file · Not uploaded”, “Linked
+      file”, or “Google document”. Docs, Sheets, and Slides links on docs.google.com
+      embed Google’s viewer and add Open in Google. Other files load up to 50 MB,
+      time out after 15 seconds, and get Reload file and Download.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Stepping through files</h2>
+    <CodeBlock
+      lang="tsx"
+      title="One viewer for a set of files"
+      code={`const [index, setIndex] = useState<number | null>(null);
+
+<FileViewer
+  files={files}
+  index={index ?? 0}
+  onIndexChange={setIndex}
+  open={index !== null}
+  onOpenChange={(open) => !open && setIndex(null)}
+  finalFocus={() => buttons.current[index ?? 0]}
+/>`}
+    />
+    <p>
+      Pass <code>files</code>, <code>index</code>, and
+      <code>onIndexChange</code> instead of <code>file</code>. With more than
+      one file the header adds Previous file and Next file buttons and an “N of
+      M” count. Left and Right arrows step too. The arrows stop at the first and
+      last file. They are ignored while focus is in a text field, an embed, or a
+      scrollable region, and when a modifier key is held.
+      <code>finalFocus</code> picks where focus lands on close, usually the button
+      for the file that was last on screen. <code>AttachmentGroup</code>
+      wires this up for you.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Inline and your own bytes</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A file page that fetches its own content"
+      code={`import { FileContent, FileError, LoadingFile, renderableType } from "@tulipfarm/sprout/file-viewer";
+
+const url = URL.createObjectURL(new Blob([bytes], { type: renderableType(name, mediaType) }));
+
+<section aria-label="File content" className="flex h-160 flex-col overflow-hidden rounded-xl border">
+  {content.kind === "loading" ? <LoadingFile />
+    : content.kind === "failed" ? <FileError message="The file content couldn’t be loaded. Your file is unchanged." onRetry={retry} />
+    : <FileContent name={name} mediaType={mediaType} bytes={content.bytes} url={url} onRetry={retry} />}
+</section>`}
+    />
+    <p>
+      All three fill a flex column, so give the parent a height.
+      <code>renderableType</code> picks a safe type for the blob URL: PDF and raster
+      images keep theirs, and anything a browser could run, including SVG, becomes
+      <code>application/octet-stream</code>.
+    </p>
+    <ul>
+      <li>
+        Images fit the frame; Actual size scrolls them at full resolution.
+      </li>
+      <li>
+        Text, code, JSON, and Markdown source show in a <code>CodeBlock</code>
+        with syntax colors and Copy. The language comes from the file name, such as
+        <code>.py</code>, <code>.rs</code>, or <code>Dockerfile</code>. Code
+        keeps line numbers; notes and Markdown wrap.
+      </li>
+      <li>
+        JSON is pretty-printed. Invalid JSON shows its original text with a
+        warning.
+      </li>
+      <li>
+        Markdown is formatted, with a Show source toggle, when a Markdown
+        renderer is registered.
+      </li>
+      <li>
+        <code>FilePreview</code> shows a small, non-interactive peek: the image, or
+        the first 24 lines of text and code. <code>isPreviewableFile</code>
+        says whether a file has one.
+      </li>
+      <li>
+        Empty files, text that isn’t UTF-8, legacy <code>.ppt</code>, and other
+        formats show a state that says what to do next.
+      </li>
+      <li>
+        An embed that hasn’t loaded after 12 seconds offers Reload viewer.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Renderers</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Register spreadsheet, Office, and Markdown renderers once"
+      code={`import { FileRenderersProvider } from "@tulipfarm/sprout/file-viewer";
+
+const SpreadsheetFile = lazy(() => import("./spreadsheet-file"));
+const OfficeFile = lazy(() => import("./office-file"));
+
+<FileRenderersProvider
+  renderers={{
+    sheet: (props) => <SpreadsheetFile {...props} />,      // { name, bytes, onRetry }
+    office: (props) => <OfficeFile {...props} />,          // { name, bytes, kind: "document" | "slides", onRetry }
+    markdown: ({ text }) => <MessageResponse>{text}</MessageResponse>,
+  }}
+>
+  <App />
+</FileRenderersProvider>`}
+    />
+    <p>
+      Spreadsheet and Office parsers are large, so Sprõut doesn’t bundle them.
+      Each renderer runs inside Suspense with <code>LoadingFile</code> as the fallback,
+      so lazy components work as they are. Renderers can use
+      <code>LoadingFile</code> and <code>FileError</code> for their own states. Any
+      viewer also takes a <code>renderers</code> prop that overrides the provider.
+      The demo above uses small sample renderers.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The dialog is titled by the file name and traps focus; Escape or “Close
+      file viewer” closes it and returns focus to the button that opened it.
+      Loading is announced as a status and errors as an alert, each with a Try
+      again button. Actual size is a toggle button with
+      <code>aria-pressed</code>, and the zoomed image is a scrollable, focusable
+      region. Text and code scroll in a focusable region named after the
+      language, such as “Python code”, and formatted Markdown in one named after
+      the file. Show source is a toggle button with
+      <code>aria-pressed</code>. When stepping, the new file’s name and
+      position, such as “README.md, file 2 of 6”, are announced politely.
+      Embedded frames are named after the file. Images fade in over 180ms and
+      the slow-viewer notice over 120ms; with reduced motion both appear at
+      once.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The content area uses <code>--sprout-canvas</code>; pages, the header, and
+      toolbars use <code>--sprout-surface</code> and
+      <code>--sprout-line</code>. Warnings use <code>--sprout-danger</code>,
+      links <code>--sprout-primary</code>, and focus rings
+      <code>--sprout-focus</code>.
+    </p>
+  </section>
+</Docs>

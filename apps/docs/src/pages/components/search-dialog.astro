@@ -1,0 +1,173 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  SearchDialogCalendar,
+  SearchDialogPlayground,
+  SearchDialogRecords,
+} from "../../components/SearchDialogDemo";
+---
+
+<Docs
+  title="Search Dialog"
+  description="A wide search palette with grouped results, filters, empty states, and keyboard hints."
+>
+  <h1 class="docs-title">Search Dialog</h1>
+  <p class="docs-lead">
+    A search palette pinned near the top of the screen. You filter the results;
+    it groups them with counts, moves through them with the arrow keys, and
+    opens the active one with Enter.
+  </p>
+  <div class="mt-8 search-dialog-demo" id="search-dialog-demo">
+    <SearchDialogPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Search Dialog usage"
+      code={`import {
+  SearchDialog,
+  SearchEmpty,
+  SearchFooter,
+  SearchGroup,
+  SearchHint,
+  SearchInput,
+  SearchItem,
+  SearchItemIcon,
+  SearchList,
+} from "@tulipfarm/sprout/search-dialog";
+
+<SearchDialog
+  open={open}
+  onOpenChange={setOpen}
+  title="Jump to…"
+  description="Find workspace pages and quick actions."
+>
+  <SearchInput
+    ref={inputRef}
+    value={query}
+    onValueChange={setQuery}
+    placeholder="Find a page or action…"
+    label="Find a page or action"
+  />
+  <SearchList label="Pages and actions">
+    {pages.length ? (
+      <SearchGroup heading="Pages" count={pages.length}>
+        {pages.map((page) => (
+          <SearchItem
+            key={page.id}
+            value={page.id}
+            title={page.title}
+            media={<SearchItemIcon><page.icon size={14} aria-hidden="true" /></SearchItemIcon>}
+            onSelect={() => open(page)}
+          />
+        ))}
+      </SearchGroup>
+    ) : (
+      <SearchEmpty
+        title="No pages or actions found"
+        description="Try another page or action name."
+        action={<Button variant="outline" size="sm" onClick={clear}>Clear search</Button>}
+      />
+    )}
+  </SearchList>
+  <SearchFooter>
+    <SearchHint keys="↑↓">Select</SearchHint>
+    <SearchHint keys="↵">Open</SearchHint>
+    <SearchHint keys="Esc">Close</SearchHint>
+  </SearchFooter>
+</SearchDialog>`}
+    />
+    <p>
+      Search Dialog does not filter. Match the query yourself and render only
+      the results, then show <code>SearchEmpty</code> when nothing is left. Clear
+      the query when the dialog closes. Give every <code>SearchItem</code> a
+      <code>value</code> that is unique across groups, such as the group name plus
+      the id when one entry appears under Recent and Pages.
+    </p>
+  </section>
+  <section class="prose-section" id="calendar-commands">
+    <h2 class="section-title">Commands and events</h2>
+    <p>
+      Pass a shortcut letter as <code>trailing</code>; on the active row it
+      swaps for the Enter key. <code>media</code> can be a bare icon, centered in
+      a 28px box, or a muted <code>SearchItemIcon</code>. <code>detail</code>
+      adds a second line such as a time. A group whose <code>count</code> is 0 is
+      not rendered, and long titles truncate.
+    </p>
+    <SearchDialogCalendar client:load />
+  </section>
+  <section class="prose-section" id="filters">
+    <h2 class="section-title">Filters, meta, and empty media</h2>
+    <p>
+      <code>SearchFilters</code> holds a row of <code>SearchFilter</code> toggles
+      that scrolls sideways when narrow. <code>meta</code> sits after the title behind
+      a dot. Give <code>SearchEmpty</code> one to three icons as
+      <code>media</code> to show them as fanned tiles over a faint grid.
+    </p>
+    <SearchDialogRecords client:load />
+  </section>
+  <section class="prose-section" id="search-dialog-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>SearchDialog</code> takes <code>open</code>, <code
+        >onOpenChange</code
+      >, a visually hidden <code>title</code> and <code>description</code>, plus
+      <code>className</code> and <code>container</code>. It is 42rem wide from
+      640px and pins 12% from the top. <code>SearchInput</code> takes a controlled
+      <code>value</code> and <code>onValueChange</code>,
+      <code>placeholder</code>, <code>label</code>, <code>closeLabel</code>, and
+      a
+      <code>ref</code> so a Clear search button can refocus it.
+    </p>
+    <p>
+      <code>SearchFilters</code> takes <code>label</code>; <code
+        >SearchFilter</code
+      >
+      takes <code>pressed</code>, <code>onPressedChange</code>, and an optional
+      <code>icon</code>. <code>SearchList</code> takes <code>label</code> and keeps
+      a steady height. <code>SearchGroup</code> takes <code>heading</code> and
+      <code>count</code>. <code>SearchItem</code> takes <code>value</code>,
+      <code>onSelect</code>, <code>media</code>, <code>title</code>, and
+      optional
+      <code>meta</code>, <code>detail</code>, and <code>trailing</code>.
+      <code>SearchEmpty</code> takes <code>title</code>, <code>description</code
+      >, and optional <code>media</code> and <code>action</code>.
+      <code>SearchFooter</code> holds <code>SearchHint</code>s, each with
+      <code>keys</code>; it hides below 640px. Every part sets a
+      <code>data-slot</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Focus moves to the search field, a <code>combobox</code> that controls the results
+      <code>listbox</code>, and the active result is announced through
+      <code>aria-activedescendant</code>. Arrow keys move and wrap at the ends,
+      Home and End jump, Alt with arrows jumps between groups, and Enter opens.
+      Group names include their count. Filters are toggle buttons with
+      <code>aria-pressed</code>. The empty state is a status, so its message is
+      announced. Escape or the close button closes the dialog and returns focus
+      to the trigger.
+    </p>
+    <p>
+      The dialog fades and scales over 180ms, and highlights and filters change
+      over 120ms. Motion stops when reduced motion is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Search Dialog uses <code>--sprout-surface</code>, <code
+        >--sprout-canvas</code
+      >,
+      <code>--sprout-text</code>, <code>--sprout-muted</code>,
+      <code>--sprout-line</code>, <code>--sprout-input</code>,
+      <code>--sprout-hover</code>, <code>--sprout-active</code>,
+      <code>--sprout-focus</code>, <code>--sprout-overlay</code>, and the panel
+      shadows and radii. It needs no brand color, so it looks the same with the
+      neutral and TulipFarm themes in light and dark mode.
+    </p>
+  </section>
+</Docs>

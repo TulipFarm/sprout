@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist.next/
+dist.old/
+.astro/
+.artifacts/
+playwright-report/
+test-results/
+.DS_Store
+*.tsbuildinfo
+.vitest/
+*.tmp.*
+.release/
+packages/sprout/README.md

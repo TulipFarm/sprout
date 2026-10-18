@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sprout",
+  "type": "registry:style",
+  "title": "Sprout",
+  "description": "Install Sprout's npm package and CSS-first Tailwind theme. No component source is copied.",
+  "dependencies": ["@tulipfarm/sprout@^0.1.0"],
+  "css": {
+    "@import \"@tulipfarm/sprout/styles.css\"": {}
+  },
+  "docs": "Sprout requires React 19 and Tailwind CSS 4. Import components from @tulipfarm/sprout. Customize --sprout-* variables or Tailwind @theme values in your CSS. Components remain owned by the npm package."
+}

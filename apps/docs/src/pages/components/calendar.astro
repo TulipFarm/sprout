@@ -1,0 +1,177 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  CalendarCaptions,
+  CalendarDatePicker,
+  CalendarLayouts,
+  CalendarPlayground,
+  CalendarSelection,
+} from "../../components/CalendarDemo";
+---
+
+<Docs
+  title="Calendar"
+  description="A month grid for picking one date, several dates, or a range."
+>
+  <h1 class="docs-title">Calendar</h1>
+  <p class="docs-lead">
+    A month grid for picking one date, several dates, or a range. Use it on its
+    own in a form, or inside a popover as a date picker.
+  </p>
+  <div class="mt-8" id="calendar-demo"><CalendarPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Calendar usage"
+      code={`import { useState } from "react";
+import { Calendar } from "@tulipfarm/sprout/calendar";
+
+const [date, setDate] = useState<Date | undefined>(new Date(2026, 9, 12));
+
+<Calendar
+  mode="single"
+  selected={date}
+  onSelect={setDate}
+  defaultMonth={new Date(2026, 9, 1)}
+/>`}
+    />
+    <p>
+      <code>Calendar</code> wraps <a href="https://daypicker.dev"
+        >React DayPicker</a
+      > 10 and takes all of its props. Sprõut adds its own styles, Sprõut buttons
+      for month navigation, and Sprõut selects for the month and year menus.
+    </p>
+  </section>
+  <section class="prose-section" id="calendar-selection">
+    <h2 class="section-title">Selection modes</h2>
+    <p>
+      Set <code>mode</code> to <code>"single"</code>, <code>"range"</code>, or <code
+        >"multiple"</code
+      >, and control the value with <code>selected</code> and <code
+        >onSelect</code
+      >. A range passes <code>{"{ from, to }"}</code>; the first and last days
+      are filled and the days between share a band. Pass a matcher to <code
+        >disabled</code
+      >, such as <code>{"{ dayOfWeek: [0, 6] }"}</code> for weekends.
+    </p>
+    <CalendarSelection client:load />
+  </section>
+  <section class="prose-section" id="calendar-captions">
+    <h2 class="section-title">Captions and navigation</h2>
+    <p>
+      <code>captionLayout="label"</code> (default) shows the month name. <code
+        >"dropdown"</code
+      > shows month and year menus; <code>"dropdown-months"</code> and <code
+        >"dropdown-years"</code
+      > show one. <code>buttonVariant</code> picks the <code>Button</code> variant
+      for the previous and next buttons: <code>"ghost"</code> (default) or <code
+        >"outline"</code
+      >.
+    </p>
+    <CalendarCaptions client:load />
+  </section>
+  <section class="prose-section" id="calendar-date-picker">
+    <h2 class="section-title">Date picker</h2>
+    <p>
+      Put the calendar straight inside <code>PopoverContent</code>. It fills the
+      panel and drops its own surface. Close the popover in <code>onSelect</code
+      > and ignore <code>undefined</code> so clicking the chosen day again doesn’t
+      clear it.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Calendar date picker"
+      code={`<Popover open={open} onOpenChange={setOpen}>
+  <h2 aria-label={title}>
+    <PopoverTrigger
+      render={<Button variant="ghost" size="calendar-title" aria-label="Choose date" />}
+    >
+      {title}
+      <ChevronDown size={14} aria-hidden="true" />
+    </PopoverTrigger>
+  </h2>
+  <PopoverContent align="start" aria-label="Choose a calendar date">
+    <Calendar
+      mode="single"
+      weekStartsOn={1}
+      selected={day}
+      defaultMonth={day}
+      onSelect={(date) => {
+        if (date) {
+          setOpen(false);
+          show(date);
+        }
+      }}
+    />
+  </PopoverContent>
+</Popover>`}
+    />
+    <CalendarDatePicker client:load />
+  </section>
+  <section class="prose-section" id="calendar-layouts">
+    <h2 class="section-title">Layout and custom days</h2>
+    <p>
+      <code>numberOfMonths</code> shows months side by side from 768px and stacked
+      below. <code>showWeekNumber</code> adds a week column, and <code
+        >weekStartsOn</code
+      > sets the first weekday. To add content under a date, render <code
+        >CalendarDayButton</code
+      > from <code>components.DayButton</code> and put the extra content in a <code
+        >span</code
+      >. Set <code>--sprout-calendar-cell</code> to make room.
+    </p>
+    <CalendarLayouts client:load />
+  </section>
+  <section class="prose-section" id="calendar-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>Calendar</code> takes every React DayPicker prop. Sprõut sets <code
+        >showOutsideDays</code
+      > to <code>true</code> and <code>captionLayout</code> to <code
+        >"label"</code
+      >, and adds <code>buttonVariant</code> (<code>"ghost"</code>). Your <code
+        >classNames</code
+      >, <code>formatters</code>, and <code>components</code> merge over Sprõut’s.
+      The root has <code>data-slot="calendar"</code>.
+    </p>
+    <p>
+      <code>CalendarDayButton</code> is the day button. It takes the DayPicker day
+      button props and sets <code>data-selected-single</code>, <code
+        >data-range-start</code
+      >, <code>data-range-middle</code>, <code>data-range-end</code>, and <code
+        >data-day</code
+      >. The package also exports the <code>DateRange</code> and <code
+        >Matcher</code
+      > types.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The month is a labelled grid. Tab moves to the selected day, or today.
+      Arrow keys move by day and week, Home and End go to the start and end of
+      the week, Page Up and Page Down change month, and Shift with Page Up or
+      Page Down changes year. Enter or Space selects. Disabled days stay
+      readable but can’t be chosen.
+    </p>
+    <p>
+      Day colors change over 120ms, with no motion when reduced motion is
+      requested. In forced-colors mode selected days keep an outline.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Selected days use <code>--sprout-primary</code> and <code
+        >--sprout-on-primary</code
+      >, so they follow the TulipFarm brand when you opt in. Today and range
+      bands use <code>--sprout-hover</code>; muted text uses <code
+        >--sprout-muted</code
+      >. Set <code>--sprout-calendar-cell</code> (1.75rem) and <code
+        >--sprout-calendar-radius</code
+      > on the calendar to resize it.
+    </p>
+  </section>
+</Docs>

@@ -1,0 +1,126 @@
+/* Linear: Cool grays and indigo.
+ *
+ * One file is the whole theme: font, radius, and every color token for light
+ * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
+ * data-sprout-theme="linear" on <html>, or on any element to theme only
+ * that subtree.
+ */
+@layer base {
+  [data-sprout-theme="linear"] {
+    --sprout-font:
+      "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+    --sprout-radius-control: 0.375rem;
+    --sprout-radius-panel: 0.625rem;
+  }
+
+  [data-sprout-theme="linear"],
+  .light[data-sprout-theme="linear"],
+  .light [data-sprout-theme="linear"] {
+    --sprout-canvas: #f7f8f8;
+    --sprout-surface: #ffffff;
+    --sprout-hover: #f1f1f2;
+    --sprout-active: #e8e8e9;
+    --sprout-text: #1b1c1f;
+    --sprout-muted: #5f6168;
+    --sprout-line: #e4e5e8;
+    --sprout-border: #8d8e8f;
+    --sprout-border-strong: #727274;
+    --sprout-input: #dbdbdb;
+    --sprout-primary: #5e6ad2;
+    --sprout-primary-hover: #535db9;
+    --sprout-primary-active: #4953a4;
+    --sprout-on-primary: #ffffff;
+    --sprout-focus: #5e6ad2;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #efefef;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark[data-sprout-theme="linear"],
+  .dark [data-sprout-theme="linear"] {
+    --sprout-canvas: #08090a;
+    --sprout-surface: #141516;
+    --sprout-hover: #262728;
+    --sprout-active: #323333;
+    --sprout-text: #f7f8f8;
+    --sprout-muted: #8a8f98;
+    --sprout-line: #23252a;
+    --sprout-border: #7a7b7c;
+    --sprout-border-strong: #989999;
+    --sprout-input: #414243;
+    --sprout-primary: #7c83ef;
+    --sprout-primary-hover: #8c92f1;
+    --sprout-primary-active: #999ef3;
+    --sprout-on-primary: #08090a;
+    --sprout-focus: #7c83ef;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #28292a;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)[data-sprout-theme="linear"],
+    :root:not(.light):not(.dark) [data-sprout-theme="linear"] {
+      --sprout-canvas: #08090a;
+      --sprout-surface: #141516;
+      --sprout-hover: #262728;
+      --sprout-active: #323333;
+      --sprout-text: #f7f8f8;
+      --sprout-muted: #8a8f98;
+      --sprout-line: #23252a;
+      --sprout-border: #7a7b7c;
+      --sprout-border-strong: #989999;
+      --sprout-input: #414243;
+      --sprout-primary: #7c83ef;
+      --sprout-primary-hover: #8c92f1;
+      --sprout-primary-active: #999ef3;
+      --sprout-on-primary: #08090a;
+      --sprout-focus: #7c83ef;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #28292a;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

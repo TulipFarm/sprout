@@ -1,0 +1,122 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  PageHeaderPlayground,
+  PageHeaderExamples,
+  PageHeaderFocus,
+  PageHeaderChrome,
+} from "../../components/PageHeaderDemo";
+---
+
+<Docs title="Page Header">
+  <h1 class="docs-title">Page Header</h1>
+  <p class="docs-lead">
+    The title, description, and main actions at the top of a page. Inside an app
+    shell it moves its title and actions into the shared header bar.
+  </p>
+  <div class="mt-8"><PageHeaderPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Page header usage"
+      code={`import { PageHeader } from "@tulipfarm/sprout/page-header";
+
+<PageHeader
+  title="Files"
+  description="Find, open, and organize workspace files."
+  actions={<>
+    <Button><Upload aria-hidden="true" />Upload</Button>
+    <Button variant="outline"><FolderAdd aria-hidden="true" />New folder</Button>
+  </>}
+/>`}
+    />
+    <p>
+      <code>title</code> renders the page's only <code>h1</code>. The <code
+        >description</code
+      > sits under it. The <code>actions</code> sit at the end of the row and wrap
+      under the title when space runs out. Long titles wrap; they never overflow.
+    </p>
+    <PageHeaderExamples client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Back link and breadcrumb</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Navigation"
+      code={`<PageHeader
+  title="Customer accounts"
+  parent={{ label: "Tables", link: <Link to="/tables" /> }}
+/>
+
+<PageHeader
+  title="Import skill"
+  back={{ label: "Back to skills", link: <Link to="/skills" /> }}
+/>`}
+    />
+    <p>
+      <code>back</code> adds a small ghost link above the title. Below 640px only
+      its chevron shows; the label stays its accessible name. A <code
+        >parent</code
+      > shows the title as the last step of a breadcrumb. Both take your router's
+      link element, so links stay real links.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Moving focus to the title</h2>
+    <p>
+      Set <code>focusable</code> to let code focus the heading, for example after
+      a route change or after an action removes the focused control. Use <code
+        >titleRef</code
+      > to reach it and <code>titleId</code> to label a region with it.
+    </p>
+    <div class="mt-6"><PageHeaderFocus client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">App header</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Provide header slots"
+      code={`const [title, setTitle] = useState<HTMLDivElement | null>(null);
+const [actions, setActions] = useState<HTMLDivElement | null>(null);
+const chrome = useMemo(
+  () => ({ title, actions, documentTitle: (page) => \`\${page} · Northwind\` }),
+  [title, actions],
+);
+
+<header>
+  <SidebarTrigger />
+  <div ref={setTitle} className="flex min-w-0 flex-1 items-center gap-2" />
+  <div ref={setActions} className="flex shrink-0 items-center gap-2" />
+</header>
+<PageChromeContext value={chrome}>
+  <Outlet />
+</PageChromeContext>`}
+    />
+    <p>
+      When <code>PageChromeContext</code> has both elements, the back link and title
+      move into the header bar at 14px and truncate on one line. Actions move beside
+      them. The description stays in the page. Pages without a header use <code
+        >PageActions</code
+      > to place actions there, or right-aligned in the page when there is no header
+      bar.
+    </p>
+    <p>
+      <code>documentTitle</code> is optional. When set, a string title also updates
+      the browser tab and restores it when the page leaves.
+    </p>
+    <div class="mt-6"><PageHeaderChrome client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The title is an <code>h1</code>. The breadcrumb is a <code>nav</code> named
+      “Breadcrumb”, its last step marked <code>aria-current="page"</code>, and
+      its chevrons are hidden from assistive technology. A focusable title shows
+      a focus ring only for keyboard focus. Link colors change over 120ms;
+      reduced motion turns this off. Routing, dialogs, and menus in these
+      examples are sample code.
+    </p>
+  </section>
+</Docs>

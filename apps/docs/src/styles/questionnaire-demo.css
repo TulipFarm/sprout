@@ -1,0 +1,98 @@
+.questionnaire-demo-frame {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.questionnaire-demo-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.questionnaire-demo-bar-title {
+  color: var(--sprout-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+.questionnaire-demo-note,
+.questionnaire-demo-caption {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.questionnaire-demo-stage {
+  min-width: 0;
+  padding: 24px 16px;
+  background: var(--sprout-canvas);
+}
+.questionnaire-demo-card {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: 32rem;
+  min-width: 0;
+  margin-inline: auto;
+}
+.questionnaire-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 16px;
+  min-width: 0;
+}
+.questionnaire-demo-panel {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.questionnaire-demo-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sprout-line);
+}
+.questionnaire-demo-status {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-sm);
+}
+.questionnaire-demo-answers {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+  font-size: var(--sprout-text-xs);
+}
+.questionnaire-demo-answers div {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+.questionnaire-demo-answers dt {
+  min-width: 4rem;
+  color: var(--sprout-muted);
+}
+.questionnaire-demo-answers dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--sprout-text);
+}
+.questionnaire-demo-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
