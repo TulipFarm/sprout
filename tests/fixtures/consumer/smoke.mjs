@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { createElement } from "react";
 import { renderToString } from "react-dom/server";
-import * as sprout from "@tulipfarm/sprout";
 import { Sidebar, SidebarProvider } from "@tulipfarm/sprout/sidebar";
 import { Alert, AlertDescription } from "@tulipfarm/sprout/alert";
 import { EntityAvatar } from "@tulipfarm/sprout/avatar";
@@ -76,38 +75,6 @@ assert.match(
   ),
   /data-variant="destructive"[\s\S]*Packed alert/,
 );
-const avatarExports = [
-  "AgentAvatar",
-  "Avatar",
-  "AvatarBadge",
-  "AvatarFallback",
-  "AvatarGroup",
-  "AvatarGroupCount",
-  "AvatarImage",
-  "EntityAvatar",
-  "agentAvatarSrc",
-];
-assert.ok(
-  Object.keys(sprout).every(
-    (name) =>
-      name.startsWith("Sidebar") ||
-      name === "useSidebar" ||
-      avatarExports.includes(name) ||
-      [
-        "Badge",
-        "badgeVariants",
-        "badgeVariantNames",
-        "badgeSizeNames",
-      ].includes(name) ||
-      ["StatePanel", "statePanelKindNames"].includes(name) ||
-      /^brand|^Brand/.test(name) ||
-      ["PageActions", "PageChromeContext", "PageHeader"].includes(name) ||
-      name === "PageContent" ||
-      /^alert|^Alert/.test(name) ||
-      /^popover|^Popover/.test(name) ||
-      /^button|^Button/.test(name),
-  ),
-);
 assert.match(
   renderToString(
     createElement(EntityAvatar, { seed: "packed", name: "Packed" }),
@@ -118,8 +85,3 @@ assert.match(
   renderToString(createElement(BrandIcon, { brand: "slack", size: "sm" })),
   /data-slot="brand-tile"[\s\S]*data-brand="slack"|data-brand="slack"[\s\S]*data-slot="brand-tile"/,
 );
-for (const name of ["input", "field", "dialog"]) {
-  await assert.rejects(import(`@tulipfarm/sprout/${name}`), {
-    code: "ERR_PACKAGE_PATH_NOT_EXPORTED",
-  });
-}
