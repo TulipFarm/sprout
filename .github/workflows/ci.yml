@@ -5,6 +5,8 @@ on:
     branches: [main]
 permissions:
   contents: read
+  actions: read
+  pull-requests: write
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -29,6 +31,21 @@ jobs:
         with:
           name: coverage
           path: .vitest/coverage
+      - if: always() && github.event_name == 'pull_request'
+        id: baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run=$(gh run list -w CI -b main -e push -L 1 --json databaseId -q '.[0].databaseId')
+          if [ -n "$run" ] && gh run download "$run" -n coverage -D coverage-main; then
+            echo "path=coverage-main/coverage-summary.json" >> "$GITHUB_OUTPUT"
+          fi
+      - if: always() && github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-summary-path: .vitest/coverage/coverage-summary.json
+          json-summary-compare-path: ${{ steps.baseline.outputs.path }}
+          file-coverage-mode: none
       - run: pnpm test:board
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
