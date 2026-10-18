@@ -69,6 +69,7 @@ function SearchPalette() {
       <button
         type="button"
         className="docs-search-trigger"
+        aria-label="Search components"
         onClick={() => setOpen(true)}
       >
         <Search size={15} aria-hidden="true" />
