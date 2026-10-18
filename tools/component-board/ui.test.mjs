@@ -65,12 +65,13 @@ test("live HTML board supports picking, review, filters, drag, feedback and mobi
     polling: false,
   });
   const base = await app.listen(0);
-  const browser = await chromium.launch();
+  let browser;
   t.after(async () => {
-    await browser.close();
+    await browser?.close();
     await app.close();
     await rm(dataDir, { recursive: true, force: true });
   });
+  browser = await chromium.launch();
   const context = await browser.newContext({
     viewport: { width: 1440, height: 1000 },
     colorScheme: "light",
