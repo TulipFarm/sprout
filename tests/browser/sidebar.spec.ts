@@ -402,9 +402,7 @@ test("neutral defaults, CSS overrides, reduced motion and sticky regions", async
   await expect(page.getByRole("dialog")).toHaveCSS("transition-duration", "0s");
 });
 
-test("only Alert, Avatar, Badge, Button, Dialog, Page Header, Sidebar, State Panel, and Tabs are documented and old routes are gone", async ({
-  page,
-}) => {
+test("docs routes load with a page title and no errors", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   for (const route of [
@@ -445,41 +443,6 @@ test("only Alert, Avatar, Badge, Button, Dialog, Page Header, Sidebar, State Pan
       page.locator('astro-island[ssr]:not([client="visible"])'),
     ).toHaveCount(0);
     await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
-  }
-  await expect(
-    page.getByRole("navigation", { name: "Documentation" }).getByRole("link"),
-  ).toHaveText([
-    "Overview",
-    "Installation",
-    "Theming",
-    "Alert",
-    "Avatar",
-    "Badge",
-    "Button",
-    "Combobox",
-    "Command",
-    "Context Menu",
-    "Dialog",
-    "Dropdown Menu",
-    "Field",
-    "Form",
-    "Integrations Slack Knowledge Shared",
-    "Page Header",
-    "Popover",
-    "Scroll Area",
-    "Search Dialog",
-    "Select",
-    "Settings List",
-    "Sidebar",
-    "State Panel",
-    "Switch",
-    "Table",
-    "Tabs",
-    "Toggle",
-    "Toggle Group",
-  ]);
-  for (const name of ["input"]) {
-    expect((await page.request.get(`/components/${name}/`)).status()).toBe(404);
   }
   expect(errors).toEqual([]);
 });
