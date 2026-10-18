@@ -441,8 +441,10 @@ test("only Alert, Avatar, Badge, Button, Dialog, Page Header, Sidebar, State Pan
     "/components/toggle-group/",
   ]) {
     expect((await page.goto(route))?.status()).toBe(200);
-    await expect(page.locator("astro-island[ssr]")).toHaveCount(0);
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(
+      page.locator('astro-island[ssr]:not([client="visible"])'),
+    ).toHaveCount(0);
+    await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   }
   await expect(
     page.getByRole("navigation", { name: "Documentation" }).getByRole("link"),

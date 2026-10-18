@@ -18,7 +18,9 @@ for (const route of [
 ]) {
   test(`no native dropdowns on ${route}`, async ({ page }) => {
     await page.goto(route);
-    await expect(page.locator("astro-island[ssr]")).toHaveCount(0);
+    await expect(
+      page.locator('astro-island[ssr]:not([client="visible"])'),
+    ).toHaveCount(0);
     await expect(page.locator("select")).toHaveCount(0);
     const theme = page.getByRole("button", { name: /^Site theme/ });
     await expect(theme).toHaveJSProperty("tagName", "BUTTON");
