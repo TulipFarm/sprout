@@ -169,8 +169,8 @@ for (const theme of ["neutral", "tulipfarm"]) {
         expect(primary).toBe(
           theme === "tulipfarm"
             ? mode === "light"
-              ? "#286440"
-              : "#a2d8af"
+              ? "#188038"
+              : "#75ce8e"
             : mode === "light"
               ? "#262626"
               : "#ededed",
@@ -178,8 +178,8 @@ for (const theme of ["neutral", "tulipfarm"]) {
         expect(color).toBe(
           theme === "tulipfarm"
             ? mode === "light"
-              ? "rgb(40, 100, 64)"
-              : "rgb(162, 216, 175)"
+              ? "rgb(24, 128, 56)"
+              : "rgb(117, 206, 142)"
             : mode === "light"
               ? "rgb(38, 38, 38)"
               : "rgb(237, 237, 237)",

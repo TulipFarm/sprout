@@ -1,4 +1,5 @@
 @import "@fontsource-variable/geist";
+@import "@fontsource-variable/inter";
 @import "tailwindcss";
 @import "@tulipfarm/sprout/styles.css";
 @import "@tulipfarm/sprout/themes/neutral.css";
@@ -18,12 +19,8 @@
 @import "@tulipfarm/sprout/themes/supabase.css";
 @import "@tulipfarm/sprout/themes/vercel.css";
 
-/* Sprout's own themes keep the docs typeface; brand themes bring their own font. */
-:root:is(
-  :not([data-sprout-theme]),
-  [data-sprout-theme="neutral"],
-  [data-sprout-theme="tulipfarm"]
-) {
+/* The neutral theme keeps the docs typeface; other themes bring their own font. */
+:root:is(:not([data-sprout-theme]), [data-sprout-theme="neutral"]) {
   --sprout-font: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
