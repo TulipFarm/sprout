@@ -1,0 +1,141 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import ResizableDemo from "../../components/ResizableDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Resizable"
+  description="Panels split by a draggable, keyboard-friendly divider, with saved sizes."
+>
+  <h1 class="docs-title">Resizable</h1>
+  <p class="docs-lead">
+    Panels that share a row or a column, split by a divider people can drag or
+    move with the keyboard. Sizes can be limited and remembered between visits.
+  </p>
+  <div class="mt-8"><ResizableDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Resizable usage"
+      code={`import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@tulipfarm/sprout/resizable";
+
+<div className="h-64 rounded-lg border">
+  <ResizablePanelGroup orientation="horizontal">
+    <ResizablePanel defaultSize="28%" minSize="220px">
+      <FileTree />
+    </ResizablePanel>
+    <ResizableHandle aria-label="Resize file tree" />
+    <ResizablePanel minSize="35%">
+      <OpenFile />
+    </ResizablePanel>
+  </ResizablePanelGroup>
+</div>`}
+    />
+    <p>
+      The group fills its parent, so give the parent a height. <code
+        >orientation</code
+      > is <code>"horizontal"</code> (default), which places panels side by side,
+      or <code>"vertical"</code>, which stacks them. Panels and handles must be
+      direct children of the group. Fragments are fine.
+    </p>
+    <p>
+      <code>defaultSize</code>, <code>minSize</code>, and <code>maxSize</code> take
+      a percent such as <code>"40%"</code>, or a length in <code>px</code>, <code
+        >rem</code
+      >, <code>em</code>, <code>vw</code>, or <code>vh</code>. A plain number is
+      pixels. A string without a unit is a percent. Panels without a <code
+        >defaultSize</code
+      > share the space that is left. A <code>px</code> minimum is checked again when
+      the group changes size.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Handle</h2>
+    <p>
+      <code>ResizableHandle</code> draws a 1px line with a 9px hit area (24px on touch
+      screens). Add <code>withHandle</code> for a small grip on splits people resize
+      often, like a chat and its canvas. Leave it off for quiet splits like a file
+      tree. Always give the handle an <code>aria-label</code> that names what it resizes.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Saved layouts</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Saved layout usage"
+      code={`import { useResizableLayout } from "@tulipfarm/sprout/resizable";
+
+const layout = useResizableLayout({
+  id: "app:chat-canvas",
+  panelIds: open ? ["chat", "canvas"] : ["chat"],
+  onlySaveAfterUserInteractions: true,
+});
+
+<ResizablePanelGroup
+  defaultLayout={layout.defaultLayout}
+  onLayoutChanged={layout.onLayoutChanged}
+>
+  <ResizablePanel id="chat" minSize="40%" defaultSize={open ? "55%" : "100%"}>
+    <Chat />
+  </ResizablePanel>
+  {open && (
+    <>
+      <ResizableHandle withHandle aria-label="Resize canvas" />
+      <ResizablePanel id="canvas" minSize="320px" defaultSize="45%">
+        <Canvas />
+      </ResizablePanel>
+    </>
+  )}
+</ResizablePanelGroup>`}
+    />
+    <p>
+      A layout is panel sizes in percent, keyed by panel <code>id</code>. <code
+        >defaultLayout</code
+      > is used when it names every panel shown. Otherwise each panel's <code
+        >defaultSize</code
+      > applies. When panels are added or removed, the layout starts again from the
+      defaults or the saved layout for that set of panels.
+    </p>
+    <p>
+      <code>onLayoutChange</code> runs on every change, including each pointer move.
+      <code>onLayoutChanged</code> runs once a change settles, with <code
+        >{"{ isUserInteraction }"}</code
+      >. <code>useResizableLayout</code> saves to <code>localStorage</code> by default,
+      or to any <code>storage</code> with <code>getItem</code> and <code
+        >setItem</code
+      >. With <code>onlySaveAfterUserInteractions</code>, it only saves sizes a
+      person chose.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The handle is a focusable <code>role="separator"</code> with <code
+        >aria-valuenow</code
+      >, <code>aria-valuemin</code>, and <code>aria-valuemax</code> for the panel
+      before it, and <code>aria-controls</code> pointing at that panel. Arrow keys
+      along the split move it 5%. Home and End move it to that panel's minimum and
+      maximum. Right-to-left pages flip the horizontal keys and drag.
+    </p>
+    <p>
+      Line and grip colors change in 120ms and stop when reduced motion is
+      requested. While dragging, the page keeps a resize cursor and text is not
+      selected.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The line uses <code>--sprout-line</code>, <code>--sprout-border</code> on hover,
+      and <code>--sprout-focus</code> while focused or dragging. The grip uses <code
+        >--sprout-border</code
+      > and <code>--sprout-border-strong</code>.
+    </p>
+  </section>
+</Docs>

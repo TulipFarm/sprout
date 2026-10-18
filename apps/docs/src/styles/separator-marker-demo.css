@@ -1,0 +1,109 @@
+.separator-marker-demo {
+  display: grid;
+  gap: 20px;
+}
+.separator-marker-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.separator-marker-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.separator-marker-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.separator-marker-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.separator-marker-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+
+.separator-marker-demo-variants {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+.separator-marker-demo-variant {
+  display: grid;
+  gap: 14px;
+  align-content: space-between;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.separator-marker-demo-variant-text {
+  display: grid;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sprout-muted);
+}
+.separator-marker-demo-variant-text code {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--sprout-text);
+}
+
+.separator-marker-demo-preview {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+
+.separator-marker-demo-chat {
+  display: grid;
+  gap: 12px;
+  max-width: 640px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.separator-marker-demo-message {
+  max-width: 85%;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--sprout-text);
+}
+.separator-marker-demo-message[data-role="user"] {
+  justify-self: end;
+  padding: 8px 12px;
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-secondary);
+}
+
+.separator-marker-demo-narrow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  align-items: start;
+  gap: 12px;
+}
+.separator-marker-demo-narrow-column {
+  width: 100%;
+  max-width: 200px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}

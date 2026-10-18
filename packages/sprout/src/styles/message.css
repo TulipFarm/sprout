@@ -1,0 +1,310 @@
+@layer components {
+  .sprout-message-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .sprout-message {
+    --sprout-message-content-gap: 10px;
+    --sprout-message-meta-inset: 12px;
+    position: relative;
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    color: var(--sprout-text);
+  }
+  .sprout-message[data-align="end"] {
+    flex-direction: row-reverse;
+  }
+  /* A ghost bubble has no padding, so names and status line up with its text. */
+  .sprout-message:has(
+    > [data-slot="message-content"] > [data-variant="ghost"]
+  ) {
+    --sprout-message-meta-inset: 0px;
+  }
+
+  .sprout-message-avatar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    width: fit-content;
+    min-width: 2rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: var(--sprout-secondary);
+  }
+  /* Keeps the avatar beside the last bubble instead of beside the footer. */
+  .sprout-message:has(
+      > [data-slot="message-content"] > [data-slot="message-footer"]
+    )
+    > .sprout-message-avatar {
+    transform: translateY(
+      calc(-1 * (var(--sprout-message-content-gap) + 1rem))
+    );
+  }
+
+  .sprout-message-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sprout-message-content-gap);
+    width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+  .sprout-message[data-align="end"] > .sprout-message-content > [data-slot] {
+    align-self: flex-end;
+  }
+
+  .sprout-message-header,
+  .sprout-message-footer {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    min-width: 0;
+    padding-inline: var(--sprout-message-meta-inset);
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+  }
+  .sprout-message[data-align="end"]
+    > .sprout-message-content
+    > .sprout-message-footer {
+    justify-content: flex-end;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-message,
+    .sprout-message-avatar,
+    .sprout-message-header,
+    .sprout-message-footer {
+      transition:
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+  }
+
+  .sprout-message-bubble-frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    min-width: 0;
+    max-width: 80%;
+  }
+  .sprout-message-bubble-frame > .sprout-message-bubble {
+    max-width: 100%;
+  }
+  .sprout-message-bubble-frame[data-variant="ghost"] {
+    max-width: 100%;
+  }
+  [data-slot="message"][data-align="end"]
+    :is(
+      .sprout-message-bubble-frame,
+      :not(.sprout-message-bubble-frame) > .sprout-message-bubble
+    ) {
+    align-self: flex-end;
+    margin-inline-start: auto;
+  }
+
+  .sprout-message-bubble {
+    --sprout-message-bubble-fill: transparent;
+    --sprout-message-bubble-fill-hover: var(--sprout-hover);
+    --sprout-message-bubble-ink: var(--sprout-text);
+    --sprout-message-bubble-edge: transparent;
+    box-sizing: border-box;
+    width: fit-content;
+    min-width: 0;
+    max-width: 80%;
+    margin: 0;
+    overflow: hidden;
+    padding: 8px 12px;
+    border: 1px solid var(--sprout-message-bubble-edge);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-message-bubble-fill);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.625;
+    color: var(--sprout-message-bubble-ink);
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .sprout-message-bubble:is(button, a) {
+    appearance: none;
+    display: block;
+    outline: none;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .sprout-message-bubble:is(button, a):focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-message-bubble:is(button):disabled,
+  .sprout-message-bubble[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .sprout-message-bubble-default {
+    --sprout-message-bubble-fill: var(--sprout-primary);
+    --sprout-message-bubble-fill-hover: var(--sprout-primary-hover);
+    --sprout-message-bubble-ink: var(--sprout-on-primary);
+  }
+  .sprout-message-bubble-secondary {
+    --sprout-message-bubble-fill: var(--sprout-secondary);
+    --sprout-message-bubble-fill-hover: color-mix(
+      in oklab,
+      var(--sprout-text) 6%,
+      var(--sprout-secondary)
+    );
+  }
+  .sprout-message-bubble-muted {
+    --sprout-message-bubble-fill: color-mix(
+      in oklab,
+      var(--sprout-secondary) 55%,
+      var(--sprout-surface)
+    );
+    --sprout-message-bubble-fill-hover: var(--sprout-secondary);
+  }
+  .sprout-message-bubble-tinted {
+    --sprout-message-bubble-fill: color-mix(
+      in oklab,
+      var(--sprout-primary) 14%,
+      var(--sprout-surface)
+    );
+    --sprout-message-bubble-fill-hover: color-mix(
+      in oklab,
+      var(--sprout-primary) 22%,
+      var(--sprout-surface)
+    );
+  }
+  .sprout-message-bubble-outline {
+    --sprout-message-bubble-fill: var(--sprout-surface);
+    --sprout-message-bubble-edge: var(--sprout-line);
+  }
+  .sprout-message-bubble-ghost {
+    max-width: 100%;
+    padding: 0;
+    border-width: 0;
+    border-radius: 0;
+  }
+  .sprout-message-bubble-destructive {
+    --sprout-message-bubble-fill: var(--sprout-danger-subtle);
+    --sprout-message-bubble-fill-hover: color-mix(
+      in oklab,
+      var(--sprout-danger) 16%,
+      var(--sprout-danger-subtle)
+    );
+    --sprout-message-bubble-ink: var(--sprout-danger);
+  }
+  .sprout-message-bubble-destructive:focus-visible {
+    outline-color: var(--sprout-danger);
+  }
+
+  .sprout-message-reactions {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-sizing: border-box;
+    width: fit-content;
+    min-height: 24px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--sprout-secondary);
+    box-shadow: 0 0 0 3px
+      var(--sprout-message-reactions-ring, var(--sprout-surface));
+    font-size: var(--sprout-text-sm);
+    line-height: 20px;
+    white-space: nowrap;
+    color: var(--sprout-text);
+  }
+  .sprout-message-reactions[data-side="top"] {
+    top: 0;
+    translate: 0 -75%;
+  }
+  .sprout-message-reactions[data-side="bottom"] {
+    bottom: 0;
+    translate: 0 75%;
+  }
+  .sprout-message-reactions[data-align="start"] {
+    inset-inline-start: 12px;
+  }
+  .sprout-message-reactions[data-align="end"] {
+    inset-inline-end: 12px;
+  }
+  .sprout-message-reactions:has(button) {
+    gap: 0;
+    padding: 0;
+  }
+  .sprout-message-reactions > button {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+    margin: 0;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+  .sprout-message-reactions > button[aria-pressed="true"] {
+    background: var(--sprout-primary-subtle);
+    color: var(--sprout-primary);
+  }
+  .sprout-message-reactions > button:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 1px;
+  }
+
+  @media (hover: hover) {
+    .sprout-message-bubble:is(a[href], button:not(:disabled)):hover {
+      background: var(--sprout-message-bubble-fill-hover);
+    }
+    .sprout-message-reactions > button:hover {
+      background: var(--sprout-hover);
+    }
+    .sprout-message-reactions > button[aria-pressed="true"]:hover {
+      background: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-message-bubble:not(.sprout-message-bubble-ghost),
+    .sprout-message-reactions {
+      border: 1px solid CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-message-bubble,
+    .sprout-message-reactions > button {
+      transition:
+        background-color var(--sprout-motion-fast) ease-out,
+        color var(--sprout-motion-fast) ease-out,
+        border-color var(--sprout-motion-fast) ease-out,
+        outline-color var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+  }
+}

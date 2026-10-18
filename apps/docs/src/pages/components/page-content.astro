@@ -1,0 +1,87 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  PageContentPlayground,
+  PageContentExamples,
+} from "../../components/PageContentDemo";
+---
+
+<Docs title="Page Content">
+  <h1 class="docs-title">Page Content</h1>
+  <p class="docs-lead">
+    The padded column that holds a page's header and sections. It gives every
+    page the same edges and the same space between blocks.
+  </p>
+  <div class="mt-8"><PageContentPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Page content usage"
+      code={`import { PageContent } from "@tulipfarm/sprout/page-content";
+import { PageHeader } from "@tulipfarm/sprout/page-header";
+
+<div className="min-h-0 flex-1 overflow-auto">
+  <PageContent>
+    <PageHeader title="Usage" description="Credits, and where they go." />
+    <WorkspaceCredits />
+  </PageContent>
+</div>`}
+    />
+    <p>
+      <code>PageContent</code> fills the width and never forces its parent wider (<code
+        >min-width: 0</code
+      >). Padding is 16px on small screens and 24px left and right, 20px top and
+      bottom from 640px. Direct children sit 16px apart. Hidden children, such
+      as a <code>hidden</code> file input, and children that render nothing add no
+      space.
+    </p>
+    <p>
+      It does not scroll. Put it in your own scroll region, usually a <code
+        >min-h-0 flex-1 overflow-auto</code
+      > column under the app header. It takes every <code>div</code> prop, including
+      <code>ref</code> and <code>className</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Compositions</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Scroll region, restoration, and edge bleed"
+      code={`// Room under the list for a floating composer
+<div role="region" aria-label="Chat list" className="min-h-0 flex-1 overflow-y-auto pb-24">
+  <PageContent>…</PageContent>
+</div>
+
+// Keep the scroller in a ref to save and restore its position
+<div ref={scroller} data-scroll-restoration-id="files-library" className="min-h-0 flex-1 overflow-y-auto">
+  <PageContent>…</PageContent>
+</div>
+
+// A rail that scrolls edge to edge on small screens
+<nav className="-mx-[var(--sprout-page-content-inline)] px-[var(--sprout-page-content-inline)] overflow-x-auto">…</nav>`}
+    />
+    <p>
+      The current padding is on <code>--sprout-page-content-inline</code> and <code
+        >--sprout-page-content-block</code
+      >; the gap is <code>--sprout-page-content-gap</code>. Children can read
+      these to bleed to the edge. Spacing has zero specificity, so a child's own
+      margin class wins.
+    </p>
+    <PageContentExamples client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      <code>PageContent</code> is a plain <code>div</code> with no role and no motion.
+      Give the scroll region a name with <code>role="region"</code> and <code
+        >aria-label</code
+      > when it is a landmark, and let the keyboard reach it with <code
+        >{"tabIndex={0}"}</code
+      > when it has no focusable content. The page's <code>h1</code> comes from <code
+        >PageHeader</code
+      >. Routing and data in these examples are sample code.
+    </p>
+  </section>
+</Docs>

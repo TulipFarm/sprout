@@ -1,0 +1,262 @@
+@import "./accordion.css";
+@import "./alert.css";
+@import "./alert-dialog.css";
+@import "./aspect-ratio.css";
+@import "./attachment.css";
+@import "./avatar.css";
+@import "./badge.css";
+@import "./brand-icon.css";
+@import "./breadcrumb.css";
+@import "./button.css";
+@import "./button-group.css";
+@import "./calendar.css";
+@import "./canvas.css";
+@import "./card.css";
+@import "./carousel.css";
+@import "./chart.css";
+@import "./chat-confirmation.css";
+@import "./chat-plan.css";
+@import "./chat-sources.css";
+@import "./checkbox.css";
+@import "./choice-list.css";
+@import "./code-block.css";
+@import "./collapsible.css";
+@import "./combobox.css";
+@import "./command.css";
+@import "./context-menu.css";
+@import "./dialog.css";
+@import "./dropdown-menu.css";
+@import "./field.css";
+@import "./file-viewer.css";
+@import "./form.css";
+@import "./glass-banner.css";
+@import "./gradient-banner.css";
+@import "./hover-card.css";
+@import "./input.css";
+@import "./input-group.css";
+@import "./input-otp.css";
+@import "./kbd.css";
+@import "./label.css";
+@import "./mention-list.css";
+@import "./menubar.css";
+@import "./message.css";
+@import "./message-actions.css";
+@import "./message-response.css";
+@import "./message-scroller.css";
+@import "./navigation-menu.css";
+@import "./notice-banner.css";
+@import "./page-content.css";
+@import "./page-header.css";
+@import "./pagination.css";
+@import "./plan-outline.css";
+@import "./popover.css";
+@import "./progress.css";
+@import "./prompt-list.css";
+@import "./questionnaire.css";
+@import "./radio-group.css";
+@import "./reasoning-effort.css";
+@import "./resizable.css";
+@import "./result-card.css";
+@import "./review-card.css";
+@import "./rich-text-editor.css";
+@import "./schema-diagram.css";
+@import "./scroll-area.css";
+@import "./search-dialog.css";
+@import "./search-field.css";
+@import "./select.css";
+@import "./selection-slot.css";
+@import "./separator.css";
+@import "./settings-list.css";
+@import "./sheet.css";
+@import "./sidebar.css";
+@import "./skeleton.css";
+@import "./slider.css";
+@import "./spinner.css";
+@import "./state-panel.css";
+@import "./state-panel-samples.css";
+@import "./state-sample.css";
+@import "./switch.css";
+@import "./table.css";
+@import "./tabs.css";
+@import "./textarea.css";
+@import "./toast.css";
+@import "./toggle.css";
+@import "./toggle-group.css";
+@import "./tool-activity.css";
+@import "./toolbar-status.css";
+@import "./tooltip.css";
+@import "./typed-text.css";
+@source "../**/*.js";
+
+@theme inline {
+  --color-sprout-canvas: var(--sprout-canvas);
+  --color-sprout-surface: var(--sprout-surface);
+  --color-sprout-hover: var(--sprout-hover);
+  --color-sprout-active: var(--sprout-active);
+  --color-sprout-text: var(--sprout-text);
+  --color-sprout-muted: var(--sprout-muted);
+  --color-sprout-line: var(--sprout-line);
+  --color-sprout-border: var(--sprout-border);
+  --color-sprout-border-strong: var(--sprout-border-strong);
+  --color-sprout-input: var(--sprout-input);
+  --color-sprout-primary: var(--sprout-primary);
+  --color-sprout-primary-hover: var(--sprout-primary-hover);
+  --color-sprout-primary-active: var(--sprout-primary-active);
+  --color-sprout-on-primary: var(--sprout-on-primary);
+  --color-sprout-focus: var(--sprout-focus);
+  --color-sprout-danger: var(--sprout-danger);
+  --color-sprout-danger-hover: var(--sprout-danger-hover);
+  --color-sprout-on-danger: var(--sprout-on-danger);
+  --color-sprout-info: var(--sprout-info);
+  --color-sprout-info-subtle: var(--sprout-info-subtle);
+  --color-sprout-primary-subtle: var(--sprout-primary-subtle);
+  --color-sprout-secondary: var(--sprout-secondary);
+  --color-sprout-danger-subtle: var(--sprout-danger-subtle);
+  --color-sprout-success: var(--sprout-success);
+  --color-sprout-success-subtle: var(--sprout-success-subtle);
+  --color-sprout-warning: var(--sprout-warning);
+  --color-sprout-warning-subtle: var(--sprout-warning-subtle);
+  --color-sprout-overlay: var(--sprout-overlay);
+  --color-sprout-chart-1: var(--sprout-chart-1);
+  --color-sprout-chart-2: var(--sprout-chart-2);
+  --color-sprout-chart-3: var(--sprout-chart-3);
+  --color-sprout-chart-4: var(--sprout-chart-4);
+  --color-sprout-chart-5: var(--sprout-chart-5);
+  --font-sprout: var(--sprout-font);
+  --text-sprout-xs: var(--sprout-text-xs);
+  --text-sprout-sm: var(--sprout-text-sm);
+  --text-sprout-base: var(--sprout-text-base);
+  --radius-sprout-control: var(--sprout-radius-control);
+  --radius-sprout-panel: var(--sprout-radius-panel);
+  --shadow-sprout-control: var(--sprout-shadow-control);
+  --shadow-sprout-panel: var(--sprout-shadow-panel);
+  --shadow-sprout-overlay: var(--sprout-shadow-overlay);
+}
+
+@layer base {
+  :root {
+    --sprout-font: ui-sans-serif, system-ui, sans-serif;
+    --sprout-text-xs: 0.75rem;
+    --sprout-text-sm: 0.875rem;
+    --sprout-text-base: 1rem;
+    --sprout-radius-control: 0.375rem;
+    --sprout-radius-panel: 0.75rem;
+    --sprout-sidebar-width: 15.25rem;
+    --sprout-sidebar-icon-width: 3.5rem;
+    --sprout-sidebar-mobile-width: 18rem;
+    --sprout-motion-fast: 120ms;
+    --sprout-motion-normal: 180ms;
+    --sprout-motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --sprout-shadow-control: 0 1px 2px rgb(24 24 24 / 0.04);
+    --sprout-shadow-panel: 0 2px 6px -4px rgb(24 24 24 / 0.1);
+    --sprout-shadow-overlay: 0 16px 64px -16px rgb(18 18 18 / 0.3);
+  }
+
+  :root,
+  .light {
+    --sprout-canvas: #f8f8f8;
+    --sprout-surface: #fdfdfd;
+    --sprout-hover: #eeeeee;
+    --sprout-active: #e3e3e3;
+    --sprout-text: #242424;
+    --sprout-muted: #626262;
+    --sprout-line: #e0e0e0;
+    --sprout-border: #909090;
+    --sprout-border-strong: #707070;
+    --sprout-input: #d4d4d4;
+    --sprout-primary: #262626;
+    --sprout-primary-hover: #171717;
+    --sprout-primary-active: #0d0d0d;
+    --sprout-on-primary: #fafafa;
+    --sprout-focus: #525252;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #ececec;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark {
+    --sprout-canvas: #151515;
+    --sprout-surface: #1d1d1d;
+    --sprout-hover: #2b2b2b;
+    --sprout-active: #363636;
+    --sprout-text: #f0f0f0;
+    --sprout-muted: #adadad;
+    --sprout-line: #383838;
+    --sprout-border: #808080;
+    --sprout-border-strong: #a0a0a0;
+    --sprout-input: #474747;
+    --sprout-primary: #ededed;
+    --sprout-primary-hover: #d6d6d6;
+    --sprout-primary-active: #c4c4c4;
+    --sprout-on-primary: #202020;
+    --sprout-focus: #b5b5b5;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #2c2c2c;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark) {
+      --sprout-canvas: #151515;
+      --sprout-surface: #1d1d1d;
+      --sprout-hover: #2b2b2b;
+      --sprout-active: #363636;
+      --sprout-text: #f0f0f0;
+      --sprout-muted: #adadad;
+      --sprout-line: #383838;
+      --sprout-border: #808080;
+      --sprout-border-strong: #a0a0a0;
+      --sprout-input: #474747;
+      --sprout-primary: #ededed;
+      --sprout-primary-hover: #d6d6d6;
+      --sprout-primary-active: #c4c4c4;
+      --sprout-on-primary: #202020;
+      --sprout-focus: #b5b5b5;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #2c2c2c;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

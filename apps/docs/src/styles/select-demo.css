@@ -1,0 +1,315 @@
+.select-demo-panel {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.select-demo-stage {
+  display: flex;
+  justify-content: center;
+  padding: 28px 20px;
+  background: var(--sprout-canvas);
+}
+.select-demo-form {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  max-width: 26rem;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.select-demo-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.select-demo-readout {
+  margin: 0;
+  padding: 10px 16px;
+  border-top: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.select-demo-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.select-demo-label {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--sprout-text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+.select-demo-marker {
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+.select-demo-helper,
+.select-demo-error {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+}
+.select-demo-helper {
+  color: var(--sprout-muted);
+}
+.select-demo-error {
+  color: var(--sprout-danger);
+}
+.select-demo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.select-demo-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sprout-text);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.select-demo-link:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.select-demo-sizes {
+  display: grid;
+}
+.select-demo-size-row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--sprout-line);
+}
+.select-demo-size-row:first-child {
+  border-top: 0;
+}
+.select-demo-size-meta {
+  display: grid;
+  gap: 2px;
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.select-demo-size-meta code {
+  color: var(--sprout-text);
+  font-size: 11px;
+}
+.select-demo-size-control {
+  min-width: 0;
+  max-width: 26rem;
+}
+.select-demo-person {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.select-demo-person-name {
+  display: grid;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+.select-demo-person-name span {
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+.select-demo-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.select-demo-pagination label {
+  color: var(--sprout-text);
+}
+.select-demo-dock {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+}
+.select-demo-dock-title {
+  font-size: 12px;
+  font-weight: 500;
+}
+.select-demo-calendar-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.select-demo-calendar-bar strong {
+  flex: 1 1 auto;
+  font-weight: 600;
+}
+
+.select-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 16px;
+  padding: 20px 16px;
+}
+
+.select-demo-model {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.select-demo-model-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.select-demo-model-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.select-demo-model-details {
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.select-demo-required {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-top: 1px solid var(--sprout-line);
+}
+.select-demo-required fieldset {
+  display: grid;
+  gap: 10px;
+  max-width: 22rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.select-demo-actions {
+  display: flex;
+}
+.select-demo-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.select-demo-status {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.select-demo-status:empty {
+  display: none;
+}
+
+.select-demo-compositions {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+}
+.select-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+}
+.select-demo-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.select-demo-filter-stack {
+  display: grid;
+  margin-top: 16px;
+}
+.select-demo-inline-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.select-demo-composer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+}
+.select-demo-query {
+  display: grid;
+  gap: 10px;
+}
+.select-demo-sentence,
+.select-demo-condition {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 13px;
+}
+.select-demo-condition > span {
+  min-width: 6.5rem;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.select-demo-sheet {
+  display: grid;
+  gap: 4px;
+  padding: 20px;
+}
+
+@media (max-width: 640px) {
+  .select-demo-size-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .select-demo-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The docs page focus ring is unlayered; the highlight background marks the active option. */
+.sprout-select-item:focus-visible {
+  outline: none;
+}

@@ -1,0 +1,125 @@
+/* Spotify: Near-black and bright green.
+ *
+ * One file is the whole theme: font, radius, and every color token for light
+ * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
+ * data-sprout-theme="spotify" on <html>, or on any element to theme only
+ * that subtree.
+ */
+@layer base {
+  [data-sprout-theme="spotify"] {
+    --sprout-font: ui-sans-serif, system-ui, sans-serif;
+    --sprout-radius-control: 0.5rem;
+    --sprout-radius-panel: 0.75rem;
+  }
+
+  [data-sprout-theme="spotify"],
+  .light[data-sprout-theme="spotify"],
+  .light [data-sprout-theme="spotify"] {
+    --sprout-canvas: #f6f6f6;
+    --sprout-surface: #ffffff;
+    --sprout-hover: #f1f1f1;
+    --sprout-active: #e7e7e7;
+    --sprout-text: #121212;
+    --sprout-muted: #5c5c5c;
+    --sprout-line: #e2e2e2;
+    --sprout-border: #898989;
+    --sprout-border-strong: #6c6c6c;
+    --sprout-input: #d9d9d9;
+    --sprout-primary: #1db954;
+    --sprout-primary-hover: #1aa34a;
+    --sprout-primary-active: #179042;
+    --sprout-on-primary: #111111;
+    --sprout-focus: #1db954;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #eeeeee;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark[data-sprout-theme="spotify"],
+  .dark [data-sprout-theme="spotify"] {
+    --sprout-canvas: #121212;
+    --sprout-surface: #181818;
+    --sprout-hover: #2a2a2a;
+    --sprout-active: #363636;
+    --sprout-text: #ffffff;
+    --sprout-muted: #b3b3b3;
+    --sprout-line: #2a2a2a;
+    --sprout-border: #808080;
+    --sprout-border-strong: #9e9e9e;
+    --sprout-input: #464646;
+    --sprout-primary: #1ed760;
+    --sprout-primary-hover: #39dc73;
+    --sprout-primary-active: #50e083;
+    --sprout-on-primary: #111111;
+    --sprout-focus: #1ed760;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #2d2d2d;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)[data-sprout-theme="spotify"],
+    :root:not(.light):not(.dark) [data-sprout-theme="spotify"] {
+      --sprout-canvas: #121212;
+      --sprout-surface: #181818;
+      --sprout-hover: #2a2a2a;
+      --sprout-active: #363636;
+      --sprout-text: #ffffff;
+      --sprout-muted: #b3b3b3;
+      --sprout-line: #2a2a2a;
+      --sprout-border: #808080;
+      --sprout-border-strong: #9e9e9e;
+      --sprout-input: #464646;
+      --sprout-primary: #1ed760;
+      --sprout-primary-hover: #39dc73;
+      --sprout-primary-active: #50e083;
+      --sprout-on-primary: #111111;
+      --sprout-focus: #1ed760;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #2d2d2d;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

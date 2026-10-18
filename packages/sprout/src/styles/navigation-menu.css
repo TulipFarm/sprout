@@ -1,0 +1,291 @@
+@layer components {
+  .sprout-navigation-menu {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    max-width: max-content;
+    min-width: 0;
+    font-family: var(--sprout-font);
+  }
+
+  .sprout-navigation-menu-list {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sprout-navigation-menu-item {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  /* Triggers, and top-level links given navigationMenuTriggerStyle(). */
+  .sprout-navigation-menu-trigger,
+  .sprout-navigation-menu-list
+    > .sprout-navigation-menu-item
+    > .sprout-navigation-menu-link {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: max-content;
+    max-width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 0 10px;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: var(--sprout-text);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-navigation-menu-trigger:hover,
+  .sprout-navigation-menu-list
+    > .sprout-navigation-menu-item
+    > .sprout-navigation-menu-link:hover {
+    background: var(--sprout-hover);
+  }
+  .sprout-navigation-menu-trigger[data-popup-open],
+  .sprout-navigation-menu-list
+    > .sprout-navigation-menu-item
+    > .sprout-navigation-menu-link[data-active] {
+    background: var(--sprout-hover);
+  }
+  .sprout-navigation-menu-trigger[data-popup-open]:hover,
+  .sprout-navigation-menu-list
+    > .sprout-navigation-menu-item
+    > .sprout-navigation-menu-link[data-active]:hover {
+    background: var(--sprout-active);
+  }
+  .sprout-navigation-menu-trigger:focus-visible,
+  .sprout-navigation-menu-link:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-navigation-menu-trigger:is(:disabled, [data-disabled]) {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .sprout-navigation-menu-chevron {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-inline-end: -2px;
+    color: var(--sprout-muted);
+  }
+  .sprout-navigation-menu-chevron > svg {
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-navigation-menu-chevron[data-popup-open] {
+    rotate: 180deg;
+  }
+
+  .sprout-navigation-menu-link {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 6px 8px;
+    border-radius: var(--sprout-radius-control);
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    line-height: 20px;
+    text-decoration: none;
+    outline: none;
+    overflow-wrap: anywhere;
+  }
+  .sprout-navigation-menu-link > svg {
+    flex-shrink: 0;
+  }
+  .sprout-navigation-menu-link > svg:not([class*="size-"]) {
+    width: 16px;
+    height: 16px;
+  }
+  .sprout-navigation-menu-link:hover {
+    background: var(--sprout-hover);
+  }
+  .sprout-navigation-menu-link[data-active] {
+    background: var(--sprout-hover);
+    font-weight: 500;
+  }
+  .sprout-navigation-menu-link[data-active]:hover {
+    background: var(--sprout-active);
+  }
+
+  .sprout-navigation-menu-indicator {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 51;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 14px;
+    height: 8px;
+    margin-left: -7px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .sprout-navigation-menu-indicator[data-popup-open] {
+    opacity: 1;
+    visibility: visible;
+  }
+  .sprout-navigation-menu-indicator-arrow {
+    position: relative;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid var(--sprout-line);
+    border-radius: 2px 0 0;
+    background: var(--sprout-surface);
+    rotate: 45deg;
+  }
+
+  .sprout-navigation-menu-positioner {
+    box-sizing: border-box;
+    z-index: 50;
+    isolation: isolate;
+    width: var(--positioner-width);
+    height: var(--positioner-height);
+    max-width: var(--available-width);
+  }
+  .sprout-navigation-menu-positioner[hidden] {
+    display: none;
+  }
+  /* A hover bridge across the side offset so the pointer can reach the panel. */
+  .sprout-navigation-menu-positioner::before {
+    position: absolute;
+    content: "";
+  }
+  .sprout-navigation-menu-positioner[data-side="bottom"]::before {
+    top: -8px;
+    right: 0;
+    left: 0;
+    height: 8px;
+  }
+
+  .sprout-navigation-menu-popup {
+    box-sizing: border-box;
+    position: relative;
+    width: var(--popup-width);
+    height: var(--popup-height);
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    outline: none;
+    transform-origin: var(--transform-origin);
+  }
+
+  .sprout-navigation-menu-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  .sprout-navigation-menu-content {
+    box-sizing: border-box;
+    width: max-content;
+    max-width: calc(100vw - 18px);
+    height: 100%;
+    padding: 4px;
+  }
+  .sprout-navigation-menu-content:focus-visible {
+    outline: none;
+  }
+
+  @media (forced-colors: active) {
+    .sprout-navigation-menu-popup {
+      border-color: CanvasText;
+    }
+    .sprout-navigation-menu-link[data-active] {
+      outline: 1px solid CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-navigation-menu-trigger,
+    .sprout-navigation-menu-link {
+      transition: background-color var(--sprout-motion-fast)
+        var(--sprout-motion-ease);
+    }
+    .sprout-navigation-menu-chevron {
+      transition: rotate var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-navigation-menu-indicator {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        visibility var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-navigation-menu-positioner {
+      transition:
+        top var(--sprout-motion-normal) var(--sprout-motion-ease),
+        left var(--sprout-motion-normal) var(--sprout-motion-ease),
+        right var(--sprout-motion-normal) var(--sprout-motion-ease),
+        bottom var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-navigation-menu-positioner[data-instant] {
+      transition: none;
+    }
+    .sprout-navigation-menu-popup {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease),
+        width var(--sprout-motion-normal) var(--sprout-motion-ease),
+        height var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-navigation-menu-popup:is(
+      [data-starting-style],
+      [data-ending-style]
+    ) {
+      opacity: 0;
+      scale: 0.96;
+    }
+    .sprout-navigation-menu-content {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        translate var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-navigation-menu-content:is(
+      [data-starting-style],
+      [data-ending-style]
+    ) {
+      opacity: 0;
+    }
+    .sprout-navigation-menu-content[data-starting-style][data-activation-direction="left"],
+    .sprout-navigation-menu-content[data-ending-style][data-activation-direction="right"] {
+      translate: -24px 0;
+    }
+    .sprout-navigation-menu-content[data-starting-style][data-activation-direction="right"],
+    .sprout-navigation-menu-content[data-ending-style][data-activation-direction="left"] {
+      translate: 24px 0;
+    }
+  }
+}

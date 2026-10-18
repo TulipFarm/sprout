@@ -1,0 +1,43 @@
+.menubar-demo-playground {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.menubar-demo-stage {
+  display: grid;
+  justify-items: center;
+  padding: 40px 20px 72px;
+  background: var(--sprout-canvas);
+}
+.menubar-demo-readout {
+  display: grid;
+  gap: 2px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}
+.menubar-demo-readout .menubar-demo-status {
+  padding: 0;
+  color: var(--sprout-text);
+}
+.menubar-demo-editor {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  min-width: 0;
+}
+.menubar-demo-summary,
+.menubar-demo-status:not(:empty) {
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}
+.menubar-demo-truncate {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

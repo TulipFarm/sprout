@@ -1,0 +1,208 @@
+.textarea-demo {
+  display: grid;
+  gap: 20px;
+}
+/* The docs page draws a global focus outline; keep Textarea's own ring. */
+.textarea-demo .sprout-textarea:focus-visible {
+  outline-offset: 2px;
+}
+.textarea-demo .sprout-textarea[aria-invalid="true"]:focus-visible {
+  outline-color: var(--sprout-danger);
+}
+.textarea-demo .sprout-textarea-variant-embedded:focus-visible {
+  outline: none;
+}
+.textarea-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.textarea-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.textarea-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.textarea-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.textarea-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+@media (max-width: 480px) {
+  .textarea-demo-card-body {
+    padding: 14px;
+  }
+}
+.textarea-demo-panel {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  max-width: 36rem;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.textarea-demo-grid {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+@media (min-width: 720px) {
+  .textarea-demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+@media (min-width: 1100px) {
+  .textarea-demo-grid-wide {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.textarea-demo-field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+.textarea-demo-helper {
+  min-width: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sprout-muted);
+  overflow-wrap: anywhere;
+}
+.textarea-demo-error {
+  min-height: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sprout-danger);
+}
+.textarea-demo-error:empty {
+  display: none;
+}
+.textarea-demo-caption {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--sprout-muted);
+  font-variant-numeric: tabular-nums;
+}
+.textarea-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  min-width: 0;
+}
+.textarea-demo-row:has(> button:first-child) {
+  justify-content: flex-start;
+}
+.textarea-demo-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  font-weight: 400;
+}
+.textarea-demo-wrap {
+  display: grid;
+  gap: 6px;
+}
+.textarea-demo-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.textarea-demo-fieldset {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 14px 14px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.textarea-demo-fieldset legend {
+  padding-inline: 4px;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.textarea-demo-matrix {
+  display: grid;
+  gap: 12px;
+}
+.textarea-demo-matrix-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+@media (min-width: 720px) {
+  .textarea-demo-matrix-row {
+    grid-template-columns: 11rem minmax(0, 36rem);
+    align-items: start;
+  }
+}
+.textarea-demo-matrix-label p {
+  font-size: 13px;
+  font-weight: 550;
+}
+.textarea-demo-matrix-label span {
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+
+.textarea-demo-composer {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid color-mix(in oklab, var(--sprout-muted) 50%, transparent);
+  border-radius: calc(var(--sprout-radius-panel) - 2px);
+  background: var(--sprout-surface);
+  cursor: text;
+}
+.textarea-demo-composer:has(.sprout-textarea:focus-visible) {
+  border-color: var(--sprout-focus);
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: 2px;
+}
+.textarea-demo-composer-title {
+  padding: 8px 10px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sprout-muted);
+}
+.textarea-demo-composer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 8px 8px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .textarea-demo-composer {
+    transition:
+      border-color var(--sprout-motion-fast, 120ms) ease-out,
+      outline-color var(--sprout-motion-fast, 120ms) ease-out;
+  }
+}

@@ -1,0 +1,339 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+import HeaderTools from "../components/HeaderTools";
+import { allPages, componentGroups, guides } from "../data/nav";
+
+interface Props {
+  title: string;
+  description?: string;
+  home?: boolean;
+}
+const {
+  title,
+  description = "Thoughtful React controls, built with Base UI and Tailwind CSS.",
+  home = false,
+} = Astro.props;
+const path = Astro.url.pathname.endsWith("/")
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const index = allPages.findIndex((page) => page.href === path);
+const previous = index > 0 ? allPages[index - 1] : undefined;
+const next = index >= 0 ? allPages[index + 1] : undefined;
+const group = componentGroups.find((g) =>
+  g.items.some((item) => item.href === path),
+);
+const section = path.startsWith("/components/") ? "components" : "docs";
+---
+
+<!doctype html>
+<html lang="en" data-sprout-theme="neutral">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta
+      name="theme-color"
+      content="#f8f8f8"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#151515"
+      media="(prefers-color-scheme: dark)"
+    />
+    <title>
+      {
+        home
+          ? "Sprout | A foundation for your next interface"
+          : `${title} | Sprout`
+      }
+    </title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      try {
+        const mode = localStorage.getItem("sprout-docs-mode");
+        if (mode === "light" || mode === "dark")
+          document.documentElement.classList.add(mode);
+        const theme = localStorage.getItem("sprout-docs-theme");
+        if (theme) document.documentElement.dataset.sproutTheme = theme;
+      } catch {}
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="site-header">
+      <div class="site-header-inner">
+        {
+          !home && (
+            <button
+              type="button"
+              class="nav-toggle"
+              aria-controls="docs-sidebar"
+              aria-expanded="false"
+              aria-label="Open navigation"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                width="16"
+                height="16"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2.5 5h11M2.5 11h11"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          )
+        }
+        <a class="brand" href="/" aria-label="Sprout home">
+          <span class="brand-mark" aria-hidden="true">s</span><span
+            class="brand-word">sprõut</span
+          >
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a
+            href="/installation/"
+            aria-current={!home && section === "docs" ? "page" : undefined}
+            >Docs</a
+          >
+          <a
+            href="/components/button/"
+            aria-current={section === "components" ? "page" : undefined}
+            >Components</a
+          >
+          <a href="/theming/">Themes</a>
+        </nav>
+        <HeaderTools client:load transition:persist="header-tools" />
+      </div>
+    </header>
+    {
+      home ? (
+        <main id="main" class="home-main" tabindex="-1">
+          <slot />
+        </main>
+      ) : (
+        <div class="docs-shell">
+          <aside
+            id="docs-sidebar"
+            class="docs-sidebar"
+            transition:persist="docs-sidebar"
+          >
+            <nav class="docs-nav" aria-label="Documentation">
+              <div class="docs-nav-group">
+                <p class="docs-nav-heading">Getting started</p>
+                {guides.map((page) => (
+                  <a
+                    href={page.href}
+                    aria-current={path === page.href ? "page" : undefined}
+                  >
+                    {page.name}
+                  </a>
+                ))}
+              </div>
+              {componentGroups.map((g) => (
+                <div class="docs-nav-group">
+                  <p class="docs-nav-heading">{g.title}</p>
+                  {g.items.map((page) => (
+                    <a
+                      href={page.href}
+                      aria-current={path === page.href ? "page" : undefined}
+                    >
+                      {page.name}
+                    </a>
+                  ))}
+                </div>
+              ))}
+            </nav>
+          </aside>
+          <div class="docs-scrim" aria-hidden="true" />
+          <div class="docs-body">
+            <main id="main" class="docs-main" tabindex="-1">
+              <div class="docs-crumbs">
+                <a
+                  href={
+                    section === "components"
+                      ? "/components/button/"
+                      : "/installation/"
+                  }
+                >
+                  {section === "components" ? "Components" : "Docs"}
+                </a>
+                {group && <span aria-hidden="true">/</span>}
+                {group && <span>{group.title}</span>}
+              </div>
+              <slot />
+              {(previous || next) && (
+                <nav class="docs-pager" aria-label="Previous and next page">
+                  {previous ? (
+                    <a href={previous.href} class="docs-pager-link" rel="prev">
+                      <span>Previous</span>
+                      {previous.name}
+                    </a>
+                  ) : (
+                    <span />
+                  )}
+                  {next && (
+                    <a
+                      href={next.href}
+                      class="docs-pager-link docs-pager-next"
+                      rel="next"
+                    >
+                      <span>Next</span>
+                      {next.name}
+                    </a>
+                  )}
+                </nav>
+              )}
+              <footer class="docs-footer">
+                <span>Sprout by TulipFarm. MIT licensed.</span>
+                <a href="https://github.com/TulipFarm/sprout/issues">
+                  Feedback on GitHub
+                </a>
+              </footer>
+            </main>
+            <aside class="docs-toc" aria-label="On this page" hidden>
+              <p class="docs-toc-heading">On this page</p>
+              <ol />
+            </aside>
+          </div>
+        </div>
+      )
+    }
+  </body>
+</html>
+
+<script>
+  const slug = (text: string) =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+  let tocObserver: IntersectionObserver | undefined;
+
+  function setNavOpen(open: boolean) {
+    document.documentElement.toggleAttribute("data-nav-open", open);
+    const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+    toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.setAttribute(
+      "aria-label",
+      open ? "Close navigation" : "Open navigation",
+    );
+  }
+
+  function syncSidebar() {
+    const sidebar = document.querySelector<HTMLElement>(".docs-sidebar");
+    if (!sidebar) return;
+    const path = location.pathname.endsWith("/")
+      ? location.pathname
+      : `${location.pathname}/`;
+    let current: HTMLAnchorElement | undefined;
+    for (const link of sidebar.querySelectorAll<HTMLAnchorElement>("a")) {
+      const active = link.pathname === path;
+      if (active) {
+        link.setAttribute("aria-current", "page");
+        current = link;
+      } else link.removeAttribute("aria-current");
+    }
+    if (!current) return;
+    const box = sidebar.getBoundingClientRect();
+    const item = current.getBoundingClientRect();
+    if (item.top < box.top + 24 || item.bottom > box.bottom - 24) {
+      sidebar.scrollTop +=
+        item.top - box.top - box.height / 2 + item.height / 2;
+    }
+  }
+
+  function buildToc() {
+    tocObserver?.disconnect();
+    const toc = document.querySelector<HTMLElement>(".docs-toc");
+    const main = document.querySelector<HTMLElement>(".docs-main");
+    if (!toc || !main) return;
+    const headings = [
+      ...main.querySelectorAll<HTMLElement>("h2.section-title"),
+    ].filter((heading) => !heading.closest("astro-island"));
+    toc.hidden = headings.length < 2;
+    if (toc.hidden) return;
+    const list = toc.querySelector("ol")!;
+    const seen = new Set<string>();
+    const links = headings.map((heading) => {
+      if (!heading.id) {
+        let id = slug(heading.textContent ?? "") || "section";
+        while (seen.has(id) || document.getElementById(id)) id += "-x";
+        heading.id = id;
+      }
+      seen.add(heading.id);
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent;
+      item.append(link);
+      return { heading, item, link };
+    });
+    list.replaceChildren(...links.map(({ item }) => item));
+    const visible = new Set<Element>();
+    tocObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target);
+          else visible.delete(entry.target);
+        }
+        const active =
+          links.find(({ heading }) => visible.has(heading)) ?? undefined;
+        if (!active) return;
+        for (const { link } of links)
+          link.toggleAttribute("data-active", link === active.link);
+      },
+      { rootMargin: "-72px 0px -55% 0px" },
+    );
+    for (const { heading } of links) tocObserver.observe(heading);
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as Element;
+    if (target.closest(".nav-toggle")) {
+      setNavOpen(!document.documentElement.hasAttribute("data-nav-open"));
+    } else if (target.closest(".docs-scrim")) {
+      setNavOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      document.documentElement.hasAttribute("data-nav-open")
+    ) {
+      setNavOpen(false);
+      document.querySelector<HTMLElement>(".nav-toggle")?.focus();
+    }
+  });
+
+  let sidebarScroll = 0;
+
+  document.addEventListener("astro:before-swap", (event) => {
+    const root = document.documentElement;
+    const next = event.newDocument.documentElement;
+    next.dataset.sproutTheme = root.dataset.sproutTheme;
+    for (const mode of ["light", "dark"])
+      next.classList.toggle(mode, root.classList.contains(mode));
+    sidebarScroll = document.querySelector(".docs-sidebar")?.scrollTop ?? 0;
+  });
+
+  // Moving the persisted sidebar into the new document resets its scrollTop to 0.
+  document.addEventListener("astro:after-swap", () => {
+    const sidebar = document.querySelector<HTMLElement>(".docs-sidebar");
+    if (sidebar) sidebar.scrollTop = sidebarScroll;
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    setNavOpen(false);
+    syncSidebar();
+    buildToc();
+  });
+</script>

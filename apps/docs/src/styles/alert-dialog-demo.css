@@ -1,0 +1,41 @@
+.alert-dialog-demo-inline-controls {
+  margin-inline: -20px;
+  margin-top: -8px;
+  padding-inline: 20px;
+  background: var(--sprout-surface);
+}
+
+.alert-dialog-demo-step {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.alert-dialog-demo-editor {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 0;
+}
+.alert-dialog-demo-teams {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  align-content: start;
+}
+.alert-dialog-demo-form {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.alert-dialog-demo-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (min-width: 40rem) {
+  .alert-dialog-demo-editor {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 20px;
+  }
+}

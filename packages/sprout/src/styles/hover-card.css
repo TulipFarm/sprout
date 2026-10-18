@@ -1,0 +1,95 @@
+@layer components {
+  :where(a.sprout-hover-card-trigger) {
+    border-radius: 2px;
+    color: inherit;
+    font-weight: 500;
+    text-decoration-line: underline;
+    text-decoration-color: var(--sprout-border);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    outline: none;
+  }
+  :where(a.sprout-hover-card-trigger):hover,
+  :where(a.sprout-hover-card-trigger)[data-popup-open] {
+    text-decoration-color: currentColor;
+  }
+  :where(a.sprout-hover-card-trigger):focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+
+  .sprout-hover-card-positioner {
+    z-index: 50;
+    isolation: isolate;
+    outline: none;
+  }
+  .sprout-hover-card-positioner[hidden] {
+    display: none;
+  }
+
+  .sprout-hover-card-content {
+    --sprout-hover-card-shift: 8px;
+    box-sizing: border-box;
+    width: 16rem;
+    max-width: var(--available-width);
+    padding: 10px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+    outline: none;
+    transform-origin: var(--transform-origin);
+  }
+  .sprout-hover-card-content :where(p) {
+    margin: 0;
+  }
+
+  @media (forced-colors: active) {
+    .sprout-hover-card-content {
+      border-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-hover-card-content {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease),
+        translate var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-hover-card-content[data-starting-style],
+    .sprout-hover-card-content[data-ending-style] {
+      opacity: 0;
+      scale: 0.95;
+    }
+    .sprout-hover-card-content[data-side="bottom"]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: 0 calc(var(--sprout-hover-card-shift) * -1);
+    }
+    .sprout-hover-card-content[data-side="top"]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: 0 var(--sprout-hover-card-shift);
+    }
+    .sprout-hover-card-content:is(
+        [data-side="right"],
+        [data-side="inline-end"]
+      ):is([data-starting-style], [data-ending-style]) {
+      translate: calc(var(--sprout-hover-card-shift) * -1) 0;
+    }
+    .sprout-hover-card-content:is(
+        [data-side="left"],
+        [data-side="inline-start"]
+      ):is([data-starting-style], [data-ending-style]) {
+      translate: var(--sprout-hover-card-shift) 0;
+    }
+  }
+}

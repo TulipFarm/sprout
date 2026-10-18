@@ -1,0 +1,29 @@
+name: Bug report
+description: Something does not work as expected.
+labels: [bug]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      placeholder: "@tulipfarm/sprout/button"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: A minimal code sample or a link to a reproduction.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Versions
+      placeholder: "sprout 0.1.0, react 19.x, tailwindcss 4.x, browser"

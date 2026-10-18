@@ -1,0 +1,129 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  ChatConfirmationPlayground,
+  ChatConfirmationReminder,
+  ChatConfirmationStates,
+  ChatConfirmationTableApproval,
+} from "../../components/ChatConfirmationDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Chat Confirmation"
+  description="Asks someone in chat to approve or decline an action an agent proposed, with the facts, a submitting state, and the outcome."
+>
+  <h1 class="docs-title">Chat Confirmation</h1>
+  <p class="docs-lead">
+    Asks someone in chat to approve or decline an action an agent proposed. It
+    is a <a href="/components/review-card/">Review Card</a> with a shield icon, a
+    status badge, the facts as rows, and two buttons. Once decided it folds and shows
+    the outcome.
+  </p>
+  <div class="mt-8"><ChatConfirmationPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A table change waiting for approval"
+      code={`import {
+  ChatConfirmation,
+  type ConfirmationState,
+} from "@tulipfarm/sprout/chat-confirmation";
+
+const [state, setState] = useState<ConfirmationState>({ kind: "pending" });
+
+<ChatConfirmation
+  title="Remove the Notes field from Supplier deliveries"
+  description="Review these changes before approving."
+  details={[
+    { label: "Action", value: "Change table schema" },
+    { label: "Effect", value: "Remove field values" },
+    { label: "Affected rows", value: "128" },
+  ]}
+  state={state}
+  disabled={!canVerifyEffect}
+  onDecision={async (decision) => {
+    setState({ kind: "submitting", decision });
+    setState(await save(decision));
+  }}
+/>`}
+    />
+    <ul>
+      <li>
+        <code>title</code>: what the agent wants to do. Long titles end with an
+        ellipsis.
+      </li>
+      <li>
+        <code>description</code>: one line above the facts.
+      </li>
+      <li>
+        <code>details</code>: <code>{"{ label, value }[]"}</code>, shown in
+        order. Long values wrap.
+      </li>
+      <li>
+        <code>state</code>: <code>pending</code>,
+        <code>{'{ kind: "submitting", decision }'}</code>,
+        <code>approved</code>, <code>rejected</code>, <code>expired</code>,
+        <code>cancelled</code>, or
+        <code>{'{ kind: "error", message }'}</code>.
+      </li>
+      <li>
+        <code>onDecision</code>: called with <code>"approve"</code> or
+        <code>"reject"</code>.
+      </li>
+      <li>
+        <code>disabled</code>: locks both buttons, such as while the request is
+        refreshing or its effect cannot be verified.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <p>
+      Pending, submitting, and error show <strong>Approval required</strong>
+      with both buttons. While submitting, both are disabled and the chosen one shows
+      a spinner. An error shows above the buttons so people can try again. Approved,
+      declined, expired, and cancelled fold the card and show the outcome.
+    </p>
+    <div class="mt-4"><ChatConfirmationStates client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Table approval in chat</h2>
+    <p>
+      A schema change with its request status below: details, a status check,
+      and an alert when the refresh failed. The buttons lock while the request
+      needs a check and when the effect cannot be verified.
+    </p>
+    <div class="mt-4"><ChatConfirmationTableApproval client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Settle without submitting</h2>
+    <p>A decision can settle at once. Pick any state from the menu.</p>
+    <div class="mt-4"><ChatConfirmationReminder client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The card is a <code>section</code> named by the title, which is an
+      <code>h4</code> button that opens and closes the details. A busy button has
+      <code>aria-busy</code> and its spinner is hidden. Errors use
+      <code>role="alert"</code>; the outcome uses <code>role="status"</code>. If
+      the decision was made from inside the card, focus moves to the outcome
+      when it settles, so keyboard users keep their place.
+    </p>
+    <p>
+      The details grow and shrink in 180ms; with reduced motion they change at
+      once.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Text uses <code>--sprout-muted</code>, errors
+      <code>--sprout-danger</code>, and the outcome focus ring
+      <code>--sprout-focus</code>. The card, badge, and buttons use their own
+      tokens.
+    </p>
+  </section>
+</Docs>

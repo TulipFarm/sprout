@@ -1,0 +1,125 @@
+/* ChatGPT: Clean white and the original OpenAI green.
+ *
+ * One file is the whole theme: font, radius, and every color token for light
+ * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
+ * data-sprout-theme="chatgpt" on <html>, or on any element to theme only
+ * that subtree.
+ */
+@layer base {
+  [data-sprout-theme="chatgpt"] {
+    --sprout-font: ui-sans-serif, system-ui, sans-serif;
+    --sprout-radius-control: 0.75rem;
+    --sprout-radius-panel: 1rem;
+  }
+
+  [data-sprout-theme="chatgpt"],
+  .light[data-sprout-theme="chatgpt"],
+  .light [data-sprout-theme="chatgpt"] {
+    --sprout-canvas: #f9f9f9;
+    --sprout-surface: #ffffff;
+    --sprout-hover: #f0f0f0;
+    --sprout-active: #e7e7e7;
+    --sprout-text: #0d0d0d;
+    --sprout-muted: #5d5d5d;
+    --sprout-line: #e5e5e5;
+    --sprout-border: #868686;
+    --sprout-border-strong: #696969;
+    --sprout-input: #d8d8d8;
+    --sprout-primary: #0d7a5f;
+    --sprout-primary-hover: #0b6b54;
+    --sprout-primary-active: #0a5f4a;
+    --sprout-on-primary: #ffffff;
+    --sprout-focus: #0d7a5f;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #eeeeee;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark[data-sprout-theme="chatgpt"],
+  .dark [data-sprout-theme="chatgpt"] {
+    --sprout-canvas: #212121;
+    --sprout-surface: #2f2f2f;
+    --sprout-hover: #3e3e3e;
+    --sprout-active: #484848;
+    --sprout-text: #ececec;
+    --sprout-muted: #b4b4b4;
+    --sprout-line: #424242;
+    --sprout-border: #848484;
+    --sprout-border-strong: #9d9d9d;
+    --sprout-input: #555555;
+    --sprout-primary: #10a37f;
+    --sprout-primary-hover: #2dae8e;
+    --sprout-primary-active: #45b79b;
+    --sprout-on-primary: #0b0b0b;
+    --sprout-focus: #10a37f;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #404040;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)[data-sprout-theme="chatgpt"],
+    :root:not(.light):not(.dark) [data-sprout-theme="chatgpt"] {
+      --sprout-canvas: #212121;
+      --sprout-surface: #2f2f2f;
+      --sprout-hover: #3e3e3e;
+      --sprout-active: #484848;
+      --sprout-text: #ececec;
+      --sprout-muted: #b4b4b4;
+      --sprout-line: #424242;
+      --sprout-border: #848484;
+      --sprout-border-strong: #9d9d9d;
+      --sprout-input: #555555;
+      --sprout-primary: #10a37f;
+      --sprout-primary-hover: #2dae8e;
+      --sprout-primary-active: #45b79b;
+      --sprout-on-primary: #0b0b0b;
+      --sprout-focus: #10a37f;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #404040;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

@@ -1,0 +1,271 @@
+.carousel-demo {
+  display: grid;
+  gap: 20px;
+}
+.carousel-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.carousel-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.carousel-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.carousel-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.carousel-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+
+/* Orientations: the playground's numbered step cards. */
+.carousel-demo-orientations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+}
+.carousel-demo-stage {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+.carousel-demo-caption {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sprout-muted);
+  text-transform: capitalize;
+}
+/* Room for the arrows, which sit 48px outside the carousel. */
+.carousel-demo-frame {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin-inline: auto;
+}
+.carousel-demo-frame[data-orientation="horizontal"] {
+  max-width: 480px;
+  padding-inline: 48px;
+}
+.carousel-demo-frame[data-orientation="vertical"] {
+  max-width: 320px;
+  padding-block: 48px;
+}
+.carousel-demo-vertical-viewport {
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+}
+.carousel-demo-slide {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  height: 160px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 12px;
+  background: var(--sprout-hover);
+  color: var(--sprout-text);
+  font-size: 18px;
+  line-height: 1.4;
+  user-select: none;
+}
+.carousel-demo-stage .carousel-demo-position {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 1px 8px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 999px;
+  background: var(--sprout-surface);
+  pointer-events: none;
+}
+.carousel-demo-position {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sprout-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Attachment row: Cloud's attachment group composition. */
+.carousel-demo-composer {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  max-width: 640px;
+  min-width: 0;
+  margin-inline: auto;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.carousel-demo-attachments {
+  --sprout-carousel-gap: 8px;
+  --sprout-carousel-basis: auto;
+}
+.carousel-demo-attachments-track {
+  padding-block: 4px;
+}
+.carousel-demo-edge {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.carousel-demo-edge[data-side="start"] {
+  left: 0;
+  padding-right: 32px;
+  background: linear-gradient(to right, var(--sprout-surface), transparent);
+}
+.carousel-demo-edge[data-side="end"] {
+  right: 0;
+  padding-left: 32px;
+  background: linear-gradient(to left, var(--sprout-surface), transparent);
+}
+.carousel-demo-edge-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: 8px;
+  background: var(--sprout-surface);
+  box-shadow: var(--sprout-shadow-control);
+  color: var(--sprout-muted);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: auto;
+}
+.carousel-demo-attachments:hover .carousel-demo-edge-arrow,
+.carousel-demo-attachments:focus-within .carousel-demo-edge-arrow,
+.carousel-demo-edge-arrow:focus-visible {
+  opacity: 1;
+}
+@media (pointer: coarse) {
+  .carousel-demo-edge-arrow {
+    opacity: 1;
+  }
+}
+.carousel-demo-edge-arrow:hover {
+  background: var(--sprout-hover);
+  color: var(--sprout-text);
+}
+.carousel-demo-edge-arrow:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: 1px;
+}
+.carousel-demo-empty {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  border: 1px dashed var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  font-size: 12px;
+  color: var(--sprout-muted);
+  text-align: center;
+}
+.carousel-demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.carousel-demo-count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--sprout-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Several per view. */
+.carousel-demo-guides {
+  --sprout-carousel-basis: calc((100% - 16px) / 2);
+}
+@media (max-width: 479px) {
+  .carousel-demo-guides {
+    --sprout-carousel-basis: 100%;
+  }
+}
+.carousel-demo-guide {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 104px;
+  padding: 14px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 12px;
+  background: var(--sprout-surface);
+  user-select: none;
+}
+.carousel-demo-guide h4 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.carousel-demo-guide p {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+  overflow-wrap: anywhere;
+}
+.carousel-demo-dots {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+.carousel-demo-dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+.carousel-demo-dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--sprout-input);
+}
+.carousel-demo-dot:hover::before {
+  background: var(--sprout-border);
+}
+.carousel-demo-dot[aria-current="true"]::before {
+  background: var(--sprout-primary);
+}
+.carousel-demo-dot:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: -2px;
+}
+.carousel-demo-card-body > .carousel-demo-position {
+  text-align: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .carousel-demo-edge-arrow,
+  .carousel-demo-dot::before {
+    transition:
+      opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+      background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+      color var(--sprout-motion-fast) var(--sprout-motion-ease);
+  }
+}

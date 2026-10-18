@@ -1,0 +1,210 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CarouselDemo from "../../components/CarouselDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Carousel"
+  description="Slides that scroll sideways or up and down, with arrows, keys, swipe, and mouse drag."
+>
+  <h1 class="docs-title">Carousel</h1>
+  <p class="docs-lead">
+    A row or column of slides that scrolls one stop at a time. Use it for step
+    cards, a strip of attachments, or a few cards side by side.
+  </p>
+  <div class="mt-8"><CarouselDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Carousel usage"
+      code={`import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@tulipfarm/sprout/carousel";
+
+<div className="mx-auto w-full max-w-sm px-12">
+  <Carousel aria-label="Growing steps">
+    <CarouselContent>
+      {["Plant", "Water", "Grow"].map((label, index) => (
+        <CarouselItem key={label}>
+          <div className="grid h-40 place-items-center rounded-xl border">
+            {index + 1}. {label}
+          </div>
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+  </Carousel>
+</div>`}
+    />
+    <p>
+      The carousel scrolls natively, so touch swipe, trackpads, and focus moving
+      into a hidden slide all work. Slides snap into place unless
+      <code>opts.dragFree</code> is set. A mouse can drag the slides too.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Vertical</h2>
+    <p>
+      <code>orientation="vertical"</code> stacks slides in a column. Give the content
+      a height, for example by wrapping it in a flex column with a fixed height. The
+      arrows sit above and below and turn to point up and down.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Vertical carousel"
+      code={`<div className="mx-auto w-full max-w-xs py-12">
+  <Carousel orientation="vertical" aria-label="Growing steps">
+    <div className="flex h-40 flex-col">
+      <CarouselContent>{/* CarouselItem slides */}</CarouselContent>
+    </div>
+    <CarouselPrevious />
+    <CarouselNext />
+  </Carousel>
+</div>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Options</h2>
+    <ul>
+      <li>
+        <code>opts.align</code>: <code>start</code> (default),
+        <code>center</code>, or <code>end</code>. Where the current slide lands.
+      </li>
+      <li>
+        <code>opts.dragFree</code>: scroll without snapping. Arrows and keys
+        still step one slide.
+      </li>
+      <li>
+        <code>opts.loop</code>: Next on the last stop goes to the first, and
+        Previous on the first goes to the last.
+      </li>
+      <li><code>opts.startIndex</code>: the slide shown first.</li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Sizing slides</h2>
+    <p>
+      Slides fill the viewport by default. Set CSS tokens on the carousel, or
+      pass a <code>className</code> to <code>CarouselItem</code>:
+    </p>
+    <ul>
+      <li>
+        <code>--sprout-carousel-basis</code>: slide size. <code>auto</code> lets each
+        slide keep its own width, as an attachment row does.
+        <code>calc((100% - 16px) / 2)</code> shows two per view.
+      </li>
+      <li>
+        <code>--sprout-carousel-gap</code>: space between slides. Default 16px.
+      </li>
+      <li>
+        <code>--sprout-carousel-control-offset</code>: how far outside the
+        carousel the arrows sit. Default 48px. Leave that much room around it.
+      </li>
+    </ul>
+    <CodeBlock
+      lang="tsx"
+      title="Attachment row"
+      code={`function AttachmentArrows() {
+  const { scrollPrev, scrollNext, canScrollPrev, canScrollNext } = useCarousel();
+  return (
+    <>
+      {canScrollPrev && (
+        <button type="button" aria-label="Previous attachments" onClick={scrollPrev}>
+          <ChevronLeft size={12} aria-hidden="true" />
+        </button>
+      )}
+      {canScrollNext && (
+        <button type="button" aria-label="Next attachments" onClick={scrollNext}>
+          <ChevronRight size={12} aria-hidden="true" />
+        </button>
+      )}
+    </>
+  );
+}
+
+<Carousel
+  aria-label="Attached files"
+  opts={{ align: "start", dragFree: true }}
+  className="[--sprout-carousel-basis:auto] [--sprout-carousel-gap:8px]"
+>
+  <CarouselContent className="py-1">
+    {files.map((file) => (
+      <CarouselItem key={file.id}>
+        <FileAttachment variant="chip" file={file} />
+      </CarouselItem>
+    ))}
+  </CarouselContent>
+  <AttachmentArrows />
+</Carousel>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>useCarousel()</code> works inside a carousel and returns
+      <code>scrollPrev</code>, <code>scrollNext</code>, <code>scrollTo</code>,
+      <code>canScrollPrev</code>, <code>canScrollNext</code>,
+      <code>selectedIndex</code>, <code>snapCount</code>,
+      <code>orientation</code>, and <code>api</code>. Use it to draw your own
+      arrows or a counter.
+    </p>
+    <p>
+      <code>setApi</code> hands the <code>CarouselApi</code> to a parent. It has
+      <code>scrollPrev()</code>, <code>scrollNext()</code>,
+      <code>scrollTo(index)</code>, <code>canScrollPrev()</code>,
+      <code>canScrollNext()</code>, <code>selectedScrollSnap()</code>,
+      <code>scrollSnapList()</code>, <code>slideNodes()</code>, and
+      <code>on</code>/<code>off</code> for the <code>select</code> and
+      <code>reInit</code> events. The carousel does not take Embla plugins.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Dots from setApi"
+      code={`const [api, setApi] = useState<CarouselApi>();
+const [selected, setSelected] = useState(0);
+
+useEffect(() => {
+  if (!api) return;
+  const sync = (current: CarouselApi) => setSelected(current.selectedScrollSnap());
+  api.on("select", sync);
+  return () => {
+    api.off("select", sync);
+  };
+}, [api]);
+
+<Carousel setApi={setApi} opts={{ loop: true }} aria-label="Planting guides">
+  …
+</Carousel>`}
+    />
+    <p>
+      <code>CarouselPrevious</code> and <code>CarouselNext</code> are
+      <code>Button</code>s, <code>secondary</code> and <code>icon</code> by default,
+      and take any Button <code>variant</code> and <code>size</code>. They grow
+      to 44px on touch screens.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The carousel is a <code>region</code> with
+      <code>aria-roledescription="carousel"</code>, and each slide is a
+      <code>group</code> with <code>aria-roledescription="slide"</code>. Name
+      the carousel with <code>aria-label</code>.
+    </p>
+    <p>
+      Left and Right step through slides while focus is inside, and Up and Down
+      do the same when it is vertical. Keys typed into fields are left alone.
+      The arrow buttons stay focusable when they turn off at an end, so focus
+      does not jump away. When no slide holds a focusable element, the viewport
+      itself takes focus, and Home and End jump to the first and last slide.
+    </p>
+    <p>Scrolling animates only when reduced motion is off.</p>
+  </section>
+</Docs>

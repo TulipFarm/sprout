@@ -1,0 +1,176 @@
+@layer components {
+  .sprout-message-response {
+    min-width: 0;
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-base);
+    line-height: 1.75rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-message-response > * {
+    margin-block: 0;
+  }
+  .sprout-message-response > * + * {
+    margin-top: 1rem;
+  }
+  .sprout-message-response :is(h1, h2, h3, h4, h5, h6) {
+    margin-bottom: 0;
+    color: var(--sprout-text);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+  .sprout-message-response h1 {
+    font-size: 1.25rem;
+  }
+  .sprout-message-response h2 {
+    font-size: 1.125rem;
+  }
+  .sprout-message-response :is(h3, h4, h5, h6) {
+    font-size: 1rem;
+  }
+  .sprout-message-response p {
+    margin-block: 0;
+  }
+  .sprout-message-response :is(ul, ol) {
+    margin-block: 0;
+    padding-left: 1.5rem;
+  }
+  .sprout-message-response li > :is(ul, ol) {
+    margin-top: 0.25rem;
+  }
+  .sprout-message-response ul {
+    list-style: disc;
+  }
+  .sprout-message-response ol {
+    list-style: decimal;
+  }
+  .sprout-message-response li + li {
+    margin-top: 0.25rem;
+  }
+  .sprout-message-response li > p + p {
+    margin-top: 0.5rem;
+  }
+  .sprout-message-response blockquote {
+    margin-inline: 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--sprout-border);
+    color: var(--sprout-muted);
+  }
+  .sprout-message-response hr {
+    border: 0;
+    border-top: 1px solid var(--sprout-line);
+  }
+  .sprout-message-response a {
+    border-radius: 2px;
+    color: var(--sprout-primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-thickness var(--sprout-motion-fast)
+      var(--sprout-motion-ease);
+  }
+  .sprout-message-response a:hover {
+    text-decoration-thickness: 2px;
+  }
+  .sprout-message-response a:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-message-response :not(pre) > code {
+    padding: 2px 4px;
+    border-radius: 4px;
+    background: var(--sprout-hover);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8125rem;
+  }
+  .sprout-message-response > pre {
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: var(--sprout-text-sm);
+  }
+  .sprout-message-response del {
+    color: var(--sprout-muted);
+  }
+
+  .sprout-message-response-table {
+    max-width: 100%;
+    overflow-x: auto;
+    border-radius: 2px;
+  }
+  .sprout-message-response-table[data-bounded] {
+    max-height: 12rem;
+    overflow: auto;
+  }
+  .sprout-message-response-table:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-message-response table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+  .sprout-message-response :is(th, td) {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--sprout-line);
+    text-align: left;
+  }
+  .sprout-message-response th {
+    background: var(--sprout-hover);
+    font-weight: 500;
+  }
+  .sprout-message-response-table[data-bounded] th {
+    position: sticky;
+    top: 0;
+  }
+
+  .sprout-message-response .contains-task-list {
+    padding-left: 0;
+    list-style: none;
+  }
+  .sprout-message-response .contains-task-list .contains-task-list {
+    padding-left: 1.5rem;
+  }
+  .sprout-message-response input[type="checkbox"] {
+    margin: 0 0.5rem 0 0;
+    vertical-align: -1px;
+    accent-color: var(--sprout-primary);
+  }
+
+  .sprout-message-response-caret {
+    display: inline-block;
+    width: 6px;
+    height: 1rem;
+    margin-left: 4px;
+    border-radius: 2px;
+    background: var(--sprout-muted);
+    vertical-align: middle;
+  }
+  .sprout-message-response > * + .sprout-message-response-caret {
+    margin-top: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-message-response-caret {
+      animation: sprout-message-response-pulse 2s cubic-bezier(0.4, 0, 0.6, 1)
+        infinite;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-message-response a {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .sprout-message-response-caret {
+      background: CanvasText;
+    }
+  }
+  @keyframes sprout-message-response-pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+}

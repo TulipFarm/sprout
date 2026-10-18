@@ -1,0 +1,77 @@
+@layer components {
+  .sprout-scroll-area {
+    position: relative;
+    min-width: 0;
+  }
+  .sprout-scroll-area[data-size="sm"] {
+    height: 10rem;
+  }
+  .sprout-scroll-area[data-size="md"] {
+    height: 16rem;
+  }
+  .sprout-scroll-area[data-variant="table"] {
+    width: 100%;
+    border: 1px solid var(--sprout-input);
+    border-radius: calc(var(--sprout-radius-control) + 2px);
+    background: var(--sprout-surface);
+  }
+
+  .sprout-scroll-area-viewport {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overscroll-behavior: contain;
+  }
+  .sprout-scroll-area-viewport:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+  .sprout-scroll-area[data-variant="table"] > .sprout-scroll-area-viewport {
+    max-height: 60dvh;
+  }
+
+  .sprout-scroll-area-scrollbar {
+    z-index: 30;
+    display: flex;
+    padding: 1px;
+    touch-action: none;
+    user-select: none;
+  }
+  .sprout-scroll-area-scrollbar[data-orientation="vertical"] {
+    width: 10px;
+    height: 100%;
+    border-left: 1px solid transparent;
+  }
+  .sprout-scroll-area-scrollbar[data-orientation="horizontal"] {
+    height: 10px;
+    flex-direction: column;
+    border-top: 1px solid transparent;
+  }
+
+  .sprout-scroll-area-thumb {
+    position: relative;
+    flex: 1 1 0;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--sprout-muted) 40%, transparent);
+  }
+  .sprout-scroll-area-thumb:hover,
+  .sprout-scroll-area-scrollbar[data-scrolling] > .sprout-scroll-area-thumb,
+  .sprout-scroll-area-thumb:active {
+    background: color-mix(in oklab, var(--sprout-muted) 60%, transparent);
+  }
+
+  .sprout-scroll-area-corner {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-scroll-area-viewport {
+      transition: outline-color var(--sprout-motion-fast)
+        var(--sprout-motion-ease);
+    }
+    .sprout-scroll-area-thumb {
+      transition: background-color var(--sprout-motion-fast)
+        var(--sprout-motion-ease);
+    }
+  }
+}

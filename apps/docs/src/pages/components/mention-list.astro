@@ -1,0 +1,147 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  MentionListEditor,
+  MentionListFiles,
+  MentionListPeople,
+  MentionListSkills,
+  MentionListStates,
+} from "../../components/MentionListDemo";
+---
+
+<Docs
+  title="Mention List"
+  description="A suggestion panel for @ files and / skills that a message box drives."
+>
+  <h1 class="docs-title">Mention List</h1>
+  <p class="docs-lead">
+    The panel that opens when you type <code>@</code> or <code>/</code> in a message.
+    The text field keeps focus and moves through the options with the arrow keys.
+    Options can sit in groups, and status rows say when a source is loading, empty,
+    or failed.
+  </p>
+  <section class="prose-section" id="mention-list-files">
+    <h2 class="section-title">Files with @</h2>
+    <p>
+      Type <kbd>@</kbd> in the message, or press <em>Add file</em>. With Google
+      Drive connected, results sit in a <em>Files</em> group and a <em
+        >Google Drive</em
+      > group, and each source has its own status row. Without Drive the files are
+      one flat list. Search, files, and Drive in this example are sample data.
+    </p>
+    <MentionListFiles client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Mention list usage"
+      code={`import {
+  MentionGroup,
+  MentionList,
+  MentionOption,
+  MentionStatus,
+} from "@tulipfarm/sprout/mention-list";
+
+<Textarea
+  aria-autocomplete="list"
+  aria-controls={open ? listId : undefined}
+  aria-activedescendant={open && options.length ? optionId(active) : undefined}
+  onKeyDown={moveWithArrows}
+/>
+
+{open && (
+  <MentionList
+    id={listId}
+    label="Files you can add"
+    status={loading ? <MentionStatus tone="loading">Searching your files…</MentionStatus> : undefined}
+    announcement={\`\${options.length} files you can add. Use Up and Down to choose, Enter to add, Escape to close.\`}
+  >
+    <MentionGroup label="Files">
+      {files.map((file, index) => (
+        <MentionOption
+          key={file.id}
+          id={optionId(index)}
+          active={index === active}
+          onSelect={() => add(file)}
+          media={<FileTypeIcon name={file.name} mediaType={file.mediaType} />}
+          title={file.name}
+          description="48 KB"
+        />
+      ))}
+    </MentionGroup>
+  </MentionList>
+)}`}
+    />
+    <p>
+      <code>MentionList</code> takes the listbox <code>id</code> and a <code
+        >label</code
+      >. <code>status</code> holds one or more <code>MentionStatus</code> rows under
+      the options. <code>announcement</code> is read aloud when it changes, because
+      a textarea keeps its textbox role and cannot say that a list opened.
+    </p>
+    <p>
+      <code>MentionOption</code> needs an <code>id</code> for <code
+        >aria-activedescendant</code
+      >, <code>active</code>, <code>onSelect</code>, and a <code>title</code>. <code
+        >media</code
+      > (a 16px icon, file icon, brand glyph, or small avatar) and <code
+        >description</code
+      > are optional. Long titles end in an ellipsis and show in full on hover. The
+      active option scrolls into view.
+    </p>
+    <p>
+      <code>MentionStatus</code> has three tones: <code>loading</code> adds a spinner,
+      <code>empty</code> is muted text, and <code>error</code> is an alert in the
+      danger color. Pass <code>action</code> for a small outline button such as <em
+        >Retry</em
+      >.
+    </p>
+  </section>
+  <section class="prose-section" id="mention-list-skills">
+    <h2 class="section-title">Skills with /</h2>
+    <p>
+      One flat list with a book icon and the skill version. Typing <code
+        >/c</code
+      > at the start also offers the <code>/compact</code> command. Picking a skill
+      stages it above the message.
+    </p>
+    <MentionListSkills client:load />
+  </section>
+  <section class="prose-section" id="mention-list-editor">
+    <h2 class="section-title">Rich editor panel</h2>
+    <p>
+      The rich text editor shares one panel for files and skills. An error wins
+      over loading, and loading wins over the empty text. An option can have no
+      icon or no description.
+    </p>
+    <MentionListEditor client:load />
+  </section>
+  <section class="prose-section" id="mention-list-states">
+    <h2 class="section-title">States</h2>
+    <p>
+      Each source reports its own status, so rows can stack: results with a
+      source still loading, or two failed sources where only one offers a retry.
+    </p>
+    <MentionListStates client:load />
+  </section>
+  <section class="prose-section" id="mention-list-people">
+    <h2 class="section-title">People</h2>
+    <p>Grouped people and agents with avatars. Click a row to select it.</p>
+    <MentionListPeople client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Focus stays in the text field. <kbd>↓</kbd> and <kbd>↑</kbd> move the active
+      option and wrap across groups, <kbd>Enter</kbd> or <kbd>Tab</kbd> picks it,
+      and <kbd>Escape</kbd> closes the panel. When a search failed, <kbd
+        >Enter</kbd
+      > retries. Options and the retry button ignore mouse focus, so the caret never
+      leaves the message. Touch rows are 44px tall; mouse rows are 36px. The panel
+      rises in over 120ms and row highlights fade over 120ms; reduced motion turns
+      both off. In forced colors the active option gets an outline.
+    </p>
+  </section>
+</Docs>

@@ -1,0 +1,122 @@
+@layer components {
+  .sprout-tooltip-positioner {
+    z-index: 60;
+    isolation: isolate;
+  }
+
+  .sprout-tooltip-content {
+    --sprout-tooltip-shift: 3px;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    max-width: min(20rem, var(--available-width));
+    padding: 5px 9px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-panel);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    font-weight: 400;
+    line-height: 1rem;
+    text-wrap: pretty;
+    overflow-wrap: anywhere;
+    transform-origin: var(--transform-origin);
+    outline: none;
+  }
+
+  .sprout-tooltip-arrow {
+    box-sizing: border-box;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--sprout-line);
+    background: var(--sprout-surface);
+    rotate: 45deg;
+  }
+  .sprout-tooltip-arrow[data-side="top"] {
+    bottom: -4.5px;
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  .sprout-tooltip-arrow[data-side="bottom"] {
+    top: -4.5px;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+  }
+  .sprout-tooltip-arrow:is([data-side="right"], [data-side="inline-end"]) {
+    left: -4.5px;
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+  .sprout-tooltip-arrow:is([data-side="left"], [data-side="inline-start"]) {
+    right: -4.5px;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  [dir="rtl"] .sprout-tooltip-arrow[data-side="inline-end"] {
+    right: -4.5px;
+    left: auto;
+    border: 1px solid var(--sprout-line);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  [dir="rtl"] .sprout-tooltip-arrow[data-side="inline-start"] {
+    left: -4.5px;
+    right: auto;
+    border: 1px solid var(--sprout-line);
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+
+  @media (forced-colors: active) {
+    .sprout-tooltip-content,
+    .sprout-tooltip-arrow {
+      border-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-tooltip-content {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease),
+        translate var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-tooltip-content[data-starting-style],
+    .sprout-tooltip-content[data-ending-style] {
+      opacity: 0;
+      scale: 0.96;
+    }
+    .sprout-tooltip-content[data-side="top"]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: 0 var(--sprout-tooltip-shift);
+    }
+    .sprout-tooltip-content[data-side="bottom"]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: 0 calc(var(--sprout-tooltip-shift) * -1);
+    }
+    .sprout-tooltip-content:is(
+        [data-side="right"],
+        [data-side="inline-end"]
+      ):is([data-starting-style], [data-ending-style]) {
+      translate: calc(var(--sprout-tooltip-shift) * -1) 0;
+    }
+    .sprout-tooltip-content:is(
+        [data-side="left"],
+        [data-side="inline-start"]
+      ):is([data-starting-style], [data-ending-style]) {
+      translate: var(--sprout-tooltip-shift) 0;
+    }
+    .sprout-tooltip-content[data-instant] {
+      transition: none;
+    }
+  }
+}

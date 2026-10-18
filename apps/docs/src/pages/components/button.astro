@@ -1,0 +1,227 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import ButtonDemo from "../../components/ButtonDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Button"
+  description="Compact buttons and links for actions, toggles, and triggers."
+>
+  <h1 class="docs-title">Button</h1>
+  <p class="docs-lead">
+    Compact actions, links, and toggles. Seven variants, sizes for common
+    layouts, and Base UI focus and disabled behavior.
+  </p>
+  <div class="mt-8"><ButtonDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Button usage"
+      code={`import { Button } from "@tulipfarm/sprout/button";
+
+<Button onClick={save}>Save</Button>
+<Button variant="outline" size="sm">
+  <PlusIcon data-icon="inline-start" />
+  Add item
+</Button>
+<Button variant="ghost" size="icon-sm" aria-label="Delete file">
+  <TrashIcon />
+</Button>`}
+    />
+    <p>
+      Variants are <code>default</code>, <code>outline</code>, <code
+        >secondary</code
+      >, <code>ghost</code>, <code>destructive</code>, <code>link</code>, and <code
+        >scope</code
+      >. Sizes are <code>default</code>, <code>xs</code>, <code>sm</code>, <code
+        >lg</code
+      >, and the square <code>icon</code>, <code>icon-xs</code>, <code
+        >icon-sm</code
+      >, and <code>icon-lg</code>. Give icon-only buttons an <code
+        >aria-label</code
+      >. Mark leading or trailing icons with <code
+        >data-icon="inline-start"</code
+      > or <code>"inline-end"</code> to tighten padding.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Links</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Router link"
+      code={`<Button
+  variant="outline"
+  nativeButton={false}
+  render={<Link to="/files" />}
+>
+  Open files
+</Button>`}
+    />
+    <p>
+      With <code>nativeButton={false}</code>, Button renders a real link. It
+      keeps link semantics, so screen readers announce a link and Enter follows
+      it. A disabled link gets <code>aria-disabled</code>, leaves the tab order,
+      and ignores clicks.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Invalid and pressed"
+      code={`<Button aria-invalid aria-describedby="owner-error">Assign</Button>
+
+<Button
+  variant={selected ? "secondary" : "ghost"}
+  aria-pressed={selected}
+  onClick={toggle}
+>
+  Board
+</Button>`}
+    />
+    <p>
+      Button styles <code>disabled</code>, <code>aria-disabled</code>, <code
+        >aria-busy</code
+      >, <code>aria-invalid</code>, <code>aria-expanded</code>, and <code
+        >aria-pressed</code
+      >. Your application owns the error text and the pressed state. For busy
+      and blocked actions, pass <code>state</code> as shown below.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Action states</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Ready, busy, and blocked"
+      code={`import { Button, type ButtonState } from "@tulipfarm/sprout/button";
+
+const state: ButtonState = sending
+  ? { kind: "busy" }
+  : !enabled
+    ? {
+        kind: "blocked",
+        reason: "Turn on Enable execution first.",
+        fix: { kind: "jump", label: "Go to Enable execution", target: "enable-execution" },
+      }
+    : { kind: "ready" };
+
+<Button state={state} pendingLabel="Activating…" onClick={activate}>
+  Activate saved instructions
+</Button>`}
+    />
+    <p>
+      Pass <code>state</code> when an action can be busy or blocked. Busy sets
+      <code>aria-busy</code> and, with <code>pendingLabel</code>, swaps the
+      label for a spinner and that text. Busy and blocked buttons are disabled
+      but stay in the tab order, so keyboard users reach them and hear the
+      reason through <code>aria-describedby</code>.
+    </p>
+    <p>
+      With <code>state</code>, Button renders a <code
+        >data-slot="button-action"</code
+      > wrapper with <code>data-state</code> that also holds the reason, and
+      <code>className</code> styles that wrapper. Keep passing a state, even
+      <code>{`{ kind: "ready" }`}</code>, for the button's lifetime. Changing
+      its kind then keeps the same button element and its focus. Long labels
+      wrap in <code>default</code>, <code>sm</code>, and <code>lg</code>
+      sizes.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Blocker fixes"
+      code={`type ButtonBlockerFix =
+  | { kind: "jump"; label: string; target: string }   // element id on this page
+  | { kind: "link"; label: string; link: ReactElement } // your router <Link>
+  | { kind: "action"; label: string; onClick: () => void };`}
+    />
+    <p>
+      A <code>jump</code> fix calls <code>jumpTo</code>, which scrolls to the
+      element and focuses it, or its first focusable child. A <code>link</code>
+      fix renders your link through <code>render</code>. An <code>action</code>
+      fix runs a callback, such as Try again. Leave <code>fix</code> out to show only
+      the reason. <code>useActionControl(state)</code> returns the same button props
+      and reason for controls you build yourself.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Action groups</h2>
+    <CodeBlock
+      lang="tsx"
+      title="ActionGroup"
+      code={`import { ActionGroup } from "@tulipfarm/sprout/button";
+
+<ActionGroup
+  state={reviewState}
+  actions={[
+    { label: "Keep my draft", variant: "outline", onClick: keepDraft },
+    { label: "Use current settings", variant: "outline", onClick: adoptCurrent },
+  ]}
+/>`}
+    />
+    <p>
+      <code>ActionGroup</code> puts several actions under one state. Every button
+      turns busy or blocked together, and one reason sits under the row.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Triggers and class-only styling</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Base UI trigger"
+      code={`import { Menu } from "@base-ui/react/menu";
+import { Button, buttonVariants } from "@tulipfarm/sprout/button";
+
+<Menu.Trigger render={<Button variant="outline" size="sm" />}>
+  Sort
+</Menu.Trigger>
+
+<a className={buttonVariants({ variant: "ghost", size: "sm" })} href={url}>
+  Open in calendar
+</a>`}
+    />
+    <p>
+      Pass Button to any Base UI trigger or close part through <code
+        >render</code
+      >. The trigger supplies its ARIA state and Button styles it. Use <code
+        >buttonVariants()</code
+      > when another component owns the element. Tailwind utilities passed through
+      <code>className</code> override Button's own styles.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Pattern sizes</h2>
+    <p>
+      Pattern sizes fit common layouts: <code>back</code> (icon-only below 640px when
+      its label is hidden), <code>onboarding</code>, <code>bud</code> and <code
+        >bud-labeled</code
+      > floating launchers, <code>chat-row</code>, <code>task-link</code>, <code
+        >card-title</code
+      >, <code>result-card</code>, <code>calendar-title</code>, <code
+        >calendar</code
+      >, <code>calendar-icon</code>, <code>nav</code> (tree rows), <code
+        >column-header</code
+      >, <code>column-header-end</code>, <code>table-link</code>, and <code
+        >badge</code
+      >. <code>buttonVariantNames</code> and <code>buttonSizeNames</code> list every
+      option.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Behavior and accessibility</h2>
+    <p>
+      Buttons default to <code>type="button"</code>; pass <code
+        >type="submit"</code
+      > or <code>"reset"</code>, and <code>form</code> for an external submit. Tab
+      reaches every enabled button. Enter and Space activate buttons; Enter follows
+      links. Focus shows a 2px ring. Coarse pointers get 44px minimum targets. Hover
+      and press transitions take 120ms and stop when the user prefers reduced motion.
+    </p>
+    <p>
+      Button renders <code>data-slot="button"</code>, <code>data-variant</code>,
+      and <code>data-size</code>. Override <code>data-slot</code> when a wrapping
+      component needs its own hook. Refs reach the rendered element.
+    </p>
+  </section>
+</Docs>

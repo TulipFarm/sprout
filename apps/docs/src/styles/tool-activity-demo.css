@@ -1,0 +1,137 @@
+.tool-demo-frame {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.tool-demo-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.tool-demo-bar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.tool-demo-bar-title {
+  color: var(--sprout-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+.tool-demo-note,
+.tool-demo-label,
+.tool-demo-muted {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.tool-demo-label {
+  margin-bottom: 6px;
+}
+.tool-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.tool-demo-controls > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tool-demo-body {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+  background: var(--sprout-surface);
+}
+.tool-demo-receipt,
+.tool-demo-stack,
+.tool-demo-chat {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.tool-demo-chat {
+  max-width: 42rem;
+}
+.tool-demo-prompt {
+  justify-self: end;
+  max-width: min(100%, 26rem);
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-secondary);
+  color: var(--sprout-text);
+  font-size: var(--sprout-text-sm);
+}
+.tool-demo-answer {
+  margin: 0;
+  color: var(--sprout-text);
+  font-size: var(--sprout-text-base);
+  line-height: 1.5rem;
+}
+.tool-demo-notice {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.tool-demo-branches {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+  line-height: 1rem;
+}
+.tool-demo-branches p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.tool-demo-pane {
+  display: flex;
+  flex-direction: column;
+  height: 34rem;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.tool-demo-result {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  overflow: auto;
+  color: var(--sprout-text);
+  font-size: var(--sprout-text-sm);
+}
+.tool-demo-result p {
+  margin: 0;
+}
+.tool-demo-result-title {
+  margin-bottom: 4px !important;
+  font-weight: 500;
+}
+.tool-demo-disclosure {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+}
+.tool-demo-empty {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 16px;
+}

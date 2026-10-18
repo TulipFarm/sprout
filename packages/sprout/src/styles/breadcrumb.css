@@ -1,0 +1,121 @@
+@layer components {
+  .sprout-breadcrumb {
+    min-width: 0;
+  }
+  .sprout-breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    list-style: none;
+    overflow-wrap: break-word;
+  }
+  .sprout-breadcrumb-list[data-wrap="false"] {
+    flex-wrap: nowrap;
+  }
+  .sprout-breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+  .sprout-breadcrumb-list[data-wrap="false"] > .sprout-breadcrumb-item {
+    flex-shrink: 0;
+  }
+  .sprout-breadcrumb-list[data-wrap="false"]
+    > .sprout-breadcrumb-item:is(
+      [aria-current="page"],
+      :has(> [aria-current="page"])
+    ) {
+    flex-shrink: 1;
+  }
+
+  .sprout-breadcrumb-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    border-radius: 2px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .sprout-breadcrumb-link > svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-breadcrumb-link:is(a[href], button):hover {
+    color: var(--sprout-text);
+  }
+  .sprout-breadcrumb-link:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+
+  .sprout-breadcrumb-page {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    color: var(--sprout-text);
+    font-weight: 400;
+  }
+
+  .sprout-breadcrumb-label {
+    display: block;
+    min-width: 0;
+    max-width: var(--sprout-breadcrumb-label-width, 12rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sprout-breadcrumb-separator {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .sprout-breadcrumb-separator > svg {
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-breadcrumb-separator:dir(rtl) > svg {
+    transform: scaleX(-1);
+  }
+
+  .sprout-breadcrumb-ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+  .sprout-breadcrumb-ellipsis > svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .sprout-breadcrumb-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-breadcrumb-link {
+      transition: color var(--sprout-motion-fast) ease-out;
+    }
+  }
+}

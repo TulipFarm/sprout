@@ -1,0 +1,173 @@
+/* The docs page draws a global focus outline; Command shows focus on its input group border. */
+.sprout-command-input:focus-visible {
+  outline: none;
+}
+
+.command-demo-stage {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.command-demo-inline {
+  width: 100%;
+  max-width: 28rem;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+
+.command-demo-status {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}
+
+.command-demo-muted {
+  color: var(--sprout-muted);
+}
+
+.command-demo-strong {
+  color: var(--sprout-text);
+  font-weight: 500;
+}
+
+.command-demo-nowrap {
+  white-space: nowrap;
+}
+
+.command-demo-truncate {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-demo-max-32 {
+  max-width: 8rem;
+}
+
+.command-demo-break {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.command-demo-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.command-demo-tone-info {
+  color: var(--sprout-info);
+}
+
+.command-demo-tone-success {
+  color: var(--sprout-success);
+}
+
+.command-demo-tone-warning {
+  color: var(--sprout-warning);
+}
+
+.command-demo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.command-demo-kbd {
+  margin-inline-start: 0.25rem;
+  color: var(--sprout-muted);
+  font-family: var(--sprout-font-mono);
+  font-size: var(--sprout-text-xs);
+}
+
+.command-demo-effort {
+  display: grid;
+  gap: 0.5rem;
+  border-top: 1px solid var(--sprout-line);
+  padding: 0.5rem 0.75rem 0.75rem;
+  font-size: var(--sprout-text-xs);
+}
+
+.command-demo-effort-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.command-demo-composer {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 36rem;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  padding: 0.75rem;
+}
+
+.command-demo-composer p {
+  margin: 0;
+  font-size: var(--sprout-text-sm);
+}
+
+.command-demo-composer-bar {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.command-demo-spacer {
+  flex: 1;
+}
+
+.command-demo-triggers {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.command-demo-triggers > * {
+  max-width: 100%;
+}
+
+.command-demo-empty-action {
+  margin-top: 0.5rem;
+}
+
+.command-demo-note {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  font-size: var(--sprout-text-sm);
+}
+
+.command-demo-stack {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.command-demo-stack p {
+  margin: 0;
+}
+
+.command-demo-error {
+  color: var(--sprout-danger);
+  font-size: var(--sprout-text-sm);
+}
+
+.command-demo-footer {
+  border-top: 1px solid var(--sprout-line);
+  padding: 0.25rem;
+}
+
+.command-demo-hint {
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+}

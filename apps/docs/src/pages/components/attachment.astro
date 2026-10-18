@@ -1,0 +1,227 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import AttachmentDemo from "../../components/AttachmentDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Attachment"
+  description="File cards, chips, and type icons for uploads and file references, with upload states, retry, remove, a carousel group, and a local drop zone."
+>
+  <h1 class="docs-title">Attachment</h1>
+  <p class="docs-lead">
+    Shows a file a person attached, uploaded, or referenced. Use
+    <code>FileAttachment</code> for a ready-made row, card, mention, or chip, and
+    the <code>Attachment</code> parts when you need your own layout.
+  </p>
+  <div class="mt-8"><AttachmentDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">File attachments</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Staged uploads in a composer"
+      code={`import { AttachmentGroup, FileAttachment } from "@tulipfarm/sprout/attachment";
+
+<AttachmentGroup variant="carousel" aria-label="Attached files">
+  {uploads.map((item) => (
+    <FileAttachment
+      key={item.id}
+      variant="chip"
+      file={{
+        id: item.id,
+        name: item.file.name,
+        mediaType: item.file.type,
+        size: "48 KB",
+        state: item.kind, // "ready" | "uploading" | "processing" | "error"
+        source: { kind: "local", file: item.file },
+      }}
+      preview
+      viewable
+      onRemove={() => remove(item.id)}
+      onRetry={() => retry(item)}
+    />
+  ))}
+</AttachmentGroup>`}
+    />
+    <p><code>variant</code> picks the shape:</p>
+    <ul>
+      <li>
+        <code>"list"</code> (default): a row with icon, name, and status line.
+      </li>
+      <li><code>"grid"</code>: a card with a large preview above the name.</li>
+      <li><code>"inline"</code>: a compact pill for text.</li>
+      <li><code>"chip"</code>: a 36px chip for composers and messages.</li>
+    </ul>
+    <p>
+      The status line shows <code>file.size</code> when ready, which can also be a
+      short source such as “Google Drive” or “Saved in Files”. Busy files show a spinner,
+      and <code>"error"</code> shows “Upload failed” with a Retry button when you
+      pass <code>onRetry</code>. <code>onRemove</code>
+      adds a remove button. Images with a <code>url</code> show a thumbnail.
+    </p>
+    <p>
+      Opening: <code>viewable</code> opens the file in the full-screen
+      <code>FileViewer</code> on click, with syntax colors for code and text. Pass
+      <code>onOpen</code> instead to open it your own way, such as a canvas or a download;
+      it is disabled while the file is busy. With neither, the name is plain text.
+      <code>actionLabel="Download"</code>
+      names the button “Download …” instead of “Inspect …”.
+    </p>
+    <p>
+      <code>preview</code> peeks at the file in a card after hovering or focusing
+      the name for 400ms: the image, or the first 24 lines of text, code, JSON, or
+      Markdown. Other formats and failed uploads get no card. Both props need <code
+        >file.source</code
+      > or <code>file.url</code>. Wrap the app in <code
+        >FileRenderersProvider</code
+      > to view sheets, Office files, and formatted Markdown.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="References in a sent message"
+      code={`<FileAttachment
+  variant="chip"
+  file={{ id, name: "Supplier price sheet", mediaType, size: "Google Drive", state: "ready" }}
+  onOpen={openInCanvas}
+/>
+
+<FileAttachment
+  variant="chip"
+  file={{ id, name: "Loading file…", mediaType: "", size: "", state: "processing" }}
+  onOpen={() => undefined}
+/>
+
+<FileAttachment
+  variant="chip"
+  actionLabel="Download"
+  file={{ id, name: "Price comparison.xlsx", mediaType, size: "52 KB", state: saving ? "processing" : "ready" }}
+  onOpen={save}
+/>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Groups</h2>
+    <p>
+      <code>AttachmentGroup</code> lays out attachments. <code>"carousel"</code>
+      (default) scrolls one row sideways with fading edge arrows;
+      <code>"grid"</code> makes two columns, three from 640px;
+      <code>"inline"</code> wraps; <code>"list"</code> stacks. Give a carousel an
+      <code>aria-label</code>. Viewable attachments in a group share one viewer
+      that steps through them in page order with Previous, Next, and the arrow
+      keys. Closing it returns focus to the last file shown.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Parts</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Build your own attachment"
+      code={`<Attachment state="uploading" size="sm" orientation="horizontal">
+  <AttachmentTrigger aria-label="Open Q3 launch deck.pptx" onClick={open} />
+  <AttachmentMedia>
+    <FileTypeIcon name="Q3 launch deck.pptx" mediaType={type} />
+  </AttachmentMedia>
+  <AttachmentContent>
+    <AttachmentTitle>Q3 launch deck.pptx</AttachmentTitle>
+    <AttachmentDescription>Uploading 1.2 MB of 2.8 MB</AttachmentDescription>
+  </AttachmentContent>
+  <AttachmentActions>
+    <AttachmentAction aria-label="Remove Q3 launch deck.pptx" onClick={remove}>
+      <X />
+    </AttachmentAction>
+  </AttachmentActions>
+</Attachment>`}
+    />
+    <ul>
+      <li>
+        <code>state</code>: <code>"idle"</code> dashes the border,
+        <code>"uploading"</code> and <code>"processing"</code> shimmer the title,
+        <code>"error"</code> turns it red, <code>"done"</code> (default) is plain.
+      </li>
+      <li>
+        <code>size</code>: <code>"default"</code> (40px media),
+        <code>"sm"</code> (32px), <code>"xs"</code> (28px).
+      </li>
+      <li>
+        <code>orientation</code>: <code>"horizontal"</code> (default) or
+        <code>"vertical"</code>, which stacks the media above the text and
+        floats actions over its corner.
+      </li>
+      <li>
+        <code>AttachmentMedia variant="image"</code> crops an
+        <code>img</code>; the default <code>"icon"</code> centers an icon or spinner.
+      </li>
+      <li>
+        <code>AttachmentTrigger</code> stretches over the card so a click anywhere
+        opens it. It accepts <code>render</code> for a link.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">File type icons</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Rows, mentions, and dialog headings"
+      code={`<FileTypeIcon name="Returns policy.pdf" mediaType="application/pdf" />
+<FileTypeIcon name="Price list 2026.xlsx" mediaType={type} size="lg" />`}
+    />
+    <p>
+      A decorative paper glyph with the extension in a colored badge: red for
+      PDF, green for sheets, blue for documents and Google files, orange for
+      slides, light blue for images, and gray for everything else. <code
+        >"sm"</code
+      > (default) is 20 × 24px; <code>"lg"</code> is 30 × 36px. A name without an
+      extension shows no badge.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Local files</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Drop zone with in-memory files"
+      code={`<AttachmentDropzone accept=".txt,.md,.pdf,.docx" disabled={busy} onFiles={add} />
+{files.map((file, index) => (
+  <LocalFileAttachment key={index} file={file} preview viewable onRemove={() => remove(index)} />
+))}`}
+    />
+    <p>
+      <code>AttachmentDropzone</code> takes drops or a “Choose files” button and hands
+      the files to <code>onFiles</code>. It uploads nothing.
+      <code>accept</code> defaults to documents, sheets, slides, PDF, text, JSON,
+      Google shortcuts, images, and common source files.
+      <code>LocalFileAttachment</code> shows a <code>File</code> as a chip with a
+      live image thumbnail, and passes <code>preview</code> and
+      <code>viewable</code> through.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Each open button is named “Inspect name” or “Download name”; remove and
+      retry buttons are named “Remove name” and “Retry name”. Busy chips have a
+      spinner named “Uploading…” or “Processing…”. File type icons are hidden
+      from assistive tech because the name is always beside them.
+    </p>
+    <p>
+      The carousel is a labelled region. Each item is a group, focus scrolls it
+      into view, and Left and Right scroll it when focus is inside. The edge
+      arrows are for pointers, so Tab never lands on a button that vanishes at
+      the end of the row. The drop zone's button opens the system file picker.
+      Transitions take 120 to 180ms; with reduced motion the title shimmer and
+      smooth scrolling stop.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Cards use <code>--sprout-surface</code>, <code>--sprout-line</code>,
+      <code>--sprout-hover</code>, and <code>--sprout-danger</code>. File type
+      icons use <code>--sprout-file-paper</code>,
+      <code>--sprout-file-edge</code>, <code>--sprout-file-label</code>, and one
+      badge color per kind: <code>--sprout-file-generic</code>,
+      <code>-pdf</code>, <code>-sheet</code>, <code>-document</code>,
+      <code>-slides</code>, and <code>-image</code>. Each has a light and a dark
+      value.
+    </p>
+  </section>
+</Docs>

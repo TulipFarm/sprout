@@ -1,0 +1,198 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  QuestionnaireControlled,
+  QuestionnairePlayground,
+  QuestionnaireShortcuts,
+  QuestionnaireSizes,
+  QuestionnaireStates,
+} from "../../components/QuestionnaireDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Questionnaire"
+  description="A form that asks one question at a time, with choices or a typed answer, Skip for optional questions, and Submit on the last one."
+>
+  <h1 class="docs-title">Questionnaire</h1>
+  <p class="docs-lead">
+    A form that asks one question at a time. Each item holds radio or checkbox
+    choices, or a typed answer. Next checks required answers, Skip clears
+    optional ones, and the last item submits the form.
+  </p>
+  <div id="questionnaire-demo">
+    <div class="mt-8"><QuestionnairePlayground client:load /></div>
+    <section class="prose-section">
+      <h2 class="section-title">Usage</h2>
+      <CodeBlock
+        lang="tsx"
+        title="A three-step questionnaire"
+        code={`import {
+  Questionnaire,
+  QuestionnaireActions,
+  QuestionnaireChoice,
+  QuestionnaireChoiceDescription,
+  QuestionnaireChoices,
+  QuestionnaireDescription,
+  QuestionnaireError,
+  QuestionnaireInput,
+  QuestionnaireItem,
+  QuestionnaireNext,
+  QuestionnairePrevious,
+  QuestionnaireProgress,
+  QuestionnaireSkip,
+  QuestionnaireSubmit,
+  QuestionnaireTitle,
+} from "@tulipfarm/sprout/questionnaire";
+
+<Questionnaire
+  items={[
+    { name: "style", required: true, choices: [{ value: "short" }, { value: "detailed" }] },
+    { name: "plants", choices: [{ value: "tulips" }, { value: "daisies" }] },
+    { name: "note" },
+  ]}
+  onSubmit={(event) => {
+    event.preventDefault();
+    save(new FormData(event.currentTarget));
+  }}
+>
+  <QuestionnaireProgress />
+  <QuestionnaireItem name="style" required>
+    <QuestionnaireTitle>How should answers look?</QuestionnaireTitle>
+    <QuestionnaireDescription>Pick one reply style.</QuestionnaireDescription>
+    <QuestionnaireChoices>
+      <QuestionnaireChoice value="short">
+        Short answers
+        <QuestionnaireChoiceDescription>A quick summary.</QuestionnaireChoiceDescription>
+      </QuestionnaireChoice>
+      <QuestionnaireChoice value="detailed">Detailed answers</QuestionnaireChoice>
+    </QuestionnaireChoices>
+    <QuestionnaireError>Choose a reply style.</QuestionnaireError>
+  </QuestionnaireItem>
+  <QuestionnaireItem name="plants" multiple>…</QuestionnaireItem>
+  <QuestionnaireItem name="note">
+    <QuestionnaireTitle>Anything else?</QuestionnaireTitle>
+    <QuestionnaireInput aria-label="Additional note" value={note} onChange={…} />
+  </QuestionnaireItem>
+  <QuestionnaireActions>
+    <QuestionnairePrevious />
+    <QuestionnaireSkip />
+    <QuestionnaireNext />
+    <QuestionnaireSubmit />
+  </QuestionnaireActions>
+  <Button type="reset" variant="outline">Restart</Button>
+</Questionnaire>`}
+      />
+      <ul>
+        <li>
+          <code>Questionnaire</code>: a <code>form</code>. <code>items</code>
+          sets the step order and choice shortcuts; without it, rendered items are
+          used in order. <code>defaultItem</code>, or <code>item</code>
+          with <code>onItemChange</code>, picks the shown step. A
+          <code>reset</code> clears answers and returns to the first step.
+        </li>
+        <li>
+          <code>QuestionnaireItem</code>: one question, a
+          <code>fieldset</code>. <code>required</code> hides Skip,
+          <code>multiple</code> uses checkboxes, <code>disabled</code> drops it from
+          the steps, <code>invalid</code> forces the error, and
+          <code>onStatusChange</code> reports <code>unanswered</code>,
+          <code>answered</code>, or <code>skipped</code>.
+        </li>
+        <li>
+          <code>QuestionnaireChoice</code>: <code>value</code>, plus
+          <code>defaultChecked</code> or <code>checked</code>,
+          <code>disabled</code>, and <code>onChange</code>.
+          <code>QuestionnaireChoiceDescription</code> adds a muted line.
+        </li>
+        <li>
+          <code>QuestionnaireInput</code>: a typed answer (<code>text</code>,
+          <code>email</code>, <code>number</code>, <code>date</code>, and more).
+          It is sent with the form only while it has text.
+        </li>
+        <li>
+          <code>QuestionnaireError</code>: hidden until someone tries to move on
+          without an answer. Its default text depends on
+          <code>required</code>.
+        </li>
+        <li>
+          <code>QuestionnairePrevious</code>, <code>QuestionnaireSkip</code>,
+          <code>QuestionnaireNext</code>, <code>QuestionnaireSubmit</code>: each
+          shows only when it applies. They take Button
+          <code>size</code> and <code>variant</code>.
+        </li>
+      </ul>
+    </section>
+    <section class="prose-section">
+      <h2 class="section-title">Keyboard shortcuts</h2>
+      <p>
+        <code>shortcuts="letters"</code> or <code>"numbers"</code> shows a key on
+        each enabled choice. With <code>items</code>, keys follow its order and
+        skip disabled choices.
+      </p>
+      <div class="mt-4"><QuestionnaireShortcuts client:load /></div>
+    </section>
+    <section class="prose-section">
+      <h2 class="section-title">States</h2>
+      <p>
+        A required item shows its error and stays put until answered. A disabled
+        item is left out of the count. Skipping an optional last question
+        submits the form.
+      </p>
+      <div class="mt-4"><QuestionnaireStates client:load /></div>
+    </section>
+    <section class="prose-section">
+      <h2 class="section-title">Action sizes</h2>
+      <p>
+        By default Previous and Skip are <code>outline</code> and Next and Submit
+        are <code>default</code>, at the <code>default</code> size. Inside a dense
+        chat reply, <code>sm</code> with <code>ghost</code>
+        back buttons fits better.
+      </p>
+      <div class="mt-4"><QuestionnaireSizes client:load /></div>
+    </section>
+    <section class="prose-section">
+      <h2 class="section-title">Controlled step</h2>
+      <p>
+        Pass <code>item</code> and <code>onItemChange</code> to keep the step in your
+        own state. Focus moves to the shown item when it changes.
+      </p>
+      <div class="mt-4"><QuestionnaireControlled client:load /></div>
+    </section>
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Each item is a <code>fieldset</code> named by its <code>legend</code>
+      title and described by its description and, while shown, its error (<code
+        >role="alert"</code
+      >). Hidden items and buttons are
+      <code>inert</code>. Progress is a <code>progressbar</code> that announces "Question
+      2 of 3".
+    </p>
+    <p>
+      Keys: <kbd>↑</kbd>
+      <kbd>↓</kbd> move between answers, <kbd>Enter</kbd>
+      on an answer moves on, <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+      moves on from anywhere, and <kbd>←</kbd>
+      <kbd>→</kbd> go back or forward outside text fields. Each control lists its
+      keys in
+      <code>aria-keyshortcuts</code>.
+    </p>
+    <p>
+      The shown item fades in over 160ms and marks pop in over 140ms; with
+      reduced motion both change at once. Rows are 44px tall, and on phones
+      buttons and the text field are too.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Rows use <code>--sprout-input</code> borders, and a picked row uses
+      <code>--sprout-focus</code> and <code>--sprout-primary-subtle</code>
+      with a <code>--sprout-primary</code> mark. Errors use
+      <code>--sprout-danger</code>; help text uses
+      <code>--sprout-muted</code>.
+    </p>
+  </section>
+</Docs>

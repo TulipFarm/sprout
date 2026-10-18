@@ -1,0 +1,140 @@
+@layer components {
+  .sprout-popover-positioner {
+    z-index: 50;
+    isolation: isolate;
+    outline: none;
+  }
+
+  .sprout-popover-content {
+    --sprout-popover-shift: 4px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 18rem;
+    max-width: var(--available-width);
+    padding: 10px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+    outline: none;
+    transform-origin: var(--transform-origin);
+  }
+  .sprout-popover-content :where(p) {
+    margin: 0;
+  }
+
+  .sprout-popover-menu,
+  .sprout-popover-picker,
+  .sprout-popover-panel,
+  .sprout-popover-work-list,
+  .sprout-popover-bud {
+    gap: 0;
+    padding: 0;
+  }
+  .sprout-popover-menu {
+    width: 24rem;
+  }
+  .sprout-popover-panel,
+  .sprout-popover-work-list {
+    width: min(32rem, calc(100vw - 2rem));
+  }
+  .sprout-popover-work-list {
+    max-height: min(36rem, var(--available-height));
+    overflow: hidden;
+  }
+  .sprout-popover-app-actions {
+    width: 20rem;
+    max-height: var(--available-height);
+    padding: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  .sprout-popover-bud {
+    width: min(24rem, calc(100vw - 2rem));
+    height: min(26rem, calc(100dvh - 7rem));
+    max-height: var(--available-height);
+    overflow: hidden;
+  }
+  .sprout-popover-positioner[hidden] {
+    display: none;
+  }
+
+  .sprout-popover-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    font-size: var(--sprout-text-sm);
+  }
+  .sprout-popover-title {
+    margin: 0;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  .sprout-popover-description {
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  @media (forced-colors: active) {
+    .sprout-popover-content {
+      border-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-popover-content {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease),
+        translate var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-popover-content[data-starting-style],
+    .sprout-popover-content[data-ending-style] {
+      opacity: 0;
+      scale: 0.96;
+    }
+    .sprout-popover-content[data-side="bottom"]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: 0 calc(var(--sprout-popover-shift) * -1);
+    }
+    .sprout-popover-content[data-side="top"]:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: 0 var(--sprout-popover-shift);
+    }
+    .sprout-popover-content:is(
+        [data-side="right"],
+        [data-side="inline-end"]
+      ):is([data-starting-style], [data-ending-style]) {
+      translate: calc(var(--sprout-popover-shift) * -1) 0;
+    }
+    .sprout-popover-content:is(
+        [data-side="left"],
+        [data-side="inline-start"]
+      ):is([data-starting-style], [data-ending-style]) {
+      translate: var(--sprout-popover-shift) 0;
+    }
+    .sprout-popover-content:is(
+      .sprout-popover-app-actions,
+      .sprout-popover-bud
+    ) {
+      transition-duration: var(--sprout-motion-normal);
+    }
+  }
+}

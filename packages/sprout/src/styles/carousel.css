@@ -1,0 +1,107 @@
+@layer components {
+  .sprout-carousel {
+    position: relative;
+    min-width: 0;
+  }
+
+  .sprout-carousel-content {
+    min-width: 0;
+    overflow: auto;
+    scrollbar-width: none;
+    border-radius: var(--sprout-carousel-radius, 0);
+    outline: none;
+  }
+  .sprout-carousel-content::-webkit-scrollbar {
+    display: none;
+  }
+  .sprout-carousel-content[data-orientation="horizontal"] {
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x pinch-zoom;
+  }
+  .sprout-carousel-content[data-orientation="vertical"] {
+    height: 100%;
+    min-height: 0;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y mandatory;
+    touch-action: pan-y pinch-zoom;
+  }
+  .sprout-carousel-content[data-drag-free],
+  .sprout-carousel-content[data-dragging] {
+    scroll-snap-type: none;
+  }
+  .sprout-carousel-content[data-dragging] {
+    cursor: grabbing;
+    user-select: none;
+  }
+  .sprout-carousel-content:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+
+  .sprout-carousel-track {
+    display: flex;
+    gap: var(--sprout-carousel-gap, 16px);
+  }
+  .sprout-carousel-content[data-orientation="vertical"]
+    > .sprout-carousel-track {
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .sprout-carousel-item {
+    box-sizing: border-box;
+    flex: 0 0 var(--sprout-carousel-basis, 100%);
+    min-width: 0;
+    min-height: 0;
+    scroll-snap-align: start;
+  }
+  [data-align="center"] > .sprout-carousel-track > .sprout-carousel-item {
+    scroll-snap-align: center;
+  }
+  [data-align="end"] > .sprout-carousel-track > .sprout-carousel-item {
+    scroll-snap-align: end;
+  }
+
+  .sprout-carousel-control {
+    position: absolute;
+    border-radius: 999px;
+    box-shadow: var(--sprout-shadow-control);
+    touch-action: manipulation;
+  }
+  .sprout-carousel-control[data-orientation="horizontal"] {
+    inset-block: 0;
+    margin-block: auto;
+  }
+  .sprout-carousel-previous[data-orientation="horizontal"] {
+    left: calc(-1 * var(--sprout-carousel-control-offset, 48px));
+  }
+  .sprout-carousel-next[data-orientation="horizontal"] {
+    right: calc(-1 * var(--sprout-carousel-control-offset, 48px));
+  }
+  .sprout-carousel-control[data-orientation="vertical"] {
+    left: 50%;
+    translate: -50% 0;
+    rotate: 90deg;
+  }
+  .sprout-carousel-previous[data-orientation="vertical"] {
+    top: calc(-1 * var(--sprout-carousel-control-offset, 48px));
+  }
+  .sprout-carousel-next[data-orientation="vertical"] {
+    bottom: calc(-1 * var(--sprout-carousel-control-offset, 48px));
+  }
+  @media (pointer: coarse) {
+    .sprout-carousel-control.sprout-button-size-icon {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-carousel-content:not([data-dragging]) {
+      scroll-behavior: smooth;
+    }
+  }
+}

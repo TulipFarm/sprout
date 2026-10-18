@@ -1,0 +1,72 @@
+@layer components {
+  :where(.sprout-collapsible-trigger:not(.sprout-button)) {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    border-radius: var(--sprout-radius-control);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :where(.sprout-collapsible-trigger:not(.sprout-button)):focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  :where(.sprout-collapsible-trigger:not(.sprout-button))[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /* An indicator turns when its own trigger, or its collapsible's header, is open. */
+  [data-slot="collapsible-indicator"] {
+    flex-shrink: 0;
+  }
+  [data-panel-open] [data-slot="collapsible-indicator"],
+  .sprout-collapsible[data-open]
+    > :not(.sprout-collapsible-content)
+    [data-slot="collapsible-indicator"] {
+    transform: rotate(180deg);
+  }
+  [data-panel-open] [data-slot="collapsible-indicator"][data-direction="right"],
+  .sprout-collapsible[data-open]
+    > :not(.sprout-collapsible-content)
+    [data-slot="collapsible-indicator"][data-direction="right"] {
+    transform: rotate(90deg);
+  }
+
+  .sprout-collapsible-content[hidden]:not([hidden="until-found"]) {
+    display: none;
+  }
+  .sprout-collapsible-content-sidebar,
+  .sprout-collapsible-content-card {
+    height: var(--collapsible-panel-height);
+    overflow: hidden;
+  }
+  .sprout-collapsible-content-sidebar[data-starting-style],
+  .sprout-collapsible-content-sidebar[data-ending-style] {
+    height: 0;
+    opacity: 0;
+  }
+  .sprout-collapsible-content-card[data-starting-style],
+  .sprout-collapsible-content-card[data-ending-style] {
+    height: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-slot="collapsible-indicator"] {
+      transition: transform var(--sprout-motion-fast, 120ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-collapsible-content-sidebar {
+      transition:
+        height var(--sprout-motion-normal, 180ms)
+          var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms) ease-out;
+    }
+    .sprout-collapsible-content-card {
+      transition: height var(--sprout-motion-normal, 180ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+  }
+}

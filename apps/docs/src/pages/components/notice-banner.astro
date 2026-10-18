@@ -1,0 +1,125 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import NoticeBannerDemo from "../../components/NoticeBannerDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Notice Banner"
+  description="A full-width strip at the top of a page for something that needs action."
+>
+  <h1 class="docs-title">Notice Banner</h1>
+  <p class="docs-lead">
+    A full-width strip at the top of a page. Use it when something needs action,
+    such as an integration that needs authorization. The message is on the left
+    and the actions follow it.
+  </p>
+  <div class="mt-8"><NoticeBannerDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Notice Banner usage"
+      code={`import { Button } from "@tulipfarm/sprout/button";
+import { NoticeBanner } from "@tulipfarm/sprout/notice-banner";
+
+<NoticeBanner
+  aria-label="Integration authorization"
+  actions={<Button variant="outline">Update permissions</Button>}
+>
+  <p role="status">
+    <span className="font-medium text-sprout-warning">
+      Google Calendar (robin@greenhouse.example) needs authorization.
+    </span>{" "}
+    Approve the updated permissions to continue.
+  </p>
+</NoticeBanner>`}
+    />
+    <p>
+      <code>NoticeBanner</code> renders a <code>section</code> with a 1px line under
+      it, the surface color, and 14px muted text. <code>children</code>
+      is the message. <code>actions</code> holds buttons, selects, or other controls.
+      They wrap when there is no room. Leave out <code>actions</code>
+      to show only the message. Other props, like <code>className</code>, go to
+      the <code>section</code>.
+    </p>
+    <p>
+      There is one size and no variants. Below 640px the message and actions
+      stack, with 8px between them, 16px side padding, and full-width actions.
+      From 640px they sit on one row, centered, with 16px between them and 24px
+      side padding. Long words in the message wrap.
+    </p>
+    <p>
+      Use the default outline <code>Button</code>, 28px with 14px text, for the
+      main action, next to a 32px <code>Select</code> when there is a choice. Use
+      <code>size="sm"</code>, 28px with 12px text, for a single light action,
+      like Dismiss. To render no banner, do not mount it.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Choosing and waiting</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Select and busy action"
+      code={`<NoticeBanner
+  aria-label="Integration authorization"
+  actions={<>
+    <div className="w-full sm:w-64">
+      <Select value={selected.id} onValueChange={choose} disabled={busy}>
+        <SelectTrigger width="full" aria-label="Integration to reauthorize">
+          <SelectValue>{selected.name}</SelectValue>
+        </SelectTrigger>
+        <SelectContent>
+          {items.map(item => (
+            <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+    <Button variant="outline" disabled={busy} focusableWhenDisabled aria-busy={busy}>
+      {busy ? "Please wait..." : failed ? "Check integration status" : "Update permissions"}
+    </Button>
+  </>}
+>
+  {failed
+    ? <p role="alert">Authorization could not be opened. Check integration status before trying again.</p>
+    : <p role="status">…</p>}
+</NoticeBanner>`}
+    />
+    <p>
+      When several items need action, put a <code>Select</code> before the button.
+      Give its wrapper a full width on small screens and 16rem from 640px. While work
+      runs, disable the select and button and set <code>aria-busy</code>. Add <code
+        >focusableWhenDisabled</code
+      > so keyboard focus stays on the button.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The banner is a <code>section</code>. Give it an <code>aria-label</code>
+      so it is a named region that screen reader users can jump to. Put <code
+        >role="status"</code
+      > on a normal message and <code>role="alert"</code> on an error, so changes
+      are announced. All actions are normal controls in tab order.
+    </p>
+    <p>
+      If an action removes the banner, move focus to a sensible control, as the
+      examples do. The banner fades in over 180ms and does not animate when
+      reduced motion is requested. In forced colors mode the line uses the
+      system text color.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The background uses <code>--sprout-surface</code>, the line uses <code
+        >--sprout-line</code
+      >, and text uses <code>--sprout-muted</code>. A warning lead can use <code
+        >--sprout-warning</code
+      >. Motion uses <code>--sprout-motion-normal</code> and <code
+        >--sprout-motion-ease</code
+      >.
+    </p>
+  </section>
+</Docs>

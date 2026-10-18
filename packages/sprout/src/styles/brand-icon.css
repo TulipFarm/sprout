@@ -1,0 +1,104 @@
+@layer components {
+  /* [data-size] lifts these above .sprout-button when a tile renders a Button. */
+  .sprout-brand-tile[data-size] {
+    --sprout-brand-tile-size: 2.25rem;
+    box-sizing: border-box;
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: var(--sprout-brand-tile-size);
+    min-width: var(--sprout-brand-tile-size);
+    height: var(--sprout-brand-tile-size);
+    padding: 0.5rem;
+    border: 1px solid var(--sprout-line);
+    border-radius: 0.5rem;
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-control);
+    font-family: var(--sprout-font);
+    line-height: 1;
+  }
+  .sprout-brand-tile[data-size="sm"] {
+    --sprout-brand-tile-size: 1.5rem;
+    padding: 0.25rem;
+    border-radius: 0.375rem;
+  }
+  .sprout-brand-tile[data-size="lg"] {
+    --sprout-brand-tile-size: 3rem;
+    padding: 0.625rem;
+    border-radius: 0.75rem;
+  }
+  .sprout-brand-tile[data-size="xl"] {
+    --sprout-brand-tile-size: 3.5rem;
+    padding: 0.75rem;
+    border-radius: 1rem;
+  }
+  @media (pointer: coarse) {
+    .sprout-brand-tile[data-size="action"] {
+      --sprout-brand-tile-size: 2.75rem;
+      padding: 0.75rem;
+    }
+  }
+  .sprout-brand-tile[data-size]:is(button, a) {
+    cursor: pointer;
+    transition:
+      background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+      border-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+  }
+  .sprout-brand-tile[data-size]:is(button, a):hover:not(:disabled) {
+    background: var(--sprout-hover);
+  }
+  .sprout-brand-tile[data-size]:is(button, a):focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-brand-tile[data-size]:is(button, a):disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .sprout-brand-icon[data-size] {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 1rem;
+    height: 1rem;
+  }
+  .sprout-brand-icon[data-size="glyph"] {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .sprout-brand-icon[data-size="fill"] {
+    width: 100%;
+    height: 100%;
+  }
+  :is(.sprout-brand-icon, .sprout-brand-tile)[data-size]
+    > svg.sprout-brand-glyph {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sprout-brand-stack {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .sprout-brand-stack > * + * {
+    margin-inline-start: -0.375rem;
+  }
+  .sprout-brand-stack > .sprout-brand-tile[data-size] {
+    box-shadow:
+      0 0 0 2px var(--sprout-brand-ring, var(--sprout-canvas)),
+      var(--sprout-shadow-control);
+  }
+  .sprout-brand-stack > .sprout-brand-tile:hover {
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-brand-tile[data-size]:is(button, a) {
+      transition: none;
+    }
+  }
+}

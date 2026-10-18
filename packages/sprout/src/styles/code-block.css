@@ -1,0 +1,211 @@
+@layer components {
+  .sprout-code-block {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+  }
+  .sprout-code-block[data-variant="inline"] {
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: color-mix(
+      in oklab,
+      var(--sprout-hover) 40%,
+      var(--sprout-surface)
+    );
+  }
+  .sprout-code-block[data-variant="file"] {
+    height: 100%;
+    min-height: 0;
+  }
+  .sprout-code-block[data-variant="preview"] {
+    max-height: 100%;
+    font-size: var(--sprout-text-xs);
+    mask-image: linear-gradient(to bottom, #000 75%, transparent);
+  }
+  .sprout-code-block[data-variant="preview"] .sprout-code-block-viewport {
+    overflow: hidden;
+    padding: 12px;
+    font-size: var(--sprout-text-xs);
+    line-height: 1.125rem;
+  }
+
+  .sprout-code-block-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-sizing: border-box;
+    min-height: 40px;
+    padding: 4px 6px 4px 12px;
+    border-bottom: 1px solid var(--sprout-line);
+  }
+  .sprout-code-block-label {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .sprout-code-block-icon {
+    display: inline-flex;
+  }
+  .sprout-code-block-copy:disabled {
+    cursor: progress;
+  }
+
+  .sprout-code-block-viewport {
+    display: flex;
+    box-sizing: border-box;
+    min-width: 0;
+    overflow: auto;
+    padding: 16px;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  .sprout-code-block[data-variant="inline"] .sprout-code-block-viewport {
+    max-height: 24rem;
+  }
+  .sprout-code-block[data-variant="file"] .sprout-code-block-viewport {
+    flex: 1;
+    min-height: 0;
+  }
+  .sprout-code-block-viewport:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+
+  .sprout-code-block-gutter,
+  .sprout-code-block-pre {
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: inherit;
+    line-height: inherit;
+    tab-size: 2;
+  }
+  .sprout-code-block-gutter {
+    flex-shrink: 0;
+    margin-right: 16px;
+    padding-right: 12px;
+    border-right: 1px solid var(--sprout-line);
+    color: var(--sprout-muted);
+    text-align: right;
+    user-select: none;
+  }
+  .sprout-code-block-pre {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+  }
+  .sprout-code-block-pre code {
+    font: inherit;
+  }
+  .sprout-code-block[data-wrap] .sprout-code-block-pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* Override any role with --sprout-syntax-<role>; each defaults to a theme color. */
+  .sprout-syntax-keyword {
+    color: var(--sprout-syntax-keyword, var(--sprout-info));
+  }
+  .sprout-syntax-string,
+  .sprout-syntax-string-expression {
+    color: var(--sprout-syntax-string, var(--sprout-success));
+  }
+  .sprout-syntax-constant {
+    color: var(--sprout-syntax-constant, var(--sprout-warning));
+  }
+  .sprout-syntax-function {
+    color: var(
+      --sprout-syntax-function,
+      color-mix(in oklab, var(--sprout-info) 55%, var(--sprout-danger))
+    );
+  }
+  .sprout-syntax-parameter {
+    color: var(
+      --sprout-syntax-parameter,
+      color-mix(in oklab, var(--sprout-danger) 65%, var(--sprout-warning))
+    );
+  }
+  .sprout-syntax-comment {
+    color: var(--sprout-syntax-comment, var(--sprout-muted));
+  }
+  .sprout-syntax-punctuation {
+    color: var(
+      --sprout-syntax-punctuation,
+      color-mix(in oklab, var(--sprout-text) 70%, var(--sprout-muted))
+    );
+  }
+  .sprout-syntax-link {
+    color: var(--sprout-syntax-link, var(--sprout-info));
+  }
+  .sprout-syntax-heading {
+    color: var(--sprout-syntax-heading, var(--sprout-info));
+  }
+  .sprout-syntax-inserted {
+    color: var(--sprout-syntax-inserted, var(--sprout-success));
+  }
+  .sprout-syntax-deleted {
+    color: var(--sprout-syntax-deleted, var(--sprout-danger));
+  }
+  .sprout-syntax-italic {
+    font-style: italic;
+  }
+  .sprout-syntax-bold {
+    font-weight: 600;
+  }
+  .sprout-syntax-underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .sprout-code-block-error {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 8px 12px;
+    border-top: 1px solid var(--sprout-line);
+    color: var(--sprout-danger);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  .sprout-code-block-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (pointer: coarse) {
+    .sprout-code-block-copy {
+      min-height: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-code-block-error {
+      animation: sprout-code-block-in var(--sprout-motion-normal)
+        var(--sprout-motion-ease);
+    }
+  }
+  @keyframes sprout-code-block-in {
+    from {
+      opacity: 0;
+    }
+  }
+}

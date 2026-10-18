@@ -1,0 +1,237 @@
+@layer components {
+  .sprout-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    isolation: isolate;
+    background: var(--sprout-overlay);
+  }
+
+  .sprout-dialog-content {
+    --sprout-dialog-padding: 16px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 50;
+    display: grid;
+    gap: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: calc(100% - 2rem);
+    max-height: calc(100dvh - 2rem);
+    padding: var(--sprout-dialog-padding);
+    translate: -50% -50%;
+    border: 1px solid var(--sprout-line);
+    border-radius: calc(var(--sprout-radius-panel) + 4px);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: none;
+  }
+
+  .sprout-dialog-content[data-placement="top"] {
+    top: var(--sprout-dialog-top, 12dvh);
+    max-height: min(
+      76dvh,
+      calc(100dvh - var(--sprout-dialog-top, 12dvh) - 1rem)
+    );
+    translate: -50% 0;
+  }
+
+  .sprout-dialog-default {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    overflow-wrap: break-word;
+  }
+
+  .sprout-dialog-form {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .sprout-dialog-split {
+    --sprout-dialog-padding: 0px;
+    width: calc(100% - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .sprout-dialog-fullscreen {
+    --sprout-dialog-padding: 0px;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    translate: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .sprout-dialog-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  .sprout-dialog-content:has(> .sprout-dialog-close) > .sprout-dialog-header {
+    padding-inline-end: 28px;
+  }
+  :is(.sprout-dialog-split, .sprout-dialog-fullscreen) > .sprout-dialog-header {
+    padding: 16px 16px 0;
+  }
+  :is(.sprout-dialog-split, .sprout-dialog-fullscreen):has(
+      > .sprout-dialog-close
+    )
+    > .sprout-dialog-header {
+    padding-inline-end: 44px;
+  }
+
+  .sprout-dialog-title {
+    margin: 0;
+    min-width: 0;
+    font-size: var(--sprout-text-base);
+    font-weight: 550;
+    line-height: 1.375rem;
+    letter-spacing: -0.005em;
+    overflow-wrap: anywhere;
+  }
+
+  .sprout-dialog-description {
+    margin: 0;
+    min-width: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    text-wrap: pretty;
+  }
+  .sprout-dialog-description a:not([data-slot]) {
+    border-radius: 2px;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .sprout-dialog-description a:not([data-slot]):focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+
+  .sprout-dialog-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    min-height: 0;
+    margin-inline: calc(var(--sprout-dialog-padding) * -1);
+    padding: 0 var(--sprout-dialog-padding) 4px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  :is(.sprout-dialog-split, .sprout-dialog-fullscreen) > .sprout-dialog-body {
+    padding: 0 16px 16px;
+  }
+  .sprout-dialog-fullscreen > .sprout-dialog-body {
+    flex: 1;
+  }
+
+  .sprout-dialog-footer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    margin: 0 calc(var(--sprout-dialog-padding) * -1)
+      calc(var(--sprout-dialog-padding) * -1);
+    padding: 12px 16px;
+    border-top: 1px solid var(--sprout-line);
+    border-end-start-radius: inherit;
+    border-end-end-radius: inherit;
+    background: color-mix(
+      in oklab,
+      var(--sprout-canvas) 70%,
+      var(--sprout-surface)
+    );
+  }
+  .sprout-dialog-fullscreen > .sprout-dialog-footer {
+    margin-top: auto;
+  }
+  .sprout-dialog-footer > p {
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  .sprout-dialog-close {
+    position: absolute;
+    top: 8px;
+    inset-inline-end: 8px;
+  }
+
+  @media (min-width: 40rem) {
+    .sprout-dialog-content {
+      max-width: 24rem;
+    }
+    .sprout-dialog-form {
+      max-width: 36rem;
+    }
+    .sprout-dialog-split {
+      max-width: 64rem;
+    }
+    .sprout-dialog-fullscreen {
+      max-width: none;
+    }
+    .sprout-dialog-footer {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .sprout-dialog-footer > p {
+      align-self: center;
+      margin-inline-end: auto;
+    }
+  }
+
+  @media (hover: hover) {
+    .sprout-dialog-description a:not([data-slot]):hover {
+      color: var(--sprout-text);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-dialog-overlay {
+      transition: opacity var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-dialog-overlay[data-starting-style],
+    .sprout-dialog-overlay[data-ending-style] {
+      opacity: 0;
+    }
+    .sprout-dialog-content {
+      transition:
+        opacity var(--sprout-motion-normal) var(--sprout-motion-ease),
+        scale var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-dialog-content[data-ending-style],
+    .sprout-dialog-overlay[data-ending-style] {
+      transition-duration: var(--sprout-motion-fast);
+    }
+    .sprout-dialog-content[data-starting-style],
+    .sprout-dialog-content[data-ending-style] {
+      opacity: 0;
+      scale: 0.96;
+    }
+    .sprout-dialog-fullscreen[data-starting-style],
+    .sprout-dialog-fullscreen[data-ending-style] {
+      scale: 1;
+    }
+    .sprout-dialog-description a:not([data-slot]) {
+      transition: color var(--sprout-motion-fast) ease-out;
+    }
+  }
+}

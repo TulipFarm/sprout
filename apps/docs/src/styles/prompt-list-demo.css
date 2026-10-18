@@ -1,0 +1,136 @@
+.prompt-demo-frame {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.prompt-demo-frame + .prompt-demo-frame {
+  margin-top: 24px;
+}
+.prompt-demo-bar,
+.prompt-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.prompt-demo-toolbar {
+  justify-content: flex-start;
+}
+.prompt-demo-bar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.prompt-demo-bar-title {
+  color: var(--sprout-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+.prompt-demo-controls,
+.prompt-demo-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prompt-demo-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+  padding: 24px 16px;
+  background: var(--sprout-canvas);
+}
+.prompt-demo-chat {
+  width: 100%;
+  max-width: 40rem;
+  min-width: 0;
+  margin-inline: auto;
+}
+.prompt-demo-narrow {
+  width: 100%;
+  max-width: 18rem;
+  min-width: 0;
+  margin-inline: auto;
+}
+.prompt-demo-pair {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+@media (min-width: 720px) {
+  .prompt-demo-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.prompt-demo-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+.prompt-demo-caption {
+  margin: 0;
+  padding-inline: 12px;
+  color: var(--sprout-muted);
+  font-family: var(--sprout-font-mono, ui-monospace, monospace);
+  font-size: 11px;
+}
+.prompt-demo-start {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 12px;
+}
+.prompt-demo-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  min-width: 0;
+}
+.prompt-demo-setup {
+  padding-top: 16px;
+  border-top: 1px solid
+    color-mix(in oklab, var(--sprout-muted) 30%, transparent);
+}
+.prompt-demo-more {
+  padding-bottom: 8px;
+}
+.prompt-demo-more-setup {
+  padding-top: 8px;
+}
+.prompt-demo-trigger {
+  padding-inline: 4px;
+}
+.prompt-demo-hint {
+  margin: 0;
+  padding-inline: 12px;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+  line-height: 1rem;
+}
+.prompt-demo-message {
+  font-size: var(--sprout-text-sm);
+  line-height: 1.25rem;
+}
+.prompt-demo-error {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.prompt-demo-result {
+  margin: 12px 0 0;
+  padding-inline: 12px;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs);
+  line-height: 1rem;
+  overflow-wrap: anywhere;
+}

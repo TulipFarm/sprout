@@ -1,0 +1,198 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  CollapsibleHero,
+  CollapsibleTriggers,
+  CollapsibleMotion,
+  CollapsibleChat,
+  CollapsibleReviewCard,
+  CollapsibleSidebar,
+  CollapsibleStates,
+} from "../../components/CollapsibleDemo";
+---
+
+<Docs
+  title="Collapsible"
+  description="Show and hide one region of details, lists, or settings in place."
+>
+  <h1 class="docs-title">Collapsible</h1>
+  <p class="docs-lead">
+    A trigger that shows and hides one region in place. Use it for details,
+    longer lists, and settings that most people do not need every time.
+  </p>
+  <div class="mt-8" id="collapsible-demo"><CollapsibleHero client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Collapsible usage"
+      code={`import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@tulipfarm/sprout/collapsible";
+import { Button } from "@tulipfarm/sprout/button";
+
+<Collapsible>
+  <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
+    Approval details
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    <p>Only the listed changes are approved.</p>
+  </CollapsibleContent>
+</Collapsible>`}
+    />
+    <p>
+      <code>Collapsible</code> holds the open state. Pass <code
+        >defaultOpen</code
+      > to let it manage itself, or <code>open</code> and <code
+        >onOpenChange</code
+      > to control it. <code>disabled</code> blocks the trigger.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Triggers</h2>
+    <p>
+      The trigger is unstyled. Give it a Sprout <code>Button</code> with <code
+        >render</code
+      >. Use <code>outline</code> for a main section, <code>ghost</code> for secondary
+      details, <code>xs</code> and <code>link</code> inside dense status rows, and
+      <code>chat-row</code> for full-width rows inside a list.
+    </p>
+    <CollapsibleTriggers client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Content variants</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Content variants"
+      code={`<CollapsibleContent>…</CollapsibleContent>               // instant
+<CollapsibleContent variant="sidebar">…</CollapsibleContent> // height and fade
+<CollapsibleContent variant="card">…</CollapsibleContent>    // height only`}
+    />
+    <CollapsibleMotion client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Indicators</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Turning chevrons"
+      code={`<CollapsibleTrigger>
+  <Sparkle aria-hidden="true" />
+  Thought for 12s
+  <ChevronDown aria-hidden="true" data-slot="collapsible-indicator" />
+</CollapsibleTrigger>
+
+<ChevronRight
+  aria-hidden="true"
+  data-slot="collapsible-indicator"
+  data-direction="right"
+/>`}
+    />
+    <p>
+      Mark a chevron with <code>data-slot="collapsible-indicator"</code> and it turns
+      180° while open. Add <code>data-direction="right"</code> for a right chevron
+      that turns 90°. It works inside the trigger, and anywhere in the header outside
+      the content, so a chevron can sit beside a badge. To swap the icon or label
+      instead, read the state you control.
+    </p>
+    <CollapsibleChat client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Cards</h2>
+    <p>
+      Put the trigger in the heading and stretch its hit area over the header
+      with a pseudo-element. Control <code>open</code> to close the card when the
+      review settles.
+    </p>
+    <CollapsibleReviewCard client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Sidebar</h2>
+    <p>
+      Render a <code>SidebarMenuAction</code> as the trigger and use the <code
+        >sidebar</code
+      > content variant. Close the list while the sidebar shows only icons.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Sidebar recent items"
+      code={`const { isMobile, state } = useSidebar();
+const visible = open && (isMobile || state === "expanded");
+
+<Collapsible open={visible} onOpenChange={setOpen}>
+  <SidebarMenuButton …>Chats</SidebarMenuButton>
+  <CollapsibleTrigger
+    aria-label={\`\${visible ? "Collapse" : "Expand"} Chats\`}
+    render={<SidebarMenuAction />}
+  >
+    <ChevronRight data-slot="collapsible-indicator" data-direction="right" />
+  </CollapsibleTrigger>
+  <CollapsibleContent variant="sidebar">
+    <SidebarMenuSub aria-label="Recent chats">…</SidebarMenuSub>
+  </CollapsibleContent>
+</Collapsible>`}
+    />
+    <CollapsibleSidebar client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <p>
+      Content can sit before the trigger so a list grows from its button. <code
+        >keepMounted</code
+      > keeps closed content in the page, so form state and scroll position survive.
+      Pass <code>open</code> with no trigger to show a fixed list.
+    </p>
+    <CollapsibleStates client:load />
+  </section>
+  <section class="prose-section" id="collapsible-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      The three parts wrap Base UI Collapsible. Every Base UI prop works,
+      including <code>render</code>, <code>keepMounted</code>, <code
+        >hiddenUntilFound</code
+      >, and <code>className</code> as a string or a state function.
+    </p>
+    <p>
+      Parts get <code>data-slot</code> values of <code>collapsible</code>, <code
+        >collapsible-trigger</code
+      >, and <code>collapsible-content</code>. Pass your own <code
+        >data-slot</code
+      > to rename a root. The root has <code>data-open</code> or <code
+        >data-closed</code
+      >, the trigger has <code>data-panel-open</code>, and the content has <code
+        >data-variant</code
+      > plus Base UI's starting and ending style attributes. <code
+        >collapsibleContentVariantNames</code
+      > lists the variants.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The trigger is a button with <code>aria-expanded</code> and <code
+        >aria-controls</code
+      >. Enter and Space toggle it. Give icon-only triggers an <code
+        >aria-label</code
+      > that names the action, and link a disabled trigger to its reason with <code
+        >aria-describedby</code
+      >. Put the trigger inside a heading when it names a section.
+    </p>
+    <p>
+      Chevrons turn over 120ms and animated content grows over 180ms. Both stop
+      when reduced motion is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Collapsible uses <code>--sprout-focus</code>, <code
+        >--sprout-radius-control</code
+      >, <code>--sprout-motion-fast</code>, <code>--sprout-motion-normal</code>,
+      and <code>--sprout-motion-ease</code>. Everything else comes from the
+      trigger and content you render, so it follows light, dark, and the
+      TulipFarm theme.
+    </p>
+  </section>
+</Docs>

@@ -1,0 +1,159 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  TooltipBrands,
+  TooltipColumnHints,
+  TooltipComposer,
+  TooltipPlayground,
+  TooltipSidebar,
+} from "../../components/TooltipDemo";
+---
+
+<Docs
+  title="Tooltip"
+  description="Short labels for icon buttons, column hints, and collapsed navigation."
+>
+  <h1 class="docs-title">Tooltip</h1>
+  <p class="docs-lead">
+    A short label that appears when a control is hovered or focused. Use it to
+    name icon buttons, explain a column, or show a shortcut. Keep the text to
+    one line or two; anything longer belongs in a popover.
+  </p>
+  <div class="mt-8" id="tooltip-demo"><TooltipPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Tooltip usage"
+      code={`import { Paperclip } from "reicon-react/icons/Paperclip";
+import { Button } from "@tulipfarm/sprout/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@tulipfarm/sprout/tooltip";
+
+<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger
+      render={<Button size="icon-sm" variant="ghost" aria-label="Attach files" />}
+    >
+      <Paperclip size={16} aria-hidden="true" />
+    </TooltipTrigger>
+    <TooltipContent>Attach files from your device</TooltipContent>
+  </Tooltip>
+</TooltipProvider>`}
+    />
+    <p>
+      Pass the control to <code>TooltipTrigger</code> through <code>render</code
+      >. Icon-only triggers still need an <code>aria-label</code>; the tooltip
+      describes the control, it doesn’t name it. Wrap a toolbar, header row, or
+      whole app in one <code>TooltipProvider</code> so moving between neighbours opens
+      each tooltip straight away.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Composer toolbar</h2>
+    <p>
+      Ghost <code>icon-sm</code> and <code>sm</code> buttons, a select trigger, and
+      a popover trigger can all be tooltip triggers. To combine triggers, nest them:
+      <code
+        >{
+          "<TooltipTrigger render={<PopoverTrigger render={<Button />} />} />"
+        }</code
+      >. The send button switches between <code>default</code> and <code
+        >secondary</code
+      > and is disabled while the draft is empty; a disabled button can’t be hovered
+      or focused, so its tooltip stays closed. While a reply is sending, a stop button
+      takes its place.
+    </p>
+    <TooltipComposer client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Column hints</h2>
+    <p>
+      A plain <code>button</code> with an info icon explains a column heading. Long
+      hints wrap at 20rem.
+    </p>
+    <TooltipColumnHints client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">App tiles</h2>
+    <p>
+      <code>BrandStack</code> gives every tile a tooltip with the app’s name. Render
+      a <code>BrandTile</code> as the trigger for a single tile.
+    </p>
+    <TooltipBrands client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Collapsed sidebar</h2>
+    <p>
+      <code>SidebarMenuButton</code> takes a <code>tooltip</code> string or an object
+      of <code>TooltipContent</code> props. It shows beside the icon rail only while
+      the sidebar is collapsed; pass <code>hidden</code> in the object to override
+      that. It works on links, on plain buttons with <code
+        >aria-keyshortcuts</code
+      >, and as the <code>render</code> target of a <code
+        >DropdownMenuTrigger</code
+      >.
+    </p>
+    <TooltipSidebar client:load />
+  </section>
+  <section class="prose-section" id="tooltip-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>TooltipProvider</code> takes the Base UI provider props <code
+        >delay</code
+      > (0 here), <code>closeDelay</code>, and <code>timeout</code>. A tooltip
+      outside a provider waits 600ms.
+    </p>
+    <p>
+      <code>Tooltip</code> and <code>TooltipTrigger</code> wrap the Base UI tooltip
+      root and trigger and take their props, including <code>open</code>, <code
+        >defaultOpen</code
+      >, <code>onOpenChange</code>, <code>disabled</code>, <code>delay</code>, <code
+        >closeOnClick</code
+      >, and <code>render</code>.
+    </p>
+    <p>
+      <code>TooltipContent</code> renders its own portal, positioner, and arrow. It
+      takes <code>side</code> (<code>"top"</code>), <code>align</code> (<code
+        >"center"</code
+      >), <code>sideOffset</code> (4), <code>alignOffset</code> (0), <code
+        >collisionPadding</code
+      > (8), <code>anchor</code>, <code>keepMounted</code>, <code
+        >container</code
+      >, <code>hidden</code>, and every Base UI popup prop. Each part sets a <code
+        >data-slot</code
+      >.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Tooltips open on hover and on keyboard focus, and close on Escape, blur,
+      or pointer leave. While one is showing it has <code>role="tooltip"</code>
+      and the trigger’s <code>aria-describedby</code> points at it, merged with any
+      description the trigger already has. Never put links or buttons in a tooltip;
+      it can’t receive focus.
+    </p>
+    <p>
+      Tooltips fade and scale in from their side over 120ms, and open instantly
+      when moving between neighbours in a provider. Motion turns off when
+      reduced motion is requested. In forced-colors mode the label and arrow
+      keep a visible border.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Tooltips use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code
+        >--sprout-text</code
+      >, <code>--sprout-shadow-panel</code>, the control radius, and the extra
+      small text size. They need no brand color, so they look the same with the
+      neutral and TulipFarm themes in light and dark mode.
+    </p>
+  </section>
+</Docs>

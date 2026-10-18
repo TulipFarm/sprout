@@ -1,0 +1,118 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import ChoiceListDemo from "../../components/ChoiceListDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Choice List"
+  description="Radio or checkbox rows for answering a question, plus a one-line answer summary."
+>
+  <h1 class="docs-title">Choice List</h1>
+  <p class="docs-lead">
+    A list of answers to pick from, with an optional typed answer. Use it for
+    preference questions and for questions an assistant asks in a chat. When the
+    question is done, show the answer with Choice Summary.
+  </p>
+  <div class="mt-8"><ChoiceListDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Choice List usage"
+      code={`import { ChoiceList, ChoiceSummary } from "@tulipfarm/sprout/choice-list";
+
+const [style, setStyle] = useState<string[]>([]);
+
+<ChoiceList
+  legend="Reply style"
+  options={[
+    { id: "short", label: "Short answers (Recommended)" },
+    { id: "detailed", label: "Detailed answers" },
+  ]}
+  value={style}
+  onChange={setStyle}
+/>
+
+<ChoiceList
+  layout="compact"
+  multiple
+  legend="Choose one or more answers"
+  options={channels}
+  value={choices}
+  onChange={setChoices}
+  error={attempted && !choices.length ? "Choose an answer." : undefined}
+  textOption={{
+    id: "custom-answer",
+    value: text,
+    active: typed,
+    onChange: setText,
+    onFocus: () => setTyped(true),
+    error: null,
+  }}
+/>
+
+<ChoiceSummary prompt="Reply style" answer="Short answers" />`}
+    />
+    <p>
+      <code>value</code> is always an array of option ids, for one answer or many.
+      <code>onChange</code> gets the next array, so a state setter can be passed straight
+      in.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Props</h2>
+    <p>
+      <code>layout</code> is <code>"stacked"</code> (bordered 44px rows with radio
+      or checkbox marks) or <code>"compact"</code> (36px numbered rows with dividers,
+      in a list that scrolls after about six rows). There is no separate size: each
+      layout has one row height, and compact rows grow to 44px on touch screens.
+    </p>
+    <p>
+      <code>multiple</code> turns radios into checkboxes. In a compact single list
+      the legend is for screen readers only, because the question above already names
+      it. <code>disabled</code> locks every row, and
+      <code>error</code> shows a message under the list and marks each input invalid.
+    </p>
+    <p>
+      An option with <code>recommended</code>, or a label ending in
+      <code>(Recommended)</code>, gets a Recommended badge.
+      <code>textOption</code> adds a typed answer after the options. A stacked list
+      always shows it. A compact list shows it only while
+      <code>active</code>, and moves focus into it, so pair it with an "Other
+      answer" button whose <code>aria-controls</code> is the
+      <code>textOption.id</code>.
+    </p>
+    <p>
+      <code>ChoiceSummary</code> takes a <code>prompt</code>, an optional
+      <code>answer</code> (leave it out for an expired or cancelled question), and
+      optional <code>children</code> after the answer.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The list is a <code>&lt;fieldset&gt;</code> with a
+      <code>&lt;legend&gt;</code>. Each row is a label around a real radio or
+      checkbox input, so Tab, arrow keys, and Space work as they do for native
+      controls. A focused row shows a 2px focus ring. Errors are linked with
+      <code>aria-describedby</code>, and a typed-answer error is announced.
+    </p>
+    <p>
+      Colors change in 120–180ms, and check marks pop in. Both stop when reduced
+      motion is requested. In forced colors mode checked rows and focus use
+      system highlight colors.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Rows use <code>--sprout-input</code> borders. Checked rows use
+      <code>--sprout-primary-subtle</code> with a <code>--sprout-focus</code>
+      border, and check marks use <code>--sprout-primary</code>, so the opt-in
+      TulipFarm theme tints them green. Compact numbers sit on
+      <code>--sprout-secondary</code>. Errors use <code>--sprout-danger</code>,
+      and the summary check uses <code>--sprout-success</code>.
+    </p>
+  </section>
+</Docs>

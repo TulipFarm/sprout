@@ -1,0 +1,281 @@
+.file-viewer-demo {
+  display: grid;
+  gap: 20px;
+}
+.file-viewer-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.file-viewer-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.file-viewer-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.file-viewer-demo-card > header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.file-viewer-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+@media (max-width: 480px) {
+  .file-viewer-demo-card-body {
+    padding: 12px;
+  }
+}
+
+.file-viewer-demo-row,
+.file-viewer-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.file-viewer-demo-controls {
+  gap: 12px;
+}
+.file-viewer-demo-muted {
+  font-size: 13px;
+  color: var(--sprout-muted);
+}
+
+.file-viewer-demo-split {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .file-viewer-demo-split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.file-viewer-demo-frame {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: 12px;
+  background: var(--sprout-canvas);
+}
+.file-viewer-demo-frame[data-height="sm"] {
+  height: 320px;
+}
+.file-viewer-demo-frame[data-height="md"] {
+  height: 384px;
+}
+.file-viewer-demo-frame[data-height="lg"] {
+  height: 480px;
+}
+.file-viewer-demo-toolbar {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+
+.file-viewer-demo-proposal {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.file-viewer-demo-proposal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 28px;
+}
+.file-viewer-demo-proposal-meta p {
+  font-size: 13px;
+  color: var(--sprout-muted);
+}
+
+.file-viewer-demo-canvas {
+  background: var(--sprout-surface);
+}
+.file-viewer-demo-canvas-header {
+  display: grid;
+  flex-shrink: 0;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.file-viewer-demo-canvas-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.file-viewer-demo-canvas-title > div {
+  min-width: 0;
+}
+.file-viewer-demo-canvas-title h3 {
+  font-size: 17px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.file-viewer-demo-canvas-title p {
+  font-size: 13px;
+  color: var(--sprout-muted);
+}
+
+/* Sample renderers. Apps pass their own spreadsheet, Office, and Markdown renderers. */
+.file-viewer-demo-markdown {
+  display: grid;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.file-viewer-demo-markdown h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.file-viewer-demo-markdown h3 {
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.file-viewer-demo-markdown ul,
+.file-viewer-demo-markdown ol {
+  padding-left: 20px;
+}
+.file-viewer-demo-markdown ul {
+  list-style: disc;
+}
+.file-viewer-demo-markdown ol {
+  list-style: decimal;
+}
+
+.file-viewer-demo-sheet {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+.file-viewer-demo-sheet-tabs {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 8px;
+  border-bottom: 1px solid var(--sprout-line);
+  background: var(--sprout-surface);
+}
+.file-viewer-demo-sheet-empty {
+  padding: 32px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--sprout-muted);
+}
+.file-viewer-demo-grid {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.file-viewer-demo-grid:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: -2px;
+}
+.file-viewer-demo-grid table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--sprout-surface);
+  font-size: 13px;
+}
+.file-viewer-demo-grid th,
+.file-viewer-demo-grid td {
+  border: 1px solid var(--sprout-line);
+  padding: 6px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+.file-viewer-demo-grid thead th {
+  position: sticky;
+  top: 0;
+  min-width: 7rem;
+  background: var(--sprout-canvas);
+  font-weight: 500;
+}
+.file-viewer-demo-grid tbody th {
+  background: var(--sprout-canvas);
+  color: var(--sprout-muted);
+  font-weight: 400;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.file-viewer-demo-office {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+.file-viewer-demo-office-loading {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 10;
+  background: color-mix(in srgb, var(--sprout-surface) 95%, transparent);
+}
+.file-viewer-demo-pages {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  overflow: auto;
+}
+.file-viewer-demo-pages:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: -2px;
+}
+.file-viewer-demo-page,
+.file-viewer-demo-slide {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding: 32px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 6px;
+  background: #fff;
+  color: #202124;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.file-viewer-demo-page h2,
+.file-viewer-demo-slide h2 {
+  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.file-viewer-demo-page p + p {
+  margin-top: 8px;
+}
+.file-viewer-demo-slide {
+  aspect-ratio: 16 / 9;
+}
+.file-viewer-demo-slide > p:first-child {
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #666;
+}
+@media (max-width: 480px) {
+  .file-viewer-demo-page,
+  .file-viewer-demo-slide {
+    padding: 20px;
+    aspect-ratio: auto;
+  }
+}

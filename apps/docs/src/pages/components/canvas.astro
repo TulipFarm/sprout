@@ -1,0 +1,166 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  CanvasFrameDemo,
+  CanvasPlayground,
+  CanvasRecipes,
+  CanvasSections,
+  CanvasToggleStates,
+} from "../../components/CanvasDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Canvas"
+  description="A resizable side panel beside a chat that shows results in tabs, with a header toggle, content sections, and a sandboxed browser frame. On narrow screens it opens as a sheet."
+>
+  <h1 class="docs-title">Canvas</h1>
+  <p class="docs-lead">
+    Shows results next to the chat: tables, calendar reads, plans, charts, and
+    web pages. Each result gets a tab. When the split is narrower than 720px, or
+    the screen is phone-sized, the canvas opens as a full sheet instead.
+  </p>
+  <div class="mt-8"><CanvasPlayground client:load /></div>
+
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Chat with a canvas"
+      code={`import {
+  CanvasPanel,
+  CanvasSection,
+  CanvasToggle,
+  ChatSplit,
+} from "@tulipfarm/sprout/canvas";
+import { Database } from "reicon-react/icons/Database";
+
+<header>
+  <h1>Launch week planning</h1>
+  <CanvasToggle open={open} count={items.length} onToggle={() => setOpen(!open)} />
+</header>
+<ChatSplit
+  open={open}
+  onOpenChange={setOpen}
+  layoutId="launch-week"
+  chat={<Conversation />}
+  canvas={
+    <CanvasPanel
+      tabs={items.map((item) => ({
+        id: item.id,
+        title: item.title,
+        icon: Database,
+        busy: item.loading,
+      }))}
+      activeId={activeId}
+      onSelect={setActiveId}
+      onCloseTab={closeItem}
+      onClose={() => setOpen(false)}
+    >
+      {items.map((item) => (
+        <div key={item.id} hidden={item.id !== activeId}>
+          <CanvasSection title={item.title} meta="3 rows">
+            <RowsTable rows={item.rows} />
+          </CanvasSection>
+        </div>
+      ))}
+    </CanvasPanel>
+  }
+/>`}
+    />
+    <ul>
+      <li>
+        <code>ChatSplit</code>: <code>open</code>, <code>onOpenChange</code>,
+        <code>chat</code>, <code>canvas</code>, and an optional
+        <code>layoutId</code> that saves the split size per screen. The canvas can
+        be <code>null</code> or <code>false</code> while nothing is open.
+      </li>
+      <li>
+        <code>CanvasPanel</code>: <code>tabs</code> (<code>id</code>,
+        <code>title</code>, optional <code>icon</code> and <code>busy</code>),
+        <code>activeId</code>, <code>onSelect</code>, <code>onCloseTab</code>,
+        <code>onClose</code>, and an optional <code>activity</code> strip under the
+        header. With no tabs the header reads “Canvas”.
+      </li>
+      <li>
+        <code>CanvasToggle</code>: <code>open</code>, <code>count</code>, and
+        <code>onToggle</code>. It reads “View results” or “Hide results”, and
+        shows the count when results are open.
+      </li>
+      <li>
+        <code>CanvasSection</code>: optional <code>title</code>,
+        <code>meta</code>, and <code>actions</code>. Leave all three out to just
+        pad and stack content.
+      </li>
+      <li>
+        <code>CanvasFrame</code>: <code>src</code> and <code>title</code>. The
+        page runs in a sandbox with scripts and popups only, and sends no
+        referrer.
+      </li>
+      <li>
+        <code>canvasSplitMinWidth</code> is <code>720</code>. Compare it with
+        the width of <code>[data-slot="chat-split"]</code> to know whether the canvas
+        is a sheet.
+      </li>
+    </ul>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Toggle</h2>
+    <p>
+      Sits in the screen header. Each state below is from a TulipFarm screen.
+    </p>
+    <div class="mt-5"><CanvasToggleStates client:load /></div>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Sections</h2>
+    <p>
+      Every section shape a TulipFarm result uses: with and without a title,
+      meta, and actions, plus loading, empty, unavailable, and error content.
+    </p>
+    <CanvasSections client:load />
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Browser frame</h2>
+    <p>
+      Shows a web page inside the canvas with a link to open it in a new tab.
+    </p>
+    <div class="mt-5"><CanvasFrameDemo client:load /></div>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">In TulipFarm</h2>
+    <p>
+      Approval review, workflow review, result cards, and a two-tab example.
+      Each keeps its own saved split size.
+    </p>
+    <CanvasRecipes client:load />
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Keyboard and accessibility</h2>
+    <ul>
+      <li>
+        Tabs use one tab stop. <kbd>←</kbd> and <kbd>→</kbd> move between tabs and
+        wrap. <kbd>Home</kbd> and <kbd>End</kbd> jump to the first and last tab. <kbd
+          >Delete</kbd
+        > closes the focused tab and moves focus to the next one.
+      </li>
+      <li>
+        <kbd>Esc</kbd> anywhere in the canvas closes it. On a sheet, focus returns
+        to whatever opened it.
+      </li>
+      <li>
+        The resize handle is a focusable separator labelled “Resize canvas”.
+        Arrow keys resize it.
+      </li>
+      <li>
+        A busy tab shows a spinner and reads “loading”. The spinner stops when
+        reduced motion is on.
+      </li>
+      <li>On touch screens the close buttons stay visible and grow to 32px.</li>
+    </ul>
+  </section>
+</Docs>

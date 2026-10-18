@@ -1,0 +1,223 @@
+@layer components {
+  .sprout-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  .sprout-tabs[data-orientation="vertical"] {
+    flex-direction: row;
+  }
+
+  .sprout-tabs-list {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: fit-content;
+    height: 32px;
+    padding: 3px;
+    border-radius: calc(var(--sprout-radius-control) + 2px);
+    color: var(--sprout-muted);
+  }
+  .sprout-tabs-list[data-orientation="vertical"] {
+    flex-direction: column;
+    align-items: stretch;
+    height: fit-content;
+  }
+  .sprout-tabs-list-default {
+    gap: 2px;
+    height: 36px;
+    padding: 4px;
+    border-radius: calc(var(--sprout-radius-control) + 4px);
+    background: var(--sprout-secondary);
+  }
+  .sprout-tabs-list-default > .sprout-tabs-trigger {
+    padding-inline: 10px;
+    border-radius: calc(var(--sprout-radius-control) + 1px);
+    font-weight: 450;
+    letter-spacing: -0.005em;
+  }
+  .sprout-tabs-list-line {
+    gap: 4px;
+    border-radius: 0;
+    background: transparent;
+  }
+  .sprout-tabs-list-steps {
+    justify-content: space-between;
+    gap: 4px;
+    width: 100%;
+    padding: 0;
+    border-bottom: 1px solid var(--sprout-line);
+    border-radius: 0;
+    background: transparent;
+  }
+  .sprout-tabs-list-steps[data-orientation="vertical"] {
+    justify-content: flex-start;
+    width: fit-content;
+    border-bottom: 0;
+    border-inline-end: 1px solid var(--sprout-line);
+  }
+
+  .sprout-tabs-trigger {
+    position: relative;
+    display: inline-flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: var(--sprout-muted);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-tabs-trigger:has(> [data-icon="inline-start"]) {
+    padding-inline-start: 6px;
+  }
+  .sprout-tabs-trigger:has(> [data-icon="inline-end"]) {
+    padding-inline-end: 6px;
+  }
+  .sprout-tabs-trigger svg {
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+  .sprout-tabs-trigger svg:not([class*="size-"]) {
+    width: 16px;
+    height: 16px;
+  }
+  .sprout-tabs-trigger:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 0;
+  }
+  .sprout-tabs-trigger[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .sprout-tabs-trigger[data-active] {
+    color: var(--sprout-text);
+  }
+  @media (hover: hover) {
+    .sprout-tabs-trigger:not([data-disabled]):hover {
+      color: var(--sprout-text);
+    }
+  }
+
+  /* The underline for line and steps lists. */
+  .sprout-tabs-trigger::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -3px;
+    height: 2px;
+    background: var(--sprout-text);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sprout-tabs-trigger[data-orientation="vertical"] {
+    flex: none;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .sprout-tabs-trigger[data-orientation="vertical"]::after {
+    inset-inline: auto -3px;
+    inset-block: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+  }
+
+  .sprout-tabs-list-default > .sprout-tabs-trigger[data-active] {
+    border-color: color-mix(in oklab, var(--sprout-text) 8%, transparent);
+    background: var(--sprout-surface);
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 1px 1px rgb(0 0 0 / 0.04);
+  }
+  .dark .sprout-tabs-list-default > .sprout-tabs-trigger[data-active] {
+    border-color: color-mix(in oklab, var(--sprout-text) 16%, transparent);
+    background: color-mix(in oklab, var(--sprout-text) 9%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, var(--sprout-text) 6%, transparent),
+      0 1px 2px rgb(0 0 0 / 0.3);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)
+      .sprout-tabs-list-default
+      > .sprout-tabs-trigger[data-active] {
+      border-color: color-mix(in oklab, var(--sprout-text) 16%, transparent);
+      background: color-mix(in oklab, var(--sprout-text) 9%, transparent);
+      box-shadow:
+        inset 0 1px 0 color-mix(in oklab, var(--sprout-text) 6%, transparent),
+        0 1px 2px rgb(0 0 0 / 0.3);
+    }
+  }
+
+  .sprout-tabs-list-line > .sprout-tabs-trigger[data-active]::after {
+    opacity: 1;
+  }
+
+  .sprout-tabs-list-steps > .sprout-tabs-trigger {
+    border-radius: 0;
+  }
+  .sprout-tabs-list-steps > .sprout-tabs-trigger:focus-visible {
+    outline-offset: -2px;
+  }
+  .sprout-tabs-list-steps > .sprout-tabs-trigger::after {
+    bottom: -1px;
+    background: var(--sprout-primary);
+  }
+  .sprout-tabs-list-steps
+    > .sprout-tabs-trigger[data-orientation="vertical"]::after {
+    inset-inline: auto -1px;
+    bottom: 0;
+  }
+  .sprout-tabs-list-steps > .sprout-tabs-trigger[data-active] {
+    color: var(--sprout-primary);
+  }
+  .sprout-tabs-list-steps > .sprout-tabs-trigger[data-active]::after {
+    opacity: 1;
+  }
+
+  .sprout-tabs-content {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: var(--sprout-text-sm);
+    border-radius: var(--sprout-radius-control);
+  }
+  .sprout-tabs-content[hidden] {
+    display: none;
+  }
+  .sprout-tabs-content:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-tabs-trigger {
+      transition:
+        color var(--sprout-motion-fast, 120ms) ease-out,
+        background-color var(--sprout-motion-fast, 120ms) ease-out,
+        border-color var(--sprout-motion-fast, 120ms) ease-out,
+        box-shadow var(--sprout-motion-fast, 120ms) ease-out;
+    }
+    .sprout-tabs-trigger::after {
+      transition: opacity var(--sprout-motion-normal, 180ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@layer components {
+  .sprout-aspect-ratio {
+    position: relative;
+    aspect-ratio: var(--sprout-aspect-ratio, 1);
+    /* Keep the ratio even when content is taller than the box. */
+    min-height: 0;
+  }
+}

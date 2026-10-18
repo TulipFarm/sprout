@@ -1,0 +1,201 @@
+.state-demo-playground,
+.state-demo-frame {
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.state-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.state-demo-toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.state-demo-segments {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.state-demo-toggle {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+  color: var(--sprout-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
+    border-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+}
+.state-demo-toggle:hover:not(:disabled) {
+  background: var(--sprout-hover);
+}
+.state-demo-toggle[aria-pressed="true"] {
+  border-color: var(--sprout-border-strong);
+  background: var(--sprout-hover);
+}
+.state-demo-toggle:focus-visible,
+.state-demo-flow:focus-visible {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: 2px;
+}
+.state-demo-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.state-demo-stage {
+  display: grid;
+  align-items: center;
+  min-height: 320px;
+  padding: 16px;
+  background: var(--sprout-canvas);
+}
+.state-demo-stage[data-sample] {
+  padding: 24px;
+}
+.state-demo-flow:focus {
+  outline: none;
+}
+.state-demo-resize {
+  width: 100%;
+  margin-inline: auto;
+  transition: max-width var(--sprout-motion-normal) var(--sprout-motion-ease);
+}
+.state-demo-foot {
+  min-height: 41px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--sprout-line);
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.state-demo-stack {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+.state-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.state-demo-stack > .state-demo-grid {
+  margin-top: 0;
+}
+.state-demo-frame {
+  display: flex;
+  flex-direction: column;
+}
+.state-demo-frame-bar {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  font-size: 12px;
+  font-weight: 550;
+  text-transform: capitalize;
+}
+.state-demo-frame-body {
+  display: grid;
+  flex: 1;
+  align-content: center;
+  gap: 12px;
+  padding: 0 12px;
+  background: var(--sprout-canvas);
+}
+.state-demo-frame-body > .state-demo-segments {
+  padding-top: 12px;
+}
+.state-demo-frame-body > [data-layout="sample"] {
+  margin-bottom: 12px;
+}
+.state-demo-foot-inline {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16px;
+}
+.state-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.state-demo-spin {
+  animation: state-demo-spin 1s linear infinite;
+}
+@keyframes state-demo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.state-demo-sample {
+  font-size: 12px;
+  color: var(--sprout-text);
+}
+.state-demo-sample-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+}
+.state-demo-sample ul {
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+}
+.state-demo-sample li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+}
+.state-demo-sample-tile {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 6px;
+  background: var(--sprout-canvas);
+}
+.state-demo-sample-copy {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+}
+.state-demo-sample-copy strong {
+  overflow: hidden;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.state-demo-sample-copy span,
+.state-demo-sample-trailing {
+  color: var(--sprout-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .state-demo-spin {
+    animation: none;
+  }
+  .state-demo-resize,
+  .state-demo-toggle {
+    transition: none;
+  }
+}

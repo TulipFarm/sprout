@@ -1,0 +1,102 @@
+@layer components {
+  .sprout-accordion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .sprout-accordion-item:not(:last-child) {
+    border-bottom: 1px solid var(--sprout-line);
+  }
+  .sprout-accordion-header {
+    display: flex;
+    margin: 0;
+    font: inherit;
+  }
+
+  .sprout-accordion-trigger {
+    position: relative;
+    display: flex;
+    flex: 1 1 0%;
+    min-width: 0;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.625rem 0;
+    border: 1px solid transparent;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: left;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-accordion-trigger-default:hover {
+    text-decoration-line: underline;
+  }
+  .sprout-accordion-trigger:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-accordion-trigger[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration-line: none;
+  }
+
+  .sprout-accordion-trigger-icon {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.125rem;
+    margin-left: auto;
+    color: var(--sprout-muted);
+    pointer-events: none;
+  }
+  .sprout-accordion-trigger[data-panel-open] > .sprout-accordion-trigger-icon {
+    transform: rotate(180deg);
+  }
+
+  .sprout-accordion-content {
+    height: var(--accordion-panel-height);
+    overflow: hidden;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  .sprout-accordion-content[hidden]:not([hidden="until-found"]) {
+    display: none;
+  }
+  .sprout-accordion-content[data-starting-style],
+  .sprout-accordion-content[data-ending-style] {
+    height: 0;
+  }
+  .sprout-accordion-content-inner {
+    padding-bottom: 0.625rem;
+  }
+  .sprout-accordion-content-inner a {
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+  }
+  .sprout-accordion-content-inner a:hover {
+    color: var(--sprout-text);
+  }
+  .sprout-accordion-content-inner p:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-accordion-trigger-icon {
+      transition: transform var(--sprout-motion-fast, 120ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-accordion-content {
+      transition: height var(--sprout-motion-normal, 180ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+  }
+}

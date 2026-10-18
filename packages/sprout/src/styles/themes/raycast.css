@@ -1,0 +1,125 @@
+/* Raycast: Deep black and coral red.
+ *
+ * One file is the whole theme: font, radius, and every color token for light
+ * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
+ * data-sprout-theme="raycast" on <html>, or on any element to theme only
+ * that subtree.
+ */
+@layer base {
+  [data-sprout-theme="raycast"] {
+    --sprout-font: ui-sans-serif, system-ui, sans-serif;
+    --sprout-radius-control: 0.5rem;
+    --sprout-radius-panel: 0.75rem;
+  }
+
+  [data-sprout-theme="raycast"],
+  .light[data-sprout-theme="raycast"],
+  .light [data-sprout-theme="raycast"] {
+    --sprout-canvas: #f7f7f7;
+    --sprout-surface: #ffffff;
+    --sprout-hover: #f1f1f1;
+    --sprout-active: #e7e7e7;
+    --sprout-text: #111111;
+    --sprout-muted: #5e5e5e;
+    --sprout-line: #e5e5e5;
+    --sprout-border: #888888;
+    --sprout-border-strong: #6b6b6b;
+    --sprout-input: #d9d9d9;
+    --sprout-primary: #d93a3a;
+    --sprout-primary-hover: #bf3333;
+    --sprout-primary-active: #a92d2d;
+    --sprout-on-primary: #ffffff;
+    --sprout-focus: #d93a3a;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #eeeeee;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark[data-sprout-theme="raycast"],
+  .dark [data-sprout-theme="raycast"] {
+    --sprout-canvas: #0c0c0c;
+    --sprout-surface: #161616;
+    --sprout-hover: #282828;
+    --sprout-active: #333333;
+    --sprout-text: #f2f2f2;
+    --sprout-muted: #a0a0a0;
+    --sprout-line: #2a2a2a;
+    --sprout-border: #797979;
+    --sprout-border-strong: #969696;
+    --sprout-input: #424242;
+    --sprout-primary: #ff6363;
+    --sprout-primary-hover: #ff7676;
+    --sprout-primary-active: #ff8585;
+    --sprout-on-primary: #111111;
+    --sprout-focus: #ff6363;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #2a2a2a;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)[data-sprout-theme="raycast"],
+    :root:not(.light):not(.dark) [data-sprout-theme="raycast"] {
+      --sprout-canvas: #0c0c0c;
+      --sprout-surface: #161616;
+      --sprout-hover: #282828;
+      --sprout-active: #333333;
+      --sprout-text: #f2f2f2;
+      --sprout-muted: #a0a0a0;
+      --sprout-line: #2a2a2a;
+      --sprout-border: #797979;
+      --sprout-border-strong: #969696;
+      --sprout-input: #424242;
+      --sprout-primary: #ff6363;
+      --sprout-primary-hover: #ff7676;
+      --sprout-primary-active: #ff8585;
+      --sprout-on-primary: #111111;
+      --sprout-focus: #ff6363;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #2a2a2a;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

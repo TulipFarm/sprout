@@ -1,0 +1,393 @@
+@layer components {
+  .sprout-plan-outline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+  }
+  .sprout-plan-outline-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+  .sprout-plan-outline-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .sprout-plan-outline-title {
+    min-width: 0;
+    margin: 0;
+    font-size: var(--sprout-text-base);
+    font-weight: 500;
+    line-height: 1.5rem;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  .sprout-plan-outline-status {
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .sprout-plan-outline-brief,
+  .sprout-plan-outline-empty {
+    max-width: 65ch;
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-plan-outline-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sprout-plan-outline-rail {
+    display: flex;
+    gap: 2px;
+    height: 4px;
+    overflow: hidden;
+    border-radius: 999px;
+  }
+  .sprout-plan-outline-segment {
+    flex: 1;
+    min-width: 2px;
+    background: var(--sprout-input);
+  }
+  .sprout-plan-outline-segment:first-child {
+    border-start-start-radius: 999px;
+    border-end-start-radius: 999px;
+  }
+  .sprout-plan-outline-segment:last-child {
+    border-start-end-radius: 999px;
+    border-end-end-radius: 999px;
+  }
+  .sprout-plan-outline-segment[data-mark="running"] {
+    background: var(--sprout-info);
+  }
+  .sprout-plan-outline-segment[data-mark="attention"] {
+    background: var(--sprout-warning);
+  }
+  .sprout-plan-outline-segment[data-mark="blocked"] {
+    background: color-mix(in oklab, var(--sprout-muted) 40%, transparent);
+  }
+  .sprout-plan-outline-segment[data-mark="done"] {
+    background: var(--sprout-success);
+  }
+  .sprout-plan-outline-segment[data-mark="failed"] {
+    background: var(--sprout-danger);
+  }
+  .sprout-plan-outline-progress-text {
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sprout-plan-outline-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-plan-outline-sublist {
+    margin-inline-start: 7px;
+    padding-inline-start: 10px;
+    border-inline-start: 1px solid var(--sprout-line);
+  }
+  @media (min-width: 640px) {
+    .sprout-plan-outline-sublist {
+      padding-inline-start: 14px;
+    }
+  }
+  .sprout-plan-outline-task {
+    min-width: 0;
+    scroll-margin-top: 16px;
+    border-radius: var(--sprout-radius-control);
+  }
+  .sprout-plan-outline-task:focus {
+    outline: none;
+  }
+  .sprout-plan-outline-task:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+  .sprout-plan-outline-row {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding-block: 8px;
+  }
+  .sprout-plan-outline-trigger {
+    width: calc(100% + 16px);
+    margin-inline: -8px;
+    padding-inline: 8px;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-plan-outline-trigger:hover {
+    background: var(--sprout-hover);
+  }
+  .sprout-plan-outline-trigger:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+  .sprout-plan-outline-mark {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    color: var(--sprout-muted);
+  }
+  .sprout-plan-outline-mark .sprout-spinner {
+    width: 14px;
+    height: 14px;
+  }
+  [data-mark="running"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+    color: var(--sprout-info);
+  }
+  [data-mark="attention"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+    color: var(--sprout-warning);
+  }
+  [data-mark="done"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+    color: var(--sprout-success);
+  }
+  [data-mark="failed"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+    color: var(--sprout-danger);
+  }
+  .sprout-plan-outline-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .sprout-plan-outline-task-title {
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+  [data-kind="group"]
+    > .sprout-plan-outline-row
+    .sprout-plan-outline-task-title {
+    font-weight: 500;
+  }
+  [data-mark="cancelled"]
+    > .sprout-plan-outline-row
+    .sprout-plan-outline-task-title {
+    color: var(--sprout-muted);
+    text-decoration: line-through;
+    text-decoration-color: color-mix(
+      in oklab,
+      var(--sprout-muted) 60%,
+      transparent
+    );
+  }
+  .sprout-plan-outline-assignee {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-plan-outline-assignee > svg {
+    flex-shrink: 0;
+  }
+  .sprout-plan-outline-assignee > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-plan-outline-label {
+    flex-shrink: 0;
+    max-width: 45%;
+    padding-top: 2px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    text-align: end;
+  }
+  [data-mark="attention"]
+    > .sprout-plan-outline-row
+    .sprout-plan-outline-label {
+    color: var(--sprout-warning);
+    font-weight: 500;
+  }
+  [data-mark="failed"] > .sprout-plan-outline-row .sprout-plan-outline-label {
+    color: var(--sprout-danger);
+  }
+  .sprout-plan-outline-chevron {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--sprout-muted);
+  }
+  .sprout-plan-outline-trigger[data-panel-open] .sprout-plan-outline-chevron {
+    transform: rotate(90deg);
+  }
+  :dir(rtl) .sprout-plan-outline-chevron {
+    scale: -1 1;
+  }
+
+  /* The inline bleed keeps nested row hover and focus rings inside the clip. */
+  .sprout-plan-outline-panel {
+    height: var(--collapsible-panel-height);
+    margin-inline: -8px;
+    padding-inline: 8px;
+    overflow: hidden;
+  }
+  .sprout-plan-outline-panel[data-starting-style],
+  .sprout-plan-outline-panel[data-ending-style] {
+    height: 0;
+    opacity: 0;
+  }
+  .sprout-plan-outline-group-brief,
+  .sprout-plan-outline-group-empty {
+    max-width: 65ch;
+    margin: 0 0 4px;
+    margin-inline-start: 26px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-plan-outline-group-empty {
+    margin-bottom: 0;
+    padding-bottom: 8px;
+  }
+  .sprout-plan-outline-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 0 8px;
+    margin-inline-start: 26px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--sprout-line);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  .sprout-plan-outline-detail p {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  [data-mark="failed"]
+    > .sprout-plan-outline-panel
+    > .sprout-plan-outline-detail
+    > .sprout-plan-outline-reason {
+    color: var(--sprout-danger);
+  }
+  .sprout-plan-outline-task-brief {
+    max-width: 65ch;
+    color: var(--sprout-muted);
+  }
+  .sprout-plan-outline-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sprout-plan-outline-detail .sprout-plan-outline-field-title {
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+  }
+  .sprout-plan-outline-criteria,
+  .sprout-plan-outline-dependencies {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+  }
+  .sprout-plan-outline-criteria {
+    padding-inline-start: 16px;
+    color: var(--sprout-muted);
+    list-style: disc;
+  }
+  .sprout-plan-outline-criteria > li {
+    overflow-wrap: anywhere;
+  }
+  .sprout-plan-outline-criteria > li::marker {
+    color: color-mix(in oklab, var(--sprout-muted) 60%, transparent);
+  }
+  .sprout-plan-outline-dependencies {
+    list-style: none;
+  }
+  .sprout-plan-outline-dependencies > li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 8px;
+  }
+  .sprout-plan-outline-link {
+    min-width: 0;
+    border-radius: 2px;
+    color: var(--sprout-primary);
+    text-decoration: none;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+  .sprout-plan-outline-link:hover {
+    text-decoration: underline;
+  }
+  .sprout-plan-outline-link:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-plan-outline-dependency-label {
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-plan-outline-action {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-plan-outline-segment {
+      transition: background-color var(--sprout-motion-normal, 180ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-plan-outline-trigger {
+      transition: background-color var(--sprout-motion-fast, 120ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-plan-outline-chevron {
+      transition: transform var(--sprout-motion-fast, 120ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-plan-outline-panel {
+      transition:
+        height var(--sprout-motion-normal, 180ms)
+          var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms) ease-out;
+    }
+  }
+  @media (forced-colors: active) {
+    .sprout-plan-outline-segment {
+      background: GrayText;
+    }
+    .sprout-plan-outline-segment[data-mark="done"] {
+      background: CanvasText;
+    }
+  }
+}

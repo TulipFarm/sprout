@@ -1,0 +1,308 @@
+@layer base {
+  :root,
+  .light {
+    --sprout-glass-banner-ink: #1d2742;
+    --sprout-glass-banner-ink-soft: #4a5677;
+    --sprout-glass-banner-base-a: #b6d4f7;
+    --sprout-glass-banner-base-b: #e4f0fd;
+    --sprout-glass-banner-glow: #ffffff;
+    --sprout-glass-banner-ring: #ffffffcc;
+    --sprout-glass-banner-edge: #ffffffb3;
+    --sprout-glass-chip-top: #ffffffa6;
+    --sprout-glass-chip-bottom: #ffffff4d;
+    --sprout-glass-chip-edge: #ffffffd9;
+    --sprout-glass-chip-inner: #8fa8e026;
+    --sprout-glass-chip-shadow: #3d5aa840;
+    --sprout-glass-bubble: #ffffff40;
+  }
+
+  .dark {
+    --sprout-glass-banner-ink: #e3e8f5;
+    --sprout-glass-banner-ink-soft: #9aa6c4;
+    --sprout-glass-banner-base-a: #1a2236;
+    --sprout-glass-banner-base-b: #14171f;
+    --sprout-glass-banner-glow: #ffffff12;
+    --sprout-glass-banner-ring: #ffffff1a;
+    --sprout-glass-banner-edge: #ffffff14;
+    --sprout-glass-chip-top: #ffffff1a;
+    --sprout-glass-chip-bottom: #ffffff08;
+    --sprout-glass-chip-edge: #ffffff24;
+    --sprout-glass-chip-inner: #8fa8e010;
+    --sprout-glass-chip-shadow: #00000080;
+    --sprout-glass-bubble: #ffffff0a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark) {
+      --sprout-glass-banner-ink: #e3e8f5;
+      --sprout-glass-banner-ink-soft: #9aa6c4;
+      --sprout-glass-banner-base-a: #1a2236;
+      --sprout-glass-banner-base-b: #14171f;
+      --sprout-glass-banner-glow: #ffffff12;
+      --sprout-glass-banner-ring: #ffffff1a;
+      --sprout-glass-banner-edge: #ffffff14;
+      --sprout-glass-chip-top: #ffffff1a;
+      --sprout-glass-chip-bottom: #ffffff08;
+      --sprout-glass-chip-edge: #ffffff24;
+      --sprout-glass-chip-inner: #8fa8e010;
+      --sprout-glass-chip-shadow: #00000080;
+      --sprout-glass-bubble: #ffffff0a;
+    }
+  }
+}
+
+@layer components {
+  .sprout-glass-banner {
+    --sprout-glass-chip-icon-bg: #ffffffe6;
+    --sprout-glass-chip-icon-ink: #1d2742;
+
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    display: grid;
+    align-content: start;
+    gap: 1.25rem;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 15rem;
+    padding: 1.5rem;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    font-family: var(--sprout-font);
+    color: var(--sprout-glass-banner-ink);
+    background:
+      radial-gradient(
+        ellipse 22% 85% at 64% 50%,
+        var(--sprout-glass-banner-glow),
+        transparent 70%
+      ),
+      radial-gradient(
+        circle at 64% 50%,
+        transparent 0 38%,
+        var(--sprout-glass-banner-ring) 38.2%,
+        transparent 38.8%
+      ),
+      radial-gradient(
+        circle at 64% 50%,
+        transparent 0 52%,
+        var(--sprout-glass-banner-ring) 52.2%,
+        transparent 52.8%
+      ),
+      linear-gradient(
+        115deg,
+        var(--sprout-glass-banner-base-a),
+        var(--sprout-glass-banner-base-b)
+      );
+    box-shadow: inset 0 0 0 1px var(--sprout-glass-banner-edge);
+  }
+
+  .sprout-glass-banner-art {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .sprout-glass-bubble {
+    position: absolute;
+    border: 1px solid var(--sprout-glass-banner-ring);
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle at 30% 28%,
+      var(--sprout-glass-banner-glow),
+      var(--sprout-glass-bubble) 75%
+    );
+  }
+  .sprout-glass-bubble:nth-child(1) {
+    left: 6%;
+    top: 52%;
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+  .sprout-glass-bubble:nth-child(2) {
+    left: 30%;
+    top: 46%;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  .sprout-glass-bubble:nth-child(3) {
+    left: -3%;
+    bottom: -45%;
+    width: 9rem;
+    height: 9rem;
+  }
+  .sprout-glass-bubble:nth-child(4) {
+    left: 30%;
+    top: -30%;
+    width: 7rem;
+    height: 7rem;
+  }
+  .sprout-glass-bubble:nth-child(5) {
+    right: -4%;
+    bottom: -55%;
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .sprout-glass-banner-copy {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  .sprout-glass-banner-title,
+  .sprout-glass-banner-caption {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-glass-banner-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .sprout-glass-banner-caption {
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    color: var(--sprout-glass-banner-ink-soft);
+  }
+
+  .sprout-glass-banner-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-glass-chip {
+    min-width: 0;
+    max-width: 100%;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    will-change: transform;
+  }
+  .sprout-glass-chip[data-dragging] {
+    position: relative;
+    z-index: 1;
+    cursor: grabbing;
+  }
+  .sprout-glass-chip-surface {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    min-height: 2.375rem;
+    padding: 0.25rem 0.875rem 0.25rem 0.25rem;
+    border: 1px solid var(--sprout-glass-chip-edge);
+    border-radius: 9999px;
+    background: linear-gradient(
+      180deg,
+      var(--sprout-glass-chip-top),
+      var(--sprout-glass-chip-bottom)
+    );
+    box-shadow:
+      inset 0 1px 0 var(--sprout-glass-chip-edge),
+      inset 0 -2px 6px var(--sprout-glass-chip-inner),
+      0 10px 28px -10px var(--sprout-glass-chip-shadow);
+    backdrop-filter: blur(14px) saturate(170%);
+    -webkit-backdrop-filter: blur(14px) saturate(170%);
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+    transition: box-shadow var(--sprout-motion-normal) var(--sprout-motion-ease);
+    animation: sprout-glass-float 7s ease-in-out infinite;
+  }
+  /* Chips without an icon keep even padding on both ends. */
+  .sprout-glass-chip-surface:not(:has(> .sprout-glass-chip-icon)) {
+    padding-inline-start: 0.875rem;
+  }
+  .sprout-glass-chip[data-dragging] .sprout-glass-chip-surface {
+    box-shadow:
+      inset 0 1px 0 var(--sprout-glass-chip-edge),
+      inset 0 -2px 6px var(--sprout-glass-chip-inner),
+      0 16px 36px -12px var(--sprout-glass-chip-shadow);
+  }
+  .sprout-glass-chip:nth-child(3n + 2) .sprout-glass-chip-surface {
+    animation-delay: -2.4s;
+  }
+  .sprout-glass-chip:nth-child(3n + 3) .sprout-glass-chip-surface {
+    animation-delay: -4.8s;
+  }
+  .sprout-glass-chip-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    background: var(--sprout-glass-chip-icon-bg);
+    color: var(--sprout-glass-chip-icon-ink);
+    box-shadow: 0 2px 6px -2px var(--sprout-glass-chip-shadow);
+  }
+  .sprout-glass-chip-icon > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  .sprout-glass-chip-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Wide banners scatter up to three chips over the art. */
+  @container (min-width: 44rem) {
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) {
+      position: absolute;
+      inset: 0;
+    }
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip {
+      position: absolute;
+    }
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
+      > .sprout-glass-chip:nth-child(1) {
+      right: 9%;
+      top: 15%;
+    }
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
+      > .sprout-glass-chip:nth-child(1)
+      .sprout-glass-chip-surface {
+      rotate: 3deg;
+    }
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
+      > .sprout-glass-chip:nth-child(2) {
+      left: 7%;
+      top: 58%;
+    }
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
+      > .sprout-glass-chip:nth-child(2)
+      .sprout-glass-chip-surface {
+      rotate: -4deg;
+    }
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
+      > .sprout-glass-chip:nth-child(3) {
+      left: 47%;
+      top: 72%;
+    }
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
+      > .sprout-glass-chip:nth-child(3)
+      .sprout-glass-chip-surface {
+      rotate: 1.5deg;
+    }
+  }
+
+  @keyframes sprout-glass-float {
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-glass-chip-surface {
+      animation: none;
+      transition: none;
+    }
+  }
+}

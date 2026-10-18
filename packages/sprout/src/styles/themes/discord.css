@@ -1,0 +1,125 @@
+/* Discord: Blurple on cool slate.
+ *
+ * One file is the whole theme: font, radius, and every color token for light
+ * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
+ * data-sprout-theme="discord" on <html>, or on any element to theme only
+ * that subtree.
+ */
+@layer base {
+  [data-sprout-theme="discord"] {
+    --sprout-font: ui-sans-serif, system-ui, sans-serif;
+    --sprout-radius-control: 0.25rem;
+    --sprout-radius-panel: 0.5rem;
+  }
+
+  [data-sprout-theme="discord"],
+  .light[data-sprout-theme="discord"],
+  .light [data-sprout-theme="discord"] {
+    --sprout-canvas: #f2f3f5;
+    --sprout-surface: #ffffff;
+    --sprout-hover: #f0f0f0;
+    --sprout-active: #e6e6e6;
+    --sprout-text: #060607;
+    --sprout-muted: #4e5058;
+    --sprout-line: #e1e2e4;
+    --sprout-border: #838383;
+    --sprout-border-strong: #656565;
+    --sprout-input: #d7d7d7;
+    --sprout-primary: #4752c4;
+    --sprout-primary-hover: #3e48ac;
+    --sprout-primary-active: #374099;
+    --sprout-on-primary: #ffffff;
+    --sprout-focus: #4752c4;
+    --sprout-danger: #b32d34;
+    --sprout-danger-hover: #98252b;
+    --sprout-on-danger: #fff8f8;
+    --sprout-info: #1f5fb8;
+    --sprout-info-subtle: #ebf1fd;
+    --sprout-danger-subtle: #fdeeef;
+    --sprout-success: #1d6a37;
+    --sprout-success-subtle: #e8f4eb;
+    --sprout-warning: #8a4b08;
+    --sprout-warning-subtle: #fdf1dc;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 10%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #eeeeee;
+    --sprout-overlay: rgb(18 18 18 / 0.35);
+  }
+
+  .dark[data-sprout-theme="discord"],
+  .dark [data-sprout-theme="discord"] {
+    --sprout-canvas: #1e1f22;
+    --sprout-surface: #2b2d31;
+    --sprout-hover: #393b3f;
+    --sprout-active: #424448;
+    --sprout-text: #dbdee1;
+    --sprout-muted: #a5abb4;
+    --sprout-line: #3f4147;
+    --sprout-border: #7a7d80;
+    --sprout-border-strong: #919497;
+    --sprout-input: #4e5054;
+    --sprout-primary: #5865f2;
+    --sprout-primary-hover: #6c77f4;
+    --sprout-primary-active: #7d87f5;
+    --sprout-on-primary: #ffffff;
+    --sprout-focus: #5865f2;
+    --sprout-danger: #ff9197;
+    --sprout-danger-hover: #ffadb1;
+    --sprout-on-danger: #3c1014;
+    --sprout-info: #8fb8f5;
+    --sprout-info-subtle: #1f2c45;
+    --sprout-danger-subtle: #3a2124;
+    --sprout-success: #82d29a;
+    --sprout-success-subtle: #1c3223;
+    --sprout-warning: #eec27e;
+    --sprout-warning-subtle: #34291b;
+    --sprout-primary-subtle: color-mix(
+      in oklab,
+      var(--sprout-primary) 16%,
+      var(--sprout-surface)
+    );
+    --sprout-secondary: #3b3d41;
+    --sprout-overlay: rgb(8 8 8 / 0.65);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark)[data-sprout-theme="discord"],
+    :root:not(.light):not(.dark) [data-sprout-theme="discord"] {
+      --sprout-canvas: #1e1f22;
+      --sprout-surface: #2b2d31;
+      --sprout-hover: #393b3f;
+      --sprout-active: #424448;
+      --sprout-text: #dbdee1;
+      --sprout-muted: #a5abb4;
+      --sprout-line: #3f4147;
+      --sprout-border: #7a7d80;
+      --sprout-border-strong: #919497;
+      --sprout-input: #4e5054;
+      --sprout-primary: #5865f2;
+      --sprout-primary-hover: #6c77f4;
+      --sprout-primary-active: #7d87f5;
+      --sprout-on-primary: #ffffff;
+      --sprout-focus: #5865f2;
+      --sprout-danger: #ff9197;
+      --sprout-danger-hover: #ffadb1;
+      --sprout-on-danger: #3c1014;
+      --sprout-info: #8fb8f5;
+      --sprout-info-subtle: #1f2c45;
+      --sprout-danger-subtle: #3a2124;
+      --sprout-success: #82d29a;
+      --sprout-success-subtle: #1c3223;
+      --sprout-warning: #eec27e;
+      --sprout-warning-subtle: #34291b;
+      --sprout-primary-subtle: color-mix(
+        in oklab,
+        var(--sprout-primary) 16%,
+        var(--sprout-surface)
+      );
+      --sprout-secondary: #3b3d41;
+      --sprout-overlay: rgb(8 8 8 / 0.65);
+    }
+  }
+}

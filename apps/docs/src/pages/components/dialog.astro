@@ -1,0 +1,203 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  DialogConfirmations,
+  DialogPlayground,
+  DialogSearch,
+  DialogSizes,
+} from "../../components/DialogDemo";
+import { DialogFlows, DialogStates } from "../../components/DialogFlowsDemo";
+---
+
+<Docs
+  title="Dialog"
+  description="Modal dialogs for confirmations, forms, file previews, and search."
+>
+  <h1 class="docs-title">Dialog</h1>
+  <p class="docs-lead">
+    A modal window over the page. Use it for decisions that need an answer now,
+    short forms, previews, and search. Focus stays inside until it closes, then
+    returns to where it was.
+  </p>
+  <div class="mt-8" id="dialog-demo"><DialogPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Dialog usage"
+      code={`import { Button } from "@tulipfarm/sprout/button";
+import {
+  Dialog,
+  DialogBody,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@tulipfarm/sprout/dialog";
+
+<Dialog open={open} onOpenChange={(next) => !pending && setOpen(next)}>
+  <DialogTrigger render={<Button variant="destructive" size="sm" />}>
+    Remove member
+  </DialogTrigger>
+  <DialogContent finalFocus={() => trigger.current ?? heading.current}>
+    <DialogHeader>
+      <DialogTitle>Remove kofi@meadow.example?</DialogTitle>
+      <DialogDescription>
+        They lose access to this workspace now.
+      </DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <Button variant="outline" disabled={pending} onClick={() => setOpen(false)}>
+        Cancel
+      </Button>
+      <Button variant="destructive" disabled={pending} aria-busy={pending} onClick={remove}>
+        {pending ? "Saving change…" : "Confirm removal"}
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>`}
+    />
+    <p>
+      <code>Dialog</code> works controlled with <code>open</code> and <code
+        >onOpenChange</code
+      >, or uncontrolled with <code>defaultOpen</code>. To block Escape and
+      outside clicks while work is saving, ignore the change in <code
+        >onOpenChange</code
+      >. You can also mount the dialog only while it is open.
+    </p>
+    <p>
+      <code>DialogContent</code> portals an overlay and the popup, and adds a corner
+      close button. Turn it off with <code>showCloseButton={"{false}"}</code>. <code
+        >DialogFooter showCloseButton</code
+      > adds an outline Close button after your actions.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Sizes</h2>
+    <p>
+      <code>size</code> is <code>"default"</code> (24rem, scrolls as a whole), <code
+        >"form"</code
+      > (36rem, the header stays put and <code>DialogBody</code> scrolls), <code
+        >"split"</code
+      > (64rem, no padding, for two panes), or <code>"fullscreen"</code> (covers the
+      viewport). Below 40rem every size fills the width minus a 1rem gutter.
+    </p>
+    <DialogSizes client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Confirmations</h2>
+    <p>
+      Pass <code>finalFocus</code> a function so focus goes back to the trigger, or
+      to a section heading with <code>tabIndex={"{-1}"}</code> if the row is gone.
+      Errors stay inside the dialog as an <code>Alert</code>, so the person can
+      try again.
+    </p>
+    <DialogConfirmations client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <p>
+      Dialogs often open before their data arrives. Show a skeleton with <code
+        >role="status"</code
+      >, an error with a retry, and an empty <code>StatePanel</code> when there is
+      nothing to choose. Leave out the description until it has something to say.
+    </p>
+    <DialogStates client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Flows</h2>
+    <p>
+      The footer can hold a hint as a direct <code>&lt;p&gt;</code>, a submit
+      button tied to a form with <code>form="…"</code>, or a back step. Without
+      a footer, put actions in a right-aligned row at the end of the body. A
+      second dialog can open on top; when it closes, move focus to the control
+      the person needs next.
+    </p>
+    <DialogFlows client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Search</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Top placement"
+      code={`<DialogContent
+  data-slot="search-dialog"
+  placement="top"
+  showCloseButton={false}
+  className="flex max-w-2xl flex-col gap-0 p-0"
+>
+  <DialogTitle className="sr-only">Search Meadow</DialogTitle>
+  …
+</DialogContent>
+
+<DialogContent
+  placement="top"
+  style={{ "--sprout-dialog-top": "33.333%" }}
+  className="gap-0 p-0"
+  showCloseButton={false}
+>
+  <DialogHeader className="sr-only">…</DialogHeader>
+  …
+</DialogContent>`}
+    />
+    <DialogSearch client:load />
+  </section>
+  <section class="prose-section" id="dialog-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>Dialog</code>, <code>DialogTrigger</code>, <code>DialogPortal</code
+      >, <code>DialogClose</code>, <code>DialogOverlay</code>, <code
+        >DialogTitle</code
+      >, and <code>DialogDescription</code> wrap the Base UI dialog parts and take
+      their props, including <code>render</code>. <code>DialogHeader</code>, <code
+        >DialogBody</code
+      >, and <code>DialogFooter</code> render a <code>div</code> and accept <code
+        >render</code
+      >, so a body can be the form.
+    </p>
+    <p>
+      <code>DialogContent</code> takes <code>size</code>, <code>placement</code>
+      (<code>"center"</code> or <code>"top"</code>; top reads <code
+        >--sprout-dialog-top</code
+      >, default 12dvh), <code>showCloseButton</code>, <code>closeLabel</code>, <code
+        >container</code
+      >, and every Base UI popup prop such as <code>initialFocus</code> and <code
+        >finalFocus</code
+      >. It sets <code>data-slot="dialog-content"</code> (overridable), <code
+        >data-size</code
+      >, and <code>data-placement</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The popup has <code>role="dialog"</code> and is named by <code
+        >DialogTitle</code
+      >. Every dialog needs a title, even if it is visually hidden with <code
+        >sr-only</code
+      >. Tab and Shift+Tab stay inside. Escape and outside clicks close it
+      unless you ignore the change. Focus moves to the first focusable element,
+      or to <code>initialFocus</code>.
+    </p>
+    <p>
+      Opening fades and scales in over 180ms; closing takes 120ms. Both turn off
+      when reduced motion is requested, and fullscreen dialogs only fade.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Dialogs use <code>--sprout-overlay</code>, <code>--sprout-surface</code>, <code
+        >--sprout-canvas</code
+      >, <code>--sprout-line</code>, <code>--sprout-text</code>, <code
+        >--sprout-muted</code
+      >, <code>--sprout-shadow-overlay</code>, and <code
+        >--sprout-radius-panel</code
+      >. They need no brand color, so they look the same with the neutral and
+      TulipFarm themes in light and dark mode.
+    </p>
+  </section>
+</Docs>

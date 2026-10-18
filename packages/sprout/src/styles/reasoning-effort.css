@@ -1,0 +1,157 @@
+@layer components {
+  .sprout-reasoning-effort {
+    --sprout-reasoning-effort-thumb: #fff;
+    position: relative;
+    flex-shrink: 0;
+    width: 256px;
+    height: 52px;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .sprout-reasoning-effort-shell {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .sprout-reasoning-effort-shell path {
+    stroke: var(--sprout-line);
+  }
+  .sprout-reasoning-effort-stop-top {
+    stop-color: var(--sprout-hover);
+  }
+  .sprout-reasoning-effort-stop-bottom {
+    stop-color: var(--sprout-active);
+  }
+
+  .sprout-reasoning-effort-bubble {
+    position: absolute;
+    top: 2px;
+    z-index: 2;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .sprout-reasoning-effort-bubble-text {
+    display: flex;
+    gap: 3px;
+  }
+  .sprout-reasoning-effort-bubble-label {
+    color: var(--sprout-text);
+  }
+  .sprout-reasoning-effort-bubble-level {
+    color: var(--sprout-muted);
+  }
+
+  .sprout-reasoning-effort-track {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 32px;
+    border-radius: 999px;
+    outline: 0 solid transparent;
+    cursor: grab;
+  }
+  .sprout-reasoning-effort-track:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 3px;
+  }
+  .sprout-reasoning-effort[data-dragging="true"]
+    .sprout-reasoning-effort-track {
+    cursor: grabbing;
+  }
+
+  .sprout-reasoning-effort-fill {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    border-radius: 999px;
+    background-color: var(--sprout-primary);
+    box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.16);
+    pointer-events: none;
+  }
+
+  .sprout-reasoning-effort-thumb {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    border-radius: 999px;
+    background-color: var(--sprout-reasoning-effort-thumb);
+    /* The hairline keeps a white thumb visible on a light dark-mode fill. */
+    box-shadow:
+      0 0 0 0.5px rgb(0 0 0 / 0.14),
+      0 1px 2px rgb(0 0 0 / 0.14);
+    pointer-events: none;
+  }
+
+  .sprout-reasoning-effort-tick {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 1.5px;
+    margin-left: -0.75px;
+    border-radius: 1px;
+    background-color: color-mix(in oklab, var(--sprout-text) 25%, transparent);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .sprout-reasoning-effort-tick[data-active="true"] {
+    background-color: color-mix(
+      in oklab,
+      var(--sprout-on-primary) 60%,
+      transparent
+    );
+  }
+  .sprout-reasoning-effort-tick[data-on-thumb="true"] {
+    background-color: rgb(0 0 0 / 0.45);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-reasoning-effort-bubble-text {
+      animation: sprout-reasoning-effort-level-in
+        var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-reasoning-effort-track {
+      transition: outline-color var(--sprout-motion-fast, 120ms)
+        var(--sprout-motion-ease, ease-out);
+    }
+  }
+
+  @keyframes sprout-reasoning-effort-level-in {
+    from {
+      opacity: 0.35;
+      filter: blur(2.5px);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-reasoning-effort-shell path {
+      stroke: CanvasText;
+    }
+    .sprout-reasoning-effort-stop-top,
+    .sprout-reasoning-effort-stop-bottom {
+      stop-color: Canvas;
+    }
+    .sprout-reasoning-effort-fill {
+      background-color: Highlight;
+    }
+    .sprout-reasoning-effort-thumb {
+      border: 1px solid CanvasText;
+      background-color: Canvas;
+    }
+    .sprout-reasoning-effort-tick,
+    .sprout-reasoning-effort-tick[data-active="true"],
+    .sprout-reasoning-effort-tick[data-on-thumb="true"] {
+      background-color: CanvasText;
+    }
+    .sprout-reasoning-effort-track:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,295 @@
+.rte-demo {
+  display: grid;
+  gap: 20px;
+}
+.rte-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.rte-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.rte-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.rte-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.rte-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  border-radius: 0 0 var(--sprout-radius-panel) var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+}
+/* The docs page draws a global focus outline; the group draws its own ring. */
+.sprout-input-group [data-slot="input-group-control"]:focus-visible {
+  outline: none;
+}
+.rte-demo-grid {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+@media (min-width: 720px) {
+  .rte-demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+.rte-demo-sample {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.rte-demo-frame {
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.rte-demo-note,
+.rte-demo-danger {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sprout-muted);
+}
+.rte-demo-danger {
+  font-size: 13px;
+  color: var(--sprout-danger);
+}
+.rte-demo-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sprout-text);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.rte-demo-push {
+  margin-left: auto;
+}
+.rte-demo-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.rte-demo-keys > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Composer samples */
+.rte-demo-transcript {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.rte-demo-transcript > li {
+  max-width: 32rem;
+}
+.rte-demo-transcript > [data-role="user"] {
+  justify-self: end;
+  padding: 8px 12px;
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-secondary);
+}
+.rte-demo-stack {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.rte-demo-side {
+  max-width: 22rem;
+}
+.rte-demo-composer {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.rte-demo-toolbar-end {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin-left: auto;
+}
+.rte-demo-truncate {
+  min-width: 0;
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rte-demo-nowrap {
+  white-space: nowrap;
+}
+.rte-demo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+  height: 28px;
+  padding: 0 2px 0 8px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-canvas);
+  color: var(--sprout-text);
+  font-size: 12px;
+  font-weight: 500;
+}
+.rte-demo-reference {
+  display: inline-flex;
+  max-width: 16rem;
+  margin: 0 2px;
+  padding: 0 6px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-canvas);
+  font-size: 0.875em;
+  vertical-align: baseline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rte-demo-reference.ProseMirror-selectednode {
+  outline: 2px solid var(--sprout-focus);
+  outline-offset: 1px;
+}
+.rte-demo-menu-copy {
+  display: grid;
+  gap: 2px;
+  padding-block: 2px;
+}
+.rte-demo-option-detail {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--sprout-muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rte-demo-menu-copy .rte-demo-option-detail {
+  white-space: normal;
+}
+.rte-demo-effort {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--sprout-line);
+}
+.rte-demo-question {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+}
+.rte-demo-question > p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+.rte-demo-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+/* Suggestions panel sample: Cloud's mention list. */
+.rte-demo-panel {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  z-index: 50;
+  margin-bottom: 8px;
+}
+.rte-demo-panel-below {
+  top: 100%;
+  bottom: auto;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+.rte-demo-suggestions {
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: 4px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  color: var(--sprout-text);
+  box-shadow: var(--sprout-shadow-overlay);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rte-demo-suggestions {
+    animation: rte-demo-rise 150ms ease-out;
+  }
+}
+@keyframes rte-demo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+.rte-demo-suggestions-label {
+  padding: 6px 8px 4px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.rte-demo-suggestions-empty {
+  padding: 8px;
+  color: var(--sprout-muted);
+  font-size: 13px;
+}
+.rte-demo-option {
+  display: grid;
+  grid-template-columns: 16px auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 8px;
+  border-radius: calc(var(--sprout-radius-panel) - 4px);
+  font-size: 14px;
+  cursor: default;
+  user-select: none;
+}
+.rte-demo-option[aria-selected="true"] {
+  background: var(--sprout-hover);
+}
+.rte-demo-option-title {
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .rte-demo-wide-only {
+    display: none;
+  }
+  .rte-demo-model {
+    max-width: 5rem;
+  }
+}

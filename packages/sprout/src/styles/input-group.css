@@ -1,0 +1,290 @@
+@layer components {
+  .sprout-input-group {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: 32px;
+    border: 1px solid var(--sprout-input);
+    border-radius: var(--sprout-radius-control);
+    background-color: var(--sprout-surface);
+    color: var(--sprout-text);
+    outline: 0 solid transparent;
+    outline-offset: 2px;
+  }
+  .sprout-input-group:has([data-slot="input-group-control"]:focus-visible) {
+    border-color: var(--sprout-focus);
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-input-group:has(
+    [data-slot="input-group-control"][aria-invalid="true"]
+  ),
+  .sprout-input-group:has([data-slot="input-group-control"][data-invalid]) {
+    border-color: var(--sprout-danger);
+    outline-color: var(--sprout-danger);
+  }
+  .sprout-input-group:has([data-slot="input-group-control"]:disabled) {
+    cursor: not-allowed;
+    background-color: var(--sprout-hover);
+    opacity: 0.5;
+  }
+  .sprout-input-group:has(> [data-align="block-start"]),
+  .sprout-input-group:has(> [data-align="block-end"]) {
+    flex-direction: column;
+    height: auto;
+  }
+  .sprout-input-group:has(> textarea) {
+    height: auto;
+  }
+
+  /* Popups such as a combobox list draw their own focus, so the search row stays quiet. */
+  :where([data-slot="combobox-content"])
+    .sprout-input-group:has([data-slot="input-group-control"]:focus-visible) {
+    border-color: var(--sprout-input);
+    outline-color: transparent;
+  }
+
+  .sprout-input-group-size-lg {
+    height: 44px;
+  }
+
+  .sprout-input-group-variant-composer,
+  .sprout-input-group-variant-question-composer {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    border-color: var(--sprout-border);
+    border-radius: var(--sprout-radius-panel);
+  }
+  .sprout-input-group-variant-question-composer {
+    border-color: var(--sprout-input);
+  }
+  .sprout-input-group-variant-composer:has(
+    [data-slot="input-group-control"]:focus-visible
+  ),
+  .sprout-input-group-variant-question-composer:has(
+    [data-slot="input-group-control"]:focus-visible
+  ) {
+    border-color: var(--sprout-focus);
+    outline-color: transparent;
+    box-shadow: 0 0 0 1px var(--sprout-focus);
+  }
+  .sprout-input-group-variant-composer:has(
+    [data-slot="input-group-control"][aria-invalid="true"]
+  ),
+  .sprout-input-group-variant-question-composer:has(
+    [data-slot="input-group-control"][aria-invalid="true"]
+  ) {
+    border-color: var(--sprout-danger);
+    box-shadow: none;
+  }
+  .sprout-input-group-variant-composer > [data-align="block-end"],
+  .sprout-input-group-variant-question-composer > [data-align="block-end"] {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-inline: 8px;
+    padding-bottom: 8px;
+  }
+
+  .sprout-input-group-addon {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: auto;
+    min-width: 0;
+    padding-block: 6px;
+    border-color: var(--sprout-line);
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 20px;
+    cursor: text;
+    user-select: none;
+  }
+  .sprout-input-group-addon > svg:not([class*="size-"]) {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+  .sprout-input-group-addon > svg {
+    pointer-events: none;
+  }
+  .sprout-input-group-addon-align-inline-start {
+    order: -1;
+    flex-shrink: 0;
+    padding-left: 8px;
+  }
+  .sprout-input-group-addon-align-inline-end {
+    order: 9999;
+    flex-shrink: 0;
+    padding-right: 8px;
+  }
+  .sprout-input-group-addon-align-inline-start:has(> button) {
+    padding-left: calc(8px - 0.3rem);
+  }
+  .sprout-input-group-addon-align-inline-end:has(> button) {
+    padding-right: calc(8px - 0.3rem);
+  }
+  .sprout-input-group-addon-align-inline-start:has(> kbd) {
+    padding-left: calc(8px - 0.15rem);
+  }
+  .sprout-input-group-addon-align-inline-end:has(> kbd) {
+    padding-right: calc(8px - 0.15rem);
+  }
+  .sprout-input-group-addon-align-block-start,
+  .sprout-input-group-addon-align-block-end {
+    justify-content: flex-start;
+    width: 100%;
+    padding-inline: 10px;
+  }
+  .sprout-input-group-addon-align-block-start {
+    order: -1;
+    padding-top: 8px;
+  }
+  .sprout-input-group-addon-align-block-end {
+    order: 9999;
+    padding-bottom: 8px;
+  }
+  .sprout-input-group-addon-align-block-start.border-b {
+    padding-bottom: 8px;
+  }
+  .sprout-input-group-addon-align-block-end.border-t {
+    padding-top: 8px;
+  }
+
+  .sprout-input-group-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    white-space: nowrap;
+  }
+  .sprout-input-group-text svg {
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+  .sprout-input-group-text svg:not([class*="size-"]) {
+    width: 16px;
+    height: 16px;
+  }
+
+  .sprout-button.sprout-input-group-button {
+    gap: 8px;
+    font-size: var(--sprout-text-sm);
+    box-shadow: none;
+  }
+  .sprout-button.sprout-input-group-button-size-xs {
+    --sprout-button-icon: 0.875rem;
+    gap: 4px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: max(calc(var(--sprout-radius-control) - 2px), 2px);
+  }
+  .sprout-button.sprout-input-group-button-size-sm {
+    --sprout-button-icon: 1rem;
+    gap: 6px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: var(--sprout-radius-control);
+  }
+  .sprout-button.sprout-input-group-button-size-icon-xs {
+    --sprout-button-icon: 0.875rem;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: max(calc(var(--sprout-radius-control) - 2px), 2px);
+  }
+  .sprout-button.sprout-input-group-button-size-icon-sm {
+    --sprout-button-icon: 1rem;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: var(--sprout-radius-control);
+  }
+  @media (pointer: coarse) {
+    .sprout-input-group-variant-composer
+      .sprout-button.sprout-input-group-button {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
+
+  .sprout-input.sprout-input-group-input,
+  .sprout-input.sprout-input-group-input:focus-visible,
+  .sprout-input.sprout-input-group-input:disabled,
+  .sprout-input.sprout-input-group-input[aria-invalid="true"],
+  .sprout-input.sprout-input-group-input[data-invalid] {
+    border-color: transparent;
+    background-color: transparent;
+    outline: 0 solid transparent;
+    opacity: 1;
+  }
+  .sprout-input.sprout-input-group-input {
+    flex: 1;
+    height: 100%;
+    border-width: 0;
+    border-radius: 0;
+    text-overflow: ellipsis;
+  }
+  .sprout-input-group:has(> [data-align="inline-start"])
+    > .sprout-input-group-input {
+    padding-left: 6px;
+  }
+  .sprout-input-group:has(> [data-align="inline-end"])
+    > .sprout-input-group-input {
+    padding-right: 6px;
+  }
+  .sprout-input-group:has(> [data-align^="block"]) > .sprout-input-group-input {
+    width: 100%;
+    height: 30px;
+  }
+  .sprout-input-group:has(> [data-align="block-end"])
+    > .sprout-input-group-input {
+    padding-top: 8px;
+  }
+  .sprout-input-group:has(> [data-align="block-start"])
+    > .sprout-input-group-input {
+    padding-bottom: 8px;
+  }
+  .sprout-input-group-size-lg > .sprout-input-group-input {
+    font-size: var(--sprout-text-base);
+    line-height: 24px;
+  }
+  .sprout-input-group-input[type="search"]::-webkit-search-cancel-button,
+  .sprout-input-group-input[type="search"]::-webkit-search-decoration {
+    appearance: none;
+  }
+
+  .sprout-textarea.sprout-input-group-textarea {
+    flex: 1;
+    width: 100%;
+    padding-block: 8px;
+    resize: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-input-group {
+      transition:
+        background-color var(--sprout-motion-fast, 120ms) ease-out,
+        border-color var(--sprout-motion-fast, 120ms) ease-out,
+        outline-color var(--sprout-motion-fast, 120ms) ease-out,
+        box-shadow var(--sprout-motion-fast, 120ms) ease-out;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-input-group {
+      border-color: FieldText;
+    }
+    .sprout-input-group:has([data-slot="input-group-control"]:focus-visible) {
+      outline-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,202 @@
+.code-demo-frame {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.code-demo-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.code-demo-bar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.code-demo-bar-title {
+  color: var(--sprout-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+.code-demo-note {
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.code-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.code-demo-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.code-demo-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+  background: var(--sprout-canvas);
+}
+.code-demo-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+}
+.code-demo-stage[data-variant="file"],
+.code-demo-file-host {
+  height: 15rem;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.code-demo-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.code-demo-recipes {
+  display: grid;
+  gap: 24px;
+}
+
+.code-demo-message {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  max-width: 44rem;
+  color: var(--sprout-text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.code-demo-message p {
+  margin: 0;
+}
+
+.code-demo-canvas {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+
+.code-demo-steps {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.code-demo-steps li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  min-width: 0;
+}
+.code-demo-step-summary {
+  margin: 0;
+  color: var(--sprout-text);
+  font-size: 14px;
+}
+
+.code-demo-explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+  height: 18rem;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.code-demo-files {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+  padding: 6px;
+  overflow: auto;
+  border-right: 1px solid var(--sprout-line);
+  list-style: none;
+}
+.code-demo-files [aria-current="true"] {
+  background: var(--sprout-hover);
+  color: var(--sprout-text);
+}
+.code-demo-files {
+  grid-template-columns: minmax(0, 1fr);
+}
+.code-demo-files li {
+  min-width: 0;
+}
+.code-demo-files .sprout-button {
+  min-width: 0;
+  max-width: 100%;
+}
+.code-demo-file-name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.code-demo-pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+.code-demo-empty {
+  margin: 0;
+  padding: 16px;
+  color: var(--sprout-muted);
+  font-size: 14px;
+}
+@media (max-width: 639px) {
+  .code-demo-explorer {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 24rem;
+  }
+  .code-demo-files {
+    border-right: 0;
+    border-bottom: 1px solid var(--sprout-line);
+  }
+}
+
+.code-demo-webhook {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  max-width: 48rem;
+  font-size: 14px;
+}
+.code-demo-url,
+.code-demo-hint {
+  margin: 0;
+}
+.code-demo-url {
+  color: var(--sprout-text);
+  word-break: break-all;
+}
+.code-demo-hint {
+  color: var(--sprout-muted);
+}

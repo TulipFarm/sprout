@@ -1,0 +1,192 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  ReviewCardAgentSetup,
+  ReviewCardAuthoring,
+  ReviewCardBadges,
+  ReviewCardComposition,
+  ReviewCardConfirmation,
+  ReviewCardPlayground,
+  ReviewCardTableProposal,
+  ReviewCardWorkflow,
+} from "../../components/ReviewCardDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Review Card"
+  description="A card that asks someone to review a draft, approval, or table change before it runs, with facts, steps, an outcome, and decision buttons."
+>
+  <h1 class="docs-title">Review Card</h1>
+  <p class="docs-lead">
+    Asks someone to review a proposed change in chat before it happens. The
+    header names the change and its status and opens or closes the details. The
+    footer holds the outcome and the decision buttons.
+    <code>ReviewRows</code>, <code>ReviewSteps</code>, and
+    <code>ReviewValues</code> lay out what will change.
+  </p>
+  <div class="mt-8"><ReviewCardPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A row change waiting for approval"
+      code={`import { Database } from "reicon-react/icons/Database";
+import {
+  ReviewCard,
+  ReviewRow,
+  ReviewRows,
+} from "@tulipfarm/sprout/review-card";
+
+<ReviewCard
+  label="Review row change"
+  icon={<Database size={16} />}
+  title="Update a row in Supplier deliveries"
+  badge={{ label: "Needs approval", variant: "warning" }}
+  settled={status !== "pending"}
+  actions={
+    <>
+      <Button onClick={approve}>Approve change</Button>
+      <Button variant="ghost" onClick={dismiss}>Dismiss</Button>
+    </>
+  }
+  status={<p role="status">{outcome}</p>}
+>
+  <ReviewRows>
+    <ReviewRow label="Change">Updates an existing row</ReviewRow>
+    <ReviewRow label="Table">Supplier deliveries</ReviewRow>
+  </ReviewRows>
+</ReviewCard>`}
+    />
+    <ul>
+      <li>
+        <code>icon</code>: a 14 or 16px icon shown in a tile before the title.
+      </li>
+      <li>
+        <code>badge</code>: <code>{"{ label, variant }"}</code>. The variant is <code
+          >"warning"</code
+        >, <code>"info"</code>,
+        <code>"success"</code>, <code>"secondary"</code>,
+        <code>"destructive"</code>, <code>"default"</code>, or
+        <code>"outline"</code>.
+      </li>
+      <li>
+        <code>settled</code>: the decision is made. The card folds to its header
+        and footer, and folds again each time <code>settled</code>
+        turns true. It opens again when <code>settled</code> turns false.
+      </li>
+      <li>
+        <code>status</code>: footer content that stays visible when folded, such
+        as the outcome, feedback, or a status check.
+      </li>
+      <li>
+        <code>actions</code>: decision buttons. They show only while the card is
+        open.
+      </li>
+      <li>
+        <code>label</code>: names the card, such as “Review row change”. Without
+        it the title names the card.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Badge variants</h2>
+    <div class="mt-4"><ReviewCardBadges client:load /></div>
+    <p>
+      Long titles end with an ellipsis; the badge and chevron keep their place.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Approval</h2>
+    <p>
+      An action that waits for approval. While submitting, both buttons are
+      disabled and the chosen one shows a spinner. When settled, the card folds
+      and focus moves to the outcome if the decision was made here.
+    </p>
+    <div class="mt-4"><ReviewCardConfirmation client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Drafts</h2>
+    <p>
+      Workflow, agent, and skill drafts share one card. Agent drafts list the
+      change, team, model, actions, and skills; long instructions keep their
+      line breaks. Feedback, technical details, and a status check sit below.
+    </p>
+    <div class="mt-4"><ReviewCardAuthoring client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Agent setup</h2>
+    <p>
+      Three decisions, with activation disabled until each consent box is
+      checked. A sponsor conflict shows as an alert.
+    </p>
+    <div class="mt-4"><ReviewCardAgentSetup client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Workflow steps</h2>
+    <p>
+      <code>ReviewSteps</code> numbers each step. A step’s
+      <code>detail</code> can hold <code>ReviewValues</code>, code, or notes.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Steps with exact values"
+      code={`<ReviewSteps
+  title="3 steps"
+  steps={[
+    {
+      summary: "notify api: send POST to https://hooks.example.com/suppliers",
+      detail: (
+        <ReviewValues
+          values={[
+            { name: "content-type", value: "application/json" },
+            { name: "Body", value: body },
+          ]}
+        />
+      ),
+    },
+    { summary: "pause: wait 3600 seconds" },
+  ]}
+/>`}
+    />
+    <div class="mt-4"><ReviewCardWorkflow client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Without actions</h2>
+    <p>
+      A table proposal whose values expired. It has no actions, only a status
+      check, and scrolls inside a bounded area.
+    </p>
+    <div class="mt-4"><ReviewCardTableProposal client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Composition</h2>
+    <div class="mt-4"><ReviewCardComposition client:load /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The card is a <code>section</code> named by <code>label</code> or the title.
+      The title is an <code>h4</code> holding the button that opens and closes the
+      details, with <code>aria-expanded</code>; the whole header is its click
+      target, and its focus ring outlines the header. Enter and Space toggle it.
+      The icon and chevron are hidden from assistive tech. Rows and values are
+      description lists; steps are an ordered list under an <code>h5</code>,
+      with the numbers hidden so screen readers use the list order.
+    </p>
+    <p>
+      The details grow and shrink in 180ms and the chevron turns in 120ms; with
+      reduced motion both happen at once.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The card uses <code>--sprout-surface</code>,
+      <code>--sprout-line</code>, <code>--sprout-canvas</code> for the icon tile,
+      <code>--sprout-hover</code>, <code>--sprout-focus</code>,
+      <code>--sprout-muted</code>, and <code>--sprout-secondary</code> for step numbers.
+      Badges use the Badge tokens.
+    </p>
+  </section>
+</Docs>

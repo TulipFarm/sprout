@@ -1,0 +1,81 @@
+@layer components {
+  .sprout-settings-group {
+    --sprout-settings-row-inline: 1rem;
+    --sprout-settings-row-block: 0.75rem;
+    display: grid;
+    gap: 0.5rem;
+    min-width: 0;
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+  }
+  .sprout-settings-group-title {
+    margin: 0;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    letter-spacing: normal;
+  }
+  .sprout-settings-group-content {
+    container: sprout-settings / inline-size;
+    min-width: 0;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+  }
+  /* Zero specificity so a child's own border utilities still win. */
+  :where(.sprout-settings-group-content > :not([hidden]) ~ :not([hidden])) {
+    border-top: 1px solid var(--sprout-line);
+  }
+
+  .sprout-settings-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+    padding: var(--sprout-settings-row-block, 0.75rem)
+      var(--sprout-settings-row-inline, 1rem);
+  }
+  .sprout-settings-row-text {
+    display: grid;
+    gap: 0.125rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-settings-row-label {
+    display: block;
+    margin: 0;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  .sprout-settings-row-description {
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-settings-row-control {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  @container sprout-settings (min-width: 36rem) {
+    .sprout-settings-row {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sprout-settings-row-control {
+      max-width: 60%;
+      justify-content: flex-end;
+    }
+  }
+}

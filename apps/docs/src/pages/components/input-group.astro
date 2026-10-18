@@ -1,0 +1,163 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import InputGroupDemo from "../../components/InputGroupDemo";
+---
+
+<Docs
+  title="Input Group"
+  description="One bordered field made of an input or textarea and its icons, text, shortcuts, and buttons, from search boxes to the chat composer."
+>
+  <h1 class="docs-title">Input Group</h1>
+  <p class="docs-lead">
+    One bordered field made of a control and its additions: icons, prefixes,
+    shortcuts, and buttons. It powers search boxes, the workspace URL field,
+    combobox inputs, picker searches, and the chat composer.
+  </p>
+  <div class="mt-8"><InputGroupDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Input Group usage"
+      code={`import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@tulipfarm/sprout/input-group";
+
+// Search with a clear button
+<InputGroup>
+  <InputGroupAddon><Search3 size={14} aria-hidden="true" /></InputGroupAddon>
+  <InputGroupInput ref={input} aria-label="Search chat titles" placeholder="Search chat titles"
+    maxLength={640} value={query} onChange={event => setQuery(event.target.value)} />
+  <InputGroupAddon align="inline-end">
+    {query && (
+      <InputGroupButton size="icon-xs" aria-label="Clear search"
+        onClick={() => { setQuery(""); input.current?.focus(); }}>
+        <X aria-hidden="true" />
+      </InputGroupButton>
+    )}
+  </InputGroupAddon>
+</InputGroup>
+
+// Large, with a text prefix
+<InputGroup size="lg">
+  <InputGroupAddon><InputGroupText>app.tulipfarm.ai/</InputGroupText></InputGroupAddon>
+  <InputGroupInput id="workspace-slug" required maxLength={48}
+    aria-invalid={Boolean(error)} aria-describedby="workspace-slug-hint" />
+</InputGroup>
+
+// Composer
+<InputGroup variant={questionPending ? "question-composer" : "composer"}>
+  <InputGroupAddon align="block-start">{attachments}</InputGroupAddon>
+  <InputGroupTextarea aria-label="Message" placeholder="Ask anything…" />
+  <InputGroupAddon align="block-end" className="border-t">
+    <DropdownMenuTrigger render={<InputGroupButton size="sm" aria-label="Add a file" />}>
+      <Paperclip aria-hidden="true" /> Files
+    </DropdownMenuTrigger>
+    <InputGroupButton type="submit" size="icon-sm"
+      variant={canSend ? "default" : "secondary"} aria-label="Send message">
+      <ArrowUp aria-hidden="true" />
+    </InputGroupButton>
+  </InputGroupAddon>
+</InputGroup>
+
+// Base UI Combobox renders through the group parts
+<InputGroup>
+  <Combobox.Input render={<InputGroupInput />} aria-label="Choose a fruit" />
+  <InputGroupAddon align="inline-end">
+    <InputGroupButton size="icon-xs" render={<Combobox.Trigger />} aria-label="Show fruits">
+      <ChevronDown aria-hidden="true" />
+    </InputGroupButton>
+    <Combobox.Clear render={<InputGroupButton size="icon-xs" />} aria-label="Clear selection">
+      <X aria-hidden="true" />
+    </Combobox.Clear>
+  </InputGroupAddon>
+</InputGroup>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Props</h2>
+    <p>
+      <code>InputGroup</code> takes <code>size</code>: <code>default</code>
+      (32px, 14px text) or <code>lg</code> (44px, 16px text), and
+      <code>variant</code>: <code>default</code>, <code>composer</code> (a stacked
+      message box with a stronger border and panel radius), or
+      <code>question-composer</code> (the same box with a quieter border while an
+      agent waits on an answer). It is a <code>div</code> with
+      <code>role="group"</code> and takes every div prop.
+    </p>
+    <p>
+      <code>InputGroupAddon</code> takes <code>align</code>:
+      <code>inline-start</code> (default), <code>inline-end</code>,
+      <code>block-start</code>, or <code>block-end</code>. It can come before or
+      after the control in markup. Block additions turn the group into a column;
+      add <code>border-b</code> or <code>border-t</code> for a divider row.
+    </p>
+    <p>
+      <code>InputGroupButton</code> is a Sprout <code>Button</code> with
+      <code>size</code>
+      <code>xs</code> (default), <code>sm</code>,
+      <code>icon-xs</code>, or <code>icon-sm</code>, any Button
+      <code>variant</code> (default <code>ghost</code>), and
+      <code>type="button"</code> unless set. Use <code>render</code> to make it a
+      menu, popover, tooltip, or combobox trigger.
+    </p>
+    <p>
+      <code>InputGroupInput</code> and <code>InputGroupTextarea</code> are Sprout
+      <code>Input</code> and <code>Textarea</code> without their own border and fill.
+      They take every native prop and read a surrounding
+      <code>Field</code>. <code>InputGroupText</code> is muted text for prefixes,
+      units, and shortcuts.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Behavior</h2>
+    <p>
+      The group draws the border, focus ring, and invalid and disabled states
+      for any element marked <code>data-slot="input-group-control"</code>.
+      <code>InputGroupInput</code> and <code>InputGroupTextarea</code> set it; add
+      it to a rich text editor to get the same states. A control without it, like
+      a command list's search input, keeps the group quiet.
+    </p>
+    <p>
+      Clicking an addon anywhere except a button focuses the control, like a
+      label. Inside a combobox popup the group skips its focus ring, since the
+      list shows where focus is. In the composer, toolbar buttons grow to 44px
+      on touch screens.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Name the control with a <code>label</code> or <code>aria-label</code>, and
+      name icon-only buttons with <code>aria-label</code>. Icons in addons
+      should be <code>aria-hidden</code>. Mark errors with
+      <code>aria-invalid</code> and point <code>aria-describedby</code> at the message.
+      Keyboard focus shows a 2px ring around the whole group; the composer swaps it
+      for a focus-colored border.
+    </p>
+    <p>
+      Border, fill, and ring changes take 120ms and stop when reduced motion is
+      requested. In forced colors mode the group keeps a system border and a
+      highlight focus ring.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The border uses <code>--sprout-input</code> (composer:
+      <code>--sprout-border</code>), the fill <code>--sprout-surface</code>, and
+      addon text <code>--sprout-muted</code>. Focus uses
+      <code>--sprout-focus</code>, errors <code>--sprout-danger</code>, and
+      disabled <code>--sprout-hover</code>. Radius follows
+      <code>--sprout-radius-control</code>, or
+      <code>--sprout-radius-panel</code> for composers. The opt-in TulipFarm theme
+      tints the focus ring and send button through these tokens.
+    </p>
+  </section>
+</Docs>

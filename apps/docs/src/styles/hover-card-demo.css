@@ -1,0 +1,62 @@
+.hover-card-demo-stage,
+.hover-card-demo-card {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.hover-card-demo-toolbar {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.hover-card-demo-caption {
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.hover-card-demo-sides {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px 32px;
+  padding: 72px 24px;
+  background: var(--sprout-canvas);
+}
+.hover-card-demo-side {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: var(--sprout-text-sm);
+}
+.hover-card-demo-side-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: var(--sprout-muted);
+}
+
+.hover-card-demo-card {
+  gap: 8px;
+  padding: 16px;
+}
+.hover-card-demo-text {
+  margin: 0;
+  min-width: 0;
+  font-size: var(--sprout-text-sm);
+  line-height: 1.5rem;
+  overflow-wrap: anywhere;
+}
+.hover-card-demo-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.hover-card-demo-profile-text {
+  display: grid;
+  min-width: 0;
+}
+.hover-card-demo-about {
+  margin-top: 8px;
+}

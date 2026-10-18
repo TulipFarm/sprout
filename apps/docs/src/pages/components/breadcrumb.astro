@@ -1,0 +1,122 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import BreadcrumbDemo from "../../components/BreadcrumbDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Breadcrumb"
+  description="A path of links that shows where a page or folder sits."
+>
+  <h1 class="docs-title">Breadcrumb</h1>
+  <p class="docs-lead">
+    A path of links that shows where a page or folder sits. Seven small parts
+    you compose yourself, with router links, button crumbs, hidden folders, and
+    one-line trails.
+  </p>
+  <div class="mt-8"><BreadcrumbDemo client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Breadcrumb usage"
+      code={`import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@tulipfarm/sprout/breadcrumb";
+
+<Breadcrumb aria-label="Folder path">
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink render={<Link to="/files" />}>All files</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbEllipsis />
+      <span className="sr-only">Folders you cannot open</span>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage truncate>{folder.name}</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>`}
+    />
+    <p>
+      <code>Breadcrumb</code> is a <code>nav</code>. Its label defaults to
+      "Breadcrumb"; pass <code>aria-label</code> for paths such as "Folder path" or
+      "Destination path". <code>BreadcrumbList</code> is an ordered list,
+      <code>BreadcrumbItem</code> a list item, and <code
+        >BreadcrumbSeparator</code
+      >
+      a hidden list item with a chevron. Pass children to the separator to use another
+      icon.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Links and buttons</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Breadcrumb render"
+      code={`<BreadcrumbLink href="/home">
+  <Home aria-hidden="true" />
+  Home
+</BreadcrumbLink>
+
+<BreadcrumbLink
+  truncate
+  render={<Button variant="ghost" size="xs" disabled={moving} onClick={open} />}
+>
+  {folder.name}
+</BreadcrumbLink>`}
+    />
+    <p>
+      <code>BreadcrumbLink</code> renders an <code>a</code>. The Base UI <code
+        >render</code
+      > prop swaps it for your router's link or a Sprout <code>Button</code>,
+      such as a ghost <code>xs</code> button inside a picker that does not change
+      the URL. A leading icon is sized to 14px. <code>BreadcrumbPage</code> marks
+      the current step with <code>aria-current="page"</code> and is not clickable.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Long names and one-line trails</h2>
+    <p>
+      Set <code>truncate</code> on a link or page to cut a long name to one line with
+      an ellipsis. String names also get a <code>title</code> with the full name.
+      The width is 12rem; set <code>--sprout-breadcrumb-label-width</code>
+      on any parent to change it.
+    </p>
+    <p>
+      The list wraps by default. <code>wrap=&#123;false&#125;</code> keeps it on one
+      line, as in an app header: every step keeps its width, and the item with <code
+        >aria-current="page"</code
+      > shrinks. Put the page heading inside that item and truncate it.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      <code>BreadcrumbEllipsis</code> and separators are hidden from screen readers.
+      Put the reason in a visually hidden sibling, for example "Higher folders not
+      shown", "Loading folder path", or "Folder path unavailable". Loading spinners,
+      retries, and error messages belong to your application. Links show a focus ring.
+      Separators flip in right-to-left text. Color changes last 120ms and stop when
+      reduced motion is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Steps use <code>--sprout-muted</code>, the current page and hovered links
+      use <code>--sprout-text</code>, and the focus ring uses <code
+        >--sprout-focus</code
+      >.
+    </p>
+  </section>
+</Docs>

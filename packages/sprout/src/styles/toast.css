@@ -1,0 +1,197 @@
+@layer components {
+  .sprout-toast-viewport {
+    position: fixed;
+    inset-inline: 16px;
+    bottom: 16px;
+    z-index: 50;
+    width: auto;
+    max-width: 24rem;
+    margin-inline: auto;
+    outline: none;
+    pointer-events: none;
+  }
+  @media (min-width: 640px) {
+    .sprout-toast-viewport {
+      inset-inline: auto 16px;
+      width: 100%;
+      margin-inline: 0;
+    }
+  }
+
+  .sprout-toast {
+    --sprout-toast-gap: 0.625rem;
+    --sprout-toast-peek: 0.625rem;
+    --sprout-toast-height: var(--toast-frontmost-height, var(--toast-height));
+    --sprout-toast-scale: max(0, calc(1 - var(--toast-index) * 0.06));
+    --sprout-toast-shrink: calc(1 - var(--sprout-toast-scale));
+    --sprout-toast-offset-y: calc(
+      var(--toast-offset-y) * -1 - var(--toast-index) *
+        var(--sprout-toast-gap) + var(--toast-swipe-movement-y)
+    );
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: calc(1000 - var(--toast-index));
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--sprout-toast-height);
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: none;
+    pointer-events: auto;
+    transform-origin: bottom center;
+    transform: translateX(var(--toast-swipe-movement-x))
+      translateY(
+        calc(
+          var(--toast-swipe-movement-y) - var(--toast-index) *
+            var(--sprout-toast-peek) - var(--sprout-toast-shrink) *
+            var(--sprout-toast-height)
+        )
+      )
+      scale(var(--sprout-toast-scale));
+    user-select: none;
+    will-change: transform;
+  }
+  /* Bridges the gap between expanded toasts so hover doesn't collapse the stack. */
+  .sprout-toast::after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: calc(var(--sprout-toast-gap) + 1px);
+    content: "";
+  }
+  .sprout-toast:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-toast[data-expanded] {
+    height: var(--toast-height);
+    transform: translateX(var(--toast-swipe-movement-x))
+      translateY(var(--sprout-toast-offset-y));
+  }
+  .sprout-toast[data-limited] {
+    opacity: 0;
+  }
+  .sprout-toast[data-ending-style][data-swipe-direction="down"] {
+    transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
+  }
+  .sprout-toast[data-ending-style][data-swipe-direction="up"] {
+    transform: translateY(calc(var(--toast-swipe-movement-y) - 150%));
+  }
+  .sprout-toast[data-ending-style][data-swipe-direction="left"] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) - 150%))
+      translateY(var(--sprout-toast-offset-y));
+  }
+  .sprout-toast[data-ending-style][data-swipe-direction="right"] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) + 150%))
+      translateY(var(--sprout-toast-offset-y));
+  }
+
+  .sprout-toast-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 12px 10px 12px 14px;
+    overflow: hidden;
+  }
+  .sprout-toast-content[data-behind]:not([data-expanded]) {
+    opacity: 0;
+  }
+
+  .sprout-toast-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+    color: var(--sprout-text);
+  }
+  .sprout-toast-icon > svg {
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+  .sprout-toast-icon[data-type="error"] {
+    color: var(--sprout-danger);
+  }
+
+  .sprout-toast-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-toast-title {
+    margin: 0;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  .sprout-toast-description {
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  .sprout-toast-action {
+    flex-shrink: 0;
+  }
+  .sprout-toast-close {
+    position: relative;
+    flex-shrink: 0;
+    align-self: flex-start;
+    color: var(--sprout-muted);
+  }
+  .sprout-toast-close::after {
+    position: absolute;
+    inset: -8px;
+    content: "";
+  }
+  .sprout-toast-close:hover {
+    color: var(--sprout-text);
+  }
+
+  @media (forced-colors: active) {
+    .sprout-toast {
+      border-color: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-toast {
+      transition:
+        transform var(--sprout-motion-normal) var(--sprout-motion-ease),
+        opacity var(--sprout-motion-normal) var(--sprout-motion-ease),
+        height var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-toast-content {
+      transition: opacity var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-toast[data-starting-style],
+    .sprout-toast[data-ending-style]:not([data-limited]):not(
+        [data-swipe-direction]
+      ) {
+      transform: translateY(150%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-toast {
+      transition: opacity var(--sprout-motion-fast) linear;
+    }
+    .sprout-toast:is([data-starting-style], [data-ending-style]) {
+      opacity: 0;
+    }
+  }
+}

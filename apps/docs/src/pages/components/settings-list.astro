@@ -1,0 +1,97 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  SettingsListPlayground,
+  SettingsListRows,
+} from "../../components/SettingsListDemo";
+---
+
+<Docs title="Settings List">
+  <h1 class="docs-title">Settings List</h1>
+  <p class="docs-lead">
+    Titled groups of settings. Each row names a setting, explains it, and puts
+    its value or control beside it.
+  </p>
+  <div class="mt-8"><SettingsListPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Settings list usage"
+      code={`import { SettingsGroup, SettingsRow } from "@tulipfarm/sprout/settings-list";
+
+<SettingsGroup title="Profile" titleId="profile-heading">
+  <SettingsRow label="Email" description="Used to sign in.">
+    <span className="break-all">{user.email}</span>
+  </SettingsRow>
+  <SettingsRow
+    label="Name"
+    htmlFor="account-name"
+    description={<span id="account-name-help">Up to 80 characters.</span>}
+  >
+    <Input id="account-name" aria-describedby="account-name-help" />
+  </SettingsRow>
+</SettingsGroup>`}
+    />
+    <p>
+      <code>SettingsGroup</code> renders a <code>section</code> with a title and a
+      bordered panel. Pass <code>titleId</code> to name the section by its title;
+      leave it out for lists that repeat, like one group per table. The title is an
+      <code>h2</code>; set <code>heading</code> to <code>"h3"</code> or <code
+        >"h4"</code
+      > when the group sits under another heading.
+    </p>
+    <p>
+      <code>SettingsRow</code> takes a <code>label</code>, an optional
+      <code>description</code>, and children for the value or control. With
+      <code>htmlFor</code>, the label is a real <code>label</code>, so clicking
+      it focuses the control. A row without children has no control area, which
+      suits read-only facts like a role or a directory entry.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Rows</h2>
+    <p>
+      Rows stack text over the control in narrow groups. From 36rem of group
+      width, the control moves to the right and takes at most 60% of the row.
+      Controls wrap; long text and codes break instead of overflowing.
+    </p>
+    <SettingsListRows client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Notes, forms, and alerts</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Other children in a group"
+      code={`<SettingsGroup title="Workspace identity" titleId="identity-heading">
+  {!admin && <p className="px-[var(--sprout-settings-row-inline)] py-[var(--sprout-settings-row-block)]">
+    Only workspace admins can rename or close this workspace.
+  </p>}
+  <form onSubmit={save}>
+    <SettingsRow label="Workspace name" htmlFor="workspace-name">…</SettingsRow>
+    {dirty && <div className="flex justify-end gap-2 px-4 pb-3">…</div>}
+  </form>
+  {saved && <p role="status">Workspace name saved.</p>}
+</SettingsGroup>`}
+    />
+    <p>
+      Any child can sit in a group, and every child gets a divider above it.
+      Children that render nothing add no divider. Notes and blocks can match
+      row padding with <code>--sprout-settings-row-inline</code> and
+      <code>--sprout-settings-row-block</code>. Pick the Workspace and Account
+      pages in the playground to see forms, save messages, a conflict alert, and
+      loading or error states inside rows.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Name controls with <code>htmlFor</code>, or pass your own
+      <code>label</code> element as the label. Link help text with
+      <code>aria-describedby</code> by giving the description an id. The list has
+      no motion of its own. Switches, checkboxes, the text field, and the theme toggle
+      in these examples are docs-only stand-ins; data and saving are sample code.
+    </p>
+  </section>
+</Docs>

@@ -1,0 +1,188 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  TabsHero,
+  TabsVariants,
+  TabsMembers,
+  TabsModels,
+  TabsBuilder,
+  TabsAgentPage,
+  TabsSearchPopover,
+} from "../../components/TabsDemo";
+---
+
+<Docs
+  title="Tabs"
+  description="Switch between related panels of one page, panel, or setup flow."
+>
+  <h1 class="docs-title">Tabs</h1>
+  <p class="docs-lead">
+    A list of tabs that shows one panel at a time. Use it for sections of one
+    page, views inside a panel, and the steps of a setup flow.
+  </p>
+  <div class="mt-8" id="tabs-demo"><TabsHero client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Tabs usage"
+      code={`import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@tulipfarm/sprout/tabs";
+
+<Tabs defaultValue="members">
+  <TabsList aria-label="Members settings">
+    <TabsTrigger value="members">Members (12)</TabsTrigger>
+    <TabsTrigger value="invitations">Invitations</TabsTrigger>
+  </TabsList>
+  <TabsContent value="members">…</TabsContent>
+  <TabsContent value="invitations">…</TabsContent>
+</Tabs>`}
+    />
+    <p>
+      <code>Tabs</code> holds the active value. Pass <code>defaultValue</code> to
+      let it manage itself, or <code>value</code> and <code>onValueChange</code> to
+      control it from state or the address. Each <code>TabsTrigger</code> value matches
+      one <code>TabsContent</code>. Give the list an <code>aria-label</code> that
+      names the group.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Variants</h2>
+    <p>
+      <code>default</code> is a filled segmented control for a few settings groups.
+      <code>line</code> underlines the active tab for page sections and views inside
+      cards and popovers. <code>steps</code> fills the width for a numbered setup
+      flow and uses the primary color, so the TulipFarm theme makes it green.
+    </p>
+    <TabsVariants client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Settings groups</h2>
+    <p>
+      The default list fits short labels and counts. <code>keepMounted</code> keeps
+      both panels in the page, so a list keeps its place and its pending changes.
+    </p>
+    <TabsMembers client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Page sections</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Tabs from the address"
+      code={`<Tabs
+  value={tab}
+  onValueChange={(value) =>
+    navigate({ search: { tab: value === "access" ? undefined : value } })
+  }
+>
+  <div className="max-w-full overflow-x-auto pb-1">
+    <TabsList variant="line" aria-label="Model settings">…</TabsList>
+  </div>
+  <TabsContent value="access" keepMounted>…</TabsContent>
+</Tabs>`}
+    />
+    <p>
+      Wrap a long line list in a horizontal scroller so it never widens the
+      page. The underline and focus ring stay inside the list. Panels can show
+      loading, empty, and error states with <code>StatePanel</code>, or render
+      nothing until their data is ready.
+    </p>
+    <div class="tabs-demo-group">
+      <TabsModels client:load />
+      <TabsAgentPage client:load />
+    </div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Setup steps</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Steps with markers"
+      code={`<TabsList variant="steps" aria-label="Agent setup sections">
+  {steps.map((step, index) => (
+    <TabsTrigger key={step.id} value={step.id}>
+      <span aria-hidden="true" className="grid size-5 place-items-center">
+        {errors.has(step.id) ? <AlertCircle /> : done.has(step.id) ? <Check /> : index + 1}
+      </span>
+      {step.label}
+      {errors.has(step.id) && <span className="sr-only">, needs attention</span>}
+    </TabsTrigger>
+  ))}
+</TabsList>`}
+    />
+    <p>
+      Put a number, a check, or a warning icon before each label, and add hidden
+      text for the warning. Steps need room, so swap them for a select on small
+      screens. The preview card uses a <code>line</code> list, and its Edit buttons
+      move the setup to a step.
+    </p>
+    <TabsBuilder client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Inside a popover</h2>
+    <p>
+      Put a <code>line</code> list in a bordered header inside a <code
+        >panel</code
+      > popover. Leave out a trigger and its panel when an option does not apply,
+      and fall back to another value. Without <code>keepMounted</code>, a panel
+      unmounts when it is hidden.
+    </p>
+    <TabsSearchPopover client:load />
+  </section>
+  <section class="prose-section" id="tabs-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      The four parts wrap Base UI Tabs. Every Base UI prop works, including <code
+        >orientation</code
+      >, <code>disabled</code> on a trigger, <code>activateOnFocus</code> and <code
+        >loopFocus</code
+      > on the list, <code>keepMounted</code> on a panel, <code>render</code>,
+      and
+      <code>className</code> as a string or a state function.
+    </p>
+    <p>
+      Parts get <code>data-slot</code> values of <code>tabs</code>, <code
+        >tabs-list</code
+      >, <code>tabs-trigger</code>, and <code>tabs-content</code>. The list has <code
+        >data-variant</code
+      >, every part has <code>data-orientation</code>, and the active trigger
+      has <code>data-active</code>. Mark trigger icons with <code
+        >data-icon="inline-start"</code
+      > or <code>"inline-end"</code> to tighten padding. <code
+        >tabsListVariants()</code
+      > returns list classes and <code>tabsListVariantNames</code> lists the variants.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The list is a <code>tablist</code>, each trigger is a <code>tab</code> with
+      <code>aria-selected</code>, and each panel is a <code>tabpanel</code> labelled
+      by its tab. Tab moves into the list and then to the panel. Arrow keys move between
+      tabs and skip disabled ones, Home and End jump to the ends, and Enter or Space
+      selects. Vertical lists use the up and down arrows.
+    </p>
+    <p>
+      Colors and the underline change over 120–180ms. Both stop when reduced
+      motion is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Tabs use <code>--sprout-secondary</code>, <code>--sprout-surface</code>,
+      <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
+        >--sprout-line</code
+      >, <code>--sprout-input</code>, <code>--sprout-primary</code>, <code
+        >--sprout-focus</code
+      >, <code>--sprout-radius-control</code>, <code
+        >--sprout-shadow-control</code
+      >, and the motion tokens. They follow light, dark, and the TulipFarm
+      theme.
+    </p>
+  </section>
+</Docs>

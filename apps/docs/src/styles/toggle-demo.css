@@ -1,0 +1,109 @@
+.toggle-demo {
+  display: grid;
+  gap: 20px;
+}
+.toggle-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.toggle-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.toggle-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.toggle-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.toggle-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.toggle-demo-muted {
+  min-height: 20px;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sprout-muted);
+}
+.toggle-demo-error {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sprout-danger);
+}
+.toggle-demo-caption {
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.toggle-demo-panel {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.toggle-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.toggle-demo-stack {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  min-width: 0;
+}
+.toggle-demo-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.toggle-demo-matrix {
+  display: grid;
+  gap: 12px;
+}
+.toggle-demo-matrix-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+@media (min-width: 720px) {
+  .toggle-demo-matrix-row {
+    grid-template-columns: 9rem repeat(2, minmax(0, 1fr));
+    align-items: center;
+  }
+}
+.toggle-demo-matrix-label p {
+  font-size: 13px;
+  font-weight: 550;
+}
+.toggle-demo-matrix-label span {
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.toggle-demo-matrix-cell {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  min-width: 0;
+}

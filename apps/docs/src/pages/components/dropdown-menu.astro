@@ -1,0 +1,214 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  DropdownMenuActions,
+  DropdownMenuChat,
+  DropdownMenuChecks,
+  DropdownMenuControlled,
+  DropdownMenuMenubar,
+  DropdownMenuPlayground,
+  DropdownMenuSelection,
+  DropdownMenuSidebar,
+} from "../../components/DropdownMenuDemo";
+---
+
+<Docs
+  title="Dropdown Menu"
+  description="Action menus with checkboxes, radio groups, submenus, and shortcuts."
+>
+  <h1 class="docs-title">Dropdown Menu</h1>
+  <p class="docs-lead">
+    A list of actions behind a button. Use it for row and page actions, bulk
+    actions on a narrow toolbar, filters, and account menus. Arrow keys move
+    through items, and focus returns to the trigger when it closes.
+  </p>
+  <div class="mt-8" id="dropdown-menu-demo">
+    <DropdownMenuPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Dropdown menu usage"
+      code={`import { Button } from "@tulipfarm/sprout/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@tulipfarm/sprout/dropdown-menu";
+
+<DropdownMenu>
+  <DropdownMenuTrigger
+    render={<Button variant="ghost" size="icon-sm" aria-label="Actions for row 1042" />}
+  >
+    <MoreH size={16} aria-hidden="true" />
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align="end">
+    <DropdownMenuGroup>
+      <DropdownMenuItem onClick={edit}>Edit row</DropdownMenuItem>
+      <DropdownMenuItem onClick={history}>History</DropdownMenuItem>
+    </DropdownMenuGroup>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem variant="destructive" onClick={remove}>
+      Delete row
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>`}
+    />
+    <p>
+      Pass a <code>Button</code> to <code>DropdownMenuTrigger</code> through <code
+        >render</code
+      >. Icon-only triggers need an <code>aria-label</code>. Disable the trigger
+      with <code>disabled</code> on either part, and set <code>aria-busy</code> while
+      work runs.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Sizes</h2>
+    <p>
+      <code>DropdownMenuContent size</code> is <code>"anchor"</code> (the default:
+      as wide as the trigger, at least 8rem) or <code>"menu"</code> (a fixed 16rem).
+      Use anchor for text triggers like “Selected actions” and short row menus. Use
+      menu for icon triggers with icon items, longer labels, and two-line choices.
+      Both stay inside the viewport and scroll when tall.
+    </p>
+    <DropdownMenuActions client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Placement</h2>
+    <p>
+      Set <code>side</code>, <code>align</code>, <code>sideOffset</code>, and <code
+        >alignOffset</code
+      >. Menus open below and start-aligned by default. Composers and footers
+      use <code>side="top"</code>. The menu flips when there is no room.
+    </p>
+    <DropdownMenuChat client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <p>
+      A busy trigger changes its label and sets <code>aria-busy</code>. Items
+      take <code>disabled</code>; they stay readable at half opacity and can’t
+      be chosen. When work finishes, show the result next to the trigger and
+      offer only the actions that still apply.
+    </p>
+    <DropdownMenuSelection client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Checkboxes and radios</h2>
+    <p>
+      <code>DropdownMenuCheckboxItem</code> and <code
+        >DropdownMenuRadioItem</code
+      > show a check on the right. They keep the menu open so people can change several
+      options; filters also pass <code>closeOnClick={"{false}"}</code> to say so outright.
+      Pass <code>closeOnClick</code> to close after one choice.
+    </p>
+    <DropdownMenuChecks client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Links and submenus</h2>
+    <p>
+      Render an item as a link with <code>render={'{<a href="…" />}'}</code> or your
+      router’s link. <code>DropdownMenuSub</code> nests a menu: the <code
+        >DropdownMenuSubTrigger</code
+      > adds a chevron and opens <code>DropdownMenuSubContent</code> to the side.
+      Long names truncate inside the 16rem menu.
+    </p>
+    <DropdownMenuSidebar client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Controlled</h2>
+    <p>
+      Control the menu with <code>open</code> and <code>onOpenChange</code> to open
+      it from a shortcut. <code>finalFocus</code> on the content decides where focus
+      lands when it closes.
+    </p>
+    <DropdownMenuControlled client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Menubar</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Inside Base UI Menubar"
+      code={`import { Menubar } from "@base-ui/react/menubar";
+
+<Menubar>
+  <DropdownMenu>
+    <DropdownMenuTrigger className="menubar-trigger">File</DropdownMenuTrigger>
+    <DropdownMenuContent alignOffset={-4} sideOffset={8} className="min-w-48">
+      <DropdownMenuItem>New task<DropdownMenuShortcut>⌘ N</DropdownMenuShortcut></DropdownMenuItem>
+      <DropdownMenuItem inset>Duplicate</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</Menubar>`}
+    />
+    <DropdownMenuMenubar client:load />
+  </section>
+  <section class="prose-section" id="dropdown-menu-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>DropdownMenu</code>, <code>DropdownMenuTrigger</code>, <code
+        >DropdownMenuPortal</code
+      >, <code>DropdownMenuGroup</code>, <code>DropdownMenuSub</code>, <code
+        >DropdownMenuRadioGroup</code
+      >, and <code>DropdownMenuSeparator</code> wrap the Base UI menu parts and take
+      their props, including <code>render</code>.
+    </p>
+    <p>
+      <code>DropdownMenuContent</code> renders its own portal and positioner. It takes
+      <code>size</code>, <code>side</code>, <code>align</code>, <code
+        >sideOffset</code
+      > (4), <code>alignOffset</code> (0), <code>collisionPadding</code> (8), <code
+        >container</code
+      >, and every Base UI popup prop such as <code>finalFocus</code>. <code
+        >DropdownMenuSubContent</code
+      > takes the same props and defaults to <code>side="right"</code>.
+    </p>
+    <p>
+      <code>DropdownMenuItem</code> takes <code>variant</code> (<code
+        >"default"</code
+      > or <code>"destructive"</code>) and <code>inset</code>. <code
+        >DropdownMenuLabel</code
+      >, <code>DropdownMenuSubTrigger</code>, and the checkbox and radio items
+      take <code>inset</code> too. <code>DropdownMenuShortcut</code> is a plain <code
+        >span</code
+      > for hint text; it does not bind keys. Every part sets a <code
+        >data-slot</code
+      >, and you can override it.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The trigger has <code>aria-haspopup="menu"</code> and <code
+        >aria-expanded</code
+      >. Enter, Space, and Arrow Down open the menu. Arrow keys move, typing
+      jumps to a matching item, Arrow Right opens a submenu and Arrow Left
+      closes it, and Escape closes the menu and returns focus. Disabled items
+      can still be reached with arrow keys so people know they exist, but they
+      can’t be chosen.
+    </p>
+    <p>
+      Menus fade and scale in from the trigger over 120ms. Motion turns off when
+      reduced motion is requested. In forced-colors mode the highlighted item
+      gets an outline.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Menus use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code
+        >--sprout-hover</code
+      >, <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
+        >--sprout-danger</code
+      >, <code>--sprout-danger-subtle</code>, <code
+        >--sprout-shadow-overlay</code
+      >, and the panel and control radii. They need no brand color, so they look
+      the same with the neutral and TulipFarm themes in light and dark mode.
+    </p>
+  </section>
+</Docs>

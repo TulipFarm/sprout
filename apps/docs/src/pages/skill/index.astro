@@ -1,0 +1,30 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { Content } from "../../../../../skills/sprout/SKILL.md";
+import "../../styles/skill.css";
+---
+
+<Docs
+  title="Agent skill"
+  description="Teach Claude Code, Codex, and Copilot to build with Sprout."
+>
+  <h1 class="docs-title">Agent skill</h1>
+  <p class="docs-lead">
+    A skill for coding agents such as Claude Code, Codex, and Copilot. It lists
+    every component, when to use it, and how, so agents pick Sprout parts
+    instead of writing their own.
+  </p>
+  <section class="prose-section">
+    <h2 class="section-title">Installation</h2>
+    <CodeBlock lang="bash" code="npx skills add TulipFarm/sprout@sprout" />
+    <p>
+      Or copy <a href="/skill/SKILL.md">SKILL.md</a> and <a
+        href="/skill/references/components.md">references/components.md</a
+      > into your agent's skills folder, such as <code
+        >.claude/skills/sprout/</code
+      >.
+    </p>
+  </section>
+  <div class="skill-prose"><Content /></div>
+</Docs>

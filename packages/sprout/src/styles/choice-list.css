@@ -1,0 +1,343 @@
+@layer components {
+  .sprout-choice-list {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    color: var(--sprout-text);
+  }
+  .sprout-choice-list-legend {
+    margin-bottom: 2px;
+    padding: 0;
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    color: var(--sprout-muted);
+  }
+  .sprout-choice-list-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .sprout-choice-list-options {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .sprout-choice-list-option,
+  .sprout-choice-list-text {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--sprout-input);
+    border-radius: var(--sprout-radius-panel);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: 0 solid transparent;
+    outline-offset: 2px;
+  }
+  .sprout-choice-list-option {
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-choice-list-text {
+    align-items: flex-start;
+  }
+  @media (hover: hover) {
+    .sprout-choice-list-option:not([data-disabled]):hover,
+    .sprout-choice-list-text:hover {
+      background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
+    }
+  }
+  .sprout-choice-list-option:has(.sprout-choice-list-input:focus-visible),
+  .sprout-choice-list-text:focus-within {
+    outline: 2px solid var(--sprout-focus);
+  }
+  .sprout-choice-list-option[data-checked],
+  .sprout-choice-list-text[data-checked] {
+    border-color: var(--sprout-focus);
+    background: var(--sprout-primary-subtle);
+  }
+  .sprout-choice-list-option[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .sprout-choice-list-option[data-disabled][data-checked] {
+    border-color: var(--sprout-input);
+    background: var(--sprout-secondary);
+  }
+  .sprout-choice-list-text:has(.sprout-choice-list-textarea:disabled) {
+    opacity: 0.5;
+  }
+  .sprout-choice-list-text[data-invalid] {
+    border-color: var(--sprout-danger);
+  }
+  .sprout-choice-list-text[data-invalid]:focus-within {
+    outline-color: var(--sprout-danger);
+  }
+
+  /* The real input covers the whole row so any click or tap reaches it. */
+  .sprout-choice-list-input {
+    position: absolute;
+    inset: -1px;
+    z-index: 1;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  .sprout-choice-list-mark {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--sprout-border);
+    border-radius: 999px;
+    background: var(--sprout-surface);
+    color: var(--sprout-primary);
+  }
+  .sprout-choice-list[data-multiple] .sprout-choice-list-mark {
+    border-radius: 4px;
+  }
+  .sprout-choice-list-text .sprout-choice-list-mark {
+    border-radius: 999px;
+  }
+  .sprout-choice-list-mark svg {
+    width: 13px;
+    height: 13px;
+  }
+  :is(.sprout-choice-list-option, .sprout-choice-list-text)[data-checked]
+    .sprout-choice-list-mark {
+    border-color: var(--sprout-focus);
+    background: var(--sprout-primary-subtle);
+  }
+  .sprout-choice-list-option[data-disabled] .sprout-choice-list-mark {
+    border-color: var(--sprout-border);
+    background: var(--sprout-secondary);
+  }
+  .sprout-choice-list-label {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-choice-list-badge {
+    margin-inline-start: 8px;
+  }
+
+  .sprout-choice-list-error {
+    margin: 0;
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    color: var(--sprout-danger);
+  }
+
+  .sprout-choice-list-text-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .sprout-choice-list-text-label {
+    display: block;
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+    color: var(--sprout-muted);
+  }
+  .sprout-choice-list-textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 24px;
+    max-height: 160px;
+    margin: 0;
+    padding: 2px 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    resize: vertical;
+    outline: none;
+    field-sizing: content;
+  }
+  .sprout-choice-list-textarea::placeholder {
+    color: var(--sprout-muted);
+  }
+  .sprout-choice-list-textarea:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Compact: numbered rows in a short scrolling list, for chat questions. */
+  .sprout-choice-list[data-layout="compact"] .sprout-choice-list-options {
+    gap: 0;
+    max-height: max(76px, min(224px, calc(34dvh - 96px)));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 2px;
+  }
+  .sprout-choice-list[data-layout="compact"] .sprout-choice-list-option {
+    width: 100%;
+    min-height: 36px;
+    padding: 4px 8px;
+    border-color: transparent;
+    border-radius: var(--sprout-radius-control);
+  }
+  .sprout-choice-list[data-layout="compact"]
+    .sprout-choice-list-option[data-checked] {
+    border-color: var(--sprout-focus);
+  }
+  .sprout-choice-list[data-layout="compact"]
+    .sprout-choice-list-option[data-disabled][data-checked] {
+    border-color: var(--sprout-input);
+  }
+  .sprout-choice-list[data-layout="compact"]
+    .sprout-choice-list-option
+    + .sprout-choice-list-option::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: 8px;
+    left: 8px;
+    height: 1px;
+    background: color-mix(in oklab, var(--sprout-text) 8%, transparent);
+  }
+  .sprout-choice-list[data-layout="compact"]
+    .sprout-choice-list-option[data-checked]::before,
+  .sprout-choice-list[data-layout="compact"]
+    .sprout-choice-list-option[data-checked]
+    + .sprout-choice-list-option::before {
+    visibility: hidden;
+  }
+  .sprout-choice-list[data-layout="compact"]
+    .sprout-choice-list-option
+    .sprout-choice-list-mark {
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-secondary);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--sprout-muted);
+  }
+  .sprout-choice-list[data-layout="compact"]
+    .sprout-choice-list-option[data-checked]
+    .sprout-choice-list-mark {
+    background: var(--sprout-primary-subtle);
+    color: var(--sprout-primary);
+  }
+  @media (any-pointer: coarse) {
+    .sprout-choice-list[data-layout="compact"] .sprout-choice-list-options {
+      max-height: max(94px, min(224px, calc(40dvh - 128px)));
+    }
+    .sprout-choice-list[data-layout="compact"] .sprout-choice-list-option {
+      min-height: 44px;
+    }
+  }
+
+  /* The icon sits in a 24px gutter, so wrapped lines and a status line
+     indented 24px below all start at the prompt's edge. */
+  .sprout-choice-summary {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+    min-width: 0;
+    padding-inline-start: 24px;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    color: var(--sprout-text);
+  }
+  .sprout-choice-summary-icon {
+    position: absolute;
+    top: 3px;
+    inset-inline-start: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--sprout-muted);
+  }
+  .sprout-choice-summary-prompt {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: var(--sprout-muted);
+  }
+  .sprout-choice-summary-answer {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 2px 8px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-secondary);
+    font-weight: 500;
+  }
+  .sprout-choice-summary-check {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    color: var(--sprout-success);
+  }
+  .sprout-choice-summary-answer-text {
+    min-width: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-choice-list-option,
+    .sprout-choice-list-text,
+    .sprout-choice-list-mark {
+      transition:
+        background-color var(--sprout-motion-normal, 180ms)
+          var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-normal, 180ms)
+          var(--sprout-motion-ease, ease-out),
+        color var(--sprout-motion-fast, 120ms)
+          var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-choice-list-mark svg,
+    .sprout-choice-summary-check {
+      animation: sprout-choice-pop var(--sprout-motion-normal, 150ms) ease-out
+        both;
+    }
+  }
+  @keyframes sprout-choice-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-choice-list-option[data-checked],
+    .sprout-choice-list-text[data-checked],
+    .sprout-choice-list-option[data-checked] .sprout-choice-list-mark {
+      border-color: Highlight;
+    }
+    .sprout-choice-list-option:has(.sprout-choice-list-input:focus-visible),
+    .sprout-choice-list-text:focus-within {
+      outline-color: Highlight;
+    }
+  }
+}

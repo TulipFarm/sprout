@@ -1,0 +1,121 @@
+.choice-list-demo {
+  display: grid;
+  gap: 20px;
+}
+/* The docs page draws a global focus outline; the row draws its own ring. */
+.sprout-choice-list-input:focus-visible,
+.sprout-choice-list-textarea:focus-visible {
+  outline: none;
+}
+.choice-list-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.choice-list-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.choice-list-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.choice-list-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.choice-list-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.choice-list-demo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .choice-list-demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.choice-list-demo-panel,
+.choice-list-demo-stack,
+.choice-list-demo-preference,
+.choice-list-demo-summaries {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.choice-list-demo-stack,
+.choice-list-demo-preference {
+  max-width: 32rem;
+  gap: 16px;
+}
+.choice-list-demo-preference {
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.choice-list-demo-summaries {
+  gap: 16px;
+}
+.choice-list-demo-caption {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sprout-muted);
+}
+.choice-list-demo-prompt,
+.choice-list-demo-question-title {
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.choice-list-demo-question {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 8px 12px;
+  border: 1px solid
+    color-mix(in oklab, var(--sprout-text) 16%, var(--sprout-surface));
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.choice-list-demo-question [data-slot="form-footer"] {
+  padding-top: 4px;
+}
+.choice-list-demo-answered {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 8px 0;
+}
+.choice-list-demo-status {
+  padding-left: 24px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sprout-muted);
+}
+.choice-list-demo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

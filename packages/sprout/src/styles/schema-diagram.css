@@ -1,0 +1,419 @@
+@layer components {
+  .sprout-schema-diagram {
+    position: relative;
+    display: flex;
+    flex: 1 1 0%;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 24rem;
+    overflow: hidden;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-canvas);
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+  }
+
+  /* React Flow adds a .light or .dark class to its root. Inherit the page's
+     tokens there so the diagram follows Sprout's mode and brand theme. */
+  .sprout-schema-flow.light,
+  .sprout-schema-flow.dark {
+    --sprout-canvas: inherit;
+    --sprout-surface: inherit;
+    --sprout-hover: inherit;
+    --sprout-active: inherit;
+    --sprout-text: inherit;
+    --sprout-muted: inherit;
+    --sprout-line: inherit;
+    --sprout-border: inherit;
+    --sprout-border-strong: inherit;
+    --sprout-input: inherit;
+    --sprout-primary: inherit;
+    --sprout-primary-hover: inherit;
+    --sprout-primary-active: inherit;
+    --sprout-primary-subtle: inherit;
+    --sprout-on-primary: inherit;
+    --sprout-focus: inherit;
+    --sprout-danger: inherit;
+    --sprout-danger-hover: inherit;
+    --sprout-danger-subtle: inherit;
+    --sprout-on-danger: inherit;
+    --sprout-info: inherit;
+    --sprout-info-subtle: inherit;
+    --sprout-secondary: inherit;
+    --sprout-success: inherit;
+    --sprout-success-subtle: inherit;
+    --sprout-warning: inherit;
+    --sprout-warning-subtle: inherit;
+    --sprout-overlay: inherit;
+  }
+
+  /* The structural rules React Flow needs, scoped to the diagram. */
+  .sprout-schema-flow {
+    position: relative;
+    direction: ltr;
+    flex: 1 1 0%;
+    width: 100%;
+    height: 100%;
+    min-height: 24rem;
+    overflow: hidden;
+    outline: none;
+    background: transparent;
+  }
+  .sprout-schema-flow:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+    border-radius: inherit;
+  }
+  .sprout-schema-flow .react-flow__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .sprout-schema-flow .react-flow__pane {
+    z-index: 1;
+    touch-action: none;
+  }
+  .sprout-schema-flow .react-flow__pane.draggable {
+    cursor: grab;
+  }
+  .sprout-schema-flow .react-flow__pane.dragging {
+    cursor: grabbing;
+  }
+  .sprout-schema-flow .react-flow__viewport {
+    z-index: 2;
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .sprout-schema-flow .react-flow__renderer {
+    z-index: 4;
+  }
+  .sprout-schema-flow .react-flow__background {
+    z-index: -1;
+    pointer-events: none;
+  }
+  .sprout-schema-flow .react-flow__background-pattern.dots {
+    fill: var(--sprout-line);
+  }
+  .sprout-schema-flow .react-flow__edges {
+    position: absolute;
+  }
+  .sprout-schema-flow .react-flow__edges svg {
+    position: absolute;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .sprout-schema-flow .react-flow__edge-path {
+    fill: none;
+    stroke: var(--sprout-muted);
+    stroke-width: 1.25;
+  }
+  .sprout-schema-flow .react-flow__edgelabel-renderer,
+  .sprout-schema-flow .react-flow__viewport-portal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+  }
+  .sprout-schema-flow .react-flow__nodes {
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .sprout-schema-flow .react-flow__node {
+    position: absolute;
+    box-sizing: border-box;
+    transform-origin: 0 0;
+    border-radius: 8px;
+    outline: none;
+    user-select: none;
+    pointer-events: all;
+    cursor: default;
+  }
+  .sprout-schema-flow .react-flow__node.draggable {
+    cursor: grab;
+  }
+  .sprout-schema-flow .react-flow__node.dragging {
+    cursor: grabbing;
+  }
+  .sprout-schema-flow .react-flow__node:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: 2px;
+  }
+  .sprout-schema-flow .react-flow__panel {
+    position: absolute;
+    z-index: 5;
+    margin: 12px;
+  }
+  .sprout-schema-flow .react-flow__panel.top {
+    top: 0;
+  }
+  .sprout-schema-flow .react-flow__panel.bottom {
+    bottom: 0;
+  }
+  .sprout-schema-flow .react-flow__panel.right {
+    right: 0;
+  }
+  .sprout-schema-flow .react-flow__panel.left {
+    left: 0;
+  }
+
+  .sprout-schema-handle.react-flow__handle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    min-width: 0;
+    min-height: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sprout-schema-handle.react-flow__handle-left {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+  .sprout-schema-handle.react-flow__handle-right {
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+  .sprout-schema-handle.react-flow__handle-top {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .sprout-schema-handle.react-flow__handle-bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+  /* Links land on the middle of the target table's header. */
+  .sprout-schema-handle-target.react-flow__handle-left {
+    top: 22px;
+  }
+
+  .sprout-schema-table {
+    box-sizing: border-box;
+    width: 264px;
+    overflow: hidden;
+    border: 1px solid var(--sprout-line);
+    border-top-width: 2px;
+    border-radius: 8px;
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-control);
+  }
+  .sprout-schema-table[data-state="new"] {
+    border-top-color: var(--sprout-success);
+  }
+  .sprout-schema-table[data-state="changed"] {
+    border-top-color: var(--sprout-warning);
+  }
+  .sprout-schema-table[data-state="linked"] {
+    border-style: dashed;
+    border-top-color: var(--sprout-line);
+  }
+  .react-flow__node.dragging .sprout-schema-table {
+    box-shadow: var(--sprout-shadow-panel);
+  }
+
+  .sprout-schema-table-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    height: 44px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--sprout-line);
+    background: color-mix(
+      in oklab,
+      var(--sprout-hover) 45%,
+      var(--sprout-surface)
+    );
+  }
+  .sprout-schema-table-title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-schema-table-empty {
+    margin: 0;
+    padding: 8px 12px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+
+  .sprout-schema-fields {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-schema-field {
+    position: relative;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--sprout-line);
+  }
+  .sprout-schema-field:last-child {
+    border-bottom: 0;
+  }
+  .sprout-schema-field[data-change="added"] {
+    background: var(--sprout-success-subtle);
+  }
+  .sprout-schema-field[data-change="changed"] {
+    background: var(--sprout-warning-subtle);
+  }
+  .sprout-schema-field[data-change="removed"] {
+    background: var(--sprout-danger-subtle);
+  }
+  .sprout-schema-field-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 20px;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+  .sprout-schema-field[data-change="removed"] .sprout-schema-field-line {
+    text-decoration: line-through;
+  }
+  .sprout-schema-field-key {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    width: 12px;
+    color: var(--sprout-muted);
+  }
+  .sprout-schema-field-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--sprout-text);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-schema-field-required {
+    color: var(--sprout-muted);
+  }
+  .sprout-schema-field-type {
+    flex-shrink: 0;
+    max-width: 45%;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-schema-field-detail {
+    margin: 0;
+    padding-left: 20px;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sprout-schema-link-label {
+    position: absolute;
+    box-sizing: border-box;
+    max-width: 180px;
+    overflow: hidden;
+    padding: 0 6px;
+    border: 1px solid var(--sprout-line);
+    border-radius: 6px;
+    background: var(--sprout-surface);
+    color: var(--sprout-muted);
+    font-family: var(--sprout-font);
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .sprout-schema-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid var(--sprout-line);
+    border-radius: 8px;
+    background: var(--sprout-surface);
+    box-shadow: var(--sprout-shadow-control);
+  }
+
+  .sprout-schema-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 16px;
+    margin: 0;
+    padding: 0;
+    color: var(--sprout-muted);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    list-style: none;
+  }
+  .sprout-schema-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sprout-schema-legend-swatch {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+  .sprout-schema-legend-swatch[data-change="added"] {
+    background: var(--sprout-success-subtle);
+    box-shadow: 0 0 0 1px var(--sprout-success);
+  }
+  .sprout-schema-legend-swatch[data-change="changed"] {
+    background: var(--sprout-warning-subtle);
+    box-shadow: 0 0 0 1px var(--sprout-warning);
+  }
+  .sprout-schema-legend-swatch[data-change="removed"] {
+    background: var(--sprout-danger-subtle);
+    box-shadow: 0 0 0 1px var(--sprout-danger);
+  }
+
+  .sprout-schema-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-schema-table {
+      transition: box-shadow var(--sprout-motion-normal)
+        var(--sprout-motion-ease);
+    }
+    .sprout-schema-flow .react-flow__node {
+      transition: outline-color var(--sprout-motion-fast) ease-out;
+    }
+  }
+}

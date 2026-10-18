@@ -1,0 +1,116 @@
+.reasoning-effort-demo {
+  display: grid;
+  gap: 20px;
+}
+.reasoning-effort-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.reasoning-effort-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.reasoning-effort-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.reasoning-effort-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.reasoning-effort-demo-card-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  min-width: 0;
+  padding: 24px 20px;
+  background: var(--sprout-canvas);
+}
+.reasoning-effort-demo-stack {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+.reasoning-effort-demo-status {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sprout-muted);
+}
+.reasoning-effort-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 256px);
+  justify-content: center;
+  gap: 24px 32px;
+  width: 100%;
+  max-width: 36rem;
+}
+.reasoning-effort-demo-row {
+  display: grid;
+  gap: 4px;
+  width: 256px;
+}
+.reasoning-effort-demo-effort {
+  display: grid;
+  gap: 4px;
+  border-top: 1px solid var(--sprout-line);
+  /* 15px + the popover's 1px border keeps the 256px slider 16px from each edge. */
+  padding: 10px 15px 16px;
+}
+.reasoning-effort-demo-effort-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 16px;
+}
+.reasoning-effort-demo-muted {
+  color: var(--sprout-muted);
+}
+.reasoning-effort-demo-strong {
+  color: var(--sprout-text);
+  font-weight: 500;
+}
+.reasoning-effort-demo-truncate {
+  min-width: 0;
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.reasoning-effort-demo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.reasoning-effort-demo-composer {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  max-width: 36rem;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  padding: 12px;
+}
+.reasoning-effort-demo-composer p {
+  margin: 0;
+  font-size: 14px;
+}
+.reasoning-effort-demo-composer-bar {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+.reasoning-effort-demo-spacer {
+  flex: 1;
+}
