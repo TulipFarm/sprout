@@ -139,7 +139,7 @@ export function CollapsibleTriggers() {
   return (
     <Example
       title="Trigger pairings"
-      description="Each trigger renders a Sprout Button. Variant and size follow how much weight the hidden content has."
+      description="Each trigger renders a Sprõut Button. Variant and size follow how much weight the hidden content has."
     >
       <Pair label="outline · default">
         <Collapsible defaultOpen>

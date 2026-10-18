@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌱 Sprout
+# 🌱 Sprõut
 
 **Thoughtful React controls, built with Base UI and Tailwind CSS.**
 
@@ -17,7 +17,7 @@ Every state planted, every edge case tended.
 
 ---
 
-Sprout is a general-purpose component library from
+Sprõut is a general-purpose component library from
 [TulipFarm](https://tulipfarm.ai). It cares about the small things: busy,
 blocked, invalid, empty, and loading states, keyboard paths, and screen reader
 labels. The default theme is neutral, so it fits your product, not ours.
@@ -29,11 +29,11 @@ labels. The default theme is neutral, so it fits your product, not ours.
 - **Light and dark.** A neutral default and 15 more CSS theme presets.
 
 > [!NOTE]
-> Sprout is pre-1.0. APIs can change between minor versions.
+> Sprõut is pre-1.0. APIs can change between minor versions.
 
 ## Install
 
-Sprout needs React 19 and Tailwind CSS 4.
+Sprõut needs React 19 and Tailwind CSS 4.
 
 ```sh
 pnpm add @tulipfarm/sprout
@@ -84,7 +84,7 @@ export function Status() {
 }
 ```
 
-The CSS entry registers Sprout's classes with Tailwind. It does not change your
+The CSS entry registers Sprõut's classes with Tailwind. It does not change your
 body styles or generic shadcn tokens. Tailwind utility prefixes are not
 supported yet.
 

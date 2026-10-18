@@ -130,7 +130,7 @@ the app header bar; `PageActions` places page actions there without a header.
 An optional `documentTitle` formatter updates the browser tab title.
 
 Pagination (`@tulipfarm/sprout/pagination`) composes previous, next, numbered
-page links, and a skipped-pages ellipsis. Page links are ghost Sprout buttons,
+page links, and a skipped-pages ellipsis. Page links are ghost Sprõut buttons,
 outlined with `aria-current="page"` when `isActive`; they take any button
 `size`, `disabled`, and a Base UI `render` for router links. Previous and next
 labels are customizable with `text` and hidden below 640px.

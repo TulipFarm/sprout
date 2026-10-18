@@ -304,7 +304,7 @@ test("document title follows the page only when a formatter is set", async ({
 }) => {
   await openPageHeader(page);
   const original = await page.title();
-  expect(original).toBe("Page Header | Sprout");
+  expect(original).toBe("Page Header | Sprõut");
   await shell(page).getByRole("button", { name: "Update tab title" }).click();
   await expect(page).toHaveTitle("Customer accounts · Northwind");
   await chooseOption(page, "Page", "Chats");

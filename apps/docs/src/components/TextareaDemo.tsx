@@ -310,7 +310,7 @@ export function TextareaLabelling() {
   return (
     <Example
       title="Labels and descriptions"
-      description="A Sprout Field, a label with htmlFor and aria-describedby, a label that wraps the textarea, and a disabled fieldset."
+      description="A Sprõut Field, a label with htmlFor and aria-describedby, a label that wraps the textarea, and a disabled fieldset."
     >
       <div className="textarea-demo-grid">
         <div className="textarea-demo-field" data-testid="described">

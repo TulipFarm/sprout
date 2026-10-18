@@ -493,7 +493,7 @@ function SampleDownload({
       return;
     }
     const url = URL.createObjectURL(
-      new Blob(["Sample export from the Sprout docs.\n"], {
+      new Blob(["Sample export from the Sprõut docs.\n"], {
         type: "text/plain",
       }),
     );

@@ -280,7 +280,7 @@ export function CalendarCaptions() {
   return (
     <Example
       title="Captions and navigation"
-      description="Month and year menus are Sprout selects, never native ones. Years run from 100 years ago to this year."
+      description="Month and year menus are Sprõut selects, never native ones. Years run from 100 years ago to this year."
     >
       <Row
         label="Month label"

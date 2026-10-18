@@ -1,6 +1,6 @@
-# Sprout
+# Sprõut
 
-Sprout is a React component library. This glossary covers the shared words for its components.
+Sprõut is a React component library. This glossary covers the shared words for its components.
 
 ## Table
 

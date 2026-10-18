@@ -1070,7 +1070,7 @@ function AccordionPreview() {
       </AccordionItem>
       <AccordionItem value="two">
         <AccordionTrigger>Can I style it?</AccordionTrigger>
-        <AccordionContent>Yes. It uses your Sprout tokens.</AccordionContent>
+        <AccordionContent>Yes. It uses your Sprõut tokens.</AccordionContent>
       </AccordionItem>
     </Accordion>
   );

@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping with Sprout.
+Thanks for helping with Sprõut.
 
 ## Setup
 

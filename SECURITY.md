@@ -10,4 +10,4 @@ We will reply as soon as we can and keep you updated on the fix.
 
 ## Supported versions
 
-Sprout is pre-1.0. Only the latest release gets security fixes.
+Sprõut is pre-1.0. Only the latest release gets security fixes.

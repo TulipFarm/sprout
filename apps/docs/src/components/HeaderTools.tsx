@@ -210,7 +210,7 @@ function ThemePicker() {
               </div>
               <CommandList onPointerLeave={() => preview(theme)}>
                 <CommandEmpty>No themes match.</CommandEmpty>
-                <CommandGroup heading="Sprout">
+                <CommandGroup heading="Sprõut">
                   {sproutThemes.map(item)}
                 </CommandGroup>
                 <CommandGroup heading="Brand themes">
@@ -267,7 +267,7 @@ export default function HeaderTools() {
       <a
         className="docs-icon-link"
         href="https://github.com/TulipFarm/sprout"
-        aria-label="Sprout on GitHub"
+        aria-label="Sprõut on GitHub"
       >
         <svg
           viewBox="0 0 16 16"

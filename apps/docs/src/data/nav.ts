@@ -19,12 +19,12 @@ export const guides: NavItem[] = [
   {
     name: "Introduction",
     href: "/",
-    description: "What Sprout is and what it ships.",
+    description: "What Sprõut is and what it ships.",
   },
   {
     name: "Installation",
     href: "/installation/",
-    description: "Add Sprout to a React 19 and Tailwind 4 app.",
+    description: "Add Sprõut to a React 19 and Tailwind 4 app.",
   },
   {
     name: "Theming",
@@ -34,7 +34,7 @@ export const guides: NavItem[] = [
   {
     name: "Agent skill",
     href: "/skill/",
-    description: "Teach coding agents to build with Sprout.",
+    description: "Teach coding agents to build with Sprõut.",
   },
   {
     name: "Changelog",
