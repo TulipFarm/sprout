@@ -178,6 +178,7 @@ test("labels select their radio and the hit area extends past the dot", async ({
   await group.getByText("Daily", { exact: true }).click();
   await expect(daily).toHaveAttribute("aria-checked", "true");
   await expect(weekly).toHaveAttribute("aria-checked", "false");
+  await weekly.scrollIntoViewIfNeeded();
   const rect = await weekly.boundingBox();
   await page.mouse.click(rect!.x - 8, rect!.y + rect!.height / 2);
   await expect(weekly).toHaveAttribute("aria-checked", "true");
