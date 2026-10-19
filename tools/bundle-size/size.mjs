@@ -42,7 +42,7 @@ export async function measure(packageDir = path.join(root, "packages/sprout")) {
     minify: true,
     write: false,
     metafile: true,
-    absWorkingDir: root,
+    absWorkingDir: packageDir,
     outdir: "size-out",
     external: peers.flatMap((name) => [name, `${name}/*`]),
     loader: { ".css": "empty" },
@@ -64,7 +64,9 @@ export async function measure(packageDir = path.join(root, "packages/sprout")) {
     visit(`size-out/${entry.name}.js`);
     report[entry.name] = sizes(
       Buffer.concat(
-        [...seen].map((file) => files.get(path.join(root, file)).contents),
+        [...seen].map(
+          (file) => files.get(path.join(packageDir, file)).contents,
+        ),
       ),
     );
   }
