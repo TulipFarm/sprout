@@ -77,15 +77,166 @@
     width: 100cqi;
   }
   .sprout-chart-usage,
-  .sprout-chart-category {
+  .sprout-chart-category,
+  .sprout-chart-trend,
+  .sprout-chart-area,
+  .sprout-chart-combo,
+  .sprout-chart-donut,
+  .sprout-chart-funnel,
+  .sprout-chart-waterfall,
+  .sprout-chart-timeline,
+  .sprout-chart-scatter,
+  .sprout-chart-treemap,
+  .sprout-chart-sankey,
+  .sprout-chart-radar,
+  .sprout-chart-sparkline {
     width: 100%;
     aspect-ratio: auto;
   }
   .sprout-chart-usage {
     height: 16rem;
   }
-  .sprout-chart-category {
+  .sprout-chart-category,
+  .sprout-chart-trend,
+  .sprout-chart-area,
+  .sprout-chart-combo,
+  .sprout-chart-donut,
+  .sprout-chart-waterfall,
+  .sprout-chart-scatter,
+  .sprout-chart-treemap {
     height: 18rem;
+  }
+  .sprout-chart-sankey,
+  .sprout-chart-radar {
+    height: 20rem;
+  }
+  .sprout-chart-sparkline {
+    height: 2.5rem;
+  }
+  .sprout-chart-gauge {
+    width: 100%;
+    max-width: 20rem;
+    aspect-ratio: 2 / 1.25;
+    margin-inline: auto;
+  }
+
+  .sprout-chart .recharts-polar-angle-axis-tick-value {
+    fill: var(--sprout-muted);
+  }
+  .sprout-chart-center-value {
+    fill: var(--sprout-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-chart-center-label {
+    fill: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+  }
+  .sprout-chart-treemap-label {
+    fill: var(--sprout-surface);
+    font-weight: 500;
+    pointer-events: none;
+  }
+  .sprout-chart-treemap-value {
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-chart-sankey-label {
+    fill: var(--sprout-text);
+    font-weight: 500;
+  }
+  .sprout-chart-sankey-value {
+    fill: var(--sprout-muted);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-chart-sankey-link:hover {
+    stroke-opacity: 0.5;
+  }
+
+  .sprout-chart-heatmap {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    color: var(--sprout-muted);
+  }
+  .sprout-chart-heatmap-scroll {
+    overflow-x: auto;
+  }
+  .sprout-chart-heatmap-table {
+    width: 100%;
+    min-width: calc(var(--sprout-heat-columns) * 1.25rem + 3rem);
+    border-collapse: separate;
+    border-spacing: 3px;
+    table-layout: fixed;
+  }
+  .sprout-chart-heatmap-table th {
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .sprout-chart-heatmap-table thead th {
+    overflow: hidden;
+    text-overflow: clip;
+    text-align: center;
+  }
+  .sprout-chart-heatmap-table tbody th {
+    width: 3rem;
+    padding-right: 6px;
+    text-align: right;
+  }
+  .sprout-chart-heatmap-table td {
+    position: relative;
+    height: 1.5rem;
+    border-radius: 3px;
+  }
+  .sprout-chart-heatmap-table td[data-tip]:hover {
+    outline: 1.5px solid var(--sprout-text);
+    outline-offset: 1px;
+  }
+  .sprout-chart-heatmap-table td[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    z-index: 1;
+    translate: -50% 0;
+    padding: 6px 10px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .sprout-chart-heatmap-scale {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+  }
+  .sprout-chart-heatmap-scale > i {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+  .sprout-chart-heatmap-scale > span:first-child {
+    margin-right: 4px;
+  }
+  .sprout-chart-heatmap-scale > span:last-child {
+    margin-left: 4px;
+  }
+  .sprout-chart-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .sprout-chart .recharts-cartesian-axis-tick-value {
@@ -250,7 +401,9 @@
       border-color: CanvasText;
     }
     .sprout-chart-tooltip-indicator,
-    .sprout-chart-legend-swatch {
+    .sprout-chart-legend-swatch,
+    .sprout-chart-heatmap-table td,
+    .sprout-chart-heatmap-scale > i {
       forced-color-adjust: none;
     }
     .sprout-chart .recharts-surface:focus-visible {

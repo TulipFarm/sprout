@@ -786,6 +786,23 @@ describe("Sidebar public surface", () => {
       "ChartLegendContent",
       "UsageChart",
       "CategoryChart",
+      "chartOtherColor",
+      "chartPalette",
+      "chartShade",
+      "TrendChart",
+      "AreaTrendChart",
+      "ComboChart",
+      "Sparkline",
+      "DonutChart",
+      "StepFunnelChart",
+      "TreemapChart",
+      "GaugeChart",
+      "WaterfallChart",
+      "TimelineChart",
+      "HeatmapChart",
+      "ScatterPlotChart",
+      "SankeyChart",
+      "RadarScoreChart",
     ];
     expect(
       names.every(

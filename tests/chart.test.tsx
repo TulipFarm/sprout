@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { renderToString } from "react-dom/server";
 import { readFileSync } from "node:fs";
 import {
+  AreaTrendChart,
   CategoryChart,
   ChartContainer,
   ChartLegend,
@@ -9,12 +10,30 @@ import {
   ChartStyle,
   ChartTooltip,
   ChartTooltipContent,
+  ComboChart,
+  DonutChart,
+  GaugeChart,
+  HeatmapChart,
+  RadarScoreChart,
+  SankeyChart,
+  ScatterPlotChart,
+  Sparkline,
+  StepFunnelChart,
+  TimelineChart,
+  TreemapChart,
+  TrendChart,
   UsageChart,
+  WaterfallChart,
   chartColor,
   chartIndicatorNames,
+  chartShade,
   type ChartConfig,
   type UsageSeries,
 } from "../packages/sprout/src/components/chart.js";
+import {
+  dayLabel,
+  foldParts,
+} from "../packages/sprout/src/internal/chart-kit.js";
 import * as sprout from "../packages/sprout/src/index.js";
 
 const read = (path: string) =>
@@ -67,6 +86,21 @@ describe("Chart", () => {
       "UsageChart",
       "chartColor",
       "chartIndicatorNames",
+      "chartShade",
+      "TrendChart",
+      "AreaTrendChart",
+      "ComboChart",
+      "DonutChart",
+      "Sparkline",
+      "GaugeChart",
+      "StepFunnelChart",
+      "WaterfallChart",
+      "HeatmapChart",
+      "TimelineChart",
+      "ScatterPlotChart",
+      "TreemapChart",
+      "SankeyChart",
+      "RadarScoreChart",
     ])
       expect(sprout).toHaveProperty(name);
     const manifest = JSON.parse(read("../packages/sprout/package.json"));
@@ -306,6 +340,148 @@ describe("Chart", () => {
     );
     expect(category).toContain('data-variant="category"');
     expect(category).toContain("sprout-chart sprout-chart-category tall");
-    expect(css).toMatch(/\.sprout-chart-category \{\s*height: 18rem;/);
+    expect(css).toMatch(/\.sprout-chart-category,[^{]*\{\s*height: 18rem;/);
+  });
+
+  it("folds parts past five into one muted rest", () => {
+    const rows = ["a", "b", "c", "d", "e", "f", "g"].map((name, index) => ({
+      name,
+      count: index + 1,
+    }));
+    const parts = foldParts(
+      [...rows, { name: "zero", count: 0 }],
+      "name",
+      "count",
+    );
+    expect(parts.map((part) => part.name)).toEqual([
+      "g",
+      "f",
+      "e",
+      "d",
+      "c",
+      "2 more",
+    ]);
+    expect(parts[5]).toEqual({
+      name: "2 more",
+      value: 3,
+      fill: "var(--sprout-muted)",
+    });
+    expect(parts[0]!.fill).toBe("var(--sprout-chart-1)");
+    expect(foldParts(rows.slice(0, 2), "name", "count")).toHaveLength(2);
+    expect(chartShade("red", 2)).toBe(
+      "color-mix(in oklab, red 40%, var(--sprout-surface))",
+    );
+  });
+
+  it("labels days from strings, times, and the Date ticks of a time axis", () => {
+    const time = Date.UTC(2026, 9, 3);
+    for (const value of ["2026-10-03", time, new Date(time)])
+      expect(dayLabel(value, "en-US")).toBe("Oct 3");
+  });
+
+  it("renders every ready chart with its variant and name", () => {
+    const rows = [
+      { month: "Jan", tasks: 4, notes: 2 },
+      { month: "Feb", tasks: 6, notes: -1 },
+    ];
+    const charts: [string, React.ReactElement][] = [
+      ["trend", <TrendChart rows={rows} category="month" series={series} />],
+      [
+        "area",
+        <AreaTrendChart
+          rows={rows}
+          category="month"
+          series={series}
+          stack="percent"
+        />,
+      ],
+      ["combo", <ComboChart rows={rows} category="month" series={series} />],
+      ["donut", <DonutChart rows={rows} category="month" value="tasks" />],
+      [
+        "pie",
+        <DonutChart rows={rows} category="month" value="tasks" variant="pie" />,
+      ],
+      ["sparkline", <Sparkline values={[1, 3, 2]} title="Tasks" />],
+      [
+        "funnel",
+        <StepFunnelChart rows={rows} category="month" value="tasks" />,
+      ],
+      [
+        "waterfall",
+        <WaterfallChart rows={rows} category="month" value="tasks" />,
+      ],
+      [
+        "timeline",
+        <TimelineChart
+          rows={[{ task: "Build", from: "2026-10-01", to: "2026-10-09" }]}
+          category="task"
+          start="from"
+          end="to"
+        />,
+      ],
+      [
+        "scatter",
+        <ScatterPlotChart
+          series={[{ ...series[0]!, rows: [{ x: 1, y: 2 }] }]}
+          x="x"
+          y="y"
+        />,
+      ],
+      ["treemap", <TreemapChart rows={rows} category="month" value="tasks" />],
+      [
+        "sankey",
+        <SankeyChart
+          nodes={[{ name: "In" }, { name: "Out" }]}
+          links={[{ source: 0, target: 1, value: 3 }]}
+          title="Leads"
+        />,
+      ],
+      [
+        "radar",
+        <RadarScoreChart rows={rows} category="month" series={series} />,
+      ],
+    ];
+    for (const [variant, chart] of charts)
+      expect(renderToString(chart)).toContain(`data-variant="${variant}"`);
+    expect(
+      renderToString(
+        <TreemapChart rows={rows} category="month" value="tasks" />,
+      ),
+    ).toContain('role="img" aria-label="tasks by month"');
+    const gauge = renderToString(
+      <GaugeChart value={130} max={200} title="Quota" />,
+    );
+    expect(gauge).toContain('role="meter"');
+    expect(gauge).toContain('aria-valuenow="130"');
+    expect(gauge).toContain('aria-valuetext="65%"');
+    expect(
+      renderToString(<GaugeChart value={300} max={200} title="Quota" />),
+    ).toContain('aria-valuenow="200"');
+  });
+
+  it("renders the heatmap as a real table with five shades", () => {
+    const html = renderToString(
+      <HeatmapChart
+        rows={[
+          { day: "Mon", hour: "9h", orders: 0 },
+          { day: "Mon", hour: "10h", orders: 10 },
+          { day: "Tue", hour: "9h", orders: 4 },
+        ]}
+        x="hour"
+        y="day"
+        value="orders"
+      />,
+    );
+    expect(html).toContain('data-variant="heatmap"');
+    expect(html).toContain("<caption");
+    expect(html).toContain("orders by day and hour");
+    expect(html.match(/scope="col"/g)).toHaveLength(2);
+    expect(html.match(/scope="row"/g)).toHaveLength(2);
+    expect(html).toContain('data-tip="Mon · 10h: 10"');
+    // A missing cell counts as zero.
+    expect(html).toContain('data-tip="Tue · 10h: 0"');
+    expect(html).toContain("background-color:var(--sprout-secondary)");
+    expect(html).toContain("var(--sprout-chart-1) 100%");
+    expect(html).toContain("var(--sprout-chart-1) 40%");
   });
 });

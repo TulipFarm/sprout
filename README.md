@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **794.8 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **830.7 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -113,7 +113,7 @@ Full library: **794.8 kB** gzip. Each component path is smaller. Sizes are minif
 | `attachment`        | 459.9 kB | 155.8 kB | 128.4 kB |
 | `avatar`            |  45.5 kB |  15.4 kB |  13.6 kB |
 | `badge`             |  34.9 kB |  11.4 kB |  10.0 kB |
-| `board`             | 448.8 kB | 147.3 kB | 124.1 kB |
+| `board`             | 448.8 kB | 147.4 kB | 124.2 kB |
 | `brand-icon`        | 195.1 kB |  70.2 kB |  61.2 kB |
 | `breadcrumb`        |  40.5 kB |  13.4 kB |  11.7 kB |
 | `button`            |  50.5 kB |  16.7 kB |  14.6 kB |
@@ -122,7 +122,7 @@ Full library: **794.8 kB** gzip. Each component path is smaller. Sizes are minif
 | `canvas`            | 235.1 kB |  80.8 kB |  69.2 kB |
 | `card`              |  35.4 kB |  11.6 kB |  10.1 kB |
 | `carousel`          |  60.4 kB |  19.9 kB |  17.6 kB |
-| `chart`             | 393.4 kB | 119.0 kB | 101.3 kB |
+| `chart`             | 537.6 kB | 154.7 kB | 129.5 kB |
 | `chat-confirmation` |  76.7 kB |  25.8 kB |  22.4 kB |
 | `chat-plan`         |  42.3 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      | 206.2 kB |  70.5 kB |  60.3 kB |
