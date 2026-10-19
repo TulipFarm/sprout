@@ -55,7 +55,7 @@ const forms = new Set(
   ),
 );
 const content = new Set(
-  "calendar-board calendar-event-list carousel chart code-block file-viewer office-file spreadsheet-file worksheet-grid schema-diagram table table-pagination workflow-diagram".split(
+  "calendar-board calendar-event-list carousel chart code-block file-viewer office-file spreadsheet-file worksheet-grid schema-diagram sql-viewer table table-pagination workflow-diagram".split(
     " ",
   ),
 );

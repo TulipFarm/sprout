@@ -63,6 +63,7 @@
 @import "./review-card.css";
 @import "./rich-text-editor.css";
 @import "./schema-diagram.css";
+@import "./sql-viewer.css";
 @import "./scroll-area.css";
 @import "./search-dialog.css";
 @import "./search-field.css";

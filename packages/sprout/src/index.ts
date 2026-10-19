@@ -64,6 +64,7 @@ export * from "./components/result-card.js";
 export * from "./components/review-card.js";
 export * from "./components/rich-text-editor.js";
 export * from "./components/schema-diagram.js";
+export * from "./components/sql-viewer.js";
 export * from "./components/scroll-area.js";
 export * from "./components/search-dialog.js";
 export * from "./components/search-field.js";

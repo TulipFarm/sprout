@@ -733,6 +733,8 @@ const schemaDiagramExports = [
   "schemaTableStateNames",
 ];
 
+const sqlViewerExports = ["SqlViewer", "sqlViewerLayoutNames"];
+
 const chatSourcesExports = [
   "ChatSources",
   "CheckedCitation",
@@ -869,6 +871,7 @@ describe("Sidebar public surface", () => {
           promptListExports.includes(name) ||
           questionnaireExports.includes(name) ||
           schemaDiagramExports.includes(name) ||
+          sqlViewerExports.includes(name) ||
           chatSourcesExports.includes(name) ||
           typedTextExports.includes(name) ||
           chartExports.includes(name) ||
@@ -964,6 +967,7 @@ describe("Sidebar public surface", () => {
         ...promptListExports,
         ...questionnaireExports,
         ...schemaDiagramExports,
+        ...sqlViewerExports,
         ...typedTextExports,
       ]),
     );

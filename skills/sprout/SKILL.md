@@ -188,23 +188,24 @@ Import path is `@tulipfarm/sprout/<slug>`.
 
 ### Data display
 
-| Component       | Slug              | Use when                                                                       |
-| --------------- | ----------------- | ------------------------------------------------------------------------------ |
-| Attachment      | `attachment`      | File rows, cards, chips, upload states, drop zone.                             |
-| Avatar          | `avatar`          | People, agents, workspaces, with initials fallback and groups.                 |
-| Badge           | `badge`           | Status, count, or metadata label. Nine tones.                                  |
-| Brand Icon      | `brand-icon`      | Logos of connected apps and models; tiles and stacks.                          |
-| Carousel        | `carousel`        | Slides that scroll one stop at a time.                                         |
-| Chart           | `chart`           | `UsageChart` for usage over days; `ChartContainer` wraps any Recharts chart.   |
-| Code Block      | `code-block`      | Syntax-colored code with line numbers and copy.                                |
-| File Explorer   | `file-explorer`   | Read-only repo: folder tree, tabs, syntax colors, name and text search.        |
-| File Viewer     | `file-viewer`     | Open images, PDF, text, code, Google files in a viewer.                        |
-| Glass Banner    | `glass-banner`    | Frosted hero banner with draggable chips.                                      |
-| Gradient Banner | `gradient-banner` | Decorative gradient art with readable panels on top.                           |
-| Presence Cursor | `presence-cursor` | Other people's pointers on a shared surface, with a name tag or avatar.        |
-| Result Card     | `result-card`     | Something an agent made, with apps used, status, one action.                   |
-| Schema Diagram  | `schema-diagram`  | Tables, fields, and links with proposed changes marked.                        |
-| Table           | `table`           | Any rows of records: sort, filter, group, edit, select, card layout on phones. |
+| Component       | Slug              | Use when                                                                         |
+| --------------- | ----------------- | -------------------------------------------------------------------------------- |
+| Attachment      | `attachment`      | File rows, cards, chips, upload states, drop zone.                               |
+| Avatar          | `avatar`          | People, agents, workspaces, with initials fallback and groups.                   |
+| Badge           | `badge`           | Status, count, or metadata label. Nine tones.                                    |
+| Brand Icon      | `brand-icon`      | Logos of connected apps and models; tiles and stacks.                            |
+| Carousel        | `carousel`        | Slides that scroll one stop at a time.                                           |
+| Chart           | `chart`           | `UsageChart` for usage over days; `ChartContainer` wraps any Recharts chart.     |
+| Code Block      | `code-block`      | Syntax-colored code with line numbers and copy.                                  |
+| File Explorer   | `file-explorer`   | Read-only repo: folder tree, tabs, syntax colors, name and text search.          |
+| File Viewer     | `file-viewer`     | Open images, PDF, text, code, Google files in a viewer.                          |
+| Glass Banner    | `glass-banner`    | Frosted hero banner with draggable chips.                                        |
+| Gradient Banner | `gradient-banner` | Decorative gradient art with readable panels on top.                             |
+| Presence Cursor | `presence-cursor` | Other people's pointers on a shared surface, with a name tag or avatar.          |
+| Result Card     | `result-card`     | Something an agent made, with apps used, status, one action.                     |
+| Schema Diagram  | `schema-diagram`  | Tables, fields, and links with proposed changes marked.                          |
+| SQL Viewer      | `sql-viewer`      | Explore TulipFarm tables, columns, keys, and joins. Shows 4, collapses the rest. |
+| Table           | `table`           | Any rows of records: sort, filter, group, edit, select, card layout on phones.   |
 
 ### AI and chat
 
