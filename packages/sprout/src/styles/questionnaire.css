@@ -82,7 +82,7 @@
     cursor: pointer;
     user-select: none;
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
@@ -93,8 +93,7 @@
   .sprout-questionnaire-choice:has(
     > .sprout-questionnaire-choice-input:focus-visible
   ) {
-    border-color: var(--sprout-focus);
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-questionnaire-choice[data-checked] {
     border-color: var(--sprout-focus);
@@ -184,22 +183,8 @@
   }
 
   .sprout-questionnaire-choice-shortcut {
-    display: inline-flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 20px;
-    height: 20px;
     margin-inline-start: auto;
-    border: 1px solid var(--sprout-line);
-    border-radius: calc(var(--sprout-radius-control) - 2px);
-    background: var(--sprout-surface);
-    font-size: var(--sprout-text-xs);
-    font-weight: 500;
-    line-height: 1;
     font-variant-numeric: tabular-nums;
-    color: var(--sprout-muted);
     pointer-events: none;
   }
   .sprout-questionnaire-choice[data-checked]

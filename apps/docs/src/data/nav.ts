@@ -358,6 +358,10 @@ export const componentGroups: NavGroup[] = [
         "Chat messages with bubbles, reactions, avatars, names, and reply status.",
       ),
       component(
+        "Chat Input",
+        "A rich chat message box with @ agents, / skills, # files, and model picks.",
+      ),
+      component(
         "Mention List",
         "The @ and / suggestion panel a message box drives.",
       ),

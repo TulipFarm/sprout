@@ -139,8 +139,8 @@
   color: var(--sprout-text);
 }
 .collapsible-demo-pre:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .collapsible-demo-actions {
   display: flex;
@@ -342,8 +342,8 @@
   border-radius: var(--sprout-radius-control);
 }
 .collapsible-demo-activity-viewport:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .collapsible-demo-activity-viewport ol,
 .collapsible-demo-steps {
@@ -390,7 +390,7 @@
   background: var(--sprout-hover);
 }
 .collapsible-demo-tool-call-trigger:focus-visible {
-  outline-offset: -2px;
+  outline-offset: -1px;
 }
 .collapsible-demo-tool-call-name {
   flex: 1;
@@ -470,8 +470,8 @@
   background: color-mix(in oklab, var(--sprout-hover) 55%, transparent);
 }
 .collapsible-demo-review-header:has(button:focus-visible) {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
 }
 .collapsible-demo-review-icon {
   display: grid;

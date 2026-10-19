@@ -155,23 +155,6 @@
   gap: 6px;
   max-width: 24rem;
 }
-.accordion-demo-input {
-  width: 100%;
-  max-width: 24rem;
-  height: 36px;
-  padding: 0 10px;
-  border: 1px solid var(--sprout-input);
-  border-radius: var(--sprout-radius-control);
-  background: var(--sprout-surface);
-  color: var(--sprout-text);
-  font: inherit;
-  font-size: var(--sprout-text-sm);
-  color-scheme: light dark;
-}
-.accordion-demo-input:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 1px;
-}
 .accordion-demo-access {
   display: grid;
   gap: 12px;

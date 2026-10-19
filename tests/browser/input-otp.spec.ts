@@ -203,9 +203,9 @@ test("keyboard: typing, arrows, Home/End, Backspace, Delete, Tab, paste", async 
   await expect(progress.nth(2)).toBeFocused();
   await expect(progress.nth(2)).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-border)"),
   );
-  await expect(progress.nth(2)).toHaveCSS("outline-width", "2px");
+  await expect(progress.nth(2)).toHaveCSS("outline-width", "1px");
   await expect(progress.nth(2)).toHaveCSS("z-index", "1");
 
   await page.keyboard.type("3a4");

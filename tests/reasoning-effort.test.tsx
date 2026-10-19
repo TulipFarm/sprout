@@ -167,7 +167,7 @@ describe("ReasoningEffort", () => {
 
   it("styles with namespaced tokens, reduced motion, and forced colors", () => {
     expect(css).toContain("var(--sprout-primary)");
-    expect(css).toContain("var(--sprout-focus)");
+    expect(css).toContain("var(--sprout-focus-ring)");
     expect(css).toContain("--sprout-reasoning-effort-thumb");
     expect(css).toContain("@media (prefers-reduced-motion: no-preference)");
     expect(css).toContain("var(--sprout-motion-normal, 180ms)");

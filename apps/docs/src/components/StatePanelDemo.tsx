@@ -11,6 +11,7 @@ import { Inbox } from "reicon-react/icons/Inbox";
 import { Loader } from "reicon-react/icons/Loader";
 import { Plug } from "reicon-react/icons/Plug";
 import { Button } from "@tulipfarm/sprout/button";
+import { Toggle } from "@tulipfarm/sprout/toggle";
 import {
   StatePanel,
   statePanelKindNames,
@@ -251,15 +252,16 @@ export function StatePanelPlayground() {
             onValueChange={setActions}
           />
         </label>
-        <button
-          type="button"
-          className="state-demo-toggle"
-          aria-pressed={sample && kind === "empty"}
+        <Toggle
+          variant="outline"
+          size="sm"
+
+          pressed={sample && kind === "empty"}
           disabled={kind !== "empty"}
           onClick={() => setSample((value) => !value)}
         >
           Sample preview
-        </button>
+        </Toggle>
       </div>
       <div
         className="state-demo-stage"
@@ -324,15 +326,16 @@ export function StatePanelSamples() {
             className="state-demo-segments"
           >
             {widths.map((item) => (
-              <button
+              <Toggle
+                variant="outline"
+                size="sm"
                 key={item.value}
-                type="button"
-                className="state-demo-toggle"
-                aria-pressed={width === item.value}
+
+                pressed={width === item.value}
                 onClick={() => setWidth(item.value)}
               >
                 {item.label}
-              </button>
+              </Toggle>
             ))}
           </div>
         </div>
@@ -389,15 +392,16 @@ export function StatePanelSamples() {
             aria-label="Workflow shelf"
           >
             {(["current", "archived"] as const).map((value) => (
-              <button
+              <Toggle
+                variant="outline"
+                size="sm"
                 key={value}
-                type="button"
-                className="state-demo-toggle"
-                aria-pressed={shelf === value}
+
+                pressed={shelf === value}
                 onClick={() => setShelf(value)}
               >
                 {value === "current" ? "Current" : "Archived"}
-              </button>
+              </Toggle>
             ))}
           </div>
           <StatePanel
@@ -733,14 +737,15 @@ export function StatePanelCompositions() {
           {synced && <Button variant="outline">Retry channel list</Button>}
         </StatePanel>
         <div className="state-demo-foot-inline">
-          <button
-            type="button"
-            className="state-demo-toggle"
-            aria-pressed={synced}
+          <Toggle
+            variant="outline"
+            size="sm"
+
+            pressed={synced}
             onClick={() => setSynced((value) => !value)}
           >
             Sync finished
-          </button>
+          </Toggle>
         </div>
       </Frame>
     </div>

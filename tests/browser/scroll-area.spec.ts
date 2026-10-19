@@ -151,7 +151,7 @@ test("keyboard focuses overflowing viewports and scrolls them", async ({
   await viewport.focus();
   await expect(viewport).toBeFocused();
   await expect(viewport).toHaveCSS("outline-style", "solid");
-  await expect(viewport).toHaveCSS("outline-width", "2px");
+  await expect(viewport).toHaveCSS("outline-width", "1px");
   await page.keyboard.press("End");
   await expect
     .poll(() => viewport.evaluate((node) => node.scrollTop))

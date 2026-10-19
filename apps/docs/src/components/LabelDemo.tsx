@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@tulipfarm/sprout/select";
+import { Textarea } from "@tulipfarm/sprout/textarea";
 import "../styles/label-demo.css";
 
 function Example({
@@ -162,9 +163,9 @@ function AboveControls() {
           </Stack>
           <Stack>
             <Label htmlFor={`${id}-instructions`}>Instructions</Label>
-            <textarea
+            <Textarea
               id={`${id}-instructions`}
-              className="label-demo-textarea"
+
               rows={3}
               defaultValue="Summarize open incidents every Monday and link the runbook."
             />
@@ -485,8 +486,7 @@ function WrappedText() {
         <div className="label-demo-list">
           <Label>
             {advanced ? "Response JSON" : "Decision or comment"}
-            <textarea
-              className="label-demo-textarea"
+            <Textarea
               rows={3}
               value={text}
               placeholder={
@@ -511,8 +511,7 @@ function WrappedText() {
         <div className="label-demo-list" data-testid="closed-response">
           <Label>
             Decision or comment
-            <textarea
-              className="label-demo-textarea"
+            <Textarea
               rows={3}
               disabled
               defaultValue="This run finished. Responses are closed."

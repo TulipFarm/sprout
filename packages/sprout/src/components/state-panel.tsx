@@ -1,9 +1,9 @@
 import type { ComponentType, HTMLAttributes, ReactNode } from "react";
 import { Check } from "reicon-react/icons/Check";
 import { Inbox } from "reicon-react/icons/Inbox";
-import { Loader } from "reicon-react/icons/Loader";
 import { Warning } from "reicon-react/icons/Warning";
 import { cn } from "../internal/classes.js";
+import { Spinner } from "./spinner.js";
 
 export const statePanelKindNames = [
   "empty",
@@ -67,7 +67,7 @@ function Media({ kind, Icon }: { kind: StatePanelKind; Icon: StatePanelIcon }) {
       aria-hidden="true"
     >
       {kind === "loading" ? (
-        <Loader size={16} className="sprout-state-panel-spinner" />
+        <Spinner aria-hidden="true" />
       ) : kind === "success" ? (
         <Check size={20} />
       ) : kind === "error" ? (

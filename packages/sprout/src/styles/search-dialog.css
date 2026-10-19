@@ -16,28 +16,6 @@
     background: transparent;
   }
 
-  .sprout-search-kbd {
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    min-width: 20px;
-    height: 20px;
-    padding-inline: 4px;
-    border: 1px solid var(--sprout-line);
-    border-radius: calc(var(--sprout-radius-control) - 2px);
-    background: var(--sprout-surface);
-    color: var(--sprout-muted);
-    font-family: inherit;
-    font-size: var(--sprout-text-xs);
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
-    user-select: none;
-    pointer-events: none;
-  }
-
   /* Input row */
   .sprout-search-input {
     display: flex;
@@ -79,44 +57,6 @@
   .sprout-search-filters::-webkit-scrollbar {
     display: none;
   }
-  .sprout-search-filter {
-    box-sizing: border-box;
-    display: inline-flex;
-    flex-shrink: 0;
-    align-items: center;
-    gap: 6px;
-    height: 28px;
-    margin: 0;
-    padding-inline: 10px;
-    border: 1px solid var(--sprout-line);
-    border-radius: calc(var(--sprout-radius-panel) - 4px);
-    background: var(--sprout-surface);
-    box-shadow: var(--sprout-shadow-control);
-    color: var(--sprout-muted);
-    font: inherit;
-    font-size: var(--sprout-text-xs);
-    font-weight: 500;
-    line-height: 1rem;
-    white-space: nowrap;
-    cursor: pointer;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .sprout-search-filter > svg {
-    flex-shrink: 0;
-    width: 14px;
-    height: 14px;
-  }
-  .sprout-search-filter:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 1px;
-  }
-  .sprout-search-filter[data-pressed] {
-    border-color: var(--sprout-input);
-    background: var(--sprout-active);
-    color: var(--sprout-text);
-  }
-
   /* Results */
   .sprout-search-dialog .sprout-search-list {
     height: min(28rem, 60dvh);
@@ -335,29 +275,6 @@
     }
     .sprout-search-footer {
       display: flex;
-    }
-  }
-
-  @media (hover: hover) {
-    .sprout-search-filter:hover {
-      background: var(--sprout-hover);
-      color: var(--sprout-text);
-    }
-  }
-
-  @media (forced-colors: active) {
-    .sprout-search-filter[data-pressed] {
-      outline: 2px solid Highlight;
-      outline-offset: -2px;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .sprout-search-filter {
-      transition:
-        background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
-        border-color var(--sprout-motion-fast) var(--sprout-motion-ease),
-        color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
   }
 }

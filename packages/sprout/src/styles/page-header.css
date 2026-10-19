@@ -47,8 +47,8 @@
   }
   .sprout-page-header-title:focus-visible {
     border-radius: 2px;
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
 
   .sprout-page-header-description {
@@ -108,8 +108,8 @@
     color: var(--sprout-text);
   }
   .sprout-page-header-breadcrumb-link:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-page-header-breadcrumb[data-placement="chrome"]
     .sprout-page-header-breadcrumb-item:first-child {

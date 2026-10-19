@@ -106,7 +106,7 @@ describe("Switch", () => {
     expect(css).toContain("var(--sprout-primary)");
     expect(css).toContain("var(--sprout-on-primary)");
     expect(css).toContain("var(--sprout-danger)");
-    expect(css).toContain("var(--sprout-focus)");
+    expect(css).toContain("var(--sprout-focus-ring)");
     expect(css).toContain(":dir(rtl)");
     expect(css).toContain('[aria-busy="true"]');
     expect(css).toContain("prefers-reduced-motion: no-preference");

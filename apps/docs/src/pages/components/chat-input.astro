@@ -1,0 +1,90 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import {
+  ChatInputAttachments,
+  ChatInputComposer,
+  ChatInputStreaming,
+} from "../../components/ChatInputDemo";
+---
+
+<Docs
+  title="Chat Input"
+  description="A rich chat message box with @ agents, / skills, # files, and model and project pickers."
+>
+  <h1 class="docs-title">Chat Input</h1>
+  <p class="docs-lead">
+    The message box of a chat. Type <code>@</code> to tag an agent, <code
+      >/</code
+    >
+    to add a skill, or <code>#</code> to add a file. Markdown and shortcuts format
+    text. The bar holds attach and mode menus, a project picker, a model picker, and
+    send.
+  </p>
+  <section class="prose-section" id="chat-input-composer">
+    <h2 class="section-title">Chat input</h2>
+    <ChatInputComposer client:load />
+  </section>
+  <section class="prose-section" id="chat-input-attachments">
+    <h2 class="section-title">With attachments</h2>
+    <ChatInputAttachments client:load />
+  </section>
+  <section class="prose-section" id="chat-input-streaming">
+    <h2 class="section-title">Working</h2>
+    <ChatInputStreaming client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Chat input usage"
+      code={`import { ChatInput } from "@tulipfarm/sprout/chat-input";
+
+<ChatInput
+  value={value}
+  onValueChange={setValue}
+  onSend={send}
+  onStop={stop}
+  status={streaming ? "streaming" : "idle"}
+  agents={(query) => searchAgents(query)}
+  skills={(query) => searchSkills(query)}
+  files={(query) => searchFiles(query)}
+  attachments={attachments}
+  onRemoveAttachment={remove}
+  attachActions={[{ id: "computer", label: "Upload from computer", onSelect: pickFiles }]}
+  modes={[
+    { id: "plan", label: "Plan", color: "#3b9ef5" },
+    { id: "research", label: "Deep research", color: "#6366f1" },
+  ]}
+  mode={mode}
+  onModeChange={setMode}
+  projects={projects}
+  project={project}
+  onProjectChange={setProject}
+  models={[{ id: "opus", label: "Claude Opus 5.5", brand: "claude" }]}
+  model={model}
+  onModelChange={setModel}
+  prompts={[{ id: "clarify", label: "Clarify user problem" }]}
+/>`}
+    />
+    <p>
+      <code>value</code> is a Tiptap JSON document. Tags are
+      <code>chatReference</code> nodes with <code>kind</code>, <code>id</code>,
+      and
+      <code>label</code>. A trigger is on only when its source is set. A source
+      may return a promise. Leave out a menu or picker and its button goes away.
+      Give a mode a <code>color</code> (any CSS color) to tint the box border, the
+      mode chip, and its menu icon while that mode is on.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Keyboard</h2>
+    <p>
+      <kbd>Enter</kbd> sends and <kbd>Shift</kbd>+<kbd>Enter</kbd> adds a line. In
+      the panel, <kbd>↓</kbd> and <kbd>↑</kbd> move, <kbd>Enter</kbd> or
+      <kbd>Tab</kbd> adds, and <kbd>Escape</kbd> closes. <kbd>⌘B</kbd> is bold,
+      <kbd>⌘I</kbd> is italic, and <kbd>⌘K</kbd> turns a selected URL or email into
+      a link, or removes a link.
+    </p>
+  </section>
+</Docs>

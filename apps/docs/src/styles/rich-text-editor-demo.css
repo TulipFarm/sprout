@@ -173,8 +173,8 @@
   white-space: nowrap;
 }
 .rte-demo-reference.ProseMirror-selectednode {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 1px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .rte-demo-menu-copy {
   display: grid;

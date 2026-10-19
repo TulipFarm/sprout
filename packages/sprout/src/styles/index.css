@@ -15,6 +15,7 @@
 @import "./carousel.css";
 @import "./chart.css";
 @import "./chat-confirmation.css";
+@import "./chat-input.css";
 @import "./chat-plan.css";
 @import "./chat-sources.css";
 @import "./checkbox.css";
@@ -170,6 +171,8 @@
     --sprout-primary-active: #0d0d0d;
     --sprout-on-primary: #fafafa;
     --sprout-focus: #525252;
+    --sprout-focus-ring: #3b82f6;
+    --sprout-focus-width: 1px;
     --sprout-danger: #b32d34;
     --sprout-danger-hover: #98252b;
     --sprout-on-danger: #fff8f8;
@@ -205,6 +208,7 @@
     --sprout-primary-active: #c4c4c4;
     --sprout-on-primary: #202020;
     --sprout-focus: #b5b5b5;
+    --sprout-focus-ring: #60a5fa;
     --sprout-danger: #ff9197;
     --sprout-danger-hover: #ffadb1;
     --sprout-on-danger: #3c1014;
@@ -241,6 +245,7 @@
       --sprout-primary-active: #c4c4c4;
       --sprout-on-primary: #202020;
       --sprout-focus: #b5b5b5;
+      --sprout-focus-ring: #60a5fa;
       --sprout-danger: #ff9197;
       --sprout-danger-hover: #ffadb1;
       --sprout-on-danger: #3c1014;

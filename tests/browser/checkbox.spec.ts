@@ -232,10 +232,10 @@ test("keyboard focus and Space toggle with a visible ring", async ({
   await page.keyboard.press("Tab");
   await expect(business).toBeFocused();
   await expect(business).toHaveCSS("outline-style", "solid");
-  await expect(business).toHaveCSS("outline-width", "2px");
+  await expect(business).toHaveCSS("outline-width", "1px");
   await expect(business).toHaveCSS(
     "outline-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-focus-ring)"),
   );
   await page.keyboard.press("Space");
   await expect(business).toHaveAttribute("aria-checked", "true");

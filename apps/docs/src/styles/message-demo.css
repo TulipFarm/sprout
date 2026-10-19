@@ -169,8 +169,8 @@
   outline: none;
 }
 .message-demo-scroller:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 
 .message-demo-variants {
@@ -248,8 +248,8 @@
   background: var(--sprout-surface);
 }
 .message-demo-timeline:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
 }
 .message-demo-turns {
   display: grid;
@@ -323,8 +323,8 @@
   text-overflow: ellipsis;
 }
 .message-demo-file:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .message-demo-markdown {
   display: grid;

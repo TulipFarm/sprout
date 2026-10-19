@@ -23,8 +23,8 @@
     overscroll-behavior: contain;
   }
   .sprout-scroll-area-viewport:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
   .sprout-scroll-area[data-variant="table"] > .sprout-scroll-area-viewport {
     max-height: 60dvh;

@@ -138,10 +138,10 @@ test("variants render at Cloud dimensions", async ({ page }, testInfo) => {
   await expect(draft).toBeFocused();
   await page.keyboard.type("Can you share the travel policy?");
   await expect(draft).toHaveCSS("outline-style", "none");
-  await expect(composer).toHaveCSS("outline-width", "2px");
+  await expect(composer).toHaveCSS("outline-width", "1px");
   await expect(composer).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-border)"),
   );
   await send.click();
   await expect(draft).toHaveValue("");
@@ -288,12 +288,9 @@ test("keyboard: Tab focus ring, Enter adds lines, mod+Enter submits", async ({
   await page.keyboard.press("Shift+Tab");
   await page.keyboard.press("Tab");
   await expect(query).toBeFocused();
-  await expect(query).toHaveCSS("outline-width", "2px");
-  await expect(query).toHaveCSS("outline-offset", "2px");
-  await expect(query).toHaveCSS(
-    "outline-color",
-    await cssColor(page, "var(--sprout-focus)"),
-  );
+  await expect(query).toHaveCSS("outline-width", "1px");
+  await expect(query).toHaveCSS("outline-offset", "0px");
+  await expect(query).toHaveCSS("outline-color", "rgba(0, 0, 0, 0)");
   await query.evaluate((node: HTMLTextAreaElement) =>
     node.setSelectionRange(node.value.length, node.value.length),
   );

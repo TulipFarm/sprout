@@ -178,14 +178,11 @@ test("keyboard focus rings the group and the clear button refocuses", async ({
   const group = groupOf(input);
   await expect(group).toHaveCSS("outline-width", "0px");
   await input.focus();
-  await expect(group).toHaveCSS("outline-width", "2px");
-  await expect(group).toHaveCSS(
-    "outline-color",
-    await cssColor(page, "var(--sprout-focus)"),
-  );
+  await expect(group).toHaveCSS("outline-width", "1px");
+  await expect(group).toHaveCSS("outline-color", "rgba(0, 0, 0, 0)");
   await expect(group).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-border)"),
   );
   await expect(
     page.getByTestId("search-chats").getByRole("button"),
@@ -271,7 +268,7 @@ test("combobox renders its input and buttons through the group", async ({
     .getByRole("button", { name: "Show fruits" });
   expect((await trigger.boundingBox())!.width).toBe(24);
   await input.focus();
-  await expect(groupOf(input)).toHaveCSS("outline-width", "2px");
+  await expect(groupOf(input)).toHaveCSS("outline-width", "1px");
   await page.keyboard.type("man");
   await expect(page.getByRole("option", { name: "Mango" })).toBeVisible();
   await page.keyboard.press("ArrowDown");
@@ -330,7 +327,7 @@ test("composer sends, stops, validates, and opens toolbar menus", async ({
   await expect(group).toHaveAttribute("data-variant", "composer");
   await expect(group).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-border)"),
+    await cssColor(page, "var(--sprout-input)"),
   );
   await expect(composer.getByText("Q3-forecast.xlsx")).toBeVisible();
 
@@ -344,7 +341,7 @@ test("composer sends, stops, validates, and opens toolbar menus", async ({
   await message.focus();
   await expect(group).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-border)"),
   );
   await page.keyboard.type("Summarize the Q3 forecast for the board.");
   await expect(send).toBeEnabled();
@@ -355,10 +352,7 @@ test("composer sends, stops, validates, and opens toolbar menus", async ({
   await page.getByRole("menuitem", { name: /Add to knowledge/ }).click();
   await expect(composer.getByText("brand-guide.pdf")).toBeVisible();
   await composer.getByRole("button", { name: "Mode or agent: Mode" }).click();
-  await page
-    .getByRole("button", { name: /^Writer/ })
-    .last()
-    .click();
+  await page.getByRole("menuitemradio", { name: /^Writer/ }).click();
   await expect(
     composer.getByRole("button", { name: "Mode or agent: Writer" }),
   ).toBeVisible();
@@ -403,7 +397,7 @@ test("question composer and custom controls drive the group", async ({
   await editor.focus();
   await expect(group).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-border)"),
   );
   await page.keyboard.type("The EMEA region, please.");
   await sample.getByRole("button", { name: "Send message" }).click();

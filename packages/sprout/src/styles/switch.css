@@ -17,7 +17,7 @@
     vertical-align: middle;
     cursor: pointer;
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
     -webkit-tap-highlight-color: transparent;
   }
   .sprout-switch-size-sm {
@@ -40,7 +40,7 @@
     }
   }
   .sprout-switch:focus-visible {
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-switch[data-checked] {
     background-color: var(--sprout-primary);

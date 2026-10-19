@@ -75,7 +75,7 @@ describe("StatePanel", () => {
     expect(glyph("empty")).toContain('data-glyph="20"');
     expect(glyph("unavailable")).toContain('data-glyph="20"');
     expect(glyph("loading")).not.toContain("data-glyph");
-    expect(glyph("loading")).toContain("sprout-state-panel-spinner");
+    expect(glyph("loading")).toContain('data-slot="spinner"');
     expect(glyph("success")).not.toContain("data-glyph");
     expect(
       renderToString(<StatePanel kind="empty" title="T" description="D" />),

@@ -82,22 +82,6 @@
   border-radius: var(--sprout-radius-control);
   background: var(--sprout-surface);
 }
-.input-group-demo-submit {
-  height: 32px;
-  padding: 0 12px;
-  border: 0;
-  border-radius: var(--sprout-radius-control);
-  background: var(--sprout-primary);
-  color: var(--sprout-on-primary);
-  font: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-}
-.input-group-demo-submit:disabled {
-  cursor: progress;
-  opacity: 0.6;
-}
 
 /* Combobox sample: Cloud's combobox hides its trigger once the clear button shows. */
 .input-group-demo-combobox:has([data-slot="combobox-clear"])
@@ -187,7 +171,7 @@
   background: color-mix(in srgb, var(--sprout-input) 30%, transparent);
 }
 .sprout-input-group.input-group-demo-command:focus-within {
-  border-color: var(--sprout-focus);
+  border-color: var(--sprout-border);
 }
 .input-group-demo-command > [data-slot="input-group-addon"] {
   padding-left: 8px;
@@ -234,7 +218,7 @@
   background: var(--sprout-hover);
 }
 .input-group-demo-command-list button:focus-visible {
-  outline-offset: -2px;
+  outline-offset: -1px;
 }
 
 /* Composer samples */
@@ -299,4 +283,10 @@
   .input-group-demo-wide-only {
     display: none;
   }
+}
+.input-group-demo-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }

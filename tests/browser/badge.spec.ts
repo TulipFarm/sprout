@@ -215,7 +215,7 @@ test("keyboard reaches rendered links and buttons with a visible focus ring", as
   await page.keyboard.press("Tab");
   await expect(link).toBeFocused();
   await expect(link).toHaveCSS("outline-style", "solid");
-  await expect(link).toHaveCSS("outline-width", "2px");
+  await expect(link).toHaveCSS("outline-width", "1px");
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#badge-api$/);
   await link.focus();

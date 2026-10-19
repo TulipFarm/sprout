@@ -5,8 +5,8 @@
     overflow-x: auto;
   }
   .sprout-table-container:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
 
   .sprout-table {
@@ -217,8 +217,8 @@
   }
   .sprout-table-chip-label:focus-visible,
   .sprout-table-chip-remove:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
   .sprout-table-filter {
     display: flex;
@@ -292,8 +292,8 @@
   .sprout-table-handle:focus-visible,
   .sprout-table-toggle:focus-visible,
   .sprout-table-resizer:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 1px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-table-resizer {
     position: absolute;
@@ -421,7 +421,7 @@
   .sprout-table-row:has(.sprout-table-link:focus-visible) {
     --sprout-table-row-bg: var(--sprout-table-hover);
     background-color: var(--sprout-table-hover);
-    box-shadow: inset 0 0 0 2px var(--sprout-focus);
+    box-shadow: inset 0 0 0 var(--sprout-focus-width) var(--sprout-focus-ring);
   }
   .sprout-table-row[data-linked]
     :is(
@@ -444,7 +444,7 @@
   .sprout-table-row[data-drop-target] {
     --sprout-table-row-bg: var(--sprout-primary-subtle);
     background: var(--sprout-primary-subtle);
-    box-shadow: inset 0 0 0 2px var(--sprout-focus);
+    box-shadow: inset 0 0 0 var(--sprout-focus-width) var(--sprout-focus-ring);
   }
 
   .sprout-table-actions {
@@ -472,8 +472,8 @@
     font: inherit;
   }
   .sprout-table-select:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 1px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-table-error {
     color: var(--sprout-danger);

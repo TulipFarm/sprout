@@ -80,8 +80,8 @@
   color: var(--sprout-muted);
 }
 .dialog-demo-subheading:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 
 /* Playground */
@@ -152,9 +152,8 @@
     box-shadow var(--sprout-motion-fast) ease-out;
 }
 .dialog-demo-input:focus-visible {
-  border-color: var(--sprout-focus);
-  box-shadow: 0 0 0 3px
-    color-mix(in oklab, var(--sprout-focus) 30%, transparent);
+  border-color: var(--sprout-border);
+  outline: var(--sprout-focus-width) solid transparent;
 }
 .dialog-demo-input:disabled {
   opacity: 0.6;
@@ -187,8 +186,8 @@
 }
 .dialog-demo-check input:focus-visible,
 .dialog-demo-radio input:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .dialog-demo-actions {
   display: flex;

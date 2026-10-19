@@ -3,7 +3,7 @@ import path from "node:path";
 import ts from "typescript";
 
 const ai = new Set(
-  "attachment bubble canvas chat-confirmation chat-plan chat-sources mention-list message message-actions message-response message-scroller plan-outline prompt-list questionnaire reasoning-effort result-card review-card tool-activity typed-text".split(
+  "attachment bubble canvas chat-confirmation chat-input chat-plan chat-sources mention-list message message-actions message-response message-scroller plan-outline prompt-list questionnaire reasoning-effort result-card review-card tool-activity typed-text".split(
     " ",
   ),
 );

@@ -21,6 +21,7 @@ import {
   type BadgeSize,
   type BadgeVariant,
 } from "@tulipfarm/sprout/badge";
+import { Button } from "@tulipfarm/sprout/button";
 import "../styles/badge-demo.css";
 import DocsSelect from "./DocsSelect";
 
@@ -424,22 +425,22 @@ export default function BadgeDemo() {
           </li>
         </ul>
         <div className="badge-demo-wrap">
-          <button
-            type="button"
-            className="badge-demo-button"
+          <Button
+            variant="outline"
+
             onClick={() => setFilters((value) => (value + 1) % 4)}
           >
             Filters
             {filters > 0 && <Badge variant="secondary">{filters}</Badge>}
-          </button>
-          <button type="button" className="badge-demo-button">
+          </Button>
+          <Button variant="outline">
             Columns
             <Badge variant="secondary">3/8</Badge>
-          </button>
-          <button type="button" className="badge-demo-button">
+          </Button>
+          <Button variant="outline">
             Pending work
             <Badge variant="warning">4 waiting</Badge>
-          </button>
+          </Button>
         </div>
       </Example>
 
@@ -496,9 +497,10 @@ export default function BadgeDemo() {
                 <BookOpen aria-hidden="true" />
                 {skill.name}
               </Badge>
-              <button
-                type="button"
-                className="badge-demo-icon-button"
+              <Button
+                variant="ghost"
+                size="icon-xs"
+
                 aria-label={`Remove skill ${skill.name}`}
                 onClick={() =>
                   setSkills((list) =>
@@ -507,7 +509,7 @@ export default function BadgeDemo() {
                 }
               >
                 <X size={14} aria-hidden="true" />
-              </button>
+              </Button>
             </li>
           ))}
           <li>
@@ -599,13 +601,13 @@ export default function BadgeDemo() {
             <div role="status" aria-label="Proposal status">
               <Badge variant={step.variant}>{step.label}</Badge>
             </div>
-            <button
-              type="button"
-              className="badge-demo-button"
+            <Button
+              variant="outline"
+
               onClick={() => setRun((value) => (value + 1) % runSteps.length)}
             >
               Next status
-            </button>
+            </Button>
           </div>
         </div>
       </Example>

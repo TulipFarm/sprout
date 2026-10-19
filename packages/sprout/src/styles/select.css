@@ -34,8 +34,8 @@
     background: var(--sprout-hover);
   }
   .sprout-select-trigger:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-select-trigger[data-placeholder] {
     color: var(--sprout-muted);
@@ -253,7 +253,7 @@
   @media (forced-colors: active) {
     .sprout-select-item[data-highlighted] {
       outline: 2px solid Highlight;
-      outline-offset: -2px;
+      outline-offset: -1px;
     }
   }
 

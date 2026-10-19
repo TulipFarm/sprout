@@ -221,8 +221,8 @@
   cursor: pointer;
 }
 .sheet-demo-panel-trigger:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .sheet-demo-panel-body {
   padding-bottom: 12px;
@@ -385,8 +385,8 @@
   font-weight: 550;
 }
 .sheet-demo-nav a:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
 }
 @media (hover: hover) {
   .sheet-demo-nav a:hover {

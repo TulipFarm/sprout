@@ -108,6 +108,10 @@
       "types": "./dist/components/chat-sources.d.ts",
       "import": "./dist/components/chat-sources.js"
     },
+    "./chat-input": {
+      "types": "./dist/components/chat-input.d.ts",
+      "import": "./dist/components/chat-input.js"
+    },
     "./checkbox": {
       "types": "./dist/components/checkbox.d.ts",
       "import": "./dist/components/checkbox.js"
@@ -422,6 +426,7 @@
     "@tiptap/pm": "3.31.4",
     "@tiptap/react": "3.31.4",
     "@tiptap/starter-kit": "3.31.4",
+    "@tiptap/suggestion": "3.31.4",
     "@xyflow/react": "12.12.0",
     "clsx": "^2.1.1",
     "react-day-picker": "10.0.1",

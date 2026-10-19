@@ -88,8 +88,8 @@
   }
   :is(.sprout-alert-title, .sprout-alert-description)
     a:not([data-slot]):focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
 
   .sprout-alert-action {

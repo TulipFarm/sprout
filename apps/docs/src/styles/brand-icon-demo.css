@@ -407,8 +407,8 @@
   transform: scale(0.97);
 }
 .brand-demo-popover:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .brand-demo-popover-title {
   margin: 0 0 10px;
@@ -485,8 +485,8 @@
   background: var(--sprout-hover);
 }
 .brand-demo-prompts > li:has(button:focus-visible) {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 1px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .brand-demo-prompts > li > svg {
   flex-shrink: 0;

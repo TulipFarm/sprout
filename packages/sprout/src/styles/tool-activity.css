@@ -87,8 +87,8 @@
     display: none;
   }
   .sprout-activity-panel-viewport:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
 
   .sprout-tool-activity {
@@ -114,7 +114,7 @@
     color: var(--sprout-text);
   }
   .sprout-tool-activity-trigger:focus-visible {
-    outline-offset: 1px;
+    outline-offset: 0;
   }
   .sprout-tool-activity-trigger > svg {
     flex-shrink: 0;
@@ -262,8 +262,8 @@
     background: var(--sprout-active);
   }
   .sprout-tool-activity-source-chip:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-tool-activity-favicon {
     position: relative;

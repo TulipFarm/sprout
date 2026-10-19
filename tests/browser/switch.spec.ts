@@ -257,10 +257,10 @@ test("keyboard focus, Space, and Enter toggle with a visible ring", async ({
   await page.keyboard.press("Tab");
   await expect(summary).toBeFocused();
   await expect(summary).toHaveCSS("outline-style", "solid");
-  await expect(summary).toHaveCSS("outline-width", "2px");
+  await expect(summary).toHaveCSS("outline-width", "1px");
   await expect(summary).toHaveCSS(
     "outline-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-focus-ring)"),
   );
   await page.keyboard.press("Space");
   await expect(summary).toHaveAttribute("aria-checked", "false");

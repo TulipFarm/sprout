@@ -42,6 +42,8 @@ import {
 import { ToolbarStatus } from "@tulipfarm/sprout/toolbar-status";
 import DocsSelect from "./DocsSelect";
 import { Example, Row, Spinner, useLater } from "./dialog-demo-parts";
+import { Input } from "@tulipfarm/sprout/input";
+import { Textarea } from "@tulipfarm/sprout/textarea";
 import "../styles/popover-demo.css";
 
 /* ------------------------------------------------------------------ */
@@ -287,9 +289,9 @@ function ReferencePicker({
         <div className="popover-demo-stack popover-demo-p3">
           <div className="popover-demo-field">
             <label htmlFor={id}>Search {label}</label>
-            <input
+            <Input
               id={id}
-              className="popover-demo-input"
+
               value={term}
               maxLength={255}
               autoComplete="off"
@@ -1503,9 +1505,9 @@ function SearchPanel({ searchable = true }: { searchable?: boolean }) {
                 <div className="popover-demo-field">
                   <label htmlFor={`${id}-text`}>Search rows</label>
                   <div className="popover-demo-inline">
-                    <input
+                    <Input
                       id={`${id}-text`}
-                      className="popover-demo-input"
+
                       placeholder="Search text fields"
                       value={draft}
                       maxLength={200}
@@ -1527,9 +1529,9 @@ function SearchPanel({ searchable = true }: { searchable?: boolean }) {
             <div className="popover-demo-stack">
               <div className="popover-demo-field">
                 <label htmlFor={`${id}-ai`}>Describe the rows you want</label>
-                <textarea
+                <Textarea
                   id={`${id}-ai`}
-                  className="popover-demo-input popover-demo-textarea"
+
                   defaultValue="Open candidates in Lisbon with an interview this week"
                 />
               </div>
@@ -1555,9 +1557,10 @@ function SearchPanel({ searchable = true }: { searchable?: boolean }) {
             <div className="popover-demo-stack">
               <div className="popover-demo-field">
                 <label htmlFor={`${id}-rsql`}>RSQL filter</label>
-                <input
+                <Input
+                  className="popover-demo-mono"
                   id={`${id}-rsql`}
-                  className="popover-demo-input popover-demo-mono"
+
                   value={rsql}
                   onChange={(event) => setRsql(event.target.value)}
                   aria-describedby={`${id}-rsql-help`}
@@ -1684,12 +1687,12 @@ function FilterEditor({
               items={operatorItems}
               onValueChange={(operator) => setDraft({ ...draft, operator })}
             />
-            <input
+            <Input
               id={id}
               aria-label="Filter value"
               aria-invalid={problem ? true : undefined}
               aria-describedby={problem ? `${id}-problem` : undefined}
-              className="popover-demo-input"
+
               placeholder="Value"
               value={draft.value}
               onChange={(event) => {
@@ -2236,9 +2239,9 @@ function BudWindow({
             <label htmlFor={id} className="sr-only">
               Message Bud
             </label>
-            <input
+            <Input
               id={id}
-              className="popover-demo-input"
+
               placeholder="Message Bud…"
               autoComplete="off"
             />

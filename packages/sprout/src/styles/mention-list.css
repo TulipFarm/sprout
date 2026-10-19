@@ -142,7 +142,7 @@
   @media (forced-colors: active) {
     .sprout-mention-option[aria-selected="true"] {
       outline: 2px solid Highlight;
-      outline-offset: -2px;
+      outline-offset: -1px;
     }
   }
 

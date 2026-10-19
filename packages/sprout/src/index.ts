@@ -15,6 +15,7 @@ export * from "./components/card.js";
 export * from "./components/carousel.js";
 export * from "./components/chart.js";
 export * from "./components/chat-confirmation.js";
+export * from "./components/chat-input.js";
 export * from "./components/chat-plan.js";
 export * from "./components/chat-sources.js";
 export * from "./components/checkbox.js";

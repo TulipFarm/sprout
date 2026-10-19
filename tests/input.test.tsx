@@ -179,7 +179,7 @@ describe("Input", () => {
       "--sprout-surface",
       "--sprout-text",
       "--sprout-muted",
-      "--sprout-focus",
+      "--sprout-border",
       "--sprout-danger",
       "--sprout-radius-control",
     ]) {

@@ -70,8 +70,8 @@
   }
   .sprout-input-otp-slot:focus {
     z-index: 1;
-    border-color: var(--sprout-focus);
-    outline: 2px solid color-mix(in oklab, var(--sprout-focus) 50%, transparent);
+    border-color: var(--sprout-border);
+    outline: var(--sprout-focus-width) solid transparent;
     outline-offset: 0;
   }
   .sprout-input-otp-slot[aria-invalid="true"] {

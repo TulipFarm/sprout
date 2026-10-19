@@ -374,16 +374,16 @@ test("motion runs normally and stops with reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await openStatePanel(page);
   const loading = page.locator('[data-kind-sample="loading"]');
-  await expect(loading.locator(".sprout-state-panel-spinner")).toHaveCSS(
+  await expect(loading.locator('[data-slot="spinner"]')).toHaveCSS(
     "animation-name",
-    "sprout-state-panel-spin",
+    "sprout-spinner-spin",
   );
   await expect(loading.locator('[data-slot="state-panel"]')).toHaveCSS(
     "animation-duration",
     "0.18s",
   );
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(loading.locator(".sprout-state-panel-spinner")).toHaveCSS(
+  await expect(loading.locator('[data-slot="spinner"]')).toHaveCSS(
     "animation-name",
     "none",
   );

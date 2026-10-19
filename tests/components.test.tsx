@@ -682,6 +682,12 @@ const messageScrollerExports = [
   "useMessageScrollerVisibility",
 ];
 
+const chatInputExports = [
+  "ChatInput",
+  "chatInputReferenceKindNames",
+  "chatInputStatusNames",
+];
+
 const chatConfirmationExports = [
   "ChatConfirmation",
   "chatConfirmationStateNames",
@@ -854,6 +860,7 @@ describe("Sidebar public surface", () => {
           mentionListExports.includes(name) ||
           toolActivityExports.includes(name) ||
           chatConfirmationExports.includes(name) ||
+          chatInputExports.includes(name) ||
           chatPlanExports.includes(name) ||
           planOutlineExports.includes(name) ||
           promptListExports.includes(name) ||
@@ -949,6 +956,7 @@ describe("Sidebar public surface", () => {
         ...messageScrollerExports,
         ...toolActivityExports,
         ...chatConfirmationExports,
+        ...chatInputExports,
         ...promptListExports,
         ...questionnaireExports,
         ...schemaDiagramExports,
