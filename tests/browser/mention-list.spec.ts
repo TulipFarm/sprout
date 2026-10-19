@@ -21,7 +21,7 @@ async function settle(page: Page) {
       document
         .getAnimations()
         .filter((a) => a.effect?.getTiming().iterations !== Infinity)
-        .map((a) => a.finished),
+        .map((a) => a.finished.catch(() => undefined)),
     );
   });
 }

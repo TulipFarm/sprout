@@ -80,7 +80,7 @@ for (const mode of ["Light", "Dark"]) {
       await Promise.all(
         element
           .getAnimations({ subtree: true })
-          .map((animation) => animation.finished),
+          .map((animation) => animation.finished.catch(() => undefined)),
       );
     });
     await expect(
@@ -259,7 +259,7 @@ async function settleSelect(page: Page) {
       document
         .getAnimations()
         .filter((a) => a.effect?.getTiming().iterations !== Infinity)
-        .map((a) => a.finished),
+        .map((a) => a.finished.catch(() => undefined)),
     );
   });
 }

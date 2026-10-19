@@ -18,7 +18,9 @@ function example(page: Page, name: string) {
 async function settle(page: Page) {
   await page.evaluate(async () => {
     await new Promise(requestAnimationFrame);
-    await Promise.all(document.getAnimations().map((a) => a.finished));
+    await Promise.all(
+      document.getAnimations().map((a) => a.finished.catch(() => undefined)),
+    );
   });
 }
 

@@ -26,7 +26,9 @@ async function chooseOption(page: Page, label: string, option: string) {
   await page.evaluate(async () => {
     await new Promise(requestAnimationFrame);
     await Promise.all(
-      document.getAnimations().map((animation) => animation.finished),
+      document
+        .getAnimations()
+        .map((animation) => animation.finished.catch(() => undefined)),
     );
   });
 }
@@ -40,7 +42,9 @@ async function settle(page: Page) {
     );
     await new Promise(requestAnimationFrame);
     await Promise.all(
-      document.getAnimations().map((animation) => animation.finished),
+      document
+        .getAnimations()
+        .map((animation) => animation.finished.catch(() => undefined)),
     );
   });
 }

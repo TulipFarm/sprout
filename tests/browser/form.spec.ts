@@ -18,7 +18,9 @@ async function colorMode(page: Page, mode: "Light" | "Dark") {
   await setColorMode(page, mode);
   await page.evaluate(() =>
     Promise.allSettled(
-      document.getAnimations().map((animation) => animation.finished),
+      document
+        .getAnimations()
+        .map((animation) => animation.finished.catch(() => undefined)),
     ),
   );
 }

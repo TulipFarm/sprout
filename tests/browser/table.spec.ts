@@ -52,7 +52,9 @@ async function setMode(page: Page, mode: "light" | "dark") {
   await page.evaluate(async () => {
     await new Promise(requestAnimationFrame);
     await Promise.all(
-      document.getAnimations().map((animation) => animation.finished),
+      document
+        .getAnimations()
+        .map((animation) => animation.finished.catch(() => undefined)),
     );
   });
 }
