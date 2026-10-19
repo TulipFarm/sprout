@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **786.3 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **786.4 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -168,7 +168,7 @@ Full library: **786.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `radio-group`       |  80.8 kB |  27.9 kB |  24.7 kB |
 | `reasoning-effort`  |  35.5 kB |  12.0 kB |  10.5 kB |
 | `resizable`         |  39.4 kB |  13.4 kB |  11.8 kB |
-| `result-card`       | 240.1 kB |  85.1 kB |  72.1 kB |
+| `result-card`       | 240.3 kB |  85.1 kB |  72.1 kB |
 | `review-card`       |  61.6 kB |  21.0 kB |  18.4 kB |
 | `rich-text-editor`  | 442.5 kB | 140.2 kB | 119.8 kB |
 | `schema-diagram`    | 247.9 kB |  82.9 kB |  71.2 kB |
