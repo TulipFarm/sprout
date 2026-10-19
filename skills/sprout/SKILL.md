@@ -197,6 +197,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Carousel        | `carousel`        | Slides that scroll one stop at a time.                                         |
 | Chart           | `chart`           | `UsageChart` for usage over days; `ChartContainer` wraps any Recharts chart.   |
 | Code Block      | `code-block`      | Syntax-colored code with line numbers and copy.                                |
+| File Explorer   | `file-explorer`   | Read-only repo: folder tree, tabs, syntax colors, name and text search.        |
 | File Viewer     | `file-viewer`     | Open images, PDF, text, code, Google files in a viewer.                        |
 | Glass Banner    | `glass-banner`    | Frosted hero banner with draggable chips.                                      |
 | Gradient Banner | `gradient-banner` | Decorative gradient art with readable panels on top.                           |

@@ -279,6 +279,10 @@ export const componentGroups: NavGroup[] = [
         "Code with syntax colors, line numbers, and a copy button.",
       ),
       component(
+        "File Explorer",
+        "A read-only code explorer with a tree, tabs, and search.",
+      ),
+      component(
         "File Viewer",
         "Open local, linked, and Google files in a viewer.",
       ),
