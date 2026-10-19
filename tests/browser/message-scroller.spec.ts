@@ -414,6 +414,14 @@ test("loading earlier messages keeps the reader's place unless turned off", asyn
   await openPage(page);
   const frame = recipe(page, "history");
   const viewport = viewportOf(frame);
+  // Off-screen items use a 10rem placeholder size; measure real layout.
+  await viewport.scrollIntoViewIfNeeded();
+  await page.evaluate(
+    () =>
+      new Promise((done) =>
+        requestAnimationFrame(() => requestAnimationFrame(done)),
+      ),
+  );
   await expect.poll(() => fromEnd(viewport)).toBeLessThanOrEqual(1);
   const before = await offsetIn(viewport, "m9");
   await frame.getByRole("button", { name: "Load earlier messages" }).click();
