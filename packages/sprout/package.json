@@ -296,6 +296,10 @@
       "types": "./dist/components/schema-diagram.d.ts",
       "import": "./dist/components/schema-diagram.js"
     },
+    "./sql-viewer": {
+      "types": "./dist/components/sql-viewer.d.ts",
+      "import": "./dist/components/sql-viewer.js"
+    },
     "./scroll-area": {
       "types": "./dist/components/scroll-area.d.ts",
       "import": "./dist/components/scroll-area.js"

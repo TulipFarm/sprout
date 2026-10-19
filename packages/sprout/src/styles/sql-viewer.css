@@ -1,0 +1,406 @@
+@layer components {
+  .sprout-sql-viewer {
+    --sprout-sql-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+    position: relative;
+    display: flex;
+    flex: 1 1 0%;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 24rem;
+    overflow: hidden;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-canvas);
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+  }
+
+  .sprout-sql-flow.light,
+  .sprout-sql-flow.dark {
+    --sprout-chart-1: inherit;
+    --sprout-chart-2: inherit;
+    --sprout-chart-3: inherit;
+    --sprout-chart-4: inherit;
+    --sprout-chart-5: inherit;
+  }
+
+  .sprout-sql-viewer [data-tone] {
+    --sprout-sql-tone: var(--sprout-primary);
+  }
+  .sprout-sql-viewer [data-tone="1"] {
+    --sprout-sql-tone: var(--sprout-chart-1);
+  }
+  .sprout-sql-viewer [data-tone="2"] {
+    --sprout-sql-tone: var(--sprout-chart-2);
+  }
+  .sprout-sql-viewer [data-tone="3"] {
+    --sprout-sql-tone: var(--sprout-chart-3);
+  }
+  .sprout-sql-viewer [data-tone="4"] {
+    --sprout-sql-tone: var(--sprout-chart-4);
+  }
+  .sprout-sql-viewer [data-tone="5"] {
+    --sprout-sql-tone: var(--sprout-chart-5);
+  }
+
+  .sprout-sql-flow .react-flow__node-group {
+    pointer-events: none;
+  }
+
+  .sprout-sql-handle.react-flow__handle {
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    min-width: 0;
+    min-height: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sprout-sql-handle.react-flow__handle-left {
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+  .sprout-sql-handle.react-flow__handle-right {
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+
+  .sprout-sql-group {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 1px solid
+      color-mix(in oklab, var(--sprout-sql-tone) 45%, var(--sprout-line));
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--sprout-sql-tone) 6%, transparent);
+  }
+  .sprout-sql-group-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 20px;
+    color: color-mix(in oklab, var(--sprout-sql-tone) 70%, var(--sprout-text));
+    font-size: var(--sprout-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1rem;
+    text-transform: uppercase;
+    pointer-events: all;
+    cursor: grab;
+  }
+  .sprout-sql-group-count {
+    min-width: 18px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--sprout-sql-tone) 14%, transparent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  .sprout-sql-table {
+    box-sizing: border-box;
+    width: 272px;
+    overflow: hidden;
+    border: 1px solid var(--sprout-line);
+    border-top: 3px solid var(--sprout-sql-tone);
+    border-radius: 10px;
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-control);
+    transition:
+      opacity var(--sprout-motion-normal) var(--sprout-motion-ease),
+      box-shadow var(--sprout-motion-fast) var(--sprout-motion-ease),
+      border-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+  }
+  .sprout-sql-table[data-dimmed] {
+    opacity: 0.38;
+  }
+  .sprout-sql-table[data-active],
+  .react-flow__node.dragging .sprout-sql-table {
+    box-shadow: var(--sprout-shadow-panel);
+  }
+  .sprout-sql-table[data-active] {
+    border-color: color-mix(
+      in oklab,
+      var(--sprout-sql-tone) 55%,
+      var(--sprout-line)
+    );
+  }
+
+  .sprout-sql-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--sprout-line);
+    background: color-mix(
+      in oklab,
+      var(--sprout-sql-tone) 9%,
+      var(--sprout-surface)
+    );
+  }
+  .sprout-sql-table-title {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    font-weight: 600;
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sprout-sql-columns,
+  .sprout-sql-keys-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-sql-column {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    height: 28px;
+    padding: 0 12px;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+  .sprout-sql-column + .sprout-sql-column {
+    box-shadow: inset 0 1px 0
+      color-mix(in oklab, var(--sprout-line) 60%, transparent);
+  }
+  .sprout-sql-column[data-join] {
+    cursor: pointer;
+  }
+  .sprout-sql-column[data-join]:hover,
+  .sprout-sql-column[data-active] {
+    background: color-mix(in oklab, var(--sprout-primary) 8%, transparent);
+  }
+  .sprout-sql-column-icon {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    width: 12px;
+    color: var(--sprout-muted);
+  }
+  .sprout-sql-column[data-key="primary"] .sprout-sql-column-icon {
+    color: var(--sprout-warning);
+  }
+  .sprout-sql-column[data-join] .sprout-sql-column-icon {
+    color: var(--sprout-primary);
+  }
+  .sprout-sql-column-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-sql-column[data-key="primary"] .sprout-sql-column-name {
+    font-weight: 600;
+  }
+  .sprout-sql-column-type {
+    flex-shrink: 0;
+    max-width: 50%;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    font-family: var(--sprout-sql-mono);
+    font-size: 0.6875rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sprout-sql-keys {
+    border-top: 1px solid var(--sprout-line);
+    background: color-mix(
+      in oklab,
+      var(--sprout-hover) 40%,
+      var(--sprout-surface)
+    );
+  }
+  .sprout-sql-keys-title {
+    box-sizing: border-box;
+    height: 35px;
+    margin: 0;
+    padding: 12px 12px 0;
+    color: var(--sprout-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1rem;
+    text-transform: uppercase;
+  }
+  .sprout-sql-key {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    height: 26px;
+    padding: 0 12px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+  }
+  .sprout-sql-key > span {
+    overflow: hidden;
+    color: var(--sprout-text);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sprout-sql-join {
+    transition:
+      stroke var(--sprout-motion-fast) var(--sprout-motion-ease),
+      opacity var(--sprout-motion-normal) var(--sprout-motion-ease);
+  }
+  .sprout-sql-flow .sprout-sql-join[data-active] {
+    stroke: var(--sprout-primary);
+    stroke-width: 1.75;
+  }
+  .sprout-sql-join[data-dimmed] {
+    opacity: 0.25;
+  }
+  .sprout-sql-joins {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-sizing: border-box;
+    max-width: calc(100% - 88px);
+    padding: 8px 10px;
+    border: 1px solid
+      color-mix(in oklab, var(--sprout-primary) 40%, var(--sprout-line));
+    border-radius: 8px;
+    background: var(--sprout-surface);
+    box-shadow: var(--sprout-shadow-control);
+    pointer-events: none;
+  }
+  .sprout-sql-viewer[data-layout="vertical"] .sprout-sql-joins {
+    max-width: calc(100% - 24px);
+  }
+  .sprout-sql-join-text {
+    overflow: hidden;
+    color: var(--sprout-text);
+    font-family: var(--sprout-sql-mono);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-sql-joins-more {
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+
+  .sprout-sql-more {
+    position: relative;
+    width: 240px;
+    height: 132px;
+  }
+  .sprout-sql-more-sheet {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--sprout-line);
+    border-radius: 10px;
+    background: var(--sprout-surface);
+  }
+  .sprout-sql-more-sheet:nth-of-type(1) {
+    transform: translate(10px, 10px);
+    opacity: 0.5;
+  }
+  .sprout-sql-more-sheet:nth-of-type(2) {
+    transform: translate(5px, 5px);
+    opacity: 0.8;
+  }
+  .sprout-sql-more-button {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    box-sizing: border-box;
+    padding: 16px 18px;
+    border: 1px dashed var(--sprout-border-strong);
+    border-radius: 10px;
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: var(--sprout-shadow-control);
+    transition:
+      transform var(--sprout-motion-fast) var(--sprout-motion-ease),
+      border-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+  }
+  .sprout-sql-more-button:hover {
+    border-color: var(--sprout-primary);
+    transform: translate(-2px, -2px);
+  }
+  .sprout-sql-more-button:focus-visible {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 2px;
+  }
+  .sprout-sql-more-count {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-sql-more-names {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .sprout-sql-more-action {
+    margin-top: 6px;
+    color: var(--sprout-primary);
+    font-size: var(--sprout-text-xs);
+    font-weight: 600;
+    line-height: 1rem;
+  }
+
+  .sprout-sql-empty {
+    margin: auto;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+  }
+
+  .sprout-sql-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-sql-table,
+    .sprout-sql-join,
+    .sprout-sql-more-button {
+      transition: none;
+    }
+    .sprout-sql-more-button:hover {
+      transform: none;
+    }
+  }
+}

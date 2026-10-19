@@ -1398,6 +1398,20 @@ import { SchemaDiagram, SchemaLegend } from "@tulipfarm/sprout/schema-diagram";
 Tables: `{ id, label, state: "new" | "changed", fields: [{ id, label, type, required, change? }] }`.
 Links: `{ id, source, field, target, label }`.
 
+### SQL Viewer
+
+```tsx
+import { SqlViewer } from "@tulipfarm/sprout/sql-viewer";
+
+<SqlViewer
+  tables={tableDocuments}
+  groups={{ [salesTeamId]: "Sales" }}
+  label="Tables in Sales"
+/>;
+```
+
+`tables` takes TulipFarm table definitions or table documents as they are: `{ id, label, owningTeamId?, fields, uniqueKeys? }`. Relationship fields become joins to the table whose `id` is `targetTableId`. Tables of a team named in `groups` sit in one tinted frame. Past `maxVisible` (default 4) tables collapse into a "+N tables" card. Hover or click a table or a foreign key to light its joins.
+
 ### Table
 
 ```tsx

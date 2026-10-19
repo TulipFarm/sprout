@@ -6,33 +6,26 @@ import {
   EdgeLabelRenderer,
   getSmoothStepPath,
   Handle,
-  Panel,
   Position,
   ReactFlow,
   ReactFlowProvider,
-  useNodesInitialized,
-  useReactFlow,
-  useStore,
   type Edge,
   type EdgeProps,
   type Node,
   type NodeProps,
 } from "@xyflow/react";
-import {
-  useEffect,
-  useId,
-  useMemo,
-  useSyncExternalStore,
-  type HTMLAttributes,
-  type KeyboardEvent,
-} from "react";
-import { Add } from "reicon-react/icons/Add";
+import { useId, useMemo, type HTMLAttributes } from "react";
 import { Key } from "reicon-react/icons/Key";
-import { Minus } from "reicon-react/icons/Minus";
-import { Scan } from "reicon-react/icons/Scan";
 import { cn } from "../internal/classes.js";
+import {
+  FitOnResize,
+  flowMaxZoom as maxZoom,
+  flowMinZoom as minZoom,
+  useKeyboardView,
+  useViewportMobile,
+  ZoomControls,
+} from "../internal/flow.js";
 import { Badge, type BadgeVariant } from "./badge.js";
-import { Button } from "./button.js";
 
 export const schemaTableStateNames = [
   "new",
@@ -86,10 +79,7 @@ type LinkEdge = Edge<{ label: string }, "link">;
 const tableWidth = 264;
 const columnGap = 80;
 const rowGap = 48;
-const minZoom = 0.2;
-const maxZoom = 1.5;
 const fitOptions = { padding: 0.15, maxZoom: 1 };
-const panStep = 48;
 
 const tableHeight = (table: SchemaTable) =>
   44 +
@@ -290,126 +280,6 @@ function LinkLine({
 const nodeTypes = { table: TableCard };
 const edgeTypes = { link: LinkLine };
 
-const mobileQuery = "(max-width: 767px)";
-const motionQuery = "(prefers-reduced-motion: reduce)";
-
-function subscribeMobile(callback: () => void) {
-  const media = window.matchMedia(mobileQuery);
-  media.addEventListener("change", callback);
-  return () => media.removeEventListener("change", callback);
-}
-
-function useViewportMobile() {
-  return useSyncExternalStore(
-    subscribeMobile,
-    () => window.matchMedia(mobileQuery).matches,
-    () => false,
-  );
-}
-
-const motion = (ms: number) =>
-  typeof window !== "undefined" && window.matchMedia(motionQuery).matches
-    ? 0
-    : ms;
-
-// The canvas panel animates open, so the first fit sees a narrower pane than the final one.
-function FitOnResize({ nodes }: { nodes: TableNode[] }) {
-  const { fitView } = useReactFlow();
-  const width = useStore((state) => state.width);
-  const height = useStore((state) => state.height);
-  const measured = useNodesInitialized();
-  useEffect(() => {
-    if (!measured) return;
-    const frame = requestAnimationFrame(() => void fitView(fitOptions));
-    return () => cancelAnimationFrame(frame);
-  }, [fitView, width, height, measured, nodes]);
-  return null;
-}
-
-function ZoomControls({
-  position,
-}: {
-  position: "top-right" | "bottom-right";
-}) {
-  const { zoomIn, zoomOut, fitView } = useReactFlow();
-  const zoom = useStore((state) => state.transform[2]);
-  return (
-    <Panel
-      position={position}
-      className="sprout-schema-controls"
-      data-slot="schema-diagram-controls"
-      role="toolbar"
-      aria-label="Diagram view"
-      aria-orientation="vertical"
-    >
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        aria-label="Zoom in"
-        title="Zoom in"
-        disabled={zoom >= maxZoom}
-        onClick={() => void zoomIn({ duration: motion(160) })}
-      >
-        <Add size={16} aria-hidden="true" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        aria-label="Zoom out"
-        title="Zoom out"
-        disabled={zoom <= minZoom}
-        onClick={() => void zoomOut({ duration: motion(160) })}
-      >
-        <Minus size={16} aria-hidden="true" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        aria-label="Fit to view"
-        title="Fit to view"
-        onClick={() => void fitView({ ...fitOptions, duration: motion(180) })}
-      >
-        <Scan size={16} aria-hidden="true" />
-      </Button>
-    </Panel>
-  );
-}
-
-function useKeyboardView() {
-  const { getViewport, setViewport, zoomIn, zoomOut, fitView } = useReactFlow();
-  return (event: KeyboardEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLElement;
-    if (event.altKey || event.ctrlKey || event.metaKey) return;
-    if (
-      target !== event.currentTarget &&
-      !target.classList.contains("react-flow__node")
-    )
-      return;
-    const step = panStep * (event.shiftKey ? 4 : 1);
-    const pan: Record<string, [number, number]> = {
-      ArrowLeft: [step, 0],
-      ArrowRight: [-step, 0],
-      ArrowUp: [0, step],
-      ArrowDown: [0, -step],
-    };
-    const move = pan[event.key];
-    if (move) {
-      const { x, y, zoom } = getViewport();
-      void setViewport(
-        { x: x + move[0], y: y + move[1], zoom },
-        { duration: motion(120) },
-      );
-    } else if (event.key === "+" || event.key === "=") {
-      void zoomIn({ duration: motion(160) });
-    } else if (event.key === "-" || event.key === "_") {
-      void zoomOut({ duration: motion(160) });
-    } else if (event.key === "0") {
-      void fitView({ ...fitOptions, duration: motion(180) });
-    } else return;
-    event.preventDefault();
-  };
-}
-
 const keyboardHint =
   "Arrow keys pan, plus and minus zoom, and 0 fits the diagram. Tab moves between tables.";
 
@@ -426,7 +296,7 @@ function DiagramFlow({
   label: string;
   hintId: string;
 }) {
-  const onKeyDown = useKeyboardView();
+  const onKeyDown = useKeyboardView(fitOptions);
   return (
     <ReactFlow
       className="sprout-schema-flow"
@@ -453,9 +323,12 @@ function DiagramFlow({
       proOptions={{ hideAttribution: true }}
     >
       <Background gap={16} size={1} />
-      <FitOnResize nodes={nodes} />
+      <FitOnResize nodes={nodes} fit={fitOptions} />
       <ZoomControls
         position={direction === "vertical" ? "top-right" : "bottom-right"}
+        fit={fitOptions}
+        className="sprout-schema-controls"
+        slot="schema-diagram-controls"
       />
     </ReactFlow>
   );

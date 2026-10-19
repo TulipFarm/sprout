@@ -304,6 +304,10 @@ export const componentGroups: NavGroup[] = [
         "Tables, fields, and links with proposed changes marked.",
       ),
       component(
+        "SQL Viewer",
+        "Explore tables, keys, and the joins between them.",
+      ),
+      component(
         "Table",
         "Rows of records with sorting, filters, grouping, editing, and a card layout on phones.",
       ),
