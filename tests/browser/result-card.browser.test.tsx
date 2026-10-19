@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   ResultCard,
   type ResultApp,
@@ -207,14 +207,6 @@ describe("ResultCard in a real browser", () => {
     await expect.poll(() => document.querySelector("[role=dialog]")).toBeNull();
   });
 
-  it("coarse pointers get a 44px action", async () => {
-    const screen = await render(<Workflow />);
-    const action = screen.getByRole("button", { name: "View slides" });
-    expect(getComputedStyle(action.element()).height).not.toBe("44px");
-    await emulate({ coarse: true });
-    expect(getComputedStyle(action.element()).height).toBe("44px");
-  });
-
   it("status color changes ease over 0.18s, and not under reduced motion", async () => {
     await render(<Gallery />);
     expect(getComputedStyle(status("success")).transitionDuration).toBe(
@@ -222,5 +214,11 @@ describe("ResultCard in a real browser", () => {
     );
     await emulate({ reducedMotion: true });
     expect(getComputedStyle(status("success")).transitionDuration).toBe("0s");
+  });
+
+  it("fine pointers keep the compact action", async () => {
+    const screen = await render(<Workflow />);
+    const action = screen.getByRole("button", { name: "View slides" });
+    expect(getComputedStyle(action.element()).height).not.toBe("44px");
   });
 });

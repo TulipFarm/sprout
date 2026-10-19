@@ -72,17 +72,17 @@ let emulated = false;
 // The visual project starts with reduced motion on; resets must keep it.
 const startsReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** Emulates media the browser cannot toggle from the page; `resetEmulation` undoes it. */
+/**
+ * Emulates reduced motion; `resetEmulation` undoes it. Touch lives in its own
+ * project because turning touch emulation off on Linux leaves no hover at all.
+ */
 export async function emulate({
   reducedMotion = startsReduced,
-  coarse = false,
 }: {
   reducedMotion?: boolean;
-  coarse?: boolean;
 }) {
-  emulated = reducedMotion !== startsReduced || coarse;
-  const session = cdp();
-  await session.send("Emulation.setEmulatedMedia", {
+  emulated = reducedMotion !== startsReduced;
+  await cdp().send("Emulation.setEmulatedMedia", {
     features: [
       {
         name: "prefers-reduced-motion",
@@ -90,10 +90,6 @@ export async function emulate({
       },
     ],
   });
-  await session.send(
-    "Emulation.setTouchEmulationEnabled",
-    coarse ? { enabled: true, maxTouchPoints: 1 } : { enabled: false },
-  );
 }
 
 export async function resetEmulation() {

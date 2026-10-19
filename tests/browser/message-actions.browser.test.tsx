@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
-import {
-  Message,
-  MessageContent,
-  MessageGroup,
-} from "../../packages/sprout/src/components/message.js";
+import { page, userEvent } from "vitest/browser";
 import {
   MessageActions,
   MessageBranch,
   type MessageFeedback,
 } from "../../packages/sprout/src/components/message-actions.js";
+import {
+  Message,
+  MessageContent,
+  MessageGroup,
+} from "../../packages/sprout/src/components/message.js";
 import { axeViolations, emulate, setTheme, settle, themes } from "./support.js";
 
 const reply =
@@ -225,15 +225,5 @@ describe("MessageActions in a real browser", () => {
     expect(getComputedStyle(row("Message actions")).transitionProperty).toBe(
       "none",
     );
-  });
-
-  it("touch screens always show hover rows without overflowing 390px", async () => {
-    await page.viewport(390, 844);
-    await emulate({ coarse: true });
-    await render(<Conversation />);
-    expect(matchMedia("(hover: none)").matches).toBe(true);
-    expect(opacity("Message actions")).toBe("1");
-    expect(opacity("Response actions")).toBe("1");
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 });

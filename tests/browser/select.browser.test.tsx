@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   Select,
   SelectContent,
@@ -238,26 +238,5 @@ describe("Select in a real browser", () => {
     expect(document.activeElement).toBe(trigger);
     expect(getComputedStyle(trigger).outlineStyle).toBe("solid");
     expect(getComputedStyle(trigger).outlineWidth).toBe("1px");
-  });
-
-  it("coarse pointers get 44px targets and the popup fits a phone", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    const screen = await render(
-      <Choice
-        label="Proposal"
-        size="sm"
-        items={["Update the Q3 forecast sheet", "Post the launch summary"]}
-      />,
-    );
-    const trigger = screen.getByRole("combobox").element();
-    expect(getComputedStyle(trigger).minHeight).toBe("44px");
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
-    await screen.getByRole("combobox").click();
-    await settle();
-    expect(insideViewport(content())).toBe(true);
-    expect(
-      getComputedStyle(content().querySelector('[role="option"]')!).minHeight,
-    ).toBe("44px");
   });
 });

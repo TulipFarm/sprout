@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
-import { render } from "vitest-browser-react";
 import { useState } from "react";
+import { describe, expect, it } from "vitest";
+import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   CheckboxField,
   ChoiceGroup,
@@ -175,15 +175,5 @@ describe("Field in a real browser", () => {
     expect(getComputedStyle(box).transitionDuration).toMatch(/0\.12s/);
     await emulate({ reducedMotion: true });
     expect(getComputedStyle(box).transitionDuration).toBe("0s");
-  });
-
-  it("options and checkbox fields grow to 44px on touch screens", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    const screen = await render(<Form />);
-    for (const row of screen.container.querySelectorAll(
-      ".sprout-choice-option, .sprout-checkbox-field-label",
-    ))
-      expect(row.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
   });
 });

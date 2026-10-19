@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { cdp, page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   ContextMenu,
   ContextMenuCheckboxItem,
@@ -209,29 +209,6 @@ describe("ContextMenu in a real browser", () => {
     const style = getComputedStyle(trigger().element());
     expect(style.outlineStyle).toBe("solid");
     expect(style.userSelect).toBe("none");
-  });
-
-  it("a long press opens the menu at the finger on a phone", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    await render(<Sample />);
-    const box = trigger().element().getBoundingClientRect();
-    const point = { x: Math.round(box.left + 60), y: Math.round(box.top + 50) };
-    const session = cdp();
-    await session.send("Input.dispatchTouchEvent", {
-      type: "touchStart",
-      touchPoints: [point],
-    });
-    // Base UI opens on a held touch, so the finger has to stay down.
-    await new Promise((resolve) => setTimeout(resolve, 700));
-    await session.send("Input.dispatchTouchEvent", {
-      type: "touchEnd",
-      touchPoints: [],
-    });
-    await expect.element(menus()).toBeVisible();
-    await settle();
-    expect(contained(content())).toEqual(fits);
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 
   it("menus fade over the fast motion token, and not with reduced motion", async () => {

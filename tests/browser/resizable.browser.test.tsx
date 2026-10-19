@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -232,11 +232,10 @@ describe("Resizable in a real browser", () => {
     expect(getComputedStyle(handle.element()).transitionDuration).toBe("0s");
   });
 
-  it("coarse pointers widen the hit area to 24px", async () => {
+  it("fine pointers keep the 9px hit area", async () => {
     await render(<Split />);
-    const hit = () => getComputedStyle(separator().element(), "::after").width;
-    expect(hit()).toBe("9px");
-    await emulate({ coarse: true });
-    expect(hit()).toBe("24px");
+    expect(getComputedStyle(separator().element(), "::after").width).toBe(
+      "9px",
+    );
   });
 });

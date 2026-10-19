@@ -59,6 +59,7 @@ export async function check(
     if (unit.length) await command("pnpm", ["test", ...unit], { cwd, output });
     const browser = await existing(cwd, [
       `tests/browser/${scope}.browser.test.tsx`,
+      `tests/browser/${scope}.touch.browser.test.tsx`,
     ]);
     if (browser.length)
       await command("pnpm", ["test:browser", ...browser], { cwd, output });

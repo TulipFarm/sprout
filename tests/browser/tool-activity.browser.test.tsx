@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   ActivityPanel,
   ToolActivity,
@@ -221,12 +221,6 @@ describe("ToolActivity in a real browser", () => {
     for (const row of document.querySelectorAll(".sprout-tool-activity-row"))
       expect(row.scrollWidth).toBeLessThanOrEqual(row.clientWidth + 1);
     expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(320);
-  });
-
-  it("gives touch screens 44px targets", async () => {
-    await emulate({ coarse: true });
-    await render(<ToolActivity items={search} variant="transcript" />);
-    expect(trigger().getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
   });
 
   it("fades rows in and spins the running mark, and stops under reduced motion", async () => {

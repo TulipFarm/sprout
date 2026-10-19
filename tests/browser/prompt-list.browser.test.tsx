@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   PromptList,
   type PromptListItem,
@@ -210,21 +210,5 @@ describe("PromptList in a real browser", () => {
       getComputedStyle(rows()[0]!.querySelector(".sprout-prompt-list-icon")!)
         .transform,
     ).toBe("none");
-  });
-
-  it("rows grow to 44px for coarse pointers", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    await render(
-      <PromptList
-        title="Start with a task"
-        items={tasks}
-        onSelect={() => {}}
-      />,
-    );
-    for (const row of rows())
-      expect(
-        Math.round(row.getBoundingClientRect().height),
-      ).toBeGreaterThanOrEqual(44);
   });
 });

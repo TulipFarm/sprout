@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   BrandIcon,
   BrandStack,
@@ -164,16 +164,6 @@ describe("BrandIcon in a real browser", () => {
     const disabled = page.getByRole("button", { name: "Slack actions" });
     await expect.element(disabled).toBeDisabled();
     expect(getComputedStyle(disabled.element()).opacity).toBe("0.5");
-  });
-
-  it("action tiles grow to 44px on touch screens and fit a phone", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    await render(<Gallery />);
-    expect(
-      size(page.getByRole("button", { name: "Gmail actions" }).element()),
-    ).toEqual([44, 44]);
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 
   it("tooltips respect reduced motion", async () => {

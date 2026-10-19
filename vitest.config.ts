@@ -52,9 +52,21 @@ export default defineConfig({
         test: {
           name: "browser",
           include: ["tests/browser/**/*.browser.test.tsx"],
-          exclude: ["tests/browser/**/*.visual.browser.test.tsx"],
+          exclude: [
+            "tests/browser/**/*.visual.browser.test.tsx",
+            "tests/browser/**/*.touch.browser.test.tsx",
+          ],
           setupFiles: ["tests/browser/setup.ts"],
           browser: browser(),
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: "touch",
+          include: ["tests/browser/**/*.touch.browser.test.tsx"],
+          setupFiles: ["tests/browser/setup.ts"],
+          browser: browser({ hasTouch: true }),
         },
       },
       {

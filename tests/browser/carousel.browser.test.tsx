@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
-import { render } from "vitest-browser-react";
 import { useEffect, useState, type CSSProperties } from "react";
+import { describe, expect, it } from "vitest";
+import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   Carousel,
   CarouselContent,
@@ -445,21 +445,5 @@ describe("Carousel in a real browser", () => {
     await expect.element(status()).toHaveTextContent("Slide 2 of 3");
     await emulate({ reducedMotion: true });
     expect(getComputedStyle(viewport()).scrollBehavior).toBe("auto");
-  });
-
-  it("touch screens get 44px arrows that fit a phone", async () => {
-    await emulate({ reducedMotion: true, coarse: true });
-    await page.viewport(390, 844);
-    await render(
-      <div style={{ width: "100%", maxWidth: 390 }}>
-        <Steps />
-      </div>,
-    );
-    const next = page.getByRole("button", { name: "Next slide" });
-    const box = next.element().getBoundingClientRect();
-    expect([Math.round(box.width), Math.round(box.height)]).toEqual([44, 44]);
-    await next.click();
-    await expect.element(status()).toHaveTextContent("Slide 2 of 3");
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 });

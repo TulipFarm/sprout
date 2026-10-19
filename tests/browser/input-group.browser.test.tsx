@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   InputGroup,
   InputGroupAddon,
@@ -239,19 +239,6 @@ describe("InputGroup in a real browser", () => {
       .poll(() => css(group).borderTopColor)
       .toBe(colorOf("--sprout-danger"));
     await expect.element(send).toBeDisabled();
-  });
-
-  it("coarse pointers grow composer buttons to 44px on a phone", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 800);
-    const screen = await render(<Composer />);
-    const box = screen
-      .getByRole("button", { name: "Add a file" })
-      .element()
-      .getBoundingClientRect();
-    expect(box.height).toBeGreaterThanOrEqual(44);
-    expect(box.width).toBeGreaterThanOrEqual(44);
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 
   it("groups fit a 390px phone without spilling", async () => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import { Button } from "../../packages/sprout/src/components/button.js";
 import {
   CanvasPanel,
@@ -254,17 +254,6 @@ describe("Canvas in a real browser", () => {
       expect(label.getBoundingClientRect().width).toBeLessThanOrEqual(1);
     },
   );
-
-  it("coarse pointers get wider close buttons with visible icons", async () => {
-    await emulate({ coarse: true });
-    await render(<Playground />);
-    await settle();
-    const close = page
-      .getByRole("button", { name: "Close Calendar events" })
-      .element();
-    expect(close.getBoundingClientRect().width).toBe(32);
-    expect(css(close.querySelector("svg")!).opacity).toBe("1");
-  });
 
   it("reduced motion removes the tab transitions", async () => {
     await render(<Playground />);

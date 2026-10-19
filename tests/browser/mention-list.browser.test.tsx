@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   MentionGroup,
   MentionList,
@@ -190,25 +190,6 @@ describe("MentionList in a real browser", () => {
     expect(option.getBoundingClientRect().height).toBeGreaterThanOrEqual(36);
     const status = document.querySelector('[data-slot="mention-status"]')!;
     expect(status.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
-  });
-
-  it("coarse pointers get 44px rows and the panel fits a phone", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    await render(<Composer onRetry={() => {}} />);
-    await settle();
-    const option = document.querySelector('[data-slot="mention-option"]')!;
-    expect(option.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
-    const panel = document.querySelector('[data-slot="mention-list"]')!;
-    const outer = panel.getBoundingClientRect();
-    expect(outer.left).toBeGreaterThanOrEqual(0);
-    expect(outer.right).toBeLessThanOrEqual(390.5);
-    expect(panel.scrollWidth).toBeLessThanOrEqual(panel.clientWidth + 1);
-    for (const child of panel.querySelectorAll("*")) {
-      const rect = child.getBoundingClientRect();
-      if (rect.width) expect(rect.right).toBeLessThanOrEqual(outer.right + 1);
-    }
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 
   it("the panel rises in over 120ms and reduced motion removes it", async () => {

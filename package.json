@@ -15,7 +15,7 @@
     "typecheck": "pnpm --filter @tulipfarm/sprout typecheck && pnpm --filter @tulipfarm/sprout build && pnpm --filter @sprout/docs typecheck",
     "test": "vitest run --project unit",
     "test:coverage": "vitest run --project unit --coverage",
-    "test:browser": "vitest run --project browser",
+    "test:browser": "vitest run --project browser --project touch",
     "test:visual": "vitest run --project visual",
     "test:docs": "playwright test",
     "test:install": "node tests/install.mjs",

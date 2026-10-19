@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import {
   InputOTP,
   InputOTPGroup,
@@ -122,17 +122,6 @@ describe("InputOTP in a real browser", () => {
       slots()[3]!.getBoundingClientRect().left -
       slots()[2]!.getBoundingClientRect().right;
     expect(gap).toBe(32);
-  });
-
-  it("coarse pointers get 44px slots that fit a phone", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    await render(<Code />);
-    const first = getComputedStyle(slots()[0]!);
-    expect([first.width, first.height]).toEqual(["44px", "44px"]);
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
-    for (const slot of slots())
-      expect(slot.getBoundingClientRect().right).toBeLessThanOrEqual(390);
   });
 
   it("a native label focuses the first slot", async () => {

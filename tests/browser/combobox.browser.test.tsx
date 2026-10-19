@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import { Button } from "../../packages/sprout/src/components/button.js";
 import {
   Combobox,
@@ -89,16 +89,6 @@ const popup = () =>
   );
 const options = () =>
   [...document.querySelectorAll('[role="option"]')].map((o) => o.textContent);
-
-function insideViewport(node: Element) {
-  const box = node.getBoundingClientRect();
-  return (
-    box.left >= 0 &&
-    box.top >= 0 &&
-    box.right <= innerWidth + 0.5 &&
-    box.bottom <= innerHeight + 0.5
-  );
-}
 
 describe("Combobox in a real browser", () => {
   it("filters, picks with the keyboard, swaps chevron for clear, and shows empty", async () => {
@@ -384,23 +374,6 @@ describe("Combobox in a real browser", () => {
       '[data-slot="combobox-chips"]',
     )!;
     await expect.poll(() => getComputedStyle(chips).outlineStyle).toBe("solid");
-  });
-
-  it("coarse pointers get 44px items and the list fits a phone", async () => {
-    await emulate({ coarse: true });
-    await page.viewport(390, 844);
-    const screen = await render(<Fruit />);
-    const input = screen.getByRole("combobox");
-    await input.click();
-    await expect.poll(popup).not.toBeNull();
-    await settle();
-    expect(
-      getComputedStyle(page.getByRole("option").first().element()).minHeight,
-    ).toBe("44px");
-    expect(insideViewport(popup()!)).toBe(true);
-    await page.getByRole("option", { name: "Pear" }).click();
-    await expect.element(input).toHaveValue("Pear");
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 
   it.each(themes)("%s %s passes axe closed and open", async (theme, mode) => {

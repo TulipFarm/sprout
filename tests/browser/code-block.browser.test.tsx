@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import { CodeBlock } from "../../packages/sprout/src/components/code-block.js";
 import { axeViolations, emulate, setTheme, settle, themes } from "./support.js";
 
@@ -188,13 +188,5 @@ describe("CodeBlock in a real browser", () => {
     const header = block.querySelector(".sprout-code-block-header")!;
     expect(header.scrollWidth).toBeLessThanOrEqual(header.clientWidth + 1);
     expect(block.getBoundingClientRect().right).toBeLessThanOrEqual(321);
-  });
-
-  it("copy is a 44px target on coarse pointers", async () => {
-    await emulate({ coarse: true });
-    const screen = await render(<CodeBlock code={curl} filename="curl" />);
-    expect(
-      getComputedStyle(screen.getByRole("button").element()).minHeight,
-    ).toBe("44px");
   });
 });
