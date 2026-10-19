@@ -6,7 +6,13 @@ import {
   FileAttachment,
   type AttachmentFile,
 } from "@tulipfarm/sprout/attachment";
+import {
+  AvatarGroup,
+  AvatarGroupCount,
+  EntityAvatar,
+} from "@tulipfarm/sprout/avatar";
 import { Button } from "@tulipfarm/sprout/button";
+import { DropdownMenuItem } from "@tulipfarm/sprout/dropdown-menu";
 import {
   FileContent,
   FileError,
@@ -21,7 +27,19 @@ import {
   type FileSheetRendererProps,
   type ViewableFile,
 } from "@tulipfarm/sprout/file-viewer";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@tulipfarm/sprout/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@tulipfarm/sprout/tooltip";
 import "../styles/file-viewer-demo.css";
 
 const types = {
@@ -866,6 +884,7 @@ export default function FileViewerDemo() {
     <FileRenderersProvider renderers={renderers}>
       <div id="file-viewer-demo" className="file-viewer-demo">
         <OpenFiles />
+        <SharedFile />
         <EdgeCases />
         <InlineContent />
         <WorkspaceFilePage />
@@ -894,6 +913,197 @@ function CanvasNote() {
       >
         <ViewableFileContent file={file} />
       </div>
+    </Example>
+  );
+}
+
+const people = [
+  { name: "Maya Okafor", access: "Owner", seen: "Viewing now" },
+  { name: "Theo Lindqvist", access: "Can edit", seen: "Viewing now" },
+  { name: "Greenhouse team", access: "Can view", seen: "Viewed yesterday" },
+  { name: "Priya Raman", access: "Can comment", seen: "Viewed 2 hours ago" },
+  { name: "Sam Ortiz", access: "Can view", seen: "Viewed last week" },
+  { name: "Lena Brandt", access: "Can view", seen: "Not opened yet" },
+];
+const shownPeople = 4;
+
+const comments = [
+  {
+    name: "Theo Lindqvist",
+    time: "10 min ago",
+    text: "Can we move the sweet peas to the south border? The north side gets frost first.",
+  },
+  {
+    name: "Maya Okafor",
+    time: "4 min ago",
+    text: "Good call. I will update the plan after the irrigation check.",
+  },
+];
+
+const activity = [
+  { name: "Priya Raman", text: "and 3 others viewed", time: "Today" },
+  { name: "Maya Okafor", text: "edited This week", time: "Yesterday" },
+  { name: "Maya Okafor", text: "shared with Greenhouse team", time: "Mon" },
+];
+
+function SharedFile() {
+  const [file] = useState(() =>
+    local("Spring planting plan.md", types.md, [samples.plan]),
+  );
+  const [open, setOpen] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [tab, setTab] = useState("comments");
+  const showPeople = () => {
+    setTab("people");
+    setPanelOpen(true);
+  };
+  return (
+    <Example
+      title="Shared file with activity"
+      description="Put people and Share in actions, extra commands in menu, and comments, activity, or access in the side panel. Selecting an avatar opens the People tab."
+    >
+      <div className="file-viewer-demo-row">
+        <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+          Open shared plan
+        </Button>
+      </div>
+      <FileViewer
+        file={file}
+        open={open}
+        onOpenChange={setOpen}
+        panelLabel="Comments and activity"
+        panelOpen={panelOpen}
+        onPanelOpenChange={setPanelOpen}
+        actions={
+          <>
+            <TooltipProvider>
+              <AvatarGroup
+                className="file-viewer-demo-people"
+                aria-label="People with access"
+              >
+                {people.slice(0, shownPeople).map((person) => (
+                  <Tooltip key={person.name}>
+                    <TooltipTrigger
+                      render={
+                        <button
+                          type="button"
+                          className="file-viewer-demo-person"
+                          data-live={
+                            person.seen === "Viewing now" ? "" : undefined
+                          }
+                          aria-label={`${person.name}, ${person.seen}`}
+                          onClick={showPeople}
+                        />
+                      }
+                    >
+                      <EntityAvatar
+                        seed={person.name}
+                        name={person.name}
+                        size="sm"
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <strong>{person.name}</strong> · {person.seen}
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+                <AvatarGroupCount className="file-viewer-demo-people-count">
+                  <button
+                    type="button"
+                    aria-label={`${people.length - shownPeople} more people`}
+                    onClick={showPeople}
+                  >
+                    +{people.length - shownPeople}
+                  </button>
+                </AvatarGroupCount>
+              </AvatarGroup>
+            </TooltipProvider>
+            <Button size="sm" onClick={showPeople}>
+              Share
+            </Button>
+          </>
+        }
+        menu={
+          <>
+            <DropdownMenuItem>Copy link</DropdownMenuItem>
+            <DropdownMenuItem>Version history</DropdownMenuItem>
+          </>
+        }
+        panel={
+          <Tabs
+            value={tab}
+            onValueChange={(value) => setTab(String(value))}
+            className="file-viewer-demo-panel"
+          >
+            <TabsList variant="line" aria-label="File details">
+              <TabsTrigger value="comments">Comments</TabsTrigger>
+              <TabsTrigger value="activity">Activity</TabsTrigger>
+              <TabsTrigger value="people">People</TabsTrigger>
+            </TabsList>
+            <TabsContent value="comments">
+              <ul className="file-viewer-demo-feed">
+                {comments.map((comment) => (
+                  <li key={comment.time}>
+                    <EntityAvatar
+                      seed={comment.name}
+                      name={comment.name}
+                      size="sm"
+                    />
+                    <div>
+                      <p>
+                        <strong>{comment.name}</strong>{" "}
+                        <span>{comment.time}</span>
+                      </p>
+                      <p>{comment.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </TabsContent>
+            <TabsContent value="activity">
+              <ul className="file-viewer-demo-feed">
+                {activity.map((item) => (
+                  <li key={item.text}>
+                    <EntityAvatar seed={item.name} name={item.name} size="sm" />
+                    <div>
+                      <p>
+                        <strong>{item.name}</strong> {item.text}
+                      </p>
+                      <p>
+                        <span>{item.time}</span>
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </TabsContent>
+            <TabsContent value="people">
+              <ul className="file-viewer-demo-feed">
+                {people.map((person) => (
+                  <li key={person.name}>
+                    <EntityAvatar
+                      seed={person.name}
+                      name={person.name}
+                      size="sm"
+                    />
+                    <div>
+                      <p>
+                        <strong>{person.name}</strong>
+                      </p>
+                      <p>
+                        <span>{person.seen}</span>
+                      </p>
+                    </div>
+                    <span className="file-viewer-demo-access">
+                      {person.access}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </TabsContent>
+          </Tabs>
+        }
+      />
     </Example>
   );
 }

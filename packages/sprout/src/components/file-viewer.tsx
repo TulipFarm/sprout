@@ -3,6 +3,7 @@ import {
   Suspense,
   useContext,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -14,6 +15,8 @@ import { ArrowUpRight } from "reicon-react/icons/ArrowUpRight";
 import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
 import { ChevronRight } from "reicon-react/icons/ChevronRight";
 import { Download } from "reicon-react/icons/Download";
+import { MoreH } from "reicon-react/icons/MoreH";
+import { SidebarRight } from "reicon-react/icons/SidebarRight";
 import { X } from "reicon-react/icons/X";
 import { cn } from "../internal/classes.js";
 import { fileKind, type FileKind } from "../internal/file-kind.js";
@@ -27,6 +30,13 @@ import {
   DialogTitle,
   type DialogContentProps,
 } from "./dialog.js";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./dropdown-menu.js";
 import { Spinner } from "./spinner.js";
 import { StatePanel } from "./state-panel.js";
 
@@ -189,10 +199,15 @@ type LoadedFile =
   | { kind: "error"; message: string }
   | { kind: "ready"; url: string; bytes: ArrayBuffer };
 
-function useFileContent(file: ViewableFile): LoadedFile {
+function useFileContent(
+  file: ViewableFile,
+  attempt = 0,
+  enabled = true,
+): LoadedFile {
   const [loaded, setLoaded] = useState<LoadedFile>({ kind: "loading" });
   const { source, name, mediaType } = file;
   useEffect(() => {
+    if (!enabled) return;
     let cancelled = false;
     let objectUrl: string | undefined;
     const controller = new AbortController();
@@ -240,7 +255,7 @@ function useFileContent(file: ViewableFile): LoadedFile {
       controller.abort();
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-  }, [source, name, mediaType]);
+  }, [source, name, mediaType, attempt, enabled]);
   return loaded;
 }
 
@@ -250,6 +265,23 @@ interface FileViewerBaseProps {
   renderers?: FileRenderers | undefined;
   /** Where focus goes on close. Defaults to the element that had focus when the viewer opened. */
   finalFocus?: DialogContentProps["finalFocus"];
+  /** Your header controls before Download, such as who is viewing and a Share button. */
+  actions?: ReactNode;
+  /** `DropdownMenuItem`s added to the More actions menu after Reload. */
+  menu?: ReactNode;
+  /**
+   * A side panel for comments, activity, sharing, or file details. Adds a
+   * header toggle. It stays mounted while hidden and across file steps, so
+   * tabs and drafts inside it survive.
+   */
+  panel?: ReactNode;
+  /** The panel's accessible name and toggle label. Defaults to “Details”. */
+  panelLabel?: string;
+  /** Controls whether the panel shows. */
+  panelOpen?: boolean;
+  /** Whether the panel starts open. Defaults to open on screens 1024px and wider. */
+  defaultPanelOpen?: boolean;
+  onPanelOpenChange?: (open: boolean) => void;
 }
 
 interface SingleFileProps {
@@ -283,7 +315,26 @@ export function FileViewer({
   onOpenChange,
   renderers,
   finalFocus,
+  actions,
+  menu,
+  panel,
+  panelLabel = "Details",
+  panelOpen,
+  defaultPanelOpen,
+  onPanelOpenChange,
 }: FileViewerProps) {
+  const panelId = useId();
+  const [ownPanelOpen, setOwnPanelOpen] = useState(
+    () =>
+      defaultPanelOpen ??
+      (typeof window !== "undefined" &&
+        !!window.matchMedia?.("(min-width: 1024px)").matches),
+  );
+  const panelShown = !!panel && (panelOpen ?? ownPanelOpen);
+  const togglePanel = () => {
+    setOwnPanelOpen(!panelShown);
+    onPanelOpenChange?.(!panelShown);
+  };
   const current = files ? (files[index] ?? null) : file;
   const count = files?.length ?? 0;
   const refocus = useRef<{ popup: Element; direction: string } | null>(null);
@@ -337,6 +388,7 @@ export function FileViewer({
         size="fullscreen"
         showCloseButton={false}
         data-file-viewer=""
+        data-panel={panelShown ? "open" : undefined}
         className="sprout-file-viewer"
         finalFocus={finalFocus}
         onKeyDown={handleKeyDown}
@@ -347,7 +399,30 @@ export function FileViewer({
             file={current}
             renderers={renderers}
             step={step}
+            actions={actions}
+            menu={menu}
+            panel={
+              panel
+                ? {
+                    id: panelId,
+                    label: panelLabel,
+                    open: panelShown,
+                    toggle: togglePanel,
+                  }
+                : undefined
+            }
           />
+        )}
+        {current && open && panel && (
+          <aside
+            id={panelId}
+            aria-label={panelLabel}
+            hidden={!panelShown}
+            data-slot="file-viewer-panel"
+            className="sprout-file-viewer-panel"
+          >
+            {panel}
+          </aside>
         )}
       </DialogContent>
     </Dialog>
@@ -369,17 +444,33 @@ function sourceLabel(file: ViewableFile, google: boolean) {
       : "Linked file";
 }
 
+interface PanelToggle {
+  id: string;
+  label: string;
+  open: boolean;
+  toggle: () => void;
+}
+
 function SelectedFile({
   file,
   renderers,
   step,
+  actions,
+  menu,
+  panel,
 }: {
   file: ViewableFile;
   renderers: FileRenderers | undefined;
   step: FileStep | undefined;
+  actions: ReactNode;
+  menu: ReactNode;
+  panel: PanelToggle | undefined;
 }) {
+  const [attempt, setAttempt] = useState(0);
+  const retry = () => setAttempt((value) => value + 1);
   const google =
     file.source.kind === "remote" ? googleDocument(file.source.url) : null;
+  const loaded = useFileContent(file, attempt, !google);
   return (
     <>
       <header
@@ -398,65 +489,159 @@ function SelectedFile({
             </span>
           </DialogDescription>
         </div>
-        {step && (
-          <div
-            data-slot="file-viewer-steps"
-            className="sprout-file-viewer-steps"
-          >
+        <div
+          data-slot="file-viewer-controls"
+          className="sprout-file-viewer-controls"
+        >
+          {step && (
+            <div
+              data-slot="file-viewer-steps"
+              className="sprout-file-viewer-steps"
+            >
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Previous file"
+                data-step="previous"
+                disabled={!step.previous}
+                onClick={step.previous}
+              >
+                <ChevronLeft size={16} aria-hidden="true" />
+              </Button>
+              <span className="sprout-file-viewer-position" aria-hidden="true">
+                {step.position} of {step.count}
+              </span>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Next file"
+                data-step="next"
+                disabled={!step.next}
+                onClick={step.next}
+              >
+                <ChevronRight size={16} aria-hidden="true" />
+              </Button>
+              <span aria-live="polite" className="sprout-file-viewer-sr-only">
+                {file.name}, file {step.position} of {step.count}
+              </span>
+            </div>
+          )}
+          {actions && (
+            <div
+              data-slot="file-viewer-actions"
+              className="sprout-file-viewer-actions"
+            >
+              {actions}
+            </div>
+          )}
+          {google ? (
+            <Button
+              variant="outline"
+              size="sm"
+              nativeButton={false}
+              render={
+                <a
+                  href={google.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
+            >
+              <ArrowUpRight size={16} aria-hidden="true" />
+              Open in Google
+            </Button>
+          ) : loaded.kind === "ready" ? (
+            <Button
+              variant="outline"
+              size="sm"
+              aria-label="Download"
+              nativeButton={false}
+              render={<a href={loaded.url} download={file.name} />}
+            >
+              <Download size={16} aria-hidden="true" />
+              <span className="sprout-file-viewer-label">Download</span>
+            </Button>
+          ) : (
+            <Button variant="outline" size="sm" aria-label="Download" disabled>
+              <Download size={16} aria-hidden="true" />
+              <span className="sprout-file-viewer-label">Download</span>
+            </Button>
+          )}
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label="More actions"
+                />
+              }
+            >
+              <MoreH size={16} aria-hidden="true" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" size="menu">
+              <DropdownMenuItem onClick={retry}>
+                {google ? "Reload viewer" : "Reload file"}
+              </DropdownMenuItem>
+              {menu && (
+                <>
+                  <DropdownMenuSeparator />
+                  {menu}
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <div
+          data-slot="file-viewer-window"
+          className="sprout-file-viewer-window"
+        >
+          {panel && (
             <Button
               variant="ghost"
               size="icon-sm"
-              aria-label="Previous file"
-              data-step="previous"
-              disabled={!step.previous}
-              onClick={step.previous}
+              aria-label={panel.label}
+              aria-expanded={panel.open}
+              aria-controls={panel.id}
+              onClick={panel.toggle}
             >
-              <ChevronLeft size={16} aria-hidden="true" />
+              <SidebarRight size={16} aria-hidden="true" />
             </Button>
-            <span className="sprout-file-viewer-position" aria-hidden="true">
-              {step.position} of {step.count}
-            </span>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Next file"
-              data-step="next"
-              disabled={!step.next}
-              onClick={step.next}
-            >
-              <ChevronRight size={16} aria-hidden="true" />
-            </Button>
-            <span aria-live="polite" className="sprout-file-viewer-sr-only">
-              {file.name}, file {step.position} of {step.count}
-            </span>
-          </div>
-        )}
-        {google && (
-          <Button
-            variant="outline"
-            size="sm"
-            nativeButton={false}
+          )}
+          <DialogClose
             render={
-              <a href={google.url} target="_blank" rel="noopener noreferrer" />
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Close file viewer"
+              />
             }
           >
-            <ArrowUpRight size={16} aria-hidden="true" />
-            Open in Google
-          </Button>
-        )}
-        <DialogClose
-          render={
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Close file viewer"
-            />
-          }
-        >
-          <X size={20} aria-hidden="true" />
-        </DialogClose>
+            <X size={18} aria-hidden="true" />
+          </DialogClose>
+        </div>
       </header>
-      <ViewableFileContent file={file} renderers={renderers} />
+      <div
+        data-slot="viewable-file-content"
+        className="sprout-file-viewer-surface"
+      >
+        {google ? (
+          <EmbeddedFile
+            key={`${google.embedUrl}:${attempt}`}
+            url={google.embedUrl}
+            name={file.name}
+            google
+            onRetry={retry}
+          />
+        ) : (
+          <FileBody
+            loaded={loaded}
+            file={file}
+            renderers={renderers}
+            onRetry={retry}
+          />
+        )}
+      </div>
     </>
   );
 }
@@ -513,38 +698,61 @@ function LocalFile({
   onRetry: () => void;
 }) {
   const loaded = useFileContent(file);
+  return (
+    <>
+      {loaded.kind === "ready" && (
+        <div
+          data-slot="file-viewer-toolbar"
+          className="sprout-file-viewer-toolbar"
+          data-align="end"
+        >
+          <Button variant="ghost" size="sm" onClick={onRetry}>
+            Reload file
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            nativeButton={false}
+            render={<a href={loaded.url} download={file.name} />}
+          >
+            <Download size={16} aria-hidden="true" />
+            Download
+          </Button>
+        </div>
+      )}
+      <FileBody
+        loaded={loaded}
+        file={file}
+        renderers={renderers}
+        onRetry={onRetry}
+      />
+    </>
+  );
+}
+
+function FileBody({
+  loaded,
+  file,
+  renderers,
+  onRetry,
+}: {
+  loaded: LoadedFile;
+  file: ViewableFile;
+  renderers: FileRenderers | undefined;
+  onRetry: () => void;
+}) {
   if (loaded.kind === "loading") return <LoadingFile />;
   if (loaded.kind === "error")
     return <FileError message={loaded.message} onRetry={onRetry} />;
   return (
-    <>
-      <div
-        data-slot="file-viewer-toolbar"
-        className="sprout-file-viewer-toolbar"
-        data-align="end"
-      >
-        <Button variant="ghost" size="sm" onClick={onRetry}>
-          Reload file
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          nativeButton={false}
-          render={<a href={loaded.url} download={file.name} />}
-        >
-          <Download size={16} aria-hidden="true" />
-          Download
-        </Button>
-      </div>
-      <FileContent
-        name={file.name}
-        mediaType={file.mediaType}
-        bytes={loaded.bytes}
-        url={loaded.url}
-        onRetry={onRetry}
-        renderers={renderers}
-      />
-    </>
+    <FileContent
+      name={file.name}
+      mediaType={file.mediaType}
+      bytes={loaded.bytes}
+      url={loaded.url}
+      onRetry={onRetry}
+      renderers={renderers}
+    />
   );
 }
 
