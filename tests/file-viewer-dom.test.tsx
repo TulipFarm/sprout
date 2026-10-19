@@ -86,7 +86,7 @@ describe("FileViewer in the DOM", () => {
     await screen.findByText("B");
     fireEvent.click(screen.getByRole("button", { name: "Previous file" }));
     await screen.findByText("A");
-    fireEvent.keyDown(screen.getByRole("button", { name: "Reload file" }), {
+    fireEvent.keyDown(screen.getByRole("button", { name: "More actions" }), {
       key: "ArrowRight",
     });
     await screen.findByText("B");
