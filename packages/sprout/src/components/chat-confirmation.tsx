@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ComponentProps } from "react";
+import { useEffect, useRef, type ComponentProps, type ReactNode } from "react";
 import { ShieldUser } from "reicon-react/icons/ShieldUser";
 import { cn } from "../internal/classes.js";
 import { Button } from "./button.js";
@@ -49,6 +49,8 @@ export interface ChatConfirmationProps extends Omit<
   onDecision: (decision: ChatConfirmationDecision) => void;
   /** Locks both buttons, such as while the request is refreshing or cannot be verified. */
   disabled?: boolean | undefined;
+  /** Names the action on the approve button, such as “Approve 3 drafts”. */
+  approveLabel?: ReactNode;
 }
 
 const settledKinds = new Set<ConfirmationState["kind"]>([
@@ -88,6 +90,7 @@ export function ChatConfirmation({
   state,
   onDecision,
   disabled = false,
+  approveLabel = "Approve action",
   className,
   ...props
 }: ChatConfirmationProps) {
@@ -151,7 +154,7 @@ export function ChatConfirmation({
                 onClick={() => onDecision("approve")}
               >
                 {busy("approve") && <Spinner aria-hidden="true" />}
-                Approve action
+                {approveLabel}
               </Button>
               <Button
                 variant="ghost"

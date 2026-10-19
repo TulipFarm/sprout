@@ -526,6 +526,7 @@ export function ChatConfirmationReminder() {
           description={reminder.description}
           details={reminder.details}
           state={state}
+          approveLabel="Send reminder"
           onDecision={(decision) =>
             setChoice(decision === "approve" ? "approved" : "rejected")
           }
