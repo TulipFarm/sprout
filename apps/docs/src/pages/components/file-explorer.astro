@@ -1,0 +1,62 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import { FileExplorerPlayground } from "../../components/FileExplorerDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="File Explorer"
+  description="Browse a folder of read-only files with a tree, tabs, syntax colors, and search across names and text."
+>
+  <h1 class="docs-title">File Explorer</h1>
+  <p class="docs-lead">
+    Reads a repository like a code editor does. Folders come from the paths,
+    files open in tabs with syntax colors, and one search box finds file names
+    and the lines that mention a word.
+  </p>
+  <div class="mt-8"><FileExplorerPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A Soul repository"
+      code={`import { FileExplorer } from "@tulipfarm/sprout/file-explorer";
+
+<div className="h-[36rem]">
+  <FileExplorer
+    label="Soul"
+    files={[
+      { path: "SOUL.md", content: soulMd },
+      { path: "agents/scout/tools.ts", content: toolsTs },
+      { path: "assets/map.png", unavailable: "Images cannot be displayed here." },
+    ]}
+    defaultPath="SOUL.md"
+  />
+</div>`}
+    />
+    <p>
+      Pass a flat list of files. Each path uses <code>/</code> between folders. A
+      file has <code>content</code>, or <code>unavailable</code> with the reason it
+      has no text. The explorer fills its parent, so give the parent a height.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Search</h2>
+    <p>
+      Search ignores case. It lists matching file names, then every matching
+      line grouped by file, with the line number. Pick a line to open the file
+      there. The line is marked and every match in the file is highlighted.
+      Search stops after 500 lines.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The tree is a <code>tree</code> with one tab stop. Up and Down move, Right opens
+      a folder, Left closes it or goes to the parent, Home and End jump, and Enter
+      opens a file. The search summary is a status message. Each open tab has a Close
+      button named after the file; middle-click also closes a tab. The file text is
+      a focusable region named after its path.
+    </p>
+  </section>
+</Docs>

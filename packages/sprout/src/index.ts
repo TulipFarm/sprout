@@ -28,6 +28,7 @@ export * from "./components/dialog.js";
 export * from "./components/direction.js";
 export * from "./components/dropdown-menu.js";
 export * from "./components/field.js";
+export * from "./components/file-explorer.js";
 export * from "./components/file-viewer.js";
 export * from "./components/form.js";
 export * from "./components/glass-banner.js";

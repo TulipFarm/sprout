@@ -1,0 +1,517 @@
+@layer components {
+  .sprout-file-explorer {
+    --sprout-file-explorer-row: 26px;
+    --sprout-file-explorer-indent: 12px;
+    --sprout-file-explorer-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+    display: grid;
+    grid-template-columns: var(--sprout-file-explorer-sidebar, 16rem) minmax(
+        0,
+        1fr
+      );
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+  }
+  .sprout-file-explorer ::selection {
+    background: color-mix(in oklab, var(--sprout-info) 22%, transparent);
+  }
+
+  /* Sidebar */
+  .sprout-file-explorer-sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    border-inline-end: 1px solid var(--sprout-line);
+    background: var(--sprout-canvas);
+  }
+  .sprout-file-explorer-sidebar-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 6px 0 12px;
+  }
+  .sprout-file-explorer-title {
+    min-width: 0;
+    overflow: hidden;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .sprout-file-explorer-icon-button {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: var(--sprout-muted);
+    cursor: pointer;
+  }
+  .sprout-file-explorer-icon-button:hover:not(:disabled) {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-file-explorer-icon-button:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .sprout-file-explorer-search {
+    flex-shrink: 0;
+    padding: 0 8px 8px;
+  }
+
+  .sprout-file-explorer-tree,
+  .sprout-file-explorer-results {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 0 4px 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sprout-input) transparent;
+  }
+  .sprout-file-explorer-tree:focus-visible {
+    outline: none;
+  }
+
+  .sprout-file-explorer-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    height: var(--sprout-file-explorer-row);
+    padding-inline: 4px 8px;
+    border-radius: var(--sprout-radius-control);
+    color: var(--sprout-text);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  .sprout-file-explorer-row:hover {
+    background: var(--sprout-hover);
+  }
+  .sprout-file-explorer-row[aria-selected="true"] {
+    background: var(--sprout-active);
+    font-weight: 500;
+  }
+  .sprout-file-explorer-row:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+  .sprout-file-explorer-guide {
+    flex: 0 0 auto;
+    align-self: stretch;
+    width: var(--sprout-file-explorer-indent);
+    margin-inline-end: -6px;
+    background: linear-gradient(var(--sprout-line), var(--sprout-line)) 5px 0 /
+      1px 100% no-repeat;
+  }
+  .sprout-file-explorer-tree:hover .sprout-file-explorer-guide {
+    background-image: linear-gradient(var(--sprout-input), var(--sprout-input));
+  }
+  .sprout-file-explorer-chevron {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 12px;
+    color: var(--sprout-muted);
+  }
+  .sprout-file-explorer-row[aria-expanded="true"]
+    .sprout-file-explorer-chevron {
+    transform: rotate(90deg);
+  }
+  .sprout-file-explorer-folder {
+    flex-shrink: 0;
+    color: var(--sprout-file-explorer-folder, var(--sprout-muted));
+  }
+  .sprout-file-explorer-row[aria-expanded="true"] .sprout-file-explorer-folder {
+    color: var(--sprout-file-explorer-folder-open, var(--sprout-text));
+  }
+  .sprout-file-explorer-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* File glyphs */
+  .sprout-file-explorer-glyph {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--sprout-muted);
+    --tone: var(--sprout-muted);
+  }
+  .sprout-file-explorer-glyph[data-tone="info"] {
+    --tone: var(--sprout-syntax-keyword, var(--sprout-info));
+  }
+  .sprout-file-explorer-glyph[data-tone="success"] {
+    --tone: var(--sprout-syntax-string, var(--sprout-success));
+  }
+  .sprout-file-explorer-glyph[data-tone="warning"] {
+    --tone: var(--sprout-syntax-constant, var(--sprout-warning));
+  }
+  .sprout-file-explorer-glyph[data-tone="danger"] {
+    --tone: var(--sprout-danger);
+  }
+  .sprout-file-explorer-glyph[data-tone="accent"] {
+    --tone: var(
+      --sprout-syntax-function,
+      color-mix(in oklab, var(--sprout-info) 55%, var(--sprout-danger))
+    );
+  }
+  .sprout-file-explorer-glyph-tile {
+    fill: color-mix(in oklab, var(--tone) 14%, transparent);
+    stroke: color-mix(in oklab, var(--tone) 30%, transparent);
+    stroke-width: 1;
+  }
+  .sprout-file-explorer-glyph-label {
+    fill: var(--tone);
+    font-family: var(--sprout-font);
+    letter-spacing: -0.02em;
+  }
+
+  /* Search results */
+  .sprout-file-explorer-summary {
+    margin: 0;
+    padding: 6px 8px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-file-explorer-group {
+    margin: 10px 0 2px;
+    padding: 0 8px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+  }
+  .sprout-file-explorer-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-file-explorer-result,
+  .sprout-file-explorer-hit {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--sprout-file-explorer-row);
+    padding: 0 8px;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: var(--sprout-text);
+    font: inherit;
+    text-align: start;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .sprout-file-explorer-result:hover,
+  .sprout-file-explorer-hit:hover {
+    background: var(--sprout-hover);
+  }
+  .sprout-file-explorer-result[aria-current="true"],
+  .sprout-file-explorer-hit[aria-current="true"] {
+    background: var(--sprout-active);
+  }
+  .sprout-file-explorer-result:focus-visible,
+  .sprout-file-explorer-hit:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+  .sprout-file-explorer-result .sprout-file-explorer-name {
+    flex-shrink: 0;
+    max-width: 70%;
+  }
+  .sprout-file-explorer-dir {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    text-overflow: ellipsis;
+  }
+  .sprout-file-explorer-count {
+    min-width: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--sprout-secondary);
+    color: var(--sprout-muted);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    line-height: 16px;
+    text-align: center;
+  }
+  .sprout-file-explorer-hit {
+    padding-inline-start: 30px;
+    font-family: var(--sprout-file-explorer-mono);
+    font-size: var(--sprout-text-xs);
+  }
+  .sprout-file-explorer-hit-line {
+    flex-shrink: 0;
+    min-width: 2ch;
+    color: var(--sprout-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+  .sprout-file-explorer-hit-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sprout-file-explorer-mark {
+    border-radius: 2px;
+    background: color-mix(in oklab, var(--sprout-warning) 26%, transparent);
+    box-shadow: 0 0 0 1px
+      color-mix(in oklab, var(--sprout-warning) 40%, transparent);
+    color: inherit;
+  }
+
+  /* Editor */
+  .sprout-file-explorer-editor {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+  }
+  .sprout-file-explorer-tabs {
+    display: flex;
+    flex-shrink: 0;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--sprout-line);
+    background: var(--sprout-canvas);
+    scrollbar-width: none;
+  }
+  .sprout-file-explorer-tab {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    border-inline-end: 1px solid var(--sprout-line);
+    color: var(--sprout-muted);
+  }
+  .sprout-file-explorer-tab[data-active] {
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+  }
+  .sprout-file-explorer-tab[data-active]::after {
+    position: absolute;
+    inset: auto 0 -1px;
+    height: 1px;
+    background: var(--sprout-surface);
+    content: "";
+  }
+  .sprout-file-explorer-tab[data-active]::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: var(--sprout-primary);
+    content: "";
+  }
+  .sprout-file-explorer-tab-open {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 4px 0 12px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .sprout-file-explorer-tab-close {
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    margin-inline-end: 6px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--sprout-muted);
+    cursor: pointer;
+    opacity: 0;
+  }
+  .sprout-file-explorer-tab:is([data-active], :hover, :focus-within)
+    .sprout-file-explorer-tab-close {
+    opacity: 1;
+  }
+  .sprout-file-explorer-tab-close:hover {
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+  }
+  .sprout-file-explorer-tab-open:focus-visible,
+  .sprout-file-explorer-tab-close:focus-visible,
+  .sprout-file-explorer-icon-button:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+
+  .sprout-file-explorer-crumbs {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-file-explorer-crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-file-explorer-crumbs li {
+    display: inline-flex;
+    align-items: center;
+  }
+  .sprout-file-explorer-crumbs li[aria-current="page"] {
+    color: var(--sprout-text);
+  }
+  .sprout-file-explorer-crumb-separator {
+    margin: 0 4px;
+    opacity: 0.6;
+  }
+
+  .sprout-file-explorer-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .sprout-file-explorer-code {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding-bottom: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sprout-input) transparent;
+  }
+  .sprout-file-explorer-code:focus-visible {
+    outline: 2px solid var(--sprout-focus);
+    outline-offset: -2px;
+  }
+  .sprout-file-explorer-pre {
+    width: max-content;
+    min-width: 100%;
+    margin: 0;
+    font-family: var(--sprout-file-explorer-mono);
+    font-size: 13px;
+    line-height: 1.25rem;
+    tab-size: 2;
+  }
+  .sprout-file-explorer-pre code {
+    display: block;
+    font: inherit;
+  }
+  .sprout-file-explorer-line {
+    display: flex;
+  }
+  .sprout-file-explorer-line[data-current] {
+    background: color-mix(in oklab, var(--sprout-warning) 10%, transparent);
+    box-shadow: inset 2px 0 var(--sprout-warning);
+  }
+  .sprout-file-explorer-line-number {
+    position: sticky;
+    left: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 4.5ch;
+    margin-inline-end: 16px;
+    padding-inline-end: 8px;
+    background: var(--sprout-surface);
+    color: color-mix(in oklab, var(--sprout-muted) 70%, transparent);
+    text-align: end;
+    user-select: none;
+  }
+  .sprout-file-explorer-line[data-current] .sprout-file-explorer-line-number {
+    background: color-mix(
+      in oklab,
+      var(--sprout-warning) 10%,
+      var(--sprout-surface)
+    );
+    color: var(--sprout-text);
+  }
+  .sprout-file-explorer-line-text {
+    padding-inline-end: 24px;
+    white-space: pre;
+  }
+
+  .sprout-file-explorer-status {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 16px;
+    min-height: 28px;
+    padding: 0 16px;
+    border-top: 1px solid var(--sprout-line);
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-file-explorer-status-end {
+    margin-inline-start: auto;
+  }
+  .sprout-file-explorer-editor > .sprout-state-panel,
+  .sprout-file-explorer-body > .sprout-state-panel {
+    margin: auto;
+  }
+
+  @media (max-width: 40rem) {
+    .sprout-file-explorer {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+    }
+    .sprout-file-explorer-sidebar {
+      border-inline-end: 0;
+      border-bottom: 1px solid var(--sprout-line);
+    }
+  }
+
+  @media (pointer: coarse) {
+    .sprout-file-explorer {
+      --sprout-file-explorer-row: 40px;
+    }
+    .sprout-file-explorer-tab-close {
+      width: 32px;
+      height: 32px;
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-file-explorer-chevron {
+      transition: transform var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-file-explorer-line[data-current] {
+      animation: sprout-file-explorer-flash 900ms var(--sprout-motion-ease);
+    }
+  }
+  @keyframes sprout-file-explorer-flash {
+    from {
+      background: color-mix(in oklab, var(--sprout-warning) 32%, transparent);
+    }
+  }
+}

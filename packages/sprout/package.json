@@ -152,6 +152,10 @@
       "types": "./dist/components/field.d.ts",
       "import": "./dist/components/field.js"
     },
+    "./file-explorer": {
+      "types": "./dist/components/file-explorer.d.ts",
+      "import": "./dist/components/file-explorer.js"
+    },
     "./file-viewer": {
       "types": "./dist/components/file-viewer.d.ts",
       "import": "./dist/components/file-viewer.js"

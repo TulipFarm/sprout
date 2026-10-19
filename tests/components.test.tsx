@@ -657,6 +657,8 @@ const fileViewerExports = [
   "viewableFileKind",
 ];
 
+const fileExplorerExports = ["FileExplorer", "fileExplorerMaxMatches"];
+
 const messageResponseExports = ["MessageResponse", "MessageTableViewport"];
 
 const messageActionsExports = [
@@ -843,6 +845,7 @@ describe("Sidebar public surface", () => {
           cardExports.includes(name) ||
           attachmentExports.includes(name) ||
           fileViewerExports.includes(name) ||
+          fileExplorerExports.includes(name) ||
           codeBlockExports.includes(name) ||
           messageResponseExports.includes(name) ||
           messageActionsExports.includes(name) ||
@@ -939,6 +942,7 @@ describe("Sidebar public surface", () => {
         ...cardExports,
         ...attachmentExports,
         ...fileViewerExports,
+        ...fileExplorerExports,
         ...codeBlockExports,
         ...messageResponseExports,
         ...messageActionsExports,
