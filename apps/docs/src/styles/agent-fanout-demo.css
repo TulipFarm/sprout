@@ -1,0 +1,14 @@
+.fanout-demo-stage {
+  display: grid;
+  min-width: 0;
+  padding: 32px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+}
+.fanout-demo-card {
+  width: 100%;
+  max-width: 34rem;
+  min-width: 0;
+  margin-inline: auto;
+}

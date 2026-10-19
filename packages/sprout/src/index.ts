@@ -1,4 +1,5 @@
 export * from "./components/accordion.js";
+export * from "./components/agent-fanout.js";
 export * from "./components/alert.js";
 export * from "./components/alert-dialog.js";
 export * from "./components/aspect-ratio.js";

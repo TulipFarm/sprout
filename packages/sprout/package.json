@@ -36,6 +36,10 @@
       "types": "./dist/components/accordion.d.ts",
       "import": "./dist/components/accordion.js"
     },
+    "./agent-fanout": {
+      "types": "./dist/components/agent-fanout.d.ts",
+      "import": "./dist/components/agent-fanout.js"
+    },
     "./alert": {
       "types": "./dist/components/alert.d.ts",
       "import": "./dist/components/alert.js"

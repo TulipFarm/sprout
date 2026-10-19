@@ -317,6 +317,10 @@ export const componentGroups: NavGroup[] = [
     title: "AI & chat",
     items: [
       component(
+        "Agent Fanout",
+        "A parent agent handing one task to subagents, live.",
+      ),
+      component(
         "Chat Confirmation",
         "Asks someone to approve or decline an agent’s action.",
       ),

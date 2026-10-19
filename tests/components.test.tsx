@@ -697,6 +697,12 @@ const chatConfirmationExports = [
 
 const chatPlanExports = ["ChatPlan", "chatPlanStepStateNames"];
 
+const agentFanoutExports = [
+  "AgentFanout",
+  "agentFanoutStateNames",
+  "agentFanoutStatusNames",
+];
+
 const planOutlineExports = [
   "PlanOutline",
   "planOutlineMarkNames",
@@ -867,6 +873,7 @@ describe("Sidebar public surface", () => {
           chatConfirmationExports.includes(name) ||
           chatInputExports.includes(name) ||
           chatPlanExports.includes(name) ||
+          agentFanoutExports.includes(name) ||
           planOutlineExports.includes(name) ||
           promptListExports.includes(name) ||
           questionnaireExports.includes(name) ||
@@ -964,6 +971,7 @@ describe("Sidebar public surface", () => {
         ...toolActivityExports,
         ...chatConfirmationExports,
         ...chatInputExports,
+        ...agentFanoutExports,
         ...promptListExports,
         ...questionnaireExports,
         ...schemaDiagramExports,
