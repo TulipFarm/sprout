@@ -139,6 +139,33 @@ describe("ResultCard", () => {
     expect(html).toContain('aria-label="1 more app"');
   });
 
+  it("shows an unbranded app's icon in place of the plug", () => {
+    const plug = 'class="reicon';
+    const pipeline: ResultApp = {
+      brand: null,
+      name: "Pipeline",
+      icon: <svg data-icon="table" />,
+      actions: [],
+    };
+    const card = renderToString(
+      <ResultCard title="Q4" kind="Table" apps={[pipeline]} status="Ready" />,
+    );
+    expect(card).toContain('data-icon="table"');
+    expect(card).toContain("sprout-result-app-icon");
+    expect(card).not.toContain(plug);
+    const actions = renderToString(<ResultAppActions apps={[pipeline]} />);
+    expect(actions).toContain('data-icon="table"');
+    expect(actions).not.toContain(plug);
+
+    const plain = { ...pipeline, icon: undefined };
+    expect(
+      renderToString(
+        <ResultCard title="Q4" kind="Table" apps={[plain]} status="Ready" />,
+      ),
+    ).toContain(plug);
+    expect(renderToString(<ResultAppActions apps={[plain]} />)).toContain(plug);
+  });
+
   it("shows the icon tile only when no apps are listed", () => {
     const icon = <svg data-icon="table" />;
     const none = renderToString(

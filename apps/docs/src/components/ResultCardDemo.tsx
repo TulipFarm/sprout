@@ -584,6 +584,22 @@ export function ResultCardApps() {
             action={{ label: "View activity", onClick: say("View activity") }}
           />
         </Labeled>
+        <Labeled label="App with its own icon">
+          <ResultCard
+            title="Pipeline review"
+            kind="Table"
+            apps={[
+              {
+                brand: null,
+                name: "Pipeline",
+                icon: <Database />,
+                actions: [{ label: "Read 24 open deals", state: "completed" }],
+              },
+            ]}
+            status="24 rows returned."
+            action={{ label: "Open Pipeline", onClick: say("Open Pipeline") }}
+          />
+        </Labeled>
         <Labeled label="No recorded actions">
           <ResultCard
             title="GitHub changes"
