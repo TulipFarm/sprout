@@ -57,7 +57,9 @@ export async function check(
     }
     const unit = await existing(cwd, [`tests/${scope}.test.tsx`]);
     if (unit.length) await command("pnpm", ["test", ...unit], { cwd, output });
-    const browser = await existing(cwd, [`tests/browser/${scope}.spec.ts`]);
+    const browser = await existing(cwd, [
+      `tests/browser/${scope}.browser.test.tsx`,
+    ]);
     if (browser.length)
       await command("pnpm", ["test:browser", ...browser], { cwd, output });
   });
