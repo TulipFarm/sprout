@@ -104,6 +104,7 @@ for (const theme of ["neutral", "tulipfarm"]) {
             expect(inside).toBe(true);
           }
         }
+        await page.evaluate(() => window.scrollTo(0, 0));
         const results = await new AxeBuilder({ page })
           .exclude(".docs-search-trigger")
           .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])

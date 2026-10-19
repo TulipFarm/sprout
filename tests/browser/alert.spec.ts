@@ -62,6 +62,7 @@ for (const theme of ["neutral", "tulipfarm"]) {
               .map((node) => node.textContent?.slice(0, 40)),
           );
         expect(overflowing).toEqual([]);
+        await page.evaluate(() => window.scrollTo(0, 0));
         const results = await new AxeBuilder({ page })
           .include("main")
           .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
