@@ -206,7 +206,7 @@
     );
     --sprout-message-bubble-ink: var(--sprout-danger);
   }
-  .sprout-message-bubble-destructive:focus-visible {
+  .sprout-message-bubble-destructive:is(button, a):focus-visible {
     outline-color: var(--sprout-danger);
   }
 
