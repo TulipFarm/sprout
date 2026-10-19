@@ -167,14 +167,15 @@ test("the dialog shows local text with reload, download, and keyboard close", as
   const download = dialog.getByRole("link", { name: "Download" });
   await expect(download).toHaveAttribute("download", "Harvest notes.txt");
   await expect(download).toHaveAttribute("href", /^blob:/);
-  await dialog.getByRole("button", { name: "Reload file" }).click();
+  await dialog.getByRole("button", { name: "More actions" }).click();
+  await page.getByRole("menuitem", { name: "Reload file" }).click();
   await expect(dialog.locator(".sprout-code-block-pre")).toContainText(
     "Bed 2 tomatoes",
   );
   const close = dialog.getByRole("button", { name: "Close file viewer" });
   for (
     let step = 0;
-    step < 6 &&
+    step < 8 &&
     !(await close.evaluate((node) => node === document.activeElement));
     step++
   )
@@ -289,9 +290,7 @@ test("every sample format opens in the dialog", async ({ page }, testInfo) => {
     "href",
     "https://docs.google.com/document/d/1SupplierContractSample/edit",
   );
-  await expect(dialog.getByRole("button", { name: "Reload file" })).toHaveCount(
-    0,
-  );
+  await expect(dialog.getByRole("link", { name: "Download" })).toHaveCount(0);
   await screenshot(page, testInfo, "file-viewer-google");
   await closeFile(page, "Supplier contract");
 

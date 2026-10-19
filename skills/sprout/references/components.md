@@ -1272,6 +1272,24 @@ import { FileViewer } from "@tulipfarm/sprout/file-viewer";
 
 `FileAttachment viewable` opens it for you.
 
+Add sharing, comments, or activity through slots:
+
+```tsx
+<FileViewer
+  file={file}
+  open={open}
+  onOpenChange={setOpen}
+  actions={<Button size="sm">Share</Button>}
+  menu={<DropdownMenuItem>Copy link</DropdownMenuItem>}
+  panel={<Tabs>…</Tabs>}
+  panelLabel="Comments and activity"
+/>
+```
+
+- `actions`: header controls before Download, such as an `AvatarGroup` of viewers and Share.
+- `menu`: `DropdownMenuItem`s added to More actions after Reload.
+- `panel`: a side panel with a header toggle. Control it with `panelOpen` and `onPanelOpenChange`, or set `defaultPanelOpen`.
+
 ### Glass Banner
 
 ```tsx

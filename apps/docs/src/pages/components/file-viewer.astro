@@ -42,7 +42,8 @@ import { FileViewer } from "@tulipfarm/sprout/file-viewer";
       for a link. The header shows the name and “Local file · Not uploaded”, “Linked
       file”, or “Google document”. Docs, Sheets, and Slides links on docs.google.com
       embed Google’s viewer and add Open in Google. Other files load up to 50 MB,
-      time out after 15 seconds, and get Reload file and Download.
+      time out after 15 seconds, and get Download in the header. Reload sits in the
+      More actions menu.
     </p>
   </section>
   <section class="prose-section">
@@ -122,7 +123,8 @@ const url = URL.createObjectURL(new Blob([bytes], { type: renderableType(name, m
         formats show a state that says what to do next.
       </li>
       <li>
-        An embed that hasn’t loaded after 12 seconds offers Reload viewer.
+        An embed that hasn’t loaded after 12 seconds offers Reload viewer. It is
+        also in the More actions menu.
       </li>
     </ul>
   </section>
@@ -153,6 +155,38 @@ const OfficeFile = lazy(() => import("./office-file"));
       <code>LoadingFile</code> and <code>FileError</code> for their own states. Any
       viewer also takes a <code>renderers</code> prop that overrides the provider.
       The demo above uses small sample renderers.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">People, menu, and side panel</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Share, more actions, and a details panel"
+      code={`<FileViewer
+  file={file}
+  open={open}
+  onOpenChange={setOpen}
+  actions={
+    <>
+      <AvatarGroup aria-label="People with access">…</AvatarGroup>
+      <Button size="sm">Share</Button>
+    </>
+  }
+  menu={<DropdownMenuItem>Copy link</DropdownMenuItem>}
+  panel={<Tabs>…</Tabs>}
+  panelLabel="Comments and activity"
+/>`}
+    />
+    <p>
+      <code>actions</code> sits in the header before Download. Put who is viewing
+      and a Share button there. <code>menu</code> adds
+      <code>DropdownMenuItem</code>s to More actions after Reload.
+      <code>panel</code> adds a side panel and a header toggle named by
+      <code>panelLabel</code>. The panel starts open on screens 1024px and
+      wider. Set <code>defaultPanelOpen</code>, or control it with
+      <code>panelOpen</code> and <code>onPanelOpenChange</code>. The panel stays
+      mounted while hidden and across file steps, so tabs and drafts inside it
+      survive. On small screens it covers the file.
     </p>
   </section>
   <section class="prose-section">
