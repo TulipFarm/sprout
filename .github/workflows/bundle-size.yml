@@ -1,0 +1,44 @@
+# Not a required check: a PR may grow the bundle on purpose (for example,
+# a new dependency). Keep it out of branch protection.
+name: Bundle size
+on:
+  pull_request:
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:size
+      - run: pnpm --filter @tulipfarm/sprout build
+      - run: node tools/bundle-size/size.mjs measure packages/sprout "$RUNNER_TEMP/head.json"
+      - name: Build base
+        run: |
+          git fetch --depth=1 origin ${{ github.event.pull_request.base.sha }}
+          git worktree add "$RUNNER_TEMP/base" ${{ github.event.pull_request.base.sha }}
+          cd "$RUNNER_TEMP/base"
+          pnpm install --frozen-lockfile
+          pnpm --filter @tulipfarm/sprout build
+      - run: node tools/bundle-size/size.mjs measure "$RUNNER_TEMP/base/packages/sprout" "$RUNNER_TEMP/base.json"
+      - id: compare
+        run: |
+          set +e
+          node tools/bundle-size/size.mjs compare "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" > "$RUNNER_TEMP/size.md"
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          cat "$RUNNER_TEMP/size.md" >> "$GITHUB_STEP_SUMMARY"
+      # Fork PRs get a read-only token, so the comment can fail; the job summary still has the table.
+      - uses: marocchino/sticky-pull-request-comment@v2
+        continue-on-error: true
+        with:
+          header: bundle-size
+          path: ${{ runner.temp }}/size.md
+      - if: steps.compare.outputs.exit != '0'
+        run: exit 1
