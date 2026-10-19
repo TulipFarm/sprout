@@ -76,6 +76,10 @@ const [state, setState] = useState<ConfirmationState>({ kind: "pending" });
         <code>disabled</code>: locks both buttons, such as while the request is
         refreshing or its effect cannot be verified.
       </li>
+      <li>
+        <code>approveLabel</code>: names the action on the approve button, such
+        as “Approve 3 drafts”. Defaults to “Approve action”.
+      </li>
     </ul>
   </section>
   <section class="prose-section">
@@ -99,7 +103,10 @@ const [state, setState] = useState<ConfirmationState>({ kind: "pending" });
   </section>
   <section class="prose-section">
     <h2 class="section-title">Settle without submitting</h2>
-    <p>A decision can settle at once. Pick any state from the menu.</p>
+    <p>
+      A decision can settle at once. Pick any state from the menu. This one
+      names its action with <code>approveLabel="Send reminder"</code>.
+    </p>
     <div class="mt-4"><ChatConfirmationReminder client:load /></div>
   </section>
   <section class="prose-section">

@@ -8,6 +8,9 @@ import {
 // A tiny layout engine: items stack top to bottom inside a viewport of fixed
 // height, so the controller's measurements behave like a real browser.
 let frames: FrameRequestCallback[] = [];
+// Some tests start real autoscroll timers; dispose clears them before jsdom
+// is torn down, or they fire later and throw.
+const controllers: MessageScrollerController[] = [];
 const flush = () => {
   for (let i = 0; i < 10 && frames.length; i++) {
     const queue = frames;
@@ -110,6 +113,7 @@ function setup(
     scrollMargin: 0,
     ...options,
   });
+  controllers.push(controller);
   controller.setRoot(root);
   controller.setViewport(viewport);
   controller.setContent(content);
@@ -145,6 +149,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  controllers.splice(0).forEach((controller) => controller.dispose());
   vi.unstubAllGlobals();
   vi.useRealTimers();
   document.body.innerHTML = "";

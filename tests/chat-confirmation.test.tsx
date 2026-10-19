@@ -151,6 +151,24 @@ describe("ChatConfirmation", () => {
     },
   );
 
+  it("names the approve button with approveLabel", () => {
+    const html = renderToString(
+      <ChatConfirmation
+        title="T"
+        description="D"
+        details={[]}
+        state={{ kind: "submitting", decision: "approve" }}
+        approveLabel="Approve 3 drafts"
+        onDecision={() => undefined}
+      />,
+    );
+    const [approve] = buttons(html);
+    expect(approve).toContain('aria-busy="true"');
+    expect(html).toContain("Approve 3 drafts");
+    expect(html).not.toContain("Approve action");
+    expect(html.match(/data-slot="spinner"/g)).toHaveLength(1);
+  });
+
   it("passes through className and attributes", () => {
     const html = renderToString(
       <ChatConfirmation
