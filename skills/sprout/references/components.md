@@ -1342,6 +1342,29 @@ import {
 </GradientBanner>;
 ```
 
+### Presence Cursor
+
+```tsx
+import { PresenceCursor } from "@tulipfarm/sprout/presence-cursor";
+
+<div className="relative">
+  <PresenceCursor name="rico@gmail.com" color="#c92a2a" x={120} y={80} />
+  <PresenceCursor
+    name="jenny@gmail.com"
+    color="#b55309"
+    x={40}
+    y={200}
+    avatar={
+      <Avatar size="sm">
+        <AvatarFallback>JE</AvatarFallback>
+      </Avatar>
+    }
+  />
+</div>;
+```
+
+`x`/`y` are px from the positioned parent. `color` needs 4.5:1 contrast with white.
+
 ### Result Card
 
 ```tsx

@@ -292,6 +292,10 @@ export const componentGroups: NavGroup[] = [
       ),
       component("Gradient Banner", "Gradient art with readable panels on top."),
       component(
+        "Presence Cursor",
+        "Other people's pointers with a name tag or an avatar.",
+      ),
+      component(
         "Result Card",
         "A compact card for something an agent produced.",
       ),

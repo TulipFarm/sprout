@@ -252,6 +252,10 @@
       "types": "./dist/components/popover.d.ts",
       "import": "./dist/components/popover.js"
     },
+    "./presence-cursor": {
+      "types": "./dist/components/presence-cursor.d.ts",
+      "import": "./dist/components/presence-cursor.js"
+    },
     "./progress": {
       "types": "./dist/components/progress.d.ts",
       "import": "./dist/components/progress.js"

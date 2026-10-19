@@ -188,6 +188,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "@tulipfarm/sprout/popover";
+import { PresenceCursor } from "@tulipfarm/sprout/presence-cursor";
 import {
   Progress,
   ProgressLabel,
@@ -1616,6 +1617,25 @@ function GradientBannerPreview() {
   );
 }
 
+function PresenceCursorPreview() {
+  return (
+    <div className="relative h-24 w-56">
+      <PresenceCursor name="rico@gmail.com" color="#c92a2a" x={96} y={4} />
+      <PresenceCursor
+        name="jenny@gmail.com"
+        color="#b55309"
+        x={16}
+        y={44}
+        avatar={
+          <Avatar size="sm">
+            <AvatarFallback>JE</AvatarFallback>
+          </Avatar>
+        }
+      />
+    </div>
+  );
+}
+
 function ResultCardPreview() {
   const [opened, setOpened] = useState(false);
   return (
@@ -1814,6 +1834,7 @@ const previews: Record<string, () => ReactNode> = {
   "file-viewer": FileViewerPreview,
   "glass-banner": GlassBannerPreview,
   "gradient-banner": GradientBannerPreview,
+  "presence-cursor": PresenceCursorPreview,
   "result-card": ResultCardPreview,
   table: TablePreview,
   canvas: CanvasPreview,
