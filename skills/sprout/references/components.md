@@ -1254,6 +1254,29 @@ import { CodeBlock } from "@tulipfarm/sprout/code-block";
 <CodeBlock code={source} language="python" filename="score.py" />;
 ```
 
+### File Explorer
+
+```tsx
+import { FileExplorer } from "@tulipfarm/sprout/file-explorer";
+
+<div className="h-[36rem]">
+  <FileExplorer
+    label="Soul"
+    files={[
+      { path: "SOUL.md", content: soulMd },
+      { path: "agents/scout/tools.ts", content: toolsTs },
+      {
+        path: "assets/map.png",
+        unavailable: "Images cannot be displayed here.",
+      },
+    ]}
+    defaultPath="SOUL.md"
+  />
+</div>;
+```
+
+Read only. Folders come from `/` in paths. Give the parent a height. Search covers names and text, up to 500 lines.
+
 ### File Viewer
 
 ```tsx
