@@ -103,7 +103,7 @@
   background: var(--sprout-hover);
 }
 .context-demo-file-target:focus-visible {
-  outline-offset: -2px;
+  outline-offset: -1px;
 }
 .context-demo-file-name {
   display: flex;
@@ -173,7 +173,7 @@
   background: var(--sprout-hover);
 }
 .context-demo-header:focus-visible {
-  outline-offset: -2px;
+  outline-offset: -1px;
 }
 .context-demo-row {
   padding-block: 10px;

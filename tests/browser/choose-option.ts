@@ -31,8 +31,10 @@ export async function chooseOption(page: Page, label: string, option: string) {
   }
   await page.evaluate(async () => {
     await new Promise(requestAnimationFrame);
-    await Promise.all(
-      document.getAnimations().map((animation) => animation.finished),
-    );
+    // Nested transitions (a Badge in a Button) restart each frame, which cancels the old one.
+    while (document.getAnimations().length)
+      await Promise.allSettled(
+        document.getAnimations().map((animation) => animation.finished),
+      );
   });
 }

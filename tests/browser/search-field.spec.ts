@@ -176,10 +176,10 @@ test("keyboard: type, clear with button and Escape, focus ring", async ({
   await page.keyboard.type("gpt");
   await expect(input).toHaveValue("gpt");
   await expect(ring).toHaveCSS("outline-style", "solid");
-  await expect(ring).toHaveCSS("outline-width", "2px");
+  await expect(ring).toHaveCSS("outline-width", "1px");
   await expect(ring).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-border)"),
   );
   const clear = page
     .getByTestId("state-label-placeholder")
@@ -363,7 +363,7 @@ test("popover picker: loading, error, empty, and Escape order", async ({
   await expect(input).toHaveCSS("outline-style", "none");
   await expect(group(page, "Search Customer")).toHaveCSS(
     "outline-width",
-    "2px",
+    "1px",
   );
   await expect(
     page.getByRole("list", { name: "Customers" }).getByRole("listitem"),

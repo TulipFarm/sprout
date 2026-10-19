@@ -129,7 +129,6 @@
   color: var(--sprout-text);
 }
 
-.label-demo-textarea,
 .label-demo-editor {
   box-sizing: border-box;
   width: 100%;
@@ -148,20 +147,10 @@
   resize: vertical;
   user-select: text;
 }
-.label-demo-textarea::placeholder {
-  color: var(--sprout-muted);
-  opacity: 1;
-}
-.label-demo-textarea:focus-visible,
 .label-demo-editor:focus-visible {
-  border-color: var(--sprout-focus);
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
-}
-.label-demo-textarea:disabled {
-  cursor: not-allowed;
-  background: var(--sprout-canvas);
-  color: var(--sprout-muted);
+  border-color: var(--sprout-border);
+  outline: var(--sprout-focus-width) solid transparent;
+  outline-offset: 0;
 }
 .label-demo-token {
   display: inline-flex;
@@ -279,8 +268,8 @@
 }
 
 :is(.label-demo-checkbox, .label-demo-radio, .label-demo-switch):focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 :is(
   .label-demo-checkbox,
@@ -294,8 +283,7 @@
 @media (prefers-reduced-motion: no-preference) {
   .label-demo-checkbox,
   .label-demo-radio,
-  .label-demo-switch,
-  .label-demo-textarea {
+  .label-demo-switch {
     transition:
       background-color 120ms var(--sprout-motion-ease),
       border-color 120ms var(--sprout-motion-ease);

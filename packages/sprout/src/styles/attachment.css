@@ -52,8 +52,8 @@
     );
   }
   .sprout-attachment:has(> .sprout-attachment-trigger:focus-visible) {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-attachment[data-state="idle"] {
     border-style: dashed;
@@ -320,18 +320,6 @@
     );
   }
   .sprout-attachment-carousel-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    border: 1px solid var(--sprout-line);
-    border-radius: 8px;
-    background: var(--sprout-surface);
-    box-shadow: var(--sprout-shadow-control);
-    color: var(--sprout-muted);
-    cursor: pointer;
     opacity: 0;
     pointer-events: auto;
   }
@@ -345,14 +333,6 @@
     .sprout-attachment-carousel-arrow {
       opacity: 1;
     }
-  }
-  .sprout-attachment-carousel-arrow:hover {
-    background: var(--sprout-hover);
-    color: var(--sprout-text);
-  }
-  .sprout-attachment-carousel-arrow:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 1px;
   }
 
   /* File type icon */
@@ -486,8 +466,8 @@
   }
   .sprout-file-attachment-open:focus-visible,
   .sprout-file-attachment-preview:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-file-attachment:has(
       button.sprout-file-attachment-open:not(:disabled)

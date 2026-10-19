@@ -1,0 +1,240 @@
+@layer components {
+  .sprout-chat-input {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    font-family: var(--sprout-font);
+  }
+  .sprout-chat-input-form {
+    position: relative;
+    min-width: 0;
+  }
+
+  .sprout-chat-input-attachments.sprout-input-group-addon {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 4px 4px 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    cursor: default;
+  }
+  .sprout-chat-input-attachments::-webkit-scrollbar {
+    display: none;
+  }
+  .sprout-chat-input-attachments > * {
+    flex-shrink: 0;
+  }
+
+  .sprout-chat-input-editor .sprout-rich-text-editor-body {
+    min-height: 4.5rem;
+  }
+  .sprout-chat-input-editor .sprout-rich-text-editor-content {
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  .sprout-chat-input-reference {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 6px;
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
+    font-size: 0.9375em;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .sprout-chat-input-reference[data-chat-reference="agent"] {
+    background: var(--sprout-info-subtle);
+    color: var(--sprout-info);
+  }
+  .sprout-chat-input-reference.ProseMirror-selectednode {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
+  }
+  .sprout-chat-input-editor .sprout-rich-text-editor-content a {
+    color: var(--sprout-info);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .sprout-chat-input-bar {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+  }
+  .sprout-chat-input-bar-start,
+  .sprout-chat-input-bar-end {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+  }
+  .sprout-chat-input-bar-end {
+    flex-shrink: 0;
+    gap: 6px;
+  }
+  .sprout-chat-input-divider {
+    align-self: center;
+    width: 1px;
+    height: 20px;
+    margin-inline: 6px;
+    background: var(--sprout-line);
+  }
+
+  .sprout-chat-input-bar .sprout-input-group-button[data-variant="ghost"] {
+    color: var(--sprout-muted);
+  }
+  .sprout-chat-input-bar
+    .sprout-input-group-button[data-variant="ghost"]:hover {
+    color: var(--sprout-text);
+  }
+  .sprout-chat-input-picker-label {
+    min-width: 0;
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-chat-input-bar .sprout-chat-input-mode {
+    color: var(--sprout-text);
+  }
+
+  .sprout-chat-input[data-mode-color]
+    .sprout-input-group.sprout-chat-input-box {
+    border-color: var(--sprout-chat-input-mode);
+    box-shadow: 0 0 0 3px
+      color-mix(in oklab, var(--sprout-chat-input-mode) 14%, transparent);
+  }
+  .sprout-chat-input[data-mode-color]
+    .sprout-chat-input-bar
+    .sprout-chat-input-mode {
+    background: color-mix(
+      in oklab,
+      var(--sprout-chat-input-mode) 14%,
+      transparent
+    );
+    color: var(--sprout-chat-input-mode);
+  }
+  .sprout-chat-input[data-mode-color]
+    .sprout-chat-input-bar
+    .sprout-chat-input-mode:hover {
+    background: color-mix(
+      in oklab,
+      var(--sprout-chat-input-mode) 22%,
+      transparent
+    );
+  }
+  .sprout-chat-input-mode-option > :is(svg, .sprout-brand-icon) {
+    color: var(--sprout-chat-input-mode);
+  }
+
+  .sprout-dropdown-menu-content.sprout-chat-input-menu {
+    width: 18rem;
+  }
+  .sprout-chat-input-menu
+    :is(.sprout-dropdown-menu-item, .sprout-command-item):has(
+      .sprout-chat-input-option-text
+    ) {
+    align-items: flex-start;
+    padding-block: 6px;
+  }
+  .sprout-chat-input-menu
+    :is(.sprout-dropdown-menu-item, .sprout-command-item):has(
+      .sprout-chat-input-option-text
+    )
+    > :is(svg, .sprout-brand-icon) {
+    margin-top: 2px;
+  }
+  .sprout-chat-input-option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .sprout-chat-input-option-description {
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+
+  .sprout-chat-input-panel {
+    position: absolute;
+    inset-inline: 0;
+    bottom: calc(100% + 8px);
+    z-index: 20;
+  }
+  .sprout-chat-input-panel[data-side="bottom"] {
+    top: calc(100% + 8px);
+    bottom: auto;
+  }
+
+  .sprout-chat-input-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .sprout-chat-input-stop {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+
+  .sprout-button.sprout-chat-input-prompt {
+    font-weight: 400;
+  }
+
+  @media (pointer: coarse) {
+    .sprout-chat-input-picker-label {
+      max-width: 6rem;
+    }
+    /* Keep the 44px tap target but paint the fill at the desktop 28px size. */
+    .sprout-chat-input .sprout-button.sprout-chat-input-send {
+      border: 8px solid transparent;
+      border-radius: calc(var(--sprout-radius-control) + 8px);
+      background-clip: padding-box;
+    }
+  }
+  @media (max-width: 480px) {
+    .sprout-chat-input-bar .sprout-chat-input-picker-label {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-chat-input[data-status="streaming"]
+      .sprout-rich-text-editor-content
+      .is-editor-empty:first-child::before {
+      animation: sprout-chat-input-pulse 1.6s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes sprout-chat-input-pulse {
+    to {
+      opacity: 0.4;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-input-group.sprout-chat-input-box {
+      transition:
+        border-color var(--sprout-motion-normal) var(--sprout-motion-ease),
+        box-shadow var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-chat-input[data-status="streaming"]
+      .sprout-rich-text-editor-content
+      .is-editor-empty:first-child::before {
+      color: GrayText;
+    }
+  }
+}

@@ -12,12 +12,11 @@
     background-color: var(--sprout-surface);
     color: var(--sprout-text);
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
   }
   .sprout-input-group:has([data-slot="input-group-control"]:focus-visible) {
-    border-color: var(--sprout-focus);
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    border-color: var(--sprout-border);
+    outline: var(--sprout-focus-width) solid transparent;
   }
   .sprout-input-group:has(
     [data-slot="input-group-control"][aria-invalid="true"]
@@ -56,11 +55,8 @@
     flex-direction: column;
     align-items: stretch;
     height: auto;
-    border-color: var(--sprout-border);
-    border-radius: var(--sprout-radius-panel);
-  }
-  .sprout-input-group-variant-question-composer {
     border-color: var(--sprout-input);
+    border-radius: var(--sprout-radius-panel);
   }
   .sprout-input-group-variant-composer:has(
     [data-slot="input-group-control"]:focus-visible
@@ -68,9 +64,8 @@
   .sprout-input-group-variant-question-composer:has(
     [data-slot="input-group-control"]:focus-visible
   ) {
-    border-color: var(--sprout-focus);
-    outline-color: transparent;
-    box-shadow: 0 0 0 1px var(--sprout-focus);
+    border-color: var(--sprout-border);
+    outline: var(--sprout-focus-width) solid transparent;
   }
   .sprout-input-group-variant-composer:has(
     [data-slot="input-group-control"][aria-invalid="true"]

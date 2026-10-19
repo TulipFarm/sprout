@@ -37,9 +37,6 @@
   .sprout-state-panel-danger {
     color: var(--sprout-danger);
   }
-  .sprout-state-panel-spinner {
-    animation: sprout-state-panel-spin 1s linear infinite;
-  }
 
   .sprout-state-panel-text {
     display: grid;
@@ -162,8 +159,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sprout-state-panel,
-    .sprout-state-panel-spinner {
+    .sprout-state-panel {
       animation: none;
     }
   }
@@ -173,10 +169,5 @@
   from {
     opacity: 0;
     transform: translateY(4px);
-  }
-}
-@keyframes sprout-state-panel-spin {
-  to {
-    transform: rotate(360deg);
   }
 }

@@ -59,8 +59,8 @@
     cursor: grab;
   }
   .sprout-reasoning-effort-track:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 3px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-reasoning-effort[data-dragging="true"]
     .sprout-reasoning-effort-track {

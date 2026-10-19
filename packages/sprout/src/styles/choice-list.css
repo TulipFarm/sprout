@@ -48,7 +48,7 @@
     font-size: var(--sprout-text-sm);
     line-height: 1.25rem;
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
   }
   .sprout-choice-list-option {
     align-items: center;
@@ -67,7 +67,7 @@
   }
   .sprout-choice-list-option:has(.sprout-choice-list-input:focus-visible),
   .sprout-choice-list-text:focus-within {
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-choice-list-option[data-checked],
   .sprout-choice-list-text[data-checked] {

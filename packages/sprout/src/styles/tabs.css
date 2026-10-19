@@ -101,7 +101,7 @@
     height: 16px;
   }
   .sprout-tabs-trigger:focus-visible {
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
   .sprout-tabs-trigger[data-disabled] {
@@ -175,7 +175,7 @@
     border-radius: 0;
   }
   .sprout-tabs-list-steps > .sprout-tabs-trigger:focus-visible {
-    outline-offset: -2px;
+    outline-offset: -1px;
   }
   .sprout-tabs-list-steps > .sprout-tabs-trigger::after {
     bottom: -1px;
@@ -203,8 +203,8 @@
     display: none;
   }
   .sprout-tabs-content:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
 
   @media (prefers-reduced-motion: no-preference) {

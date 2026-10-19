@@ -210,6 +210,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Component         | Slug                | Use when                                                       |
 | ----------------- | ------------------- | -------------------------------------------------------------- |
 | Chat Confirmation | `chat-confirmation` | Ask to approve or decline an agent's action.                   |
+| Chat Input        | `chat-input`        | Chat message box: @agents, /skills, #files, model, send.       |
 | Chat Plan         | `chat-plan`         | Agent's proposed plan with per-step progress.                  |
 | Chat Sources      | `chat-sources`      | Inline numbered citations and the source list of a reply.      |
 | Plan Outline      | `plan-outline`      | Saved plan as a read-only outline of nested tasks.             |

@@ -138,7 +138,7 @@ test("keyboard activates buttons, shows focus, and respects disabled", async ({
   await page.keyboard.press("Space");
   await expect(stage.getByRole("status")).toHaveText("Clicked 2 times");
   await expect(button).toHaveCSS("outline-style", "solid");
-  await expect(button).toHaveCSS("outline-width", "2px");
+  await expect(button).toHaveCSS("outline-width", "1px");
 
   await chooseOption(page, "State", "Disabled");
   await expect(button).toBeDisabled();

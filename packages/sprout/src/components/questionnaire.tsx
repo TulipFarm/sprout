@@ -27,6 +27,7 @@ import {
   type ButtonSize,
   type ButtonVariant,
 } from "./button.js";
+import { Kbd } from "./kbd.js";
 
 export const questionnaireItemStatusNames = [
   "unanswered",
@@ -1341,13 +1342,14 @@ export function QuestionnaireChoice({
               {children}
             </span>
             {shortcut !== null && (
-              <span
+              <Kbd
+                variant="outline"
                 aria-hidden="true"
                 data-slot="questionnaire-choice-shortcut"
                 className="sprout-questionnaire-choice-shortcut"
               >
                 {shortcut}
-              </span>
+              </Kbd>
             )}
           </>
         ),

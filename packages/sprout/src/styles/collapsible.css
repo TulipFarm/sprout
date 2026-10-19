@@ -10,8 +10,8 @@
     -webkit-tap-highlight-color: transparent;
   }
   :where(.sprout-collapsible-trigger:not(.sprout-button)):focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   :where(.sprout-collapsible-trigger:not(.sprout-button))[data-disabled] {
     cursor: not-allowed;

@@ -4,7 +4,7 @@
 }
 /* The docs page draws a global focus outline; keep Textarea's own ring. */
 .textarea-demo .sprout-textarea:focus-visible {
-  outline-offset: 2px;
+  outline-offset: 0;
 }
 .textarea-demo .sprout-textarea[aria-invalid="true"]:focus-visible {
   outline-color: var(--sprout-danger);
@@ -180,9 +180,9 @@
   cursor: text;
 }
 .textarea-demo-composer:has(.sprout-textarea:focus-visible) {
-  border-color: var(--sprout-focus);
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  border-color: var(--sprout-border);
+  outline: var(--sprout-focus-width) solid transparent;
+  outline-offset: 0;
 }
 .textarea-demo-composer-title {
   padding: 8px 10px 0;

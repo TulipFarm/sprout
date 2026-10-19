@@ -749,7 +749,7 @@ test.describe("Select component", () => {
     await page.keyboard.press("Tab");
     await expect(calendar).toBeFocused();
     await expect(calendar).toHaveCSS("outline-style", "solid");
-    await expect(calendar).toHaveCSS("outline-width", "2px");
+    await expect(calendar).toHaveCSS("outline-width", "1px");
   });
 });
 

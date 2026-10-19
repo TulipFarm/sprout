@@ -115,8 +115,8 @@
     outline: none;
   }
   .sprout-plan-outline-task:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
   .sprout-plan-outline-row {
     box-sizing: border-box;
@@ -143,8 +143,8 @@
     background: var(--sprout-hover);
   }
   .sprout-plan-outline-trigger:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
   .sprout-plan-outline-mark {
     display: inline-flex;
@@ -347,8 +347,8 @@
     text-decoration: underline;
   }
   .sprout-plan-outline-link:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-plan-outline-dependency-label {
     color: var(--sprout-muted);

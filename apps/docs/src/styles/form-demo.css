@@ -48,8 +48,8 @@
   background: var(--sprout-hover);
 }
 .form-demo-toggle:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-demo-toggle {
@@ -260,9 +260,9 @@
   color: var(--sprout-muted);
 }
 .form-demo-textarea:focus-visible {
-  border-color: var(--sprout-focus);
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  border-color: var(--sprout-border);
+  outline: var(--sprout-focus-width) solid transparent;
+  outline-offset: 0;
 }
 .form-demo-textarea:disabled {
   cursor: not-allowed;

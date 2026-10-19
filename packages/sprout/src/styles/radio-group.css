@@ -23,7 +23,7 @@
     vertical-align: middle;
     cursor: pointer;
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
     -webkit-tap-highlight-color: transparent;
   }
   /* A 40 x 32px hit area around the 16px dot. */
@@ -42,8 +42,7 @@
     }
   }
   .sprout-radio-group-item:focus-visible {
-    border-color: var(--sprout-focus);
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-radio-group-item[data-checked] {
     border-color: var(--sprout-primary);

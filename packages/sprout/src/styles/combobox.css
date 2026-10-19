@@ -182,15 +182,15 @@
     font-size: var(--sprout-text-sm);
     line-height: 20px;
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
     cursor: text;
   }
   .sprout-combobox-chips:has([data-slot="combobox-chip"]) {
     padding-inline: 4px;
   }
   .sprout-combobox-chips:focus-within {
-    border-color: var(--sprout-focus);
-    outline: 2px solid var(--sprout-focus);
+    border-color: var(--sprout-border);
+    outline: var(--sprout-focus-width) solid transparent;
   }
   .sprout-combobox-chips:has([aria-invalid="true"]),
   .sprout-combobox-chips:has([data-invalid]) {
@@ -225,8 +225,8 @@
   }
   .sprout-combobox-chip:focus-visible,
   .sprout-combobox-chip[data-highlighted] {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 1px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-combobox-chip:has(:disabled),
   .sprout-combobox-chip[data-disabled] {
@@ -301,7 +301,7 @@
   @media (forced-colors: active) {
     .sprout-combobox-item[data-highlighted] {
       outline: 2px solid Highlight;
-      outline-offset: -2px;
+      outline-offset: -1px;
     }
     .sprout-combobox-chips:focus-within {
       outline-color: Highlight;

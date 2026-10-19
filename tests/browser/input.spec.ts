@@ -202,15 +202,12 @@ test("keyboard moves focus with a visible ring", async ({ page }) => {
   const channel = sample.getByLabel("Slack channel");
   await agent.focus();
   await expect(agent).toHaveCSS("outline-style", "solid");
-  await expect(agent).toHaveCSS("outline-width", "2px");
-  await expect(agent).toHaveCSS("outline-offset", "2px");
-  await expect(agent).toHaveCSS(
-    "outline-color",
-    await cssColor(page, "var(--sprout-focus)"),
-  );
+  await expect(agent).toHaveCSS("outline-width", "1px");
+  await expect(agent).toHaveCSS("outline-offset", "0px");
+  await expect(agent).toHaveCSS("outline-color", "rgba(0, 0, 0, 0)");
   await expect(agent).toHaveCSS(
     "border-top-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-border)"),
   );
   await page.keyboard.press("Tab");
   await expect(channel).toBeFocused();
@@ -425,7 +422,7 @@ test("SidebarInput and a custom group compose Input", async ({
   await expect(bare).toHaveCSS("border-top-width", "0px");
   await group.click({ position: { x: 6, y: 8 } });
   await expect(bare).toBeFocused();
-  await expect(group).toHaveCSS("outline-width", "2px");
+  await expect(group).toHaveCSS("outline-width", "1px");
   const path = testInfo.outputPath("input-compositions.png");
   await card.screenshot({ animations: "disabled", path });
   await testInfo.attach("input-compositions", {

@@ -129,8 +129,8 @@
   .sprout-sidebar-menu-action:focus-visible,
   .sprout-sidebar-trigger:focus-visible,
   .sprout-sidebar-close:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
   .sprout-sidebar-menu-button:disabled,
   .sprout-sidebar-menu-button[data-disabled] {

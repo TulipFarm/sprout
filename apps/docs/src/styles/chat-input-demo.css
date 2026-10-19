@@ -1,0 +1,44 @@
+.chat-input-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.chat-input-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.chat-input-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.chat-input-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.chat-input-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 48px 20px 24px;
+  border-radius: 0 0 var(--sprout-radius-panel) var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+}
+.chat-input-demo-sample {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  max-width: 44rem;
+  margin-inline: auto;
+}
+.chat-input-demo-note {
+  font-size: 12px;
+  color: var(--sprout-muted);
+}
+.chat-input-demo-sample
+  .sprout-input-group
+  [data-slot="input-group-control"]:focus-visible {
+  outline: none;
+}

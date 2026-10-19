@@ -60,7 +60,7 @@
   text-underline-offset: 4px;
 }
 .popover-demo-link:focus-visible {
-  outline-offset: 2px;
+  outline-offset: 0;
 }
 .popover-demo-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -159,35 +159,6 @@
   font-size: var(--sprout-text-sm);
   font-weight: 500;
 }
-.popover-demo-input {
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-  height: 32px;
-  padding: 0 10px;
-  border: 1px solid var(--sprout-input);
-  border-radius: var(--sprout-radius-control);
-  background: var(--sprout-surface);
-  color: var(--sprout-text);
-  font: inherit;
-  font-size: var(--sprout-text-sm);
-}
-.popover-demo-input::placeholder {
-  color: var(--sprout-muted);
-}
-.popover-demo-input:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 0;
-}
-.popover-demo-input[aria-invalid="true"] {
-  border-color: var(--sprout-danger);
-}
-.popover-demo-textarea {
-  height: auto;
-  min-height: 72px;
-  padding-block: 8px;
-  resize: vertical;
-}
 
 /* Search list (stand-in for a command list) */
 .popover-demo-command {
@@ -275,8 +246,8 @@
 }
 .popover-demo-choice:focus-visible,
 .popover-demo-event:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
 }
 .popover-demo-choice:disabled {
   opacity: 0.5;
@@ -404,8 +375,8 @@
   background: var(--sprout-text);
 }
 .popover-demo-tab:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
   border-radius: var(--sprout-radius-control);
 }
 .popover-demo-rule {
@@ -437,8 +408,8 @@
   scrollbar-width: thin;
 }
 .popover-demo-work-body:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
 }
 .popover-demo-work-items {
   display: grid;
@@ -544,8 +515,8 @@
   color: var(--sprout-on-primary);
 }
 .popover-demo-day:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 1px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 
 /* App actions */

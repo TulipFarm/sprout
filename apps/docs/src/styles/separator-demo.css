@@ -138,8 +138,8 @@
 }
 .separator-demo-field input:focus-visible,
 .separator-demo-check input:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 1px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .separator-demo-check {
   display: flex;

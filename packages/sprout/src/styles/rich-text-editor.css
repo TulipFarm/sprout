@@ -39,7 +39,7 @@
     line-height: 1.5;
     overflow-wrap: anywhere;
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
   }
   .sprout-rich-text-editor-size-compact .sprout-rich-text-editor-content {
     min-height: 2.5rem;
@@ -52,7 +52,7 @@
     max-height: 8rem;
   }
   .sprout-rich-text-editor-content:focus-visible {
-    outline: 2px solid var(--sprout-focus);
+    outline: 0 solid transparent;
   }
   /* Inside an input group, the group draws the focus ring for the editor. */
   .sprout-input-group .sprout-rich-text-editor-content:focus-visible {

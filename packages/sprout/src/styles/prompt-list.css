@@ -34,7 +34,7 @@
     font-size: var(--sprout-text-sm);
     line-height: 1.25rem;
     outline: 0 solid transparent;
-    outline-offset: 1px;
+    outline-offset: 0;
   }
   @media (pointer: coarse) {
     .sprout-prompt-list-item {
@@ -50,7 +50,7 @@
   .sprout-prompt-list-item:has(.sprout-prompt-list-button:focus-visible) {
     --sprout-brand-ring: var(--sprout-hover);
     background: var(--sprout-hover);
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-prompt-list-item:has(.sprout-prompt-list-button:disabled) {
     opacity: 0.5;

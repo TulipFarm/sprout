@@ -104,8 +104,8 @@
   border-radius: var(--sprout-radius-control);
 }
 .review-demo-result:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .review-demo-result:empty {
   display: none;
@@ -192,8 +192,8 @@
   border-radius: var(--sprout-radius-panel);
 }
 .review-demo-bounded:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .review-demo-plain-list {
   display: grid;

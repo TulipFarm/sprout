@@ -192,8 +192,8 @@
     padding: 1rem;
   }
   .sprout-file-text-scroll:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
   .sprout-file-text-page {
     box-sizing: border-box;
@@ -223,8 +223,8 @@
     padding: 1rem;
   }
   .sprout-file-image-stage:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
   }
   .sprout-file-image {
     margin: auto;
@@ -254,8 +254,8 @@
     border-radius: 2px;
   }
   .sprout-file-google-link a:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
 
   .sprout-file-embed {

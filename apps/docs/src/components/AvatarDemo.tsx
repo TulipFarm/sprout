@@ -18,6 +18,9 @@ import {
   type EntityAvatarShape,
   type EntityAvatarSize,
 } from "@tulipfarm/sprout/avatar";
+import { Button } from "@tulipfarm/sprout/button";
+import { Input } from "@tulipfarm/sprout/input";
+import { Toggle } from "@tulipfarm/sprout/toggle";
 import {
   Sidebar,
   SidebarContent,
@@ -120,22 +123,24 @@ export function AvatarPlayground() {
             ]}
           />
         </label>
-        <button
-          type="button"
-          className="avatar-toggle"
-          aria-pressed={badge}
+        <Toggle
+          variant="outline"
+          size="sm"
+
+          pressed={badge}
           onClick={() => setBadge((value) => !value)}
         >
           Badge
-        </button>
+        </Toggle>
         {content === "slow" && (
-          <button
-            type="button"
-            className="avatar-toggle"
+          <Button
+            variant="outline"
+            size="sm"
+
             onClick={() => setAttempt((value) => value + 1)}
           >
             Reload image
-          </button>
+          </Button>
         )}
       </div>
       <div className="avatar-stage">
@@ -392,9 +397,8 @@ export function AgentCompositions() {
         <label htmlFor={nameId} className="avatar-field-label">
           Agent name
         </label>
-        <input
+        <Input
           id={nameId}
-          className="avatar-input"
           value={draftName}
           placeholder="New agent"
           onChange={(event) => setDraftName(event.target.value)}
@@ -550,18 +554,20 @@ function ImagePicker({
           event.target.value = "";
         }}
       />
-      <button
-        type="button"
-        className="avatar-button"
+      <Button
+        variant="outline"
+        size="sm"
+
         disabled={disabled}
         onClick={() => chooser.current?.click()}
       >
         {image ? "Change image" : "Upload image"}
-      </button>
+      </Button>
       {image && (
-        <button
-          type="button"
-          className="avatar-button avatar-button-ghost"
+        <Button
+          variant="ghost"
+          size="sm"
+
           disabled={disabled}
           onClick={() => {
             setProblem("");
@@ -569,7 +575,7 @@ function ImagePicker({
           }}
         >
           Remove
-        </button>
+        </Button>
       )}
       {problem && (
         <p role="alert" className="avatar-problem">
@@ -605,14 +611,15 @@ export function EntityCompositions() {
         title="Image picker"
         label="Sample image picker"
         foot={
-          <button
-            type="button"
-            className="avatar-toggle"
-            aria-pressed={locked}
+          <Toggle
+            variant="outline"
+            size="sm"
+
+            pressed={locked}
             onClick={() => setLocked((value) => !value)}
           >
             Locked
-          </button>
+          </Toggle>
         }
       >
         <div className="avatar-picker-stack">

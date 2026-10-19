@@ -221,7 +221,7 @@
   }
   .sprout-calendar-day-button.sprout-button:focus-visible {
     z-index: 2;
-    outline-offset: 1px;
+    outline-offset: 0;
   }
   .sprout-calendar-day-button > span {
     font-size: 0.625rem;
@@ -282,11 +282,11 @@
     .sprout-calendar-day-button[data-range-start="true"],
     .sprout-calendar-day-button[data-range-end="true"] {
       outline: 2px solid Highlight;
-      outline-offset: -2px;
+      outline-offset: -1px;
     }
     .sprout-calendar-day-button[data-range-middle="true"] {
       outline: 1px dashed Highlight;
-      outline-offset: -2px;
+      outline-offset: -1px;
     }
     .sprout-calendar-today .sprout-calendar-day-button {
       text-decoration: underline;

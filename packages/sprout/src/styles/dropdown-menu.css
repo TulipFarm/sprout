@@ -131,7 +131,7 @@
     .sprout-dropdown-menu-item[data-highlighted],
     .sprout-dropdown-menu-sub-trigger[data-popup-open] {
       outline: 2px solid Highlight;
-      outline-offset: -2px;
+      outline-offset: -1px;
     }
   }
 

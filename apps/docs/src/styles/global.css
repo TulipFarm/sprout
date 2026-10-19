@@ -55,9 +55,11 @@ body {
   background: var(--sprout-primary);
 }
 
-:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 4px;
+@layer base {
+  :focus-visible {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
+  }
 }
 
 /* The group draws the ring for its control, including inside portaled popups. */

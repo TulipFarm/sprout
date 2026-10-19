@@ -128,10 +128,10 @@ test("keyboard moves one level, jumps to the ends, and shows a focus outline", a
   await page.keyboard.press("Tab");
   await expect(slider).toBeFocused();
   await expect(slider).toHaveCSS("outline-style", "solid");
-  await expect(slider).toHaveCSS("outline-width", "2px");
+  await expect(slider).toHaveCSS("outline-width", "1px");
   await expect(slider).toHaveCSS(
     "outline-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-focus-ring)"),
   );
   await page.keyboard.press("ArrowRight");
   await expect(status).toHaveText("Selected level: Thorough");

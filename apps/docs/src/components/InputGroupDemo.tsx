@@ -28,6 +28,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@tulipfarm/sprout/dropdown-menu";
 import {
@@ -38,13 +40,9 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@tulipfarm/sprout/input-group";
+import { Button } from "@tulipfarm/sprout/button";
 import { Kbd } from "@tulipfarm/sprout/kbd";
 import { Label } from "@tulipfarm/sprout/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
 import {
   Select,
   SelectContent,
@@ -315,13 +313,13 @@ export function InputGroupWorkspaceUrl() {
                 : "Choose carefully. This address cannot be changed after creation.")}
           </p>
           <div>
-            <button
+            <Button
               type="submit"
-              className="input-group-demo-submit"
+
               disabled={saving}
             >
               {saving ? "Creating…" : "Create workspace"}
-            </button>
+            </Button>
           </div>
         </form>
         <div className="input-group-demo-stack">
@@ -606,12 +604,11 @@ function FilesMenu({
 }
 
 function PersonaPicker({ disabled }: { disabled: boolean }) {
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
   const label = value ?? "Mode";
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
+    <DropdownMenu>
+      <DropdownMenuTrigger
         render={
           <InputGroupButton
             size="sm"
@@ -624,42 +621,45 @@ function PersonaPicker({ disabled }: { disabled: boolean }) {
         <Sparkle size={16} aria-hidden="true" />
         {label}
         <ChevronDown size={12} aria-hidden="true" />
-      </PopoverTrigger>
-      <PopoverContent size="menu" side="top" align="start" sideOffset={8}>
-        <ul
-          className="input-group-demo-command-list"
-          aria-label="Modes and agents"
-        >
-          {personas.map((persona) => (
-            <li key={persona.id}>
-              <button
-                type="button"
-                aria-pressed={value === persona.label}
-                onClick={() => {
-                  setValue(value === persona.label ? null : persona.label);
-                  setOpen(false);
-                }}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent size="menu" side="top" align="start">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Modes and agents</DropdownMenuLabel>
+          <DropdownMenuRadioGroup
+            value={value ?? ""}
+            onValueChange={(next) =>
+              setValue(next === value || !next ? null : String(next))
+            }
+          >
+            {personas.map((persona) => (
+              <DropdownMenuRadioItem
+                key={persona.id}
+                value={persona.label}
+                closeOnClick
               >
-                <span>{persona.label}</span>
-                <span className="input-group-demo-note">{persona.detail}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </PopoverContent>
-    </Popover>
+                <span className="input-group-demo-option-text">
+                  <span>{persona.label}</span>
+                  <span className="input-group-demo-note">
+                    {persona.detail}
+                  </span>
+                </span>
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 function ModelPicker({ disabled }: { disabled: boolean }) {
-  const [open, setOpen] = useState(false);
   const [model, setModel] = useState(models[1]!);
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <DropdownMenu>
       <Tooltip>
         <TooltipTrigger
           render={
-            <PopoverTrigger
+            <DropdownMenuTrigger
               render={
                 <InputGroupButton
                   size="sm"
@@ -677,25 +677,28 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
         </TooltipTrigger>
         <TooltipContent>AI model that writes replies</TooltipContent>
       </Tooltip>
-      <PopoverContent size="picker" side="top" align="end" sideOffset={8}>
-        <ul className="input-group-demo-command-list" aria-label="Models">
-          {models.map((candidate) => (
-            <li key={candidate.id}>
-              <button
-                type="button"
-                aria-pressed={candidate.id === model.id}
-                onClick={() => {
-                  setModel(candidate);
-                  setOpen(false);
-                }}
+      <DropdownMenuContent size="menu" side="top" align="end">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Models</DropdownMenuLabel>
+          <DropdownMenuRadioGroup
+            value={model.id}
+            onValueChange={(next) =>
+              setModel(models.find((item) => item.id === next) ?? model)
+            }
+          >
+            {models.map((candidate) => (
+              <DropdownMenuRadioItem
+                key={candidate.id}
+                value={candidate.id}
+                closeOnClick
               >
-                <span>{candidate.label}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </PopoverContent>
-    </Popover>
+                {candidate.label}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { Toggle } from "@base-ui/react/toggle";
 import {
   Children,
   Fragment,
@@ -12,6 +11,8 @@ import {
 import { X } from "reicon-react/icons/X";
 import { cn } from "../internal/classes.js";
 import { Button } from "./button.js";
+import { Kbd } from "./kbd.js";
+import { Toggle } from "./toggle.js";
 import {
   Command,
   CommandGroup,
@@ -157,9 +158,10 @@ export function SearchFilter({
   return (
     <Toggle
       data-slot="search-filter"
+      variant="outline"
+      size="sm"
       pressed={pressed}
       onPressedChange={(next) => onPressedChange(next)}
-      className="sprout-search-filter"
     >
       {icon}
       {children}
@@ -298,12 +300,13 @@ export function SearchItem({
           {trailing}
         </span>
       )}
-      <kbd
+      <Kbd
+        variant="outline"
         aria-hidden="true"
-        className="sprout-search-kbd sprout-search-item-enter"
+        className="sprout-search-item-enter"
       >
         ↵
-      </kbd>
+      </Kbd>
     </CommandItem>
   );
 }
@@ -378,7 +381,7 @@ export interface SearchHintProps {
 export function SearchHint({ keys, children }: SearchHintProps) {
   return (
     <span data-slot="search-hint" className="sprout-search-hint">
-      <kbd className="sprout-search-kbd">{keys}</kbd>
+      <Kbd variant="outline">{keys}</Kbd>
       {children}
     </span>
   );

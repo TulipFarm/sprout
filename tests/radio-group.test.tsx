@@ -150,7 +150,7 @@ describe("RadioGroup", () => {
     expect(css).toContain("inset: -8px -12px;");
     expect(css).toContain("var(--sprout-primary)");
     expect(css).toContain("var(--sprout-danger)");
-    expect(css).toContain("var(--sprout-focus)");
+    expect(css).toContain("var(--sprout-focus-ring)");
     expect(css).toContain("prefers-reduced-motion: no-preference");
     expect(css).toContain("forced-colors: active");
     expect(css).toMatch(/\.sprout-radio-group-indicator \{[^}]*width: 8px;/);

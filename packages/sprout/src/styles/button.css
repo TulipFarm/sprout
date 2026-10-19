@@ -33,8 +33,8 @@
     height: var(--sprout-button-icon);
   }
   .sprout-button:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-button:disabled,
   .sprout-button[data-disabled],

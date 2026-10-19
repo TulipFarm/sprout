@@ -241,8 +241,8 @@ describe("SearchDialog", () => {
     );
     expect(tag(html, "search-footer")).toMatch(/^<footer/);
     expect(html.match(/data-slot="search-hint"/g)).toHaveLength(3);
-    expect(html).toContain(
-      '<kbd class="sprout-search-kbd">[ ]</kbd>Previous / next',
+    expect(html).toMatch(
+      /class="sprout-kbd"[^>]*>\[ \]<\/kbd>Previous \/ next/,
     );
   });
 });

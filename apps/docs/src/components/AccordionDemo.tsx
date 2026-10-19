@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@tulipfarm/sprout/accordion";
 import { Button } from "@tulipfarm/sprout/button";
+import { Input } from "@tulipfarm/sprout/input";
 import "../styles/accordion-demo.css";
 import DocsSelect from "./DocsSelect";
 
@@ -329,10 +330,10 @@ export function AccordionImportSettings() {
                 </fieldset>
                 <div className="accordion-demo-field">
                   <label htmlFor="github-after">Import activity after</label>
-                  <input
+                  <Input
                     id="github-after"
                     type="date"
-                    className="accordion-demo-input"
+
                     value={after}
                     onChange={(event) => setAfter(event.currentTarget.value)}
                   />
@@ -419,9 +420,9 @@ export function AccordionRecoverProposal() {
               >
                 Proposal reference
               </label>
-              <input
+              <Input
                 id="recover-proposal"
-                className="accordion-demo-input"
+
                 value={reference}
                 spellCheck={false}
                 autoComplete="off"

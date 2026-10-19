@@ -180,7 +180,7 @@ test("keyboard focuses and presses toggles with Space and Enter", async ({
   await expect(status).toHaveText("Applied: Bold");
   await bold.focus();
   await expect(bold).toHaveCSS("outline-style", "solid");
-  await expect(bold).toHaveCSS("outline-width", "2px");
+  await expect(bold).toHaveCSS("outline-width", "1px");
   await page.keyboard.press("Space");
   await expect(bold).toHaveAttribute("aria-pressed", "false");
   await expect(status).toHaveText("No formatting");

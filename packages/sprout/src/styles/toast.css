@@ -68,8 +68,8 @@
     content: "";
   }
   .sprout-toast:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-toast[data-expanded] {
     height: var(--toast-height);

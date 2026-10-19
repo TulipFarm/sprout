@@ -15,11 +15,11 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { ArrowLeft } from "reicon-react/icons/ArrowLeft";
-import { Loader } from "reicon-react/icons/Loader";
 import { SidebarRight } from "reicon-react/icons/SidebarRight";
 import { X } from "reicon-react/icons/X";
 import { cn } from "../internal/classes.js";
 import { Button } from "./button.js";
+import { Spinner } from "./spinner.js";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -339,11 +339,7 @@ export function CanvasPanel({
                     className="sprout-canvas-tab"
                   >
                     {tab.busy ? (
-                      <Loader
-                        size={14}
-                        aria-hidden="true"
-                        className="sprout-canvas-tab-spinner"
-                      />
+                      <Spinner size="sm" aria-hidden="true" />
                     ) : (
                       Icon && (
                         <span

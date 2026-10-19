@@ -367,7 +367,7 @@ test("focus rings follow keyboard focus on inputs and chips", async ({
     .locator('[data-slot="input-group"]')
     .first();
   await expect(group).toHaveCSS("outline-style", "solid");
-  await expect(group).toHaveCSS("outline-width", "2px");
+  await expect(group).toHaveCSS("outline-width", "1px");
   const chips = demo(page, "basics").locator('[data-slot="combobox-chips"]');
   await demo(page, "basics")
     .getByRole("combobox", { name: "Add fruit" })

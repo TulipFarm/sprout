@@ -201,10 +201,10 @@ test("keyboard roves, selects, skips disabled, and shows a focus ring", async ({
   await page.keyboard.press("Tab");
   await expect(weekly).toBeFocused();
   await expect(weekly).toHaveCSS("outline-style", "solid");
-  await expect(weekly).toHaveCSS("outline-width", "2px");
+  await expect(weekly).toHaveCSS("outline-width", "1px");
   await expect(weekly).toHaveCSS(
     "outline-color",
-    await cssColor(page, "var(--sprout-focus)"),
+    await cssColor(page, "var(--sprout-focus-ring)"),
   );
   // The disabled radio is skipped, so ArrowDown wraps to Daily.
   await page.keyboard.press("ArrowDown");

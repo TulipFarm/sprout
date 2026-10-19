@@ -34,8 +34,8 @@
     background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
   }
   .sprout-review-card-header:has(.sprout-review-card-trigger:focus-visible) {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: -2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: -1px;
     border-radius: inherit;
   }
   .sprout-review-card-icon {

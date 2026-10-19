@@ -443,28 +443,30 @@ function AttachmentCarousel({
       </div>
       {edges.start && (
         <span className="sprout-attachment-carousel-edge" data-side="start">
-          <button
-            type="button"
+          <Button
+            variant="outline"
+            size="icon-xs"
             aria-label="Previous attachments"
             tabIndex={-1}
             className="sprout-attachment-carousel-arrow"
             onClick={() => scroll(-1)}
           >
-            <ChevronLeft size={12} aria-hidden="true" />
-          </button>
+            <ChevronLeft aria-hidden="true" />
+          </Button>
         </span>
       )}
       {edges.end && (
         <span className="sprout-attachment-carousel-edge" data-side="end">
-          <button
-            type="button"
+          <Button
+            variant="outline"
+            size="icon-xs"
             aria-label="Next attachments"
             tabIndex={-1}
             className="sprout-attachment-carousel-arrow"
             onClick={() => scroll(1)}
           >
-            <ChevronRight size={12} aria-hidden="true" />
-          </button>
+            <ChevronRight aria-hidden="true" />
+          </Button>
         </span>
       )}
     </div>
@@ -707,11 +709,9 @@ export function FileAttachment({
   if (variant === "chip") {
     const inner = (
       <>
-        {image ? (
+        {image && file.url ? (
           <span className="sprout-file-attachment-thumb">
-            {file.url && (
-              <AttachmentImage key={file.url} src={file.url} name={file.name} />
-            )}
+            <AttachmentImage key={file.url} src={file.url} name={file.name} />
           </span>
         ) : (
           <FileTypeIcon name={file.name} mediaType={file.mediaType} />

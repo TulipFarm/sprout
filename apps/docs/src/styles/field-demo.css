@@ -96,11 +96,11 @@
   line-height: 20px;
   resize: vertical;
   outline: 0 solid transparent;
-  outline-offset: 2px;
+  outline-offset: 0;
 }
 .field-demo-textarea:focus-visible {
-  border-color: var(--sprout-focus);
-  outline: 2px solid var(--sprout-focus);
+  border-color: var(--sprout-border);
+  outline: var(--sprout-focus-width) solid transparent;
 }
 .field-demo-textarea[aria-invalid="true"] {
   border-color: var(--sprout-danger);

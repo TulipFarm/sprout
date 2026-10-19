@@ -145,8 +145,8 @@
     cursor: pointer;
   }
   .sprout-message-bubble:is(button, a):focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-message-bubble:is(button):disabled,
   .sprout-message-bubble[aria-disabled="true"] {
@@ -270,8 +270,8 @@
     color: var(--sprout-primary);
   }
   .sprout-message-reactions > button:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 1px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
 
   @media (hover: hover) {

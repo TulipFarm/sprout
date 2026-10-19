@@ -102,7 +102,7 @@
     color: var(--sprout-on-primary);
     cursor: pointer;
     outline: 0 solid transparent;
-    outline-offset: 2px;
+    outline-offset: 0;
   }
   .sprout-field-checkbox {
     border-radius: 4px;
@@ -118,8 +118,7 @@
   }
   .sprout-field-checkbox:focus-visible,
   .sprout-field-radio:focus-visible {
-    border-color: var(--sprout-focus);
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-field-checkbox[data-checked],
   .sprout-field-radio[data-checked] {

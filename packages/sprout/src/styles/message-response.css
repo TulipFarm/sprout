@@ -74,8 +74,8 @@
     text-decoration-thickness: 2px;
   }
   .sprout-message-response a:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-message-response :not(pre) > code {
     padding: 2px 4px;
@@ -103,8 +103,8 @@
     overflow: auto;
   }
   .sprout-message-response-table:focus-visible {
-    outline: 2px solid var(--sprout-focus);
-    outline-offset: 2px;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
   .sprout-message-response table {
     width: 100%;

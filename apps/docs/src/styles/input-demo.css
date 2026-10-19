@@ -4,7 +4,7 @@
 }
 /* The docs page draws a global focus outline; keep Input's own ring. */
 .input-demo .sprout-input:focus-visible {
-  outline-offset: 2px;
+  outline-offset: 0;
 }
 .input-demo .sprout-input[aria-invalid="true"]:focus-visible,
 .input-demo .sprout-input[data-invalid]:focus-visible {
@@ -216,9 +216,9 @@
   cursor: text;
 }
 .input-demo-group:has(.input-demo-bare:focus-visible) {
-  border-color: var(--sprout-focus);
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  border-color: var(--sprout-border);
+  outline: var(--sprout-focus-width) solid transparent;
+  outline-offset: 0;
 }
 .input-demo-group > svg {
   flex-shrink: 0;

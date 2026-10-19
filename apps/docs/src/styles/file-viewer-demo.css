@@ -187,8 +187,8 @@
   overflow: auto;
 }
 .file-viewer-demo-grid:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
 }
 .file-viewer-demo-grid table {
   width: 100%;
@@ -238,8 +238,8 @@
   overflow: auto;
 }
 .file-viewer-demo-pages:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: -2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: -1px;
 }
 .file-viewer-demo-page,
 .file-viewer-demo-slide {

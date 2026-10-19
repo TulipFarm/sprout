@@ -125,8 +125,8 @@
   background: var(--sprout-hover);
 }
 .tooltip-demo-select:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 2px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 .tooltip-demo-select[data-disabled] {
   opacity: 0.5;
@@ -236,8 +236,8 @@
   color: var(--sprout-text);
 }
 .tooltip-demo-hint:focus-visible {
-  outline: 2px solid var(--sprout-focus);
-  outline-offset: 1px;
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 0;
 }
 @media (max-width: 479px) {
   .tooltip-demo-list-head,
