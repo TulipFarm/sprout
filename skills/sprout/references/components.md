@@ -1415,6 +1415,45 @@ const columns: TableColumn<Order>[] = [
 
 ## AI and chat
 
+### Agent Fanout
+
+```tsx
+import { AgentFanout } from "@tulipfarm/sprout/agent-fanout";
+
+<AgentFanout
+  task="Choose a vector store for the retrieval stack"
+  agents={[
+    {
+      id: "research",
+      name: "Researcher",
+      icon: <Globe size={16} />,
+      task: "Web search",
+      status: "done",
+      result: "Found 18 sources",
+      duration: 3000,
+    },
+    {
+      id: "analyst",
+      name: "Analyst",
+      icon: <ChartLine size={16} />,
+      task: "Benchmarks",
+      status: "working",
+    },
+  ]}
+  elapsed={elapsed}
+  onStop={stop}
+/>;
+```
+
+- You own the clock. Change each agent's `status` as work moves: `queued` → `working` → `done` or `failed`. Each change sends a pulse along that agent's line: down on `working`, up on `done`.
+- Set `state="done"` once the parent has merged the results, or `"stopped"` after Stop. Mark agents that did not finish as `stopped`.
+- The footer names the phase from the statuses. Pass `label` to replace it.
+- Colors cycle through the five `--sprout-chart-*` tokens. Pass `color` on an agent to pick one.
+- Statuses and phases that render on first mount do not animate. Only later changes do.
+- Nest `agents` inside an agent for subagents that call their own subagents. Helpers take their parent's color.
+- The per-agent list sits behind a Details button, closed by default. Pass `defaultOpen` to show it.
+- The graph uses React Flow at zoom 1 with no pan or zoom; it re-lays out on resize.
+
 ### Chat Confirmation
 
 ```tsx

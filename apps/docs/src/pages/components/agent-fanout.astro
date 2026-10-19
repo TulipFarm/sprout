@@ -1,0 +1,129 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import {
+  AgentFanoutMany,
+  AgentFanoutPlayground,
+  AgentFanoutStates,
+  AgentFanoutTree,
+} from "../../components/AgentFanoutDemo";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Docs
+  title="Agent Fanout"
+  description="A parent agent handing one task to subagents, live."
+>
+  <h1 class="docs-title">Agent Fanout</h1>
+  <p class="docs-lead">
+    A parent agent splits one task across subagents and merges what they find. A
+    pulse runs down each line when a subagent starts and back up when it
+    finishes.
+  </p>
+  <div class="mt-8"><AgentFanoutPlayground client:load /></div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Agent Fanout usage"
+      code={`import { AgentFanout } from "@tulipfarm/sprout/agent-fanout";
+import { Globe } from "reicon-react/icons/Globe";
+import { ChartLine } from "reicon-react/icons/ChartLine";
+
+<AgentFanout
+  task="Choose a vector store for the retrieval stack"
+  agents={[
+    {
+      id: "researcher",
+      name: "Researcher",
+      icon: <Globe size={16} />,
+      task: "Web search",
+      result: "Found 18 sources",
+      status: "done",
+      duration: 3000,
+    },
+    {
+      id: "analyst",
+      name: "Analyst",
+      icon: <ChartLine size={16} />,
+      task: "Benchmarks",
+      status: "working",
+    },
+  ]}
+  elapsed={elapsed}
+  onStop={stop}
+  onRestart={runAgain}
+/>`}
+    />
+    <p>
+      Your app owns the clock. Move each agent's <code>status</code> from <code
+        >queued</code
+      > to <code>working</code>, then to <code>done</code> or <code>failed</code
+      >. Each change sends a pulse in the agent's color: down on <code
+        >working</code
+      >, up on <code>done</code>. The node lights up when the pulse lands.
+    </p>
+    <p>
+      Set <code>state="done"</code> once the parent has merged the results. The center
+      node turns into a check. After Stop, set <code>state="stopped"</code> and mark
+      the agents that did not finish as <code>stopped</code>.
+    </p>
+    <p>
+      The footer names the phase from the statuses: Delegating work, Specialists
+      working, Merging results, Composing answer. Pass <code>label</code> to replace
+      it. <code>elapsed</code> is in ms. <code>duration</code> shows on a row once
+      the agent is done, and <code>result</code> replaces its task text.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Failed and stopped</h2>
+    <p>
+      A failed agent shows a red warning node and its <code>result</code> as the reason.
+      Stopped agents fade.
+    </p>
+    <div class="mt-4"><AgentFanoutStates client:visible /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">More agents</h2>
+    <p>
+      The graph is drawn with React Flow at a fixed zoom, so text stays full
+      size. Columns share the width. Nodes shrink to fit, and names cut off with
+      an ellipsis. Six agents still fit on a phone.
+    </p>
+    <div class="mt-4"><AgentFanoutMany client:visible /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Nested subagents</h2>
+    <p>
+      Give an agent its own <code>agents</code> and it fans out again, one row per
+      level. Helpers take their parent's color. Leaves share the width, and each parent
+      sits over the middle of its helpers. The details list indents helpers under
+      their parent. Pass <code>defaultOpen</code> to show the list at first.
+    </p>
+    <div class="mt-4"><AgentFanoutTree client:visible /></div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The graph is decoration and is hidden from screen readers. The Details
+      button says how many agents finished. It opens a list with each agent's
+      name, task, and status. The footer phase is a live status, so changes are
+      read out. The timer is not, so it does not interrupt. With reduced motion,
+      pulses do not run and states change at once. In forced colors mode the
+      lines and nodes use the system text color.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Agent colors cycle through <code>--sprout-chart-1</code> to <code
+        >--sprout-chart-5</code
+      >, or come from an agent's <code>color</code>. A finished node draws its
+      check in <code>--sprout-surface</code> on the color. The card uses <code
+        >--sprout-line</code
+      > and <code>--sprout-surface</code>, like Card. The center node uses <code
+        >--sprout-primary</code
+      >. Set <code>--sprout-agent-fanout-trip</code> on the component to change how
+      long a pulse takes (720ms).
+    </p>
+  </section>
+</Docs>
