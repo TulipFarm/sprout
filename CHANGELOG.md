@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.3.0](https://github.com/TulipFarm/sprout/compare/v0.2.0...v0.3.0) (2026-10-19)
+
+### Features
+
+* **agent-fanout:** add AgentFanout for a parent agent calling subagents ([9bd0cb6](https://github.com/TulipFarm/sprout/commit/9bd0cb619f2b78670b9d2a70039a6a75c91372eb))
+* **presence-cursor:** add PresenceCursor with name tag or avatar ([d265c1f](https://github.com/TulipFarm/sprout/commit/d265c1f03bdc4055fc9ac9525edc7b982682a2f4))
+* **sql-viewer:** add SqlViewer for TulipFarm tables and joins ([9182720](https://github.com/TulipFarm/sprout/commit/9182720f9fa05c8393172cc8943209a396c9040d))
+
+### Bug Fixes
+
+* **brand-icon:** keep stacked tiles as tooltip triggers ([ee8bcc7](https://github.com/TulipFarm/sprout/commit/ee8bcc78aaf8fe75b0691b5f083dadfd6423d41e))
+* **brand-icon:** keep the brand-tile slot on stacked tiles ([f4c82db](https://github.com/TulipFarm/sprout/commit/f4c82db4891b89df9b3f36c73577c59acbf1d548))
+* **chat-sources:** keep a pressed citation open past a stale hover close ([b945aad](https://github.com/TulipFarm/sprout/commit/b945aad66be49b73b43392d8bcbc79466e52b45f))
+* **docs:** name the search button when its label is hidden ([0fbed34](https://github.com/TulipFarm/sprout/commit/0fbed346bed4da70d75971531d1edda2840fe050))
+* **message:** show the danger focus ring on destructive bubbles ([c446909](https://github.com/TulipFarm/sprout/commit/c4469097e712bd0fc3ec085a24f4375bb7c953dc))
+* **release:** format CHANGELOG with Prettier during release ([b8742e5](https://github.com/TulipFarm/sprout/commit/b8742e504c811c23a5cf1140801b1382ef1045e6))
+* **size:** measure relative to the package so chunk hashes match across checkouts ([5762c3b](https://github.com/TulipFarm/sprout/commit/5762c3bcb1ef69fa678e42c6e342a7a4f2ea47a7))
+* **themes:** lift TulipFarm primary subtle to pass AA contrast ([49cf18a](https://github.com/TulipFarm/sprout/commit/49cf18a1b80f4775e72b3406191879e99a83ded8))
+
 ## [0.2.0](https://github.com/TulipFarm/sprout/compare/v0.1.0...v0.2.0) (2026-10-19)
 
 ### Features
