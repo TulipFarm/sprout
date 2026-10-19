@@ -53,6 +53,7 @@ export * from "./components/page-header.js";
 export * from "./components/pagination.js";
 export * from "./components/plan-outline.js";
 export * from "./components/popover.js";
+export * from "./components/presence-cursor.js";
 export * from "./components/progress.js";
 export * from "./components/prompt-list.js";
 export * from "./components/questionnaire.js";

@@ -1,0 +1,42 @@
+.presence-cursor-demo {
+  display: grid;
+  gap: 20px;
+}
+.presence-cursor-demo-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.presence-cursor-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.presence-cursor-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.presence-cursor-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.presence-cursor-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.presence-cursor-demo-card-body {
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.presence-cursor-demo-board {
+  position: relative;
+  height: 320px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}

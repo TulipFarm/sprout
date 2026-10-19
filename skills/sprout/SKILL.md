@@ -201,6 +201,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | File Viewer     | `file-viewer`     | Open images, PDF, text, code, Google files in a viewer.                        |
 | Glass Banner    | `glass-banner`    | Frosted hero banner with draggable chips.                                      |
 | Gradient Banner | `gradient-banner` | Decorative gradient art with readable panels on top.                           |
+| Presence Cursor | `presence-cursor` | Other people's pointers on a shared surface, with a name tag or avatar.        |
 | Result Card     | `result-card`     | Something an agent made, with apps used, status, one action.                   |
 | Schema Diagram  | `schema-diagram`  | Tables, fields, and links with proposed changes marked.                        |
 | Table           | `table`           | Any rows of records: sort, filter, group, edit, select, card layout on phones. |

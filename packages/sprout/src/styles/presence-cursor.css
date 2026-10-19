@@ -1,0 +1,68 @@
+@layer components {
+  .sprout-presence-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    font-family: var(--sprout-font);
+  }
+
+  .sprout-presence-cursor-arrow {
+    display: block;
+    width: 18px;
+    height: 18px;
+    fill: var(--sprout-presence-color);
+    stroke: #fff;
+    stroke-width: 1.5px;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.2));
+  }
+
+  .sprout-presence-cursor-label,
+  .sprout-presence-cursor-avatar {
+    position: absolute;
+    top: 16px;
+    left: 14px;
+    box-shadow: var(--sprout-shadow-control);
+  }
+
+  .sprout-presence-cursor-label {
+    box-sizing: border-box;
+    max-width: 16rem;
+    padding: 4px 8px;
+    overflow: hidden;
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-presence-color);
+    color: #fff;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .sprout-presence-cursor-avatar {
+    display: flex;
+    border: 2px solid var(--sprout-presence-color);
+    border-radius: 9999px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-presence-cursor {
+      transition: transform var(--sprout-motion-normal)
+        var(--sprout-motion-ease);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-presence-cursor-arrow {
+      fill: CanvasText;
+      stroke: Canvas;
+    }
+    .sprout-presence-cursor-label {
+      border: 1px solid CanvasText;
+    }
+  }
+}

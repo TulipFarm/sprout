@@ -502,6 +502,8 @@ const canvasExports = [
 
 const noticeBannerExports = ["NoticeBanner"];
 
+const presenceCursorExports = ["PresenceCursor"];
+
 const menubarExports = [
   "Menubar",
   "MenubarCheckboxItem",
@@ -846,6 +848,7 @@ describe("Sidebar public surface", () => {
           calendarExports.includes(name) ||
           canvasExports.includes(name) ||
           noticeBannerExports.includes(name) ||
+          presenceCursorExports.includes(name) ||
           menubarExports.includes(name) ||
           navigationMenuExports.includes(name) ||
           cardExports.includes(name) ||
@@ -944,6 +947,7 @@ describe("Sidebar public surface", () => {
         ...calendarExports,
         ...canvasExports,
         ...noticeBannerExports,
+        ...presenceCursorExports,
         ...menubarExports,
         ...navigationMenuExports,
         ...cardExports,
