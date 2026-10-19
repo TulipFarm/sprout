@@ -69,8 +69,8 @@ User permits expanding the previous Sidebar-only catalog for THIS picked compone
 Do not implement unrelated component families. If extraction needs an unpicked public family or a user design decision, record a clear blocker rather than silently expanding scope.
 NEVER run test commands directly or start unattended dev servers. All typecheck/build/tests must use this shared one-at-a-time gate:
 node ${JSON.stringify(path.join(job.root, "tools/component-board/check.mjs"))} <absolute-checkout-path> ${job.card.slug}
-The gate runs typecheck, build, then only tests/${job.card.slug}.test.tsx and tests/browser/${job.card.slug}.spec.ts, globally serialized across workers. Name your tests with exactly those paths so the gate and the board runner run them.
-Use browser tests for light/dark/mobile, keyboard, empty/loading/error states and screenshot coverage as appropriate. Existing Playwright owns its server lifecycle. Close every owned browser/server.
+The gate runs typecheck, build, then only tests/${job.card.slug}.test.tsx and tests/browser/${job.card.slug}.browser.test.tsx, globally serialized across workers. Name your tests with exactly those paths so the gate and the board runner run them.
+Use Vitest browser-mode tests for light/dark/mobile, keyboard, and empty/loading/error states. Put coarse-pointer checks in tests/browser/${job.card.slug}.touch.browser.test.tsx and screenshot baselines in tests/browser/${job.card.slug}.visual.browser.test.tsx; CI checks them on Linux. Close every owned browser/server.
 Do not change tools/component-board, board state, locks, other jobs, or test tooling to bypass checks. Do not leak private source or data to third-party websites.
 Do not nest more agents or workflows. Stop only when the selected component is complete or explicitly blocked.
 The user alone approves DONE. You only prepare REVIEW.

@@ -96,8 +96,8 @@ function useShortcut(
       event.preventDefault();
       run();
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [match, run]);
 }
 

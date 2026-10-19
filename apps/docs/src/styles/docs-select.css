@@ -121,6 +121,11 @@
     display: none;
   }
 }
+@media (max-width: 359px) {
+  .docs-theme-trigger .docs-select-chevron {
+    display: none;
+  }
+}
 .docs-theme-swatches {
   display: inline-flex;
   flex-shrink: 0;

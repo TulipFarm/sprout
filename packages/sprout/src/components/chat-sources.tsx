@@ -210,10 +210,22 @@ export function CheckedCitation({
   onRetry,
 }: CheckedCitationProps) {
   const popup = useRef<HTMLDivElement>(null);
+  const openReason = useRef<string | undefined>(undefined);
   return (
     <Popover
-      onOpenChange={(open) => {
-        if (open) onOpen();
+      onOpenChange={(open, details) => {
+        if (open) {
+          openReason.current = details.reason;
+          onOpen();
+          return;
+        }
+        // Base UI keeps a hover-close timer from before a reopen; a passage
+        // opened by click or keyboard closes only by click, Escape, or outside press.
+        if (
+          details.reason === "trigger-hover" &&
+          openReason.current === "trigger-press"
+        )
+          details.cancel();
       }}
     >
       <PopoverTrigger
