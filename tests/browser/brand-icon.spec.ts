@@ -154,7 +154,7 @@ test("brand stacks name their apps and show tooltips on hover", async ({
     name: "Google Workspace, Slack, GitHub, Atlassian",
   });
   await expect(draft).toBeVisible();
-  await expect(draft.locator('[data-slot="brand-tile"]')).toHaveCount(4);
+  await expect(draft.locator(".sprout-brand-tile")).toHaveCount(4);
   await expect(
     page.getByRole("img", { name: "Example integrations" }),
   ).toBeVisible();
@@ -164,7 +164,7 @@ test("brand stacks name their apps and show tooltips on hover", async ({
   await expect(
     page.getByTestId("empty-stack").locator('[data-slot="brand-stack"]'),
   ).toHaveCount(0);
-  const tiles = draft.locator('[data-slot="brand-tile"]');
+  const tiles = draft.locator(".sprout-brand-tile");
   const first = await tiles.nth(0).boundingBox();
   const second = await tiles.nth(1).boundingBox();
   expect(Math.round(second!.x - first!.x)).toBe(18);
@@ -278,7 +278,7 @@ test("tooltips respect reduced motion", async ({ browser }) => {
     await openBrandIcon(page);
     await page
       .getByRole("img", { name: "Example integrations" })
-      .locator('[data-slot="brand-tile"]')
+      .locator(".sprout-brand-tile")
       .first()
       .hover();
     const tooltip = page.locator(".sprout-brand-tooltip");

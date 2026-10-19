@@ -182,7 +182,6 @@ export function BrandStack({
         {brands.map((item) => (
           <Tooltip key={item.brand}>
             <TooltipTrigger
-              data-slot="brand-tile"
               render={<BrandTile size="sm" data-brand={item.brand} />}
             >
               <Glyph brand={item.brand} />
