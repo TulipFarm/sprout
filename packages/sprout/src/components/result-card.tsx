@@ -53,10 +53,15 @@ export type ResultAppActionState = (typeof resultAppActionStateNames)[number];
 
 export type ResultAppAction = { label: string; state: ResultAppActionState };
 
-/** One app that took part in a result. `brand: null` shows a generic plug. */
+/**
+ * One app that took part in a result. `brand: null` shows `icon`, or a
+ * generic plug when no icon is given.
+ */
 export type ResultApp = {
   brand: Brand | null;
   name: string;
+  /** Shown when `brand` is null, such as a table icon for your own data. */
+  icon?: ReactNode;
   actions: readonly ResultAppAction[];
 };
 
@@ -258,6 +263,10 @@ function AppActionsPopover({
           <span className="sprout-result-card-overflow">+{apps.length}</span>
         ) : first.brand ? (
           <BrandIcon brand={first.brand} size="fill" />
+        ) : first.icon ? (
+          <span aria-hidden="true" className="sprout-result-app-icon">
+            {first.icon}
+          </span>
         ) : (
           <Plug size={18} aria-hidden="true" />
         )}
@@ -310,6 +319,10 @@ export function ResultAppActions({
             <div className="sprout-result-app-name">
               {app.brand ? (
                 <BrandIcon brand={app.brand} size="glyph" />
+              ) : app.icon ? (
+                <span aria-hidden="true" className="sprout-result-app-icon">
+                  {app.icon}
+                </span>
               ) : (
                 <Plug size={20} aria-hidden="true" />
               )}

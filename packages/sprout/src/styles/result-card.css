@@ -150,6 +150,20 @@
   .sprout-result-app-name > svg {
     flex-shrink: 0;
   }
+  .sprout-result-app-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+  .sprout-result-app-name > .sprout-result-app-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .sprout-result-app-icon > svg {
+    width: 100%;
+    height: 100%;
+  }
   .sprout-result-app-name h4 {
     margin: 0;
     color: var(--sprout-text);
