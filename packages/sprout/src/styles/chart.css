@@ -1,29 +1,62 @@
 @layer base {
+  /* Graphics need 3:1 against the surface, so light mode takes darker shades. */
   :root,
   .light {
-    --sprout-chart-1: #188038;
-    --sprout-chart-2: #245cba;
-    --sprout-chart-3: #8a4b08;
-    --sprout-chart-4: #7c4eb0;
-    --sprout-chart-5: #b42332;
+    --sprout-red: #e11d48;
+    --sprout-orange: #ea580c;
+    --sprout-yellow: #c28000;
+    --sprout-green: #16a34a;
+    --sprout-teal: #0d9488;
+    --sprout-sky: #0284c7;
+    --sprout-blue: #2563eb;
+    --sprout-indigo: #4f46e5;
+    --sprout-purple: #9333ea;
+    --sprout-tan: #a37b45;
   }
 
   .dark {
-    --sprout-chart-1: #75ce8e;
-    --sprout-chart-2: #9cbdff;
-    --sprout-chart-3: #edc17c;
-    --sprout-chart-4: #c6a4ed;
-    --sprout-chart-5: #ff929d;
+    --sprout-red: #f0506e;
+    --sprout-orange: #f5a33d;
+    --sprout-yellow: #f5d547;
+    --sprout-green: #62d26f;
+    --sprout-teal: #5cc8d0;
+    --sprout-sky: #5bb4e5;
+    --sprout-blue: #4a8df8;
+    --sprout-indigo: #7b72f0;
+    --sprout-purple: #b46ee8;
+    --sprout-tan: #c4a981;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) {
-      --sprout-chart-1: #75ce8e;
-      --sprout-chart-2: #9cbdff;
-      --sprout-chart-3: #edc17c;
-      --sprout-chart-4: #c6a4ed;
-      --sprout-chart-5: #ff929d;
+      --sprout-red: #f0506e;
+      --sprout-orange: #f5a33d;
+      --sprout-yellow: #f5d547;
+      --sprout-green: #62d26f;
+      --sprout-teal: #5cc8d0;
+      --sprout-sky: #5bb4e5;
+      --sprout-blue: #4a8df8;
+      --sprout-indigo: #7b72f0;
+      --sprout-purple: #b46ee8;
+      --sprout-tan: #c4a981;
     }
+  }
+
+  /* Ordered so neighbors differ in hue. On .light and .dark too, so a nested
+     theme root resolves to its own hues. */
+  :root,
+  .light,
+  .dark {
+    --sprout-chart-1: var(--sprout-indigo);
+    --sprout-chart-2: var(--sprout-green);
+    --sprout-chart-3: var(--sprout-orange);
+    --sprout-chart-4: var(--sprout-red);
+    --sprout-chart-5: var(--sprout-sky);
+    --sprout-chart-6: var(--sprout-purple);
+    --sprout-chart-7: var(--sprout-yellow);
+    --sprout-chart-8: var(--sprout-teal);
+    --sprout-chart-9: var(--sprout-blue);
+    --sprout-chart-10: var(--sprout-tan);
   }
 }
 

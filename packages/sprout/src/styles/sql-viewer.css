@@ -19,11 +19,26 @@
 
   .sprout-sql-flow.light,
   .sprout-sql-flow.dark {
+    --sprout-indigo: inherit;
+    --sprout-green: inherit;
+    --sprout-orange: inherit;
+    --sprout-red: inherit;
+    --sprout-sky: inherit;
+    --sprout-purple: inherit;
+    --sprout-yellow: inherit;
+    --sprout-teal: inherit;
+    --sprout-blue: inherit;
+    --sprout-tan: inherit;
     --sprout-chart-1: inherit;
     --sprout-chart-2: inherit;
     --sprout-chart-3: inherit;
     --sprout-chart-4: inherit;
     --sprout-chart-5: inherit;
+    --sprout-chart-6: inherit;
+    --sprout-chart-7: inherit;
+    --sprout-chart-8: inherit;
+    --sprout-chart-9: inherit;
+    --sprout-chart-10: inherit;
   }
 
   .sprout-sql-viewer [data-tone] {
