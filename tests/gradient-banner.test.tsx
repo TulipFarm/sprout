@@ -139,9 +139,9 @@ describe('Gradient Banner package wiring', () => {
       types: './dist/components/gradient-banner.d.ts',
       import: './dist/components/gradient-banner.js',
     });
-    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain('@import "./gradient-banner.css";');
+    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './gradient-banner.css';");
     const css = readFileSync(new URL('src/styles/gradient-banner.css', root), 'utf8');
-    for (const variant of gradientBannerVariantNames.slice(1)) expect(css).toContain(`[data-variant="${variant}"]`);
+    for (const variant of gradientBannerVariantNames.slice(1)) expect(css).toContain(`[data-variant='${variant}']`);
     for (const height of ['6rem', '10rem', '15rem', '22.5rem']) expect(css).toContain(`min-height: ${height}`);
     expect(css).toContain('prefers-reduced-motion: reduce');
     expect(css).not.toMatch(/--banner-/);

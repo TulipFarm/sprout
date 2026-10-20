@@ -40,8 +40,8 @@ describe('ChatConfirmation', () => {
       types: './dist/components/chat-confirmation.d.ts',
       import: './dist/components/chat-confirmation.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./chat-confirmation.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*"Chat Confirmation"/);
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './chat-confirmation.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*'Chat Confirmation'/);
   });
 
   it('lists every Cloud state', () => {

@@ -35,8 +35,8 @@ describe('AgentFanout', () => {
       types: './dist/components/agent-fanout.d.ts',
       import: './dist/components/agent-fanout.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./agent-fanout.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*"Agent Fanout"/);
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './agent-fanout.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*'Agent Fanout'/);
   });
 
   it('lists every agent status and fanout state', () => {

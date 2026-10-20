@@ -25,7 +25,7 @@ describe('ReasoningEffort', () => {
       import: './dist/components/reasoning-effort.js',
     });
     const entry = readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8');
-    expect(entry).toContain('@import "./reasoning-effort.css";');
+    expect(entry).toContain("@import './reasoning-effort.css';");
   });
 
   it("renders Cloud's playground: four levels, default name, no label", () => {

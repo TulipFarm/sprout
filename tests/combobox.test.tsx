@@ -58,7 +58,7 @@ describe('Combobox', () => {
       import: './dist/components/combobox.js',
     });
     const css = readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8');
-    expect(css).toContain('@import "./combobox.css";');
+    expect(css).toContain("@import './combobox.css';");
   });
 
   it('renders a searchable input with a chevron trigger in an input group', () => {

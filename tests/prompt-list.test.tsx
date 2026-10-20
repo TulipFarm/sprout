@@ -86,7 +86,7 @@ describe('PromptList', () => {
     });
     expect(sprout.PromptList).toBe(PromptList);
     const entry = readFileSync(new URL('src/styles/index.css', root), 'utf8');
-    expect(entry).toContain('@import "./prompt-list.css";');
+    expect(entry).toContain("@import './prompt-list.css';");
     const css = readFileSync(new URL('src/styles/prompt-list.css', root), 'utf8');
     expect(css).toContain('prefers-reduced-motion: no-preference');
     expect(css).toContain('pointer: coarse');

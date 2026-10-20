@@ -34,8 +34,8 @@ describe('ChatPlan', () => {
       types: './dist/components/chat-plan.d.ts',
       import: './dist/components/chat-plan.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./chat-plan.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*"Chat Plan"/);
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './chat-plan.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*'Chat Plan'/);
   });
 
   it('lists every Cloud step state', () => {

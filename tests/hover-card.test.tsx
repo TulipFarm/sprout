@@ -22,7 +22,7 @@ describe('Hover Card', () => {
       types: './dist/components/hover-card.d.ts',
       import: './dist/components/hover-card.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./hover-card.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './hover-card.css';");
   });
 
   it('renders a link trigger through render and no card until opened', () => {
@@ -71,12 +71,12 @@ describe('Hover Card', () => {
     expect(css).toMatch(/\.sprout-hover-card-positioner \{[^}]*z-index: 50;/);
     expect(css).toContain('@media (prefers-reduced-motion: no-preference)');
     for (const side of ['top', 'bottom', 'left', 'right']) {
-      expect(css).toContain(`[data-side="${side}"]`);
+      expect(css).toContain(`[data-side='${side}']`);
     }
     expect(css).not.toMatch(/--(?!sprout-|available-|transform-origin)[a-z-]+:/);
   });
 
   it('is listed in the docs navigation', () => {
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Hover Card"');
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Hover Card'");
   });
 });

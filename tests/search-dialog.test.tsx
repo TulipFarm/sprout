@@ -60,7 +60,7 @@ describe('SearchDialog', () => {
     ]) {
       expect(sprout, name).toHaveProperty(name);
     }
-    expect(readFileSync('packages/sprout/src/styles/index.css', 'utf8')).toContain('@import "./search-dialog.css";');
+    expect(readFileSync('packages/sprout/src/styles/index.css', 'utf8')).toContain("@import './search-dialog.css';");
   });
 
   it('renders nothing until opened', () => {

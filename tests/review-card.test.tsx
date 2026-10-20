@@ -26,7 +26,7 @@ describe('ReviewCard', () => {
       types: './dist/components/review-card.d.ts',
       import: './dist/components/review-card.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./review-card.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './review-card.css';");
   });
 
   it('lists every Cloud badge variant', () => {
@@ -132,7 +132,7 @@ describe('ReviewCard', () => {
   });
 
   it('is documented in the agent patterns navigation', () => {
-    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*"Review Card"/);
+    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*'Review Card'/);
     expect(read('../apps/docs/src/pages/components/review-card.astro')).toContain('ReviewCardPlayground');
   });
 });

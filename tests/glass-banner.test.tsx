@@ -105,7 +105,7 @@ describe('Glass Banner package wiring', () => {
       types: './dist/components/glass-banner.d.ts',
       import: './dist/components/glass-banner.js',
     });
-    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain('@import "./glass-banner.css";');
+    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './glass-banner.css';");
     const css = readFileSync(new URL('src/styles/glass-banner.css', root), 'utf8');
     expect(css).toContain('.dark {');
     expect(css).toContain('prefers-color-scheme: dark');

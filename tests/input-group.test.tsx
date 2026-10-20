@@ -40,8 +40,8 @@ describe('InputGroup', () => {
       types: './dist/components/input-group.d.ts',
       import: './dist/components/input-group.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./input-group.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Input Group"');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './input-group.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Input Group'");
   });
 
   it('names every Cloud size, variant, alignment, and button size', () => {
@@ -162,11 +162,11 @@ describe('InputGroup', () => {
   });
 
   it('styles focus, invalid, disabled, block layout, and reduced motion from the control', () => {
-    expect(css).toContain('.sprout-input-group:has([data-slot="input-group-control"]:focus-visible)');
-    expect(css).toContain('[data-slot="input-group-control"][aria-invalid="true"]');
-    expect(css).toContain('[data-slot="input-group-control"]:disabled');
-    expect(css).toContain('.sprout-input-group:has(> [data-align="block-end"])');
-    expect(css).toContain('[data-slot="combobox-content"]');
+    expect(css).toContain(".sprout-input-group:has([data-slot='input-group-control']:focus-visible)");
+    expect(css).toContain("[data-slot='input-group-control'][aria-invalid='true']");
+    expect(css).toContain("[data-slot='input-group-control']:disabled");
+    expect(css).toContain(".sprout-input-group:has(> [data-align='block-end'])");
+    expect(css).toContain("[data-slot='combobox-content']");
     expect(css).toContain('@media (pointer: coarse)');
     expect(css).toContain('@media (prefers-reduced-motion: no-preference)');
     expect(css).toContain('@media (forced-colors: active)');

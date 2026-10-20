@@ -38,8 +38,8 @@ describe('ChatSources', () => {
       types: './dist/components/chat-sources.d.ts',
       import: './dist/components/chat-sources.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./chat-sources.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*"Chat Sources"/);
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './chat-sources.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*'Chat Sources'/);
   });
 
   it('lists every Cloud citation state', () => {

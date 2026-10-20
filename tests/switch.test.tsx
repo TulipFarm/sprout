@@ -17,7 +17,7 @@ describe('Switch', () => {
       import: './dist/components/switch.js',
     });
     const entry = readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8');
-    expect(entry).toContain('@import "./switch.css";');
+    expect(entry).toContain("@import './switch.css';");
   });
 
   it('renders an off Base UI switch with the default size and a thumb', () => {
@@ -75,7 +75,7 @@ describe('Switch', () => {
     expect(css).toContain('var(--sprout-danger)');
     expect(css).toContain('var(--sprout-focus-ring)');
     expect(css).toContain(':dir(rtl)');
-    expect(css).toContain('[aria-busy="true"]');
+    expect(css).toContain("[aria-busy='true']");
     expect(css).toContain('prefers-reduced-motion: no-preference');
     expect(css).toContain('forced-colors: active');
     expect(css).not.toMatch(/#[0-9a-f]{3,6}\b/i);

@@ -71,8 +71,8 @@ describe('PlanOutline', () => {
       types: './dist/components/plan-outline.d.ts',
       import: './dist/components/plan-outline.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./plan-outline.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*"Plan Outline"/);
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './plan-outline.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*'Plan Outline'/);
   });
 
   it('lists every Cloud mark and tone', () => {

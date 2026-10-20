@@ -50,8 +50,8 @@ describe('ChatInput', () => {
       import: './dist/components/chat-input.js',
     });
     expect(pkg.dependencies).toHaveProperty('@tiptap/suggestion');
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./chat-input.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*"Chat Input"/);
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './chat-input.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toMatch(/component\(\s*'Chat Input'/);
   });
 
   it('lists reference kinds and statuses', () => {

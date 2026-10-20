@@ -24,7 +24,7 @@ describe('Progress', () => {
       import: './dist/components/progress.js',
     });
     expect(readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8')).toContain(
-      '@import "./progress.css";',
+      "@import './progress.css';",
     );
   });
 

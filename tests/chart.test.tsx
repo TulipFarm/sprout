@@ -106,7 +106,7 @@ describe('Chart', () => {
     });
     expect(manifest.dependencies.recharts).toBe('3.8.0');
     const index = read('../packages/sprout/src/styles/index.css');
-    expect(index).toContain('@import "./chart.css";');
+    expect(index).toContain("@import './chart.css';");
     for (let step = 1; step <= 10; step++)
       expect(index).toContain(`--color-sprout-chart-${step}: var(--sprout-chart-${step});`);
     expect(chartIndicatorNames).toEqual(['dot', 'line', 'dashed']);

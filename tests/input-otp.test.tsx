@@ -42,8 +42,8 @@ describe('Input OTP', () => {
       types: './dist/components/input-otp.d.ts',
       import: './dist/components/input-otp.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./input-otp.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Input OTP"');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './input-otp.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Input OTP'");
   });
 
   it('renders a labelled group of six inputs with two groups and a separator', () => {
@@ -113,8 +113,8 @@ describe('Input OTP', () => {
   it('styles Cloud dimensions, states, touch size, and motion in namespaced CSS', () => {
     expect(css).toMatch(/\.sprout-input-otp-slot \{[^}]*width: 32px;[^}]*height: 32px;/s);
     expect(css).toMatch(/@media \(pointer: coarse\)[^@]*width: 44px;/s);
-    expect(css).toContain('.sprout-input-otp-slot[aria-invalid="true"]');
-    expect(css).toContain('.sprout-input-otp-group:has(.sprout-input-otp-slot[aria-invalid="true"])');
+    expect(css).toContain(".sprout-input-otp-slot[aria-invalid='true']");
+    expect(css).toContain(".sprout-input-otp-group:has(.sprout-input-otp-slot[aria-invalid='true'])");
     expect(css).toContain('.sprout-input-otp[data-disabled]');
     expect(css).toContain('@media (prefers-reduced-motion: no-preference)');
     expect(css).toContain('@media (forced-colors: active)');

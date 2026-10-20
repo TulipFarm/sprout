@@ -65,7 +65,7 @@ describe('File Viewer', () => {
     expect(manifest.exports['./file-viewer']).toMatchObject({
       import: './dist/components/file-viewer.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./file-viewer.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './file-viewer.css';");
     expect(maxViewableFileBytes).toBe(50 * 1024 * 1024);
   });
 

@@ -61,7 +61,7 @@ describe('Attachment', () => {
       types: './dist/components/attachment.d.ts',
       import: './dist/components/attachment.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./attachment.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './attachment.css';");
   });
 
   it('lists every Cloud variant, size, and state', () => {

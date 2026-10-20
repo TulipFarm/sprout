@@ -281,7 +281,7 @@ describe('Form package wiring', () => {
       types: './dist/components/form.d.ts',
       import: './dist/components/form.js',
     });
-    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain('@import "./form.css";');
+    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './form.css';");
   });
 
   it('styles only with namespaced Sprout tokens and guards motion', () => {

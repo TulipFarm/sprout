@@ -16,8 +16,8 @@ describe('SearchField', () => {
       types: './dist/components/search-field.d.ts',
       import: './dist/components/search-field.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./search-field.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Search Field"');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './search-field.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Search Field'");
   });
 
   it('renders a labelled search input that uses the label as placeholder', () => {

@@ -24,7 +24,7 @@ describe('Spinner', () => {
       import: './dist/components/spinner.js',
     });
     expect(readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8')).toContain(
-      '@import "./spinner.css";',
+      "@import './spinner.css';",
     );
   });
 
@@ -70,7 +70,7 @@ describe('Spinner', () => {
 
   it('spins only when motion is allowed', () => {
     expect(css).toMatch(
-      /@media \(prefers-reduced-motion: no-preference\) \{\s*\.sprout-spinner\[data-variant="default"\] \{\s*animation: sprout-spinner-spin 1s linear infinite;/,
+      /@media \(prefers-reduced-motion: no-preference\) \{\s*\.sprout-spinner\[data-variant='default'\] \{\s*animation: sprout-spinner-spin 1s linear infinite;/,
     );
   });
 

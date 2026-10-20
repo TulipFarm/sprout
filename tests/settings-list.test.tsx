@@ -85,7 +85,7 @@ describe('SettingsRow', () => {
       types: './dist/components/settings-list.d.ts',
       import: './dist/components/settings-list.js',
     });
-    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain('@import "./settings-list.css";');
+    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './settings-list.css';");
     const css = readFileSync(new URL('src/styles/settings-list.css', root), 'utf8');
     expect(css).toContain('container: sprout-settings / inline-size');
     expect(css).toContain('@container sprout-settings (min-width: 36rem)');

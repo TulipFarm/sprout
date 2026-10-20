@@ -65,7 +65,7 @@ describe('Navigation Menu', () => {
       types: './dist/components/navigation-menu.d.ts',
       import: './dist/components/navigation-menu.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./navigation-menu.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './navigation-menu.css';");
   });
 
   it('renders the Cloud composition: a nav list with a trigger item and a plain link item', () => {
@@ -128,12 +128,12 @@ describe('Navigation Menu', () => {
     expect(css).toMatch(/\.sprout-navigation-menu-popup \{[^}]*width: var\(--popup-width\);/);
     expect(css).toContain('@media (prefers-reduced-motion: no-preference)');
     expect(css).toContain('@media (forced-colors: active)');
-    expect(css).toContain('[data-activation-direction="left"]');
+    expect(css).toContain("[data-activation-direction='left']");
     expect(css).not.toMatch(/--(?!sprout-|available-|transform-origin|popup-|positioner-)[a-z-]+[:)]/);
     expect(css).not.toMatch(/\d+ms/);
   });
 
   it('is listed in the docs navigation', () => {
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Navigation Menu"');
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Navigation Menu'");
   });
 });

@@ -158,7 +158,7 @@ describe('Choice List packaging', () => {
       types: './dist/components/choice-list.d.ts',
       import: './dist/components/choice-list.js',
     });
-    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain('@import "./choice-list.css";');
+    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './choice-list.css';");
     const css = readFileSync(new URL('src/styles/choice-list.css', root), 'utf8');
     expect(css).toContain('prefers-reduced-motion: no-preference');
     expect(css).toContain('var(--sprout-primary-subtle)');

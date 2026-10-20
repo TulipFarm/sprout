@@ -32,8 +32,8 @@ describe('RichTextEditor', () => {
     ]) {
       expect(pkg.dependencies).toHaveProperty(dep);
     }
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./rich-text-editor.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Rich Text Editor"');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './rich-text-editor.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Rich Text Editor'");
   });
 
   it('names both Cloud sizes', () => {

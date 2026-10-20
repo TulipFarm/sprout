@@ -52,7 +52,7 @@ describe('PageContent', () => {
       types: './dist/components/page-content.d.ts',
       import: './dist/components/page-content.js',
     });
-    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain('@import "./page-content.css";');
+    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './page-content.css';");
     const css = readFileSync(new URL('src/styles/page-content.css', root), 'utf8');
     expect(css).toContain('--sprout-page-content-inline: 1rem');
     expect(css).toContain('--sprout-page-content-inline: 1.5rem');

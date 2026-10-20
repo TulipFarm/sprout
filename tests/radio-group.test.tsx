@@ -18,8 +18,8 @@ describe('RadioGroup', () => {
       types: './dist/components/radio-group.d.ts',
       import: './dist/components/radio-group.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./radio-group.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Radio Group"');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './radio-group.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Radio Group'");
   });
 
   it("renders a labeled group with Cloud's slots and an uncontrolled value", () => {

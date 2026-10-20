@@ -100,7 +100,7 @@ describe('Questionnaire', () => {
     expect(questionnaireShortcutModeNames).toEqual(['letters', 'numbers']);
     const manifest = JSON.parse(readFileSync(new URL('package.json', root), 'utf8'));
     expect(manifest.exports['./questionnaire']).toBeDefined();
-    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain('@import "./questionnaire.css";');
+    expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './questionnaire.css';");
   });
 
   it('renders a form with progress and only the first item shown', () => {

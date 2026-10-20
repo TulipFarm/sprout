@@ -43,7 +43,7 @@ beforeAll(async () => {
 describe('FileExplorer', () => {
   it('is exported with its styles', () => {
     expect(sprout.FileExplorer).toBe(FileExplorer);
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./file-explorer.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './file-explorer.css';");
     expect(JSON.parse(read('../packages/sprout/package.json')).exports['./file-explorer']).toBeDefined();
   });
 

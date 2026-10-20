@@ -19,7 +19,7 @@ describe('Input', () => {
       types: './dist/components/input.d.ts',
       import: './dist/components/input.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./input.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './input.css';");
   });
 
   it('renders a Base UI input with the default scale', () => {
@@ -138,7 +138,7 @@ describe('Input', () => {
     }
     expect(css).toContain('@layer components');
     expect(css).toContain('.sprout-input::file-selector-button');
-    expect(css).toContain('.sprout-input[aria-invalid="true"]');
+    expect(css).toContain(".sprout-input[aria-invalid='true']");
     expect(css).toMatch(/prefers-reduced-motion: no-preference\)\s*\{\s*\.sprout-input\s*\{\s*transition/);
     expect(css).toContain('forced-colors: active');
     expect(css).not.toMatch(/\bdisplay:\s*(block|flex|grid)/);

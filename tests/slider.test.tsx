@@ -19,7 +19,7 @@ describe('Slider', () => {
       import: './dist/components/slider.js',
     });
     const entry = readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8');
-    expect(entry).toContain('@import "./slider.css";');
+    expect(entry).toContain("@import './slider.css';");
   });
 
   it("renders one named thumb for a number value with Cloud's 0–100 default", () => {

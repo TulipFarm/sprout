@@ -20,8 +20,8 @@ describe('Textarea', () => {
       types: './dist/components/textarea.d.ts',
       import: './dist/components/textarea.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./textarea.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Textarea"');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './textarea.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Textarea'");
   });
 
   it('renders a native textarea with the default variant', () => {
@@ -164,7 +164,7 @@ describe('Textarea', () => {
     expect(css).toContain('@layer components');
     expect(css).toContain('field-sizing: content');
     expect(css).toContain('font-family: inherit');
-    expect(css).toContain('.sprout-textarea[aria-invalid="true"]');
+    expect(css).toContain(".sprout-textarea[aria-invalid='true']");
     expect(css).toContain('.sprout-textarea-variant-embedded');
     expect(css).toMatch(/prefers-reduced-motion: no-preference\)\s*\{\s*\.sprout-textarea\s*\{\s*transition/);
     expect(css).toContain('forced-colors: active');

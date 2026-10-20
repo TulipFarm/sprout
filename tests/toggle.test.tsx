@@ -25,7 +25,7 @@ describe('Toggle', () => {
       import: './dist/components/toggle.js',
     });
     const entry = readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8');
-    expect(entry).toContain('@import "./toggle.css";');
+    expect(entry).toContain("@import './toggle.css';");
   });
 
   it('renders an unpressed Base UI button with default variant and size', () => {
@@ -139,11 +139,11 @@ describe('Toggle', () => {
       'height: 36px',
       'min-width: 36px',
       '--sprout-toggle-icon: 0.875rem',
-      '[data-icon="inline-start"]',
-      '[data-icon="inline-end"]',
+      "[data-icon='inline-start']",
+      "[data-icon='inline-end']",
       '[data-pressed]',
-      '[aria-invalid="true"]',
-      '[aria-busy="true"]',
+      "[aria-invalid='true']",
+      "[aria-busy='true']",
       ':focus-visible',
       'prefers-reduced-motion: no-preference',
       'forced-colors: active',

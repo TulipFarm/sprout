@@ -22,7 +22,7 @@ describe('TypedText', () => {
       types: './dist/components/typed-text.d.ts',
       import: './dist/components/typed-text.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./typed-text.css";');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './typed-text.css';");
   });
 
   it('renders the full text for screen readers and a hidden visual copy', () => {

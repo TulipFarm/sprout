@@ -15,8 +15,8 @@ describe('SelectionSlot', () => {
       types: './dist/components/selection-slot.d.ts',
       import: './dist/components/selection-slot.js',
     });
-    expect(read('../packages/sprout/src/styles/index.css')).toContain('@import "./selection-slot.css";');
-    expect(read('../apps/docs/src/data/nav.ts')).toContain('"Selection Slot"');
+    expect(read('../packages/sprout/src/styles/index.css')).toContain("@import './selection-slot.css';");
+    expect(read('../apps/docs/src/data/nav.ts')).toContain("'Selection Slot'");
   });
 
   it('shows only the tools while inactive', () => {

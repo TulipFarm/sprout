@@ -17,7 +17,7 @@ describe('Checkbox', () => {
       import: './dist/components/checkbox.js',
     });
     const entry = readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8');
-    expect(entry).toContain('@import "./checkbox.css";');
+    expect(entry).toContain("@import './checkbox.css';");
   });
 
   it('renders an unchecked Base UI checkbox with the default variant', () => {
