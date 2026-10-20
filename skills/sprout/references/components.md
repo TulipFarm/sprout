@@ -1280,7 +1280,36 @@ const series: UsageSeries[] = [
 <UsageChart days={[{ date: "2026-10-16", s0: 12.5 }]} series={series} />;
 ```
 
-Other charts: wrap Recharts in `ChartContainer` with `ChartTooltip`.
+Ready charts, all from `@tulipfarm/sprout/chart`. Most take `rows`, a
+`category` key, and `series` (`{ key, label, color }`); all take `title`,
+`className`, and `valueFormatter`.
+
+| Need                     | Chart                                             |
+| ------------------------ | ------------------------------------------------- |
+| Trend over time          | `TrendChart`, `AreaTrendChart` (`stack`)          |
+| Compare categories       | `CategoryChart` (`horizontal`, `stack`, negative) |
+| Two units at once        | `ComboChart` (series `kind`, `axis: "right"`)     |
+| Share of a whole         | `DonutChart` (`variant="pie"`), `TreemapChart`    |
+| Stat tile trend / goal   | `Sparkline`, `GaugeChart`                         |
+| Conversion steps         | `StepFunnelChart`                                 |
+| Bridge from start to end | `WaterfallChart` (`totals`)                       |
+| Activity by day and hour | `HeatmapChart` (`x`, `y`, `value`)                |
+| Project plan             | `TimelineChart` (`start`, `end`, `seriesKey`)     |
+| Two numbers, or bubbles  | `ScatterPlotChart` (`size`)                       |
+| Flows between stages     | `SankeyChart` (`nodes`, `links`)                  |
+| Scores on many axes      | `RadarScoreChart`                                 |
+
+```tsx
+<DonutChart
+  rows={traffic}
+  category="source"
+  value="visitors"
+  totalLabel="Visitors"
+/>
+```
+
+Part charts color the top five parts and fold the rest into one muted
+"N more". Anything else: wrap Recharts in `ChartContainer` with `ChartTooltip`.
 
 ### Code Block
 

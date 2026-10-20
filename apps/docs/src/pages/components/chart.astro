@@ -7,12 +7,13 @@ import {
   ChartOptions,
   ChartPlayground,
 } from "../../components/ChartDemo";
+import { BusinessCharts } from "../../components/BusinessChartsDemo";
 import CodeBlock from "../../components/CodeBlock.astro";
 ---
 
 <Docs
   title="Chart"
-  description="Bar charts for daily usage and categories, built on Recharts, with themed series colors, tooltips, and legends."
+  description="Ready charts for dashboards, from trends and bars to funnels, heatmaps, and flows, built on Recharts with themed series colors, tooltips, and legends."
 >
   <h1 class="docs-title">Chart</h1>
   <p class="docs-lead">
@@ -63,6 +64,93 @@ const series: UsageSeries[] = [
         Series colors are any CSS color. The palette is
         <code>--sprout-chart-1</code> to <code>--sprout-chart-10</code>, with
         <code>--sprout-muted</code> for a folded “N more” series.
+      </li>
+    </ul>
+  </section>
+
+  <section class="prose-section">
+    <h2 class="section-title">Business charts</h2>
+    <p>
+      Fifteen ready charts for dashboards. They share one data shape: <code
+        >rows</code
+      >, the <code>category</code> key that names each row, and
+      <code>series</code> with a key, label, and color. All take
+      <code>title</code>, <code>className</code>, and
+      <code>valueFormatter</code> for axis ticks and tooltips.
+    </p>
+    <div class="mt-4"><BusinessCharts client:load /></div>
+    <CodeBlock
+      lang="tsx"
+      title="Revenue by month"
+      code={`import { TrendChart } from "@tulipfarm/sprout/chart";
+
+const usd = (value: number) =>
+  value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+
+<TrendChart
+  rows={[
+    { month: "Jan", subscriptions: 42000, services: 18000 },
+    { month: "Feb", subscriptions: 46000, services: 17000 },
+  ]}
+  category="month"
+  series={[
+    { key: "subscriptions", label: "Subscriptions", color: "var(--sprout-chart-1)" },
+    { key: "services", label: "Services", color: "var(--sprout-chart-2)" },
+  ]}
+  valueFormatter={usd}
+  title="Revenue by month"
+/>`}
+    />
+    <ul>
+      <li>
+        <strong>Over time:</strong>
+        <code>TrendChart</code> (lines;
+        <code>curve</code> is smooth, linear, or step), <code
+          >AreaTrendChart</code
+        >
+        (<code>stack</code> is none, stacked, or percent), and
+        <code>Sparkline</code> (a 40px line for stat tiles).
+      </li>
+      <li>
+        <strong>Compare:</strong>
+        <code>CategoryChart</code> takes
+        <code>horizontal</code> and <code>stack</code>; negative values hang
+        below a zero line. <code>ComboChart</code> mixes bars and lines; a series
+        with
+        <code>axis: "right"</code> gets its own scale and
+        <code>rightValueFormatter</code>.
+      </li>
+      <li>
+        <strong>Shares:</strong>
+        <code>DonutChart</code> (or
+        <code>variant="pie"</code>) and <code>TreemapChart</code> take
+        <code>rows</code>, <code>category</code>, and <code>value</code>. The
+        top five parts get chart colors; the rest fold into one muted “N more”
+        part.
+      </li>
+      <li>
+        <strong>Progress and flow:</strong>
+        <code>GaugeChart</code> shows
+        <code>value</code> of <code>max</code> as a meter.
+        <code>StepFunnelChart</code> shows each step’s count and share of the first.
+        <code>WaterfallChart</code> adds each step’s change to a running total; steps
+        in <code>totals</code> stand on zero.
+        <code>SankeyChart</code> takes <code>nodes</code> and
+        <code>links</code> by index.
+      </li>
+      <li>
+        <strong>Patterns:</strong>
+        <code>HeatmapChart</code> is a table of cells in five shades of one color.
+        <code>TimelineChart</code> draws tasks from <code>start</code> to <code
+          >end</code
+        >, colored by
+        <code>seriesKey</code>. <code>ScatterPlotChart</code> plots
+        <code>x</code> against <code>y</code>, with <code>size</code> for bubbles.
+        <code>RadarScoreChart</code> compares scores on many axes.
+      </li>
+      <li>
+        No chart shares a name with a Recharts export, so you can import both in
+        one file.
       </li>
     </ul>
   </section>
