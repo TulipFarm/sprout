@@ -15,7 +15,7 @@ import {
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Skeleton, SkeletonGroup } from './skeleton.js';
-import { StatePanel } from './state-panel.js';
+import { StatePanel } from '../internal/state-panel.js';
 
 export const recordListStatusNames = ['ready', 'loading', 'error'] as const;
 export const recordListDensityNames = ['default', 'compact'] as const;

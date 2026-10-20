@@ -38,7 +38,7 @@ import {
   DropdownMenuTrigger,
 } from './dropdown-menu.js';
 import { Spinner } from './spinner.js';
-import { StatePanel } from './state-panel.js';
+import { StatePanel } from '../internal/state-panel.js';
 
 export type ViewableFileSource = { kind: 'local'; file: File } | { kind: 'remote'; url: string };
 

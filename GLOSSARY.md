@@ -75,3 +75,9 @@ _Avoid_: WIP limit, cap
 **Result notice**:
 The strip inside a chart or timeline that says it shows only the first part of the result, such as "Showing the first 100 of 2,431 rows.", and offers Table for the rest.
 _Avoid_: Limit notice, truncation warning, cap banner
+
+## Timeline
+
+**Window**:
+The date range a timeline shows: the one week, month, or quarter that holds a chosen day. Rows outside it are not drawn; bars that run past it are cut at its edge.
+_Avoid_: Range, period, viewport

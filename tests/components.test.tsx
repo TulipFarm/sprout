@@ -663,6 +663,14 @@ describe('Sidebar public surface', () => {
       'jumpTo',
       'useActionControl',
     ];
+    const timelineExports = [
+      'TimelineChart',
+      'TimelineWindowBar',
+      'timelineRange',
+      'shiftTimeline',
+      'timelineToday',
+      'timelineZoomNames',
+    ];
     const chartExports = [
       'chartIndicatorNames',
       'chartColor',
@@ -686,7 +694,6 @@ describe('Sidebar public surface', () => {
       'TreemapChart',
       'GaugeChart',
       'WaterfallChart',
-      'TimelineChart',
       'HeatmapChart',
       'ScatterPlotChart',
       'SankeyChart',
@@ -793,6 +800,7 @@ describe('Sidebar public surface', () => {
           chatSourcesExports.includes(name) ||
           typedTextExports.includes(name) ||
           chartExports.includes(name) ||
+          timelineExports.includes(name) ||
           buttonExports.includes(name),
       ),
     ).toBe(true);
@@ -800,6 +808,7 @@ describe('Sidebar public surface', () => {
       expect.arrayContaining([
         ...alertExports,
         ...chartExports,
+        ...timelineExports,
         ...alertDialogExports,
         ...avatarExports,
         ...badgeExports,

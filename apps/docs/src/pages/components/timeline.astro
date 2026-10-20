@@ -1,0 +1,90 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import { RecordTimelineDemo } from '../../components/TimelineDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="Timeline" description="Records on a week, month, or quarter timeline, with bars, dates, and row actions.">
+  <h1 class="docs-title">Timeline</h1>
+  <p class="docs-lead">
+    The Timeline view of a table. Each record is a bar from its start to its end, or a diamond on its one date, inside a
+    week, month, or quarter window. It is read only and has a text list of the same rows in start order.
+  </p>
+  <div class="mt-8">
+    <RecordTimelineDemo client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <p>
+      Pass <code>window</code> and <code>TimelineChart</code> shows table rows in one week, month, or quarter. Rows with
+      an end are bars, ends included. Rows with only a start are diamonds. A row that ends before it starts is a hollow
+      diamond with an “End before start” chip. Bars that run past the window are cut at its edge with a chevron, and the
+      label says so. A line marks today.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Tasks by month"
+      code={`import {
+  TimelineChart,
+  TimelineWindowBar,
+  timelineRange,
+  timelineToday,
+  type TimelineZoom,
+} from "@tulipfarm/sprout/timeline";
+
+const today = timelineToday();
+const [view, setView] = useState<{ zoom: TimelineZoom; from: string }>({ zoom: "month", from: today });
+// The same inclusive YYYY-MM-DD range you query with.
+const window = timelineRange(view.zoom, view.from);
+
+<TimelineWindowBar {...view} today={today} onChange={setView} />
+<TimelineChart
+  rows={rows}
+  rowKey="id"
+  category="title"
+  start="start_date"
+  end="due_date"
+  title="Tasks"
+  window={window}
+  today={today}
+  status={loading ? "loading" : error ? "error" : "ready"}
+  onRetry={refetch}
+  undated={{ count: undatedCount, field: "Start date", action: <Button variant="link" size="sm">Show them</Button> }}
+  notice={<p>Filtered by owner</p>}
+  onRowOpen={row => openRecord(row.id)}
+  renderActions={row => <RowActions row={row} />}
+/>`}
+    />
+    <ul>
+      <li>
+        <strong>Window:</strong>
+        <code>timelineRange(zoom, from, weekStartsOn)</code> returns the inclusive <code>start</code> and
+        <code>end</code> days of the week, month, or quarter that holds <code>from</code>. <code>shiftTimeline</code>
+        steps to the next or previous one. Both work on calendar dates, so the time zone never moves a day.
+      </li>
+      <li>
+        <strong>Values:</strong> dates are <code>YYYY-MM-DD</code>. Timestamps are epoch milliseconds, shown in the
+        reader’s zone or in <code>timeZone</code>.
+      </li>
+      <li>
+        <strong>Window bar:</strong>
+        <code>TimelineWindowBar</code> has previous, next, and Today buttons, a live title, and a Week, Month, or
+        Quarter toggle. It stays usable while the timeline loads, is empty, or fails.
+      </li>
+      <li>
+        <strong>Slots:</strong>
+        <code>renderLabel</code> and <code>renderActions</code> fill each row, <code>undated</code> counts rows with no
+        start, and <code>notice</code> sits above the chart. The chart is read only; nothing can be dragged.
+      </li>
+      <li>
+        <strong>Keyboard:</strong> the labels are an ordered list in start order and one tab stop. Up, Down, Home, and
+        End move between rows, Enter calls <code>onRowOpen</code>, and Tab reaches the focused row’s actions. The SVG is
+        hidden from screen readers because the list says the same in words.
+      </li>
+      <li>
+        <strong>Size:</strong> every row is <code>--sprout-timeline-row</code> tall (2.75rem), so the list and the bars
+        line up. Under 40rem the label column narrows to 8rem.
+      </li>
+    </ul>
+  </section>
+</Docs>
