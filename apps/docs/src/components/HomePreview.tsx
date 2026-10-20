@@ -41,6 +41,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@tulipfarm/sprout/breadcrumb';
+import { Board } from '@tulipfarm/sprout/board';
 import { Button } from '@tulipfarm/sprout/button';
 import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@tulipfarm/sprout/button-group';
 import { Calendar } from '@tulipfarm/sprout/calendar';
@@ -1402,6 +1403,31 @@ function ResultCardPreview() {
   );
 }
 
+const previewBoardItems = [
+  { id: 'b1', columnId: 'todo', title: 'Order compost' },
+  { id: 'b2', columnId: 'todo', title: 'Fix vent motor' },
+  { id: 'b3', columnId: 'doing', title: 'Spring price list' },
+  { id: 'b4', columnId: 'doing', title: 'Shade cloth' },
+];
+
+function BoardPreview() {
+  return (
+    <div className="home-p-zoom home-p-wide home-p-clip">
+      <Board
+        label="Tasks"
+        className="home-p-board"
+        columns={[
+          { id: 'todo', title: 'To do', tone: 'secondary' },
+          { id: 'doing', title: 'In progress', tone: 'warning', total: 12 },
+          { id: 'done', title: 'Done', tone: 'success', status: 'loading' },
+        ]}
+        items={previewBoardItems}
+        onColumnShowAll={() => {}}
+      />
+    </div>
+  );
+}
+
 function TablePreview() {
   const rows = [
     { name: 'Customers', records: 1284 },
@@ -1574,6 +1600,7 @@ const previews: Record<string, () => ReactNode> = {
   'gradient-banner': GradientBannerPreview,
   'presence-cursor': PresenceCursorPreview,
   'result-card': ResultCardPreview,
+  board: BoardPreview,
   table: TablePreview,
   canvas: CanvasPreview,
   message: () => (

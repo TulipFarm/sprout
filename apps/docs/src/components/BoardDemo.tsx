@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { EntityAvatar } from '@tulipfarm/sprout/avatar';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Board, type BoardColumn, type BoardItem, type BoardLane } from '@tulipfarm/sprout/board';
@@ -296,5 +296,53 @@ export function BoardLarge() {
   );
   return (
     <Board label="Large board" columns={columns} lanes={lanes} items={items} onItemsChange={setItems} searchable />
+  );
+}
+
+const readOnlyTasks: Task[] = initialTasks.slice(0, 9).map((task, index) => ({
+  ...task,
+  columnId: index < 6 ? 'backlog' : 'doing',
+}));
+const blockedTasks: Task[] = initialTasks.slice(9, 11).map(task => ({ ...task, columnId: 'blocked' }));
+
+export function BoardReadOnly() {
+  const [blocked, setBlocked] = useState<'error' | 'loading' | 'ready'>('error');
+  const [opened, setOpened] = useState<string | null>(null);
+  useEffect(() => {
+    if (blocked !== 'loading') return;
+    const timer = setTimeout(() => setBlocked('ready'), 1200);
+    return () => clearTimeout(timer);
+  }, [blocked]);
+
+  const columns: BoardColumn[] = [
+    { id: 'backlog', title: 'Backlog', tone: 'secondary', total: 128 },
+    { id: 'doing', title: 'In progress', tone: 'info', total: 3 },
+    { id: 'review', title: 'Review', tone: 'warning', total: 9, status: 'loading' },
+    {
+      id: 'blocked',
+      title: 'Blocked',
+      tone: 'destructive',
+      total: 2,
+      status: blocked === 'ready' ? undefined : blocked,
+    },
+    { id: 'done', title: 'Done', tone: 'success', total: 0 },
+  ];
+
+  return (
+    <div>
+      <Board
+        label="Release status"
+        columns={columns}
+        items={blocked === 'ready' ? [...readOnlyTasks, ...blockedTasks] : readOnlyTasks}
+        onItemOpen={task => setOpened(`Opened “${task.title}”.`)}
+        onColumnRetry={() => setBlocked('loading')}
+        onColumnShowAll={column => setOpened(`Show all ${column.total} in ${column.title}.`)}
+        renderBody={task => <TaskBody task={task} />}
+        className="[--sprout-board-height:28rem]"
+      />
+      <p className="mt-3 text-sm text-[var(--sprout-muted)]" role="status">
+        {opened ?? 'Click a card, Show all, or Try again.'}
+      </p>
+    </div>
   );
 }

@@ -194,7 +194,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Attachment      | `attachment`      | File rows, cards, chips, upload states, drop zone.                               |
 | Avatar          | `avatar`          | People, agents, workspaces, with initials fallback and groups.                   |
 | Badge           | `badge`           | Status, count, or metadata label. Nine tones.                                    |
-| Board           | `board`           | Kanban board: columns, swimlanes, drag and drop, inline edit, virtualized.       |
+| Board           | `board`           | Kanban board: drag and drop or read-only, column loading/error/Show all, lanes.  |
 | Brand Icon      | `brand-icon`      | Logos of connected apps and models; tiles and stacks.                            |
 | Carousel        | `carousel`        | Slides that scroll one stop at a time.                                           |
 | Chart           | `chart`           | `UsageChart` for usage over days; `ChartContainer` wraps any Recharts chart.     |

@@ -60,7 +60,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from './alert-dialog.js';
-import { Badge } from './badge.js';
+import { Badge, type BadgeVariant } from './badge.js';
 import { Button } from './button.js';
 import {
   DropdownMenu,
@@ -72,12 +72,24 @@ import {
 import { Input } from './input.js';
 import { SearchField } from './search-field.js';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select.js';
+import { Skeleton } from './skeleton.js';
+
+/** `loading` shows skeleton cards, `error` a message with Try again, `unavailable` a message only. */
+export type BoardColumnStatus = 'loading' | 'error' | 'unavailable';
 
 export interface BoardColumn {
   id: string;
   title: string;
   /** Most cards the column should hold. Over it, the header says so in words. */
   limit?: number | undefined;
+  /** All cards in the column, such as a count from the server. Defaults to the cards in `items`. */
+  total?: number | undefined;
+  /** Leave out when the cards are ready. The other columns are not affected. */
+  status?: BoardColumnStatus | undefined;
+  /** Message for the `error` or `unavailable` status. */
+  error?: ReactNode;
+  /** Draws the title inside a Badge of this variant. */
+  tone?: BadgeVariant | undefined;
 }
 
 export interface BoardLane {
@@ -107,6 +119,13 @@ export interface BoardNewItem {
   laneId: string | undefined;
 }
 
+export interface BoardColumnText {
+  /** Shown in a ready column with no cards. Defaults to "No cards". */
+  empty?: ReactNode;
+  /** Visible text of the Show all button. Defaults to "Show all N". Its accessible name still ends with the column title. */
+  showAll?: ((total: number, column: BoardColumn) => ReactNode) | undefined;
+}
+
 export interface BoardCardParts {
   /** The title, or the rename field while the card is renamed. */
   title: ReactNode;
@@ -128,6 +147,12 @@ export interface BoardProps<T extends BoardItem> {
   onItemAdd?: ((item: BoardNewItem) => void) | undefined;
   /** Shows "Add column" after the last column. */
   onColumnAdd?: ((title: string) => void) | undefined;
+  /** Shows "Try again" on a column with `status: 'error'`. Load that column again here. */
+  onColumnRetry?: ((column: BoardColumn) => void) | undefined;
+  /** Shows "Show all N" at the foot of a column whose `total` is more than its cards in `items`. */
+  onColumnShowAll?: ((column: BoardColumn) => void) | undefined;
+  /** Replaces the column texts, such as "No rows" or "Show all 40 in table". */
+  columnText?: BoardColumnText | undefined;
   /** Click or Enter on a card. Open your own Sheet or Dialog here. */
   onItemOpen?: ((item: T) => void) | undefined;
   /** Card body under the title: badges, people, dates. */
@@ -262,6 +287,9 @@ export function Board<T extends BoardItem>({
   onColumnsChange,
   onItemAdd,
   onColumnAdd,
+  onColumnRetry,
+  onColumnShowAll,
+  columnText,
   onItemOpen,
   renderBody,
   renderTitle,
@@ -582,21 +610,42 @@ export function Board<T extends BoardItem>({
     gridTemplateColumns: `${columnTemplate}${onColumnAdd ? ' var(--sprout-board-column-width)' : ''}`,
   };
 
+  const loadedIn = (column: BoardColumn) => columnTotals.get(column.id) ?? 0;
+  const showAllCount = (column: BoardColumn) =>
+    onColumnShowAll &&
+    !column.status &&
+    !collapsedColumns.has(column.id) &&
+    column.total !== undefined &&
+    column.total > loadedIn(column)
+      ? column.total
+      : undefined;
+  // With lanes, a column's message and "Show all" show once, under its header
+  // and at the board foot, instead of in every lane.
+  const laneNotices = withLanes && columns.some(c => c.status === 'error' || c.status === 'unavailable');
+  const laneFoot = withLanes && columns.some(c => showAllCount(c) !== undefined);
+
   const renderRow = (lane: BoardLane) => (
     <div className="sprout-board-row" style={gridStyle}>
       {columns.map(column => (
         <BoardCell
           key={column.id}
           laneId={lane.id}
-          columnId={column.id}
+          column={column}
           name={cellName({ laneId: lane.id, columnId: column.id })}
           items={cells.get(cellKey(lane.id, column.id)) ?? []}
           collapsed={collapsedColumns.has(column.id)}
           fill={!withLanes}
+          empty={
+            !column.status && !column.total && loadedIn(column) === 0 ? (columnText?.empty ?? 'No cards') : undefined
+          }
+          showAll={withLanes ? undefined : showAllCount(column)}
+          onShowAll={!withLanes && showAllCount(column) !== undefined ? onColumnShowAll : undefined}
+          showAllText={columnText?.showAll}
+          onRetry={!withLanes && column.status === 'error' ? onColumnRetry : undefined}
           activeId={active?.type === 'card' ? active.id : null}
           movable={!!onItemsChange && !needle}
           selected={selected}
-          onSelect={onSelect}
+          onSelect={onItemsChange ? onSelect : undefined}
           onRename={onItemsChange ? onRename : undefined}
           onItemAdd={onItemAdd}
           onItemOpen={onItemOpen}
@@ -686,7 +735,7 @@ export function Board<T extends BoardItem>({
                     <BoardColumnHeader
                       key={column.id}
                       column={column}
-                      total={columnTotals.get(column.id) ?? 0}
+                      loaded={loadedIn(column)}
                       collapsed={collapsedColumns.has(column.id)}
                       onCollapse={() => setCollapsedColumns(s => toggle(s, column.id))}
                       onRename={onColumnsChange ? renameColumn : undefined}
@@ -695,6 +744,12 @@ export function Board<T extends BoardItem>({
                   ))}
                 </SortableContext>
                 {onColumnAdd && <AddColumn onAdd={onColumnAdd} />}
+                {laneNotices &&
+                  columns.map(column => (
+                    <div key={`notice:${column.id}`} className="sprout-board-column-notice">
+                      {!collapsedColumns.has(column.id) && <ColumnNotice column={column} onRetry={onColumnRetry} />}
+                    </div>
+                  ))}
               </div>
               {withLanes ? (
                 <div ref={bodyRef} className="sprout-board-lanes" style={{ height: laneVirtualizer.getTotalSize() }}>
@@ -743,6 +798,25 @@ export function Board<T extends BoardItem>({
                   {laneList[0] && renderRow(laneList[0])}
                 </div>
               )}
+              {laneFoot && onColumnShowAll && (
+                <div className="sprout-board-foot" style={gridStyle}>
+                  {columns.map(column => {
+                    const count = showAllCount(column);
+                    return (
+                      <div key={column.id}>
+                        {count !== undefined && (
+                          <ShowAll
+                            column={column}
+                            count={count}
+                            onShowAll={onColumnShowAll}
+                            text={columnText?.showAll}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -758,7 +832,9 @@ export function Board<T extends BoardItem>({
             </div>
           ) : activeColumn ? (
             <div className="sprout-board-column-header sprout-board-overlay">
-              <span className="sprout-board-column-title">{activeColumn.title}</span>
+              <span className="sprout-board-column-title" data-tone={activeColumn.tone ? '' : undefined}>
+                <ColumnTitle column={activeColumn} />
+              </span>
             </div>
           ) : null}
         </DragOverlay>
@@ -806,15 +882,21 @@ function CardFace<T extends BoardItem>({ item, look }: { item: T; look: CardLook
 
 interface BoardCellProps<T extends BoardItem> {
   laneId: string;
-  columnId: string;
+  column: BoardColumn;
   name: string;
   items: T[];
   collapsed: boolean;
   fill: boolean;
+  /** Hint for a ready column with no cards. Undefined otherwise. */
+  empty: ReactNode;
+  showAll: number | undefined;
+  onShowAll: ((column: BoardColumn) => void) | undefined;
+  showAllText: BoardColumnText['showAll'];
+  onRetry: ((column: BoardColumn) => void) | undefined;
   activeId: string | null;
   movable: boolean;
   selected: Set<string>;
-  onSelect: (item: T, event: MouseEvent) => void;
+  onSelect: ((item: T, event: MouseEvent) => void) | undefined;
   onRename: ((item: T, title: string) => void) | undefined;
   onItemAdd: ((item: BoardNewItem) => void) | undefined;
   onItemOpen: ((item: T) => void) | undefined;
@@ -823,11 +905,16 @@ interface BoardCellProps<T extends BoardItem> {
 
 const BoardCell = memo(function BoardCell<T extends BoardItem>({
   laneId,
-  columnId,
+  column,
   name,
   items,
   collapsed,
   fill,
+  empty,
+  showAll,
+  onShowAll,
+  showAllText,
+  onRetry,
   activeId,
   movable,
   selected,
@@ -837,10 +924,13 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
   onItemOpen,
   look,
 }: BoardCellProps<T>) {
+  const columnId = column.id;
+  const status = column.status;
   const cell = useMemo(() => ({ laneId, columnId }), [laneId, columnId]);
   const drop = useDroppable({
     id: `cell:${cellKey(cell.laneId, cell.columnId)}`,
     data: { type: 'cell', cell } satisfies DragData,
+    disabled: status !== undefined,
   });
   const scrollRef = useRef<HTMLDivElement>(null);
   const activeIndex = activeId ? items.findIndex(i => i.id === activeId) : -1;
@@ -881,12 +971,15 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
       className="sprout-board-cell"
       data-fill={fill || undefined}
       data-over={drop.isOver || undefined}
+      data-status={status}
     >
+      {fill && <ColumnNotice column={column} onRetry={onRetry} />}
       <div ref={scrollRef} className="sprout-board-cell-scroll">
         <SortableContext items={items.map(i => CARD + i.id)} strategy={verticalListSortingStrategy}>
           <div
             role="list"
             aria-label={`${name}, ${items.length} cards`}
+            aria-busy={status === 'loading' || undefined}
             className="sprout-board-cards"
             style={{ height: virtualizer.getTotalSize() }}
           >
@@ -916,8 +1009,23 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
             })}
           </div>
         </SortableContext>
+        {status === 'loading' && items.length === 0 && (
+          <div className="sprout-board-skeletons" aria-hidden="true">
+            {Array.from({ length: fill ? 3 : 2 }, (_, index) => (
+              <div key={index} className="sprout-board-skeleton-card">
+                <Skeleton />
+                <Skeleton />
+              </div>
+            ))}
+          </div>
+        )}
+        {empty !== undefined && items.length === 0 && <p className="sprout-board-empty">{empty}</p>}
       </div>
+      {showAll !== undefined && onShowAll && (
+        <ShowAll column={column} count={showAll} onShowAll={onShowAll} text={showAllText} />
+      )}
       {onItemAdd &&
+        !status &&
         (adding ? (
           <InlineText
             label={`New card in ${name}`}
@@ -953,7 +1061,7 @@ interface BoardCardProps<T extends BoardItem> {
   item: T;
   movable: boolean;
   selected: boolean;
-  onSelect: (item: T, event: MouseEvent) => void;
+  onSelect: ((item: T, event: MouseEvent) => void) | undefined;
   onRename: ((item: T, title: string) => void) | undefined;
   onOpen: ((item: T) => void) | undefined;
   look: CardLook<T>;
@@ -980,7 +1088,7 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
   const describe = !look.renderCard && !!look.renderBody;
 
   const onClick = (event: MouseEvent) => {
-    if (event.metaKey || event.ctrlKey || event.shiftKey) {
+    if (onSelect && (event.metaKey || event.ctrlKey || event.shiftKey)) {
       event.preventDefault();
       onSelect(item, event);
       return;
@@ -1074,14 +1182,21 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
 
 interface BoardColumnHeaderProps {
   column: BoardColumn;
-  total: number;
+  /** Cards of this column in `items`. */
+  loaded: number;
   collapsed: boolean;
   onCollapse: () => void;
   onRename: ((column: BoardColumn, title: string) => void) | undefined;
   onDelete: ((column: BoardColumn) => void) | undefined;
 }
 
-function BoardColumnHeader({ column, total, collapsed, onCollapse, onRename, onDelete }: BoardColumnHeaderProps) {
+const statusWords: Record<BoardColumnStatus, string> = {
+  loading: 'loading',
+  error: 'couldn’t load',
+  unavailable: 'unavailable',
+};
+
+function BoardColumnHeader({ column, loaded, collapsed, onCollapse, onRename, onDelete }: BoardColumnHeaderProps) {
   const [editing, setEditing] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const sortable = useSortable({
@@ -1089,8 +1204,21 @@ function BoardColumnHeader({ column, total, collapsed, onCollapse, onRename, onD
     data: { type: 'column', id: column.id } satisfies DragData,
     disabled: !onRename || editing,
   });
-  const over = column.limit !== undefined && total > column.limit;
-  const count = column.limit !== undefined ? `${total} / ${column.limit}` : `${total}`;
+  const total = column.total ?? loaded;
+  // Without a `total`, the loaded count means nothing until the column is ready.
+  const counted = column.total !== undefined || !column.status;
+  const over = counted && column.limit !== undefined && total > column.limit;
+  const count =
+    column.limit !== undefined ? `${formatCount(total)} / ${formatCount(column.limit)}` : formatCount(total);
+  const label = [
+    column.title,
+    counted && `${formatCount(total)} cards`,
+    counted && total > loaded && !column.status && `${loaded} shown`,
+    column.status && statusWords[column.status],
+    over && 'over limit',
+  ]
+    .filter(Boolean)
+    .join(', ');
   const toggleButton = (
     <button
       type="button"
@@ -1108,7 +1236,8 @@ function BoardColumnHeader({ column, total, collapsed, onCollapse, onRename, onD
       ref={sortable.setNodeRef}
       {...sortable.listeners}
       role="group"
-      aria-label={`${column.title}, ${total} cards${over ? ', over limit' : ''}`}
+      aria-label={label}
+      aria-busy={column.status === 'loading' || undefined}
       className="sprout-board-column-header"
       data-collapsed={collapsed || undefined}
       data-over-limit={over || undefined}
@@ -1133,17 +1262,23 @@ function BoardColumnHeader({ column, total, collapsed, onCollapse, onRename, onD
           data-editable=""
           onClick={() => setEditing(true)}
           aria-label={`Rename ${column.title}`}
+          data-tone={column.tone ? '' : undefined}
         >
-          {column.title}
+          <ColumnTitle column={column} />
         </button>
       ) : (
-        <span className="sprout-board-column-title">{column.title}</span>
+        <span className="sprout-board-column-title" data-tone={column.tone && !collapsed ? '' : undefined}>
+          {collapsed ? column.title : <ColumnTitle column={column} />}
+        </span>
       )}
-      {!editing && (
+      {!editing && counted && (
         <span className="sprout-board-count" aria-hidden="true">
           {count}
         </span>
       )}
+      <span role="status" className="sprout-board-sr-only">
+        {column.status === 'loading' ? `Loading cards in ${column.title}…` : ''}
+      </span>
       {over && !collapsed && !editing && (
         <Badge variant="warning" className="sprout-board-limit">
           Over limit
@@ -1220,6 +1355,81 @@ function BoardColumnHeader({ column, total, collapsed, onCollapse, onRename, onD
         </AlertDialog>
       )}
     </div>
+  );
+}
+
+const formatCount = (count: number) => count.toLocaleString('en-US');
+
+function ColumnTitle({ column }: { column: BoardColumn }) {
+  if (!column.tone) return column.title;
+  return (
+    <Badge variant={column.tone} className="sprout-board-column-badge">
+      <span>{column.title}</span>
+    </Badge>
+  );
+}
+
+/** The error or unavailable message of a column. Nothing for other states. */
+function ColumnNotice({
+  column,
+  onRetry,
+}: {
+  column: BoardColumn;
+  onRetry: ((column: BoardColumn) => void) | undefined;
+}) {
+  if (column.status === 'error')
+    return (
+      <div className="sprout-board-notice" data-kind="error">
+        <p role="alert">{column.error ?? 'Couldn’t load this column.'}</p>
+        {onRetry && (
+          <Button
+            variant="outline"
+            size="xs"
+            aria-label={`Try again to load ${column.title}`}
+            onClick={() => onRetry(column)}
+          >
+            Try again
+          </Button>
+        )}
+      </div>
+    );
+  if (column.status === 'unavailable')
+    return (
+      <p className="sprout-board-notice" data-kind="unavailable">
+        {column.error ?? 'Cards are unavailable.'}
+      </p>
+    );
+  return null;
+}
+
+function ShowAll({
+  column,
+  count,
+  onShowAll,
+  text,
+}: {
+  column: BoardColumn;
+  count: number;
+  onShowAll: (column: BoardColumn) => void;
+  text: BoardColumnText['showAll'];
+}) {
+  return (
+    <Button
+      variant="ghost"
+      size="xs"
+      className="sprout-board-show-all"
+      aria-label={text ? undefined : `Show all ${formatCount(count)} in ${column.title}`}
+      onClick={() => onShowAll(column)}
+    >
+      {text ? (
+        <>
+          {text(count, column)}
+          <span className="sprout-board-sr-only">, {column.title}</span>
+        </>
+      ) : (
+        `Show all ${formatCount(count)}`
+      )}
+    </Button>
   );
 }
 

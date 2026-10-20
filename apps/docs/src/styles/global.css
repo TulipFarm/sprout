@@ -663,6 +663,10 @@ body {
 .home-p-zoom {
   zoom: 0.8;
 }
+.home-p-board {
+  --sprout-board-column-width: 8.5rem;
+  --sprout-board-height: 13rem;
+}
 .home-p-stack:has(.home-p-wide) {
   width: 100%;
 }
