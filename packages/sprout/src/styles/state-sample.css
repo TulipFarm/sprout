@@ -6,9 +6,6 @@
     --sprout-state-sample-document: #2b67d1;
     --sprout-state-sample-slides: #d9622b;
     --sprout-state-sample-image: #a8d4f7;
-    --sprout-state-sample-chart-1: #188038;
-    --sprout-state-sample-chart-2: #245cba;
-    --sprout-state-sample-chart-4: #7c4eb0;
   }
   .sprout-state-sample {
     display: flex;
@@ -23,17 +20,11 @@
   .dark.sprout-state-sample,
   .dark .sprout-state-sample-mark {
     --sprout-state-sample-image: #4d7ea8;
-    --sprout-state-sample-chart-1: #75ce8e;
-    --sprout-state-sample-chart-2: #9cbdff;
-    --sprout-state-sample-chart-4: #c6a4ed;
   }
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) .sprout-state-sample,
     :root:not(.light):not(.dark) .sprout-state-sample-mark {
       --sprout-state-sample-image: #4d7ea8;
-      --sprout-state-sample-chart-1: #75ce8e;
-      --sprout-state-sample-chart-2: #9cbdff;
-      --sprout-state-sample-chart-4: #c6a4ed;
     }
   }
 
@@ -207,7 +198,7 @@
 
   .sprout-state-sample-mark {
     --sprout-state-sample-from: var(--sprout-state-sample-pdf);
-    --sprout-state-sample-to: var(--sprout-state-sample-chart-4);
+    --sprout-state-sample-to: var(--sprout-purple);
     flex-shrink: 0;
     width: 0.875rem;
     height: 0.875rem;
@@ -229,18 +220,18 @@
   }
   .sprout-state-sample-mark[data-tone="green"] {
     --sprout-state-sample-from: var(--sprout-state-sample-sheet);
-    --sprout-state-sample-to: var(--sprout-state-sample-chart-2);
+    --sprout-state-sample-to: var(--sprout-blue);
   }
   .sprout-state-sample-mark[data-tone="blue"] {
     --sprout-state-sample-from: var(--sprout-state-sample-document);
-    --sprout-state-sample-to: var(--sprout-state-sample-chart-4);
+    --sprout-state-sample-to: var(--sprout-purple);
   }
   .sprout-state-sample-mark[data-tone="violet"] {
-    --sprout-state-sample-from: var(--sprout-state-sample-chart-4);
+    --sprout-state-sample-from: var(--sprout-purple);
     --sprout-state-sample-to: var(--sprout-state-sample-pdf);
   }
   .sprout-state-sample-mark[data-tone="teal"] {
-    --sprout-state-sample-from: var(--sprout-state-sample-chart-1);
+    --sprout-state-sample-from: var(--sprout-green);
     --sprout-state-sample-to: var(--sprout-state-sample-image);
   }
 

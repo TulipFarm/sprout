@@ -83,7 +83,7 @@ describe("AgentFanout in a real browser", () => {
         colorOf("var(--sprout-chart-1)"),
       );
       expect(getComputedStyle(dot("Researcher")).color).toBe(
-        colorOf("var(--sprout-surface)"),
+        mode === "dark" ? "rgb(0, 0, 0)" : colorOf("var(--sprout-surface)"),
       );
       expect(getComputedStyle(dot("Analyst")).borderColor).toBe(
         colorOf("var(--sprout-chart-2)"),

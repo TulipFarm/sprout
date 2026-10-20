@@ -77,7 +77,7 @@ describe("Chart", () => {
     expect(manifest.dependencies.recharts).toBe("3.8.0");
     const index = read("../packages/sprout/src/styles/index.css");
     expect(index).toContain('@import "./chart.css";');
-    for (let step = 1; step <= 5; step++)
+    for (let step = 1; step <= 10; step++)
       expect(index).toContain(
         `--color-sprout-chart-${step}: var(--sprout-chart-${step});`,
       );
@@ -87,8 +87,9 @@ describe("Chart", () => {
   });
 
   it("defines a light and dark palette and honors reduced motion data", () => {
-    expect(css).toMatch(/:root,\s*\.light \{\s*--sprout-chart-1: #188038;/);
-    expect(css).toMatch(/\.dark \{\s*--sprout-chart-1: #75ce8e;/);
+    expect(css).toMatch(/:root,\s*\.light \{\s*--sprout-red: #e11d48;/);
+    expect(css).toMatch(/\.dark \{\s*--sprout-red: #f0506e;/);
+    expect(css).toContain("--sprout-chart-10: var(--sprout-tan);");
     expect(css).toContain("prefers-color-scheme: dark");
     expect(css).toContain(".recharts-surface:focus-visible");
     expect(css).toContain("forced-colors: active");

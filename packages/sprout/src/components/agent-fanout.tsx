@@ -57,7 +57,7 @@ export interface AgentFanoutAgent {
   status: AgentFanoutStatus;
   /** How long the subagent took, in ms. Shown once it is done. */
   duration?: number | undefined;
-  /** Any CSS color. Defaults to the next of five `--sprout-chart-*` colors. */
+  /** Any CSS color. Defaults to the next of ten `--sprout-chart-*` colors. */
   color?: string | undefined;
   /** Subagents this agent calls in turn. They take its color. */
   agents?: AgentFanoutAgent[] | undefined;
@@ -88,7 +88,7 @@ const levelTop = 120;
 const levelGap = 108;
 const nodeLabel = 22;
 const bottomGap = 36;
-const colorCount = 5;
+const colorCount = 10;
 
 const statusText: Record<AgentFanoutStatus, string> = {
   queued: "Queued",
@@ -378,7 +378,8 @@ const edgeTypes = { trip: TripLine };
 const viewport = { x: 0, y: 0, zoom: 1 };
 
 function NodeMark({ agent }: { agent: AgentFanoutAgent }) {
-  if (agent.status === "done") return <Check size={16} aria-hidden="true" />;
+  if (agent.status === "done")
+    return <Check size={16} strokeWidth={2.5} aria-hidden="true" />;
   if (agent.status === "failed") return <Danger size={16} aria-hidden="true" />;
   return <span aria-hidden="true">{agent.icon}</span>;
 }

@@ -61,7 +61,7 @@ const series: UsageSeries[] = [
       </li>
       <li>
         Series colors are any CSS color. The palette is
-        <code>--sprout-chart-1</code> to <code>--sprout-chart-5</code>, with
+        <code>--sprout-chart-1</code> to <code>--sprout-chart-10</code>, with
         <code>--sprout-muted</code> for a folded “N more” series.
       </li>
     </ul>
@@ -175,9 +175,16 @@ const config = {
     <h2 class="section-title">Theme tokens</h2>
     <p>
       Series use <code>--sprout-chart-1</code> to
-      <code>--sprout-chart-5</code>, with light and dark values. Tailwind gets
-      them as <code>bg-sprout-chart-1</code> and so on, for swatches beside a chart.
-      Ticks use <code>--sprout-muted</code>, grid lines
+      <code>--sprout-chart-10</code>, with light and dark values. Each points at
+      a named hue: <code>--sprout-indigo</code>, <code>--sprout-green</code>,
+      <code>--sprout-orange</code>, <code>--sprout-red</code>,
+      <code>--sprout-sky</code>, <code>--sprout-purple</code>,
+      <code>--sprout-yellow</code>, <code>--sprout-teal</code>,
+      <code>--sprout-blue</code>, and <code>--sprout-tan</code>. Tailwind gets
+      them as <code>bg-sprout-chart-1</code> and <code>bg-sprout-green</code>
+      and so on, for swatches beside a chart. Ticks use <code
+        >--sprout-muted</code
+      >, grid lines
       <code>--sprout-line</code>, the hover band <code>--sprout-hover</code>,
       and the tooltip <code>--sprout-surface</code> with
       <code>--sprout-line</code>.

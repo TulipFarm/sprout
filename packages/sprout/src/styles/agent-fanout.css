@@ -13,11 +13,43 @@
     --sprout-on-primary: inherit;
     --sprout-danger: inherit;
     --sprout-danger-subtle: inherit;
+    --sprout-indigo: inherit;
+    --sprout-green: inherit;
+    --sprout-orange: inherit;
+    --sprout-red: inherit;
+    --sprout-sky: inherit;
+    --sprout-purple: inherit;
+    --sprout-yellow: inherit;
+    --sprout-teal: inherit;
+    --sprout-blue: inherit;
+    --sprout-tan: inherit;
     --sprout-chart-1: inherit;
     --sprout-chart-2: inherit;
     --sprout-chart-3: inherit;
     --sprout-chart-4: inherit;
     --sprout-chart-5: inherit;
+    --sprout-chart-6: inherit;
+    --sprout-chart-7: inherit;
+    --sprout-chart-8: inherit;
+    --sprout-chart-9: inherit;
+    --sprout-chart-10: inherit;
+    --sprout-agent-fanout-check: inherit;
+  }
+
+  :root,
+  .light {
+    --sprout-agent-fanout-check: var(--sprout-surface);
+  }
+
+  /* The dark surface reads faint on the bright dark-mode fills. */
+  .dark {
+    --sprout-agent-fanout-check: #000;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark) {
+      --sprout-agent-fanout-check: #000;
+    }
   }
 }
 
@@ -207,7 +239,7 @@
   .sprout-agent-fanout-node[data-status="done"] .sprout-agent-fanout-dot {
     border-color: var(--sprout-agent-fanout-color);
     background: var(--sprout-agent-fanout-color);
-    color: var(--sprout-surface);
+    color: var(--sprout-agent-fanout-check);
   }
   .sprout-agent-fanout-node[data-status="failed"] .sprout-agent-fanout-dot {
     border-color: var(--sprout-danger);
