@@ -253,7 +253,7 @@ After you change package code, run `pnpm --filter @tulipfarm/sprout build`.
 ```sh
 pnpm build
 pnpm typecheck
-pnpm format:check
+pnpm lint       # Oxfmt check and Oxlint; `pnpm format` fixes formatting
 pnpm test
 pnpm exec playwright install chromium
 pnpm test:browser

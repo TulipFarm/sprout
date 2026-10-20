@@ -130,7 +130,6 @@ const headerHeight = 40;
 const rowHeight = 28;
 const keysChrome = 36;
 const keyHeight = 26;
-const moreHeight = 132;
 const colGap = 104;
 const rowGap = 32;
 const groupPad = 20;

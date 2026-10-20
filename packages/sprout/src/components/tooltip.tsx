@@ -79,6 +79,7 @@ export function Tooltip({ onOpenChange, actionsRef, ...props }: TooltipProps) {
           onOpenChange?.(next, details);
           if (details.isCanceled) return;
           if (next) {
+            // oxlint-disable-next-line unicorn/no-useless-spread -- copy first: the loop deletes from the set.
             for (const other of [...openTooltips]) {
               if (other === actions) continue;
               openTooltips.delete(other);

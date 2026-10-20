@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { describe, expect, it } from "vitest";
 import { cdp, page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";

@@ -19,11 +19,14 @@ CI runs these. Run them before you open a pull request:
 ```sh
 pnpm build
 pnpm typecheck
-pnpm format:check
+pnpm lint
 pnpm test
 pnpm test:browser   # needs: pnpm exec playwright install chromium
 pnpm test:install
 ```
+
+`pnpm lint` checks formatting with Oxfmt and runs Oxlint. `pnpm format` fixes
+formatting. The shared rules live in TulipFarm/root `docs/code-style.md`.
 
 While you work, run one test file at a time: `pnpm vitest run tests/sprout/button.test.tsx`.
 

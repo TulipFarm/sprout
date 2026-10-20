@@ -11,15 +11,10 @@ import {
   type ReactNode,
 } from "react";
 import {
-  Bar,
-  BarChart,
-  CartesianGrid,
   Legend,
   Rectangle,
   ResponsiveContainer,
   Tooltip,
-  XAxis,
-  YAxis,
   type BarShapeProps,
   type DefaultLegendContentProps,
   type DefaultTooltipContentProps,

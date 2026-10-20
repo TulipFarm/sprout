@@ -4,4 +4,4 @@
 
 - [ ] Tests added or updated
 - [ ] Docs demo updated, screenshot attached (for visible changes)
-- [ ] `pnpm build && pnpm typecheck && pnpm format:check && pnpm test` pass
+- [ ] `pnpm build && pnpm typecheck && pnpm lint && pnpm test` pass
