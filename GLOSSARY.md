@@ -57,3 +57,9 @@ _Avoid_: Bucket, slot
 **Limit**:
 The most cards a Board column should hold. Over it, the header says "Over limit".
 _Avoid_: WIP limit, cap
+
+## Views
+
+**Result notice**:
+The strip inside a chart or timeline that says it shows only the first part of the result, such as "Showing the first 100 of 2,431 rows.", and offers Table for the rest.
+_Avoid_: Limit notice, truncation warning, cap banner

@@ -180,6 +180,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Alert         | `alert`         | Inline error, conflict, or note next to the content it affects.                      |
 | Notice Banner | `notice-banner` | Full-width strip at the top of a page that needs action.                             |
 | Progress      | `progress`      | Known progress (upload, quota). `value={null}` when unknown.                         |
+| Result Notice | `result-notice` | Inside a chart or timeline that shows only the first part of the result.             |
 | Skeleton      | `skeleton`      | Hold the shape of loading content so the page does not jump.                         |
 | Spinner       | `spinner`       | Short wait with no known shape: busy buttons, status lines.                          |
 | State Panel   | `state-panel`   | Empty, loading, success, unavailable, or error state with a next step.               |

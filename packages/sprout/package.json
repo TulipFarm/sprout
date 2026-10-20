@@ -292,6 +292,10 @@
       "types": "./dist/components/result-card.d.ts",
       "import": "./dist/components/result-card.js"
     },
+    "./result-notice": {
+      "types": "./dist/components/result-notice.d.ts",
+      "import": "./dist/components/result-notice.js"
+    },
     "./review-card": {
       "types": "./dist/components/review-card.d.ts",
       "import": "./dist/components/review-card.js"

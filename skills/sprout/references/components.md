@@ -958,6 +958,27 @@ import { NoticeBanner } from '@tulipfarm/sprout/notice-banner';
 </NoticeBanner>;
 ```
 
+### Result Notice
+
+```tsx
+import { ResultNotice } from '@tulipfarm/sprout/result-notice';
+
+<ResultNotice
+  shown={100}
+  total="10000+"
+  noun="groups"
+  action={
+    <Button size="sm" variant="ghost">
+      Open in Table
+    </Button>
+  }
+/>;
+```
+
+Says "Showing the first 100 of 10,000+ groups." with `role="status"`. Put it above a chart or inside a timeline whenever
+the view cuts its result short. Renders nothing when `total` is an exact count not above `shown`. Not for page-top notices;
+use Notice Banner.
+
 ### Progress
 
 ```tsx
