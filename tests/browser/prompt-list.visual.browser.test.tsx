@@ -1,7 +1,7 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import { PromptList } from "../../packages/sprout/src/components/prompt-list.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { PromptList } from '../../packages/sprout/src/components/prompt-list.js';
+import { setTheme, settle, themes } from './support.js';
 
 const Dot = () => (
   <svg viewBox="0 0 16 16">
@@ -9,17 +9,17 @@ const Dot = () => (
   </svg>
 );
 
-it.each(themes)("prompt-list %s %s", async (theme, mode) => {
+it.each(themes)('prompt-list %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
+        display: 'grid',
         gap: 16,
         padding: 16,
         width: 420,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <PromptList
@@ -27,14 +27,13 @@ it.each(themes)("prompt-list %s %s", async (theme, mode) => {
         onSelect={() => {}}
         items={[
           {
-            id: "meetings",
+            id: 'meetings',
             label: "Prepare me for tomorrow's meetings",
             icon: <Dot />,
           },
           {
-            id: "emails",
-            label:
-              "Draft replies to recent customer emails about delayed spring bulb orders",
+            id: 'emails',
+            label: 'Draft replies to recent customer emails about delayed spring bulb orders',
             icon: <Dot />,
           },
         ]}
@@ -43,14 +42,10 @@ it.each(themes)("prompt-list %s %s", async (theme, mode) => {
         title="Unavailable"
         disabled
         onSelect={() => {}}
-        items={[
-          { id: "standup", label: "Write the standup summary", icon: <Dot /> },
-        ]}
+        items={[{ id: 'standup', label: 'Write the standup summary', icon: <Dot /> }]}
       />
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`prompt-list-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`prompt-list-${theme}-${mode}`);
 });

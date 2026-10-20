@@ -232,13 +232,8 @@
   flex-shrink: 0;
 }
 .collapsible-demo-thinking {
-  background: linear-gradient(
-      90deg,
-      var(--sprout-muted) 0%,
-      var(--sprout-text) 50%,
-      var(--sprout-muted) 100%
-    )
-    0 0 / 200% 100%;
+  background: linear-gradient(90deg, var(--sprout-muted) 0%, var(--sprout-text) 50%, var(--sprout-muted) 100%) 0 0 /
+    200% 100%;
   background-clip: text;
   color: transparent;
 }
@@ -438,8 +433,7 @@
   line-height: 1.75rem;
   color: var(--sprout-muted);
 }
-.collapsible-demo-motion-frame[data-variant="card"]
-  .collapsible-demo-motion-list {
+.collapsible-demo-motion-frame[data-variant='card'] .collapsible-demo-motion-list {
   margin: 6px 0;
   padding: 8px 10px;
   border: 0;
@@ -500,7 +494,7 @@
   outline: none;
 }
 .collapsible-demo-review-trigger::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
 }

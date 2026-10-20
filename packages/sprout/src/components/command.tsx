@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -13,10 +13,10 @@ import {
   type ComponentProps,
   type KeyboardEvent,
   type ReactNode,
-} from "react";
-import { Check } from "reicon-react/icons/Check";
-import { Search } from "reicon-react/icons/Search";
-import { cn } from "../internal/classes.js";
+} from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { Search } from 'reicon-react/icons/Search';
+import { cn } from '../internal/classes.js';
 import {
   Dialog,
   DialogContent,
@@ -24,19 +24,15 @@ import {
   DialogTitle,
   type DialogContentProps,
   type DialogProps,
-} from "./dialog.js";
+} from './dialog.js';
 
 /** Scores how well `value` and `keywords` match `search`. `0` hides the item; higher ranks first. */
-export type CommandFilter = (
-  value: string,
-  search: string,
-  keywords?: readonly string[],
-) => number;
+export type CommandFilter = (value: string, search: string, keywords?: readonly string[]) => number;
 
 const normalize = (text: string) =>
   text
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
     .toLowerCase();
 
 function tokenScore(haystack: string, token: string) {
@@ -61,16 +57,11 @@ function tokenScore(haystack: string, token: string) {
  * keyword, as a substring or in order with gaps. Prefix and word-start matches
  * rank above loose ones. Case and accents are ignored.
  */
-export const defaultCommandFilter: CommandFilter = (
-  value,
-  search,
-  keywords = [],
-) => {
-  const haystack = normalize([value, ...keywords].join(" "));
+export const defaultCommandFilter: CommandFilter = (value, search, keywords = []) => {
+  const haystack = normalize([value, ...keywords].join(' '));
   const tokens = normalize(search).trim().split(/\s+/).filter(Boolean);
   let score = 1;
-  for (const token of tokens)
-    score = Math.min(score, tokenScore(haystack, token));
+  for (const token of tokens) score = Math.min(score, tokenScore(haystack, token));
   return score;
 };
 
@@ -87,7 +78,7 @@ interface Options {
 }
 
 class CommandStore {
-  search = "";
+  search = '';
   active: string | null = null;
   ready = false;
   count = 0;
@@ -106,7 +97,7 @@ class CommandStore {
   };
 
   get filtering() {
-    return this.options.shouldFilter && this.search.trim() !== "";
+    return this.options.shouldFilter && this.search.trim() !== '';
   }
 
   emit() {
@@ -119,17 +110,11 @@ class CommandStore {
     this.groupScores.clear();
     let count = 0;
     for (const [id, entry] of this.items) {
-      const score = this.filtering
-        ? this.options.filter(entry.value, this.search, entry.keywords)
-        : 1;
+      const score = this.filtering ? this.options.filter(entry.value, this.search, entry.keywords) : 1;
       if (score <= 0) continue;
       count++;
       this.scores.set(id, score);
-      if (entry.group)
-        this.groupScores.set(
-          entry.group,
-          Math.max(score, this.groupScores.get(entry.group) ?? 0),
-        );
+      if (entry.group) this.groupScores.set(entry.group, Math.max(score, this.groupScores.get(entry.group) ?? 0));
     }
     this.count = count;
   }
@@ -198,12 +183,10 @@ function orderOf(element: Element | null) {
 
 /** Enabled items in visual order: groups and items reorder by score while searching. */
 function enabledItems(root: HTMLElement) {
-  const items = [
-    ...root.querySelectorAll<HTMLElement>(
-      `${ITEM}:not([aria-disabled="true"])`,
-    ),
-  ].filter((item) => item.closest('[data-slot="command"]') === root);
-  const keyed = items.map((item) => {
+  const items = [...root.querySelectorAll<HTMLElement>(`${ITEM}:not([aria-disabled="true"])`)].filter(
+    item => item.closest('[data-slot="command"]') === root,
+  );
+  const keyed = items.map(item => {
     const group = item.closest<HTMLElement>('[data-slot="command-group"]');
     return group && root.contains(group)
       ? { item, group, outer: orderOf(group), inner: orderOf(item) }
@@ -212,7 +195,7 @@ function enabledItems(root: HTMLElement) {
   return keyed.sort((a, b) => a.outer - b.outer || a.inner - b.inner);
 }
 
-export interface CommandProps extends ComponentProps<"div"> {
+export interface CommandProps extends ComponentProps<'div'> {
   /** Accessible name for the search input when it has no `aria-label`. */
   label?: string;
   /** Set to `false` to filter items yourself and render only the matches. */
@@ -254,9 +237,7 @@ export function Command({
   const version = useStore(store, () => store.version);
 
   useLayoutEffect(() => {
-    const changed =
-      store.options.filter !== filter ||
-      store.options.shouldFilter !== shouldFilter;
+    const changed = store.options.filter !== filter || store.options.shouldFilter !== shouldFilter;
     store.options = { filter, shouldFilter };
     if (changed && store.ready) {
       store.refilter();
@@ -276,14 +257,10 @@ export function Command({
     store.needsFirst = false;
     const first = enabledItems(root.current)[0]?.item;
     store.setActive(first?.id ?? null);
-    root.current
-      .querySelector('[data-slot="command-list"]')
-      ?.scrollTo({ top: 0 });
+    root.current.querySelector('[data-slot="command-list"]')?.scrollTo({ top: 0 });
   }, [store, version]);
 
-  const move = (
-    to: (items: ReturnType<typeof enabledItems>, index: number) => number,
-  ) => {
+  const move = (to: (items: ReturnType<typeof enabledItems>, index: number) => number) => {
     if (!root.current) return;
     const items = enabledItems(root.current);
     if (!items.length) return;
@@ -291,13 +268,10 @@ export function Command({
     const next = items[to(items, index)];
     if (!next) return;
     store.setActive(next.item.id);
-    const firstInGroup =
-      next.group && items.find(({ group }) => group === next.group) === next;
-    const heading = firstInGroup
-      ? next.group!.querySelector('[data-slot="command-group-heading"]')
-      : null;
-    (heading ?? next.item).scrollIntoView({ block: "nearest" });
-    if (heading) next.item.scrollIntoView({ block: "nearest" });
+    const firstInGroup = next.group && items.find(({ group }) => group === next.group) === next;
+    const heading = firstInGroup ? next.group!.querySelector('[data-slot="command-group-heading"]') : null;
+    (heading ?? next.item).scrollIntoView({ block: 'nearest' });
+    if (heading) next.item.scrollIntoView({ block: 'nearest' });
   };
 
   const step = (delta: 1 | -1) =>
@@ -322,42 +296,35 @@ export function Command({
     onKeyDown?.(event);
     if (event.defaultPrevented || event.nativeEvent.isComposing) return;
     const target = event.target as HTMLElement;
-    const fromInput = target.dataset.slot === "command-input";
-    if (
-      !fromInput &&
-      target.closest(
-        "button, a[href], input, textarea, select, [contenteditable]",
-      )
-    )
-      return;
+    const fromInput = target.dataset.slot === 'command-input';
+    if (!fromInput && target.closest('button, a[href], input, textarea, select, [contenteditable]')) return;
     const vim = event.ctrlKey && !event.metaKey && !event.altKey;
     switch (event.key) {
-      case "ArrowDown":
-      case "ArrowUp": {
-        const delta = event.key === "ArrowDown" ? 1 : -1;
-        if (event.metaKey)
-          move((items) => (delta === 1 ? items.length - 1 : 0));
+      case 'ArrowDown':
+      case 'ArrowUp': {
+        const delta = event.key === 'ArrowDown' ? 1 : -1;
+        if (event.metaKey) move(items => (delta === 1 ? items.length - 1 : 0));
         else if (event.altKey) jumpGroup(delta);
         else step(delta);
         break;
       }
-      case "n":
-      case "j":
+      case 'n':
+      case 'j':
         if (!vim) return;
         step(1);
         break;
-      case "p":
-      case "k":
+      case 'p':
+      case 'k':
         if (!vim) return;
         step(-1);
         break;
-      case "Home":
+      case 'Home':
         move(() => 0);
         break;
-      case "End":
-        move((items) => items.length - 1);
+      case 'End':
+        move(items => items.length - 1);
         break;
-      case "Enter": {
+      case 'Enter': {
         if (!store.active) return;
         const entry = store.items.get(store.active);
         if (!entry) return;
@@ -376,20 +343,16 @@ export function Command({
       <div
         data-slot="command"
         {...props}
-        ref={(node) => {
+        ref={node => {
           root.current = node;
-          if (typeof ref === "function") return ref(node);
+          if (typeof ref === 'function') return ref(node);
           if (ref) ref.current = node;
         }}
-        className={cn("sprout-command", className)}
+        className={cn('sprout-command', className)}
         onKeyDown={handleKeyDown}
       >
         {label && (
-          <label
-            id={context.labelId}
-            htmlFor={context.inputId}
-            className="sprout-command-sr-only"
-          >
+          <label id={context.labelId} htmlFor={context.inputId} className="sprout-command-sr-only">
             {label}
           </label>
         )}
@@ -400,8 +363,8 @@ export function Command({
 }
 
 export interface CommandInputProps extends Omit<
-  ComponentProps<"input">,
-  "value" | "defaultValue" | "onChange" | "type"
+  ComponentProps<'input'>,
+  'value' | 'defaultValue' | 'onChange' | 'type'
 > {
   /** Controlled search text. */
   value?: string;
@@ -410,16 +373,8 @@ export interface CommandInputProps extends Omit<
 }
 
 /** The search field with a leading magnifier. It drives filtering and keyboard navigation. */
-export function CommandInput({
-  value,
-  onValueChange,
-  onChange,
-  className,
-  id,
-  ...props
-}: CommandInputProps) {
-  const { store, listId, inputId, labelId, label } =
-    useCommandContext("CommandInput");
+export function CommandInput({ value, onValueChange, onChange, className, id, ...props }: CommandInputProps) {
+  const { store, listId, inputId, labelId, label } = useCommandContext('CommandInput');
   const search = useStore(store, () => store.search);
   const active = useStore(store, () => store.active);
   const empty = useStore(store, () => store.ready && store.count === 0);
@@ -429,19 +384,9 @@ export function CommandInput({
   }, [store, value]);
 
   return (
-    <div
-      data-slot="command-input-wrapper"
-      className="sprout-command-input-wrapper"
-    >
-      <div
-        data-slot="command-input-group"
-        className="sprout-command-input-group"
-      >
-        <Search
-          size={16}
-          aria-hidden="true"
-          className="sprout-command-input-icon"
-        />
+    <div data-slot="command-input-wrapper" className="sprout-command-input-wrapper">
+      <div data-slot="command-input-group" className="sprout-command-input-group">
+        <Search size={16} aria-hidden="true" className="sprout-command-input-icon" />
         <input
           id={id ?? inputId}
           type="text"
@@ -452,55 +397,49 @@ export function CommandInput({
           aria-autocomplete="list"
           aria-expanded={!empty}
           aria-controls={listId}
-          aria-labelledby={label && !props["aria-label"] ? labelId : undefined}
+          aria-labelledby={label && !props['aria-label'] ? labelId : undefined}
           aria-activedescendant={active ?? undefined}
           data-slot="command-input"
           {...props}
           value={value ?? search}
-          onChange={(event) => {
+          onChange={event => {
             onChange?.(event);
             onValueChange?.(event.target.value);
             if (value === undefined) store.setSearch(event.target.value);
           }}
-          className={cn("sprout-command-input", className)}
+          className={cn('sprout-command-input', className)}
         />
       </div>
     </div>
   );
 }
 
-export type CommandListProps = ComponentProps<"div">;
+export type CommandListProps = ComponentProps<'div'>;
 
 /**
  * The scrolling listbox. It caps at 18rem and keeps the active item in view.
  * While nothing matches it drops the listbox role so `CommandEmpty` can hold
  * ordinary content such as a Clear search button.
  */
-export function CommandList({
-  className,
-  children,
-  ...props
-}: CommandListProps) {
-  const { store, listId, label } = useCommandContext("CommandList");
+export function CommandList({ className, children, ...props }: CommandListProps) {
+  const { store, listId, label } = useCommandContext('CommandList');
   const empty = useStore(store, () => store.ready && store.count === 0);
   const {
-    "aria-label": ariaLabel = props["aria-labelledby"]
-      ? undefined
-      : (label ?? "Suggestions"),
-    "aria-labelledby": ariaLabelledBy,
+    'aria-label': ariaLabel = props['aria-labelledby'] ? undefined : (label ?? 'Suggestions'),
+    'aria-labelledby': ariaLabelledBy,
     ...rest
   } = props;
   return (
     <div
       id={listId}
-      role={empty ? undefined : "listbox"}
+      role={empty ? undefined : 'listbox'}
       tabIndex={empty ? undefined : -1}
       aria-label={empty ? undefined : ariaLabel}
       aria-labelledby={empty ? undefined : ariaLabelledBy}
       data-slot="command-list"
       data-empty={empty || undefined}
       {...rest}
-      className={cn("sprout-command-list", className)}
+      className={cn('sprout-command-list', className)}
     >
       <div data-slot="command-list-sizer" className="sprout-command-list-sizer">
         {children}
@@ -509,27 +448,19 @@ export function CommandList({
   );
 }
 
-export type CommandEmptyProps = ComponentProps<"div">;
+export type CommandEmptyProps = ComponentProps<'div'>;
 
 /** Shown only when no item matches the search. It can hold a recovery action. */
 export function CommandEmpty({ className, ...props }: CommandEmptyProps) {
-  const { store } = useCommandContext("CommandEmpty");
+  const { store } = useCommandContext('CommandEmpty');
   const empty = useStore(store, () => store.ready && store.count === 0);
   if (!empty) return null;
   return (
-    <div
-      role="presentation"
-      data-slot="command-empty"
-      {...props}
-      className={cn("sprout-command-empty", className)}
-    />
+    <div role="presentation" data-slot="command-empty" {...props} className={cn('sprout-command-empty', className)} />
   );
 }
 
-export interface CommandGroupProps extends Omit<
-  ComponentProps<"div">,
-  "value"
-> {
+export interface CommandGroupProps extends Omit<ComponentProps<'div'>, 'value'> {
   /** Small muted label above the items. Omit for an unlabeled group. */
   heading?: ReactNode;
   /** Keep the group visible even when none of its items match. */
@@ -537,15 +468,8 @@ export interface CommandGroupProps extends Omit<
 }
 
 /** Groups related items under an optional heading. It hides when none of its items match. */
-export function CommandGroup({
-  heading,
-  forceMount = false,
-  className,
-  children,
-  style,
-  ...props
-}: CommandGroupProps) {
-  const { store } = useCommandContext("CommandGroup");
+export function CommandGroup({ heading, forceMount = false, className, children, style, ...props }: CommandGroupProps) {
+  const { store } = useCommandContext('CommandGroup');
   const id = useId();
   const headingId = `${id}-heading`;
   const score = useStore(store, () => store.groupScores.get(id));
@@ -558,7 +482,7 @@ export function CommandGroup({
       hidden={hidden || undefined}
       {...props}
       style={{ order: store.order(score), ...style }}
-      className={cn("sprout-command-group", className)}
+      className={cn('sprout-command-group', className)}
     >
       {heading != null && heading !== false && (
         <div
@@ -572,9 +496,7 @@ export function CommandGroup({
       )}
       <div
         role="group"
-        aria-labelledby={
-          heading != null && heading !== false ? headingId : undefined
-        }
+        aria-labelledby={heading != null && heading !== false ? headingId : undefined}
         data-slot="command-group-items"
         className="sprout-command-group-items"
       >
@@ -584,18 +506,14 @@ export function CommandGroup({
   );
 }
 
-export interface CommandSeparatorProps extends ComponentProps<"div"> {
+export interface CommandSeparatorProps extends ComponentProps<'div'> {
   /** Keep the line while searching. By default it hides once the user types. */
   alwaysRender?: boolean;
 }
 
-export function CommandSeparator({
-  alwaysRender = false,
-  className,
-  ...props
-}: CommandSeparatorProps) {
-  const { store } = useCommandContext("CommandSeparator");
-  const searching = useStore(store, () => store.search !== "");
+export function CommandSeparator({ alwaysRender = false, className, ...props }: CommandSeparatorProps) {
+  const { store } = useCommandContext('CommandSeparator');
+  const searching = useStore(store, () => store.search !== '');
   if (searching && !alwaysRender) return null;
   return (
     // Decorative: a listbox may only own options and groups, and group headings already divide it.
@@ -603,23 +521,19 @@ export function CommandSeparator({
       aria-hidden="true"
       data-slot="command-separator"
       {...props}
-      className={cn("sprout-command-separator", className)}
+      className={cn('sprout-command-separator', className)}
     />
   );
 }
 
 function textOf(node: ReactNode): string {
-  if (typeof node === "string" || typeof node === "number") return String(node);
-  if (Array.isArray(node)) return node.map(textOf).join("");
-  if (isValidElement<{ children?: ReactNode }>(node))
-    return textOf(node.props.children);
-  return "";
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join('');
+  if (isValidElement<{ children?: ReactNode }>(node)) return textOf(node.props.children);
+  return '';
 }
 
-export interface CommandItemProps extends Omit<
-  ComponentProps<"div">,
-  "value" | "onSelect"
-> {
+export interface CommandItemProps extends Omit<ComponentProps<'div'>, 'value' | 'onSelect'> {
   /** Text the filter matches and `onSelect` receives. Defaults to the item's text. */
   value?: string;
   /** Extra words that match this item, such as a name when `value` is an id. */
@@ -630,7 +544,7 @@ export interface CommandItemProps extends Omit<
   /** Keep the item visible even when it doesn't match the search. */
   forceMount?: boolean;
   /** `true` shows a trailing check for the current choice. Hidden when the item has a shortcut. */
-  "data-checked"?: boolean;
+  'data-checked'?: boolean;
 }
 
 /**
@@ -651,7 +565,7 @@ export function CommandItem({
   onPointerDown,
   ...props
 }: CommandItemProps) {
-  const { store } = useCommandContext("CommandItem");
+  const { store } = useCommandContext('CommandItem');
   const group = useContext(GroupContext);
   const id = useId();
   const resolved = (value ?? textOf(children)).trim();
@@ -659,12 +573,12 @@ export function CommandItem({
   select.current = () => {
     if (!disabled) onSelect?.(resolved);
   };
-  const keywordKey = (keywords ?? []).join("\u0000");
+  const keywordKey = (keywords ?? []).join('\u0000');
 
   useLayoutEffect(() => {
     store.items.set(id, {
       value: resolved,
-      keywords: keywordKey ? keywordKey.split("\u0000") : [],
+      keywords: keywordKey ? keywordKey.split('\u0000') : [],
       group,
       select: () => select.current(),
     });
@@ -693,45 +607,35 @@ export function CommandItem({
       data-slot="command-item"
       {...props}
       style={{ order: store.order(score), ...style }}
-      className={cn("sprout-command-item", className)}
-      onPointerDown={(event) => {
+      className={cn('sprout-command-item', className)}
+      onPointerDown={event => {
         onPointerDown?.(event);
         // Keep focus in the search input so typing and arrows keep working.
         if (!event.defaultPrevented) event.preventDefault();
       }}
-      onPointerMove={(event) => {
+      onPointerMove={event => {
         onPointerMove?.(event);
         if (!disabled && !event.defaultPrevented) store.setActive(id);
       }}
-      onClick={(event) => {
+      onClick={event => {
         onClick?.(event);
         if (!event.defaultPrevented) select.current();
       }}
     >
       {children}
-      <Check
-        size={16}
-        aria-hidden="true"
-        className="sprout-command-item-check"
-      />
+      <Check size={16} aria-hidden="true" className="sprout-command-item-check" />
     </div>
   );
 }
 
-export type CommandShortcutProps = ComponentProps<"span">;
+export type CommandShortcutProps = ComponentProps<'span'>;
 
 /** A keyboard hint at the end of an item. */
 export function CommandShortcut({ className, ...props }: CommandShortcutProps) {
-  return (
-    <span
-      data-slot="command-shortcut"
-      {...props}
-      className={cn("sprout-command-shortcut", className)}
-    />
-  );
+  return <span data-slot="command-shortcut" {...props} className={cn('sprout-command-shortcut', className)} />;
 }
 
-export interface CommandDialogProps extends Omit<DialogProps, "children"> {
+export interface CommandDialogProps extends Omit<DialogProps, 'children'> {
   /** Visually hidden dialog title. */
   title?: string;
   /** Visually hidden dialog description. */
@@ -741,15 +645,15 @@ export interface CommandDialogProps extends Omit<DialogProps, "children"> {
   showCloseButton?: boolean;
   closeLabel?: string;
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: DialogContentProps["container"];
+  container?: DialogContentProps['container'];
   /** Usually a `Command`. */
   children: ReactNode;
 }
 
 /** A command palette pinned near the top of the viewport. */
 export function CommandDialog({
-  title = "Command Palette",
-  description = "Search for a command to run...",
+  title = 'Command Palette',
+  description = 'Search for a command to run...',
   className,
   showCloseButton = false,
   closeLabel,
@@ -764,12 +668,10 @@ export function CommandDialog({
         showCloseButton={showCloseButton}
         closeLabel={closeLabel}
         container={container}
-        className={cn("sprout-command-dialog", className)}
+        className={cn('sprout-command-dialog', className)}
       >
         <DialogTitle className="sprout-command-sr-only">{title}</DialogTitle>
-        <DialogDescription className="sprout-command-sr-only">
-          {description}
-        </DialogDescription>
+        <DialogDescription className="sprout-command-sr-only">{description}</DialogDescription>
         {children}
       </DialogContent>
     </Dialog>

@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import ToggleGroupDemo from "../../components/ToggleGroupDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import ToggleGroupDemo from '../../components/ToggleGroupDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,10 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Toggle Group</h1>
   <p class="docs-lead">
-    Toggle buttons that share one value. Use it to pick a layout, a time range,
-    or a theme, or to turn several text styles on at once.
+    Toggle buttons that share one value. Use it to pick a layout, a time range, or a theme, or to turn several text
+    styles on at once.
   </p>
-  <div class="mt-8"><ToggleGroupDemo client:load /></div>
+  <div class="mt-8">
+    <ToggleGroupDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -45,65 +47,48 @@ const [range, setRange] = useState(30);
     />
     <p>
       The value is always an array of item values. Pass <code>value</code> and
-      <code>onValueChange</code> to control it, or <code>defaultValue</code>.
-      Without <code>multiple</code>, pressing an item releases the others, and
-      pressing the active item again sends an empty array. Ignore an empty
-      array, as above, when one choice must stay selected. Give
-      <code>ToggleGroup</code> a type, as in <code
-        >{"<ToggleGroup<Layout>>"}</code
-      >, to type the values.
+      <code>onValueChange</code> to control it, or <code>defaultValue</code>. Without <code>multiple</code>, pressing an
+      item releases the others, and pressing the active item again sends an empty array. Ignore an empty array, as
+      above, when one choice must stay selected. Give
+      <code>ToggleGroup</code> a type, as in <code>{'<ToggleGroup<Layout>>'}</code>, to type the values.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Props</h2>
     <p>
-      <code>variant</code> is <code>"default"</code> (no border) or <code
-        >"outline"</code
-      > (a control border on each item). <code>size</code> is <code>"sm"</code>
-      (28px, 12px text), <code>"default"</code> (32px), or <code>"lg"</code> (36px).
-      Items inherit both from the group.
+      <code>variant</code> is <code>"default"</code> (no border) or <code>"outline"</code> (a control border on each
+      item). <code>size</code> is <code>"sm"</code>
+      (28px, 12px text), <code>"default"</code> (32px), or <code>"lg"</code> (36px). Items inherit both from the group.
     </p>
     <p>
-      <code>spacing</code> is the gap between items in 4px steps and defaults to <code
-        >2</code
-      > (8px). <code>spacing={"{0}"}</code> joins the items into one segmented control:
-      inner corners are square and outline items share one border. <code
-        >orientation</code
-      > is <code>"horizontal"</code> (default) or <code>"vertical"</code>.
+      <code>spacing</code> is the gap between items in 4px steps and defaults to <code>2</code> (8px).{' '}
+      <code>spacing={'{0}'}</code> joins the items into one segmented control: inner corners are square and outline
+      items share one border. <code>orientation</code> is <code>"horizontal"</code> (default) or <code>"vertical"</code>
+      .
     </p>
     <p>
-      <code>disabled</code> on the group disables every item; on an item it disables
-      only that item. Icons are 16px (14px in <code>sm</code>) unless they set
-      their own size. Mark a leading or trailing icon with <code
-        >data-icon="inline-start"</code
-      > or <code>"inline-end"</code> to tighten padding. Both parts take Base UI props
-      such as <code>render</code>, <code>loopFocus</code>, and state functions
-      for <code>className</code>.
+      <code>disabled</code> on the group disables every item; on an item it disables only that item. Icons are 16px
+      (14px in <code>sm</code>) unless they set their own size. Mark a leading or trailing icon with{' '}
+      <code>data-icon="inline-start"</code> or <code>"inline-end"</code> to tighten padding. Both parts take Base UI
+      props such as <code>render</code>, <code>loopFocus</code>, and state functions for <code>className</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The group renders <code>role="group"</code>; name it with <code
-        >aria-label</code
-      >. Each item is a button with <code>aria-pressed</code>. Tab moves into
-      the group once. Left and Right arrows (Up and Down when vertical) move
-      between items and loop at the ends; Home and End jump to the first and
-      last. Space or Enter presses the focused item. Disabled items are skipped.
-      An icon-only item needs its own <code>aria-label</code>.
+      The group renders <code>role="group"</code>; name it with <code>aria-label</code>. Each item is a button with{' '}
+      <code>aria-pressed</code>. Tab moves into the group once. Left and Right arrows (Up and Down when vertical) move
+      between items and loop at the ends; Home and End jump to the first and last. Space or Enter presses the focused
+      item. Disabled items are skipped. An icon-only item needs its own <code>aria-label</code>.
     </p>
     <p>Color changes take 120ms and stop when reduced motion is requested.</p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Pressed items use <code>--sprout-primary-subtle</code> and <code
-        >--sprout-primary</code
-      >, so the TulipFarm theme tints them green. Idle items use <code
-        >--sprout-muted</code
-      >, hover uses <code>--sprout-hover</code>, outline borders use <code
-        >--sprout-input</code
-      >, and the focus ring uses <code>--sprout-focus</code>.
+      Pressed items use <code>--sprout-primary-subtle</code> and <code>--sprout-primary</code>, so the TulipFarm theme
+      tints them green. Idle items use <code>--sprout-muted</code>, hover uses <code>--sprout-hover</code>, outline
+      borders use <code>--sprout-input</code>, and the focus ring uses <code>--sprout-focus</code>.
     </p>
   </section>
 </Docs>

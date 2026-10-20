@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import AttachmentDemo from "../../components/AttachmentDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import AttachmentDemo from '../../components/AttachmentDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -11,10 +11,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
   <h1 class="docs-title">Attachment</h1>
   <p class="docs-lead">
     Shows a file a person attached, uploaded, or referenced. Use
-    <code>FileAttachment</code> for a ready-made row, card, mention, or chip, and
-    the <code>Attachment</code> parts when you need your own layout.
+    <code>FileAttachment</code> for a ready-made row, card, mention, or chip, and the <code>Attachment</code> parts when
+    you need your own layout.
   </p>
-  <div class="mt-8"><AttachmentDemo client:load /></div>
+  <div class="mt-8">
+    <AttachmentDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">File attachments</h2>
     <CodeBlock
@@ -43,38 +45,42 @@ import CodeBlock from "../../components/CodeBlock.astro";
   ))}
 </AttachmentGroup>`}
     />
-    <p><code>variant</code> picks the shape:</p>
+    <p>
+      <code>variant</code> picks the shape:
+    </p>
     <ul>
       <li>
         <code>"list"</code> (default): a row with icon, name, and status line.
       </li>
-      <li><code>"grid"</code>: a card with a large preview above the name.</li>
-      <li><code>"inline"</code>: a compact pill for text.</li>
-      <li><code>"chip"</code>: a 36px chip for composers and messages.</li>
+      <li>
+        <code>"grid"</code>: a card with a large preview above the name.
+      </li>
+      <li>
+        <code>"inline"</code>: a compact pill for text.
+      </li>
+      <li>
+        <code>"chip"</code>: a 36px chip for composers and messages.
+      </li>
     </ul>
     <p>
-      The status line shows <code>file.size</code> when ready, which can also be a
-      short source such as “Google Drive” or “Saved in Files”. Busy files show a spinner,
-      and <code>"error"</code> shows “Upload failed” with a Retry button when you
-      pass <code>onRetry</code>. <code>onRemove</code>
+      The status line shows <code>file.size</code> when ready, which can also be a short source such as “Google Drive”
+      or “Saved in Files”. Busy files show a spinner, and <code>"error"</code> shows “Upload failed” with a Retry button
+      when you pass <code>onRetry</code>. <code>onRemove</code>
       adds a remove button. Images with a <code>url</code> show a thumbnail.
     </p>
     <p>
       Opening: <code>viewable</code> opens the file in the full-screen
       <code>FileViewer</code> on click, with syntax colors for code and text. Pass
-      <code>onOpen</code> instead to open it your own way, such as a canvas or a download;
-      it is disabled while the file is busy. With neither, the name is plain text.
+      <code>onOpen</code> instead to open it your own way, such as a canvas or a download; it is disabled while the file
+      is busy. With neither, the name is plain text.
       <code>actionLabel="Download"</code>
       names the button “Download …” instead of “Inspect …”.
     </p>
     <p>
-      <code>preview</code> peeks at the file in a card after hovering or focusing
-      the name for 400ms: the image, or the first 24 lines of text, code, JSON, or
-      Markdown. Other formats and failed uploads get no card. Both props need <code
-        >file.source</code
-      > or <code>file.url</code>. Wrap the app in <code
-        >FileRenderersProvider</code
-      > to view sheets, Office files, and formatted Markdown.
+      <code>preview</code> peeks at the file in a card after hovering or focusing the name for 400ms: the image, or the
+      first 24 lines of text, code, JSON, or Markdown. Other formats and failed uploads get no card. Both props need{' '}
+      <code>file.source</code> or <code>file.url</code>. Wrap the app in <code>FileRenderersProvider</code> to view
+      sheets, Office files, and formatted Markdown.
     </p>
     <CodeBlock
       lang="tsx"
@@ -106,9 +112,8 @@ import CodeBlock from "../../components/CodeBlock.astro";
       (default) scrolls one row sideways with fading edge arrows;
       <code>"grid"</code> makes two columns, three from 640px;
       <code>"inline"</code> wraps; <code>"list"</code> stacks. Give a carousel an
-      <code>aria-label</code>. Viewable attachments in a group share one viewer
-      that steps through them in page order with Previous, Next, and the arrow
-      keys. Closing it returns focus to the last file shown.
+      <code>aria-label</code>. Viewable attachments in a group share one viewer that steps through them in page order
+      with Previous, Next, and the arrow keys. Closing it returns focus to the last file shown.
     </p>
   </section>
   <section class="prose-section">
@@ -144,16 +149,15 @@ import CodeBlock from "../../components/CodeBlock.astro";
       </li>
       <li>
         <code>orientation</code>: <code>"horizontal"</code> (default) or
-        <code>"vertical"</code>, which stacks the media above the text and
-        floats actions over its corner.
+        <code>"vertical"</code>, which stacks the media above the text and floats actions over its corner.
       </li>
       <li>
         <code>AttachmentMedia variant="image"</code> crops an
         <code>img</code>; the default <code>"icon"</code> centers an icon or spinner.
       </li>
       <li>
-        <code>AttachmentTrigger</code> stretches over the card so a click anywhere
-        opens it. It accepts <code>render</code> for a link.
+        <code>AttachmentTrigger</code> stretches over the card so a click anywhere opens it. It accepts{' '}
+        <code>render</code> for a link.
       </li>
     </ul>
   </section>
@@ -166,12 +170,9 @@ import CodeBlock from "../../components/CodeBlock.astro";
 <FileTypeIcon name="Price list 2026.xlsx" mediaType={type} size="lg" />`}
     />
     <p>
-      A decorative paper glyph with the extension in a colored badge: red for
-      PDF, green for sheets, blue for documents and Google files, orange for
-      slides, light blue for images, and gray for everything else. <code
-        >"sm"</code
-      > (default) is 20 × 24px; <code>"lg"</code> is 30 × 36px. A name without an
-      extension shows no badge.
+      A decorative paper glyph with the extension in a colored badge: red for PDF, green for sheets, blue for documents
+      and Google files, orange for slides, light blue for images, and gray for everything else. <code>"sm"</code>{' '}
+      (default) is 20 × 24px; <code>"lg"</code> is 30 × 36px. A name without an extension shows no badge.
     </p>
   </section>
   <section class="prose-section">
@@ -185,43 +186,37 @@ import CodeBlock from "../../components/CodeBlock.astro";
 ))}`}
     />
     <p>
-      <code>AttachmentDropzone</code> takes drops or a “Choose files” button and hands
-      the files to <code>onFiles</code>. It uploads nothing.
-      <code>accept</code> defaults to documents, sheets, slides, PDF, text, JSON,
-      Google shortcuts, images, and common source files.
-      <code>LocalFileAttachment</code> shows a <code>File</code> as a chip with a
-      live image thumbnail, and passes <code>preview</code> and
+      <code>AttachmentDropzone</code> takes drops or a “Choose files” button and hands the files to <code>onFiles</code>
+      . It uploads nothing.
+      <code>accept</code> defaults to documents, sheets, slides, PDF, text, JSON, Google shortcuts, images, and common
+      source files.
+      <code>LocalFileAttachment</code> shows a <code>File</code> as a chip with a live image thumbnail, and passes{' '}
+      <code>preview</code> and
       <code>viewable</code> through.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Each open button is named “Inspect name” or “Download name”; remove and
-      retry buttons are named “Remove name” and “Retry name”. Busy chips have a
-      spinner named “Uploading…” or “Processing…”. File type icons are hidden
-      from assistive tech because the name is always beside them.
+      Each open button is named “Inspect name” or “Download name”; remove and retry buttons are named “Remove name” and
+      “Retry name”. Busy chips have a spinner named “Uploading…” or “Processing…”. File type icons are hidden from
+      assistive tech because the name is always beside them.
     </p>
     <p>
-      The carousel is a labelled region. Each item is a group, focus scrolls it
-      into view, and Left and Right scroll it when focus is inside. The edge
-      arrows are for pointers, so Tab never lands on a button that vanishes at
-      the end of the row. The drop zone's button opens the system file picker.
-      Transitions take 120 to 180ms; with reduced motion the title shimmer and
-      smooth scrolling stop.
+      The carousel is a labelled region. Each item is a group, focus scrolls it into view, and Left and Right scroll it
+      when focus is inside. The edge arrows are for pointers, so Tab never lands on a button that vanishes at the end of
+      the row. The drop zone's button opens the system file picker. Transitions take 120 to 180ms; with reduced motion
+      the title shimmer and smooth scrolling stop.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Cards use <code>--sprout-surface</code>, <code>--sprout-line</code>,
-      <code>--sprout-hover</code>, and <code>--sprout-danger</code>. File type
-      icons use <code>--sprout-file-paper</code>,
-      <code>--sprout-file-edge</code>, <code>--sprout-file-label</code>, and one
-      badge color per kind: <code>--sprout-file-generic</code>,
-      <code>-pdf</code>, <code>-sheet</code>, <code>-document</code>,
-      <code>-slides</code>, and <code>-image</code>. Each has a light and a dark
-      value.
+      Cards use <code>--sprout-surface</code>, <code>--sprout-line</code>,<code>--sprout-hover</code>, and{' '}
+      <code>--sprout-danger</code>. File type icons use <code>--sprout-file-paper</code>,<code>--sprout-file-edge</code>
+      , <code>--sprout-file-label</code>, and one badge color per kind: <code>--sprout-file-generic</code>,
+      <code>-pdf</code>, <code>-sheet</code>, <code>-document</code>,<code>-slides</code>, and <code>-image</code>. Each
+      has a light and a dark value.
     </p>
   </section>
 </Docs>

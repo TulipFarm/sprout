@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { renderToString } from "react-dom/server";
+import { describe, expect, it } from 'vitest';
+import { renderToString } from 'react-dom/server';
 import {
   Separator,
   SeparatorContent,
@@ -7,38 +7,29 @@ import {
   separatorOrientationNames,
   separatorToneNames,
   separatorVariantNames,
-} from "../packages/sprout/src/components/separator.js";
-import {
-  Sidebar,
-  SidebarProvider,
-  SidebarSeparator,
-} from "../packages/sprout/src/components/sidebar.js";
-import * as sprout from "../packages/sprout/src/index.js";
+} from '../packages/sprout/src/components/separator.js';
+import { Sidebar, SidebarProvider, SidebarSeparator } from '../packages/sprout/src/components/sidebar.js';
+import * as sprout from '../packages/sprout/src/index.js';
 
-describe("Separator", () => {
-  it("is exported from the package root", () => {
+describe('Separator', () => {
+  it('is exported from the package root', () => {
     for (const name of [
-      "Separator",
-      "SeparatorIcon",
-      "SeparatorContent",
-      "SidebarSeparator",
-      "separatorVariantNames",
-      "separatorOrientationNames",
-      "separatorToneNames",
+      'Separator',
+      'SeparatorIcon',
+      'SeparatorContent',
+      'SidebarSeparator',
+      'separatorVariantNames',
+      'separatorOrientationNames',
+      'separatorToneNames',
     ]) {
       expect(sprout).toHaveProperty(name);
     }
-    expect(separatorOrientationNames).toEqual(["horizontal", "vertical"]);
-    expect(separatorToneNames).toEqual(["default", "input"]);
-    expect(separatorVariantNames).toEqual([
-      "line",
-      "fade",
-      "marker",
-      "marker-border",
-    ]);
+    expect(separatorOrientationNames).toEqual(['horizontal', 'vertical']);
+    expect(separatorToneNames).toEqual(['default', 'input']);
+    expect(separatorVariantNames).toEqual(['line', 'fade', 'marker', 'marker-border']);
   });
 
-  it("renders a horizontal Base UI separator by default", () => {
+  it('renders a horizontal Base UI separator by default', () => {
     const html = renderToString(<Separator />);
     expect(html).toContain('role="separator"');
     expect(html).toContain('aria-orientation="horizontal"');
@@ -49,12 +40,10 @@ describe("Separator", () => {
     expect(html).toContain('class="sprout-separator"');
   });
 
-  it("supports every orientation and tone", () => {
+  it('supports every orientation and tone', () => {
     for (const orientation of separatorOrientationNames) {
       for (const tone of separatorToneNames) {
-        const html = renderToString(
-          <Separator orientation={orientation} tone={tone} />,
-        );
+        const html = renderToString(<Separator orientation={orientation} tone={tone} />);
         expect(html).toContain(`aria-orientation="${orientation}"`);
         expect(html).toContain(`data-orientation="${orientation}"`);
         expect(html).toContain(`data-tone="${tone}"`);
@@ -62,30 +51,24 @@ describe("Separator", () => {
     }
   });
 
-  it("merges string and state class names and passes props through", () => {
-    const plain = renderToString(
-      <Separator className="my-2" id="rows" data-x="1" />,
-    );
+  it('merges string and state class names and passes props through', () => {
+    const plain = renderToString(<Separator className="my-2" id="rows" data-x="1" />);
     expect(plain).toContain('class="sprout-separator my-2"');
     expect(plain).toContain('id="rows"');
     expect(plain).toContain('data-x="1"');
     const html = renderToString(
-      <Separator
-        orientation="vertical"
-        className={({ orientation }) => `is-${orientation}`}
-        role="none"
-      />,
+      <Separator orientation="vertical" className={({ orientation }) => `is-${orientation}`} role="none" />,
     );
     expect(html).toContain('class="sprout-separator is-vertical"');
     expect(html).toContain('role="none"');
   });
 
-  it("swaps the element with render", () => {
+  it('swaps the element with render', () => {
     const html = renderToString(<Separator render={<hr />} />);
     expect(html).toMatch(/^<hr[^>]*class="sprout-separator"/);
   });
 
-  it("renders a labeled separator with visible text and one announced line", () => {
+  it('renders a labeled separator with visible text and one announced line', () => {
     const html = renderToString(<Separator>or</Separator>);
     expect(html).toMatch(/^<div data-slot="separator" data-variant="label"/);
     expect(html).toContain('data-content="true"');
@@ -96,7 +79,7 @@ describe("Separator", () => {
     );
   });
 
-  it("renders an icon and text between the lines of a labeled separator", () => {
+  it('renders an icon and text between the lines of a labeled separator', () => {
     const html = renderToString(
       <Separator>
         <SeparatorIcon>
@@ -112,16 +95,14 @@ describe("Separator", () => {
     expect(html.match(/role="separator"/g)).toHaveLength(1);
   });
 
-  it("renders a plain labeled separator without content", () => {
-    const html = renderToString(
-      <Separator className="py-2">{false}</Separator>,
-    );
+  it('renders a plain labeled separator without content', () => {
+    const html = renderToString(<Separator className="py-2">{false}</Separator>);
     expect(html).toContain('data-content="false"');
-    expect(html).toContain("sprout-separator-label py-2");
-    expect(html).not.toContain("separator-label-content");
+    expect(html).toContain('sprout-separator-label py-2');
+    expect(html).not.toContain('separator-label-content');
   });
 
-  it("renders an inset sidebar separator", () => {
+  it('renders an inset sidebar separator', () => {
     const html = renderToString(
       <SidebarProvider>
         <Sidebar collapsible="none">
@@ -130,18 +111,14 @@ describe("Separator", () => {
       </SidebarProvider>,
     );
     expect(html).toContain('data-sidebar="separator"');
-    expect(html).toContain(
-      'class="sprout-separator sprout-sidebar-separator extra"',
-    );
+    expect(html).toContain('class="sprout-separator sprout-sidebar-separator extra"');
     expect(html).toContain('role="separator"');
   });
 });
 
-describe("Separator fade", () => {
-  it("renders a labeled horizontal Base UI separator", () => {
-    const html = renderToString(
-      <Separator variant="fade">Auto compacted</Separator>,
-    );
+describe('Separator fade', () => {
+  it('renders a labeled horizontal Base UI separator', () => {
+    const html = renderToString(<Separator variant="fade">Auto compacted</Separator>);
     expect(html).toMatch(/^<div[^>]*role="separator"/);
     expect(html).toContain('aria-label="Auto compacted"');
     expect(html).toContain('aria-orientation="horizontal"');
@@ -151,26 +128,22 @@ describe("Separator fade", () => {
     expect(html.match(/role="separator"/g)).toHaveLength(1);
   });
 
-  it("shows the label once to assistive tech and hides the shine copy", () => {
-    const html = renderToString(
-      <Separator variant="fade">Compacted</Separator>,
-    );
+  it('shows the label once to assistive tech and hides the shine copy', () => {
+    const html = renderToString(<Separator variant="fade">Compacted</Separator>);
     expect(html).toContain(
       '<span class="sprout-separator-fade-label">Compacted</span><span aria-hidden="true" class="sprout-separator-fade-shine"><span class="sprout-separator-fade-label">Compacted</span></span>',
     );
   });
 
-  it("renders both Cloud labels", () => {
-    for (const label of ["Auto compacted", "Compacted"]) {
-      const html = renderToString(
-        <Separator variant="fade">{label}</Separator>,
-      );
+  it('renders both Cloud labels', () => {
+    for (const label of ['Auto compacted', 'Compacted']) {
+      const html = renderToString(<Separator variant="fade">{label}</Separator>);
       expect(html).toContain(`aria-label="${label}"`);
       expect(html).toContain(`>${label}</span>`);
     }
   });
 
-  it("merges class names, passes props through, and supports render", () => {
+  it('merges class names, passes props through, and supports render', () => {
     const html = renderToString(
       <Separator variant="fade" className="my-4" id="compaction" data-x="1">
         Compacted
@@ -180,10 +153,7 @@ describe("Separator fade", () => {
     expect(html).toContain('id="compaction"');
     expect(html).toContain('data-x="1"');
     const state = renderToString(
-      <Separator
-        variant="fade"
-        className={({ orientation }) => `is-${orientation}`}
-      >
+      <Separator variant="fade" className={({ orientation }) => `is-${orientation}`}>
         Compacted
       </Separator>,
     );
@@ -197,8 +167,8 @@ describe("Separator fade", () => {
   });
 });
 
-describe("Separator marker", () => {
-  it("renders the chat skill-use composition", () => {
+describe('Separator marker', () => {
+  it('renders the chat skill-use composition', () => {
     const html = renderToString(
       <Separator variant="marker">
         <SeparatorIcon>
@@ -219,12 +189,12 @@ describe("Separator marker", () => {
     );
   });
 
-  it("renders both marker variants with their classes", () => {
+  it('renders both marker variants with their classes', () => {
     const classes = {
-      marker: "sprout-separator-marker",
-      "marker-border": "sprout-separator-marker sprout-separator-marker-border",
+      marker: 'sprout-separator-marker',
+      'marker-border': 'sprout-separator-marker sprout-separator-marker-border',
     } as const;
-    for (const variant of ["marker", "marker-border"] as const) {
+    for (const variant of ['marker', 'marker-border'] as const) {
       const html = renderToString(
         <Separator variant={variant}>
           <SeparatorContent>{variant} · Today</SeparatorContent>
@@ -235,7 +205,7 @@ describe("Separator marker", () => {
     }
   });
 
-  it("merges classes, passes props, and supports render", () => {
+  it('merges classes, passes props, and supports render', () => {
     const html = renderToString(
       <Separator variant="marker" className="my-4" id="day" data-x="1">
         <SeparatorIcon className="extra" />
@@ -252,8 +222,6 @@ describe("Separator marker", () => {
         <SeparatorContent>Open skill</SeparatorContent>
       </Separator>,
     );
-    expect(link).toMatch(
-      /^<a href="\/skills"[^>]*class="sprout-separator-marker sprout-separator-marker-border"/,
-    );
+    expect(link).toMatch(/^<a href="\/skills"[^>]*class="sprout-separator-marker sprout-separator-marker-border"/);
   });
 });

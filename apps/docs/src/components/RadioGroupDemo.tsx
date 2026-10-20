@@ -1,19 +1,11 @@
-import { useId, useState, type ReactNode } from "react";
-import { Button } from "@tulipfarm/sprout/button";
-import { ChoiceGroup } from "@tulipfarm/sprout/field";
-import { Label } from "@tulipfarm/sprout/label";
-import { RadioGroup, RadioGroupItem } from "@tulipfarm/sprout/radio-group";
-import "../styles/radio-group-demo.css";
+import { useId, useState, type ReactNode } from 'react';
+import { Button } from '@tulipfarm/sprout/button';
+import { ChoiceGroup } from '@tulipfarm/sprout/field';
+import { Label } from '@tulipfarm/sprout/label';
+import { RadioGroup, RadioGroupItem } from '@tulipfarm/sprout/radio-group';
+import '../styles/radio-group-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="radio-group-demo-card" aria-label={title}>
       <header>
@@ -25,13 +17,7 @@ function Example({
   );
 }
 
-type StateName =
-  | "unchecked"
-  | "checked"
-  | "disabled"
-  | "disabled-checked"
-  | "invalid"
-  | "invalid-checked";
+type StateName = 'unchecked' | 'checked' | 'disabled' | 'disabled-checked' | 'invalid' | 'invalid-checked';
 
 /* One size and one look. Each state uses a label Cloud shows in that state. */
 const states: {
@@ -42,31 +28,31 @@ const states: {
   disabled?: boolean;
   invalid?: boolean;
 }[] = [
-  { name: "unchecked", title: "Unchecked", label: "Weekly" },
-  { name: "checked", title: "Checked", label: "Daily", checked: true },
+  { name: 'unchecked', title: 'Unchecked', label: 'Weekly' },
+  { name: 'checked', title: 'Checked', label: 'Daily', checked: true },
   {
-    name: "disabled",
-    title: "Disabled",
-    label: "Unavailable",
+    name: 'disabled',
+    title: 'Disabled',
+    label: 'Unavailable',
     disabled: true,
   },
   {
-    name: "disabled-checked",
-    title: "Disabled checked",
-    label: "Current caller",
+    name: 'disabled-checked',
+    title: 'Disabled checked',
+    label: 'Current caller',
     checked: true,
     disabled: true,
   },
   {
-    name: "invalid",
-    title: "Invalid",
-    label: "Personal",
+    name: 'invalid',
+    title: 'Invalid',
+    label: 'Personal',
     invalid: true,
   },
   {
-    name: "invalid-checked",
-    title: "Invalid checked",
-    label: "Business",
+    name: 'invalid-checked',
+    title: 'Invalid checked',
+    label: 'Business',
     checked: true,
     invalid: true,
   },
@@ -79,12 +65,8 @@ function StatesExample() {
       description="One 16px size with a 40 × 32px hit area. Checked fills with the primary color."
     >
       <div className="radio-group-demo-states">
-        {states.map((state) => (
-          <div
-            key={state.name}
-            data-testid={`sample-${state.name}`}
-            className="radio-group-demo-panel"
-          >
+        {states.map(state => (
+          <div key={state.name} data-testid={`sample-${state.name}`} className="radio-group-demo-panel">
             <p className="radio-group-demo-caption">{state.title}</p>
             <RadioGroup
               aria-label={`${state.title} sample`}
@@ -92,10 +74,7 @@ function StatesExample() {
               disabled={state.disabled}
             >
               <Label>
-                <RadioGroupItem
-                  value={state.name}
-                  aria-invalid={state.invalid || undefined}
-                />
+                <RadioGroupItem value={state.name} aria-invalid={state.invalid || undefined} />
                 {state.label}
               </Label>
             </RadioGroup>
@@ -134,23 +113,22 @@ function LabelExample() {
 
 const replyRules = [
   {
-    value: "tag",
-    label: "When mentioned",
-    description: "Replies to a mention, then follows that thread.",
+    value: 'tag',
+    label: 'When mentioned',
+    description: 'Replies to a mention, then follows that thread.',
   },
   {
-    value: "every-message",
-    label: "Every channel message",
-    description:
-      "Starts a reply for each new message. Applies to all attached channels.",
+    value: 'every-message',
+    label: 'Every channel message',
+    description: 'Starts a reply for each new message. Applies to all attached channels.',
   },
 ] as const;
 
-type ReplyRule = (typeof replyRules)[number]["value"];
+type ReplyRule = (typeof replyRules)[number]['value'];
 
 function ControlledExample() {
   const id = useId();
-  const [rule, setRule] = useState<ReplyRule>("tag");
+  const [rule, setRule] = useState<ReplyRule>('tag');
   const [invalid, setInvalid] = useState(false);
   const legendId = `${id}-legend`;
   const helperId = `${id}-helper`;
@@ -166,16 +144,14 @@ function ControlledExample() {
           data-slot="choice-group"
           className="radio-group-demo-legend-group"
           value={rule}
-          onValueChange={(next) => {
+          onValueChange={next => {
             setRule(next);
             setInvalid(false);
           }}
           aria-required
           aria-invalid={invalid || undefined}
           aria-labelledby={legendId}
-          aria-describedby={[helperId, invalid ? errorId : null]
-            .filter(Boolean)
-            .join(" ")}
+          aria-describedby={[helperId, invalid ? errorId : null].filter(Boolean).join(' ')}
         >
           <p id={legendId} className="radio-group-demo-legend">
             When should it reply?
@@ -183,7 +159,7 @@ function ControlledExample() {
           <p id={helperId} className="radio-group-demo-helper">
             Slack starts this agent from its attached channels.
           </p>
-          {replyRules.map((option) => (
+          {replyRules.map(option => (
             <div key={option.value} className="radio-group-demo-option">
               <Label>
                 <RadioGroupItem
@@ -194,10 +170,7 @@ function ControlledExample() {
                 />
                 {option.label}
               </Label>
-              <p
-                id={`${id}-${option.value}-description`}
-                className="radio-group-demo-description"
-              >
+              <p id={`${id}-${option.value}-description`} className="radio-group-demo-description">
                 {option.description}
               </p>
             </div>
@@ -211,12 +184,8 @@ function ControlledExample() {
         <p className="radio-group-demo-caption" data-testid="reply-rule-value">
           Value: {rule}
         </p>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setInvalid((value) => !value)}
-        >
-          {invalid ? "Clear error" : "Show error"}
+        <Button variant="outline" size="sm" onClick={() => setInvalid(value => !value)}>
+          {invalid ? 'Clear error' : 'Show error'}
         </Button>
       </div>
     </Example>
@@ -224,21 +193,19 @@ function ControlledExample() {
 }
 
 const frequency = [
-  { value: "daily", label: "Daily", description: "Each morning" },
-  { value: "weekly", label: "Weekly" },
-  { value: "monthly", label: "Monthly", disabled: true },
+  { value: 'daily', label: 'Daily', description: 'Each morning' },
+  { value: 'weekly', label: 'Weekly' },
+  { value: 'monthly', label: 'Monthly', disabled: true },
 ] as const;
 
-type Frequency = (typeof frequency)[number]["value"];
+type Frequency = (typeof frequency)[number]['value'];
 
 function ChoiceGroupExample() {
-  const [list, setList] = useState<Frequency>("weekly");
-  const [workspace, setWorkspace] = useState<"personal" | "business">(
-    "business",
-  );
-  const [cadence, setCadence] = useState<"cron" | "interval">("cron");
-  const [sender, setSender] = useState<"user" | "app">("user");
-  const [link, setLink] = useState("");
+  const [list, setList] = useState<Frequency>('weekly');
+  const [workspace, setWorkspace] = useState<'personal' | 'business'>('business');
+  const [cadence, setCadence] = useState<'cron' | 'interval'>('cron');
+  const [sender, setSender] = useState<'user' | 'app'>('user');
+  const [link, setLink] = useState('');
   return (
     <Example
       title="Choice rows"
@@ -265,8 +232,8 @@ function ChoiceGroupExample() {
             value={workspace}
             onValueChange={setWorkspace}
             options={[
-              { value: "personal", label: "Personal" },
-              { value: "business", label: "Business" },
+              { value: 'personal', label: 'Personal' },
+              { value: 'business', label: 'Business' },
             ]}
           />
           <ChoiceGroup
@@ -277,8 +244,8 @@ function ChoiceGroupExample() {
             value={cadence}
             onValueChange={setCadence}
             options={[
-              { value: "cron", label: "Days and time" },
-              { value: "interval", label: "Time interval" },
+              { value: 'cron', label: 'Days and time' },
+              { value: 'interval', label: 'Time interval' },
             ]}
           />
         </div>
@@ -293,14 +260,14 @@ function ChoiceGroupExample() {
             onValueChange={setSender}
             options={[
               {
-                value: "user",
-                label: "Current caller",
-                description: "Use the caller’s authorized Slack integration.",
+                value: 'user',
+                label: 'Current caller',
+                description: 'Use the caller’s authorized Slack integration.',
               },
               {
-                value: "app",
-                label: "Workspace app",
-                description: "Requires an authorized workspace Slack app.",
+                value: 'app',
+                label: 'Workspace app',
+                description: 'Requires an authorized workspace Slack app.',
               },
             ]}
           />
@@ -310,19 +277,17 @@ function ChoiceGroupExample() {
             type="radio"
             required
             legend="Choose a published package link"
-            error={link ? undefined : "Choose a package link to import."}
+            error={link ? undefined : 'Choose a package link to import.'}
             value={link}
             onValueChange={setLink}
             options={[
               {
-                value:
-                  "https://github.com/tulipfarm/skills/tree/main/packages/people-ops-weekly-update",
-                label:
-                  "https://github.com/tulipfarm/skills/tree/main/packages/people-ops-weekly-update",
+                value: 'https://github.com/tulipfarm/skills/tree/main/packages/people-ops-weekly-update',
+                label: 'https://github.com/tulipfarm/skills/tree/main/packages/people-ops-weekly-update',
               },
               {
-                value: "https://skills.tulipfarm.example/p/support-triage",
-                label: "https://skills.tulipfarm.example/p/support-triage",
+                value: 'https://skills.tulipfarm.example/p/support-triage',
+                label: 'https://skills.tulipfarm.example/p/support-triage',
               },
             ]}
           />

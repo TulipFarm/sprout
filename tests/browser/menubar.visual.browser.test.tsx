@@ -1,6 +1,6 @@
-import { expect, it } from "vitest";
-import { page } from "vitest/browser";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { page } from 'vitest/browser';
+import { render } from 'vitest-browser-react';
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -12,10 +12,10 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "../../packages/sprout/src/components/menubar.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/menubar.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("menubar %s %s", async (theme, mode) => {
+it.each(themes)('menubar %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   await page.viewport(360, 260);
   await render(
@@ -49,9 +49,7 @@ it.each(themes)("menubar %s %s", async (theme, mode) => {
       </Menubar>
     </div>,
   );
-  await page.getByRole("menuitem", { name: "File" }).click();
+  await page.getByRole('menuitem', { name: 'File' }).click();
   await settle();
-  await expect
-    .element(page.elementLocator(document.body))
-    .toMatchScreenshot(`menubar-${theme}-${mode}`);
+  await expect.element(page.elementLocator(document.body)).toMatchScreenshot(`menubar-${theme}-${mode}`);
 });

@@ -24,7 +24,7 @@
     user-select: none;
     pointer-events: none;
   }
-  .sprout-kbd[data-variant="outline"] {
+  .sprout-kbd[data-variant='outline'] {
     border-color: var(--sprout-line);
     background: var(--sprout-surface);
   }

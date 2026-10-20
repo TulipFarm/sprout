@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Input as BaseInput } from "@base-ui/react/input";
-import { cn, stateClassName } from "../internal/classes.js";
-import { useFieldControl } from "./field.js";
+import { Input as BaseInput } from '@base-ui/react/input';
+import { cn, stateClassName } from '../internal/classes.js';
+import { useFieldControl } from './field.js';
 
-export const inputScaleNames = ["default", "lg"] as const;
+export const inputScaleNames = ['default', 'lg'] as const;
 
 export type InputScale = (typeof inputScaleNames)[number];
 export type InputState = BaseInput.State;
@@ -23,16 +23,13 @@ export interface InputProps extends BaseInput.Props {
  */
 export function Input({ scale, className, ...rest }: InputProps) {
   const props = useFieldControl(rest);
-  const size = scale ?? "default";
+  const size = scale ?? 'default';
   return (
     <BaseInput
       data-slot="input"
       data-scale={size}
       {...props}
-      className={stateClassName<InputState>(
-        cn("sprout-input", `sprout-input-scale-${size}`),
-        className,
-      )}
+      className={stateClassName<InputState>(cn('sprout-input', `sprout-input-scale-${size}`), className)}
     />
   );
 }

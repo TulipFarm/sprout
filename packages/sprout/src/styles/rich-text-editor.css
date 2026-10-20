@@ -70,8 +70,7 @@
     pointer-events: none;
   }
 
-  .sprout-rich-text-editor-content
-    :where(p, h1, h2, h3, blockquote, pre, ul, ol) {
+  .sprout-rich-text-editor-content :where(p, h1, h2, h3, blockquote, pre, ul, ol) {
     margin: 0;
   }
   .sprout-rich-text-editor-content :where(h1, h2, h3) {

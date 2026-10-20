@@ -1,44 +1,20 @@
-"use client";
+'use client';
 
-import {
-  useId,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
-import {
-  Extension,
-  Node,
-  mergeAttributes,
-  type Extensions,
-} from "@tiptap/core";
-import { PluginKey } from "@tiptap/pm/state";
-import Suggestion, {
-  exitSuggestion,
-  type SuggestionKeyDownProps,
-  type SuggestionProps,
-} from "@tiptap/suggestion";
-import { ArrowUp } from "reicon-react/icons/ArrowUp";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Folder } from "reicon-react/icons/Folder";
-import { Plus } from "reicon-react/icons/Plus";
-import { Sliders } from "reicon-react/icons/Sliders";
-import { X } from "reicon-react/icons/X";
-import { cn } from "../internal/classes.js";
-import { FileAttachment, type AttachmentFile } from "./attachment.js";
-import { BrandIcon, type Brand } from "./brand-icon.js";
-import { Button } from "./button.js";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "./command.js";
+import { useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { Extension, Node, mergeAttributes, type Extensions } from '@tiptap/core';
+import { PluginKey } from '@tiptap/pm/state';
+import Suggestion, { exitSuggestion, type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion';
+import { ArrowUp } from 'reicon-react/icons/ArrowUp';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { Folder } from 'reicon-react/icons/Folder';
+import { Plus } from 'reicon-react/icons/Plus';
+import { Sliders } from 'reicon-react/icons/Sliders';
+import { X } from 'reicon-react/icons/X';
+import { cn } from '../internal/classes.js';
+import { FileAttachment, type AttachmentFile } from './attachment.js';
+import { BrandIcon, type Brand } from './brand-icon.js';
+import { Button } from './button.js';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command.js';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,26 +24,17 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "./dropdown-menu.js";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-} from "./input-group.js";
-import { MentionList, MentionOption, MentionStatus } from "./mention-list.js";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover.js";
-import {
-  RichTextEditor,
-  type RichTextEditorHandle,
-  type RichTextValue,
-} from "./rich-text-editor.js";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip.js";
+} from './dropdown-menu.js';
+import { InputGroup, InputGroupAddon, InputGroupButton } from './input-group.js';
+import { MentionList, MentionOption, MentionStatus } from './mention-list.js';
+import { Popover, PopoverContent, PopoverTrigger } from './popover.js';
+import { RichTextEditor, type RichTextEditorHandle, type RichTextValue } from './rich-text-editor.js';
+import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip.js';
 
-export const chatInputReferenceKindNames = ["agent", "skill", "file"] as const;
-export const chatInputStatusNames = ["idle", "streaming"] as const;
+export const chatInputReferenceKindNames = ['agent', 'skill', 'file'] as const;
+export const chatInputStatusNames = ['idle', 'streaming'] as const;
 
-export type ChatInputReferenceKind =
-  (typeof chatInputReferenceKindNames)[number];
+export type ChatInputReferenceKind = (typeof chatInputReferenceKindNames)[number];
 export type ChatInputStatus = (typeof chatInputStatusNames)[number];
 
 /** One row in the `@`, `/`, or `#` panel. Picking it drops a chip into the message. */
@@ -80,9 +47,7 @@ export interface ChatInputSuggestion {
 }
 
 /** Returns the rows that match what follows the trigger. It may be async. */
-export type ChatInputSource = (
-  query: string,
-) => ChatInputSuggestion[] | Promise<ChatInputSuggestion[]>;
+export type ChatInputSource = (query: string) => ChatInputSuggestion[] | Promise<ChatInputSuggestion[]>;
 
 export interface ChatInputAction {
   id: string;
@@ -160,13 +125,10 @@ export interface ChatInputProps {
 }
 
 const triggers = {
-  agent: { char: "@", label: "Agents", empty: "No agents match." },
-  skill: { char: "/", label: "Skills", empty: "No skills match." },
-  file: { char: "#", label: "Files", empty: "No files match." },
-} as const satisfies Record<
-  ChatInputReferenceKind,
-  { char: string; label: string; empty: string }
->;
+  agent: { char: '@', label: 'Agents', empty: 'No agents match.' },
+  skill: { char: '/', label: 'Skills', empty: 'No skills match.' },
+  file: { char: '#', label: 'Files', empty: 'No files match.' },
+} as const satisfies Record<ChatInputReferenceKind, { char: string; label: string; empty: string }>;
 
 type PanelState = {
   kind: ChatInputReferenceKind;
@@ -176,65 +138,64 @@ type PanelState = {
 } | null;
 
 const referenceNode = Node.create({
-  name: "chatReference",
+  name: 'chatReference',
   inline: true,
-  group: "inline",
+  group: 'inline',
   atom: true,
   selectable: true,
   addAttributes() {
     return {
       kind: {
-        default: "file",
+        default: 'file',
         rendered: false,
-        parseHTML: (el) => el.getAttribute("data-chat-reference"),
+        parseHTML: el => el.getAttribute('data-chat-reference'),
       },
       id: {
-        default: "",
+        default: '',
         rendered: false,
-        parseHTML: (el) => el.getAttribute("data-id"),
+        parseHTML: el => el.getAttribute('data-id'),
       },
       label: {
-        default: "",
+        default: '',
         rendered: false,
-        parseHTML: (el) => el.getAttribute("data-label"),
+        parseHTML: el => el.getAttribute('data-label'),
       },
     };
   },
   parseHTML() {
-    return [{ tag: "span[data-chat-reference]" }];
+    return [{ tag: 'span[data-chat-reference]' }];
   },
   renderHTML({ node, HTMLAttributes }) {
     const kind = node.attrs.kind as ChatInputReferenceKind;
     return [
-      "span",
+      'span',
       mergeAttributes(HTMLAttributes, {
-        "data-chat-reference": kind,
-        "data-id": node.attrs.id,
-        "data-label": node.attrs.label,
-        class: "sprout-chat-input-reference",
+        'data-chat-reference': kind,
+        'data-id': node.attrs.id,
+        'data-label': node.attrs.label,
+        class: 'sprout-chat-input-reference',
       }),
-      `${triggers[kind]?.char ?? ""}${node.attrs.label}`,
+      `${triggers[kind]?.char ?? ''}${node.attrs.label}`,
     ];
   },
   renderText({ node }) {
     const kind = node.attrs.kind as ChatInputReferenceKind;
-    return `${triggers[kind]?.char ?? ""}${node.attrs.label}`;
+    return `${triggers[kind]?.char ?? ''}${node.attrs.label}`;
   },
 });
 
 const linkShortcut = Extension.create({
-  name: "chatInputLinkShortcut",
+  name: 'chatInputLinkShortcut',
   addKeyboardShortcuts() {
     return {
-      "Mod-k": ({ editor }) => {
-        if (editor.isActive("link"))
-          return editor.chain().focus().unsetLink().run();
+      'Mod-k': ({ editor }) => {
+        if (editor.isActive('link')) return editor.chain().focus().unsetLink().run();
         const { from, to } = editor.state.selection;
         const text = editor.state.doc.textBetween(from, to).trim();
         const href = /^\S+@\S+\.\S+$/.test(text)
           ? `mailto:${text}`
           : /^(https?:\/\/|www\.)\S+$/i.test(text)
-            ? text.startsWith("www.")
+            ? text.startsWith('www.')
               ? `https://${text}`
               : text
             : null;
@@ -267,10 +228,10 @@ function triggerExtension(
               .focus()
               .insertContentAt(range, [
                 {
-                  type: "chatReference",
+                  type: 'chatReference',
                   attrs: { kind, id: props.id, label: props.label },
                 },
-                { type: "text", text: " " },
+                { type: 'text', text: ' ' },
               ])
               .run(),
           render: () => {
@@ -283,41 +244,36 @@ function triggerExtension(
                 kind,
                 items,
                 active: Math.min(active, Math.max(0, items.length - 1)),
-                select: (index) => {
+                select: index => {
                   const item = items[index];
                   if (item) current?.command(item);
                 },
               });
             };
             return {
-              onStart: (props) => {
+              onStart: props => {
                 current = props;
                 active = 0;
                 publish();
               },
-              onUpdate: (props) => {
+              onUpdate: props => {
                 current = props;
                 active = 0;
                 publish();
               },
               onKeyDown: ({ event, view }: SuggestionKeyDownProps) => {
-                if (event.key === "Escape") {
+                if (event.key === 'Escape') {
                   exitSuggestion(view, key);
                   return true;
                 }
                 const count = current?.items.length ?? 0;
                 if (!count) return false;
-                if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-                  active =
-                    (active + (event.key === "ArrowDown" ? 1 : count - 1)) %
-                    count;
+                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                  active = (active + (event.key === 'ArrowDown' ? 1 : count - 1)) % count;
                   publish();
                   return true;
                 }
-                if (
-                  (event.key === "Enter" && !event.shiftKey) ||
-                  event.key === "Tab"
-                ) {
+                if ((event.key === 'Enter' && !event.shiftKey) || event.key === 'Tab') {
                   current!.command(current!.items[active]!);
                   return true;
                 }
@@ -336,15 +292,15 @@ function triggerExtension(
 }
 
 function hasContent(node: RichTextValue): boolean {
-  if (node.type === "chatReference") return true;
+  if (node.type === 'chatReference') return true;
   if (node.text?.trim()) return true;
   return node.content?.some(hasContent) ?? false;
 }
 
 function textDoc(text: string): RichTextValue {
   return {
-    type: "doc",
-    content: [{ type: "paragraph", content: [{ type: "text", text }] }],
+    type: 'doc',
+    content: [{ type: 'paragraph', content: [{ type: 'text', text }] }],
   };
 }
 
@@ -370,46 +326,38 @@ function OptionPicker({
   onChange: (id: string) => void;
   disabled: boolean;
   icon: (option: ChatInputOption | ChatInputModel | undefined) => ReactNode;
-  align: "start" | "end";
+  align: 'start' | 'end';
 }) {
   const [open, setOpen] = useState(false);
-  const selected = options.find((option) => option.id === value);
+  const selected = options.find(option => option.id === value);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         render={
           <InputGroupButton
             size="sm"
-            aria-label={`${label}: ${selected?.label ?? "None"}`}
+            aria-label={`${label}: ${selected?.label ?? 'None'}`}
             disabled={disabled}
             className="sprout-chat-input-picker"
           />
         }
       >
         {icon(selected)}
-        <span className="sprout-chat-input-picker-label">
-          {selected?.label ?? label}
-        </span>
+        <span className="sprout-chat-input-picker-label">{selected?.label ?? label}</span>
         <ChevronDown size={12} aria-hidden="true" />
       </PopoverTrigger>
-      <PopoverContent
-        size="picker"
-        side="top"
-        align={align}
-        sideOffset={8}
-        className="sprout-chat-input-menu"
-      >
+      <PopoverContent size="picker" side="top" align={align} sideOffset={8} className="sprout-chat-input-menu">
         <Command>
           <CommandInput aria-label={search} placeholder={`${search}…`} />
           <CommandList>
             <CommandEmpty>No matches.</CommandEmpty>
             <CommandGroup heading={label}>
-              {options.map((option) => (
+              {options.map(option => (
                 <CommandItem
                   key={option.id}
-                  value={`${option.label} ${option.description ?? ""}`}
+                  value={`${option.label} ${option.description ?? ''}`}
                   data-checked={option.id === value}
-                  disabled={"disabled" in option && !!option.disabled}
+                  disabled={'disabled' in option && !!option.disabled}
                   onSelect={() => {
                     onChange(option.id);
                     setOpen(false);
@@ -419,9 +367,7 @@ function OptionPicker({
                   <span className="sprout-chat-input-option-text">
                     <span>{option.label}</span>
                     {option.description && (
-                      <span className="sprout-chat-input-option-description">
-                        {option.description}
-                      </span>
+                      <span className="sprout-chat-input-option-description">{option.description}</span>
                     )}
                   </span>
                 </CommandItem>
@@ -444,11 +390,11 @@ export function ChatInput({
   onValueChange,
   onSend,
   onStop,
-  status = "idle",
-  placeholder = "Ask anything, @agents, /skills, #files…",
-  streamingPlaceholder = "Working on your request…",
+  status = 'idle',
+  placeholder = 'Ask anything, @agents, /skills, #files…',
+  streamingPlaceholder = 'Working on your request…',
   disabled = false,
-  label = "Message",
+  label = 'Message',
   agents,
   skills,
   files,
@@ -487,26 +433,23 @@ export function ChatInput({
       referenceNode,
       linkShortcut,
       ...chatInputReferenceKindNames
-        .filter((kind) => sources[kind].current)
-        .map((kind) => triggerExtension(kind, sources[kind], setPanel)),
+        .filter(kind => sources[kind].current)
+        .map(kind => triggerExtension(kind, sources[kind], setPanel)),
     ],
     // Sources are refs, so only adding or removing a trigger rebuilds the editor.
     [enabled],
   );
-  const streaming = status === "streaming";
+  const streaming = status === 'streaming';
   const filled = hasContent(value) || attachments.length > 0;
   const canSend = filled && !disabled && !streaming;
-  const activeMode = modes?.find((option) => option.id === mode);
+  const activeMode = modes?.find(option => option.id === mode);
   const optionId = (index: number) => `${listId}-option-${index}`;
   const panelOpen = !!panel;
 
   useLayoutEffect(() => {
     const bounds = form.current?.getBoundingClientRect();
     // Near the top of a short screen there's no room above, so the panel opens below.
-    if (panel && bounds)
-      setPanelBelow(
-        bounds.top < 320 && window.innerHeight - bounds.bottom > bounds.top,
-      );
+    if (panel && bounds) setPanelBelow(bounds.top < 320 && window.innerHeight - bounds.bottom > bounds.top);
   }, [panelOpen]);
 
   const send = () => {
@@ -514,7 +457,7 @@ export function ChatInput({
   };
   const fill = (prompt: ChatInputPrompt) => {
     editor.current?.setContent(textDoc(prompt.prompt ?? prompt.label));
-    editor.current?.editor()?.commands.focus("end");
+    editor.current?.editor()?.commands.focus('end');
     onPromptSelect?.(prompt);
   };
 
@@ -522,43 +465,36 @@ export function ChatInput({
     <div
       data-slot="chat-input"
       data-status={status}
-      data-mode-color={activeMode?.color ? "" : undefined}
+      data-mode-color={activeMode?.color ? '' : undefined}
       style={
         activeMode?.color
           ? ({
-              "--sprout-chat-input-mode": activeMode.color,
+              '--sprout-chat-input-mode': activeMode.color,
             } as CSSProperties)
           : undefined
       }
-      className={cn("sprout-chat-input", className)}
+      className={cn('sprout-chat-input', className)}
     >
       <form
         ref={form}
         aria-label={label}
         className="sprout-chat-input-form"
-        onSubmit={(event) => {
+        onSubmit={event => {
           event.preventDefault();
           send();
         }}
       >
         <InputGroup variant="composer" className="sprout-chat-input-box">
           {attachments.length > 0 && (
-            <InputGroupAddon
-              align="block-start"
-              className="sprout-chat-input-attachments"
-            >
-              {attachments.map((file) => (
+            <InputGroupAddon align="block-start" className="sprout-chat-input-attachments">
+              {attachments.map(file => (
                 <FileAttachment
                   key={file.id}
                   file={file}
                   variant="chip"
                   viewable
                   preview
-                  onRemove={
-                    onRemoveAttachment && !disabled
-                      ? () => onRemoveAttachment(file.id)
-                      : undefined
-                  }
+                  onRemove={onRemoveAttachment && !disabled ? () => onRemoveAttachment(file.id) : undefined}
                 />
               ))}
             </InputGroupAddon>
@@ -574,9 +510,7 @@ export function ChatInput({
             ariaLabel={label}
             ariaExpanded={!!panel}
             ariaControls={panel ? listId : undefined}
-            ariaActiveDescendant={
-              panel?.items.length ? optionId(panel.active) : undefined
-            }
+            ariaActiveDescendant={panel?.items.length ? optionId(panel.active) : undefined}
             className="sprout-chat-input-editor"
             toolbarAddon={
               <div className="sprout-chat-input-bar">
@@ -588,11 +522,7 @@ export function ChatInput({
                           render={
                             <DropdownMenuTrigger
                               render={
-                                <InputGroupButton
-                                  size="icon-sm"
-                                  aria-label="Add files and more"
-                                  disabled={disabled}
-                                />
+                                <InputGroupButton size="icon-sm" aria-label="Add files and more" disabled={disabled} />
                               }
                             />
                           }
@@ -601,26 +531,16 @@ export function ChatInput({
                         </TooltipTrigger>
                         <TooltipContent>Add files and more</TooltipContent>
                       </Tooltip>
-                      <DropdownMenuContent
-                        size="menu"
-                        side="top"
-                        align="start"
-                        className="sprout-chat-input-menu"
-                      >
+                      <DropdownMenuContent size="menu" side="top" align="start" className="sprout-chat-input-menu">
                         <DropdownMenuGroup>
                           <DropdownMenuLabel>Add</DropdownMenuLabel>
-                          {attachActions.map((action) => (
-                            <DropdownMenuItem
-                              key={action.id}
-                              onClick={action.onSelect}
-                            >
+                          {attachActions.map(action => (
+                            <DropdownMenuItem key={action.id} onClick={action.onSelect}>
                               {action.icon}
                               <span className="sprout-chat-input-option-text">
                                 <span>{action.label}</span>
                                 {action.description && (
-                                  <span className="sprout-chat-input-option-description">
-                                    {action.description}
-                                  </span>
+                                  <span className="sprout-chat-input-option-description">{action.description}</span>
                                 )}
                               </span>
                             </DropdownMenuItem>
@@ -638,7 +558,7 @@ export function ChatInput({
                               render={
                                 <InputGroupButton
                                   size="icon-sm"
-                                  aria-label={`Mode: ${activeMode?.label ?? "Default"}`}
+                                  aria-label={`Mode: ${activeMode?.label ?? 'Default'}`}
                                   disabled={disabled}
                                 />
                               }
@@ -649,23 +569,14 @@ export function ChatInput({
                         </TooltipTrigger>
                         <TooltipContent>Modes</TooltipContent>
                       </Tooltip>
-                      <DropdownMenuContent
-                        size="menu"
-                        side="top"
-                        align="start"
-                        className="sprout-chat-input-menu"
-                      >
+                      <DropdownMenuContent size="menu" side="top" align="start" className="sprout-chat-input-menu">
                         <DropdownMenuGroup>
                           <DropdownMenuLabel>Mode</DropdownMenuLabel>
                           <DropdownMenuRadioGroup
-                            value={mode ?? ""}
-                            onValueChange={(next) =>
-                              onModeChange?.(
-                                next === mode || !next ? null : String(next),
-                              )
-                            }
+                            value={mode ?? ''}
+                            onValueChange={next => onModeChange?.(next === mode || !next ? null : String(next))}
                           >
-                            {modes.map((option) => (
+                            {modes.map(option => (
                               <DropdownMenuRadioItem
                                 key={option.id}
                                 value={option.id}
@@ -673,24 +584,17 @@ export function ChatInput({
                                 style={
                                   option.color
                                     ? ({
-                                        "--sprout-chat-input-mode":
-                                          option.color,
+                                        '--sprout-chat-input-mode': option.color,
                                       } as CSSProperties)
                                     : undefined
                                 }
-                                className={
-                                  option.color
-                                    ? "sprout-chat-input-mode-option"
-                                    : undefined
-                                }
+                                className={option.color ? 'sprout-chat-input-mode-option' : undefined}
                               >
                                 {option.icon}
                                 <span className="sprout-chat-input-option-text">
                                   <span>{option.label}</span>
                                   {option.description && (
-                                    <span className="sprout-chat-input-option-description">
-                                      {option.description}
-                                    </span>
+                                    <span className="sprout-chat-input-option-description">{option.description}</span>
                                   )}
                                 </span>
                               </DropdownMenuRadioItem>
@@ -710,30 +614,21 @@ export function ChatInput({
                       onClick={() => onModeChange?.(null)}
                     >
                       {activeMode.icon}
-                      <span className="sprout-chat-input-picker-label">
-                        {activeMode.label}
-                      </span>
+                      <span className="sprout-chat-input-picker-label">{activeMode.label}</span>
                       <X size={12} aria-hidden="true" />
                     </InputGroupButton>
                   )}
                   {projects && projects.length > 0 && (
                     <>
-                      <span
-                        className="sprout-chat-input-divider"
-                        aria-hidden="true"
-                      />
+                      <span className="sprout-chat-input-divider" aria-hidden="true" />
                       <OptionPicker
                         label="Project"
                         search="Search projects"
                         options={projects}
                         value={project}
-                        onChange={(id) => onProjectChange?.(id)}
+                        onChange={id => onProjectChange?.(id)}
                         disabled={disabled}
-                        icon={(option) =>
-                          option?.icon ?? (
-                            <Folder size={16} aria-hidden="true" />
-                          )
-                        }
+                        icon={option => option?.icon ?? <Folder size={16} aria-hidden="true" />}
                         align="start"
                       />
                     </>
@@ -746,11 +641,9 @@ export function ChatInput({
                       search="Search models"
                       options={models}
                       value={model}
-                      onChange={(id) => onModelChange?.(id)}
+                      onChange={id => onModelChange?.(id)}
                       disabled={disabled}
-                      icon={(option) =>
-                        option && <ModelMark model={option as ChatInputModel} />
-                      }
+                      icon={option => option && <ModelMark model={option as ChatInputModel} />}
                       align="end"
                     />
                   )}
@@ -762,16 +655,13 @@ export function ChatInput({
                       aria-label="Stop"
                       onClick={onStop}
                     >
-                      <span
-                        className="sprout-chat-input-stop"
-                        aria-hidden="true"
-                      />
+                      <span className="sprout-chat-input-stop" aria-hidden="true" />
                     </InputGroupButton>
                   ) : (
                     <InputGroupButton
                       type="submit"
                       size="icon-sm"
-                      variant={canSend ? "default" : "secondary"}
+                      variant={canSend ? 'default' : 'secondary'}
                       className="sprout-chat-input-send"
                       aria-label="Send message"
                       disabled={!canSend}
@@ -785,10 +675,7 @@ export function ChatInput({
           />
         </InputGroup>
         {panel && (
-          <div
-            className="sprout-chat-input-panel"
-            data-side={panelBelow ? "bottom" : "top"}
-          >
+          <div className="sprout-chat-input-panel" data-side={panelBelow ? 'bottom' : 'top'}>
             <MentionList
               id={listId}
               label={triggers[panel.kind].label}
@@ -799,9 +686,7 @@ export function ChatInput({
               }
               status={
                 panel.items.length ? undefined : (
-                  <MentionStatus tone="empty">
-                    {triggers[panel.kind].empty}
-                  </MentionStatus>
+                  <MentionStatus tone="empty">{triggers[panel.kind].empty}</MentionStatus>
                 )
               }
             >
@@ -821,12 +706,8 @@ export function ChatInput({
         )}
       </form>
       {prompts && prompts.length > 0 && !filled && !streaming && (
-        <div
-          role="group"
-          aria-label="Suggested prompts"
-          className="sprout-chat-input-prompts"
-        >
-          {prompts.map((prompt) => (
+        <div role="group" aria-label="Suggested prompts" className="sprout-chat-input-prompts">
+          {prompts.map(prompt => (
             <Button
               key={prompt.id}
               size="sm"

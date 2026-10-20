@@ -1,19 +1,12 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  type ReactElement,
-  type ReactNode,
-  type Ref,
-} from "react";
-import { createPortal } from "react-dom";
-import { useRender } from "@base-ui/react/use-render";
-import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { cn } from "../internal/classes.js";
-import { Button } from "./button.js";
+import { createContext, useContext, useEffect, type ReactElement, type ReactNode, type Ref } from 'react';
+import { createPortal } from 'react-dom';
+import { useRender } from '@base-ui/react/use-render';
+import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { cn } from '../internal/classes.js';
+import { Button } from './button.js';
 
 export interface PageChrome {
   /** App header element that receives the back link and page title. */
@@ -53,11 +46,11 @@ export interface PageHeaderProps {
 
 function ParentLink({ link, label }: PageLink) {
   return useRender({
-    defaultTagName: "a",
+    defaultTagName: 'a',
     render: link,
     props: {
-      "data-slot": "page-breadcrumb-link",
-      className: "sprout-page-header-breadcrumb-link",
+      'data-slot': 'page-breadcrumb-link',
+      className: 'sprout-page-header-breadcrumb-link',
       children: label,
     },
   });
@@ -76,7 +69,7 @@ export function PageHeader({
 }: PageHeaderProps) {
   const chrome = useContext(PageChromeContext);
   const format = chrome.documentTitle;
-  const text = typeof title === "string" ? title : null;
+  const text = typeof title === 'string' ? title : null;
   useEffect(() => {
     if (!text || !format) return;
     const previous = document.title;
@@ -87,7 +80,7 @@ export function PageHeader({
   }, [text, format]);
 
   const inChrome = !!(chrome.title && chrome.actions);
-  const placement = inChrome ? "chrome" : "page";
+  const placement = inChrome ? 'chrome' : 'page';
   const heading = (
     <h1
       id={titleId}
@@ -111,17 +104,10 @@ export function PageHeader({
         <li className="sprout-page-header-breadcrumb-item">
           <ParentLink {...parent} />
         </li>
-        <li
-          role="presentation"
-          aria-hidden="true"
-          className="sprout-page-header-breadcrumb-separator"
-        >
+        <li role="presentation" aria-hidden="true" className="sprout-page-header-breadcrumb-separator">
           <ChevronRight size={14} />
         </li>
-        <li
-          aria-current="page"
-          className="sprout-page-header-breadcrumb-item sprout-page-header-breadcrumb-current"
-        >
+        <li aria-current="page" className="sprout-page-header-breadcrumb-item sprout-page-header-breadcrumb-current">
           {heading}
         </li>
       </ol>
@@ -153,20 +139,13 @@ export function PageHeader({
         )}
         {actions &&
           createPortal(
-            <div
-              data-slot="page-actions"
-              data-placement="chrome"
-              className="sprout-page-header-actions"
-            >
+            <div data-slot="page-actions" data-placement="chrome" className="sprout-page-header-actions">
               {actions}
             </div>,
             chrome.actions!,
           )}
         {description && (
-          <p
-            data-slot="page-description"
-            className={cn("sprout-page-header-description", className)}
-          >
+          <p data-slot="page-description" className={cn('sprout-page-header-description', className)}>
             {description}
           </p>
         )}
@@ -174,29 +153,19 @@ export function PageHeader({
     );
   }
   return (
-    <header
-      data-slot="page-header"
-      className={cn("sprout-page-header", className)}
-    >
+    <header data-slot="page-header" className={cn('sprout-page-header', className)}>
       {backButton}
       <div className="sprout-page-header-row">
         <div className="sprout-page-header-text">
           {trail ?? heading}
           {description && (
-            <p
-              data-slot="page-description"
-              className="sprout-page-header-description"
-            >
+            <p data-slot="page-description" className="sprout-page-header-description">
               {description}
             </p>
           )}
         </div>
         {actions && (
-          <div
-            data-slot="page-actions"
-            data-placement="page"
-            className="sprout-page-header-actions"
-          >
+          <div data-slot="page-actions" data-placement="page" className="sprout-page-header-actions">
             {actions}
           </div>
         )}
@@ -215,21 +184,13 @@ export function PageActions({ children, className }: PageActionsProps) {
   const { actions } = useContext(PageChromeContext);
   return actions ? (
     createPortal(
-      <div
-        data-slot="page-actions"
-        data-placement="chrome"
-        className={cn("sprout-page-header-actions", className)}
-      >
+      <div data-slot="page-actions" data-placement="chrome" className={cn('sprout-page-header-actions', className)}>
         {children}
       </div>,
       actions,
     )
   ) : (
-    <div
-      data-slot="page-actions"
-      data-placement="inline"
-      className={cn("sprout-page-header-actions", className)}
-    >
+    <div data-slot="page-actions" data-placement="inline" className={cn('sprout-page-header-actions', className)}>
       {children}
     </div>
   );

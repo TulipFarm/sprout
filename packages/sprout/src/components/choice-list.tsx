@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useId, type ReactNode } from "react";
-import { Check } from "reicon-react/icons/Check";
-import { HelpCircle } from "reicon-react/icons/HelpCircle";
-import { cn } from "../internal/classes.js";
-import { Badge } from "./badge.js";
+import { useId, type ReactNode } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { HelpCircle } from 'reicon-react/icons/HelpCircle';
+import { cn } from '../internal/classes.js';
+import { Badge } from './badge.js';
 
-export const choiceListLayoutNames = ["stacked", "compact"] as const;
+export const choiceListLayoutNames = ['stacked', 'compact'] as const;
 
 export type ChoiceListLayout = (typeof choiceListLayoutNames)[number];
 
@@ -63,12 +63,12 @@ export function ChoiceList({
   multiple = false,
   disabled = false,
   error,
-  layout = "stacked",
+  layout = 'stacked',
   textOption,
   className,
 }: ChoiceListProps) {
   const name = useId();
-  const compact = layout === "compact";
+  const compact = layout === 'compact';
   const errorId = `${name}-choices-error`;
   const textId = `${name}-text`;
   const textErrorId = `${name}-text-error`;
@@ -78,26 +78,16 @@ export function ChoiceList({
       data-layout={layout}
       data-multiple={multiple || undefined}
       disabled={disabled}
-      className={cn("sprout-choice-list", className)}
+      className={cn('sprout-choice-list', className)}
     >
-      <legend
-        className={
-          compact && !multiple
-            ? "sprout-choice-list-sr-only"
-            : "sprout-choice-list-legend"
-        }
-      >
+      <legend className={compact && !multiple ? 'sprout-choice-list-sr-only' : 'sprout-choice-list-legend'}>
         {legend}
       </legend>
-      <div
-        data-slot="choice-list-options"
-        className="sprout-choice-list-options"
-      >
+      <div data-slot="choice-list-options" className="sprout-choice-list-options">
         {options.map((option, index) => {
           const checked = value.includes(option.id);
-          const recommended =
-            option.recommended === true || recommendedSuffix.test(option.label);
-          const label = option.label.replace(recommendedSuffix, "");
+          const recommended = option.recommended === true || recommendedSuffix.test(option.label);
+          const label = option.label.replace(recommendedSuffix, '');
           return (
             <label
               key={option.id}
@@ -108,18 +98,18 @@ export function ChoiceList({
               className="sprout-choice-list-option"
             >
               <input
-                type={multiple ? "checkbox" : "radio"}
+                type={multiple ? 'checkbox' : 'radio'}
                 name={name}
                 value={option.id}
                 checked={checked}
                 aria-invalid={error ? true : undefined}
                 aria-describedby={error ? errorId : undefined}
-                onChange={(event) =>
+                onChange={event =>
                   onChange(
                     multiple
                       ? event.target.checked
                         ? [...value, option.id]
-                        : value.filter((id) => id !== option.id)
+                        : value.filter(id => id !== option.id)
                       : [option.id],
                   )
                 }
@@ -158,7 +148,7 @@ export function ChoiceList({
           </span>
           <div className="sprout-choice-list-text-body">
             <label htmlFor={textId} className="sprout-choice-list-text-label">
-              {textOption.label ?? "Your answer"}
+              {textOption.label ?? 'Your answer'}
             </label>
             <textarea
               id={textId}
@@ -166,19 +156,15 @@ export function ChoiceList({
               rows={1}
               value={textOption.value}
               disabled={disabled}
-              placeholder={textOption.placeholder ?? "Type a different answer…"}
+              placeholder={textOption.placeholder ?? 'Type a different answer…'}
               aria-describedby={textOption.error ? textErrorId : undefined}
               aria-invalid={textOption.error ? true : undefined}
               onFocus={textOption.onFocus}
-              onChange={(event) => textOption.onChange(event.target.value)}
+              onChange={event => textOption.onChange(event.target.value)}
               className="sprout-choice-list-textarea"
             />
             {textOption.error && (
-              <p
-                id={textErrorId}
-                role="alert"
-                className="sprout-choice-list-error"
-              >
+              <p id={textErrorId} role="alert" className="sprout-choice-list-error">
                 {textOption.error}
               </p>
             )}
@@ -198,17 +184,9 @@ export interface ChoiceSummaryProps {
 }
 
 /** One line that shows a question and its recorded answer. */
-export function ChoiceSummary({
-  prompt,
-  answer,
-  className,
-  children,
-}: ChoiceSummaryProps) {
+export function ChoiceSummary({ prompt, answer, className, children }: ChoiceSummaryProps) {
   return (
-    <div
-      data-slot="choice-summary"
-      className={cn("sprout-choice-summary", className)}
-    >
+    <div data-slot="choice-summary" className={cn('sprout-choice-summary', className)}>
       <HelpCircle aria-hidden="true" className="sprout-choice-summary-icon" />
       <span className="sprout-choice-summary-prompt">{prompt}</span>
       {answer && (

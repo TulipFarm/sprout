@@ -44,7 +44,7 @@
 .gradient-demo-toggle:hover {
   background: var(--sprout-hover);
 }
-.gradient-demo-toggle[aria-pressed="true"] {
+.gradient-demo-toggle[aria-pressed='true'] {
   border-color: var(--sprout-border-strong);
   background: var(--sprout-hover);
 }
@@ -76,7 +76,7 @@
   gap: 16px;
   margin-top: 24px;
 }
-.gradient-demo-grid[data-demo="sizes"] {
+.gradient-demo-grid[data-demo='sizes'] {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
 }
 .gradient-demo-stack {
@@ -162,8 +162,7 @@
   justify-content: center;
 }
 .gradient-demo-agent-card {
-  animation: gradient-demo-agent-in var(--sprout-motion-normal)
-    var(--sprout-motion-ease) both;
+  animation: gradient-demo-agent-in var(--sprout-motion-normal) var(--sprout-motion-ease) both;
 }
 .gradient-demo-agent-body {
   display: grid;

@@ -114,7 +114,7 @@
   width: 100%;
   font-weight: 400;
 }
-.combobox-demo-trigger [data-slot="combobox-value"] {
+.combobox-demo-trigger [data-slot='combobox-value'] {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -168,7 +168,7 @@
 }
 
 /* The docs' global :focus-visible ring is unlayered; the group draws focus instead. */
-.sprout-combobox-input-group [data-slot="input-group-control"]:focus-visible,
+.sprout-combobox-input-group [data-slot='input-group-control']:focus-visible,
 .sprout-combobox-chips .sprout-combobox-chips-input:focus-visible {
   outline: none;
 }

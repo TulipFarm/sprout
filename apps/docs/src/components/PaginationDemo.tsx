@@ -1,9 +1,4 @@
-import {
-  useState,
-  type ComponentProps,
-  type MouseEvent,
-  type ReactNode,
-} from "react";
+import { useState, type ComponentProps, type MouseEvent, type ReactNode } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -12,20 +7,12 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@tulipfarm/sprout/pagination";
-import type { ButtonSize } from "@tulipfarm/sprout/button";
-import "../styles/pagination-demo.css";
-import DocsSelect from "./DocsSelect";
+} from '@tulipfarm/sprout/pagination';
+import type { ButtonSize } from '@tulipfarm/sprout/button';
+import '../styles/pagination-demo.css';
+import DocsSelect from './DocsSelect';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="pagination-demo-card" aria-label={title}>
       <header>
@@ -38,16 +25,16 @@ function Example({
 }
 
 // Sample adapter: first, last, and the pages around the current one.
-function pageWindow(page: number, total: number): (number | "gap")[] {
+function pageWindow(page: number, total: number): (number | 'gap')[] {
   const keep = [1, total, page - 1, page, page + 1]
-    .filter((n) => n >= 1 && n <= total)
+    .filter(n => n >= 1 && n <= total)
     .sort((a, b) => a - b)
     .filter((n, index, all) => all.indexOf(n) === index);
-  const out: (number | "gap")[] = [];
+  const out: (number | 'gap')[] = [];
   keep.forEach((n, index) => {
     const before = keep[index - 1];
     if (before !== undefined && n - before === 2) out.push(n - 1);
-    else if (before !== undefined && n - before > 2) out.push("gap");
+    else if (before !== undefined && n - before > 2) out.push('gap');
     out.push(n);
   });
   return out;
@@ -62,18 +49,18 @@ function PageNavigation() {
           <PaginationItem>
             <PaginationPrevious
               href="#previous"
-              onClick={(event) => {
+              onClick={event => {
                 event.preventDefault();
                 setPage(Math.max(1, page - 1));
               }}
             />
           </PaginationItem>
-          {[1, 2, 3].map((number) => (
+          {[1, 2, 3].map(number => (
             <PaginationItem key={number}>
               <PaginationLink
                 href={`#page-${number}`}
                 isActive={page === number}
-                onClick={(event) => {
+                onClick={event => {
                   event.preventDefault();
                   setPage(number);
                 }}
@@ -88,7 +75,7 @@ function PageNavigation() {
           <PaginationItem>
             <PaginationNext
               href="#next"
-              onClick={(event) => {
+              onClick={event => {
                 event.preventDefault();
                 setPage(Math.min(3, page + 1));
               }}
@@ -103,19 +90,19 @@ function PageNavigation() {
   );
 }
 
-type RunState = "many" | "single" | "loading" | "empty";
+type RunState = 'many' | 'single' | 'loading' | 'empty';
 const runStates: { value: RunState; label: string }[] = [
-  { value: "many", label: "24 pages" },
-  { value: "single", label: "One page" },
-  { value: "loading", label: "Loading" },
-  { value: "empty", label: "No runs" },
+  { value: 'many', label: '24 pages' },
+  { value: 'single', label: 'One page' },
+  { value: 'loading', label: 'Loading' },
+  { value: 'empty', label: 'No runs' },
 ];
 
 function RunHistory() {
-  const [state, setState] = useState<RunState>("many");
+  const [state, setState] = useState<RunState>('many');
   const [page, setPage] = useState(7);
-  const total = state === "single" ? 1 : 24;
-  const loading = state === "loading";
+  const total = state === 'single' ? 1 : 24;
+  const loading = state === 'loading';
   const go = (next: number) => (event: MouseEvent) => {
     event.preventDefault();
     setPage(Math.min(total, Math.max(1, next)));
@@ -126,24 +113,14 @@ function RunHistory() {
       <div className="pagination-demo-toolbar">
         <label>
           Results
-          <DocsSelect<RunState>
-            label="Results"
-            value={state}
-            onValueChange={setState}
-            items={runStates}
-          />
+          <DocsSelect<RunState> label="Results" value={state} onValueChange={setState} items={runStates} />
         </label>
       </div>
-      {state === "empty" ? (
-        <p className="pagination-demo-note">
-          No runs yet. Runs show here after an automation starts.
-        </p>
+      {state === 'empty' ? (
+        <p className="pagination-demo-note">No runs yet. Runs show here after an automation starts.</p>
       ) : (
         <>
-          <Pagination
-            aria-label="Run history pages"
-            aria-busy={loading || undefined}
-          >
+          <Pagination aria-label="Run history pages" aria-busy={loading || undefined}>
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
@@ -155,8 +132,8 @@ function RunHistory() {
                 />
               </PaginationItem>
               {pageWindow(current, total).map((item, index) => (
-                <PaginationItem key={item === "gap" ? `gap-${index}` : item}>
-                  {item === "gap" ? (
+                <PaginationItem key={item === 'gap' ? `gap-${index}` : item}>
+                  {item === 'gap' ? (
                     <PaginationEllipsis />
                   ) : (
                     <PaginationLink
@@ -183,9 +160,7 @@ function RunHistory() {
             </PaginationContent>
           </Pagination>
           <p role="status" className="pagination-demo-status">
-            {loading
-              ? "Loading runs…"
-              : `Runs ${(current - 1) * 25 + 1}–${current * 25} · page ${current} of ${total}`}
+            {loading ? 'Loading runs…' : `Runs ${(current - 1) * 25 + 1}–${current * 25} · page ${current} of ${total}`}
           </p>
         </>
       )}
@@ -202,38 +177,32 @@ const sizes: {
   start: number;
 }[] = [
   {
-    name: "Comment pages",
-    caption: "Compact · icon-sm with sm",
-    link: "icon-sm",
-    edge: "sm",
+    name: 'Comment pages',
+    caption: 'Compact · icon-sm with sm',
+    link: 'icon-sm',
+    edge: 'sm',
     total: 4,
     start: 2,
   },
   {
-    name: "Search results pages",
-    caption: "Default · icon with default",
-    link: "icon",
-    edge: "default",
+    name: 'Search results pages',
+    caption: 'Default · icon with default',
+    link: 'icon',
+    edge: 'default',
     total: 9,
     start: 5,
   },
   {
-    name: "Template gallery pages",
-    caption: "Large · icon-lg with lg",
-    link: "icon-lg",
-    edge: "lg",
+    name: 'Template gallery pages',
+    caption: 'Large · icon-lg with lg',
+    link: 'icon-lg',
+    edge: 'lg',
     total: 12,
     start: 1,
   },
 ];
 
-function SizedPagination({
-  name,
-  link,
-  edge,
-  total,
-  start,
-}: (typeof sizes)[number]) {
+function SizedPagination({ name, link, edge, total, start }: (typeof sizes)[number]) {
   const [page, setPage] = useState(start);
   const go = (next: number) => (event: MouseEvent) => {
     event.preventDefault();
@@ -243,36 +212,21 @@ function SizedPagination({
     <Pagination aria-label={name} className="pagination-demo-start">
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious
-            size={edge}
-            href={`#${link}-${page - 1}`}
-            disabled={page === 1}
-            onClick={go(page - 1)}
-          />
+          <PaginationPrevious size={edge} href={`#${link}-${page - 1}`} disabled={page === 1} onClick={go(page - 1)} />
         </PaginationItem>
         {pageWindow(page, total).map((item, index) => (
-          <PaginationItem key={item === "gap" ? `gap-${index}` : item}>
-            {item === "gap" ? (
+          <PaginationItem key={item === 'gap' ? `gap-${index}` : item}>
+            {item === 'gap' ? (
               <PaginationEllipsis />
             ) : (
-              <PaginationLink
-                size={link}
-                href={`#${link}-${item}`}
-                isActive={item === page}
-                onClick={go(item)}
-              >
+              <PaginationLink size={link} href={`#${link}-${item}`} isActive={item === page} onClick={go(item)}>
                 {item}
               </PaginationLink>
             )}
           </PaginationItem>
         ))}
         <PaginationItem>
-          <PaginationNext
-            size={edge}
-            href={`#${link}-${page + 1}`}
-            disabled={page === total}
-            onClick={go(page + 1)}
-          />
+          <PaginationNext size={edge} href={`#${link}-${page + 1}`} disabled={page === total} onClick={go(page + 1)} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
@@ -283,7 +237,7 @@ function RouterLink({
   to,
   navigate,
   ...props
-}: Omit<ComponentProps<"a">, "href"> & {
+}: Omit<ComponentProps<'a'>, 'href'> & {
   to: string;
   navigate: (to: string) => void;
 }) {
@@ -291,7 +245,7 @@ function RouterLink({
     <a
       {...props}
       href={to}
-      onClick={(event) => {
+      onClick={event => {
         props.onClick?.(event);
         if (event.defaultPrevented) return;
         event.preventDefault();
@@ -302,11 +256,9 @@ function RouterLink({
 }
 
 function RouterPagination() {
-  const [path, setPath] = useState("/inbox?page=2");
-  const page = Number(path.split("=")[1]);
-  const link = (n: number) => (
-    <RouterLink to={`/inbox?page=${n}`} navigate={setPath} />
-  );
+  const [path, setPath] = useState('/inbox?page=2');
+  const page = Number(path.split('=')[1]);
+  const link = (n: number) => <RouterLink to={`/inbox?page=${n}`} navigate={setPath} />;
   return (
     <>
       <Pagination aria-label="Inbox pages">
@@ -314,7 +266,7 @@ function RouterPagination() {
           <PaginationItem>
             <PaginationPrevious disabled={page === 1} render={link(page - 1)} />
           </PaginationItem>
-          {[1, 2, 3, 4].map((n) => (
+          {[1, 2, 3, 4].map(n => (
             <PaginationItem key={n}>
               <PaginationLink isActive={n === page} render={link(n)}>
                 {n}
@@ -333,28 +285,22 @@ function RouterPagination() {
   );
 }
 
-function DirectionPagination({ dir }: { dir: "ltr" | "rtl" }) {
-  const rtl = dir === "rtl";
+function DirectionPagination({ dir }: { dir: 'ltr' | 'rtl' }) {
+  const rtl = dir === 'rtl';
   return (
-    <div dir={dir} lang={rtl ? "ar" : "en"}>
-      <Pagination aria-label={rtl ? "الصفحات" : "Pages"}>
+    <div dir={dir} lang={rtl ? 'ar' : 'en'}>
+      <Pagination aria-label={rtl ? 'الصفحات' : 'Pages'}>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
               href={`#${dir}-1`}
-              onClick={(event) => event.preventDefault()}
-              {...(rtl
-                ? { text: "السابق", "aria-label": "الصفحة السابقة" }
-                : {})}
+              onClick={event => event.preventDefault()}
+              {...(rtl ? { text: 'السابق', 'aria-label': 'الصفحة السابقة' } : {})}
             />
           </PaginationItem>
-          {[1, 2].map((n) => (
+          {[1, 2].map(n => (
             <PaginationItem key={n}>
-              <PaginationLink
-                href={`#${dir}-${n}`}
-                isActive={n === 2}
-                onClick={(event) => event.preventDefault()}
-              >
+              <PaginationLink href={`#${dir}-${n}`} isActive={n === 2} onClick={event => event.preventDefault()}>
                 {n}
               </PaginationLink>
             </PaginationItem>
@@ -362,10 +308,8 @@ function DirectionPagination({ dir }: { dir: "ltr" | "rtl" }) {
           <PaginationItem>
             <PaginationNext
               href={`#${dir}-3`}
-              onClick={(event) => event.preventDefault()}
-              {...(rtl
-                ? { text: "التالي", "aria-label": "الصفحة التالية" }
-                : {})}
+              onClick={event => event.preventDefault()}
+              {...(rtl ? { text: 'التالي', 'aria-label': 'الصفحة التالية' } : {})}
             />
           </PaginationItem>
         </PaginationContent>
@@ -389,27 +333,18 @@ export default function PaginationDemo() {
       >
         <RunHistory />
       </Example>
-      <Example
-        title="Sizes"
-        description="Page numbers take icon sizes; previous and next take the matching text size."
-      >
-        {sizes.map((size) => (
+      <Example title="Sizes" description="Page numbers take icon sizes; previous and next take the matching text size.">
+        {sizes.map(size => (
           <div className="pagination-demo-size" key={size.link}>
             <span className="pagination-demo-caption">{size.caption}</span>
             <SizedPagination {...size} />
           </div>
         ))}
       </Example>
-      <Example
-        title="Router links"
-        description="The render prop swaps the anchor for your router's link."
-      >
+      <Example title="Router links" description="The render prop swaps the anchor for your router's link.">
         <RouterPagination />
       </Example>
-      <Example
-        title="Direction"
-        description="Chevrons flip in right-to-left text."
-      >
+      <Example title="Direction" description="Chevrons flip in right-to-left text.">
         <DirectionPagination dir="ltr" />
         <DirectionPagination dir="rtl" />
       </Example>

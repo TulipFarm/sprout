@@ -14,13 +14,13 @@
   .sprout-carousel-content::-webkit-scrollbar {
     display: none;
   }
-  .sprout-carousel-content[data-orientation="horizontal"] {
+  .sprout-carousel-content[data-orientation='horizontal'] {
     overflow-y: hidden;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     touch-action: pan-x pinch-zoom;
   }
-  .sprout-carousel-content[data-orientation="vertical"] {
+  .sprout-carousel-content[data-orientation='vertical'] {
     height: 100%;
     min-height: 0;
     overflow-x: hidden;
@@ -45,8 +45,7 @@
     display: flex;
     gap: var(--sprout-carousel-gap, 16px);
   }
-  .sprout-carousel-content[data-orientation="vertical"]
-    > .sprout-carousel-track {
+  .sprout-carousel-content[data-orientation='vertical'] > .sprout-carousel-track {
     flex-direction: column;
     height: 100%;
   }
@@ -58,10 +57,10 @@
     min-height: 0;
     scroll-snap-align: start;
   }
-  [data-align="center"] > .sprout-carousel-track > .sprout-carousel-item {
+  [data-align='center'] > .sprout-carousel-track > .sprout-carousel-item {
     scroll-snap-align: center;
   }
-  [data-align="end"] > .sprout-carousel-track > .sprout-carousel-item {
+  [data-align='end'] > .sprout-carousel-track > .sprout-carousel-item {
     scroll-snap-align: end;
   }
 
@@ -71,25 +70,25 @@
     box-shadow: var(--sprout-shadow-control);
     touch-action: manipulation;
   }
-  .sprout-carousel-control[data-orientation="horizontal"] {
+  .sprout-carousel-control[data-orientation='horizontal'] {
     inset-block: 0;
     margin-block: auto;
   }
-  .sprout-carousel-previous[data-orientation="horizontal"] {
+  .sprout-carousel-previous[data-orientation='horizontal'] {
     left: calc(-1 * var(--sprout-carousel-control-offset, 48px));
   }
-  .sprout-carousel-next[data-orientation="horizontal"] {
+  .sprout-carousel-next[data-orientation='horizontal'] {
     right: calc(-1 * var(--sprout-carousel-control-offset, 48px));
   }
-  .sprout-carousel-control[data-orientation="vertical"] {
+  .sprout-carousel-control[data-orientation='vertical'] {
     left: 50%;
     translate: -50% 0;
     rotate: 90deg;
   }
-  .sprout-carousel-previous[data-orientation="vertical"] {
+  .sprout-carousel-previous[data-orientation='vertical'] {
     top: calc(-1 * var(--sprout-carousel-control-offset, 48px));
   }
-  .sprout-carousel-next[data-orientation="vertical"] {
+  .sprout-carousel-next[data-orientation='vertical'] {
     bottom: calc(-1 * var(--sprout-carousel-control-offset, 48px));
   }
   @media (pointer: coarse) {

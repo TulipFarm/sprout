@@ -14,7 +14,7 @@
     gap: 4px;
     min-width: 0;
   }
-  .sprout-message-actions[data-author="human"] .sprout-message-actions-row {
+  .sprout-message-actions[data-author='human'] .sprout-message-actions-row {
     justify-content: flex-end;
   }
   /* Revealed by hovering the message, or by focus anywhere in it. */

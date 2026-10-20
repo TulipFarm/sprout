@@ -1,27 +1,21 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type FormEvent,
-  type ReactNode,
-} from "react";
-import { Combobox } from "@base-ui/react/combobox";
-import { ArrowUp } from "reicon-react/icons/ArrowUp";
-import { BookOpen } from "reicon-react/icons/BookOpen";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Copy } from "reicon-react/icons/Copy";
-import { Cpu } from "reicon-react/icons/Cpu";
-import { FileText } from "reicon-react/icons/FileText";
-import { Lightbulb } from "reicon-react/icons/Lightbulb";
-import { Paperclip } from "reicon-react/icons/Paperclip";
-import { Plus } from "reicon-react/icons/Plus";
-import { Search } from "reicon-react/icons/Search";
-import { Search3 } from "reicon-react/icons/Search3";
-import { Send } from "reicon-react/icons/Send";
-import { Sparkle } from "reicon-react/icons/Sparkle";
-import { Stop3 } from "reicon-react/icons/Stop3";
-import { X } from "reicon-react/icons/X";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { Combobox } from '@base-ui/react/combobox';
+import { ArrowUp } from 'reicon-react/icons/ArrowUp';
+import { BookOpen } from 'reicon-react/icons/BookOpen';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { Copy } from 'reicon-react/icons/Copy';
+import { Cpu } from 'reicon-react/icons/Cpu';
+import { FileText } from 'reicon-react/icons/FileText';
+import { Lightbulb } from 'reicon-react/icons/Lightbulb';
+import { Paperclip } from 'reicon-react/icons/Paperclip';
+import { Plus } from 'reicon-react/icons/Plus';
+import { Search } from 'reicon-react/icons/Search';
+import { Search3 } from 'reicon-react/icons/Search3';
+import { Send } from 'reicon-react/icons/Send';
+import { Sparkle } from 'reicon-react/icons/Sparkle';
+import { Stop3 } from 'reicon-react/icons/Stop3';
+import { X } from 'reicon-react/icons/X';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,7 +25,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@tulipfarm/sprout/dropdown-menu";
+} from '@tulipfarm/sprout/dropdown-menu';
 import {
   InputGroup,
   InputGroupAddon,
@@ -39,33 +33,15 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "@tulipfarm/sprout/input-group";
-import { Button } from "@tulipfarm/sprout/button";
-import { Kbd } from "@tulipfarm/sprout/kbd";
-import { Label } from "@tulipfarm/sprout/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@tulipfarm/sprout/select";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@tulipfarm/sprout/tooltip";
-import "../styles/input-group-demo.css";
+} from '@tulipfarm/sprout/input-group';
+import { Button } from '@tulipfarm/sprout/button';
+import { Kbd } from '@tulipfarm/sprout/kbd';
+import { Label } from '@tulipfarm/sprout/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@tulipfarm/sprout/select';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
+import '../styles/input-group-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="input-group-demo-card" aria-label={title}>
       <header>
@@ -77,15 +53,7 @@ function Example({
   );
 }
 
-function Sample({
-  testId,
-  note,
-  children,
-}: {
-  testId: string;
-  note: string;
-  children: ReactNode;
-}) {
+function Sample({ testId, note, children }: { testId: string; note: string; children: ReactNode }) {
   return (
     <div className="input-group-demo-sample" data-testid={testId}>
       {children}
@@ -101,18 +69,12 @@ export function InputGroupSizes() {
       description="Default is 32px with 14px text, for toolbars and lists. Large is 44px with 16px text, for onboarding forms. Additions sit before or after the input."
     >
       <div className="input-group-demo-grid">
-        <Sample
-          testId="size-default"
-          note="default · leading icon · trailing shortcut"
-        >
+        <Sample testId="size-default" note="default · leading icon · trailing shortcut">
           <InputGroup>
             <InputGroupAddon>
               <Search aria-hidden="true" />
             </InputGroupAddon>
-            <InputGroupInput
-              aria-label="Search chats"
-              placeholder="Search chats…"
-            />
+            <InputGroupInput aria-label="Search chats" placeholder="Search chats…" />
             <InputGroupAddon align="inline-end">
               <InputGroupText>⌘ K</InputGroupText>
             </InputGroupAddon>
@@ -123,10 +85,7 @@ export function InputGroupSizes() {
             <InputGroupAddon>
               <Search aria-hidden="true" />
             </InputGroupAddon>
-            <InputGroupInput
-              aria-label="Search the workspace"
-              placeholder="Search the workspace…"
-            />
+            <InputGroupInput aria-label="Search the workspace" placeholder="Search the workspace…" />
             <InputGroupAddon align="inline-end">
               <Kbd>⌘K</Kbd>
             </InputGroupAddon>
@@ -137,28 +96,17 @@ export function InputGroupSizes() {
   );
 }
 
-const chats = [
-  "Q3 board deck review",
-  "Northwind renewal terms",
-  "Hiring plan for support",
-  "Weekly metrics digest",
-];
+const chats = ['Q3 board deck review', 'Northwind renewal terms', 'Hiring plan for support', 'Weekly metrics digest'];
 
-const agents = ["Invoice follow-up", "People Ops helper", "Renewal desk"];
+const agents = ['Invoice follow-up', 'People Ops helper', 'Renewal desk'];
 
 export function InputGroupSearch() {
   const chatInput = useRef<HTMLInputElement>(null);
   const agentInput = useRef<HTMLInputElement>(null);
-  const [query, setQuery] = useState("");
-  const [agentQuery, setAgentQuery] = useState(
-    "Follow up with the Northwind procurement team about renewal terms",
-  );
-  const shown = chats.filter((chat) =>
-    chat.toLowerCase().includes(query.trim().toLowerCase()),
-  );
-  const shownAgents = agents.filter((agent) =>
-    agent.toLowerCase().includes(agentQuery.trim().toLowerCase()),
-  );
+  const [query, setQuery] = useState('');
+  const [agentQuery, setAgentQuery] = useState('Follow up with the Northwind procurement team about renewal terms');
+  const shown = chats.filter(chat => chat.toLowerCase().includes(query.trim().toLowerCase()));
+  const shownAgents = agents.filter(agent => agent.toLowerCase().includes(agentQuery.trim().toLowerCase()));
   return (
     <Example
       title="Search with a clear button"
@@ -177,7 +125,7 @@ export function InputGroupSearch() {
               placeholder="Search chat titles"
               maxLength={640}
               value={query}
-              onChange={(event) => setQuery(event.currentTarget.value)}
+              onChange={event => setQuery(event.currentTarget.value)}
             />
             <InputGroupAddon align="inline-end">
               {query && (
@@ -185,7 +133,7 @@ export function InputGroupSearch() {
                   size="icon-xs"
                   aria-label="Clear search"
                   onClick={() => {
-                    setQuery("");
+                    setQuery('');
                     chatInput.current?.focus();
                   }}
                 >
@@ -195,7 +143,7 @@ export function InputGroupSearch() {
             </InputGroupAddon>
           </InputGroup>
           <ul className="input-group-demo-list" aria-label="Chats">
-            {shown.map((chat) => (
+            {shown.map(chat => (
               <li key={chat}>{chat}</li>
             ))}
           </ul>
@@ -205,10 +153,7 @@ export function InputGroupSearch() {
             </p>
           )}
         </Sample>
-        <Sample
-          testId="search-agents"
-          note="Search field · long text · 120 characters"
-        >
+        <Sample testId="search-agents" note="Search field · long text · 120 characters">
           <InputGroup>
             <InputGroupAddon>
               <Search aria-hidden="true" />
@@ -220,7 +165,7 @@ export function InputGroupSearch() {
               placeholder="Search agents"
               maxLength={120}
               value={agentQuery}
-              onChange={(event) => setAgentQuery(event.currentTarget.value)}
+              onChange={event => setAgentQuery(event.currentTarget.value)}
             />
             {agentQuery && (
               <InputGroupAddon align="inline-end">
@@ -228,7 +173,7 @@ export function InputGroupSearch() {
                   size="icon-xs"
                   aria-label="Clear search"
                   onClick={() => {
-                    setAgentQuery("");
+                    setAgentQuery('');
                     agentInput.current?.focus();
                   }}
                 >
@@ -238,9 +183,7 @@ export function InputGroupSearch() {
             )}
           </InputGroup>
           <p role="status" className="input-group-demo-muted">
-            {shownAgents.length
-              ? `${shownAgents.length} agents`
-              : "No agents match. Clear the search to see all."}
+            {shownAgents.length ? `${shownAgents.length} agents` : 'No agents match. Clear the search to see all.'}
           </p>
         </Sample>
       </div>
@@ -251,15 +194,12 @@ export function InputGroupSearch() {
 const slugPattern = /^[a-z0-9](?:[a-z0-9-]{1,46}[a-z0-9])$/;
 
 export function InputGroupWorkspaceUrl() {
-  const [slug, setSlug] = useState("acme");
+  const [slug, setSlug] = useState('acme');
   const [touched, setTouched] = useState(false);
   const [saving, setSaving] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
-  const error =
-    touched && !slugPattern.test(slug)
-      ? "Use 3 to 48 lowercase letters, numbers, or hyphens."
-      : "";
+  const error = touched && !slugPattern.test(slug) ? 'Use 3 to 48 lowercase letters, numbers, or hyphens.' : '';
   const submit = (event: FormEvent) => {
     event.preventDefault();
     setTouched(true);
@@ -273,11 +213,7 @@ export function InputGroupWorkspaceUrl() {
       description="Large group with a text prefix. Invalid input turns the whole group red, and the field is locked while the workspace saves."
     >
       <div className="input-group-demo-grid">
-        <form
-          className="input-group-demo-sample"
-          data-testid="workspace-url"
-          onSubmit={submit}
-        >
+        <form className="input-group-demo-sample" data-testid="workspace-url" onSubmit={submit}>
           <Label htmlFor="workspace-slug">Workspace URL</Label>
           <InputGroup size="lg">
             <InputGroupAddon>
@@ -296,21 +232,17 @@ export function InputGroupWorkspaceUrl() {
               disabled={saving}
               aria-invalid={Boolean(error)}
               aria-describedby="workspace-slug-hint"
-              onChange={(event) => setSlug(event.currentTarget.value)}
+              onChange={event => setSlug(event.currentTarget.value)}
               onBlur={() => setTouched(true)}
             />
           </InputGroup>
           <p
             id="workspace-slug-hint"
             aria-live="polite"
-            className={
-              error ? "input-group-demo-danger" : "input-group-demo-muted"
-            }
+            className={error ? 'input-group-demo-danger' : 'input-group-demo-muted'}
           >
             {error ||
-              (saving
-                ? "Creating workspace…"
-                : "Choose carefully. This address cannot be changed after creation.")}
+              (saving ? 'Creating workspace…' : 'Choose carefully. This address cannot be changed after creation.')}
           </p>
           <div>
             <Button
@@ -318,15 +250,12 @@ export function InputGroupWorkspaceUrl() {
 
               disabled={saving}
             >
-              {saving ? "Creating…" : "Create workspace"}
+              {saving ? 'Creating…' : 'Create workspace'}
             </Button>
           </div>
         </form>
         <div className="input-group-demo-stack">
-          <Sample
-            testId="workspace-url-invalid"
-            note="Invalid · aria-invalid on the input"
-          >
+          <Sample testId="workspace-url-invalid" note="Invalid · aria-invalid on the input">
             <InputGroup size="lg">
               <InputGroupAddon>
                 <InputGroupText>app.tulipfarm.ai/</InputGroupText>
@@ -347,11 +276,7 @@ export function InputGroupWorkspaceUrl() {
               <InputGroupAddon>
                 <InputGroupText>app.tulipfarm.ai/</InputGroupText>
               </InputGroupAddon>
-              <InputGroupInput
-                aria-label="Workspace URL while saving"
-                defaultValue="northwind-traders"
-                disabled
-              />
+              <InputGroupInput aria-label="Workspace URL while saving" defaultValue="northwind-traders" disabled />
             </InputGroup>
           </Sample>
         </div>
@@ -360,16 +285,7 @@ export function InputGroupWorkspaceUrl() {
   );
 }
 
-const fruits = [
-  "Apple",
-  "Banana",
-  "Blueberry",
-  "Cherry",
-  "Grape",
-  "Mango",
-  "Orange",
-  "Pear",
-];
+const fruits = ['Apple', 'Banana', 'Blueberry', 'Cherry', 'Grape', 'Mango', 'Orange', 'Pear'];
 
 function FruitCombobox({
   label,
@@ -385,16 +301,12 @@ function FruitCombobox({
   defaultValue?: string | null;
 }) {
   return (
-    <Combobox.Root
-      items={fruits}
-      disabled={disabled}
-      defaultValue={defaultValue}
-    >
+    <Combobox.Root items={fruits} disabled={disabled} defaultValue={defaultValue}>
       <InputGroup className="input-group-demo-combobox">
         <Combobox.Input
           render={<InputGroupInput disabled={disabled} />}
           aria-label={label}
-          placeholder={disabled ? "Disabled" : "Choose a fruit"}
+          placeholder={disabled ? 'Disabled' : 'Choose a fruit'}
         />
         <InputGroupAddon align="inline-end">
           {showTrigger && (
@@ -423,24 +335,12 @@ function FruitCombobox({
         </InputGroupAddon>
       </InputGroup>
       <Combobox.Portal>
-        <Combobox.Positioner
-          sideOffset={6}
-          className="input-group-demo-positioner"
-        >
-          <Combobox.Popup
-            data-slot="combobox-content"
-            className="input-group-demo-popup"
-          >
-            <Combobox.Empty className="input-group-demo-empty">
-              No fruit found.
-            </Combobox.Empty>
+        <Combobox.Positioner sideOffset={6} className="input-group-demo-positioner">
+          <Combobox.Popup data-slot="combobox-content" className="input-group-demo-popup">
+            <Combobox.Empty className="input-group-demo-empty">No fruit found.</Combobox.Empty>
             <Combobox.List className="input-group-demo-options">
               {(item: string) => (
-                <Combobox.Item
-                  key={item}
-                  value={item}
-                  className="input-group-demo-option"
-                >
+                <Combobox.Item key={item} value={item} className="input-group-demo-option">
                   {item}
                   <Combobox.ItemIndicator className="input-group-demo-option-check">
                     <Check size={14} aria-hidden="true" />
@@ -462,18 +362,11 @@ export function InputGroupCombobox() {
       description="A Base UI Combobox renders its input and buttons through the group. The trigger and clear buttons are icon-xs; once there is a choice the clear button replaces the trigger."
     >
       <div className="input-group-demo-grid">
-        <Sample
-          testId="combobox-trigger"
-          note="Trigger · type or press ↓ to open"
-        >
+        <Sample testId="combobox-trigger" note="Trigger · type or press ↓ to open">
           <FruitCombobox label="Choose a fruit" />
         </Sample>
         <Sample testId="combobox-clear" note="Trigger and clear · chosen value">
-          <FruitCombobox
-            label="Favourite fruit"
-            showClear
-            defaultValue="Mango"
-          />
+          <FruitCombobox label="Favourite fruit" showClear defaultValue="Mango" />
         </Sample>
         <Sample testId="combobox-disabled" note="Disabled">
           <FruitCombobox label="Disabled fruit choice" disabled />
@@ -484,19 +377,17 @@ export function InputGroupCombobox() {
 }
 
 const personas = [
-  { id: "research", label: "Research", detail: "Searches and cites sources" },
-  { id: "writer", label: "Writer", detail: "Drafts and edits long text" },
-  { id: "invoice", label: "Invoice follow-up", detail: "Agent · Finance" },
-  { id: "renewal", label: "Renewal desk", detail: "Agent · Sales" },
+  { id: 'research', label: 'Research', detail: 'Searches and cites sources' },
+  { id: 'writer', label: 'Writer', detail: 'Drafts and edits long text' },
+  { id: 'invoice', label: 'Invoice follow-up', detail: 'Agent · Finance' },
+  { id: 'renewal', label: 'Renewal desk', detail: 'Agent · Sales' },
 ];
 
 export function InputGroupCommandSearch() {
-  const [query, setQuery] = useState("");
-  const [picked, setPicked] = useState("Research");
-  const shown = personas.filter((persona) =>
-    `${persona.label} ${persona.detail}`
-      .toLowerCase()
-      .includes(query.trim().toLowerCase()),
+  const [query, setQuery] = useState('');
+  const [picked, setPicked] = useState('Research');
+  const shown = personas.filter(persona =>
+    `${persona.label} ${persona.detail}`.toLowerCase().includes(query.trim().toLowerCase()),
   );
   return (
     <Example
@@ -513,25 +404,17 @@ export function InputGroupCommandSearch() {
               aria-controls="input-group-demo-personas"
               placeholder="Search modes and agents…"
               value={query}
-              onChange={(event) => setQuery(event.currentTarget.value)}
+              onChange={event => setQuery(event.currentTarget.value)}
             />
             <InputGroupAddon>
               <Search aria-hidden="true" />
             </InputGroupAddon>
           </InputGroup>
         </div>
-        <ul
-          id="input-group-demo-personas"
-          className="input-group-demo-command-list"
-          aria-label="Modes and agents"
-        >
-          {shown.map((persona) => (
+        <ul id="input-group-demo-personas" className="input-group-demo-command-list" aria-label="Modes and agents">
+          {shown.map(persona => (
             <li key={persona.id}>
-              <button
-                type="button"
-                aria-pressed={picked === persona.label}
-                onClick={() => setPicked(persona.label)}
-              >
+              <button type="button" aria-pressed={picked === persona.label} onClick={() => setPicked(persona.label)}>
                 <span>{persona.label}</span>
                 <span className="input-group-demo-note">{persona.detail}</span>
               </button>
@@ -549,31 +432,18 @@ export function InputGroupCommandSearch() {
 }
 
 const models = [
-  { id: "gpt", label: "GPT-5.4" },
-  { id: "claude", label: "Claude Sonnet 5 with extended reasoning" },
-  { id: "gemini", label: "Gemini 3 Flash" },
+  { id: 'gpt', label: 'GPT-5.4' },
+  { id: 'claude', label: 'Claude Sonnet 5 with extended reasoning' },
+  { id: 'gemini', label: 'Gemini 3 Flash' },
 ];
 
-type Phase = "idle" | "sending" | "replying";
+type Phase = 'idle' | 'sending' | 'replying';
 
-function FilesMenu({
-  disabled,
-  onPick,
-}: {
-  disabled: boolean;
-  onPick: (name: string) => void;
-}) {
+function FilesMenu({ disabled, onPick }: { disabled: boolean; onPick: (name: string) => void }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={
-          <InputGroupButton
-            size="sm"
-            variant="ghost"
-            aria-label="Add a file"
-            disabled={disabled}
-          />
-        }
+        render={<InputGroupButton size="sm" variant="ghost" aria-label="Add a file" disabled={disabled} />}
       >
         <Paperclip size={16} aria-hidden="true" />
         <span className="input-group-demo-wide-only">Files</span>
@@ -581,20 +451,16 @@ function FilesMenu({
       <DropdownMenuContent size="menu" side="top">
         <DropdownMenuGroup>
           <DropdownMenuLabel>What should happen to the file?</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onPick("pricing-2026.pdf")}>
+          <DropdownMenuItem onClick={() => onPick('pricing-2026.pdf')}>
             <span className="input-group-demo-menu-copy">
               <span>Read in this chat</span>
-              <span className="input-group-demo-note">
-                The agent reads it once.
-              </span>
+              <span className="input-group-demo-note">The agent reads it once.</span>
             </span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onPick("brand-guide.pdf")}>
+          <DropdownMenuItem onClick={() => onPick('brand-guide.pdf')}>
             <span className="input-group-demo-menu-copy">
               <span>Add to knowledge</span>
-              <span className="input-group-demo-note">
-                Every chat can search it.
-              </span>
+              <span className="input-group-demo-note">Every chat can search it.</span>
             </span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -605,17 +471,12 @@ function FilesMenu({
 
 function PersonaPicker({ disabled }: { disabled: boolean }) {
   const [value, setValue] = useState<string | null>(null);
-  const label = value ?? "Mode";
+  const label = value ?? 'Mode';
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <InputGroupButton
-            size="sm"
-            variant="ghost"
-            disabled={disabled}
-            aria-label={`Mode or agent: ${label}`}
-          />
+          <InputGroupButton size="sm" variant="ghost" disabled={disabled} aria-label={`Mode or agent: ${label}`} />
         }
       >
         <Sparkle size={16} aria-hidden="true" />
@@ -626,22 +487,14 @@ function PersonaPicker({ disabled }: { disabled: boolean }) {
         <DropdownMenuGroup>
           <DropdownMenuLabel>Modes and agents</DropdownMenuLabel>
           <DropdownMenuRadioGroup
-            value={value ?? ""}
-            onValueChange={(next) =>
-              setValue(next === value || !next ? null : String(next))
-            }
+            value={value ?? ''}
+            onValueChange={next => setValue(next === value || !next ? null : String(next))}
           >
-            {personas.map((persona) => (
-              <DropdownMenuRadioItem
-                key={persona.id}
-                value={persona.label}
-                closeOnClick
-              >
+            {personas.map(persona => (
+              <DropdownMenuRadioItem key={persona.id} value={persona.label} closeOnClick>
                 <span className="input-group-demo-option-text">
                   <span>{persona.label}</span>
-                  <span className="input-group-demo-note">
-                    {persona.detail}
-                  </span>
+                  <span className="input-group-demo-note">{persona.detail}</span>
                 </span>
               </DropdownMenuRadioItem>
             ))}
@@ -661,12 +514,7 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
           render={
             <DropdownMenuTrigger
               render={
-                <InputGroupButton
-                  size="sm"
-                  variant="ghost"
-                  disabled={disabled}
-                  aria-label={`Model: ${model.label}`}
-                />
+                <InputGroupButton size="sm" variant="ghost" disabled={disabled} aria-label={`Model: ${model.label}`} />
               }
             />
           }
@@ -682,16 +530,10 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
           <DropdownMenuLabel>Models</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={model.id}
-            onValueChange={(next) =>
-              setModel(models.find((item) => item.id === next) ?? model)
-            }
+            onValueChange={next => setModel(models.find(item => item.id === next) ?? model)}
           >
-            {models.map((candidate) => (
-              <DropdownMenuRadioItem
-                key={candidate.id}
-                value={candidate.id}
-                closeOnClick
-              >
+            {models.map(candidate => (
+              <DropdownMenuRadioItem key={candidate.id} value={candidate.id} closeOnClick>
                 {candidate.label}
               </DropdownMenuRadioItem>
             ))}
@@ -705,36 +547,36 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
 const draftLimit = 400;
 
 export function InputGroupComposer() {
-  const [draft, setDraft] = useState("");
-  const [files, setFiles] = useState<string[]>(["Q3-forecast.xlsx"]);
-  const [mode, setMode] = useState<"normal" | "plan">("normal");
-  const [phase, setPhase] = useState<Phase>("idle");
-  const [status, setStatus] = useState("Nothing has been sent.");
+  const [draft, setDraft] = useState('');
+  const [files, setFiles] = useState<string[]>(['Q3-forecast.xlsx']);
+  const [mode, setMode] = useState<'normal' | 'plan'>('normal');
+  const [phase, setPhase] = useState<Phase>('idle');
+  const [status, setStatus] = useState('Nothing has been sent.');
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
   const tooLong = draft.length > draftLimit;
   const canSend = draft.trim().length > 0 && !tooLong;
-  const sending = phase === "sending";
+  const sending = phase === 'sending';
   const stop = () => {
     timers.current.forEach(clearTimeout);
-    setPhase("idle");
-    setStatus("Reply stopped.");
+    setPhase('idle');
+    setStatus('Reply stopped.');
   };
   const send = (event: FormEvent) => {
     event.preventDefault();
-    if (!canSend || phase !== "idle") return;
-    setPhase("sending");
-    setStatus("Sending…");
+    if (!canSend || phase !== 'idle') return;
+    setPhase('sending');
+    setStatus('Sending…');
     timers.current = [
       setTimeout(() => {
-        setDraft("");
+        setDraft('');
         setFiles([]);
-        setPhase("replying");
-        setStatus("The agent is replying. Stop ends the reply.");
+        setPhase('replying');
+        setStatus('The agent is replying. Stop ends the reply.');
       }, 600),
       setTimeout(() => {
-        setPhase("idle");
-        setStatus("Reply finished. Nothing left this page.");
+        setPhase('idle');
+        setStatus('Reply finished. Nothing left this page.');
       }, 4000),
     ];
   };
@@ -743,15 +585,11 @@ export function InputGroupComposer() {
       title="Message composer"
       description="The composer variant stacks attachments, the message, and a toolbar. Toolbar buttons are sm with a label or icon-sm; send turns from secondary to default once there is text."
     >
-      <form
-        className="input-group-demo-sample"
-        data-testid="composer"
-        onSubmit={send}
-      >
+      <form className="input-group-demo-sample" data-testid="composer" onSubmit={send}>
         <InputGroup variant="composer">
           {files.length > 0 && (
             <InputGroupAddon align="block-start">
-              {files.map((file) => (
+              {files.map(file => (
                 <span key={file} className="input-group-demo-chip">
                   <FileText size={14} aria-hidden="true" />
                   <span className="input-group-demo-truncate">{file}</span>
@@ -759,9 +597,7 @@ export function InputGroupComposer() {
                     size="icon-xs"
                     aria-label={`Remove ${file}`}
                     disabled={sending}
-                    onClick={() =>
-                      setFiles(files.filter((name) => name !== file))
-                    }
+                    onClick={() => setFiles(files.filter(name => name !== file))}
                   >
                     <X aria-hidden="true" />
                   </InputGroupButton>
@@ -776,19 +612,14 @@ export function InputGroupComposer() {
             value={draft}
             disabled={sending}
             aria-invalid={tooLong || undefined}
-            aria-describedby={tooLong ? "composer-error" : undefined}
-            onChange={(event) => setDraft(event.currentTarget.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) send(event);
+            aria-describedby={tooLong ? 'composer-error' : undefined}
+            onChange={event => setDraft(event.currentTarget.value)}
+            onKeyDown={event => {
+              if (event.key === 'Enter' && !event.shiftKey) send(event);
             }}
           />
           <InputGroupAddon align="block-end" className="border-t">
-            <FilesMenu
-              disabled={sending}
-              onPick={(name) =>
-                setFiles((current) => [...new Set([...current, name])])
-              }
-            />
+            <FilesMenu disabled={sending} onPick={name => setFiles(current => [...new Set([...current, name])])} />
             <Tooltip>
               <TooltipTrigger
                 render={
@@ -797,26 +628,24 @@ export function InputGroupComposer() {
                     variant="ghost"
                     aria-label="Use a skill"
                     disabled={sending}
-                    onClick={() => setDraft((text) => (text ? text : "/"))}
+                    onClick={() => setDraft(text => (text ? text : '/'))}
                   />
                 }
               >
                 <BookOpen size={16} aria-hidden="true" />
                 <span className="input-group-demo-wide-only">Skills</span>
               </TooltipTrigger>
-              <TooltipContent>
-                Skills are saved procedures the agent follows · /
-              </TooltipContent>
+              <TooltipContent>Skills are saved procedures the agent follows · /</TooltipContent>
             </Tooltip>
             <Select
               value={mode}
               disabled={sending}
-              onValueChange={(value) => {
-                if (value === "normal" || value === "plan") setMode(value);
+              onValueChange={value => {
+                if (value === 'normal' || value === 'plan') setMode(value);
               }}
             >
               <SelectTrigger size="sm" aria-label="Chat mode">
-                <SelectValue>{mode === "plan" ? "Plan" : "Normal"}</SelectValue>
+                <SelectValue>{mode === 'plan' ? 'Plan' : 'Normal'}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="normal">Normal</SelectItem>
@@ -826,16 +655,11 @@ export function InputGroupComposer() {
             <PersonaPicker disabled={sending} />
             <div className="input-group-demo-toolbar-end">
               <ModelPicker disabled={sending} />
-              {phase === "replying" ? (
+              {phase === 'replying' ? (
                 <Tooltip>
                   <TooltipTrigger
                     render={
-                      <InputGroupButton
-                        size="icon-sm"
-                        variant="default"
-                        aria-label="Stop reply"
-                        onClick={stop}
-                      />
+                      <InputGroupButton size="icon-sm" variant="default" aria-label="Stop reply" onClick={stop} />
                     }
                   >
                     <Stop3 size={16} aria-hidden="true" />
@@ -849,7 +673,7 @@ export function InputGroupComposer() {
                       <InputGroupButton
                         type="submit"
                         size="icon-sm"
-                        variant={canSend ? "default" : "secondary"}
+                        variant={canSend ? 'default' : 'secondary'}
                         aria-label="Send message"
                         aria-busy={sending}
                         disabled={sending || !canSend}
@@ -865,13 +689,8 @@ export function InputGroupComposer() {
           </InputGroupAddon>
         </InputGroup>
         {tooLong && (
-          <p
-            id="composer-error"
-            role="alert"
-            className="input-group-demo-danger"
-          >
-            Shorten your message to {draftLimit} characters. It has{" "}
-            {draft.length}.
+          <p id="composer-error" role="alert" className="input-group-demo-danger">
+            Shorten your message to {draftLimit} characters. It has {draft.length}.
           </p>
         )}
         <p role="status" className="input-group-demo-note">
@@ -884,7 +703,7 @@ export function InputGroupComposer() {
 
 export function InputGroupQuestionComposer() {
   const editor = useRef<HTMLDivElement>(null);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [sent, setSent] = useState(false);
   return (
     <Example
@@ -892,10 +711,7 @@ export function InputGroupQuestionComposer() {
       description="While an agent waits on a question, the composer border goes quiet. Any element marked data-slot input-group-control, like this rich text box, drives the group's focus and invalid states."
     >
       <div className="input-group-demo-grid">
-        <div
-          className="input-group-demo-sample"
-          data-testid="question-composer"
-        >
+        <div className="input-group-demo-sample" data-testid="question-composer">
           <p className="input-group-demo-question">
             <Lightbulb size={14} aria-hidden="true" />
             The agent asked: Which region should the Q3 report cover?
@@ -911,24 +727,16 @@ export function InputGroupQuestionComposer() {
               suppressContentEditableWarning
               tabIndex={0}
               data-slot="input-group-control"
-              data-empty={text ? undefined : ""}
+              data-empty={text ? undefined : ''}
               className="input-group-demo-rich-text"
-              onInput={(event) => {
-                setText(event.currentTarget.textContent ?? "");
+              onInput={event => {
+                setText(event.currentTarget.textContent ?? '');
                 setSent(false);
               }}
             />
             <InputGroupAddon align="block-end">
               <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <InputGroupButton
-                      size="icon-sm"
-                      variant="ghost"
-                      aria-label="Attach files"
-                    />
-                  }
-                >
+                <TooltipTrigger render={<InputGroupButton size="icon-sm" variant="ghost" aria-label="Attach files" />}>
                   <Paperclip size={16} aria-hidden="true" />
                 </TooltipTrigger>
                 <TooltipContent>Attach files from your device</TooltipContent>
@@ -936,12 +744,12 @@ export function InputGroupQuestionComposer() {
               <div className="input-group-demo-toolbar-end">
                 <InputGroupButton
                   size="icon-sm"
-                  variant={text.trim() ? "default" : "secondary"}
+                  variant={text.trim() ? 'default' : 'secondary'}
                   aria-label="Send message"
                   disabled={!text.trim()}
                   onClick={() => {
-                    if (editor.current) editor.current.textContent = "";
-                    setText("");
+                    if (editor.current) editor.current.textContent = '';
+                    setText('');
                     setSent(true);
                     editor.current?.focus();
                   }}
@@ -952,37 +760,18 @@ export function InputGroupQuestionComposer() {
             </InputGroupAddon>
           </InputGroup>
           <p role="status" className="input-group-demo-note">
-            {sent
-              ? "Message sent locally."
-              : "question-composer · rich text control"}
+            {sent ? 'Message sent locally.' : 'question-composer · rich text control'}
           </p>
         </div>
-        <Sample
-          testId="composer-disabled"
-          note="composer · disabled while read-only"
-        >
+        <Sample testId="composer-disabled" note="composer · disabled while read-only">
           <InputGroup variant="composer">
-            <InputGroupTextarea
-              aria-label="Read-only chat message"
-              placeholder="This chat is read-only"
-              disabled
-            />
+            <InputGroupTextarea aria-label="Read-only chat message" placeholder="This chat is read-only" disabled />
             <InputGroupAddon align="block-end">
-              <InputGroupButton
-                size="icon-sm"
-                variant="ghost"
-                aria-label="Attach files"
-                disabled
-              >
+              <InputGroupButton size="icon-sm" variant="ghost" aria-label="Attach files" disabled>
                 <Paperclip size={16} aria-hidden="true" />
               </InputGroupButton>
               <div className="input-group-demo-toolbar-end">
-                <InputGroupButton
-                  size="icon-sm"
-                  variant="secondary"
-                  aria-label="Send message"
-                  disabled
-                >
+                <InputGroupButton size="icon-sm" variant="secondary" aria-label="Send message" disabled>
                   <ArrowUp size={16} aria-hidden="true" />
                 </InputGroupButton>
               </div>
@@ -995,7 +784,7 @@ export function InputGroupQuestionComposer() {
 }
 
 export function InputGroupDraft() {
-  const [draft, setDraft] = useState("");
+  const [draft, setDraft] = useState('');
   const [sent, setSent] = useState(false);
   return (
     <Example
@@ -1011,7 +800,7 @@ export function InputGroupDraft() {
             aria-label="Draft message"
             placeholder="Write something…"
             value={draft}
-            onChange={(event) => {
+            onChange={event => {
               setDraft(event.currentTarget.value);
               setSent(false);
             }}
@@ -1025,7 +814,7 @@ export function InputGroupDraft() {
               variant="default"
               disabled={!draft.trim()}
               onClick={() => {
-                setDraft("");
+                setDraft('');
                 setSent(true);
               }}
             >
@@ -1035,7 +824,7 @@ export function InputGroupDraft() {
           </InputGroupAddon>
         </InputGroup>
         <p role="status" className="input-group-demo-note">
-          {sent ? "Draft example sent locally." : "Nothing has been sent."}
+          {sent ? 'Draft example sent locally.' : 'Nothing has been sent.'}
         </p>
       </div>
     </Example>
@@ -1043,7 +832,7 @@ export function InputGroupDraft() {
 }
 
 export function InputGroupButtons() {
-  const [copied, setCopied] = useState("");
+  const [copied, setCopied] = useState('');
   return (
     <Example
       title="Button sizes"
@@ -1062,11 +851,7 @@ export function InputGroupButtons() {
             />
             <InputGroupAddon align="inline-end">
               <InputGroupButton
-                onClick={() =>
-                  setCopied(
-                    "Copy pressed for the invite link. This sample copies nothing.",
-                  )
-                }
+                onClick={() => setCopied('Copy pressed for the invite link. This sample copies nothing.')}
               >
                 Copy
               </InputGroupButton>
@@ -1075,17 +860,9 @@ export function InputGroupButtons() {
         </Sample>
         <Sample testId="button-sm" note="sm · secondary · icon and label">
           <InputGroup>
-            <InputGroupInput
-              aria-label="Invite by email"
-              placeholder="name@company.com"
-              type="email"
-            />
+            <InputGroupInput aria-label="Invite by email" placeholder="name@company.com" type="email" />
             <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                size="sm"
-                variant="secondary"
-                onClick={() => setCopied("Invitation queued locally.")}
-              >
+              <InputGroupButton size="sm" variant="secondary" onClick={() => setCopied('Invitation queued locally.')}>
                 <Send aria-hidden="true" />
                 Invite
               </InputGroupButton>
@@ -1094,20 +871,12 @@ export function InputGroupButtons() {
         </Sample>
         <Sample testId="button-icon-xs" note="icon-xs · ghost">
           <InputGroup>
-            <InputGroupInput
-              aria-label="Webhook secret"
-              readOnly
-              value="whsec_4f9c2a7e1b"
-            />
+            <InputGroupInput aria-label="Webhook secret" readOnly value="whsec_4f9c2a7e1b" />
             <InputGroupAddon align="inline-end">
               <InputGroupButton
                 size="icon-xs"
                 aria-label="Copy webhook secret"
-                onClick={() =>
-                  setCopied(
-                    "Copy pressed for the webhook secret. This sample copies nothing.",
-                  )
-                }
+                onClick={() => setCopied('Copy pressed for the webhook secret. This sample copies nothing.')}
               >
                 <Copy aria-hidden="true" />
               </InputGroupButton>
@@ -1116,20 +885,13 @@ export function InputGroupButtons() {
         </Sample>
         <Sample testId="button-icon-sm" note="lg · icon-sm · outline">
           <InputGroup size="lg">
-            <InputGroupInput
-              aria-label="Project name"
-              defaultValue="Q3 board pack"
-            />
+            <InputGroupInput aria-label="Project name" defaultValue="Q3 board pack" />
             <InputGroupAddon align="inline-end">
               <InputGroupButton
                 size="icon-sm"
                 variant="outline"
                 aria-label="Copy project name"
-                onClick={() =>
-                  setCopied(
-                    "Copy pressed for the project name. This sample copies nothing.",
-                  )
-                }
+                onClick={() => setCopied('Copy pressed for the project name. This sample copies nothing.')}
               >
                 <Copy aria-hidden="true" />
               </InputGroupButton>
@@ -1138,7 +900,7 @@ export function InputGroupButtons() {
         </Sample>
       </div>
       <p role="status" className="input-group-demo-note">
-        {copied || "No button pressed yet."}
+        {copied || 'No button pressed yet.'}
       </p>
     </Example>
   );

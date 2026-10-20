@@ -15,10 +15,10 @@ For a usage snippet of any component, read
 ## Setup
 
 ```css
-@import "tailwindcss";
-@import "@tulipfarm/sprout/styles.css";
+@import 'tailwindcss';
+@import '@tulipfarm/sprout/styles.css';
 /* Optional preset, then <html data-sprout-theme="tulipfarm"> */
-@import "@tulipfarm/sprout/themes/tulipfarm.css";
+@import '@tulipfarm/sprout/themes/tulipfarm.css';
 ```
 
 Presets: `neutral` (default), `tulipfarm`, `claude`, `chatgpt`, `cloudflare`,

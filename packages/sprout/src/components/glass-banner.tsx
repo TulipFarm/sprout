@@ -1,17 +1,7 @@
-import {
-  useEffect,
-  useId,
-  useImperativeHandle,
-  useRef,
-  type ComponentProps,
-  type ReactNode,
-} from "react";
-import { cn } from "../internal/classes.js";
+import { useEffect, useId, useImperativeHandle, useRef, type ComponentProps, type ReactNode } from 'react';
+import { cn } from '../internal/classes.js';
 
-export interface GlassBannerProps extends Omit<
-  ComponentProps<"div">,
-  "title" | "children"
-> {
+export interface GlassBannerProps extends Omit<ComponentProps<'div'>, 'title' | 'children'> {
   /** The headline on the glass. */
   title: ReactNode;
   /** A quieter line under the title. It also names the chip list. */
@@ -25,55 +15,25 @@ export interface GlassBannerProps extends Omit<
  * hidden from assistive technology; the chips are announced as a list named
  * by the caption, or by the title when there is no caption.
  */
-export function GlassBanner({
-  title,
-  caption,
-  className,
-  children,
-  ...props
-}: GlassBannerProps) {
+export function GlassBanner({ title, caption, className, children, ...props }: GlassBannerProps) {
   const id = useId();
   const titleId = `${id}-title`;
   const captionId = `${id}-caption`;
-  const hasCaption =
-    caption !== undefined &&
-    caption !== null &&
-    caption !== false &&
-    caption !== "";
+  const hasCaption = caption !== undefined && caption !== null && caption !== false && caption !== '';
 
   return (
-    <div
-      data-slot="glass-banner"
-      {...props}
-      className={cn("sprout-glass-banner", className)}
-    >
-      <div
-        data-slot="glass-banner-art"
-        className="sprout-glass-banner-art"
-        aria-hidden="true"
-      >
+    <div data-slot="glass-banner" {...props} className={cn('sprout-glass-banner', className)}>
+      <div data-slot="glass-banner-art" className="sprout-glass-banner-art" aria-hidden="true">
         {Array.from({ length: 5 }, (_, index) => (
-          <span
-            key={index}
-            data-slot="glass-bubble"
-            className="sprout-glass-bubble"
-          />
+          <span key={index} data-slot="glass-bubble" className="sprout-glass-bubble" />
         ))}
       </div>
       <div data-slot="glass-banner-copy" className="sprout-glass-banner-copy">
-        <p
-          id={titleId}
-          data-slot="glass-banner-title"
-          className="sprout-glass-banner-title"
-        >
+        <p id={titleId} data-slot="glass-banner-title" className="sprout-glass-banner-title">
           {title}
         </p>
         {hasCaption && (
-          <p
-            id={captionId}
-            data-slot="glass-banner-caption"
-            className="sprout-glass-banner-caption"
-          >
+          <p id={captionId} data-slot="glass-banner-caption" className="sprout-glass-banner-caption">
             {caption}
           </p>
         )}
@@ -89,19 +49,18 @@ export function GlassBanner({
   );
 }
 
-export interface GlassChipProps extends Omit<ComponentProps<"li">, "children"> {
+export interface GlassChipProps extends Omit<ComponentProps<'li'>, 'children'> {
   /** A 28px round badge before the text, such as a brand glyph or icon. */
   icon?: ReactNode;
   children: ReactNode;
 }
 
-const clamp = (value: number, limit: number) =>
-  Math.max(-limit, Math.min(limit, value));
+const clamp = (value: number, limit: number) => Math.max(-limit, Math.min(limit, value));
 
 const prefersReducedMotion = () =>
-  typeof window !== "undefined" &&
-  typeof window.matchMedia === "function" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
  * A glass pill that can be dragged with a pointer and springs back on
@@ -109,13 +68,7 @@ const prefersReducedMotion = () =>
  * controls and take no focus. With reduced motion the chip neither floats
  * nor springs; it snaps home on release.
  */
-export function GlassChip({
-  icon,
-  className,
-  children,
-  ref,
-  ...props
-}: GlassChipProps) {
+export function GlassChip({ icon, className, children, ref, ...props }: GlassChipProps) {
   const chip = useRef<HTMLLIElement>(null);
   useImperativeHandle(ref, () => chip.current!, []);
 
@@ -141,8 +94,8 @@ export function GlassChip({
     };
     const rest = () => {
       x = y = vx = vy = 0;
-      element.style.transform = "";
-      element.removeAttribute("data-dragging");
+      element.style.transform = '';
+      element.removeAttribute('data-dragging');
       frame = 0;
     };
     const tick = () => {
@@ -170,7 +123,7 @@ export function GlassChip({
       if (event.button !== 0 || pointer !== null) return;
       pointer = event.pointerId;
       element.setPointerCapture?.(pointer);
-      element.setAttribute("data-dragging", "");
+      element.setAttribute('data-dragging', '');
       startX = event.clientX - x;
       startY = event.clientY - y;
       targetX = x;
@@ -193,32 +146,24 @@ export function GlassChip({
       run();
     };
 
-    element.addEventListener("pointerdown", down);
-    element.addEventListener("pointermove", move);
-    element.addEventListener("pointerup", up);
-    element.addEventListener("pointercancel", up);
-    element.addEventListener("lostpointercapture", up);
+    element.addEventListener('pointerdown', down);
+    element.addEventListener('pointermove', move);
+    element.addEventListener('pointerup', up);
+    element.addEventListener('pointercancel', up);
+    element.addEventListener('lostpointercapture', up);
     return () => {
       cancelAnimationFrame(frame);
-      element.removeEventListener("pointerdown", down);
-      element.removeEventListener("pointermove", move);
-      element.removeEventListener("pointerup", up);
-      element.removeEventListener("pointercancel", up);
-      element.removeEventListener("lostpointercapture", up);
+      element.removeEventListener('pointerdown', down);
+      element.removeEventListener('pointermove', move);
+      element.removeEventListener('pointerup', up);
+      element.removeEventListener('pointercancel', up);
+      element.removeEventListener('lostpointercapture', up);
     };
   }, []);
 
   return (
-    <li
-      ref={chip}
-      data-slot="glass-chip"
-      {...props}
-      className={cn("sprout-glass-chip", className)}
-    >
-      <span
-        data-slot="glass-chip-surface"
-        className="sprout-glass-chip-surface"
-      >
+    <li ref={chip} data-slot="glass-chip" {...props} className={cn('sprout-glass-chip', className)}>
+      <span data-slot="glass-chip-surface" className="sprout-glass-chip-surface">
         {icon && (
           <span data-slot="glass-chip-icon" className="sprout-glass-chip-icon">
             {icon}

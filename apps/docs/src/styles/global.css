@@ -1,27 +1,27 @@
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/inter";
-@import "tailwindcss";
-@import "@tulipfarm/sprout/styles.css";
-@import "@tulipfarm/sprout/themes/neutral.css";
-@import "@tulipfarm/sprout/themes/tulipfarm.css";
-@import "@tulipfarm/sprout/themes/chatgpt.css";
-@import "@tulipfarm/sprout/themes/claude.css";
-@import "@tulipfarm/sprout/themes/cloudflare.css";
-@import "@tulipfarm/sprout/themes/discord.css";
-@import "@tulipfarm/sprout/themes/github.css";
-@import "@tulipfarm/sprout/themes/grok.css";
-@import "@tulipfarm/sprout/themes/linear.css";
-@import "@tulipfarm/sprout/themes/notion.css";
-@import "@tulipfarm/sprout/themes/perplexity.css";
-@import "@tulipfarm/sprout/themes/raycast.css";
-@import "@tulipfarm/sprout/themes/spotify.css";
-@import "@tulipfarm/sprout/themes/stripe.css";
-@import "@tulipfarm/sprout/themes/supabase.css";
-@import "@tulipfarm/sprout/themes/vercel.css";
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/inter';
+@import 'tailwindcss';
+@import '@tulipfarm/sprout/styles.css';
+@import '@tulipfarm/sprout/themes/neutral.css';
+@import '@tulipfarm/sprout/themes/tulipfarm.css';
+@import '@tulipfarm/sprout/themes/chatgpt.css';
+@import '@tulipfarm/sprout/themes/claude.css';
+@import '@tulipfarm/sprout/themes/cloudflare.css';
+@import '@tulipfarm/sprout/themes/discord.css';
+@import '@tulipfarm/sprout/themes/github.css';
+@import '@tulipfarm/sprout/themes/grok.css';
+@import '@tulipfarm/sprout/themes/linear.css';
+@import '@tulipfarm/sprout/themes/notion.css';
+@import '@tulipfarm/sprout/themes/perplexity.css';
+@import '@tulipfarm/sprout/themes/raycast.css';
+@import '@tulipfarm/sprout/themes/spotify.css';
+@import '@tulipfarm/sprout/themes/stripe.css';
+@import '@tulipfarm/sprout/themes/supabase.css';
+@import '@tulipfarm/sprout/themes/vercel.css';
 
 /* The neutral theme keeps the docs typeface; other themes bring their own font. */
-:root:is(:not([data-sprout-theme]), [data-sprout-theme="neutral"]) {
-  --sprout-font: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+:root:is(:not([data-sprout-theme]), [data-sprout-theme='neutral']) {
+  --sprout-font: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -34,8 +34,7 @@
   color-scheme: light dark;
   scroll-padding-top: calc(var(--docs-header) + 24px);
   -webkit-font-smoothing: antialiased;
-  scrollbar-color: color-mix(in oklab, var(--sprout-muted) 40%, transparent)
-    transparent;
+  scrollbar-color: color-mix(in oklab, var(--sprout-muted) 40%, transparent) transparent;
 }
 
 :root.light {
@@ -63,7 +62,7 @@ body {
 }
 
 /* The group draws the ring for its control, including inside portaled popups. */
-.sprout-input-group [data-slot="input-group-control"]:focus-visible {
+.sprout-input-group [data-slot='input-group-control']:focus-visible {
   outline: none;
 }
 
@@ -133,10 +132,10 @@ body {
   color: var(--sprout-muted);
 }
 .site-nav a:hover,
-.site-nav a[aria-current="page"] {
+.site-nav a[aria-current='page'] {
   color: var(--sprout-text);
 }
-.site-nav a[aria-current="page"] {
+.site-nav a[aria-current='page'] {
   font-weight: 550;
 }
 .docs-header-tools {
@@ -251,7 +250,7 @@ body {
   background: var(--sprout-hover);
   color: var(--sprout-text);
 }
-.docs-nav a[aria-current="page"] {
+.docs-nav a[aria-current='page'] {
   background: var(--sprout-hover);
   color: var(--sprout-text);
   font-weight: 550;
@@ -885,8 +884,7 @@ body {
         visibility 0s linear var(--sprout-motion-normal);
     }
     [data-nav-open] .docs-sidebar {
-      transition: transform var(--sprout-motion-normal)
-        var(--sprout-motion-ease);
+      transition: transform var(--sprout-motion-normal) var(--sprout-motion-ease);
     }
   }
 }

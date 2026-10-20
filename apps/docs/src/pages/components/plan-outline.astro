@@ -1,5 +1,5 @@
 ---
-import Docs from "../../layouts/Docs.astro";
+import Docs from '../../layouts/Docs.astro';
 import {
   PlanOutlineLongContent,
   PlanOutlineMarks,
@@ -8,8 +8,8 @@ import {
   PlanOutlinePlayground,
   PlanOutlineStates,
   PlanOutlineViewer,
-} from "../../components/PlanOutlineDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+} from '../../components/PlanOutlineDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -18,11 +18,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Plan Outline</h1>
   <p class="docs-lead">
-    A saved agent plan as a read-only outline. The header shows the plan's
-    status, a progress bar, and notices. Groups list their tasks. Each task
-    opens to show its brief, what “done” means, what it waits for, and actions.
+    A saved agent plan as a read-only outline. The header shows the plan's status, a progress bar, and notices. Groups
+    list their tasks. Each task opens to show its brief, what “done” means, what it waits for, and actions.
   </p>
-  <div class="mt-8"><PlanOutlinePlayground client:load /></div>
+  <div class="mt-8">
+    <PlanOutlinePlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -54,36 +55,32 @@ const tasks: PlanOutlineTask[] = [
     />
     <ul>
       <li>
-        <code>title</code>, <code>brief</code>: the plan name (an <code>h3</code
-        > that also names the section) and one paragraph under it.
+        <code>title</code>, <code>brief</code>: the plan name (an <code>h3</code> that also names the section) and one
+        paragraph under it.
       </li>
       <li>
-        <code>status</code> and <code>tone</code>: the badge text and its color. <code
-          >tone</code
-        > is <code>active</code>, <code>attention</code>, <code>done</code>, <code
-          >failed</code
-        >, or <code>neutral</code>.
+        <code>status</code> and <code>tone</code>: the badge text and its color. <code>tone</code> is{' '}
+        <code>active</code>, <code>attention</code>, <code>done</code>, <code>failed</code>, or <code>neutral</code>.
       </li>
       <li>
-        <code>progress</code>: the line under the bar, in words. The bar has one
-        segment per task; cancelled tasks are left out.
+        <code>progress</code>: the line under the bar, in words. The bar has one segment per task; cancelled tasks are
+        left out.
       </li>
       <li>
-        <code>notice</code> and <code>stale</code>: any content under the
-        progress, such as an <a href="/components/alert/">Alert</a>.
+        <code>notice</code> and <code>stale</code>: any content under the progress, such as an{' '}
+        <a href="/components/alert/">Alert</a>.
       </li>
       <li>
-        <code>tasks</code>: <code
-          >{
-            "{ id, title, mark, label, assignee?, brief?, criteria?, dependencies?, reason?, action?, children? }[]"
-          }</code
-        >. A task with <code>children</code> is a group.
+        <code>tasks</code>:{' '}
+        <code>
+          {'{ id, title, mark, label, assignee?, brief?, criteria?, dependencies?, reason?, action?, children? }[]'}
+        </code>
+        . A task with <code>children</code> is a group.
       </li>
     </ul>
     <p>
-      Plan Outline has one look and one size. Map your own plan data to tasks in
-      an adapter, as the examples here do. It never ticks, edits, reorders, or
-      assigns tasks.
+      Plan Outline has one look and one size. Map your own plan data to tasks in an adapter, as the examples here do. It
+      never ticks, edits, reorders, or assigns tasks.
     </p>
   </section>
   <section class="prose-section">
@@ -95,24 +92,26 @@ const tasks: PlanOutlineTask[] = [
       <code>cancelled</code> (crossed out). Every mark has a text
       <code>label</code>, so color is never the only signal.
     </p>
-    <div class="mt-4"><PlanOutlineMarks client:load /></div>
+    <div class="mt-4">
+      <PlanOutlineMarks client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Nested groups</h2>
     <p>
-      Groups start open and can nest. A group's <code>brief</code> shows above its
-      tasks. A group with no tasks says so.
+      Groups start open and can nest. A group's <code>brief</code> shows above its tasks. A group with no tasks says so.
     </p>
-    <div class="mt-4"><PlanOutlineNested client:load /></div>
+    <div class="mt-4">
+      <PlanOutlineNested client:load />
+    </div>
   </section>
   <section class="prose-section" id="details">
     <h2 class="section-title">Task details</h2>
     <p>
-      A task with a <code>reason</code>, <code>brief</code>,
-      <code>criteria</code>, <code>dependencies</code>, or <code>action</code>
-      opens to show them. A failed task's reason is red. Each dependency links to
-      its row and moves focus there, opening its group if it was closed. Tasks with
-      none of these are plain rows.
+      A task with a <code>reason</code>, <code>brief</code>,<code>criteria</code>, <code>dependencies</code>, or{' '}
+      <code>action</code>
+      opens to show them. A failed task's reason is red. Each dependency links to its row and moves focus there, opening
+      its group if it was closed. Tasks with none of these are plain rows.
     </p>
     <CodeBlock
       lang="tsx"
@@ -133,56 +132,56 @@ const tasks: PlanOutlineTask[] = [
 }`}
     />
     <p>
-      Pick “Waiting on you” or “Verified” in the playground above to open a task
-      with an action or a verification report.
+      Pick “Waiting on you” or “Verified” in the playground above to open a task with an action or a verification
+      report.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Notice and stale data</h2>
     <p>
-      Put alerts and requirement checks in <code>notice</code>. When a refresh
-      fails, keep the last plan and say so in <code>stale</code>.
+      Put alerts and requirement checks in <code>notice</code>. When a refresh fails, keep the last plan and say so in{' '}
+      <code>stale</code>.
     </p>
-    <div class="mt-4"><PlanOutlineNotices client:load /></div>
+    <div class="mt-4">
+      <PlanOutlineNotices client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Someone else's plan</h2>
     <p>
-      People who did not start the plan see who a task waits for, such as
-      “Waiting for a review”. The link to the task stays, so they can open it.
+      People who did not start the plan see who a task waits for, such as “Waiting for a review”. The link to the task
+      stays, so they can open it.
     </p>
-    <div class="mt-4"><PlanOutlineViewer client:load /></div>
+    <div class="mt-4">
+      <PlanOutlineViewer client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Loading, error, and empty</h2>
     <p>
       Before a plan loads, show <a href="/components/skeleton/">Skeleton</a>
-      lines. When it can't load, use a <a href="/components/state-panel/"
-        >State Panel</a
-      >. A plan with no tasks says none were added yet.
+      lines. When it can't load, use a <a href="/components/state-panel/">State Panel</a>. A plan with no tasks says
+      none were added yet.
     </p>
-    <div class="mt-4"><PlanOutlineStates client:load /></div>
+    <div class="mt-4">
+      <PlanOutlineStates client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Long content</h2>
-    <p>
-      Long titles, names, and links wrap. Labels stay at the end of the row.
-    </p>
-    <div class="mt-4"><PlanOutlineLongContent client:load /></div>
+    <p>Long titles, names, and links wrap. Labels stay at the end of the row.</p>
+    <div class="mt-4">
+      <PlanOutlineLongContent client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The outline is a <code>section</code> named by its title. Tasks are ordered
-      lists named “Tasks” and “Group tasks”. Rows with details are buttons with <code
-        >aria-expanded</code
-      >; Enter and Space open them. Mark icons and the bar are hidden from
-      screen readers; the label and progress text say the same.
+      The outline is a <code>section</code> named by its title. Tasks are ordered lists named “Tasks” and “Group tasks”.
+      Rows with details are buttons with <code>aria-expanded</code>; Enter and Space open them. Mark icons and the bar
+      are hidden from screen readers; the label and progress text say the same.
     </p>
-    <p>
-      Rows open in 180ms and chevrons turn in 120ms. With reduced motion they
-      change at once and the spinner stops.
-    </p>
+    <p>Rows open in 180ms and chevrons turn in 120ms. With reduced motion they change at once and the spinner stops.</p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
@@ -190,8 +189,8 @@ const tasks: PlanOutlineTask[] = [
       Running uses <code>--sprout-info</code>, attention
       <code>--sprout-warning</code>, done <code>--sprout-success</code>, failed
       <code>--sprout-danger</code>, and pending, blocked, and cancelled
-      <code>--sprout-muted</code>. Rows hover with <code>--sprout-hover</code>,
-      lines use <code>--sprout-line</code>, and links
+      <code>--sprout-muted</code>. Rows hover with <code>--sprout-hover</code>, lines use <code>--sprout-line</code>,
+      and links
       <code>--sprout-primary</code>.
     </p>
   </section>

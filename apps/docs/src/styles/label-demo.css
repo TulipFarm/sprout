@@ -78,7 +78,7 @@
   color: var(--sprout-muted);
   overflow-wrap: anywhere;
 }
-.label-demo-message[data-tone="danger"] {
+.label-demo-message[data-tone='danger'] {
   color: var(--sprout-danger);
 }
 .label-demo-break {
@@ -241,7 +241,7 @@
   background: var(--sprout-border);
   cursor: pointer;
 }
-.label-demo-switch[data-size="sm"] {
+.label-demo-switch[data-size='sm'] {
   width: 24px;
   height: 14px;
 }
@@ -255,7 +255,7 @@
   background: var(--sprout-surface);
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.16);
 }
-.label-demo-switch[data-size="sm"] .label-demo-switch-thumb {
+.label-demo-switch[data-size='sm'] .label-demo-switch-thumb {
   width: 12px;
   height: 12px;
 }
@@ -263,7 +263,7 @@
   transform: translateX(14px);
   background: var(--sprout-on-primary);
 }
-.label-demo-switch[data-size="sm"] .label-demo-switch-thumb[data-checked] {
+.label-demo-switch[data-size='sm'] .label-demo-switch-thumb[data-checked] {
   transform: translateX(10px);
 }
 
@@ -271,11 +271,7 @@
   outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   outline-offset: 0;
 }
-:is(
-  .label-demo-checkbox,
-  .label-demo-radio,
-  .label-demo-switch
-)[data-disabled] {
+:is(.label-demo-checkbox, .label-demo-radio, .label-demo-switch)[data-disabled] {
   cursor: not-allowed;
   opacity: 0.5;
 }

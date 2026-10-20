@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -12,7 +12,7 @@ import {
   type DragEvent,
   type KeyboardEvent,
   type ReactNode,
-} from "react";
+} from 'react';
 import {
   DndContext,
   KeyboardSensor,
@@ -21,7 +21,7 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
-} from "@dnd-kit/core";
+} from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
@@ -29,8 +29,8 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import {
   aggregationFn_count,
   aggregationFn_max,
@@ -83,20 +83,20 @@ import {
   type RowSelectionState,
   type SortingState,
   type Updater,
-} from "@tanstack/react-table";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import { ArrowDown } from "reicon-react/icons/ArrowDown";
-import { ArrowUp } from "reicon-react/icons/ArrowUp";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { InfoCircle } from "reicon-react/icons/InfoCircle";
-import { Plus } from "reicon-react/icons/Plus";
-import { Reorder } from "reicon-react/icons/Reorder";
-import { SortV } from "reicon-react/icons/SortV";
-import { X } from "reicon-react/icons/X";
-import { cn } from "../internal/classes.js";
-import { Button } from "./button.js";
-import { Checkbox } from "./checkbox.js";
+} from '@tanstack/react-table';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { ArrowDown } from 'reicon-react/icons/ArrowDown';
+import { ArrowUp } from 'reicon-react/icons/ArrowUp';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { InfoCircle } from 'reicon-react/icons/InfoCircle';
+import { Plus } from 'reicon-react/icons/Plus';
+import { Reorder } from 'reicon-react/icons/Reorder';
+import { SortV } from 'reicon-react/icons/SortV';
+import { X } from 'reicon-react/icons/X';
+import { cn } from '../internal/classes.js';
+import { Button } from './button.js';
+import { Checkbox } from './checkbox.js';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -109,43 +109,20 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./dropdown-menu.js";
-import { Input } from "./input.js";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover.js";
-import { ScrollArea } from "./scroll-area.js";
-import { SearchField } from "./search-field.js";
-import { Skeleton } from "./skeleton.js";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./tooltip.js";
+} from './dropdown-menu.js';
+import { Input } from './input.js';
+import { Popover, PopoverContent, PopoverTrigger } from './popover.js';
+import { ScrollArea } from './scroll-area.js';
+import { SearchField } from './search-field.js';
+import { Skeleton } from './skeleton.js';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip.js';
 
-export const tableVariantNames = ["plain", "grid"] as const;
-export const tableNarrowNames = ["scroll", "stack"] as const;
-export const tableAlignNames = ["left", "right"] as const;
-export const tableFilterNames = [
-  "text",
-  "number",
-  "select",
-  "date",
-  "boolean",
-] as const;
-export const tableEditNames = [
-  "text",
-  "number",
-  "select",
-  "date",
-  "checkbox",
-] as const;
-export const tableAggregateNames = [
-  "sum",
-  "count",
-  "min",
-  "max",
-  "mean",
-] as const;
+export const tableVariantNames = ['plain', 'grid'] as const;
+export const tableNarrowNames = ['scroll', 'stack'] as const;
+export const tableAlignNames = ['left', 'right'] as const;
+export const tableFilterNames = ['text', 'number', 'select', 'date', 'boolean'] as const;
+export const tableEditNames = ['text', 'number', 'select', 'date', 'checkbox'] as const;
+export const tableAggregateNames = ['sum', 'count', 'min', 'max', 'mean'] as const;
 
 export type TableVariant = (typeof tableVariantNames)[number];
 export type TableNarrow = (typeof tableNarrowNames)[number];
@@ -181,7 +158,7 @@ export interface TableColumn<Row> {
   aggregate?: TableAggregate;
   /** Formats aggregate values. Defaults to `toLocaleString()`. */
   formatAggregate?: (value: number) => ReactNode;
-  pin?: "left" | "right";
+  pin?: 'left' | 'right';
   hidden?: boolean;
 }
 
@@ -203,15 +180,15 @@ export interface TableState {
 }
 
 export const tableLayoutKeys = [
-  "columnSizing",
-  "columnOrder",
-  "columnPinning",
-  "columnVisibility",
+  'columnSizing',
+  'columnOrder',
+  'columnPinning',
+  'columnVisibility',
 ] as const satisfies readonly (keyof TableState)[];
 
 export interface TableProps<Row> {
   /** Names the table, and the scrolling region when it overflows. */
-  "aria-label": string;
+  'aria-label': string;
   data: Row[];
   columns: TableColumn<Row>[];
   getRowId: (row: Row) => string;
@@ -266,12 +243,11 @@ export interface TableProps<Row> {
 
 // dnd-kit's live region is a div; inside <table> it breaks the table roles.
 const dndAccessibility = {
-  container: typeof document === "undefined" ? undefined : document.body,
+  container: typeof document === 'undefined' ? undefined : document.body,
 };
 
 const isAnyOf = constructFilterFn({
-  filter: (dataValue: unknown, filterValue: string[]) =>
-    filterValue.includes(String(dataValue)),
+  filter: (dataValue: unknown, filterValue: string[]) => filterValue.includes(String(dataValue)),
   autoRemove: (value: string[] | undefined) => !value?.length,
 });
 
@@ -321,42 +297,32 @@ type TRow<R extends RowData> = Row<Features, R>;
 type TColumn<R extends RowData> = Column<Features, R>;
 
 const filterFnFor = {
-  text: "includesString",
-  number: "inNumberRange",
-  select: "isAnyOf",
-  date: "inDateRange",
-  boolean: "equals",
+  text: 'includesString',
+  number: 'inNumberRange',
+  select: 'isAnyOf',
+  date: 'inDateRange',
+  boolean: 'equals',
 } as const;
 
 const DEFAULT_PAGE_SIZE = 10;
 
-const pageResetKeys = new Set<keyof TableState>([
-  "sorting",
-  "columnFilters",
-  "globalFilter",
-  "grouping",
-]);
+const pageResetKeys = new Set<keyof TableState>(['sorting', 'columnFilters', 'globalFilter', 'grouping']);
 
-function initialState<R extends RowData>(
-  columns: TableColumn<R>[],
-  pageSize: number | undefined,
-): TableState {
+function initialState<R extends RowData>(columns: TableColumn<R>[], pageSize: number | undefined): TableState {
   return {
     sorting: [],
     columnFilters: [],
-    globalFilter: "",
+    globalFilter: '',
     grouping: [],
     expanded: true,
     pagination: { pageIndex: 0, pageSize: pageSize ?? DEFAULT_PAGE_SIZE },
     columnSizing: {},
     columnOrder: [],
     columnPinning: {
-      start: columns.filter((c) => c.pin === "left").map((c) => c.key),
-      end: columns.filter((c) => c.pin === "right").map((c) => c.key),
+      start: columns.filter(c => c.pin === 'left').map(c => c.key),
+      end: columns.filter(c => c.pin === 'right').map(c => c.key),
     },
-    columnVisibility: Object.fromEntries(
-      columns.filter((c) => c.hidden).map((c) => [c.key, false]),
-    ),
+    columnVisibility: Object.fromEntries(columns.filter(c => c.hidden).map(c => [c.key, false])),
   };
 }
 
@@ -373,12 +339,7 @@ function readLayout(key: string): Partial<TableState> {
 
 function writeLayout(key: string, state: TableState) {
   try {
-    localStorage.setItem(
-      storageKey(key),
-      JSON.stringify(
-        Object.fromEntries(tableLayoutKeys.map((k) => [k, state[k]])),
-      ),
-    );
+    localStorage.setItem(storageKey(key), JSON.stringify(Object.fromEntries(tableLayoutKeys.map(k => [k, state[k]]))));
   } catch {
     // Storage can be full or blocked; the Layout then lasts for this visit only.
   }
@@ -402,8 +363,8 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     columns,
     getRowId,
     rowLabel = getRowId,
-    variant = "plain",
-    narrow = "scroll",
+    variant = 'plain',
+    narrow = 'scroll',
     caption,
     manual = false,
     rowCount,
@@ -428,7 +389,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     empty,
     className,
   } = props;
-  const label = props["aria-label"];
+  const label = props['aria-label'];
 
   const [inner, setInner] = useState(() => initialState(columns, pageSize));
   const state: TableState = { ...inner, ...props.state };
@@ -445,7 +406,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
   useEffect(() => {
     if (!persistKey) return;
     const saved = readLayout(persistKey);
-    if (Object.keys(saved).length) setInner((prev) => ({ ...prev, ...saved }));
+    if (Object.keys(saved).length) setInner(prev => ({ ...prev, ...saved }));
   }, [persistKey]);
 
   const setSlice =
@@ -466,16 +427,13 @@ export function Table<R extends RowData>(props: TableProps<R>) {
       onStateChange?.(next);
     };
 
-  const byKey = useMemo(
-    () => new Map(columns.map((c) => [c.key as string, c])),
-    [columns],
-  );
+  const byKey = useMemo(() => new Map(columns.map(c => [c.key as string, c])), [columns]);
 
   const columnDefs = useMemo(
     () =>
       columns.map((c): ColumnDef<Features, R> => ({
         id: c.key,
-        accessorFn: (row) => row[c.key],
+        accessorFn: row => row[c.key],
         header: c.header,
         enableSorting: c.sort ?? false,
         sortDescFirst: false,
@@ -495,28 +453,28 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     getRowId,
     ...(getSubRows ? { getSubRows } : {}),
     state: { ...state, rowSelection },
-    onSortingChange: setSlice("sorting"),
-    onColumnFiltersChange: setSlice("columnFilters"),
-    onGlobalFilterChange: setSlice("globalFilter"),
-    onGroupingChange: setSlice("grouping"),
-    onExpandedChange: setSlice("expanded"),
-    onPaginationChange: setSlice("pagination"),
-    onColumnSizingChange: setSlice("columnSizing"),
-    onColumnOrderChange: setSlice("columnOrder"),
-    onColumnPinningChange: setSlice("columnPinning"),
-    onColumnVisibilityChange: setSlice("columnVisibility"),
-    onRowSelectionChange: (updater) => {
+    onSortingChange: setSlice('sorting'),
+    onColumnFiltersChange: setSlice('columnFilters'),
+    onGlobalFilterChange: setSlice('globalFilter'),
+    onGroupingChange: setSlice('grouping'),
+    onExpandedChange: setSlice('expanded'),
+    onPaginationChange: setSlice('pagination'),
+    onColumnSizingChange: setSlice('columnSizing'),
+    onColumnOrderChange: setSlice('columnOrder'),
+    onColumnPinningChange: setSlice('columnPinning'),
+    onColumnVisibilityChange: setSlice('columnVisibility'),
+    onRowSelectionChange: updater => {
       const next = functionalUpdate(updater, rowSelection);
       setRowSelection(next);
-      onSelectionChange?.(Object.keys(next).filter((id) => next[id]));
+      onSelectionChange?.(Object.keys(next).filter(id => next[id]));
     },
-    globalFilterFn: "includesString",
-    groupedColumnMode: "remove",
+    globalFilterFn: 'includesString',
+    groupedColumnMode: 'remove',
     // The reset would use TanStack's empty default, closing every group on each search.
     autoResetExpanded: false,
     // TanStack resets on every new state array (inline or URL state) and never in manual mode; setSlice resets instead.
     autoResetPageIndex: false,
-    columnResizeMode: "onChange",
+    columnResizeMode: 'onChange',
     enableMultiSort: true,
     manualSorting: manual,
     manualFiltering: manual,
@@ -531,7 +489,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     ...table.getCenterVisibleLeafColumns(),
     ...table.getEndVisibleLeafColumns(),
   ];
-  const editable = !!onRowSave && columns.some((c) => c.edit);
+  const editable = !!onRowSave && columns.some(c => c.edit);
   const hasActions = !!actions || editable;
   const draggableRows =
     !!onRowReorder &&
@@ -539,40 +497,31 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     state.grouping.length === 0 &&
     state.columnFilters.length === 0 &&
     !state.globalFilter;
-  const totals =
-    columns.some((c) => c.aggregate) && !loading && rows.length > 0;
-  const colSpan =
-    leafColumns.length +
-    (selectable ? 1 : 0) +
-    (onRowReorder ? 1 : 0) +
-    (hasActions ? 1 : 0);
-  const sized = resizable || columns.some((c) => c.width);
+  const totals = columns.some(c => c.aggregate) && !loading && rows.length > 0;
+  const colSpan = leafColumns.length + (selectable ? 1 : 0) + (onRowReorder ? 1 : 0) + (hasActions ? 1 : 0);
+  const sized = resizable || columns.some(c => c.width);
   const pinsStart = !!state.columnPinning.start?.length;
   const pinned = pinsStart || !!state.columnPinning.end?.length;
-  const pinLayout = `${leafColumns.map((c) => `${c.id}:${c.getIsPinned()}`).join()}|${selectable}|${!!onRowReorder}|${hasActions}`;
+  const pinLayout = `${leafColumns.map(c => `${c.id}:${c.getIsPinned()}`).join()}|${selectable}|${!!onRowReorder}|${hasActions}`;
 
   useLayoutEffect(() => {
     const row = headRowRef.current;
     if (!pinned || !row) return;
     const observer = new ResizeObserver(() => {
       const next = measurePinOffsets(Array.from(row.children) as HTMLElement[]);
-      setPinOffsets((prev) =>
-        JSON.stringify(prev) === JSON.stringify(next) ? prev : next,
-      );
+      setPinOffsets(prev => (JSON.stringify(prev) === JSON.stringify(next) ? prev : next));
     });
     for (const cell of row.children) observer.observe(cell);
     return () => observer.disconnect();
   }, [pinned, pinLayout]);
 
   const selectRow = (row: TRow<R>, checked: boolean, range: boolean) => {
-    const ids = rows
-      .filter((r) => !r.getIsGrouped() && r.getCanSelect())
-      .map((r) => r.id);
+    const ids = rows.filter(r => !r.getIsGrouped() && r.getCanSelect()).map(r => r.id);
     const from = anchorRef.current ? ids.indexOf(anchorRef.current) : -1;
     const to = ids.indexOf(row.id);
     if (range && from !== -1 && to !== -1) {
       const span = ids.slice(Math.min(from, to), Math.max(from, to) + 1);
-      table.setRowSelection((prev) => {
+      table.setRowSelection(prev => {
         const next = { ...prev };
         for (const id of span) {
           if (checked) next[id] = true;
@@ -602,28 +551,20 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     initialRect: { width: 0, height: 600 },
   });
   const virtualItems = virtualizer.getVirtualItems();
-  const visibleRows = virtual
-    ? virtualItems.flatMap((item) => rows[item.index] ?? [])
-    : rows;
+  const visibleRows = virtual ? virtualItems.flatMap(item => rows[item.index] ?? []) : rows;
   const paddingTop = virtual ? (virtualItems[0]?.start ?? 0) : 0;
-  const paddingBottom = virtual
-    ? virtualizer.getTotalSize() - (virtualItems.at(-1)?.end ?? 0)
-    : 0;
+  const paddingBottom = virtual ? virtualizer.getTotalSize() - (virtualItems.at(-1)?.end ?? 0) : 0;
 
   const startEdit = (row: TRow<R>) =>
     setEditing({
       id: row.id,
-      draft: Object.fromEntries(
-        columns.filter((c) => c.edit).map((c) => [c.key, row.original[c.key]]),
-      ),
+      draft: Object.fromEntries(columns.filter(c => c.edit).map(c => [c.key, row.original[c.key]])),
     });
 
   const saveEdit = async (row: TRow<R>) => {
     if (!editing || !onRowSave) return;
     const changes = Object.fromEntries(
-      Object.entries(editing.draft).filter(
-        ([key, value]) => row.original[key as keyof R] !== value,
-      ),
+      Object.entries(editing.draft).filter(([key, value]) => row.original[key as keyof R] !== value),
     ) as Partial<R>;
     setEditing({ ...editing, saving: true });
     try {
@@ -640,16 +581,8 @@ export function Table<R extends RowData>(props: TableProps<R>) {
 
   const onColumnDragEnd = ({ active, over }: DragEndEvent) => {
     if (!over || active.id === over.id) return;
-    const order = state.columnOrder.length
-      ? state.columnOrder
-      : table.getAllLeafColumns().map((c) => c.id);
-    table.setColumnOrder(
-      arrayMove(
-        order,
-        order.indexOf(String(active.id)),
-        order.indexOf(String(over.id)),
-      ),
-    );
+    const order = state.columnOrder.length ? state.columnOrder : table.getAllLeafColumns().map(c => c.id);
+    table.setColumnOrder(arrayMove(order, order.indexOf(String(active.id)), order.indexOf(String(over.id))));
   };
 
   const onRowDragEnd = ({ active, over }: DragEndEvent) => {
@@ -658,66 +591,46 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     onRowReorder(ids.indexOf(String(active.id)), ids.indexOf(String(over.id)));
   };
 
-  const toolbar =
-    searchable || columns.some((c) => c.filter || c.group) || columnMenu;
+  const toolbar = searchable || columns.some(c => c.filter || c.group) || columnMenu;
 
   const allPageSelected = table.getIsAllPageRowsSelected();
   const somePageSelected = table.getIsSomePageRowsSelected();
-  const stack = narrow === "stack";
+  const stack = narrow === 'stack';
   const role = (value: string) => (stack ? value : undefined);
 
   const header = (
-    <thead
-      data-slot="table-header"
-      className="sprout-table-header"
-      role={role("rowgroup")}
-    >
+    <thead data-slot="table-header" className="sprout-table-header" role={role('rowgroup')}>
       <DndContext
         sensors={sensors}
         accessibility={dndAccessibility}
         collisionDetection={closestCenter}
         onDragEnd={onColumnDragEnd}
       >
-        <SortableContext
-          items={leafColumns.map((c) => c.id)}
-          strategy={horizontalListSortingStrategy}
-        >
-          <tr
-            ref={headRowRef}
-            data-slot="table-row"
-            className="sprout-table-row"
-            role={role("row")}
-          >
+        <SortableContext items={leafColumns.map(c => c.id)} strategy={horizontalListSortingStrategy}>
+          <tr ref={headRowRef} data-slot="table-row" className="sprout-table-row" role={role('row')}>
             {onRowReorder && (
               <th
                 className="sprout-table-head"
                 data-selection=""
                 data-column-id="__reorder"
-                role={role("columnheader")}
+                role={role('columnheader')}
               >
                 <span className="sprout-table-sr-only">Reorder</span>
               </th>
             )}
             {selectable && (
-              <th
-                className="sprout-table-head"
-                data-selection=""
-                data-column-id="__select"
-                role={role("columnheader")}
-              >
+              <th className="sprout-table-head" data-selection="" data-column-id="__select" role={role('columnheader')}>
                 <Checkbox
                   aria-label="Select all rows"
                   checked={allPageSelected}
                   indeterminate={!allPageSelected && somePageSelected}
-                  onCheckedChange={(checked) =>
-                    table.toggleAllPageRowsSelected(checked)
-                  }
+                  onCheckedChange={checked => table.toggleAllPageRowsSelected(checked)}
                 />
               </th>
             )}
             {table
               .getFlatHeaders()
-              .map((h) =>
+              .map(h =>
                 h.column.getIsVisible() ? (
                   <HeadCell
                     key={h.id}
@@ -726,7 +639,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
                     resizable={resizable}
                     reorderable={reorderable}
                     sized={sized}
-                    role={role("columnheader")}
+                    role={role('columnheader')}
                   />
                 ) : null,
               )}
@@ -735,7 +648,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
                 className="sprout-table-head"
                 data-sticky-end=""
                 data-column-id="__actions"
-                role={role("columnheader")}
+                role={role('columnheader')}
               >
                 <span className="sprout-table-sr-only">Actions</span>
               </th>
@@ -747,11 +660,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
   );
 
   const body = (
-    <tbody
-      data-slot="table-body"
-      className="sprout-table-body"
-      role={role("rowgroup")}
-    >
+    <tbody data-slot="table-body" className="sprout-table-body" role={role('rowgroup')}>
       {paddingTop > 0 && (
         <tr aria-hidden="true">
           <td colSpan={colSpan} style={{ height: paddingTop, padding: 0 }} />
@@ -759,22 +668,15 @@ export function Table<R extends RowData>(props: TableProps<R>) {
       )}
       {loading ? (
         Array.from({ length: 3 }, (_, i) => (
-          <tr
-            key={i}
-            className="sprout-table-row"
-            data-loading-row=""
-            role={role("row")}
-          >
-            {onRowReorder && (
-              <td className="sprout-table-cell" data-selection="" />
-            )}
+          <tr key={i} className="sprout-table-row" data-loading-row="" role={role('row')}>
+            {onRowReorder && <td className="sprout-table-cell" data-selection="" />}
             {selectable && (
               <td className="sprout-table-cell" data-selection="">
                 <Skeleton shape="checkbox" />
               </td>
             )}
-            {leafColumns.map((c) => (
-              <td key={c.id} className="sprout-table-cell" role={role("cell")}>
+            {leafColumns.map(c => (
+              <td key={c.id} className="sprout-table-cell" role={role('cell')}>
                 <Skeleton />
               </td>
             ))}
@@ -786,13 +688,9 @@ export function Table<R extends RowData>(props: TableProps<R>) {
           </tr>
         ))
       ) : rows.length === 0 ? (
-        <tr className="sprout-table-row" role={role("row")}>
-          <td
-            className="sprout-table-cell sprout-table-empty"
-            colSpan={colSpan}
-            role={role("cell")}
-          >
-            {empty ?? "No results."}
+        <tr className="sprout-table-row" role={role('row')}>
+          <td className="sprout-table-cell sprout-table-empty" colSpan={colSpan} role={role('cell')}>
+            {empty ?? 'No results.'}
           </td>
         </tr>
       ) : (
@@ -802,11 +700,8 @@ export function Table<R extends RowData>(props: TableProps<R>) {
           collisionDetection={closestCenter}
           onDragEnd={onRowDragEnd}
         >
-          <SortableContext
-            items={rows.map((r) => r.id)}
-            strategy={verticalListSortingStrategy}
-          >
-            {visibleRows.map((row) =>
+          <SortableContext items={rows.map(r => r.id)} strategy={verticalListSortingStrategy}>
+            {visibleRows.map(row =>
               row.getIsGrouped() ? (
                 <GroupRow
                   key={row.id}
@@ -833,7 +728,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
                   editable={editable}
                   onEditChange={(key, value) =>
                     setEditing(
-                      (prev) =>
+                      prev =>
                         prev && {
                           ...prev,
                           draft: { ...prev.draft, [key]: value },
@@ -846,15 +741,13 @@ export function Table<R extends RowData>(props: TableProps<R>) {
                   actions={actions}
                   hasActions={hasActions}
                   href={getRowHref?.(row.original)}
-                  onOpen={
-                    onRowClick ? () => onRowClick(row.original) : undefined
-                  }
+                  onOpen={onRowClick ? () => onRowClick(row.original) : undefined}
                   drop={
                     onRowDrop
                       ? {
                           active: dropTarget === row.id,
-                          set: (on) => setDropTarget(on ? row.id : null),
-                          onDrop: (files) => onRowDrop(row.original, files),
+                          set: on => setDropTarget(on ? row.id : null),
+                          onDrop: files => onRowDrop(row.original, files),
                         }
                       : undefined
                   }
@@ -876,12 +769,8 @@ export function Table<R extends RowData>(props: TableProps<R>) {
   );
 
   const footer = totals && (
-    <tfoot
-      data-slot="table-footer"
-      className="sprout-table-footer"
-      role={role("rowgroup")}
-    >
-      <tr className="sprout-table-row" role={role("row")}>
+    <tfoot data-slot="table-footer" className="sprout-table-footer" role={role('rowgroup')}>
+      <tr className="sprout-table-row" role={role('row')}>
         {onRowReorder && <td className="sprout-table-cell" data-selection="" />}
         {selectable && <td className="sprout-table-cell" data-selection="" />}
         {leafColumns.map((c, index) => {
@@ -890,17 +779,13 @@ export function Table<R extends RowData>(props: TableProps<R>) {
             <td
               key={c.id}
               className="sprout-table-cell"
-              data-align={config?.align ?? "left"}
+              data-align={config?.align ?? 'left'}
               data-label={config?.header}
-              role={role("cell")}
+              role={role('cell')}
               style={pinStyle(c, sized, pinOffsets)}
               data-pinned={c.getIsPinned() || undefined}
             >
-              {config?.aggregate
-                ? formatAggregate(config, c.getAggregationValue())
-                : index === 0
-                  ? "Total"
-                  : null}
+              {config?.aggregate ? formatAggregate(config, c.getAggregationValue()) : index === 0 ? 'Total' : null}
             </td>
           );
         })}
@@ -920,12 +805,10 @@ export function Table<R extends RowData>(props: TableProps<R>) {
       aria-label={label}
       aria-rowcount={virtual ? rows.length + 1 : undefined}
       aria-busy={loading || undefined}
-      role={role("table")}
+      role={role('table')}
       style={{
         ...(sized ? { minWidth: table.getTotalSize() } : {}),
-        ...(pinOffsets.__select !== undefined
-          ? { "--sprout-table-select-start": `${pinOffsets.__select}px` }
-          : {}),
+        ...(pinOffsets.__select !== undefined ? { '--sprout-table-select-start': `${pinOffsets.__select}px` } : {}),
       }}
     >
       {caption && (
@@ -945,10 +828,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
 
   return (
     <TooltipProvider>
-      <div
-        data-slot="table-root"
-        className={cn("sprout-table-root", className)}
-      >
+      <div data-slot="table-root" className={cn('sprout-table-root', className)}>
         {toolbar && (
           <Toolbar
             table={table}
@@ -958,8 +838,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
             columnMenu={columnMenu}
             onReset={() => {
               const reset = initialState(columns, pageSize);
-              for (const key of tableLayoutKeys)
-                setSlice(key)(reset[key] as never);
+              for (const key of tableLayoutKeys) setSlice(key)(reset[key] as never);
             }}
           />
         )}
@@ -975,13 +854,8 @@ export function Table<R extends RowData>(props: TableProps<R>) {
           >
             {tableElement}
           </div>
-        ) : variant === "grid" ? (
-          <ScrollArea
-            variant="table"
-            orientation="both"
-            viewportLabel={label}
-            data-slot="table-container"
-          >
+        ) : variant === 'grid' ? (
+          <ScrollArea variant="table" orientation="both" viewportLabel={label} data-slot="table-container">
             {tableElement}
           </ScrollArea>
         ) : (
@@ -1000,12 +874,7 @@ export function Table<R extends RowData>(props: TableProps<R>) {
             >
               Previous
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={!table.getCanNextPage()}
-              onClick={() => table.nextPage()}
-            >
+            <Button variant="outline" size="sm" disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
               Next
             </Button>
           </nav>
@@ -1025,22 +894,14 @@ function measurePinOffsets(cells: HTMLElement[]): PinOffsets {
   let start = 0;
   for (const cell of cells) {
     const id = cell.dataset.columnId;
-    if (
-      !id ||
-      (cell.dataset.selection === undefined && cell.dataset.pinned !== "start")
-    )
-      continue;
+    if (!id || (cell.dataset.selection === undefined && cell.dataset.pinned !== 'start')) continue;
     offsets[id] = start;
     start += cell.getBoundingClientRect().width;
   }
   let end = 0;
   for (const cell of [...cells].reverse()) {
     const id = cell.dataset.columnId;
-    if (
-      !id ||
-      (cell.dataset.stickyEnd === undefined && cell.dataset.pinned !== "end")
-    )
-      continue;
+    if (!id || (cell.dataset.stickyEnd === undefined && cell.dataset.pinned !== 'end')) continue;
     offsets[id] = end;
     end += cell.getBoundingClientRect().width;
   }
@@ -1055,39 +916,27 @@ function pinStyle<R extends RowData>(
   const pinned = column.getIsPinned();
   const width = sized ? column.getSize() : undefined;
   if (!pinned) return width ? { width } : undefined;
-  return pinned === "start"
+  return pinned === 'start'
     ? {
         width,
-        insetInlineStart: offsets[column.id] ?? column.getStart("start"),
+        insetInlineStart: offsets[column.id] ?? column.getStart('start'),
       }
-    : { width, insetInlineEnd: offsets[column.id] ?? column.getAfter("end") };
+    : { width, insetInlineEnd: offsets[column.id] ?? column.getAfter('end') };
 }
 
-function formatAggregate<R extends RowData>(
-  config: TableColumn<R>,
-  value: unknown,
-): ReactNode {
-  if (typeof value !== "number") return null;
-  return config.formatAggregate
-    ? config.formatAggregate(value)
-    : value.toLocaleString();
+function formatAggregate<R extends RowData>(config: TableColumn<R>, value: unknown): ReactNode {
+  if (typeof value !== 'number') return null;
+  return config.formatAggregate ? config.formatAggregate(value) : value.toLocaleString();
 }
 
 /** Joins the Tab order only while the table is wider than its container, so keyboard users can scroll it. */
-function PlainContainer({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) {
+function PlainContainer({ label, children }: { label: string; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const [overflowing, setOverflowing] = useState(false);
   useEffect(() => {
     const element = ref.current;
-    if (!element || typeof ResizeObserver === "undefined") return;
-    const measure = () =>
-      setOverflowing(element.scrollWidth > element.clientWidth);
+    if (!element || typeof ResizeObserver === 'undefined') return;
+    const measure = () => setOverflowing(element.scrollWidth > element.clientWidth);
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(element);
@@ -1101,7 +950,7 @@ function PlainContainer({
       data-overflowing={overflowing || undefined}
       className="sprout-table-container"
       tabIndex={overflowing ? 0 : undefined}
-      role={overflowing ? "region" : undefined}
+      role={overflowing ? 'region' : undefined}
       aria-label={overflowing ? label : undefined}
     >
       {children}
@@ -1126,7 +975,7 @@ function HeadCell<R extends RowData>({
 }) {
   const column = header.column;
   const title = config?.header ?? column.id;
-  const align = config?.align ?? "left";
+  const align = config?.align ?? 'left';
   const sorted = column.getIsSorted();
   const sortable = column.getCanSort();
   const sortable_ = useSortable({ id: column.id, disabled: !reorderable });
@@ -1143,21 +992,19 @@ function HeadCell<R extends RowData>({
   };
   const next = column.getNextSortingOrder();
   const hint =
-    sorted === "asc"
-      ? `, ascending. ${next === "desc" ? "Select for descending" : "Select to clear"}`
-      : sorted === "desc"
-        ? `, descending. ${next === "asc" ? "Select for ascending" : "Select to clear"}`
-        : "";
-  const Icon =
-    sorted === "asc" ? ArrowUp : sorted === "desc" ? ArrowDown : SortV;
+    sorted === 'asc'
+      ? `, ascending. ${next === 'desc' ? 'Select for descending' : 'Select to clear'}`
+      : sorted === 'desc'
+        ? `, descending. ${next === 'asc' ? 'Select for ascending' : 'Select to clear'}`
+        : '';
+  const Icon = sorted === 'asc' ? ArrowUp : sorted === 'desc' ? ArrowDown : SortV;
 
   const onResizeKey = (event: KeyboardEvent<HTMLDivElement>) => {
     const step = event.shiftKey ? 40 : 10;
-    const delta =
-      event.key === "ArrowRight" ? step : event.key === "ArrowLeft" ? -step : 0;
+    const delta = event.key === 'ArrowRight' ? step : event.key === 'ArrowLeft' ? -step : 0;
     if (!delta) return;
     event.preventDefault();
-    column.table.setColumnSizing((prev) => ({
+    column.table.setColumnSizing(prev => ({
       ...prev,
       [column.id]: Math.max(48, column.getSize() + delta),
     }));
@@ -1172,13 +1019,7 @@ function HeadCell<R extends RowData>({
       data-column-id={column.id}
       data-dragging={sortable_.isDragging || undefined}
       className="sprout-table-head"
-      aria-sort={
-        sorted === "asc"
-          ? "ascending"
-          : sorted === "desc"
-            ? "descending"
-            : undefined
-      }
+      aria-sort={sorted === 'asc' ? 'ascending' : sorted === 'desc' ? 'descending' : undefined}
       role={role}
       style={style}
     >
@@ -1196,10 +1037,10 @@ function HeadCell<R extends RowData>({
         )}
         {sortable ? (
           <Button
-            variant={sorted ? "secondary" : "ghost"}
-            size={align === "right" ? "column-header-end" : "column-header"}
+            variant={sorted ? 'secondary' : 'ghost'}
+            size={align === 'right' ? 'column-header-end' : 'column-header'}
             aria-label={`Sort by ${title}${hint}`}
-            title={sorted ? undefined : "Sort ascending"}
+            title={sorted ? undefined : 'Sort ascending'}
             onClick={column.getToggleSortingHandler()}
           >
             {title}
@@ -1211,13 +1052,7 @@ function HeadCell<R extends RowData>({
         {config?.hint && (
           <Tooltip>
             <TooltipTrigger
-              render={
-                <button
-                  type="button"
-                  aria-label={`About ${title}`}
-                  className="sprout-table-hint"
-                />
-              }
+              render={<button type="button" aria-label={`About ${title}`} className="sprout-table-hint" />}
             >
               <InfoCircle size={14} aria-hidden="true" />
             </TooltipTrigger>
@@ -1264,22 +1099,15 @@ function GroupRow<R extends RowData>({
   rowIndex: number | undefined;
   role: (value: string) => string | undefined;
 }) {
-  const groupColumn = byKey.get(row.groupingColumnId ?? "");
+  const groupColumn = byKey.get(row.groupingColumnId ?? '');
   const value = row.groupingValue;
-  const option = groupColumn?.options?.find((o) => o.value === String(value));
-  const name =
-    option?.label ?? (value == null || value === "" ? "None" : String(value));
+  const option = groupColumn?.options?.find(o => o.value === String(value));
+  const name = option?.label ?? (value == null || value === '' ? 'None' : String(value));
   const expanded = row.getIsExpanded();
-  const leafRows = row.getLeafRows().filter((r) => !r.getIsGrouped());
+  const leafRows = row.getLeafRows().filter(r => !r.getIsGrouped());
   const offsets = useContext(PinOffsetsContext);
   return (
-    <tr
-      data-slot="table-row"
-      data-group=""
-      className="sprout-table-row"
-      aria-rowindex={rowIndex}
-      role={role("row")}
-    >
+    <tr data-slot="table-row" data-group="" className="sprout-table-row" aria-rowindex={rowIndex} role={role('row')}>
       {reorder && <td className="sprout-table-cell" data-selection="" />}
       {selectable && <td className="sprout-table-cell" data-selection="" />}
       {columns.map((column, index) => {
@@ -1288,9 +1116,9 @@ function GroupRow<R extends RowData>({
           <td
             key={column.id}
             className="sprout-table-cell"
-            data-align={index === 0 ? "left" : (config?.align ?? "left")}
+            data-align={index === 0 ? 'left' : (config?.align ?? 'left')}
             data-pinned={column.getIsPinned() || undefined}
-            role={role("cell")}
+            role={role('cell')}
             style={pinStyle(column, false, offsets)}
           >
             {index === 0 ? (
@@ -1309,15 +1137,10 @@ function GroupRow<R extends RowData>({
                 <span className="sprout-table-group-name">
                   {groupColumn?.header}: {name}
                 </span>
-                <span className="sprout-table-group-count">
-                  {leafRows.length}
-                </span>
+                <span className="sprout-table-group-count">{leafRows.length}</span>
               </button>
             ) : config?.aggregate ? (
-              formatAggregate(
-                config,
-                column.getAggregationValue({ rows: leafRows }),
-              )
+              formatAggregate(config, column.getAggregationValue({ rows: leafRows }))
             ) : null}
           </td>
         );
@@ -1385,18 +1208,14 @@ function BodyRow<R extends RowData>({
   const sortable = useSortable({ id: row.id, disabled: !reorder });
   const selected = row.getIsSelected();
   const offsets = useContext(PinOffsetsContext);
-  const hasFiles = (event: DragEvent) =>
-    event.dataTransfer.types.includes("Files");
+  const hasFiles = (event: DragEvent) => event.dataTransfer.types.includes('Files');
 
   const onKeyDown = (event: KeyboardEvent<HTMLTableRowElement>) => {
     if (!editing) return;
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       event.preventDefault();
       onCancel();
-    } else if (
-      event.key === "Enter" &&
-      event.target instanceof HTMLInputElement
-    ) {
+    } else if (event.key === 'Enter' && event.target instanceof HTMLInputElement) {
       event.preventDefault();
       onSave();
     }
@@ -1407,15 +1226,15 @@ function BodyRow<R extends RowData>({
       <tr
         ref={reorder !== undefined ? sortable.setNodeRef : undefined}
         data-slot="table-row"
-        data-state={selected ? "selected" : undefined}
-        data-editing={editing ? "" : undefined}
+        data-state={selected ? 'selected' : undefined}
+        data-editing={editing ? '' : undefined}
         data-drop-target={drop?.active || undefined}
-        data-linked={href || onOpen ? "" : undefined}
+        data-linked={href || onOpen ? '' : undefined}
         data-dragging={sortable.isDragging || undefined}
         className="sprout-table-row"
         aria-rowindex={rowIndex}
         aria-selected={selectable ? selected : undefined}
-        role={role("row")}
+        role={role('row')}
         style={
           sortable.transform
             ? {
@@ -1427,7 +1246,7 @@ function BodyRow<R extends RowData>({
         onKeyDown={onKeyDown}
         onDragOver={
           drop
-            ? (event) => {
+            ? event => {
                 if (!hasFiles(event)) return;
                 event.preventDefault();
                 if (!drop.active) drop.set(true);
@@ -1436,19 +1255,14 @@ function BodyRow<R extends RowData>({
         }
         onDragLeave={
           drop
-            ? (event) => {
-                if (
-                  !event.currentTarget.contains(
-                    event.relatedTarget as Node | null,
-                  )
-                )
-                  drop.set(false);
+            ? event => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) drop.set(false);
               }
             : undefined
         }
         onDrop={
           drop
-            ? (event) => {
+            ? event => {
                 if (!hasFiles(event)) return;
                 event.preventDefault();
                 drop.set(false);
@@ -1458,21 +1272,13 @@ function BodyRow<R extends RowData>({
         }
       >
         {reorder !== undefined && (
-          <td
-            className="sprout-table-cell"
-            data-selection=""
-            role={role("cell")}
-          >
+          <td className="sprout-table-cell" data-selection="" role={role('cell')}>
             <button
               type="button"
               className="sprout-table-handle"
               aria-label={`Move ${label}`}
               disabled={!reorder}
-              title={
-                reorder
-                  ? undefined
-                  : "Clear sorting, filters, and grouping to reorder"
-              }
+              title={reorder ? undefined : 'Clear sorting, filters, and grouping to reorder'}
               {...sortable.attributes}
               {...sortable.listeners}
             >
@@ -1481,41 +1287,31 @@ function BodyRow<R extends RowData>({
           </td>
         )}
         {selectable && (
-          <td
-            className="sprout-table-cell"
-            data-selection=""
-            role={role("cell")}
-          >
+          <td className="sprout-table-cell" data-selection="" role={role('cell')}>
             <Checkbox
               aria-label={`Select ${label}`}
               checked={selected}
               disabled={!row.getCanSelect()}
               onCheckedChange={(checked, details) =>
-                onSelect(
-                  checked,
-                  (details.event as MouseEvent | KeyboardEvent).shiftKey ===
-                    true,
-                )
+                onSelect(checked, (details.event as MouseEvent | KeyboardEvent).shiftKey === true)
               }
             />
           </td>
         )}
         {columns.map((column, index) => {
           const config = byKey.get(column.id);
-          const content = config?.cell
-            ? config.cell(row.original)
-            : (row.getValue(column.id) as ReactNode);
+          const content = config?.cell ? config.cell(row.original) : (row.getValue(column.id) as ReactNode);
           const first = index === 0;
           const canExpand = first && row.getCanExpand();
           return (
             <td
               key={column.id}
               data-slot="table-cell"
-              data-align={config?.align ?? "left"}
+              data-align={config?.align ?? 'left'}
               data-pinned={column.getIsPinned() || undefined}
               data-label={config?.header}
               className="sprout-table-cell"
-              role={role("cell")}
+              role={role('cell')}
               style={pinStyle(column, false, offsets)}
             >
               {editing && config?.edit ? (
@@ -1523,27 +1319,20 @@ function BodyRow<R extends RowData>({
                   config={config}
                   label={`${config.header} for ${label}`}
                   value={editing.draft[column.id]}
-                  onChange={(value) => onEditChange(column.id, value)}
-                  autoFocus={
-                    first ||
-                    columns.findIndex((c) => byKey.get(c.id)?.edit) === index
-                  }
+                  onChange={value => onEditChange(column.id, value)}
+                  autoFocus={first || columns.findIndex(c => byKey.get(c.id)?.edit) === index}
                 />
               ) : first ? (
                 <span
                   className="sprout-table-first"
-                  style={
-                    row.depth
-                      ? { paddingInlineStart: row.depth * 16 }
-                      : undefined
-                  }
+                  style={row.depth ? { paddingInlineStart: row.depth * 16 } : undefined}
                 >
                   {canExpand && (
                     <button
                       type="button"
                       className="sprout-table-toggle"
                       aria-expanded={row.getIsExpanded()}
-                      aria-label={`${row.getIsExpanded() ? "Collapse" : "Expand"} ${label}`}
+                      aria-label={`${row.getIsExpanded() ? 'Collapse' : 'Expand'} ${label}`}
                       onClick={row.getToggleExpandedHandler()}
                     >
                       {row.getIsExpanded() ? (
@@ -1558,11 +1347,7 @@ function BodyRow<R extends RowData>({
                       {content}
                     </a>
                   ) : onOpen ? (
-                    <button
-                      type="button"
-                      className="sprout-table-link"
-                      onClick={onOpen}
-                    >
+                    <button type="button" className="sprout-table-link" onClick={onOpen}>
                       {content}
                     </button>
                   ) : (
@@ -1576,35 +1361,21 @@ function BodyRow<R extends RowData>({
           );
         })}
         {hasActions && (
-          <td
-            className="sprout-table-cell"
-            data-sticky-end=""
-            role={role("cell")}
-          >
+          <td className="sprout-table-cell" data-sticky-end="" role={role('cell')}>
             <span className="sprout-table-actions">
               {editing ? (
                 <>
                   <Button size="sm" disabled={editing.saving} onClick={onSave}>
-                    {editing.saving ? "Saving" : "Save"}
+                    {editing.saving ? 'Saving' : 'Save'}
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    disabled={editing.saving}
-                    onClick={onCancel}
-                  >
+                  <Button size="sm" variant="ghost" disabled={editing.saving} onClick={onCancel}>
                     Cancel
                   </Button>
                 </>
               ) : (
                 <>
                   {editable && (
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      aria-label={`Edit ${label}`}
-                      onClick={onEdit}
-                    >
+                    <Button size="sm" variant="ghost" aria-label={`Edit ${label}`} onClick={onEdit}>
                       Edit
                     </Button>
                   )}
@@ -1616,12 +1387,8 @@ function BodyRow<R extends RowData>({
         )}
       </tr>
       {editing?.error && (
-        <tr className="sprout-table-row" data-error-row="" role={role("row")}>
-          <td
-            colSpan={colSpan}
-            className="sprout-table-cell sprout-table-error"
-            role="alert"
-          >
+        <tr className="sprout-table-row" data-error-row="" role={role('row')}>
+          <td colSpan={colSpan} className="sprout-table-cell sprout-table-error" role="alert">
             {editing.error}
           </td>
         </tr>
@@ -1643,26 +1410,26 @@ function Editor<R extends RowData>({
   onChange: (value: unknown) => void;
   autoFocus: boolean;
 }) {
-  if (config.edit === "checkbox") {
+  if (config.edit === 'checkbox') {
     return (
       <Checkbox
         aria-label={label}
         checked={Boolean(value)}
-        onCheckedChange={(checked) => onChange(checked)}
+        onCheckedChange={checked => onChange(checked)}
         autoFocus={autoFocus}
       />
     );
   }
-  if (config.edit === "select") {
+  if (config.edit === 'select') {
     return (
       <select
         aria-label={label}
         className="sprout-table-select"
-        value={String(value ?? "")}
-        onChange={(event) => onChange(event.target.value)}
+        value={String(value ?? '')}
+        onChange={event => onChange(event.target.value)}
         autoFocus={autoFocus}
       >
-        {config.options?.map((o) => (
+        {config.options?.map(o => (
           <option key={o.value} value={o.value}>
             {o.label}
           </option>
@@ -1673,19 +1440,9 @@ function Editor<R extends RowData>({
   return (
     <Input
       aria-label={label}
-      type={
-        config.edit === "number"
-          ? "number"
-          : config.edit === "date"
-            ? "date"
-            : "text"
-      }
-      value={value == null ? "" : String(value)}
-      onValueChange={(next) =>
-        onChange(
-          config.edit === "number" ? (next === "" ? null : Number(next)) : next,
-        )
-      }
+      type={config.edit === 'number' ? 'number' : config.edit === 'date' ? 'date' : 'text'}
+      value={value == null ? '' : String(value)}
+      onValueChange={next => onChange(config.edit === 'number' ? (next === '' ? null : Number(next)) : next)}
       autoFocus={autoFocus}
       className="sprout-table-input"
     />
@@ -1712,35 +1469,26 @@ function Toolbar<R extends RowData>({
   const [pending, setPending] = useState<string[]>([]);
   const [open, setOpen] = useState<string | null>(null);
   const filters = table.state.columnFilters;
-  const filterable = columns.filter((c) => c.filter);
-  const groupable = columns.filter((c) => c.group);
+  const filterable = columns.filter(c => c.filter);
+  const groupable = columns.filter(c => c.group);
   const grouping = table.state.grouping;
-  const chips = filterable.filter(
-    (c) => pending.includes(c.key) || filters.some((f) => f.id === c.key),
-  );
+  const chips = filterable.filter(c => pending.includes(c.key) || filters.some(f => f.id === c.key));
 
   return (
-    <div
-      className="sprout-table-toolbar"
-      role="toolbar"
-      aria-label={`${label} tools`}
-    >
+    <div className="sprout-table-toolbar" role="toolbar" aria-label={`${label} tools`}>
       {searchable && (
         <SearchField
           label={`Search ${label}`}
-          value={String(table.state.globalFilter ?? "")}
-          onChange={(value) => table.setGlobalFilter(value)}
+          value={String(table.state.globalFilter ?? '')}
+          onChange={value => table.setGlobalFilter(value)}
         />
       )}
-      {chips.map((c) => {
+      {chips.map(c => {
         const column = table.getColumn(c.key);
         if (!column) return null;
         return (
           <span key={c.key} className="sprout-table-chip">
-            <Popover
-              open={open === c.key}
-              onOpenChange={(next) => setOpen(next ? c.key : null)}
-            >
+            <Popover open={open === c.key} onOpenChange={next => setOpen(next ? c.key : null)}>
               <PopoverTrigger className="sprout-table-chip-label">
                 {c.header}
                 {describeFilter(c, column.getFilterValue())}
@@ -1755,7 +1503,7 @@ function Toolbar<R extends RowData>({
               aria-label={`Remove ${c.header} filter`}
               onClick={() => {
                 column.setFilterValue(undefined);
-                setPending((p) => p.filter((k) => k !== c.key));
+                setPending(p => p.filter(k => k !== c.key));
               }}
             >
               <X size={12} aria-hidden="true" />
@@ -1771,12 +1519,12 @@ function Toolbar<R extends RowData>({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" size="menu">
             {filterable
-              .filter((c) => !chips.includes(c))
-              .map((c) => (
+              .filter(c => !chips.includes(c))
+              .map(c => (
                 <DropdownMenuItem
                   key={c.key}
                   onClick={() => {
-                    setPending((p) => [...p, c.key]);
+                    setPending(p => [...p, c.key]);
                     setOpen(c.key);
                   }}
                 >
@@ -1790,17 +1538,15 @@ function Toolbar<R extends RowData>({
         {groupable.length > 0 && (
           <DropdownMenu>
             <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
-              {grouping.length ? `Group: ${grouping.length}` : "Group"}
+              {grouping.length ? `Group: ${grouping.length}` : 'Group'}
               <ChevronDown size={14} aria-hidden="true" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" size="menu">
-              {groupable.map((c) => (
+              {groupable.map(c => (
                 <DropdownMenuCheckboxItem
                   key={c.key}
                   checked={grouping.includes(c.key)}
-                  onCheckedChange={() =>
-                    table.getColumn(c.key)?.toggleGrouping()
-                  }
+                  onCheckedChange={() => table.getColumn(c.key)?.toggleGrouping()}
                 >
                   {c.header}
                 </DropdownMenuCheckboxItem>
@@ -1815,7 +1561,7 @@ function Toolbar<R extends RowData>({
               <ChevronDown size={14} aria-hidden="true" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" size="menu">
-              {columns.map((c) => {
+              {columns.map(c => {
                 const column = table.getColumn(c.key);
                 if (!column) return null;
                 return (
@@ -1824,41 +1570,25 @@ function Toolbar<R extends RowData>({
                     <DropdownMenuSubContent>
                       <DropdownMenuCheckboxItem
                         checked={column.getIsVisible()}
-                        onCheckedChange={(checked) =>
-                          column.toggleVisibility(checked)
-                        }
+                        onCheckedChange={checked => column.toggleVisibility(checked)}
                       >
                         Show
                       </DropdownMenuCheckboxItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuRadioGroup
-                        value={column.getIsPinned() || "none"}
-                        onValueChange={(value) =>
-                          column.pin(
-                            value === "none"
-                              ? false
-                              : (value as "start" | "end"),
-                          )
-                        }
+                        value={column.getIsPinned() || 'none'}
+                        onValueChange={value => column.pin(value === 'none' ? false : (value as 'start' | 'end'))}
                       >
-                        <DropdownMenuRadioItem value="none">
-                          Not pinned
-                        </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="start">
-                          Pin to start
-                        </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="end">
-                          Pin to end
-                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="none">Not pinned</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="start">Pin to start</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="end">Pin to end</DropdownMenuRadioItem>
                       </DropdownMenuRadioGroup>
                     </DropdownMenuSubContent>
                   </DropdownMenuSub>
                 );
               })}
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={onReset}>
-                Reset columns
-              </DropdownMenuItem>
+              <DropdownMenuItem onClick={onReset}>Reset columns</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )}
@@ -1867,57 +1597,39 @@ function Toolbar<R extends RowData>({
   );
 }
 
-function describeFilter<R extends RowData>(
-  config: TableColumn<R>,
-  value: unknown,
-): string {
-  if (value === undefined) return "";
-  if (config.filter === "select" && Array.isArray(value)) {
-    const labels = value.map(
-      (v) => config.options?.find((o) => o.value === v)?.label ?? String(v),
-    );
-    return `: ${labels.join(", ")}`;
+function describeFilter<R extends RowData>(config: TableColumn<R>, value: unknown): string {
+  if (value === undefined) return '';
+  if (config.filter === 'select' && Array.isArray(value)) {
+    const labels = value.map(v => config.options?.find(o => o.value === v)?.label ?? String(v));
+    return `: ${labels.join(', ')}`;
   }
-  if (
-    (config.filter === "number" || config.filter === "date") &&
-    Array.isArray(value)
-  ) {
+  if ((config.filter === 'number' || config.filter === 'date') && Array.isArray(value)) {
     const [min, max] = value as [unknown, unknown];
-    const has = (v: unknown) => v !== undefined && v !== null && v !== "";
+    const has = (v: unknown) => v !== undefined && v !== null && v !== '';
     if (has(min) && has(max)) return `: ${min} – ${max}`;
     if (has(min)) return `: ≥ ${min}`;
     if (has(max)) return `: ≤ ${max}`;
-    return "";
+    return '';
   }
-  if (config.filter === "boolean") return `: ${value ? "Yes" : "No"}`;
+  if (config.filter === 'boolean') return `: ${value ? 'Yes' : 'No'}`;
   return `: ${String(value)}`;
 }
 
-function FilterEditor<R extends RowData>({
-  config,
-  column,
-}: {
-  config: TableColumn<R>;
-  column: TColumn<R>;
-}) {
+function FilterEditor<R extends RowData>({ config, column }: { config: TableColumn<R>; column: TColumn<R> }) {
   const value = column.getFilterValue();
   const name = config.header;
-  if (config.filter === "select") {
+  if (config.filter === 'select') {
     const selected = (value as string[] | undefined) ?? [];
     return (
       <fieldset className="sprout-table-filter">
         <legend>{name}</legend>
-        {config.options?.map((o) => (
+        {config.options?.map(o => (
           <label key={o.value} className="sprout-table-filter-option">
             <Checkbox
               variant="neutral"
               checked={selected.includes(o.value)}
-              onCheckedChange={(checked) =>
-                column.setFilterValue(
-                  checked
-                    ? [...selected, o.value]
-                    : selected.filter((v) => v !== o.value),
-                )
+              onCheckedChange={checked =>
+                column.setFilterValue(checked ? [...selected, o.value] : selected.filter(v => v !== o.value))
               }
             />
             {o.label}
@@ -1926,11 +1638,11 @@ function FilterEditor<R extends RowData>({
       </fieldset>
     );
   }
-  if (config.filter === "boolean") {
+  if (config.filter === 'boolean') {
     return (
       <fieldset className="sprout-table-filter">
         <legend>{name}</legend>
-        {[true, false].map((option) => (
+        {[true, false].map(option => (
           <label key={String(option)} className="sprout-table-filter-option">
             <input
               type="radio"
@@ -1938,26 +1650,19 @@ function FilterEditor<R extends RowData>({
               checked={value === option}
               onChange={() => column.setFilterValue(option)}
             />
-            {option ? "Yes" : "No"}
+            {option ? 'Yes' : 'No'}
           </label>
         ))}
       </fieldset>
     );
   }
-  if (config.filter === "number" || config.filter === "date") {
-    const [min, max] = (value as [unknown, unknown] | undefined) ?? [
-      undefined,
-      undefined,
-    ];
-    const type = config.filter === "number" ? "number" : "date";
+  if (config.filter === 'number' || config.filter === 'date') {
+    const [min, max] = (value as [unknown, unknown] | undefined) ?? [undefined, undefined];
+    const type = config.filter === 'number' ? 'number' : 'date';
     const set = (index: 0 | 1, next: string) => {
-      const parsed =
-        next === "" ? undefined : type === "number" ? Number(next) : next;
-      const range: [unknown, unknown] =
-        index === 0 ? [parsed, max] : [min, parsed];
-      column.setFilterValue(
-        range[0] === undefined && range[1] === undefined ? undefined : range,
-      );
+      const parsed = next === '' ? undefined : type === 'number' ? Number(next) : next;
+      const range: [unknown, unknown] = index === 0 ? [parsed, max] : [min, parsed];
+      column.setFilterValue(range[0] === undefined && range[1] === undefined ? undefined : range);
     };
     return (
       <fieldset className="sprout-table-filter" data-range="">
@@ -1965,14 +1670,14 @@ function FilterEditor<R extends RowData>({
         <Input
           aria-label={`${name} from`}
           type={type}
-          value={min == null ? "" : String(min)}
-          onValueChange={(next) => set(0, next)}
+          value={min == null ? '' : String(min)}
+          onValueChange={next => set(0, next)}
         />
         <Input
           aria-label={`${name} to`}
           type={type}
-          value={max == null ? "" : String(max)}
-          onValueChange={(next) => set(1, next)}
+          value={max == null ? '' : String(max)}
+          onValueChange={next => set(1, next)}
         />
       </fieldset>
     );
@@ -1981,8 +1686,8 @@ function FilterEditor<R extends RowData>({
     <Input
       aria-label={`${name} contains`}
       autoFocus
-      value={String(value ?? "")}
-      onValueChange={(next) => column.setFilterValue(next || undefined)}
+      value={String(value ?? '')}
+      onValueChange={next => column.setFilterValue(next || undefined)}
     />
   );
 }

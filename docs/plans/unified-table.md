@@ -42,24 +42,24 @@ type TableColumn<Row> = {
   header: string;
   hint?: string;
   cell?: (row: Row) => ReactNode;
-  align?: "left" | "right";
+  align?: 'left' | 'right';
   width?: number;
   sort?: boolean;
-  filter?: "text" | "number" | "select" | "date" | "boolean";
+  filter?: 'text' | 'number' | 'select' | 'date' | 'boolean';
   filterOptions?: { label: string; value: string }[];
-  edit?: "text" | "number" | "select" | "date" | "checkbox";
-  aggregate?: "sum" | "count" | "min" | "max" | "mean";
-  pin?: "left" | "right";
+  edit?: 'text' | 'number' | 'select' | 'date' | 'checkbox';
+  aggregate?: 'sum' | 'count' | 'min' | 'max' | 'mean';
+  pin?: 'left' | 'right';
   hidden?: boolean;
 };
 
 interface TableProps<Row> {
-  "aria-label": string;
+  'aria-label': string;
   data: Row[];
   columns: TableColumn<Row>[];
   getRowId: (row: Row) => string;
-  narrow?: "scroll" | "stack";
-  variant?: "plain" | "grid";
+  narrow?: 'scroll' | 'stack';
+  variant?: 'plain' | 'grid';
   manual?: boolean;
   rowCount?: number;
   state?: Partial<TableState>;

@@ -6,15 +6,15 @@
  * that subtree.
  */
 @layer base {
-  [data-sprout-theme="stripe"] {
+  [data-sprout-theme='stripe'] {
     --sprout-font: ui-sans-serif, system-ui, sans-serif;
     --sprout-radius-control: 0.375rem;
     --sprout-radius-panel: 0.5rem;
   }
 
-  [data-sprout-theme="stripe"],
-  .light[data-sprout-theme="stripe"],
-  .light [data-sprout-theme="stripe"] {
+  [data-sprout-theme='stripe'],
+  .light[data-sprout-theme='stripe'],
+  .light [data-sprout-theme='stripe'] {
     --sprout-canvas: #f6f9fc;
     --sprout-surface: #ffffff;
     --sprout-hover: #f0f2f4;
@@ -40,17 +40,13 @@
     --sprout-success-subtle: #e8f4eb;
     --sprout-warning: #8a4b08;
     --sprout-warning-subtle: #fdf1dc;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 10%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 10%, var(--sprout-surface));
     --sprout-secondary: #eef0f2;
     --sprout-overlay: rgb(18 18 18 / 0.35);
   }
 
-  .dark[data-sprout-theme="stripe"],
-  .dark [data-sprout-theme="stripe"] {
+  .dark[data-sprout-theme='stripe'],
+  .dark [data-sprout-theme='stripe'] {
     --sprout-canvas: #0a1929;
     --sprout-surface: #112640;
     --sprout-hover: #23374f;
@@ -76,18 +72,14 @@
     --sprout-success-subtle: #1c3223;
     --sprout-warning: #eec27e;
     --sprout-warning-subtle: #34291b;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 16%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
     --sprout-secondary: #263951;
     --sprout-overlay: rgb(8 8 8 / 0.65);
   }
 
   @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark)[data-sprout-theme="stripe"],
-    :root:not(.light):not(.dark) [data-sprout-theme="stripe"] {
+    :root:not(.light):not(.dark)[data-sprout-theme='stripe'],
+    :root:not(.light):not(.dark) [data-sprout-theme='stripe'] {
       --sprout-canvas: #0a1929;
       --sprout-surface: #112640;
       --sprout-hover: #23374f;
@@ -113,11 +105,7 @@
       --sprout-success-subtle: #1c3223;
       --sprout-warning: #eec27e;
       --sprout-warning-subtle: #34291b;
-      --sprout-primary-subtle: color-mix(
-        in oklab,
-        var(--sprout-primary) 16%,
-        var(--sprout-surface)
-      );
+      --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
       --sprout-secondary: #263951;
       --sprout-overlay: rgb(8 8 8 / 0.65);
     }

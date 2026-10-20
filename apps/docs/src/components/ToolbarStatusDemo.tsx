@@ -1,48 +1,47 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Download } from "reicon-react/icons/Download";
-import { Filter } from "reicon-react/icons/Filter";
-import { Trash } from "reicon-react/icons/Trash";
-import { Button } from "@tulipfarm/sprout/button";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Download } from 'reicon-react/icons/Download';
+import { Filter } from 'reicon-react/icons/Filter';
+import { Trash } from 'reicon-react/icons/Trash';
+import { Button } from '@tulipfarm/sprout/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@tulipfarm/sprout/dropdown-menu";
-import { Input } from "@tulipfarm/sprout/input";
-import { Spinner } from "@tulipfarm/sprout/spinner";
-import { ToolbarStatus } from "@tulipfarm/sprout/toolbar-status";
-import { Example, Row } from "./dialog-demo-parts";
-import "../styles/toolbar-status-demo.css";
+} from '@tulipfarm/sprout/dropdown-menu';
+import { Input } from '@tulipfarm/sprout/input';
+import { Spinner } from '@tulipfarm/sprout/spinner';
+import { ToolbarStatus } from '@tulipfarm/sprout/toolbar-status';
+import { Example, Row } from './dialog-demo-parts';
+import '../styles/toolbar-status-demo.css';
 
 /* ------------------------------------------------------------------ */
 /* Sample adapters. They stand in for the app's table export requests. */
 /* ------------------------------------------------------------------ */
 
-type Outcome = "success" | "capped" | "failed";
+type Outcome = 'success' | 'capped' | 'failed';
 
 const outcomes: readonly { value: Outcome; label: string }[] = [
-  { value: "success", label: "Succeeds" },
-  { value: "capped", label: "Hits row cap" },
-  { value: "failed", label: "Fails" },
+  { value: 'success', label: 'Succeeds' },
+  { value: 'capped', label: 'Hits row cap' },
+  { value: 'failed', label: 'Fails' },
 ];
 
 const exportRowCap = 10_000;
 const sampleRows = 1_284;
 
 function finalNote(outcome: Outcome) {
-  if (outcome === "failed")
-    return "Export failed. The table changed while exporting. Try again.";
-  if (outcome === "capped")
-    return `Exported the first ${exportRowCap.toLocaleString("en-US")} rows. Narrow the search to export the rest.`;
-  return `Exported ${sampleRows.toLocaleString("en-US")} rows.`;
+  if (outcome === 'failed') return 'Export failed. The table changed while exporting. Try again.';
+  if (outcome === 'capped')
+    return `Exported the first ${exportRowCap.toLocaleString('en-US')} rows. Narrow the search to export the rest.`;
+  return `Exported ${sampleRows.toLocaleString('en-US')} rows.`;
 }
 
 /** Counts rows up over about a second, then settles on the chosen outcome. */
 function useSampleExport(outcome: Outcome) {
   const [rows, setRows] = useState<number | null>(null);
-  const [note, report] = useState("");
+  const [note, report] = useState('');
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const stop = () => {
     if (timer.current) clearInterval(timer.current);
@@ -52,8 +51,8 @@ function useSampleExport(outcome: Outcome) {
   const run = () => {
     stop();
     setRows(0);
-    report("");
-    const total = outcome === "capped" ? exportRowCap : sampleRows;
+    report('');
+    const total = outcome === 'capped' ? exportRowCap : sampleRows;
     let done = 0;
     timer.current = setInterval(() => {
       done = Math.min(total, done + Math.ceil(total / 8));
@@ -68,7 +67,7 @@ function useSampleExport(outcome: Outcome) {
   const cancel = () => {
     stop();
     setRows(null);
-    report("Export cancelled.");
+    report('Export cancelled.');
   };
   return { rows, note, run, cancel };
 }
@@ -87,14 +86,10 @@ function Segments<Value extends string>({
   disabled?: boolean;
 }) {
   return (
-    <div
-      className="toolbar-status-demo-control"
-      role="group"
-      aria-label={label}
-    >
+    <div className="toolbar-status-demo-control" role="group" aria-label={label}>
       <span aria-hidden="true">{label}</span>
       <div className="toolbar-status-demo-segments">
-        {items.map((item) => (
+        {items.map(item => (
           <button
             key={item.value}
             type="button"
@@ -115,35 +110,20 @@ function Segments<Value extends string>({
 /* Playground: the table query bar export slot.                        */
 /* ------------------------------------------------------------------ */
 
-function ExportSlot({
-  outcome,
-  disabled,
-}: {
-  outcome: Outcome;
-  disabled: boolean;
-}) {
+function ExportSlot({ outcome, disabled }: { outcome: Outcome; disabled: boolean }) {
   const { rows, note, run, cancel } = useSampleExport(outcome);
-  const failed = note.startsWith("Export failed");
+  const failed = note.startsWith('Export failed');
   return (
     <div className="toolbar-status-demo-export-slot">
       {rows !== null ? (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={cancel}
-          aria-label={`Exporting ${rows} rows. Cancel export`}
-        >
+        <Button variant="outline" size="sm" onClick={cancel} aria-label={`Exporting ${rows} rows. Cancel export`}>
           <Spinner data-icon="inline-start" aria-hidden="true" />
           Cancel export
         </Button>
       ) : note ? (
-        <ToolbarStatus
-          label={failed ? "Export failed" : "Export result"}
-          message={note}
-          error={failed}
-        >
+        <ToolbarStatus label={failed ? 'Export failed' : 'Export result'} message={note} error={failed}>
           <Button variant="outline" size="sm" disabled={disabled} onClick={run}>
-            {failed ? "Retry export" : "Export again"}
+            {failed ? 'Retry export' : 'Export again'}
           </Button>
         </ToolbarStatus>
       ) : (
@@ -157,44 +137,28 @@ function ExportSlot({
 }
 
 export function ToolbarStatusPlayground() {
-  const [outcome, setOutcome] = useState<Outcome>("success");
-  const [busy, setBusy] = useState<"ready" | "busy">("ready");
+  const [outcome, setOutcome] = useState<Outcome>('success');
+  const [busy, setBusy] = useState<'ready' | 'busy'>('ready');
   const [round, setRound] = useState(0);
   return (
-    <section
-      className="toolbar-status-demo-playground"
-      aria-label="Toolbar status playground"
-    >
+    <section className="toolbar-status-demo-playground" aria-label="Toolbar status playground">
       <div className="toolbar-status-demo-controls">
-        <Segments
-          label="Next export"
-          value={outcome}
-          items={outcomes}
-          onChange={setOutcome}
-        />
+        <Segments label="Next export" value={outcome} items={outcomes} onChange={setOutcome} />
         <Segments
           label="Table"
           value={busy}
           items={[
-            { value: "ready", label: "Ready" },
-            { value: "busy", label: "Saving a row" },
+            { value: 'ready', label: 'Ready' },
+            { value: 'busy', label: 'Saving a row' },
           ]}
           onChange={setBusy}
         />
-        <button
-          type="button"
-          className="toolbar-status-demo-toggle"
-          onClick={() => setRound((n) => n + 1)}
-        >
+        <button type="button" className="toolbar-status-demo-toggle" onClick={() => setRound(n => n + 1)}>
           Reset
         </button>
       </div>
       <div className="toolbar-status-demo-stage">
-        <div
-          className="toolbar-status-demo-querybar"
-          role="toolbar"
-          aria-label="Candidates table"
-        >
+        <div className="toolbar-status-demo-querybar" role="toolbar" aria-label="Candidates table">
           <Input
             className="toolbar-status-demo-search"
             aria-label="Search rows"
@@ -205,15 +169,10 @@ export function ToolbarStatusPlayground() {
             <Filter data-icon="inline-start" size={14} aria-hidden="true" />
             Filters
           </Button>
-          <ExportSlot
-            key={round}
-            outcome={outcome}
-            disabled={busy === "busy"}
-          />
+          <ExportSlot key={round} outcome={outcome} disabled={busy === 'busy'} />
         </div>
         <p className="toolbar-status-demo-hint">
-          Export, then open the status for details. The slot is 7rem wide, as in
-          the table toolbar.
+          Export, then open the status for details. The slot is 7rem wide, as in the table toolbar.
         </p>
       </div>
     </section>
@@ -224,22 +183,12 @@ export function ToolbarStatusPlayground() {
 /* Every outcome the app shows.                                        */
 /* ------------------------------------------------------------------ */
 
-function Replay({
-  label,
-  children,
-}: {
-  label: string;
-  children: (key: number) => ReactNode;
-}) {
+function Replay({ label, children }: { label: string; children: (key: number) => ReactNode }) {
   const [shown, setShown] = useState(0);
   return (
     <>
-      {shown > 0 ? (
-        children(shown)
-      ) : (
-        <span className="toolbar-status-demo-muted">Not shown yet</span>
-      )}
-      <Button variant="ghost" size="sm" onClick={() => setShown((n) => n + 1)}>
+      {shown > 0 ? children(shown) : <span className="toolbar-status-demo-muted">Not shown yet</span>}
+      <Button variant="ghost" size="sm" onClick={() => setShown(n => n + 1)}>
         {label}
       </Button>
     </>
@@ -260,25 +209,15 @@ export function ToolbarStatusOutcomes() {
           </Button>
         </ToolbarStatus>
       </Row>
-      <Row
-        label="Export failed"
-        note="destructive sm · role alert · Retry export"
-      >
-        <ToolbarStatus
-          error
-          label="Export failed"
-          message="Export failed. You no longer have access to this table."
-        >
+      <Row label="Export failed" note="destructive sm · role alert · Retry export">
+        <ToolbarStatus error label="Export failed" message="Export failed. You no longer have access to this table.">
           <Button variant="outline" size="sm">
             Retry export
           </Button>
         </ToolbarStatus>
       </Row>
-      <Row
-        label="Export result"
-        note="outline sm · long message wraps in the popover"
-      >
-        <ToolbarStatus label="Export result" message={finalNote("capped")}>
+      <Row label="Export result" note="outline sm · long message wraps in the popover">
+        <ToolbarStatus label="Export result" message={finalNote('capped')}>
           <Button variant="outline" size="sm">
             Export again
           </Button>
@@ -292,11 +231,7 @@ export function ToolbarStatusOutcomes() {
         </ToolbarStatus>
       </Row>
       <Row label="Action disabled" note="table busy · child action disabled">
-        <ToolbarStatus
-          error
-          label="Export failed"
-          message="Export failed. Check your connection and try again."
-        >
+        <ToolbarStatus error label="Export failed" message="Export failed. Check your connection and try again.">
           <Button variant="outline" size="sm" disabled>
             Retry export
           </Button>
@@ -305,13 +240,8 @@ export function ToolbarStatusOutcomes() {
       <Row label="Saved" note="outline sm · message only, no actions">
         <ToolbarStatus label="Saved" message="The local draft is ready." />
       </Row>
-      <Row
-        label="Open on mount"
-        note="defaultOpen · error · default-size action"
-      >
-        <Replay label="Show failed save">
-          {(key) => <SaveSample key={key} />}
-        </Replay>
+      <Row label="Open on mount" note="defaultOpen · error · default-size action">
+        <Replay label="Show failed save">{key => <SaveSample key={key} />}</Replay>
       </Row>
     </Example>
   );
@@ -322,12 +252,8 @@ function SaveSample() {
   return (
     <ToolbarStatus
       error={!retried}
-      label={retried ? "Saved" : "Save failed"}
-      message={
-        retried
-          ? "The local sample was saved."
-          : "This fictional save failed. No data was sent."
-      }
+      label={retried ? 'Saved' : 'Save failed'}
+      message={retried ? 'The local sample was saved.' : 'This fictional save failed. No data was sent.'}
       defaultOpen={!retried}
     >
       {!retried && (
@@ -344,20 +270,12 @@ function SaveSample() {
 /* ------------------------------------------------------------------ */
 
 type BulkState = {
-  kind: "idle" | "loading" | "success" | "error";
+  kind: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
 };
 
-function SelectedRows({
-  count,
-  fail,
-  canDelete,
-}: {
-  count: number;
-  fail: boolean;
-  canDelete: boolean;
-}) {
-  const [state, setState] = useState<BulkState>({ kind: "idle" });
+function SelectedRows({ count, fail, canDelete }: { count: number; fail: boolean; canDelete: boolean }) {
+  const [state, setState] = useState<BulkState>({ kind: 'idle' });
   const [cleared, setCleared] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(
@@ -366,18 +284,18 @@ function SelectedRows({
     },
     [],
   );
-  const disabled = state.kind === "loading";
+  const disabled = state.kind === 'loading';
   const run = () => {
     if (timer.current) return;
-    setState({ kind: "loading" });
+    setState({ kind: 'loading' });
     timer.current = setTimeout(() => {
       timer.current = null;
       setState(
         fail
-          ? { kind: "error", message: "Export failed. Try again." }
+          ? { kind: 'error', message: 'Export failed. Try again.' }
           : {
-              kind: "success",
-              message: `Exported ${count} selected ${count === 1 ? "row" : "rows"}.`,
+              kind: 'success',
+              message: `Exported ${count} selected ${count === 1 ? 'row' : 'rows'}.`,
             },
       );
     }, 700);
@@ -391,7 +309,7 @@ function SelectedRows({
           size="sm"
           onClick={() => {
             setCleared(false);
-            setState({ kind: "idle" });
+            setState({ kind: 'idle' });
           }}
         >
           Select again
@@ -400,36 +318,26 @@ function SelectedRows({
     );
   const outcome = state.message ? (
     <ToolbarStatus
-      label={state.kind === "error" ? "Export failed" : "Exported"}
+      label={state.kind === 'error' ? 'Export failed' : 'Exported'}
       message={state.message}
-      error={state.kind === "error"}
+      error={state.kind === 'error'}
     >
       <Button variant="outline" size="sm" disabled={disabled} onClick={run}>
-        {state.kind === "error" ? "Retry export" : "Export again"}
+        {state.kind === 'error' ? 'Retry export' : 'Export again'}
       </Button>
     </ToolbarStatus>
   ) : null;
   return (
-    <div
-      aria-label="Selected row actions"
-      role="group"
-      className="toolbar-status-demo-selection"
-    >
+    <div aria-label="Selected row actions" role="group" className="toolbar-status-demo-selection">
       <span role="status" className="toolbar-status-demo-count">
         {count} selected
         <span className="toolbar-status-demo-sr"> on this page</span>
       </span>
       <div className="toolbar-status-demo-wide">
         {outcome ?? (
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={disabled}
-            aria-busy={disabled}
-            onClick={run}
-          >
+          <Button variant="outline" size="sm" disabled={disabled} aria-busy={disabled} onClick={run}>
             <Download data-icon="inline-start" size={14} aria-hidden="true" />
-            {disabled ? "Exporting..." : "Export selected"}
+            {disabled ? 'Exporting...' : 'Export selected'}
           </Button>
         )}
         {canDelete && (
@@ -443,45 +351,26 @@ function SelectedRows({
         {outcome ?? (
           <DropdownMenu>
             <DropdownMenuTrigger
-              render={
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={disabled}
-                  aria-busy={disabled}
-                />
-              }
+              render={<Button variant="outline" size="sm" disabled={disabled} aria-busy={disabled} />}
             >
-              {disabled ? "Exporting..." : "Selected actions"}
+              {disabled ? 'Exporting...' : 'Selected actions'}
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuGroup>
-                <DropdownMenuItem onClick={run}>
-                  Export selected
-                </DropdownMenuItem>
-                {canDelete && (
-                  <DropdownMenuItem variant="destructive">
-                    Delete selected
-                  </DropdownMenuItem>
-                )}
+                <DropdownMenuItem onClick={run}>Export selected</DropdownMenuItem>
+                {canDelete && <DropdownMenuItem variant="destructive">Delete selected</DropdownMenuItem>}
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
         )}
         {outcome && canDelete && (
           <DropdownMenu>
-            <DropdownMenuTrigger
-              render={
-                <Button variant="outline" size="sm" disabled={disabled} />
-              }
-            >
+            <DropdownMenuTrigger render={<Button variant="outline" size="sm" disabled={disabled} />}>
               Actions
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuGroup>
-                <DropdownMenuItem variant="destructive">
-                  Delete selected
-                </DropdownMenuItem>
+                <DropdownMenuItem variant="destructive">Delete selected</DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -501,60 +390,36 @@ function SelectedRows({
 }
 
 export function ToolbarStatusSelection() {
-  const [fail, setFail] = useState<"ok" | "fail">("ok");
+  const [fail, setFail] = useState<'ok' | 'fail'>('ok');
   const [round, setRound] = useState(0);
   return (
-    <section
-      className="toolbar-status-demo-playground"
-      aria-label="Selected rows toolbar"
-    >
+    <section className="toolbar-status-demo-playground" aria-label="Selected rows toolbar">
       <div className="toolbar-status-demo-controls">
         <Segments
           label="Next export"
           value={fail}
           items={[
-            { value: "ok", label: "Succeeds" },
-            { value: "fail", label: "Fails" },
+            { value: 'ok', label: 'Succeeds' },
+            { value: 'fail', label: 'Fails' },
           ]}
-          onChange={(value) => {
+          onChange={value => {
             setFail(value);
-            setRound((n) => n + 1);
+            setRound(n => n + 1);
           }}
         />
       </div>
       <div className="toolbar-status-demo-frames">
         <div className="toolbar-status-demo-frame" data-width="wide">
-          <span className="toolbar-status-demo-frame-label">
-            Full width · wide layout from 36rem
-          </span>
-          <SelectedRows
-            key={`w${round}`}
-            count={3}
-            fail={fail === "fail"}
-            canDelete
-          />
+          <span className="toolbar-status-demo-frame-label">Full width · wide layout from 36rem</span>
+          <SelectedRows key={`w${round}`} count={3} fail={fail === 'fail'} canDelete />
         </div>
         <div className="toolbar-status-demo-frame" data-width="narrow">
-          <span className="toolbar-status-demo-frame-label">
-            Narrow · 24rem
-          </span>
-          <SelectedRows
-            key={`n${round}`}
-            count={1}
-            fail={fail === "fail"}
-            canDelete
-          />
+          <span className="toolbar-status-demo-frame-label">Narrow · 24rem</span>
+          <SelectedRows key={`n${round}`} count={1} fail={fail === 'fail'} canDelete />
         </div>
         <div className="toolbar-status-demo-frame" data-width="narrow">
-          <span className="toolbar-status-demo-frame-label">
-            Narrow · no delete permission
-          </span>
-          <SelectedRows
-            key={`r${round}`}
-            count={12}
-            fail={fail === "fail"}
-            canDelete={false}
-          />
+          <span className="toolbar-status-demo-frame-label">Narrow · no delete permission</span>
+          <SelectedRows key={`r${round}`} count={12} fail={fail === 'fail'} canDelete={false} />
         </div>
       </div>
     </section>

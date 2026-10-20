@@ -128,9 +128,8 @@
     position: absolute;
     inset: 6px 4px;
     border-radius: calc(var(--sprout-radius-control) - 2px);
-    content: "";
-    transition: background-color var(--sprout-motion-fast)
-      var(--sprout-motion-ease);
+    content: '';
+    transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
   }
   .sprout-canvas-tab[data-hover],
   .sprout-canvas-tab-close[data-hover] {

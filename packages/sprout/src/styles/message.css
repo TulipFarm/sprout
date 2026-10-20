@@ -18,13 +18,11 @@
     font-size: var(--sprout-text-sm);
     color: var(--sprout-text);
   }
-  .sprout-message[data-align="end"] {
+  .sprout-message[data-align='end'] {
     flex-direction: row-reverse;
   }
   /* A ghost bubble has no padding, so names and status line up with its text. */
-  .sprout-message:has(
-    > [data-slot="message-content"] > [data-variant="ghost"]
-  ) {
+  .sprout-message:has(> [data-slot='message-content'] > [data-variant='ghost']) {
     --sprout-message-meta-inset: 0px;
   }
 
@@ -41,13 +39,8 @@
     background: var(--sprout-secondary);
   }
   /* Keeps the avatar beside the last bubble instead of beside the footer. */
-  .sprout-message:has(
-      > [data-slot="message-content"] > [data-slot="message-footer"]
-    )
-    > .sprout-message-avatar {
-    transform: translateY(
-      calc(-1 * (var(--sprout-message-content-gap) + 1rem))
-    );
+  .sprout-message:has(> [data-slot='message-content'] > [data-slot='message-footer']) > .sprout-message-avatar {
+    transform: translateY(calc(-1 * (var(--sprout-message-content-gap) + 1rem)));
   }
 
   .sprout-message-content {
@@ -58,7 +51,7 @@
     min-width: 0;
     overflow-wrap: break-word;
   }
-  .sprout-message[data-align="end"] > .sprout-message-content > [data-slot] {
+  .sprout-message[data-align='end'] > .sprout-message-content > [data-slot] {
     align-self: flex-end;
   }
 
@@ -74,9 +67,7 @@
     font-weight: 500;
     line-height: 1rem;
   }
-  .sprout-message[data-align="end"]
-    > .sprout-message-content
-    > .sprout-message-footer {
+  .sprout-message[data-align='end'] > .sprout-message-content > .sprout-message-footer {
     justify-content: flex-end;
   }
 
@@ -102,14 +93,11 @@
   .sprout-message-bubble-frame > .sprout-message-bubble {
     max-width: 100%;
   }
-  .sprout-message-bubble-frame[data-variant="ghost"] {
+  .sprout-message-bubble-frame[data-variant='ghost'] {
     max-width: 100%;
   }
-  [data-slot="message"][data-align="end"]
-    :is(
-      .sprout-message-bubble-frame,
-      :not(.sprout-message-bubble-frame) > .sprout-message-bubble
-    ) {
+  [data-slot='message'][data-align='end']
+    :is(.sprout-message-bubble-frame, :not(.sprout-message-bubble-frame) > .sprout-message-bubble) {
     align-self: flex-end;
     margin-inline-start: auto;
   }
@@ -149,7 +137,7 @@
     outline-offset: 0;
   }
   .sprout-message-bubble:is(button):disabled,
-  .sprout-message-bubble[aria-disabled="true"] {
+  .sprout-message-bubble[aria-disabled='true'] {
     opacity: 0.55;
     cursor: not-allowed;
   }
@@ -161,31 +149,15 @@
   }
   .sprout-message-bubble-secondary {
     --sprout-message-bubble-fill: var(--sprout-secondary);
-    --sprout-message-bubble-fill-hover: color-mix(
-      in oklab,
-      var(--sprout-text) 6%,
-      var(--sprout-secondary)
-    );
+    --sprout-message-bubble-fill-hover: color-mix(in oklab, var(--sprout-text) 6%, var(--sprout-secondary));
   }
   .sprout-message-bubble-muted {
-    --sprout-message-bubble-fill: color-mix(
-      in oklab,
-      var(--sprout-secondary) 55%,
-      var(--sprout-surface)
-    );
+    --sprout-message-bubble-fill: color-mix(in oklab, var(--sprout-secondary) 55%, var(--sprout-surface));
     --sprout-message-bubble-fill-hover: var(--sprout-secondary);
   }
   .sprout-message-bubble-tinted {
-    --sprout-message-bubble-fill: color-mix(
-      in oklab,
-      var(--sprout-primary) 14%,
-      var(--sprout-surface)
-    );
-    --sprout-message-bubble-fill-hover: color-mix(
-      in oklab,
-      var(--sprout-primary) 22%,
-      var(--sprout-surface)
-    );
+    --sprout-message-bubble-fill: color-mix(in oklab, var(--sprout-primary) 14%, var(--sprout-surface));
+    --sprout-message-bubble-fill-hover: color-mix(in oklab, var(--sprout-primary) 22%, var(--sprout-surface));
   }
   .sprout-message-bubble-outline {
     --sprout-message-bubble-fill: var(--sprout-surface);
@@ -199,11 +171,7 @@
   }
   .sprout-message-bubble-destructive {
     --sprout-message-bubble-fill: var(--sprout-danger-subtle);
-    --sprout-message-bubble-fill-hover: color-mix(
-      in oklab,
-      var(--sprout-danger) 16%,
-      var(--sprout-danger-subtle)
-    );
+    --sprout-message-bubble-fill-hover: color-mix(in oklab, var(--sprout-danger) 16%, var(--sprout-danger-subtle));
     --sprout-message-bubble-ink: var(--sprout-danger);
   }
   .sprout-message-bubble-destructive:is(button, a):focus-visible {
@@ -224,25 +192,24 @@
     padding: 2px 6px;
     border-radius: 999px;
     background: var(--sprout-secondary);
-    box-shadow: 0 0 0 3px
-      var(--sprout-message-reactions-ring, var(--sprout-surface));
+    box-shadow: 0 0 0 3px var(--sprout-message-reactions-ring, var(--sprout-surface));
     font-size: var(--sprout-text-sm);
     line-height: 20px;
     white-space: nowrap;
     color: var(--sprout-text);
   }
-  .sprout-message-reactions[data-side="top"] {
+  .sprout-message-reactions[data-side='top'] {
     top: 0;
     translate: 0 -75%;
   }
-  .sprout-message-reactions[data-side="bottom"] {
+  .sprout-message-reactions[data-side='bottom'] {
     bottom: 0;
     translate: 0 75%;
   }
-  .sprout-message-reactions[data-align="start"] {
+  .sprout-message-reactions[data-align='start'] {
     inset-inline-start: 12px;
   }
-  .sprout-message-reactions[data-align="end"] {
+  .sprout-message-reactions[data-align='end'] {
     inset-inline-end: 12px;
   }
   .sprout-message-reactions:has(button) {
@@ -265,7 +232,7 @@
     cursor: pointer;
     outline: none;
   }
-  .sprout-message-reactions > button[aria-pressed="true"] {
+  .sprout-message-reactions > button[aria-pressed='true'] {
     background: var(--sprout-primary-subtle);
     color: var(--sprout-primary);
   }
@@ -281,12 +248,8 @@
     .sprout-message-reactions > button:hover {
       background: var(--sprout-hover);
     }
-    .sprout-message-reactions > button[aria-pressed="true"]:hover {
-      background: color-mix(
-        in oklab,
-        var(--sprout-primary) 16%,
-        var(--sprout-surface)
-      );
+    .sprout-message-reactions > button[aria-pressed='true']:hover {
+      background: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
     }
   }
 

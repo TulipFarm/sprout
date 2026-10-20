@@ -1,36 +1,24 @@
-import { useRef, useState, type ReactNode } from "react";
-import { Add } from "reicon-react/icons/Add";
-import { ArrowUpRight } from "reicon-react/icons/ArrowUpRight";
-import { ChatRound } from "reicon-react/icons/ChatRound";
-import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
-import { FileText } from "reicon-react/icons/FileText";
-import { FolderAdd } from "reicon-react/icons/FolderAdd";
-import { Repeat } from "reicon-react/icons/Repeat";
-import { Upload } from "reicon-react/icons/Upload";
-import { Alert, AlertDescription } from "@tulipfarm/sprout/alert";
-import { Badge } from "@tulipfarm/sprout/badge";
-import { Button } from "@tulipfarm/sprout/button";
-import { PageContent } from "@tulipfarm/sprout/page-content";
-import { PageHeader } from "@tulipfarm/sprout/page-header";
-import { StatePanel } from "@tulipfarm/sprout/state-panel";
-import DocsSelect from "./DocsSelect";
-import "../styles/page-content-demo.css";
+import { useRef, useState, type ReactNode } from 'react';
+import { Add } from 'reicon-react/icons/Add';
+import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
+import { ChatRound } from 'reicon-react/icons/ChatRound';
+import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
+import { FileText } from 'reicon-react/icons/FileText';
+import { FolderAdd } from 'reicon-react/icons/FolderAdd';
+import { Repeat } from 'reicon-react/icons/Repeat';
+import { Upload } from 'reicon-react/icons/Upload';
+import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
+import { Badge } from '@tulipfarm/sprout/badge';
+import { Button } from '@tulipfarm/sprout/button';
+import { PageContent } from '@tulipfarm/sprout/page-content';
+import { PageHeader } from '@tulipfarm/sprout/page-header';
+import { StatePanel } from '@tulipfarm/sprout/state-panel';
+import DocsSelect from './DocsSelect';
+import '../styles/page-content-demo.css';
 
-function Frame({
-  title,
-  example,
-  children,
-}: {
-  title: string;
-  example: string;
-  children: ReactNode;
-}) {
+function Frame({ title, example, children }: { title: string; example: string; children: ReactNode }) {
   return (
-    <section
-      className="page-content-demo-frame"
-      aria-label={title}
-      data-example={example}
-    >
+    <section className="page-content-demo-frame" aria-label={title} data-example={example}>
       <div className="page-content-demo-frame-bar">{title}</div>
       {children}
     </section>
@@ -38,11 +26,11 @@ function Frame({
 }
 
 const files = [
-  ["Q3 board deck.pdf", "Maya Chen", "2.4 MB"],
-  ["Supplier contracts", "Folder", "18 items"],
-  ["Customer interviews – October.docx", "Arjun Rao", "312 KB"],
-  ["Launch checklist.xlsx", "You", "48 KB"],
-  ["Brand guidelines v4 final final.pdf", "Lena Ortiz", "9.1 MB"],
+  ['Q3 board deck.pdf', 'Maya Chen', '2.4 MB'],
+  ['Supplier contracts', 'Folder', '18 items'],
+  ['Customer interviews – October.docx', 'Arjun Rao', '312 KB'],
+  ['Launch checklist.xlsx', 'You', '48 KB'],
+  ['Brand guidelines v4 final final.pdf', 'Lena Ortiz', '9.1 MB'],
 ] as const;
 
 function FilesPage() {
@@ -66,9 +54,7 @@ function FilesPage() {
         }
       />
       <Alert>
-        <AlertDescription>
-          Folder “Supplier contracts” created.
-        </AlertDescription>
+        <AlertDescription>Folder “Supplier contracts” created.</AlertDescription>
       </Alert>
       <ul className="page-content-demo-list" aria-label="My files">
         {files.map(([name, owner, size]) => (
@@ -86,30 +72,27 @@ function FilesPage() {
 
 const help = [
   [
-    "An agent cannot start",
-    "Check that its instructions are activated and that you can invoke it. The setup checklist names the next step and who must take it.",
+    'An agent cannot start',
+    'Check that its instructions are activated and that you can invoke it. The setup checklist names the next step and who must take it.',
   ],
   [
-    "Credits or models are unavailable",
-    "Ask an admin to check workspace credits on Usage and the allowed models on Models.",
+    'Credits or models are unavailable',
+    'Ask an admin to check workspace credits on Usage and the allowed models on Models.',
   ],
   [
-    "A submitted change is unconfirmed",
-    "Use the status or recovery action shown next to it. Check the current state before you try again.",
+    'A submitted change is unconfirmed',
+    'Use the status or recovery action shown next to it. Check the current state before you try again.',
   ],
   [
-    "Files and integrations",
-    "Personal chat files are stored for download and are not added to workspace knowledge unless you add them.",
+    'Files and integrations',
+    'Personal chat files are stored for download and are not added to workspace knowledge unless you add them.',
   ],
 ] as const;
 
 function HelpPage() {
   return (
     <>
-      <PageHeader
-        title="Help and support"
-        description="Find the next step when your work is blocked."
-      />
+      <PageHeader title="Help and support" description="Find the next step when your work is blocked." />
       {help.map(([title, body]) => (
         <section key={title} className="page-content-demo-help">
           <h2>{title}</h2>
@@ -128,9 +111,7 @@ function TaskPage() {
           variant="ghost"
           size="sm"
           nativeButton={false}
-          render={
-            <a href="#tasks" onClick={(event) => event.preventDefault()} />
-          }
+          render={<a href="#tasks" onClick={event => event.preventDefault()} />}
         >
           <ChevronLeft aria-hidden="true" />
           Back to my tasks
@@ -168,27 +149,23 @@ const workflowsHeader = (
   />
 );
 
-type Sample = "files" | "help" | "task" | "loading" | "empty" | "error";
+type Sample = 'files' | 'help' | 'task' | 'loading' | 'empty' | 'error';
 
 const samples: Record<Sample, { label: string; page: () => ReactNode }> = {
-  files: { label: "Files", page: FilesPage },
-  help: { label: "Help and support", page: HelpPage },
-  task: { label: "Agent task", page: TaskPage },
+  files: { label: 'Files', page: FilesPage },
+  help: { label: 'Help and support', page: HelpPage },
+  task: { label: 'Agent task', page: TaskPage },
   loading: {
-    label: "Workflows – loading",
+    label: 'Workflows – loading',
     page: () => (
       <>
         {workflowsHeader}
-        <StatePanel
-          kind="loading"
-          title="Loading workflows"
-          description="Checking your workspace access."
-        />
+        <StatePanel kind="loading" title="Loading workflows" description="Checking your workspace access." />
       </>
     ),
   },
   empty: {
-    label: "Workflows – empty",
+    label: 'Workflows – empty',
     page: () => (
       <>
         {workflowsHeader}
@@ -204,7 +181,7 @@ const samples: Record<Sample, { label: string; page: () => ReactNode }> = {
     ),
   },
   error: {
-    label: "Workflows – error",
+    label: 'Workflows – error',
     page: () => (
       <>
         {workflowsHeader}
@@ -221,21 +198,17 @@ const samples: Record<Sample, { label: string; page: () => ReactNode }> = {
 };
 
 export function PageContentPlayground() {
-  const [sample, setSample] = useState<Sample>("files");
+  const [sample, setSample] = useState<Sample>('files');
   const Page = samples[sample].page;
   return (
-    <section
-      className="page-content-demo-frame"
-      aria-label="Page content playground"
-      data-example="playground"
-    >
+    <section className="page-content-demo-frame" aria-label="Page content playground" data-example="playground">
       <div className="page-content-demo-toolbar">
         <label>
           Page
           <DocsSelect
             label="Page"
             value={sample}
-            items={(Object.keys(samples) as Sample[]).map((value) => ({
+            items={(Object.keys(samples) as Sample[]).map(value => ({
               value,
               label: samples[value].label,
             }))}
@@ -263,17 +236,13 @@ export function PageContentPlayground() {
 }
 
 const chats = [
-  ["Draft the Q4 hiring plan", "Today", "9:41 AM"],
-  [
-    "Summarize supplier contract renewals for the operations review",
-    "Today",
-    "8:02 AM",
-  ],
-  ["Compare churn by plan tier", "Yesterday", "4:15 PM"],
-  ["Prepare onboarding email for Lisbon office", "Yesterday", "11:30 AM"],
-  ["Clean up duplicate customer rows", "Mon", "2:47 PM"],
-  ["Weekly metrics digest", "Mon", "9:00 AM"],
-  ["Translate pricing page into Portuguese", "Oct 9", "3:12 PM"],
+  ['Draft the Q4 hiring plan', 'Today', '9:41 AM'],
+  ['Summarize supplier contract renewals for the operations review', 'Today', '8:02 AM'],
+  ['Compare churn by plan tier', 'Yesterday', '4:15 PM'],
+  ['Prepare onboarding email for Lisbon office', 'Yesterday', '11:30 AM'],
+  ['Clean up duplicate customer rows', 'Mon', '2:47 PM'],
+  ['Weekly metrics digest', 'Mon', '9:00 AM'],
+  ['Translate pricing page into Portuguese', 'Oct 9', '3:12 PM'],
 ] as const;
 
 function ChatList() {
@@ -318,9 +287,7 @@ function RestoredScroll() {
   const scroller = useRef<HTMLDivElement>(null);
   const saved = useRef(0);
   const [away, setAway] = useState(false);
-  const [note, setNote] = useState(
-    "Scroll the list, then open a file and go back.",
-  );
+  const [note, setNote] = useState('Scroll the list, then open a file and go back.');
   const leave = () => {
     saved.current = Math.round(scroller.current?.scrollTop ?? 0);
     setAway(true);
@@ -337,7 +304,7 @@ function RestoredScroll() {
     <div className="page-content-demo-restore">
       <div className="page-content-demo-restore-bar">
         <Button variant="outline" size="sm" onClick={away ? back : leave}>
-          {away ? "Back to files" : "Open Q3 board deck.pdf"}
+          {away ? 'Back to files' : 'Open Q3 board deck.pdf'}
         </Button>
         <p role="status" className="page-content-demo-muted">
           {note}
@@ -350,11 +317,11 @@ function RestoredScroll() {
               title="Q3 board deck.pdf"
               description="Shared by Maya Chen · 2.4 MB"
               back={{
-                label: "Back to files",
+                label: 'Back to files',
                 link: (
                   <a
                     href="#files"
-                    onClick={(event) => {
+                    onClick={event => {
                       event.preventDefault();
                       back();
                     }}
@@ -382,24 +349,14 @@ function RestoredScroll() {
   );
 }
 
-const apps = ["Slack", "Google Drive", "GitHub", "Linear", "Notion", "HubSpot"];
-const rails = [
-  "All",
-  "Connected",
-  "Communication",
-  "Documents",
-  "Engineering",
-  "Sales",
-];
+const apps = ['Slack', 'Google Drive', 'GitHub', 'Linear', 'Notion', 'HubSpot'];
+const rails = ['All', 'Connected', 'Communication', 'Documents', 'Engineering', 'Sales'];
 
 export function PageContentExamples() {
-  const [rail, setRail] = useState("All");
+  const [rail, setRail] = useState('All');
   return (
     <div className="page-content-demo-grid">
-      <Frame
-        title="Scroll region with room for a composer"
-        example="scroll-room"
-      >
+      <Frame title="Scroll region with room for a composer" example="scroll-room">
         <ChatList />
       </Frame>
       <Frame title="Scroll restoration with a ref" example="restoration">
@@ -414,9 +371,7 @@ export function PageContentExamples() {
                 variant="outline"
                 size="sm"
                 nativeButton={false}
-                render={
-                  <a href="#chat" onClick={(event) => event.preventDefault()} />
-                }
+                render={<a href="#chat" onClick={event => event.preventDefault()} />}
               >
                 Open in chat
                 <ArrowUpRight aria-hidden="true" />
@@ -425,8 +380,7 @@ export function PageContentExamples() {
           />
           <Alert>
             <AlertDescription>
-              Sample task: the operations assistant is preparing a purchase
-              recommendation.
+              Sample task: the operations assistant is preparing a purchase recommendation.
             </AlertDescription>
           </Alert>
           <div className="page-content-demo-card">
@@ -438,17 +392,14 @@ export function PageContentExamples() {
       <Frame title="Edge-to-edge rail on small screens" example="bleed">
         <div className="page-content-demo-scroll page-content-demo-short">
           <PageContent>
-            <PageHeader
-              title="Integrations"
-              description="Connect the apps your agents work in."
-            />
+            <PageHeader title="Integrations" description="Connect the apps your agents work in." />
             <div className="page-content-demo-split">
               <nav aria-label="Filter apps" className="page-content-demo-rail">
-                {rails.map((name) => (
+                {rails.map(name => (
                   <Button
                     key={name}
                     size="sm"
-                    variant={rail === name ? "secondary" : "ghost"}
+                    variant={rail === name ? 'secondary' : 'ghost'}
                     aria-pressed={rail === name}
                     onClick={() => setRail(name)}
                   >
@@ -457,7 +408,7 @@ export function PageContentExamples() {
                 ))}
               </nav>
               <ul className="page-content-demo-apps" aria-label="Apps">
-                {apps.map((name) => (
+                {apps.map(name => (
                   <li key={name}>{name}</li>
                 ))}
               </ul>
@@ -468,9 +419,7 @@ export function PageContentExamples() {
       <Frame title="Clipped preview" example="preview">
         <div className="page-content-demo-clip">
           <PageContent>
-            <p className="page-content-demo-body">
-              This is the real shared page content region.
-            </p>
+            <p className="page-content-demo-body">This is the real shared page content region.</p>
             <div className="page-content-demo-card">
               <h2>Garden notes</h2>
               <p>Nested content inherits the standard page spacing.</p>

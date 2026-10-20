@@ -38,7 +38,7 @@
 .glass-demo-toggle:hover {
   background: var(--sprout-hover);
 }
-.glass-demo-toggle[aria-pressed="true"] {
+.glass-demo-toggle[aria-pressed='true'] {
   border-color: var(--sprout-border-strong);
   background: var(--sprout-hover);
 }
@@ -56,7 +56,7 @@
 .glass-demo-stage > * {
   width: 100%;
 }
-.glass-demo-stage[data-width="narrow"] > * {
+.glass-demo-stage[data-width='narrow'] > * {
   max-width: 22rem;
 }
 .glass-demo-foot {
@@ -148,7 +148,7 @@
   background: var(--sprout-hover);
   color: var(--sprout-text);
 }
-.glass-demo-rail > button[aria-current="page"] {
+.glass-demo-rail > button[aria-current='page'] {
   background: var(--sprout-active);
   color: var(--sprout-text);
 }

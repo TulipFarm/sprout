@@ -1,7 +1,7 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import { Badge } from "../../packages/sprout/src/components/badge.js";
-import { Button } from "../../packages/sprout/src/components/button.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Badge } from '../../packages/sprout/src/components/badge.js';
+import { Button } from '../../packages/sprout/src/components/button.js';
 import {
   Card,
   CardAction,
@@ -10,21 +10,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../packages/sprout/src/components/card.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/card.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("card %s %s", async (theme, mode) => {
+it.each(themes)('card %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 260px)",
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 260px)',
         gap: 16,
         padding: 16,
-        width: "fit-content",
-        background: "var(--sprout-canvas)",
+        width: 'fit-content',
+        background: 'var(--sprout-canvas)',
       }}
     >
       <Card>
@@ -58,7 +58,5 @@ it.each(themes)("card %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`card-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`card-${theme}-${mode}`);
 });

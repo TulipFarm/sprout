@@ -25,8 +25,7 @@
     --sprout-toast-scale: max(0, calc(1 - var(--toast-index) * 0.06));
     --sprout-toast-shrink: calc(1 - var(--sprout-toast-scale));
     --sprout-toast-offset-y: calc(
-      var(--toast-offset-y) * -1 - var(--toast-index) *
-        var(--sprout-toast-gap) + var(--toast-swipe-movement-y)
+      var(--toast-offset-y) * -1 - var(--toast-index) * var(--sprout-toast-gap) + var(--toast-swipe-movement-y)
     );
     position: absolute;
     right: 0;
@@ -49,8 +48,7 @@
     transform: translateX(var(--toast-swipe-movement-x))
       translateY(
         calc(
-          var(--toast-swipe-movement-y) - var(--toast-index) *
-            var(--sprout-toast-peek) - var(--sprout-toast-shrink) *
+          var(--toast-swipe-movement-y) - var(--toast-index) * var(--sprout-toast-peek) - var(--sprout-toast-shrink) *
             var(--sprout-toast-height)
         )
       )
@@ -65,7 +63,7 @@
     left: 0;
     width: 100%;
     height: calc(var(--sprout-toast-gap) + 1px);
-    content: "";
+    content: '';
   }
   .sprout-toast:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -73,25 +71,22 @@
   }
   .sprout-toast[data-expanded] {
     height: var(--toast-height);
-    transform: translateX(var(--toast-swipe-movement-x))
-      translateY(var(--sprout-toast-offset-y));
+    transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--sprout-toast-offset-y));
   }
   .sprout-toast[data-limited] {
     opacity: 0;
   }
-  .sprout-toast[data-ending-style][data-swipe-direction="down"] {
+  .sprout-toast[data-ending-style][data-swipe-direction='down'] {
     transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
   }
-  .sprout-toast[data-ending-style][data-swipe-direction="up"] {
+  .sprout-toast[data-ending-style][data-swipe-direction='up'] {
     transform: translateY(calc(var(--toast-swipe-movement-y) - 150%));
   }
-  .sprout-toast[data-ending-style][data-swipe-direction="left"] {
-    transform: translateX(calc(var(--toast-swipe-movement-x) - 150%))
-      translateY(var(--sprout-toast-offset-y));
+  .sprout-toast[data-ending-style][data-swipe-direction='left'] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(var(--sprout-toast-offset-y));
   }
-  .sprout-toast[data-ending-style][data-swipe-direction="right"] {
-    transform: translateX(calc(var(--toast-swipe-movement-x) + 150%))
-      translateY(var(--sprout-toast-offset-y));
+  .sprout-toast[data-ending-style][data-swipe-direction='right'] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(var(--sprout-toast-offset-y));
   }
 
   .sprout-toast-content {
@@ -119,7 +114,7 @@
     height: 16px;
     pointer-events: none;
   }
-  .sprout-toast-icon[data-type="error"] {
+  .sprout-toast-icon[data-type='error'] {
     color: var(--sprout-danger);
   }
 
@@ -156,7 +151,7 @@
   .sprout-toast-close::after {
     position: absolute;
     inset: -8px;
-    content: "";
+    content: '';
   }
   .sprout-toast-close:hover {
     color: var(--sprout-text);
@@ -179,9 +174,7 @@
       transition: opacity var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
     .sprout-toast[data-starting-style],
-    .sprout-toast[data-ending-style]:not([data-limited]):not(
-        [data-swipe-direction]
-      ) {
+    .sprout-toast[data-ending-style]:not([data-limited]):not([data-swipe-direction]) {
       transform: translateY(150%);
     }
   }

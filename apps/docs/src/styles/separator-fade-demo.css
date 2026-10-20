@@ -55,7 +55,7 @@
   display: flex;
   min-width: 0;
 }
-.separator-fade-demo-message[data-from="user"] {
+.separator-fade-demo-message[data-from='user'] {
   justify-content: flex-end;
 }
 .separator-fade-demo-message p {
@@ -64,7 +64,7 @@
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
-.separator-fade-demo-message[data-from="user"] p {
+.separator-fade-demo-message[data-from='user'] p {
   padding: 8px 12px;
   border-radius: var(--sprout-radius-panel);
   background: var(--sprout-secondary);

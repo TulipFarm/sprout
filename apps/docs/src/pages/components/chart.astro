@@ -1,14 +1,8 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import {
-  ChartCanvas,
-  ChartComposition,
-  ChartCredits,
-  ChartOptions,
-  ChartPlayground,
-} from "../../components/ChartDemo";
-import { BusinessCharts } from "../../components/BusinessChartsDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import { ChartCanvas, ChartComposition, ChartCredits, ChartOptions, ChartPlayground } from '../../components/ChartDemo';
+import { BusinessCharts } from '../../components/BusinessChartsDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -17,11 +11,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Chart</h1>
   <p class="docs-lead">
-    Draws usage over days and values across categories. Two ready charts cover
-    the common cases; <code>ChartContainer</code> wraps any other Recharts chart with
-    the same colors, tooltip, and legend.
+    Draws usage over days and values across categories. Two ready charts cover the common cases;{' '}
+    <code>ChartContainer</code> wraps any other Recharts chart with the same colors, tooltip, and legend.
   </p>
-  <div class="mt-8" id="chart-demo"><ChartCredits client:load /></div>
+  <div class="mt-8" id="chart-demo">
+    <ChartCredits client:load />
+  </div>
 
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
@@ -46,19 +41,18 @@ const series: UsageSeries[] = [
     />
     <ul>
       <li>
-        <code>UsageChart</code> stacks one bar per day, 256px tall. Each day is a
-        row with a UTC <code>date</code> (<code>YYYY-MM-DD</code>) and a value
-        per series key. A missing or <code>null</code> value leaves that series out
+        <code>UsageChart</code> stacks one bar per day, 256px tall. Each day is a row with a UTC <code>date</code> (
+        <code>YYYY-MM-DD</code>) and a value per series key. A missing or <code>null</code> value leaves that series out
         of the day’s tooltip. Day labels read like “Oct 17”;
         <code>locale</code> changes the language.
       </li>
       <li>
-        <code>CategoryChart</code> draws side-by-side bars per category with a legend,
-        288px tall. <code>category</code> names the row key that labels each group.
+        <code>CategoryChart</code> draws side-by-side bars per category with a legend, 288px tall. <code>category</code>{' '}
+        names the row key that labels each group.
       </li>
       <li>
-        Both take <code>title</code>, which names the chart for screen readers,
-        and <code>className</code> to change the height.
+        Both take <code>title</code>, which names the chart for screen readers, and <code>className</code> to change the
+        height.
       </li>
       <li>
         Series colors are any CSS color. The palette is
@@ -71,14 +65,15 @@ const series: UsageSeries[] = [
   <section class="prose-section">
     <h2 class="section-title">Business charts</h2>
     <p>
-      Fifteen ready charts for dashboards. They share one data shape: <code
-        >rows</code
-      >, the <code>category</code> key that names each row, and
+      Fifteen ready charts for dashboards. They share one data shape: <code>rows</code>, the <code>category</code> key
+      that names each row, and
       <code>series</code> with a key, label, and color. All take
       <code>title</code>, <code>className</code>, and
       <code>valueFormatter</code> for axis ticks and tooltips.
     </p>
-    <div class="mt-4"><BusinessCharts client:load /></div>
+    <div class="mt-4">
+      <BusinessCharts client:load />
+    </div>
     <CodeBlock
       lang="tsx"
       title="Revenue by month"
@@ -105,18 +100,15 @@ const usd = (value: number) =>
       <li>
         <strong>Over time:</strong>
         <code>TrendChart</code> (lines;
-        <code>curve</code> is smooth, linear, or step), <code
-          >AreaTrendChart</code
-        >
-        (<code>stack</code> is none, stacked, or percent), and
+        <code>curve</code> is smooth, linear, or step), <code>AreaTrendChart</code>(<code>stack</code> is none, stacked,
+        or percent), and
         <code>Sparkline</code> (a 40px line for stat tiles).
       </li>
       <li>
         <strong>Compare:</strong>
         <code>CategoryChart</code> takes
-        <code>horizontal</code> and <code>stack</code>; negative values hang
-        below a zero line. <code>ComboChart</code> mixes bars and lines; a series
-        with
+        <code>horizontal</code> and <code>stack</code>; negative values hang below a zero line. <code>ComboChart</code>{' '}
+        mixes bars and lines; a series with
         <code>axis: "right"</code> gets its own scale and
         <code>rightValueFormatter</code>.
       </li>
@@ -124,40 +116,36 @@ const usd = (value: number) =>
         <strong>Shares:</strong>
         <code>DonutChart</code> (or
         <code>variant="pie"</code>) and <code>TreemapChart</code> take
-        <code>rows</code>, <code>category</code>, and <code>value</code>. The
-        top five parts get chart colors; the rest fold into one muted “N more”
-        part.
+        <code>rows</code>, <code>category</code>, and <code>value</code>. The top five parts get chart colors; the rest
+        fold into one muted “N more” part.
       </li>
       <li>
         <strong>Progress and flow:</strong>
         <code>GaugeChart</code> shows
         <code>value</code> of <code>max</code> as a meter.
         <code>StepFunnelChart</code> shows each step’s count and share of the first.
-        <code>WaterfallChart</code> adds each step’s change to a running total; steps
-        in <code>totals</code> stand on zero.
+        <code>WaterfallChart</code> adds each step’s change to a running total; steps in <code>totals</code> stand on
+        zero.
         <code>SankeyChart</code> takes <code>nodes</code> and
         <code>links</code> by index.
       </li>
       <li>
         <strong>Patterns:</strong>
         <code>HeatmapChart</code> is a table of cells in five shades of one color.
-        <code>TimelineChart</code> draws tasks from <code>start</code> to <code
-          >end</code
-        >, colored by
+        <code>TimelineChart</code> draws tasks from <code>start</code> to <code>end</code>, colored by
         <code>seriesKey</code>. <code>ScatterPlotChart</code> plots
         <code>x</code> against <code>y</code>, with <code>size</code> for bubbles.
         <code>RadarScoreChart</code> compares scores on many axes.
       </li>
-      <li>
-        No chart shares a name with a Recharts export, so you can import both in
-        one file.
-      </li>
+      <li>No chart shares a name with a Recharts export, so you can import both in one file.</li>
     </ul>
   </section>
 
   <section class="prose-section">
     <h2 class="section-title">Canvas results</h2>
-    <div class="mt-4"><ChartCanvas client:load /></div>
+    <div class="mt-4">
+      <ChartCanvas client:load />
+    </div>
     <CodeBlock
       lang="tsx"
       title="A chart canvas item"
@@ -172,34 +160,37 @@ import { CategoryChart } from "@tulipfarm/sprout/chart";
 
   <section class="prose-section">
     <h2 class="section-title">Playground</h2>
-    <div class="mt-4"><ChartPlayground client:load /></div>
+    <div class="mt-4">
+      <ChartPlayground client:load />
+    </div>
   </section>
 
   <section class="prose-section">
     <h2 class="section-title">Tooltip and legend</h2>
-    <div class="mt-4"><ChartOptions client:load /></div>
+    <div class="mt-4">
+      <ChartOptions client:load />
+    </div>
     <ul>
       <li>
         <code>ChartTooltipContent</code>: <code>indicator</code> is
         <code>"dot"</code> (default), <code>"line"</code>, or
-        <code>"dashed"</code>. With one series and a line or dashed indicator,
-        the label moves into the row. <code>hideLabel</code>,
-        <code>hideIndicator</code>, <code>labelFormatter</code>,
-        <code>labelClassName</code>, <code>formatter</code>,
-        <code>color</code>, <code>nameKey</code>, and <code>labelKey</code>
+        <code>"dashed"</code>. With one series and a line or dashed indicator, the label moves into the row.{' '}
+        <code>hideLabel</code>,<code>hideIndicator</code>, <code>labelFormatter</code>,<code>labelClassName</code>,{' '}
+        <code>formatter</code>,<code>color</code>, <code>nameKey</code>, and <code>labelKey</code>
         change what it shows.
       </li>
       <li>
-        <code>ChartLegendContent</code>: <code>hideIcon</code> shows swatches instead
-        of config icons, and <code>nameKey</code> picks the config entry. On a top
-        legend, the 12px gap moves below it.
+        <code>ChartLegendContent</code>: <code>hideIcon</code> shows swatches instead of config icons, and{' '}
+        <code>nameKey</code> picks the config entry. On a top legend, the 12px gap moves below it.
       </li>
     </ul>
   </section>
 
   <section class="prose-section">
     <h2 class="section-title">Custom charts</h2>
-    <div class="mt-4"><ChartComposition client:load /></div>
+    <div class="mt-4">
+      <ChartComposition client:load />
+    </div>
     <CodeBlock
       lang="tsx"
       title="ChartContainer around a Recharts chart"
@@ -231,12 +222,9 @@ const config = {
 </ChartContainer>`}
     />
     <p>
-      <code>ChartContainer</code> is 16:9 unless you give it a height. It writes <code
-        >--sprout-chart-color-&lt;key&gt;</code
-      > for each config entry; <code>chartColor(key)</code> returns that variable.
-      Entries with <code>theme</code> switch value in dark mode. <code
-        >ChartStyle</code
-      >
+      <code>ChartContainer</code> is 16:9 unless you give it a height. It writes{' '}
+      <code>--sprout-chart-color-&lt;key&gt;</code> for each config entry; <code>chartColor(key)</code> returns that
+      variable. Entries with <code>theme</code> switch value in dark mode. <code>ChartStyle</code>
       is the style tag it renders. <code>ChartTooltip</code> and
       <code>ChartLegend</code> are Recharts’ <code>Tooltip</code> and
       <code>Legend</code>.
@@ -246,16 +234,13 @@ const config = {
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The ready charts turn on Recharts’ accessibility layer. The chart is one
-      tab stop, named by <code>title</code>. Left and Right arrow keys move the
-      tooltip between days or categories, and a 2px focus ring shows. Keep the
-      real numbers in text or a table next to the chart, as the credits page
-      does.
+      The ready charts turn on Recharts’ accessibility layer. The chart is one tab stop, named by <code>title</code>.
+      Left and Right arrow keys move the tooltip between days or categories, and a 2px focus ring shows. Keep the real
+      numbers in text or a table next to the chart, as the credits page does.
     </p>
     <p>
-      The tooltip moves in 160ms and stays still with reduced motion. Bars draw
-      without animation. In forced colors, the tooltip is outlined and swatches
-      keep their colors.
+      The tooltip moves in 160ms and stays still with reduced motion. Bars draw without animation. In forced colors, the
+      tooltip is outlined and swatches keep their colors.
     </p>
   </section>
 
@@ -263,18 +248,14 @@ const config = {
     <h2 class="section-title">Theme tokens</h2>
     <p>
       Series use <code>--sprout-chart-1</code> to
-      <code>--sprout-chart-10</code>, with light and dark values. Each points at
-      a named hue: <code>--sprout-indigo</code>, <code>--sprout-green</code>,
-      <code>--sprout-orange</code>, <code>--sprout-red</code>,
-      <code>--sprout-sky</code>, <code>--sprout-purple</code>,
-      <code>--sprout-yellow</code>, <code>--sprout-teal</code>,
-      <code>--sprout-blue</code>, and <code>--sprout-tan</code>. Tailwind gets
-      them as <code>bg-sprout-chart-1</code> and <code>bg-sprout-green</code>
-      and so on, for swatches beside a chart. Ticks use <code
-        >--sprout-muted</code
-      >, grid lines
-      <code>--sprout-line</code>, the hover band <code>--sprout-hover</code>,
-      and the tooltip <code>--sprout-surface</code> with
+      <code>--sprout-chart-10</code>, with light and dark values. Each points at a named hue:{' '}
+      <code>--sprout-indigo</code>, <code>--sprout-green</code>,<code>--sprout-orange</code>, <code>--sprout-red</code>,
+      <code>--sprout-sky</code>, <code>--sprout-purple</code>,<code>--sprout-yellow</code>, <code>--sprout-teal</code>,
+      <code>--sprout-blue</code>, and <code>--sprout-tan</code>. Tailwind gets them as <code>bg-sprout-chart-1</code>{' '}
+      and <code>bg-sprout-green</code>
+      and so on, for swatches beside a chart. Ticks use <code>--sprout-muted</code>, grid lines
+      <code>--sprout-line</code>, the hover band <code>--sprout-hover</code>, and the tooltip{' '}
+      <code>--sprout-surface</code> with
       <code>--sprout-line</code>.
     </p>
   </section>

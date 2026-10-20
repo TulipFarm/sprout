@@ -1,12 +1,7 @@
-import { useMemo, useState } from "react";
-import { EntityAvatar } from "@tulipfarm/sprout/avatar";
-import { Badge } from "@tulipfarm/sprout/badge";
-import {
-  Board,
-  type BoardColumn,
-  type BoardItem,
-  type BoardLane,
-} from "@tulipfarm/sprout/board";
+import { useMemo, useState } from 'react';
+import { EntityAvatar } from '@tulipfarm/sprout/avatar';
+import { Badge } from '@tulipfarm/sprout/badge';
+import { Board, type BoardColumn, type BoardItem, type BoardLane } from '@tulipfarm/sprout/board';
 import {
   DropdownMenuItem,
   DropdownMenuRadioGroup,
@@ -15,14 +10,10 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "@tulipfarm/sprout/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@tulipfarm/sprout/tooltip";
+} from '@tulipfarm/sprout/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
 
-type Priority = "Urgent" | "High" | "Normal" | "Low";
+type Priority = 'Urgent' | 'High' | 'Normal' | 'Low';
 
 interface Task extends BoardItem {
   assignee: string;
@@ -30,46 +21,46 @@ interface Task extends BoardItem {
   points: number;
 }
 
-const people = ["Ana Ruiz", "Ben Okafor", "Chen Wei", "Dara Singh"];
-const priorities: Priority[] = ["Urgent", "High", "Normal", "Low"];
+const people = ['Ana Ruiz', 'Ben Okafor', 'Chen Wei', 'Dara Singh'];
+const priorities: Priority[] = ['Urgent', 'High', 'Normal', 'Low'];
 const priorityBadge = {
-  Urgent: "destructive",
-  High: "warning",
-  Normal: "info",
-  Low: "outline",
+  Urgent: 'destructive',
+  High: 'warning',
+  Normal: 'info',
+  Low: 'outline',
 } as const;
 const priorityColor = {
-  Urgent: "var(--sprout-danger)",
-  High: "var(--sprout-warning)",
-  Normal: "var(--sprout-info)",
-  Low: "var(--sprout-border)",
+  Urgent: 'var(--sprout-danger)',
+  High: 'var(--sprout-warning)',
+  Normal: 'var(--sprout-info)',
+  Low: 'var(--sprout-border)',
 };
 
 const initialColumns: BoardColumn[] = [
-  { id: "backlog", title: "Backlog" },
-  { id: "ready", title: "Ready", limit: 4 },
-  { id: "doing", title: "In progress", limit: 3 },
-  { id: "review", title: "Review", limit: 2 },
-  { id: "done", title: "Done" },
+  { id: 'backlog', title: 'Backlog' },
+  { id: 'ready', title: 'Ready', limit: 4 },
+  { id: 'doing', title: 'In progress', limit: 3 },
+  { id: 'review', title: 'Review', limit: 2 },
+  { id: 'done', title: 'Done' },
 ];
 
 const titles = [
   "Import last season's seed orders",
-  "Greenhouse sensor dashboard",
-  "Fix duplicate invoices for wholesale buyers",
-  "Watering schedule by bed",
-  "Export harvest report to CSV",
-  "Supplier contact sheet",
-  "Frost alert text messages",
-  "Label printer for seed packets",
-  "Archive 2024 field notes",
-  "Price list for the spring market",
-  "Map of north field beds",
-  "Onboarding guide for seasonal staff",
-  "Compost temperature log",
-  "Bulk edit plant varieties",
-  "Delivery route for Saturday",
-  "Soil test results by bed",
+  'Greenhouse sensor dashboard',
+  'Fix duplicate invoices for wholesale buyers',
+  'Watering schedule by bed',
+  'Export harvest report to CSV',
+  'Supplier contact sheet',
+  'Frost alert text messages',
+  'Label printer for seed packets',
+  'Archive 2024 field notes',
+  'Price list for the spring market',
+  'Map of north field beds',
+  'Onboarding guide for seasonal staff',
+  'Compost temperature log',
+  'Bulk edit plant varieties',
+  'Delivery route for Saturday',
+  'Soil test results by bed',
 ];
 
 const initialTasks: Task[] = titles.map((title, index) => ({
@@ -85,16 +76,7 @@ function Assignee({ name, className }: { name: string; className?: string }) {
   return (
     <Tooltip>
       <TooltipTrigger
-        render={
-          <EntityAvatar
-            size="sm"
-            seed={name}
-            name={name}
-            role="img"
-            aria-label={name}
-            className={className}
-          />
-        }
+        render={<EntityAvatar size="sm" seed={name} name={name} role="img" aria-label={name} className={className} />}
       />
       <TooltipContent>{name}</TooltipContent>
     </Tooltip>
@@ -105,24 +87,15 @@ type SetTasks = (update: (list: Task[]) => Task[]) => void;
 
 function TaskActions({ task, setTasks }: { task: Task; setTasks: SetTasks }) {
   const patch = (change: Partial<Task>) =>
-    setTasks((list) =>
-      list.map((t) => (t.id === task.id ? { ...t, ...change } : t)),
-    );
+    setTasks(list => list.map(t => (t.id === task.id ? { ...t, ...change } : t)));
   return (
     <>
       <DropdownMenuSub>
         <DropdownMenuSubTrigger>Priority</DropdownMenuSubTrigger>
         <DropdownMenuSubContent>
-          <DropdownMenuRadioGroup
-            value={task.priority}
-            onValueChange={(value) => patch({ priority: value as Priority })}
-          >
-            {priorities.map((priority) => (
-              <DropdownMenuRadioItem
-                key={priority}
-                value={priority}
-                closeOnClick
-              >
+          <DropdownMenuRadioGroup value={task.priority} onValueChange={value => patch({ priority: value as Priority })}>
+            {priorities.map(priority => (
+              <DropdownMenuRadioItem key={priority} value={priority} closeOnClick>
                 {priority}
               </DropdownMenuRadioItem>
             ))}
@@ -132,11 +105,8 @@ function TaskActions({ task, setTasks }: { task: Task; setTasks: SetTasks }) {
       <DropdownMenuSub>
         <DropdownMenuSubTrigger>Assignee</DropdownMenuSubTrigger>
         <DropdownMenuSubContent>
-          <DropdownMenuRadioGroup
-            value={task.assignee}
-            onValueChange={(value) => patch({ assignee: value as string })}
-          >
-            {people.map((person) => (
+          <DropdownMenuRadioGroup value={task.assignee} onValueChange={value => patch({ assignee: value as string })}>
+            {people.map(person => (
               <DropdownMenuRadioItem key={person} value={person} closeOnClick>
                 {person}
               </DropdownMenuRadioItem>
@@ -145,23 +115,14 @@ function TaskActions({ task, setTasks }: { task: Task; setTasks: SetTasks }) {
         </DropdownMenuSubContent>
       </DropdownMenuSub>
       <DropdownMenuSeparator />
-      <DropdownMenuItem
-        variant="destructive"
-        onClick={() => setTasks((list) => list.filter((t) => t.id !== task.id))}
-      >
+      <DropdownMenuItem variant="destructive" onClick={() => setTasks(list => list.filter(t => t.id !== task.id))}>
         Delete card
       </DropdownMenuItem>
     </>
   );
 }
 
-function TaskBody({
-  task,
-  assignee = true,
-}: {
-  task: Task;
-  assignee?: boolean;
-}) {
+function TaskBody({ task, assignee = true }: { task: Task; assignee?: boolean }) {
   return (
     <>
       <Badge variant={priorityBadge[task.priority]}>{task.priority}</Badge>
@@ -171,18 +132,16 @@ function TaskBody({
   );
 }
 
-type GroupBy = "assignee" | "priority";
+type GroupBy = 'assignee' | 'priority';
 
 export function BoardPlayground() {
   const [columns, setColumns] = useState(initialColumns);
   const [tasks, setTasks] = useState(initialTasks);
-  const [groupBy, setGroupBy] = useState<GroupBy>("assignee");
+  const [groupBy, setGroupBy] = useState<GroupBy>('assignee');
   const [opened, setOpened] = useState<string | null>(null);
 
-  const lanes: BoardLane[] = (groupBy === "assignee" ? people : priorities).map(
-    (value) => ({ id: value, title: value }),
-  );
-  const items = tasks.map((task) => ({ ...task, laneId: task[groupBy] }));
+  const lanes: BoardLane[] = (groupBy === 'assignee' ? people : priorities).map(value => ({ id: value, title: value }));
+  const items = tasks.map(task => ({ ...task, laneId: task[groupBy] }));
 
   return (
     <div>
@@ -191,7 +150,7 @@ export function BoardPlayground() {
         columns={columns}
         lanes={lanes}
         items={items}
-        onItemsChange={(next) =>
+        onItemsChange={next =>
           setTasks(
             next.map(({ laneId, ...task }) => ({
               ...task,
@@ -201,55 +160,46 @@ export function BoardPlayground() {
         }
         onColumnsChange={setColumns}
         onItemAdd={({ title, columnId, laneId }) =>
-          setTasks((list) => [
+          setTasks(list => [
             ...list,
             {
               id: `t${Date.now()}`,
               title,
               columnId,
-              assignee: groupBy === "assignee" ? laneId! : people[0]!,
-              priority:
-                groupBy === "priority" ? (laneId as Priority) : "Normal",
+              assignee: groupBy === 'assignee' ? laneId! : people[0]!,
+              priority: groupBy === 'priority' ? (laneId as Priority) : 'Normal',
               points: 1,
             },
           ])
         }
-        onColumnAdd={(title) =>
-          setColumns((list) => [...list, { id: `c${Date.now()}`, title }])
-        }
-        onItemOpen={(task) => setOpened(task.title)}
-        renderTitle={(task) => (
+        onColumnAdd={title => setColumns(list => [...list, { id: `c${Date.now()}`, title }])}
+        onItemOpen={task => setOpened(task.title)}
+        renderTitle={task => (
           <>
-            <span className="me-1.5 font-mono text-xs text-[var(--sprout-muted)]">
-              {task.id.toUpperCase()}
-            </span>
+            <span className="me-1.5 font-mono text-xs text-[var(--sprout-muted)]">{task.id.toUpperCase()}</span>
             {task.title}
           </>
         )}
-        renderBody={(task) => (
-          <TaskBody task={task} assignee={groupBy !== "assignee"} />
-        )}
-        itemActions={(task) => (
+        renderBody={task => <TaskBody task={task} assignee={groupBy !== 'assignee'} />}
+        itemActions={task => (
           <>
-            <DropdownMenuItem onClick={() => setOpened(task.title)}>
-              Open
-            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setOpened(task.title)}>Open</DropdownMenuItem>
             <TaskActions task={task} setTasks={setTasks} />
           </>
         )}
         searchable
-        searchText={(task) => `${task.assignee} ${task.priority}`}
+        searchText={task => `${task.assignee} ${task.priority}`}
         laneBy={{
           value: groupBy,
           options: [
-            { value: "assignee", label: "Assignee" },
-            { value: "priority", label: "Priority" },
+            { value: 'assignee', label: 'Assignee' },
+            { value: 'priority', label: 'Priority' },
           ],
-          onChange: (value) => setGroupBy(value as GroupBy),
+          onChange: value => setGroupBy(value as GroupBy),
         }}
       />
       <p className="mt-3 text-sm text-[var(--sprout-muted)]" role="status">
-        {opened ? `Opened “${opened}”.` : "Click a card to open it."}
+        {opened ? `Opened “${opened}”.` : 'Click a card to open it.'}
       </p>
     </div>
   );
@@ -266,20 +216,20 @@ export function BoardPlain() {
       onItemsChange={setTasks}
       onColumnsChange={setColumns}
       onItemAdd={({ title, columnId }) =>
-        setTasks((list) => [
+        setTasks(list => [
           ...list,
           {
             id: `p${Date.now()}`,
             title,
             columnId,
             assignee: people[0]!,
-            priority: "Normal",
+            priority: 'Normal',
             points: 1,
           },
         ])
       }
-      renderBody={(task) => <TaskBody task={task} />}
-      itemActions={(task) => <TaskActions task={task} setTasks={setTasks} />}
+      renderBody={task => <TaskBody task={task} />}
+      itemActions={task => <TaskActions task={task} setTasks={setTasks} />}
       className="[--sprout-board-height:28rem]"
     />
   );
@@ -313,7 +263,7 @@ export function BoardCustom() {
           </div>
         </div>
       )}
-      itemActions={(task) => <TaskActions task={task} setTasks={setTasks} />}
+      itemActions={task => <TaskActions task={task} setTasks={setTasks} />}
       className="[--sprout-board-height:26rem]"
     />
   );
@@ -345,13 +295,6 @@ export function BoardLarge() {
     })),
   );
   return (
-    <Board
-      label="Large board"
-      columns={columns}
-      lanes={lanes}
-      items={items}
-      onItemsChange={setItems}
-      searchable
-    />
+    <Board label="Large board" columns={columns} lanes={lanes} items={items} onItemsChange={setItems} searchable />
   );
 }

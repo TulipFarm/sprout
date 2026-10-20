@@ -1,29 +1,25 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { Book } from "reicon-react/icons/Book";
-import { CalendarSearch } from "reicon-react/icons/CalendarSearch";
-import { Checklist } from "reicon-react/icons/Checklist";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { ChevronUp } from "reicon-react/icons/ChevronUp";
-import { Clock } from "reicon-react/icons/Clock";
-import { Database } from "reicon-react/icons/Database";
-import { FileText } from "reicon-react/icons/FileText";
-import { Leaf } from "reicon-react/icons/Leaf";
-import { MessageEdit } from "reicon-react/icons/MessageEdit";
-import { Note } from "reicon-react/icons/Note";
-import { Plug } from "reicon-react/icons/Plug";
-import { Repeat } from "reicon-react/icons/Repeat";
-import { UserAdd } from "reicon-react/icons/UserAdd";
-import { Alert, AlertDescription } from "@tulipfarm/sprout/alert";
-import type { Brand } from "@tulipfarm/sprout/brand-icon";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@tulipfarm/sprout/collapsible";
-import { PromptList, type PromptListItem } from "@tulipfarm/sprout/prompt-list";
-import DocsSelect from "./DocsSelect";
-import "../styles/prompt-list-demo.css";
+import { useEffect, useState, type ReactNode } from 'react';
+import { Book } from 'reicon-react/icons/Book';
+import { CalendarSearch } from 'reicon-react/icons/CalendarSearch';
+import { Checklist } from 'reicon-react/icons/Checklist';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronUp } from 'reicon-react/icons/ChevronUp';
+import { Clock } from 'reicon-react/icons/Clock';
+import { Database } from 'reicon-react/icons/Database';
+import { FileText } from 'reicon-react/icons/FileText';
+import { Leaf } from 'reicon-react/icons/Leaf';
+import { MessageEdit } from 'reicon-react/icons/MessageEdit';
+import { Note } from 'reicon-react/icons/Note';
+import { Plug } from 'reicon-react/icons/Plug';
+import { Repeat } from 'reicon-react/icons/Repeat';
+import { UserAdd } from 'reicon-react/icons/UserAdd';
+import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
+import type { Brand } from '@tulipfarm/sprout/brand-icon';
+import { Button } from '@tulipfarm/sprout/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@tulipfarm/sprout/collapsible';
+import { PromptList, type PromptListItem } from '@tulipfarm/sprout/prompt-list';
+import DocsSelect from './DocsSelect';
+import '../styles/prompt-list-demo.css';
 
 function Frame({
   id,
@@ -52,13 +48,7 @@ function Frame({
   );
 }
 
-function Panel({
-  caption,
-  children,
-}: {
-  caption: string;
-  children: ReactNode;
-}) {
+function Panel({ caption, children }: { caption: string; children: ReactNode }) {
   return (
     <div className="prompt-demo-panel">
       <p className="prompt-demo-caption">{caption}</p>
@@ -70,170 +60,160 @@ function Panel({
 /* Sample recommendations, shaped like the ones the chat start screen gets.
    The adapter below turns them into Prompt List rows. */
 
-type Destination = "integrations" | "files" | "members";
-type Source = "google" | "github" | "slack";
+type Destination = 'integrations' | 'files' | 'members';
+type Source = 'google' | 'github' | 'slack';
 type Recommendation = {
   id: string;
-  kind: "prompt" | "onboarding";
+  kind: 'prompt' | 'onboarding';
   label: string;
   brands: Brand[];
-  action:
-    | { kind: "prompt"; prompt: string }
-    | { kind: "open"; destination: Destination; sourcePicker?: Source };
+  action: { kind: 'prompt'; prompt: string } | { kind: 'open'; destination: Destination; sourcePicker?: Source };
 };
 
-const prompt = (text: string) => ({ kind: "prompt" as const, prompt: text });
+const prompt = (text: string) => ({ kind: 'prompt' as const, prompt: text });
 
 const suggested: Recommendation[] = [
   {
-    id: "meetings",
-    kind: "prompt",
+    id: 'meetings',
+    kind: 'prompt',
     label: "Prepare me for tomorrow's meetings",
-    brands: ["google-calendar"],
-    action: prompt(
-      "Read tomorrow's meetings from Google Calendar and list what I should prepare.",
-    ),
+    brands: ['google-calendar'],
+    action: prompt("Read tomorrow's meetings from Google Calendar and list what I should prepare."),
   },
   {
-    id: "inbox",
-    kind: "prompt",
-    label: "Draft replies to recent customer emails",
-    brands: ["gmail"],
-    action: prompt(
-      "Find recent customer emails in Gmail that still need a reply and draft one for each.",
-    ),
+    id: 'inbox',
+    kind: 'prompt',
+    label: 'Draft replies to recent customer emails',
+    brands: ['gmail'],
+    action: prompt('Find recent customer emails in Gmail that still need a reply and draft one for each.'),
   },
   {
-    id: "table-review",
-    kind: "prompt",
-    label: "Review rows in Supplier deliveries",
+    id: 'table-review',
+    kind: 'prompt',
+    label: 'Review rows in Supplier deliveries',
     brands: [],
-    action: prompt(
-      "Review the rows in the Supplier deliveries table and suggest next actions.",
-    ),
+    action: prompt('Review the rows in the Supplier deliveries table and suggest next actions.'),
   },
   {
-    id: "github",
-    kind: "prompt",
-    label: "Summarize my open GitHub work",
-    brands: ["github"],
-    action: prompt(
-      "Summarize my open GitHub issues and pull requests by repository.",
-    ),
+    id: 'github',
+    kind: 'prompt',
+    label: 'Summarize my open GitHub work',
+    brands: ['github'],
+    action: prompt('Summarize my open GitHub issues and pull requests by repository.'),
   },
   {
-    id: "slack-update",
-    kind: "prompt",
-    label: "Draft a Slack update for my team",
-    brands: ["slack"],
-    action: prompt("Help me draft a short team update for Slack."),
+    id: 'slack-update',
+    kind: 'prompt',
+    label: 'Draft a Slack update for my team',
+    brands: ['slack'],
+    action: prompt('Help me draft a short team update for Slack.'),
   },
 ];
 
 const fallback: Recommendation[] = [
   {
-    id: "follow-ups",
-    kind: "prompt",
-    label: "Plan customer follow-ups",
+    id: 'follow-ups',
+    kind: 'prompt',
+    label: 'Plan customer follow-ups',
     brands: [],
-    action: prompt("Help me plan customer follow-ups."),
+    action: prompt('Help me plan customer follow-ups.'),
   },
   {
-    id: "support",
-    kind: "prompt",
-    label: "Draft a support reply",
+    id: 'support',
+    kind: 'prompt',
+    label: 'Draft a support reply',
     brands: [],
-    action: prompt("Help me draft a reply to a customer support request."),
+    action: prompt('Help me draft a reply to a customer support request.'),
   },
   {
-    id: "week",
-    kind: "prompt",
-    label: "Plan my week",
+    id: 'week',
+    kind: 'prompt',
+    label: 'Plan my week',
     brands: [],
-    action: prompt("Help me plan my week."),
+    action: prompt('Help me plan my week.'),
   },
 ];
 
 const setup: Recommendation[] = [
   {
-    id: "personalize-bud",
-    kind: "onboarding",
-    label: "Set how Bud replies to you",
+    id: 'personalize-bud',
+    kind: 'onboarding',
+    label: 'Set how Bud replies to you',
     brands: [],
-    action: prompt("Help me set how Bud replies to me."),
+    action: prompt('Help me set how Bud replies to me.'),
   },
   {
-    id: "connect-apps",
-    kind: "onboarding",
-    label: "Connect Slack, Google, or GitHub",
+    id: 'connect-apps',
+    kind: 'onboarding',
+    label: 'Connect Slack, Google, or GitHub',
     brands: [],
-    action: { kind: "open", destination: "integrations" },
+    action: { kind: 'open', destination: 'integrations' },
   },
   {
-    id: "slack-sources",
-    kind: "onboarding",
-    label: "Choose Slack channels for knowledge",
-    brands: ["slack"],
+    id: 'slack-sources',
+    kind: 'onboarding',
+    label: 'Choose Slack channels for knowledge',
+    brands: ['slack'],
     action: {
-      kind: "open",
-      destination: "integrations",
-      sourcePicker: "slack",
+      kind: 'open',
+      destination: 'integrations',
+      sourcePicker: 'slack',
     },
   },
   {
-    id: "google-sources",
-    kind: "onboarding",
-    label: "Choose Google sources for knowledge",
+    id: 'google-sources',
+    kind: 'onboarding',
+    label: 'Choose Google sources for knowledge',
     brands: [],
     action: {
-      kind: "open",
-      destination: "integrations",
-      sourcePicker: "google",
+      kind: 'open',
+      destination: 'integrations',
+      sourcePicker: 'google',
     },
   },
   {
-    id: "create-table",
-    kind: "onboarding",
-    label: "Create your first business table",
+    id: 'create-table',
+    kind: 'onboarding',
+    label: 'Create your first business table',
     brands: [],
-    action: prompt("Help me create my first business table."),
+    action: prompt('Help me create my first business table.'),
   },
   {
-    id: "create-workflow",
-    kind: "onboarding",
-    label: "Create your first Workflow",
+    id: 'create-workflow',
+    kind: 'onboarding',
+    label: 'Create your first Workflow',
     brands: [],
-    action: prompt("Help me create my first Workflow."),
+    action: prompt('Help me create my first Workflow.'),
   },
   {
-    id: "add-knowledge",
-    kind: "onboarding",
-    label: "Add knowledge about your business",
+    id: 'add-knowledge',
+    kind: 'onboarding',
+    label: 'Add knowledge about your business',
     brands: [],
-    action: { kind: "open", destination: "files" },
+    action: { kind: 'open', destination: 'files' },
   },
   {
-    id: "invite-teammate",
-    kind: "onboarding",
-    label: "Invite a teammate",
+    id: 'invite-teammate',
+    kind: 'onboarding',
+    label: 'Invite a teammate',
     brands: [],
-    action: { kind: "open", destination: "members" },
+    action: { kind: 'open', destination: 'members' },
   },
 ];
 
 const icons: Record<string, ReactNode> = {
-  "personalize-bud": <MessageEdit />,
-  "connect-apps": <Plug />,
-  "create-table": <Database />,
-  "create-workflow": <Repeat />,
-  "add-knowledge": <Book />,
-  "invite-teammate": <UserAdd />,
+  'personalize-bud': <MessageEdit />,
+  'connect-apps': <Plug />,
+  'create-table': <Database />,
+  'create-workflow': <Repeat />,
+  'add-knowledge': <Book />,
+  'invite-teammate': <UserAdd />,
   meetings: <CalendarSearch />,
   inbox: <MessageEdit />,
-  "table-review": <Database />,
+  'table-review': <Database />,
   github: <Checklist />,
-  "slack-update": <MessageEdit />,
-  "follow-ups": <Checklist />,
+  'slack-update': <MessageEdit />,
+  'follow-ups': <Checklist />,
   support: <MessageEdit />,
   week: <CalendarSearch />,
   standup: <Clock />,
@@ -245,31 +225,31 @@ const destinationIcons: Record<Destination, ReactNode> = {
   members: <UserAdd />,
 };
 const destinationNames: Record<Destination, string> = {
-  integrations: "Integrations",
-  files: "Files",
-  members: "Members",
+  integrations: 'Integrations',
+  files: 'Files',
+  members: 'Members',
 };
 const brandNames: Partial<Record<Brand, string>> = {
-  gmail: "Gmail",
-  "google-calendar": "Google Calendar",
-  github: "GitHub",
-  slack: "Slack",
+  gmail: 'Gmail',
+  'google-calendar': 'Google Calendar',
+  github: 'GitHub',
+  slack: 'Slack',
 };
 const sourceNames: Record<Source, string> = {
-  google: "Google",
-  github: "GitHub",
-  slack: "Slack",
+  google: 'Google',
+  github: 'GitHub',
+  slack: 'Slack',
 };
 
 function rows(recommendations: Recommendation[]): PromptListItem[] {
-  return recommendations.map((item) => {
+  return recommendations.map(item => {
     const { action } = item;
-    const source = action.kind === "open" ? action.sourcePicker : undefined;
+    const source = action.kind === 'open' ? action.sourcePicker : undefined;
     return {
       id: item.id,
       label: item.label,
       icon:
-        action.kind === "open" ? (
+        action.kind === 'open' ? (
           source ? (
             <Book />
           ) : (
@@ -280,7 +260,7 @@ function rows(recommendations: Recommendation[]): PromptListItem[] {
         ),
       brands: source
         ? [{ brand: source, name: sourceNames[source] }]
-        : item.brands.map((brand) => ({
+        : item.brands.map(brand => ({
             brand,
             name: brandNames[brand] ?? brand,
           })),
@@ -290,30 +270,29 @@ function rows(recommendations: Recommendation[]): PromptListItem[] {
 
 /* The chat start screen: tasks, more tasks, setup, and the load states ---- */
 
-type Feed = "ready" | "fallback" | "loading" | "updating" | "error" | "offline";
+type Feed = 'ready' | 'fallback' | 'loading' | 'updating' | 'error' | 'offline';
 const feedChoices: { value: Feed; label: string }[] = [
-  { value: "ready", label: "Saved recommendations" },
-  { value: "fallback", label: "No recommendations yet" },
-  { value: "loading", label: "Loading" },
-  { value: "updating", label: "Updating in background" },
-  { value: "error", label: "Could not load" },
-  { value: "offline", label: "Live updates unavailable" },
+  { value: 'ready', label: 'Saved recommendations' },
+  { value: 'fallback', label: 'No recommendations yet' },
+  { value: 'loading', label: 'Loading' },
+  { value: 'updating', label: 'Updating in background' },
+  { value: 'error', label: 'Could not load' },
+  { value: 'offline', label: 'Live updates unavailable' },
 ];
 const feedMessages: Record<Feed, string | null> = {
   ready: null,
   fallback: null,
-  loading: "Loading saved recommendations.",
-  updating: "Recommendations are updating in the background.",
-  error: "Saved recommendations could not be loaded.",
-  offline:
-    "Live updates are not available. Reload the saved list to reconnect.",
+  loading: 'Loading saved recommendations.',
+  updating: 'Recommendations are updating in the background.',
+  error: 'Saved recommendations could not be loaded.',
+  offline: 'Live updates are not available. Reload the saved list to reconnect.',
 };
 
-type SetupLeft = "several" | "one" | "none";
+type SetupLeft = 'several' | 'one' | 'none';
 const setupChoices: { value: SetupLeft; label: string }[] = [
-  { value: "several", label: "Eight steps left" },
-  { value: "one", label: "One step left" },
-  { value: "none", label: "All done" },
+  { value: 'several', label: 'Eight steps left' },
+  { value: 'one', label: 'One step left' },
+  { value: 'none', label: 'All done' },
 ];
 const setupCounts: Record<SetupLeft, number> = {
   several: setup.length,
@@ -321,94 +300,66 @@ const setupCounts: Record<SetupLeft, number> = {
   none: 0,
 };
 
-type Chat = "idle" | "sending";
+type Chat = 'idle' | 'sending';
 const chatChoices: { value: Chat; label: string }[] = [
-  { value: "idle", label: "Ready" },
-  { value: "sending", label: "Sending a message" },
+  { value: 'idle', label: 'Ready' },
+  { value: 'sending', label: 'Sending a message' },
 ];
 
 export function PromptListStartingTasks() {
-  const [feed, setFeed] = useState<Feed>("ready");
-  const [chat, setChat] = useState<Chat>("idle");
-  const [setupLeft, setSetupLeft] = useState<SetupLeft>("several");
+  const [feed, setFeed] = useState<Feed>('ready');
+  const [chat, setChat] = useState<Chat>('idle');
+  const [setupLeft, setSetupLeft] = useState<SetupLeft>('several');
   const [refreshing, setRefreshing] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [setupOpen, setSetupOpen] = useState(false);
-  const [result, setResult] = useState("Nothing chosen yet.");
+  const [result, setResult] = useState('Nothing chosen yet.');
   useEffect(() => {
     if (!refreshing) return;
     const timer = setTimeout(() => {
       setRefreshing(false);
-      setFeed("ready");
+      setFeed('ready');
     }, 900);
     return () => clearTimeout(timer);
   }, [refreshing]);
 
-  const disabled = chat === "sending";
-  const tasks = feed === "ready" || feed === "updating" ? suggested : fallback;
+  const disabled = chat === 'sending';
+  const tasks = feed === 'ready' || feed === 'updating' ? suggested : fallback;
   const primary = tasks.slice(0, 3);
   const more = tasks.slice(3);
   const steps = setup.slice(0, setupCounts[setupLeft]);
   const message = feedMessages[feed];
-  const error = feed === "error" || feed === "offline";
+  const error = feed === 'error' || feed === 'offline';
   const choose = (id: string) => {
-    const action = [...tasks, ...steps].find((item) => item.id === id)?.action;
-    if (action?.kind === "prompt")
-      setResult(`Sent to chat: “${action.prompt}”`);
+    const action = [...tasks, ...steps].find(item => item.id === id)?.action;
+    if (action?.kind === 'prompt') setResult(`Sent to chat: “${action.prompt}”`);
     else if (action)
       setResult(
-        `Opened ${destinationNames[action.destination]}${action.sourcePicker ? ` › ${sourceNames[action.sourcePicker]} sources` : ""}.`,
+        `Opened ${destinationNames[action.destination]}${action.sourcePicker ? ` › ${sourceNames[action.sourcePicker]} sources` : ''}.`,
       );
   };
 
   return (
-    <section
-      className="prompt-demo-frame"
-      aria-label="Starting tasks"
-      data-recipe="starting-tasks"
-    >
+    <section className="prompt-demo-frame" aria-label="Starting tasks" data-recipe="starting-tasks">
       <div className="prompt-demo-toolbar">
         <span className="prompt-demo-picker">
           Recommendations
-          <DocsSelect<Feed>
-            label="Recommendations"
-            value={feed}
-            onValueChange={setFeed}
-            items={feedChoices}
-          />
+          <DocsSelect<Feed> label="Recommendations" value={feed} onValueChange={setFeed} items={feedChoices} />
         </span>
         <span className="prompt-demo-picker">
           Setup
-          <DocsSelect<SetupLeft>
-            label="Setup"
-            value={setupLeft}
-            onValueChange={setSetupLeft}
-            items={setupChoices}
-          />
+          <DocsSelect<SetupLeft> label="Setup" value={setupLeft} onValueChange={setSetupLeft} items={setupChoices} />
         </span>
         <span className="prompt-demo-picker">
           Chat
-          <DocsSelect<Chat>
-            label="Chat"
-            value={chat}
-            onValueChange={setChat}
-            items={chatChoices}
-          />
+          <DocsSelect<Chat> label="Chat" value={chat} onValueChange={setChat} items={chatChoices} />
         </span>
       </div>
       <div className="prompt-demo-stage">
         <div className="prompt-demo-chat">
-          <section
-            aria-label="Recommended for you"
-            className="prompt-demo-start"
-          >
+          <section aria-label="Recommended for you" className="prompt-demo-start">
             <div className="prompt-demo-group">
-              <PromptList
-                title="Start with a task"
-                disabled={disabled}
-                onSelect={choose}
-                items={rows(primary)}
-              />
+              <PromptList title="Start with a task" disabled={disabled} onSelect={choose} items={rows(primary)} />
               {more.length > 0 && (
                 <Collapsible open={moreOpen} onOpenChange={setMoreOpen}>
                   <CollapsibleContent>
@@ -423,15 +374,9 @@ export function PromptListStartingTasks() {
                     </div>
                   </CollapsibleContent>
                   <div className="prompt-demo-trigger">
-                    <CollapsibleTrigger
-                      render={<Button variant="ghost" size="sm" />}
-                    >
-                      {moreOpen ? (
-                        <ChevronUp aria-hidden="true" />
-                      ) : (
-                        <ChevronDown aria-hidden="true" />
-                      )}
-                      {moreOpen ? "Fewer tasks" : `More tasks (${more.length})`}
+                    <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
+                      {moreOpen ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+                      {moreOpen ? 'Fewer tasks' : `More tasks (${more.length})`}
                     </CollapsibleTrigger>
                   </div>
                 </Collapsible>
@@ -448,17 +393,9 @@ export function PromptListStartingTasks() {
                 {steps.length > 1 && (
                   <Collapsible open={setupOpen} onOpenChange={setSetupOpen}>
                     <div className="prompt-demo-trigger">
-                      <CollapsibleTrigger
-                        render={<Button variant="ghost" size="sm" />}
-                      >
-                        {setupOpen ? (
-                          <ChevronUp aria-hidden="true" />
-                        ) : (
-                          <ChevronDown aria-hidden="true" />
-                        )}
-                        {setupOpen
-                          ? "Fewer setup options"
-                          : `More setup options (${steps.length - 1})`}
+                      <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
+                        {setupOpen ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+                        {setupOpen ? 'Fewer setup options' : `More setup options (${steps.length - 1})`}
                       </CollapsibleTrigger>
                     </div>
                     <CollapsibleContent>
@@ -474,9 +411,7 @@ export function PromptListStartingTasks() {
                     </CollapsibleContent>
                   </Collapsible>
                 )}
-                <p className="prompt-demo-hint">
-                  Optional. You can start a task now.
-                </p>
+                <p className="prompt-demo-hint">Optional. You can start a task now.</p>
               </div>
             )}
             {message &&
@@ -493,26 +428,17 @@ export function PromptListStartingTasks() {
                       aria-busy={refreshing}
                       onClick={() => setRefreshing(true)}
                     >
-                      {refreshing
-                        ? "Loading saved list..."
-                        : "Reload saved list"}
+                      {refreshing ? 'Loading saved list...' : 'Reload saved list'}
                     </Button>
                   </div>
                 </div>
               ) : (
-                <p
-                  role="status"
-                  className="prompt-demo-hint prompt-demo-message"
-                >
+                <p role="status" className="prompt-demo-hint prompt-demo-message">
                   {message}
                 </p>
               ))}
           </section>
-          <p
-            className="prompt-demo-result"
-            data-testid="starting-tasks-result"
-            aria-live="polite"
-          >
+          <p className="prompt-demo-result" data-testid="starting-tasks-result" aria-live="polite">
             {result}
           </p>
         </div>
@@ -524,29 +450,16 @@ export function PromptListStartingTasks() {
 /* Title shown or hidden ---------------------------------------------------- */
 
 export function PromptListTitles() {
-  const [picked, setPicked] = useState("Nothing chosen yet.");
+  const [picked, setPicked] = useState('Nothing chosen yet.');
   const pick = (id: string) => setPicked(`Chose ${id}.`);
   return (
-    <Frame
-      id="titles"
-      title="Title shown or hidden"
-      note="A hidden title still names the list for screen readers"
-    >
+    <Frame id="titles" title="Title shown or hidden" note="A hidden title still names the list for screen readers">
       <div className="prompt-demo-pair">
         <Panel caption="showTitle (default)">
-          <PromptList
-            title="Start with a task"
-            onSelect={pick}
-            items={rows(fallback)}
-          />
+          <PromptList title="Start with a task" onSelect={pick} items={rows(fallback)} />
         </Panel>
         <Panel caption="showTitle={false}, inside “More tasks”">
-          <PromptList
-            title="More tasks"
-            showTitle={false}
-            onSelect={pick}
-            items={rows(suggested.slice(3))}
-          />
+          <PromptList title="More tasks" showTitle={false} onSelect={pick} items={rows(suggested.slice(3))} />
         </Panel>
       </div>
       <p className="prompt-demo-result" aria-live="polite">
@@ -559,39 +472,31 @@ export function PromptListTitles() {
 /* Brands ------------------------------------------------------------------- */
 
 const brandRows: PromptListItem[] = [
-  { id: "process", label: "Write down a business process", icon: <Note /> },
+  { id: 'process', label: 'Write down a business process', icon: <Note /> },
   {
-    id: "meetings",
+    id: 'meetings',
     label: "Prepare me for tomorrow's meetings",
     icon: <CalendarSearch />,
-    brands: [{ brand: "google-calendar", name: "Google Calendar" }],
+    brands: [{ brand: 'google-calendar', name: 'Google Calendar' }],
   },
   {
-    id: "standup",
-    label: "Prepare a daily team update",
+    id: 'standup',
+    label: 'Prepare a daily team update',
     icon: <Clock />,
     brands: [
-      { brand: "github", name: "GitHub" },
-      { brand: "slack", name: "Slack" },
-      { brand: "google-calendar", name: "Google Calendar" },
+      { brand: 'github', name: 'GitHub' },
+      { brand: 'slack', name: 'Slack' },
+      { brand: 'google-calendar', name: 'Google Calendar' },
     ],
   },
 ];
 
 export function PromptListBrands() {
-  const [picked, setPicked] = useState("Nothing chosen yet.");
+  const [picked, setPicked] = useState('Nothing chosen yet.');
   return (
-    <Frame
-      id="brands"
-      title="Apps a prompt uses"
-      note="No apps, one app, and several apps. Hover a tile for its name."
-    >
+    <Frame id="brands" title="Apps a prompt uses" note="No apps, one app, and several apps. Hover a tile for its name.">
       <div className="prompt-demo-chat">
-        <PromptList
-          title="Start with a task"
-          onSelect={(id) => setPicked(`Chose ${id}.`)}
-          items={brandRows}
-        />
+        <PromptList title="Start with a task" onSelect={id => setPicked(`Chose ${id}.`)} items={brandRows} />
         <p className="prompt-demo-result" aria-live="polite">
           {picked}
         </p>
@@ -604,26 +509,13 @@ export function PromptListBrands() {
 
 export function PromptListDisabled() {
   return (
-    <Frame
-      id="disabled"
-      title="Disabled"
-      note="Every row locks while a message is sending"
-    >
+    <Frame id="disabled" title="Disabled" note="Every row locks while a message is sending">
       <div className="prompt-demo-pair">
         <Panel caption="Enabled">
-          <PromptList
-            title="Set up your workspace"
-            onSelect={() => {}}
-            items={rows(setup.slice(1, 4))}
-          />
+          <PromptList title="Set up your workspace" onSelect={() => {}} items={rows(setup.slice(1, 4))} />
         </Panel>
         <Panel caption="disabled">
-          <PromptList
-            title="Set up your workspace"
-            disabled
-            onSelect={() => {}}
-            items={rows(setup.slice(1, 4))}
-          />
+          <PromptList title="Set up your workspace" disabled onSelect={() => {}} items={rows(setup.slice(1, 4))} />
         </Panel>
       </div>
     </Frame>
@@ -634,39 +526,29 @@ export function PromptListDisabled() {
 
 const longRows: PromptListItem[] = [
   {
-    id: "long-table",
-    label:
-      "Review rows in Supplier deliveries from the legacy accounting export",
+    id: 'long-table',
+    label: 'Review rows in Supplier deliveries from the legacy accounting export',
     icon: <Database />,
   },
   {
-    id: "long-inbox",
-    label:
-      "Draft replies to recent customer emails about delayed spring bulb orders",
+    id: 'long-inbox',
+    label: 'Draft replies to recent customer emails about delayed spring bulb orders',
     icon: <MessageEdit />,
-    brands: [{ brand: "gmail", name: "Gmail" }],
+    brands: [{ brand: 'gmail', name: 'Gmail' }],
   },
   {
-    id: "long-sources",
-    label: "Choose Google sources for knowledge",
+    id: 'long-sources',
+    label: 'Choose Google sources for knowledge',
     icon: <Book />,
-    brands: [{ brand: "google", name: "Google" }],
+    brands: [{ brand: 'google', name: 'Google' }],
   },
 ];
 
 export function PromptListLongLabels() {
   return (
-    <Frame
-      id="long"
-      title="Long labels"
-      note="Labels stay on one line and show in full on hover"
-    >
+    <Frame id="long" title="Long labels" note="Labels stay on one line and show in full on hover">
       <div className="prompt-demo-narrow">
-        <PromptList
-          title="Start with a task"
-          onSelect={() => {}}
-          items={longRows}
-        />
+        <PromptList title="Start with a task" onSelect={() => {}} items={longRows} />
       </div>
     </Frame>
   );
@@ -675,41 +557,28 @@ export function PromptListLongLabels() {
 /* Playground: fictional starter prompts ------------------------------------ */
 
 const fictional: PromptListItem[] = [
-  { id: "notes", label: "Summarize garden notes", icon: <FileText /> },
+  { id: 'notes', label: 'Summarize garden notes', icon: <FileText /> },
   {
-    id: "plan",
-    label: "Plan a garden project",
+    id: 'plan',
+    label: 'Plan a garden project',
     icon: <Leaf />,
-    brands: [{ brand: "notion", name: "Notion" }],
+    brands: [{ brand: 'notion', name: 'Notion' }],
   },
 ];
 
 export function PromptListFictional() {
-  const [selected, setSelected] = useState("No prompt selected.");
+  const [selected, setSelected] = useState('No prompt selected.');
   return (
-    <Frame
-      id="fictional"
-      title="Starter prompts"
-      note="The component playground’s fictional tasks"
-    >
+    <Frame id="fictional" title="Starter prompts" note="The component playground’s fictional tasks">
       <div className="prompt-demo-pair">
         <Panel caption="Enabled">
-          <PromptList
-            title="Try a fictional task"
-            items={fictional}
-            onSelect={setSelected}
-          />
+          <PromptList title="Try a fictional task" items={fictional} onSelect={setSelected} />
           <p role="status" className="prompt-demo-result">
             {selected}
           </p>
         </Panel>
         <Panel caption="disabled">
-          <PromptList
-            title="Unavailable prompts"
-            items={fictional}
-            onSelect={setSelected}
-            disabled
-          />
+          <PromptList title="Unavailable prompts" items={fictional} onSelect={setSelected} disabled />
         </Panel>
       </div>
     </Frame>

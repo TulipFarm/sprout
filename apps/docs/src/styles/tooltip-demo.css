@@ -117,8 +117,7 @@
   font-size: var(--sprout-text-xs);
   font-weight: 500;
   cursor: default;
-  transition: background-color var(--sprout-motion-fast)
-    var(--sprout-motion-ease);
+  transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
 }
 .tooltip-demo-select:hover,
 .tooltip-demo-select[data-popup-open] {
@@ -204,7 +203,7 @@
 .tooltip-demo-list-row + .tooltip-demo-list-row {
   border-top: 1px solid var(--sprout-line);
 }
-.tooltip-demo-list-row > [role="cell"]:not(:first-child) {
+.tooltip-demo-list-row > [role='cell']:not(:first-child) {
   color: var(--sprout-muted);
   font-variant-numeric: tabular-nums;
 }

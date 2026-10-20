@@ -7,7 +7,7 @@
     min-height: 0;
     overflow: hidden;
   }
-  .sprout-resizable-group[data-orientation="vertical"] {
+  .sprout-resizable-group[data-orientation='vertical'] {
     flex-direction: column;
   }
 
@@ -30,26 +30,26 @@
     touch-action: none;
     user-select: none;
   }
-  .sprout-resizable-handle[data-orientation="vertical"] {
+  .sprout-resizable-handle[data-orientation='vertical'] {
     width: 1px;
     cursor: col-resize;
   }
-  .sprout-resizable-handle[data-orientation="horizontal"] {
+  .sprout-resizable-handle[data-orientation='horizontal'] {
     height: 1px;
     cursor: row-resize;
   }
   /* A wider invisible hit area keeps the 1px line easy to grab. */
   .sprout-resizable-handle::after {
-    content: "";
+    content: '';
     position: absolute;
   }
-  .sprout-resizable-handle[data-orientation="vertical"]::after {
+  .sprout-resizable-handle[data-orientation='vertical']::after {
     inset-block: 0;
     left: 50%;
     width: 9px;
     transform: translateX(-50%);
   }
-  .sprout-resizable-handle[data-orientation="horizontal"]::after {
+  .sprout-resizable-handle[data-orientation='horizontal']::after {
     inset-inline: 0;
     top: 50%;
     height: 9px;
@@ -71,12 +71,11 @@
     border-radius: 999px;
     background: var(--sprout-border);
   }
-  .sprout-resizable-handle[data-orientation="vertical"] .sprout-resizable-grip {
+  .sprout-resizable-handle[data-orientation='vertical'] .sprout-resizable-grip {
     width: 6px;
     height: 24px;
   }
-  .sprout-resizable-handle[data-orientation="horizontal"]
-    .sprout-resizable-grip {
+  .sprout-resizable-handle[data-orientation='horizontal'] .sprout-resizable-grip {
     width: 24px;
     height: 6px;
   }
@@ -89,10 +88,10 @@
   }
 
   @media (pointer: coarse) {
-    .sprout-resizable-handle[data-orientation="vertical"]::after {
+    .sprout-resizable-handle[data-orientation='vertical']::after {
       width: 24px;
     }
-    .sprout-resizable-handle[data-orientation="horizontal"]::after {
+    .sprout-resizable-handle[data-orientation='horizontal']::after {
       height: 24px;
     }
   }

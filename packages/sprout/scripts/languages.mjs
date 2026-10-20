@@ -1,112 +1,106 @@
 // Regenerates src/internal/languages.ts from Shiki's bundled grammars.
 // Run after upgrading shiki: node packages/sprout/scripts/languages.mjs
-import { writeFile } from "node:fs/promises";
-import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
+import { writeFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
-const shiki = require.resolve("shiki/package.json");
+const shiki = require.resolve('shiki/package.json');
 const { version } = require(shiki);
-const { bundledLanguagesInfo } = await import(
-  new URL("dist/langs.mjs", `file://${shiki}`).href
-);
+const { bundledLanguagesInfo } = await import(new URL('dist/langs.mjs', `file://${shiki}`).href);
 
 // Extensions Shiki does not list as an alias, chosen like GitHub Linguist's defaults.
 const extensions = {
-  c: "h",
-  cpp: "cc cxx hpp hh hxx ipp ino tpp",
-  csharp: "csx cake",
-  "objective-c": "m",
-  "objective-cpp": "mm",
-  javascript: "es6 jsm",
-  python: "pyw pyi gyp bzl",
-  ruby: "gemspec rake ru podspec rbi thor",
-  perl: "pl pm t pod",
-  php: "phtml php3 php4 php5 phps",
-  shellscript: "ksh command",
-  html: "htm xhtml shtml",
-  xml: "svg xsd xsl xslt plist csproj fsproj vbproj props targets xaml rss atom wsdl resx kml gpx nuspec",
-  markdown: "markdown mdown mkd mkdn mdwn",
-  latex: "ltx",
-  tex: "sty cls",
-  elixir: "ex exs",
-  erlang: "hrl",
-  clojure: "cljs cljc edn",
-  scala: "sc sbt",
-  groovy: "gradle gvy",
-  nim: "nims nimble",
-  vb: "vbs bas",
-  fsharp: "fsi fsx",
-  ocaml: "ml mli",
-  racket: "rkt",
-  scheme: "scm ss",
-  "common-lisp": "lsp cl",
-  "emacs-lisp": "el",
-  make: "mk mak",
-  ini: "cfg editorconfig gitconfig",
-  json: "webmanifest geojson topojson har",
-  jsonl: "ndjson",
-  graphql: "graphqls",
-  powershell: "psm1 psd1",
-  diff: "patch",
-  "system-verilog": "sv svh",
-  verilog: "vh",
-  vhdl: "vhd",
-  asm: "s nasm",
-  wasm: "wat wast",
-  solidity: "sol",
-  purescript: "purs",
-  jinja: "j2 jinja2",
-  asciidoc: "asciidoc",
-  bibtex: "bib",
-  systemd: "service socket timer mount target",
-  handlebars: "handlebars",
-  haskell: "lhs",
-  kotlin: "ktm",
+  c: 'h',
+  cpp: 'cc cxx hpp hh hxx ipp ino tpp',
+  csharp: 'csx cake',
+  'objective-c': 'm',
+  'objective-cpp': 'mm',
+  javascript: 'es6 jsm',
+  python: 'pyw pyi gyp bzl',
+  ruby: 'gemspec rake ru podspec rbi thor',
+  perl: 'pl pm t pod',
+  php: 'phtml php3 php4 php5 phps',
+  shellscript: 'ksh command',
+  html: 'htm xhtml shtml',
+  xml: 'svg xsd xsl xslt plist csproj fsproj vbproj props targets xaml rss atom wsdl resx kml gpx nuspec',
+  markdown: 'markdown mdown mkd mkdn mdwn',
+  latex: 'ltx',
+  tex: 'sty cls',
+  elixir: 'ex exs',
+  erlang: 'hrl',
+  clojure: 'cljs cljc edn',
+  scala: 'sc sbt',
+  groovy: 'gradle gvy',
+  nim: 'nims nimble',
+  vb: 'vbs bas',
+  fsharp: 'fsi fsx',
+  ocaml: 'ml mli',
+  racket: 'rkt',
+  scheme: 'scm ss',
+  'common-lisp': 'lsp cl',
+  'emacs-lisp': 'el',
+  make: 'mk mak',
+  ini: 'cfg editorconfig gitconfig',
+  json: 'webmanifest geojson topojson har',
+  jsonl: 'ndjson',
+  graphql: 'graphqls',
+  powershell: 'psm1 psd1',
+  diff: 'patch',
+  'system-verilog': 'sv svh',
+  verilog: 'vh',
+  vhdl: 'vhd',
+  asm: 's nasm',
+  wasm: 'wat wast',
+  solidity: 'sol',
+  purescript: 'purs',
+  jinja: 'j2 jinja2',
+  asciidoc: 'asciidoc',
+  bibtex: 'bib',
+  systemd: 'service socket timer mount target',
+  handlebars: 'handlebars',
+  haskell: 'lhs',
+  kotlin: 'ktm',
 };
 
 // Whole filenames, matched case-insensitively.
 const filenames = {
-  docker: "dockerfile containerfile",
-  make: "makefile gnumakefile",
-  cmake: "cmakelists.txt",
-  ruby: "gemfile rakefile podfile vagrantfile brewfile fastfile guardfile appfile",
-  groovy: "jenkinsfile",
-  just: "justfile",
-  shellscript:
-    ".bashrc .bash_profile .bash_aliases .zshrc .zprofile .zshenv .profile",
-  ini: ".gitconfig .editorconfig .npmrc .yarnrc .pylintrc",
-  jsonc: "tsconfig.json jsconfig.json .eslintrc.json devcontainer.json",
-  json: ".prettierrc .babelrc composer.lock",
-  toml: "cargo.lock pipfile poetry.lock",
-  yaml: ".clang-format .gemrc",
-  codeowners: "codeowners",
-  "git-commit": "commit_editmsg",
-  "git-rebase": "git-rebase-todo",
-  "ssh-config": "ssh_config sshd_config",
-  nginx: "nginx.conf",
-  apache: ".htaccess httpd.conf",
-  dotenv: ".env",
+  docker: 'dockerfile containerfile',
+  make: 'makefile gnumakefile',
+  cmake: 'cmakelists.txt',
+  ruby: 'gemfile rakefile podfile vagrantfile brewfile fastfile guardfile appfile',
+  groovy: 'jenkinsfile',
+  just: 'justfile',
+  shellscript: '.bashrc .bash_profile .bash_aliases .zshrc .zprofile .zshenv .profile',
+  ini: '.gitconfig .editorconfig .npmrc .yarnrc .pylintrc',
+  jsonc: 'tsconfig.json jsconfig.json .eslintrc.json devcontainer.json',
+  json: '.prettierrc .babelrc composer.lock',
+  toml: 'cargo.lock pipfile poetry.lock',
+  yaml: '.clang-format .gemrc',
+  codeowners: 'codeowners',
+  'git-commit': 'commit_editmsg',
+  'git-rebase': 'git-rebase-todo',
+  'ssh-config': 'ssh_config sshd_config',
+  nginx: 'nginx.conf',
+  apache: '.htaccess httpd.conf',
+  dotenv: '.env',
 };
 
-const ids = bundledLanguagesInfo.map((info) => info.id);
+const ids = bundledLanguagesInfo.map(info => info.id);
 const known = new Set(ids);
 const aliases = {};
 const add = (table, keys, id) => {
   if (!known.has(id)) throw new Error(`Unknown Shiki language: ${id}`);
   for (const key of keys) table[key.toLowerCase()] ??= id;
 };
-for (const info of bundledLanguagesInfo)
-  add(aliases, [info.id, ...(info.aliases ?? [])], info.id);
-for (const [id, list] of Object.entries(extensions))
-  add(aliases, list.split(" "), id);
+for (const info of bundledLanguagesInfo) add(aliases, [info.id, ...(info.aliases ?? [])], info.id);
+for (const [id, list] of Object.entries(extensions)) add(aliases, list.split(' '), id);
 const names = {};
-for (const [id, list] of Object.entries(filenames))
-  add(names, list.split(" "), id);
+for (const [id, list] of Object.entries(filenames)) add(names, list.split(' '), id);
 
-const json = (value) => JSON.stringify(value, null, 2);
+const json = value => JSON.stringify(value, null, 2);
 await writeFile(
-  fileURLToPath(new URL("../src/internal/languages.ts", import.meta.url)),
+  fileURLToPath(new URL('../src/internal/languages.ts', import.meta.url)),
   `// Generated by scripts/languages.mjs from shiki ${version}. Do not edit.
 
 export const codeLanguageIds = ${json(ids)} as const;
@@ -114,9 +108,7 @@ export const codeLanguageIds = ${json(ids)} as const;
 export type CodeLanguage = (typeof codeLanguageIds)[number];
 
 export const codeLanguageNames: Record<CodeLanguage, string> = ${json(
-    Object.fromEntries(
-      bundledLanguagesInfo.map((info) => [info.id, info.name]),
-    ),
+    Object.fromEntries(bundledLanguagesInfo.map(info => [info.id, info.name])),
   )};
 
 /** Language ids, Shiki aliases, and file extensions, lowercased. */
@@ -126,6 +118,4 @@ export const codeLanguageAliases: Record<string, CodeLanguage> = ${json(aliases)
 export const codeLanguageFilenames: Record<string, CodeLanguage> = ${json(names)};
 `,
 );
-console.log(
-  `${ids.length} languages, ${Object.keys(aliases).length} aliases, ${Object.keys(names).length} filenames`,
-);
+console.log(`${ids.length} languages, ${Object.keys(aliases).length} aliases, ${Object.keys(names).length} filenames`);

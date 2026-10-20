@@ -1,13 +1,9 @@
-import { useId, useState, type FormEvent, type ReactNode } from "react";
-import { Filter } from "reicon-react/icons/Filter";
-import { Hashtag } from "reicon-react/icons/Hashtag";
-import { BrandIcon, type Brand } from "@tulipfarm/sprout/brand-icon";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
+import { useId, useState, type FormEvent, type ReactNode } from 'react';
+import { Filter } from 'reicon-react/icons/Filter';
+import { Hashtag } from 'reicon-react/icons/Hashtag';
+import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
+import { Button } from '@tulipfarm/sprout/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
 import {
   Select,
   SelectContent,
@@ -18,62 +14,52 @@ import {
   SelectTrigger,
   SelectValue,
   type SelectTriggerSize,
-} from "@tulipfarm/sprout/select";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetTitle,
-  SheetTrigger,
-} from "@tulipfarm/sprout/sheet";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@tulipfarm/sprout/tooltip";
-import "../styles/select-demo.css";
+} from '@tulipfarm/sprout/select';
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@tulipfarm/sprout/sheet';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
+import '../styles/select-demo.css';
 
 const durations = [
-  { value: "30", label: "30 minutes" },
-  { value: "60", label: "1 hour" },
-  { value: "90", label: "90 minutes" },
+  { value: '30', label: '30 minutes' },
+  { value: '60', label: '1 hour' },
+  { value: '90', label: '90 minutes' },
 ];
 
 const repeats = [
-  { value: "none", label: "Does not repeat" },
-  { value: "daily", label: "Every day" },
-  { value: "weekdays", label: "Weekdays" },
-  { value: "weekly", label: "Every week" },
+  { value: 'none', label: 'Does not repeat' },
+  { value: 'daily', label: 'Every day' },
+  { value: 'weekdays', label: 'Weekdays' },
+  { value: 'weekly', label: 'Every week' },
 ];
 
 const timeZones = [
-  "UTC",
-  "America/Los_Angeles",
-  "America/Denver",
-  "America/Chicago",
-  "America/New_York",
-  "America/Toronto",
-  "America/Sao_Paulo",
-  "Europe/London",
-  "Europe/Dublin",
-  "Europe/Paris",
-  "Europe/Berlin",
-  "Europe/Amsterdam",
-  "Europe/Stockholm",
-  "Africa/Lagos",
-  "Africa/Johannesburg",
-  "Asia/Dubai",
-  "Asia/Kolkata",
-  "Asia/Singapore",
-  "Asia/Tokyo",
-  "Australia/Sydney",
-  "Pacific/Auckland",
+  'UTC',
+  'America/Los_Angeles',
+  'America/Denver',
+  'America/Chicago',
+  'America/New_York',
+  'America/Toronto',
+  'America/Sao_Paulo',
+  'Europe/London',
+  'Europe/Dublin',
+  'Europe/Paris',
+  'Europe/Berlin',
+  'Europe/Amsterdam',
+  'Europe/Stockholm',
+  'Africa/Lagos',
+  'Africa/Johannesburg',
+  'Asia/Dubai',
+  'Asia/Kolkata',
+  'Asia/Singapore',
+  'Asia/Tokyo',
+  'Australia/Sydney',
+  'Pacific/Auckland',
 ];
 
 const calendars = [
-  { value: "primary", label: "dana@acme.com" },
-  { value: "team", label: "Customer success" },
-  { value: "launches", label: "Launch calendar" },
+  { value: 'primary', label: 'dana@acme.com' },
+  { value: 'team', label: 'Customer success' },
+  { value: 'launches', label: 'Launch calendar' },
 ];
 
 function DemoField({
@@ -87,25 +73,18 @@ function DemoField({
 }: {
   id: string;
   label: string;
-  marker?: "required" | "optional";
+  marker?: 'required' | 'optional';
   helper?: ReactNode;
   error?: ReactNode;
   srOnlyLabel?: boolean;
   children: ReactNode;
 }) {
   return (
-    <div className="select-demo-field" data-invalid={error ? "" : undefined}>
-      <label
-        htmlFor={id}
-        className={srOnlyLabel ? "select-demo-sr-only" : "select-demo-label"}
-      >
+    <div className="select-demo-field" data-invalid={error ? '' : undefined}>
+      <label htmlFor={id} className={srOnlyLabel ? 'select-demo-sr-only' : 'select-demo-label'}>
         {label}
-        {marker === "required" && (
-          <span className="select-demo-marker">Required</span>
-        )}
-        {marker === "optional" && (
-          <span className="select-demo-marker">Optional</span>
-        )}
+        {marker === 'required' && <span className="select-demo-marker">Required</span>}
+        {marker === 'optional' && <span className="select-demo-marker">Optional</span>}
       </label>
       {children}
       {error ? (
@@ -123,29 +102,21 @@ function DemoField({
 
 export function SelectPlayground() {
   const id = useId();
-  const [calendar, setCalendar] = useState("primary");
-  const [duration, setDuration] = useState("30");
-  const [repeat, setRepeat] = useState("none");
-  const [zone, setZone] = useState("America/Los_Angeles");
+  const [calendar, setCalendar] = useState('primary');
+  const [duration, setDuration] = useState('30');
+  const [repeat, setRepeat] = useState('none');
+  const [zone, setZone] = useState('America/Los_Angeles');
   return (
     <div className="select-demo-panel" data-demo="select-playground">
       <div className="select-demo-stage">
-        <form
-          className="select-demo-form"
-          aria-label="New event"
-          onSubmit={(event) => event.preventDefault()}
-        >
+        <form className="select-demo-form" aria-label="New event" onSubmit={event => event.preventDefault()}>
           <DemoField id={`${id}-calendar`} label="Calendar">
-            <Select
-              items={calendars}
-              value={calendar}
-              onValueChange={(value) => value && setCalendar(value)}
-            >
+            <Select items={calendars} value={calendar} onValueChange={value => value && setCalendar(value)}>
               <SelectTrigger id={`${id}-calendar`} width="full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {calendars.map((item) => (
+                {calendars.map(item => (
                   <SelectItem key={item.value} value={item.value}>
                     {item.label}
                   </SelectItem>
@@ -155,16 +126,12 @@ export function SelectPlayground() {
           </DemoField>
           <div className="select-demo-row">
             <DemoField id={`${id}-duration`} label="Duration">
-              <Select
-                items={durations}
-                value={duration}
-                onValueChange={(value) => value && setDuration(value)}
-              >
+              <Select items={durations} value={duration} onValueChange={value => value && setDuration(value)}>
                 <SelectTrigger id={`${id}-duration`} width="full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {durations.map((item) => (
+                  {durations.map(item => (
                     <SelectItem key={item.value} value={item.value}>
                       {item.label}
                     </SelectItem>
@@ -173,16 +140,12 @@ export function SelectPlayground() {
               </Select>
             </DemoField>
             <DemoField id={`${id}-repeat`} label="Repeat">
-              <Select
-                items={repeats}
-                value={repeat}
-                onValueChange={(value) => value && setRepeat(value)}
-              >
+              <Select items={repeats} value={repeat} onValueChange={value => value && setRepeat(value)}>
                 <SelectTrigger id={`${id}-repeat`} width="full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {repeats.map((item) => (
+                  {repeats.map(item => (
                     <SelectItem key={item.value} value={item.value}>
                       {item.label}
                     </SelectItem>
@@ -191,24 +154,13 @@ export function SelectPlayground() {
               </Select>
             </DemoField>
           </div>
-          <DemoField
-            id={`${id}-zone`}
-            label="Time zone"
-            helper="Guests see the time in their own zone."
-          >
-            <Select
-              value={zone}
-              onValueChange={(value) => value && setZone(value)}
-            >
-              <SelectTrigger
-                id={`${id}-zone`}
-                width="full"
-                aria-describedby={`${id}-zone-helper`}
-              >
+          <DemoField id={`${id}-zone`} label="Time zone" helper="Guests see the time in their own zone.">
+            <Select value={zone} onValueChange={value => value && setZone(value)}>
+              <SelectTrigger id={`${id}-zone`} width="full" aria-describedby={`${id}-zone-helper`}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {timeZones.map((name) => (
+                {timeZones.map(name => (
                   <SelectItem key={name} value={name}>
                     {name}
                   </SelectItem>
@@ -219,40 +171,40 @@ export function SelectPlayground() {
         </form>
       </div>
       <p className="select-demo-readout" aria-live="polite">
-        {calendars.find((item) => item.value === calendar)?.label} ·{" "}
-        {durations.find((item) => item.value === duration)?.label} ·{" "}
-        {repeats.find((item) => item.value === repeat)?.label} · {zone}
+        {calendars.find(item => item.value === calendar)?.label} ·{' '}
+        {durations.find(item => item.value === duration)?.label} · {repeats.find(item => item.value === repeat)?.label}{' '}
+        · {zone}
       </p>
     </div>
   );
 }
 
 const teams = [
-  { value: "", label: "Select a team" },
-  { value: "support", label: "Support" },
-  { value: "revenue", label: "Revenue operations" },
-  { value: "platform", label: "Platform engineering" },
+  { value: '', label: 'Select a team' },
+  { value: 'support', label: 'Support' },
+  { value: 'revenue', label: 'Revenue operations' },
+  { value: 'platform', label: 'Platform engineering' },
 ];
 
 const roleLabels = {
-  viewer: "Can view",
-  editor: "Can edit",
-  manager: "Can manage",
+  viewer: 'Can view',
+  editor: 'Can edit',
+  manager: 'Can manage',
 };
 
 const pageSizes = [10, 25, 50, 100];
 
 const proposals = [
-  { value: "p1", label: "Send renewal reminder to Acme Corp" },
-  { value: "p2", label: "Update the Q3 forecast sheet" },
-  { value: "p3", label: "Post the launch summary in #launches" },
+  { value: 'p1', label: 'Send renewal reminder to Acme Corp' },
+  { value: 'p2', label: 'Update the Q3 forecast sheet' },
+  { value: 'p3', label: 'Post the launch summary in #launches' },
 ];
 
 const viewLabels = {
-  day: "Day",
-  week: "Week",
-  month: "Month",
-  agenda: "Agenda",
+  day: 'Day',
+  week: 'Week',
+  month: 'Month',
+  agenda: 'Agenda',
 };
 
 function SizeRow({
@@ -262,7 +214,7 @@ function SizeRow({
   children,
 }: {
   size: SelectTriggerSize;
-  width: "fit" | "full";
+  width: 'fit' | 'full';
   note: string;
   children: ReactNode;
 }) {
@@ -281,11 +233,11 @@ function SizeRow({
 
 export function SelectSizes() {
   const id = useId();
-  const [team, setTeam] = useState("");
-  const [role, setRole] = useState<keyof typeof roleLabels>("viewer");
+  const [team, setTeam] = useState('');
+  const [role, setRole] = useState<keyof typeof roleLabels>('viewer');
   const [pageSize, setPageSize] = useState(25);
-  const [proposal, setProposal] = useState("p1");
-  const [view, setView] = useState<keyof typeof viewLabels>("week");
+  const [proposal, setProposal] = useState('p1');
+  const [view, setView] = useState<keyof typeof viewLabels>('week');
   return (
     <div className="select-demo-panel" data-demo="select-sizes">
       <div className="select-demo-sizes">
@@ -296,21 +248,12 @@ export function SelectSizes() {
             marker="required"
             helper="The team that maintains this agent."
           >
-            <Select
-              items={teams}
-              value={team}
-              onValueChange={(value) => setTeam(value ?? "")}
-            >
-              <SelectTrigger
-                id={`${id}-team`}
-                width="full"
-                aria-required="true"
-                aria-describedby={`${id}-team-helper`}
-              >
+            <Select items={teams} value={team} onValueChange={value => setTeam(value ?? '')}>
+              <SelectTrigger id={`${id}-team`} width="full" aria-required="true" aria-describedby={`${id}-team-helper`}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {teams.map((item) => (
+                {teams.map(item => (
                   <SelectItem key={item.value} value={item.value}>
                     {item.label}
                   </SelectItem>
@@ -325,11 +268,7 @@ export function SelectSizes() {
               Priya Raman
               <span>priya@acme.com</span>
             </span>
-            <Select
-              items={roleLabels}
-              value={role}
-              onValueChange={(value) => value && setRole(value)}
-            >
+            <Select items={roleLabels} value={role} onValueChange={value => value && setRole(value)}>
               <SelectTrigger aria-label="Access for Priya Raman">
                 <SelectValue />
               </SelectTrigger>
@@ -346,15 +285,12 @@ export function SelectSizes() {
         <SizeRow size="sm" width="fit" note="Pagination and toolbars">
           <div className="select-demo-pagination">
             <label htmlFor={`${id}-page-size`}>Rows per page</label>
-            <Select
-              value={pageSize}
-              onValueChange={(value) => value !== null && setPageSize(value)}
-            >
+            <Select value={pageSize} onValueChange={value => value !== null && setPageSize(value)}>
               <SelectTrigger id={`${id}-page-size`} size="sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {pageSizes.map((value) => (
+                {pageSizes.map(value => (
                   <SelectItem key={value} value={value}>
                     {value}
                   </SelectItem>
@@ -366,23 +302,13 @@ export function SelectSizes() {
         </SizeRow>
         <SizeRow size="sm" width="full" note="Compact docks">
           <div className="select-demo-dock">
-            <span className="select-demo-dock-title">
-              3 proposals need approval
-            </span>
-            <Select
-              items={proposals}
-              value={proposal}
-              onValueChange={(value) => value && setProposal(value)}
-            >
-              <SelectTrigger
-                size="sm"
-                width="full"
-                aria-label="Choose proposal"
-              >
+            <span className="select-demo-dock-title">3 proposals need approval</span>
+            <Select items={proposals} value={proposal} onValueChange={value => value && setProposal(value)}>
+              <SelectTrigger size="sm" width="full" aria-label="Choose proposal">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {proposals.map((item) => (
+                {proposals.map(item => (
                   <SelectItem key={item.value} value={item.value}>
                     {item.label}
                   </SelectItem>
@@ -397,11 +323,7 @@ export function SelectSizes() {
               Today
             </Button>
             <strong>June 9 – 15, 2025</strong>
-            <Select
-              items={viewLabels}
-              value={view}
-              onValueChange={(value) => value && setView(value)}
-            >
+            <Select items={viewLabels} value={view} onValueChange={value => value && setView(value)}>
               <SelectTrigger size="calendar" aria-label="Calendar view">
                 <SelectValue />
               </SelectTrigger>
@@ -421,48 +343,40 @@ export function SelectSizes() {
 }
 
 const typeLabels = {
-  "": "Any type",
-  folder: "Folders",
-  document: "Documents",
-  spreadsheet: "Spreadsheets",
-  presentation: "Presentations",
-  pdf: "PDFs",
-  image: "Images",
-  other: "Other files",
+  '': 'Any type',
+  folder: 'Folders',
+  document: 'Documents',
+  spreadsheet: 'Spreadsheets',
+  presentation: 'Presentations',
+  pdf: 'PDFs',
+  image: 'Images',
+  other: 'Other files',
 };
 
 const members = [
-  { id: "u_81", name: "Dana Whitfield" },
-  { id: "u_92", name: "Marcus Lee" },
-  { id: "u_17", name: "Priya Raman" },
+  { id: 'u_81', name: 'Dana Whitfield' },
+  { id: 'u_92', name: 'Marcus Lee' },
+  { id: 'u_17', name: 'Priya Raman' },
 ];
 
 const slackChannels = [
-  { id: "C014", name: "launches" },
-  { id: "C022", name: "support-escalations" },
-  { id: "C031", name: "revenue-ops" },
+  { id: 'C014', name: 'launches' },
+  { id: 'C022', name: 'support-escalations' },
+  { id: 'C031', name: 'revenue-ops' },
 ];
 
 export function SelectValues() {
   const id = useId();
-  const [type, setType] = useState("");
+  const [type, setType] = useState('');
   const [member, setMember] = useState<string | null>(null);
   const [channelsLoading, setChannelsLoading] = useState(true);
   const [channel, setChannel] = useState<string | null>(null);
-  const memberName = members.find((item) => item.id === member)?.name;
+  const memberName = members.find(item => item.id === member)?.name;
   return (
     <div className="select-demo-panel" data-demo="select-values">
       <div className="select-demo-grid">
-        <DemoField
-          id={`${id}-type`}
-          label="Type"
-          helper={<>Empty string is a real value: “Any type”.</>}
-        >
-          <Select
-            items={typeLabels}
-            value={type}
-            onValueChange={(value) => setType(value ?? "")}
-          >
+        <DemoField id={`${id}-type`} label="Type" helper={<>Empty string is a real value: “Any type”.</>}>
+          <Select items={typeLabels} value={type} onValueChange={value => setType(value ?? '')}>
             <SelectTrigger id={`${id}-type`} width="full">
               <SelectValue />
             </SelectTrigger>
@@ -483,12 +397,10 @@ export function SelectValues() {
         >
           <Select value={member} onValueChange={setMember}>
             <SelectTrigger id={`${id}-member`} width="full">
-              <SelectValue placeholder="Select a member">
-                {memberName}
-              </SelectValue>
+              <SelectValue placeholder="Select a member">{memberName}</SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {members.map((item) => (
+              {members.map(item => (
                 <SelectItem key={item.id} value={item.id}>
                   {item.name}
                 </SelectItem>
@@ -500,39 +412,19 @@ export function SelectValues() {
           id={`${id}-channel`}
           label="Slack channel"
           helper={
-            <button
-              type="button"
-              className="select-demo-link"
-              onClick={() => setChannelsLoading((value) => !value)}
-            >
-              {channelsLoading ? "Finish loading" : "Reload channels"}
+            <button type="button" className="select-demo-link" onClick={() => setChannelsLoading(value => !value)}>
+              {channelsLoading ? 'Finish loading' : 'Reload channels'}
             </button>
           }
         >
-          <Select
-            value={channel}
-            onValueChange={setChannel}
-            disabled={channelsLoading}
-          >
-            <SelectTrigger
-              id={`${id}-channel`}
-              width="full"
-              aria-busy={channelsLoading || undefined}
-            >
-              <SelectValue
-                placeholder={
-                  channelsLoading
-                    ? "Checking channel…"
-                    : "Choose a Slack channel"
-                }
-              >
-                {channel
-                  ? `#${slackChannels.find((item) => item.id === channel)?.name}`
-                  : undefined}
+          <Select value={channel} onValueChange={setChannel} disabled={channelsLoading}>
+            <SelectTrigger id={`${id}-channel`} width="full" aria-busy={channelsLoading || undefined}>
+              <SelectValue placeholder={channelsLoading ? 'Checking channel…' : 'Choose a Slack channel'}>
+                {channel ? `#${slackChannels.find(item => item.id === channel)?.name}` : undefined}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {slackChannels.map((item) => (
+              {slackChannels.map(item => (
                 <SelectItem key={item.id} value={item.id}>
                   #{item.name}
                 </SelectItem>
@@ -546,35 +438,31 @@ export function SelectValues() {
 }
 
 const people = [
-  { value: "user:dana", label: "Dana Whitfield" },
-  { value: "user:marcus", label: "Marcus Lee" },
+  { value: 'user:dana', label: 'Dana Whitfield' },
+  { value: 'user:marcus', label: 'Marcus Lee' },
 ];
 const shareTeams = [
-  { value: "team:support", label: "Support" },
-  { value: "team:finance", label: "Finance" },
+  { value: 'team:support', label: 'Support' },
+  { value: 'team:finance', label: 'Finance' },
 ];
 
 export function SelectGroups() {
   const id = useId();
   const [target, setTarget] = useState<string | null>(null);
-  const [frequency, setFrequency] = useState("weekly");
-  const targetLabel = [...people, ...shareTeams].find(
-    (item) => item.value === target,
-  )?.label;
+  const [frequency, setFrequency] = useState('weekly');
+  const targetLabel = [...people, ...shareTeams].find(item => item.value === target)?.label;
   return (
     <div className="select-demo-panel" data-demo="select-groups">
       <div className="select-demo-grid">
         <DemoField id={`${id}-share`} label="Share with">
           <Select value={target} onValueChange={setTarget}>
             <SelectTrigger id={`${id}-share`} width="full">
-              <SelectValue placeholder="Choose a person or team">
-                {targetLabel}
-              </SelectValue>
+              <SelectValue placeholder="Choose a person or team">{targetLabel}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>People</SelectLabel>
-                {people.map((item) => (
+                {people.map(item => (
                   <SelectItem key={item.value} value={item.value}>
                     {item.label}
                   </SelectItem>
@@ -582,7 +470,7 @@ export function SelectGroups() {
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Teams</SelectLabel>
-                {shareTeams.map((item) => (
+                {shareTeams.map(item => (
                   <SelectItem key={item.value} value={item.value}>
                     {item.label}
                   </SelectItem>
@@ -592,14 +480,9 @@ export function SelectGroups() {
           </Select>
         </DemoField>
         <DemoField id={`${id}-frequency`} label="Digest frequency">
-          <Select
-            defaultValue="weekly"
-            onValueChange={(value) => value && setFrequency(value)}
-          >
+          <Select defaultValue="weekly" onValueChange={value => value && setFrequency(value)}>
             <SelectTrigger id={`${id}-frequency`} width="full">
-              <SelectValue>
-                {frequency === "daily" ? "Daily" : "Weekly"}
-              </SelectValue>
+              <SelectValue>{frequency === 'daily' ? 'Daily' : 'Weekly'}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -630,53 +513,47 @@ type ModelFamily = {
 
 const modelFamilies: ModelFamily[] = [
   {
-    id: "claude-sonnet",
-    name: "Claude Sonnet",
-    brand: "claude",
-    input: "300",
-    output: "1,500",
+    id: 'claude-sonnet',
+    name: 'Claude Sonnet',
+    brand: 'claude',
+    input: '300',
+    output: '1,500',
     available: true,
   },
   {
-    id: "gpt-5",
-    name: "GPT-5",
-    brand: "openai",
-    input: "125",
-    output: "1,000",
+    id: 'gpt-5',
+    name: 'GPT-5',
+    brand: 'openai',
+    input: '125',
+    output: '1,000',
     available: true,
   },
   {
-    id: "gemini-pro",
-    name: "Gemini Pro",
-    brand: "google",
-    input: "125",
-    output: "1,000",
+    id: 'gemini-pro',
+    name: 'Gemini Pro',
+    brand: 'google',
+    input: '125',
+    output: '1,000',
     available: true,
   },
   {
-    id: "deepseek-r1",
-    name: "DeepSeek R1",
-    brand: "deepseek",
-    input: "55",
-    output: "219",
+    id: 'deepseek-r1',
+    name: 'DeepSeek R1',
+    brand: 'deepseek',
+    input: '55',
+    output: '219',
     available: false,
   },
 ];
 
-function ModelOption({
-  family,
-  details = false,
-}: {
-  family: ModelFamily;
-  details?: boolean;
-}) {
+function ModelOption({ family, details = false }: { family: ModelFamily; details?: boolean }) {
   return (
     <span className="select-demo-model">
       <BrandIcon brand={family.brand} size="inline" />
       <span className="select-demo-model-text">
         <span className="select-demo-model-name">
           {family.name}
-          {!family.available && " (unavailable)"}
+          {!family.available && ' (unavailable)'}
         </span>
         {details && (
           <span className="select-demo-model-details">
@@ -691,35 +568,25 @@ function ModelOption({
 export function SelectRichItems() {
   const id = useId();
   const [channel, setChannel] = useState<string | null>(null);
-  const [model, setModel] = useState("");
-  const added = new Set(["C014"]);
-  const selected = modelFamilies.find((family) => family.id === model);
+  const [model, setModel] = useState('');
+  const added = new Set(['C014']);
+  const selected = modelFamilies.find(family => family.id === model);
   return (
     <div className="select-demo-panel" data-demo="select-rich">
       <div className="select-demo-grid">
-        <DemoField
-          id={`${id}-slack`}
-          label="Add a channel"
-          helper="Channels already posting here are disabled."
-        >
+        <DemoField id={`${id}-slack`} label="Add a channel" helper="Channels already posting here are disabled.">
           <Select value={channel} onValueChange={setChannel}>
             <SelectTrigger id={`${id}-slack`} width="full">
               <SelectValue placeholder="Choose a Slack channel">
-                {channel
-                  ? slackChannels.find((item) => item.id === channel)?.name
-                  : undefined}
+                {channel ? slackChannels.find(item => item.id === channel)?.name : undefined}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {slackChannels.map((item) => (
-                <SelectItem
-                  key={item.id}
-                  value={item.id}
-                  disabled={added.has(item.id)}
-                >
+              {slackChannels.map(item => (
+                <SelectItem key={item.id} value={item.id} disabled={added.has(item.id)}>
                   <Hashtag size={16} aria-hidden="true" />
                   {item.name}
-                  {added.has(item.id) && " (already added)"}
+                  {added.has(item.id) && ' (already added)'}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -731,27 +598,14 @@ export function SelectRichItems() {
           marker="optional"
           helper="Leave empty to let the workspace choose."
         >
-          <Select
-            value={model}
-            onValueChange={(value) => setModel(value ?? "")}
-          >
+          <Select value={model} onValueChange={value => setModel(value ?? '')}>
             <SelectTrigger id={`${id}-model`} width="full">
-              <SelectValue>
-                {selected ? (
-                  <ModelOption family={selected} />
-                ) : (
-                  "Workspace default"
-                )}
-              </SelectValue>
+              <SelectValue>{selected ? <ModelOption family={selected} /> : 'Workspace default'}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="">Workspace default</SelectItem>
-              {modelFamilies.map((family) => (
-                <SelectItem
-                  key={family.id}
-                  value={family.id}
-                  disabled={!family.available}
-                >
+              {modelFamilies.map(family => (
+                <SelectItem key={family.id} value={family.id} disabled={!family.available}>
                   <ModelOption family={family} details />
                 </SelectItem>
               ))}
@@ -764,8 +618,8 @@ export function SelectRichItems() {
 }
 
 const tables = [
-  { value: "tbl_accounts", label: "Accounts" },
-  { value: "tbl_renewals", label: "Renewals" },
+  { value: 'tbl_accounts', label: 'Accounts' },
+  { value: 'tbl_renewals', label: 'Renewals' },
 ];
 
 export function SelectStates() {
@@ -773,26 +627,18 @@ export function SelectStates() {
   const [source, setSource] = useState<string | null>(null);
   const [touched, setTouched] = useState(true);
   const [locked, setLocked] = useState(false);
-  const [saved, setSaved] = useState("");
+  const [saved, setSaved] = useState('');
   const invalid = touched && !source;
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    setSaved(`Saved with access “${String(data.get("access"))}”.`);
+    setSaved(`Saved with access “${String(data.get('access'))}”.`);
   }
   return (
     <div className="select-demo-panel" data-demo="select-states">
       <div className="select-demo-grid">
-        <DemoField
-          id={`${id}-disabled`}
-          label="Sender"
-          helper="Locked while the workflow is running."
-        >
-          <Select
-            value="app"
-            disabled
-            items={{ app: "TulipFarm app", user: "My Slack account" }}
-          >
+        <DemoField id={`${id}-disabled`} label="Sender" helper="Locked while the workflow is running.">
+          <Select value="app" disabled items={{ app: 'TulipFarm app', user: 'My Slack account' }}>
             <SelectTrigger id={`${id}-disabled`} width="full">
               <SelectValue />
             </SelectTrigger>
@@ -804,16 +650,11 @@ export function SelectStates() {
         </DemoField>
         <DemoField id={`${id}-loading`} label="Table" helper="Loading tables…">
           <Select value={null} disabled>
-            <SelectTrigger
-              id={`${id}-loading`}
-              width="full"
-              aria-busy="true"
-              aria-describedby={`${id}-loading-helper`}
-            >
+            <SelectTrigger id={`${id}-loading`} width="full" aria-busy="true" aria-describedby={`${id}-loading-helper`}>
               <SelectValue placeholder="Loading tables…" />
             </SelectTrigger>
             <SelectContent>
-              {tables.map((item) => (
+              {tables.map(item => (
                 <SelectItem key={item.value} value={item.value}>
                   {item.label}
                 </SelectItem>
@@ -821,29 +662,16 @@ export function SelectStates() {
             </SelectContent>
           </Select>
         </DemoField>
-        <DemoField
-          id={`${id}-empty`}
-          label="Destination table"
-          helper="No tables yet. Create one in Tables first."
-        >
+        <DemoField id={`${id}-empty`} label="Destination table" helper="No tables yet. Create one in Tables first.">
           <Select value={null} disabled={[].length === 0}>
-            <SelectTrigger
-              id={`${id}-empty`}
-              width="full"
-              aria-describedby={`${id}-empty-helper`}
-            >
+            <SelectTrigger id={`${id}-empty`} width="full" aria-describedby={`${id}-empty-helper`}>
               <SelectValue placeholder="No tables available" />
             </SelectTrigger>
             <SelectContent />
           </Select>
         </DemoField>
-        <DemoField
-          id={`${id}-fallback`}
-          label="Fallback for Claude Sonnet"
-          srOnlyLabel
-          helper="Saving fallback…"
-        >
-          <Select value="" items={{ "": "No fallback", "gpt-5": "GPT-5" }}>
+        <DemoField id={`${id}-fallback`} label="Fallback for Claude Sonnet" srOnlyLabel helper="Saving fallback…">
+          <Select value="" items={{ '': 'No fallback', 'gpt-5': 'GPT-5' }}>
             <SelectTrigger
               id={`${id}-fallback`}
               width="full"
@@ -863,12 +691,12 @@ export function SelectStates() {
           id={`${id}-invalid`}
           label="Source"
           marker="required"
-          error={invalid ? "Choose a source to continue." : undefined}
+          error={invalid ? 'Choose a source to continue.' : undefined}
           helper="Pick the space this knowledge comes from."
         >
           <Select
             value={source}
-            onValueChange={(value) => {
+            onValueChange={value => {
               setSource(value);
               setTouched(true);
             }}
@@ -878,16 +706,10 @@ export function SelectStates() {
               width="full"
               aria-required="true"
               aria-invalid={invalid || undefined}
-              aria-describedby={
-                invalid ? `${id}-invalid-error` : `${id}-invalid-helper`
-              }
+              aria-describedby={invalid ? `${id}-invalid-error` : `${id}-invalid-helper`}
             >
               <SelectValue placeholder="Choose a Confluence space">
-                {source === "ENG"
-                  ? "Engineering (ENG)"
-                  : source === "CS"
-                    ? "Customer success (CS)"
-                    : undefined}
+                {source === 'ENG' ? 'Engineering (ENG)' : source === 'CS' ? 'Customer success (CS)' : undefined}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
@@ -897,18 +719,10 @@ export function SelectStates() {
           </Select>
         </DemoField>
       </div>
-      <form
-        className="select-demo-required"
-        onSubmit={submit}
-        aria-label="Integration access"
-      >
+      <form className="select-demo-required" onSubmit={submit} aria-label="Integration access">
         <fieldset disabled={locked}>
           <DemoField id={`${id}-access`} label="Access" marker="required">
-            <Select
-              name="access"
-              required
-              items={{ read: "Read only", write: "Read and write" }}
-            >
+            <Select name="access" required items={{ read: 'Read only', write: 'Read and write' }}>
               <SelectTrigger id={`${id}-access`} width="full">
                 <SelectValue placeholder="Choose access" />
               </SelectTrigger>
@@ -925,11 +739,7 @@ export function SelectStates() {
           </div>
         </fieldset>
         <label className="select-demo-check">
-          <input
-            type="checkbox"
-            checked={locked}
-            onChange={(event) => setLocked(event.currentTarget.checked)}
-          />
+          <input type="checkbox" checked={locked} onChange={event => setLocked(event.currentTarget.checked)} />
           Lock the form (fieldset disabled)
         </label>
         <p className="select-demo-status" role="status">
@@ -941,31 +751,31 @@ export function SelectStates() {
 }
 
 const runStatusLabel = {
-  "": "All runs",
-  queued: "Queued",
-  running: "Running workflow",
-  waiting: "Waiting to continue",
-  completed: "Completed",
-  failed: "Failed",
-  cancelled: "Cancelled",
-  denied: "Access denied",
-  skipped: "Skipped",
+  '': 'All runs',
+  queued: 'Queued',
+  running: 'Running workflow',
+  waiting: 'Waiting to continue',
+  completed: 'Completed',
+  failed: 'Failed',
+  cancelled: 'Cancelled',
+  denied: 'Access denied',
+  skipped: 'Skipped',
 };
 
 const modifiedPresets = {
-  "": "Any time",
-  today: "Today",
-  "7d": "Last 7 days",
-  "30d": "Last 30 days",
-  year: "This year",
-  custom: "Custom range",
+  '': 'Any time',
+  today: 'Today',
+  '7d': 'Last 7 days',
+  '30d': 'Last 30 days',
+  year: 'This year',
+  custom: 'Custom range',
 };
 
 const sorts = {
-  "name-asc": "Name, A to Z",
-  "name-desc": "Name, Z to A",
-  "modified-desc": "Modified, newest first",
-  "modified-asc": "Modified, oldest first",
+  'name-asc': 'Name, A to Z',
+  'name-desc': 'Name, Z to A',
+  'modified-desc': 'Modified, newest first',
+  'modified-asc': 'Modified, oldest first',
 };
 
 function SmallSelect<T extends Record<string, string>>({
@@ -984,11 +794,7 @@ function SmallSelect<T extends Record<string, string>>({
   return (
     <div className="select-demo-filter">
       <label htmlFor={id}>{label}</label>
-      <Select
-        items={items}
-        value={value}
-        onValueChange={(next) => onChange((next ?? "") as keyof T & string)}
-      >
+      <Select items={items} value={value} onValueChange={next => onChange((next ?? '') as keyof T & string)}>
         <SelectTrigger id={id} size="sm">
           <SelectValue />
         </SelectTrigger>
@@ -1005,48 +811,40 @@ function SmallSelect<T extends Record<string, string>>({
 }
 
 const metricLabels = {
-  count: "Count",
-  sum: "Sum",
-  avg: "Average",
-  min: "Minimum",
-  max: "Maximum",
+  count: 'Count',
+  sum: 'Sum',
+  avg: 'Average',
+  min: 'Minimum',
+  max: 'Maximum',
 };
 
 const comparisonWords = {
-  eq: "is",
-  neq: "is not",
-  lt: "is less than",
-  lte: "is at most",
-  gt: "is greater than",
-  gte: "is at least",
-  empty: "is empty",
-  notEmpty: "is not empty",
+  eq: 'is',
+  neq: 'is not',
+  lt: 'is less than',
+  lte: 'is at most',
+  gt: 'is greater than',
+  gte: 'is at least',
+  empty: 'is empty',
+  notEmpty: 'is not empty',
 };
 
 export function SelectCompositions() {
   const id = useId();
-  const [type, setType] = useState<keyof typeof typeLabels>("");
-  const [modified, setModified] = useState<keyof typeof modifiedPresets>("7d");
-  const [sort, setSort] = useState<keyof typeof sorts>("modified-desc");
-  const [status, setStatus] = useState<keyof typeof runStatusLabel>("");
-  const [match, setMatch] = useState<"all" | "any">("all");
-  const [comparison, setComparison] = useState<
-    keyof typeof comparisonWords | ""
-  >("");
-  const [metric, setMetric] = useState<keyof typeof metricLabels>("count");
-  const [mode, setMode] = useState<"normal" | "plan">("normal");
-  const [zone, setZone] = useState("Europe/London");
+  const [type, setType] = useState<keyof typeof typeLabels>('');
+  const [modified, setModified] = useState<keyof typeof modifiedPresets>('7d');
+  const [sort, setSort] = useState<keyof typeof sorts>('modified-desc');
+  const [status, setStatus] = useState<keyof typeof runStatusLabel>('');
+  const [match, setMatch] = useState<'all' | 'any'>('all');
+  const [comparison, setComparison] = useState<keyof typeof comparisonWords | ''>('');
+  const [metric, setMetric] = useState<keyof typeof metricLabels>('count');
+  const [mode, setMode] = useState<'normal' | 'plan'>('normal');
+  const [zone, setZone] = useState('Europe/London');
   return (
     <div className="select-demo-panel" data-demo="select-compositions">
       <div className="select-demo-compositions">
         <section aria-label="File filters" className="select-demo-toolbar">
-          <SmallSelect
-            id={`${id}-type`}
-            label="Type"
-            items={typeLabels}
-            value={type}
-            onChange={setType}
-          />
+          <SmallSelect id={`${id}-type`} label="Type" items={typeLabels} value={type} onChange={setType} />
           <SmallSelect
             id={`${id}-modified`}
             label="Modified"
@@ -1054,20 +852,8 @@ export function SelectCompositions() {
             value={modified}
             onChange={setModified}
           />
-          <SmallSelect
-            id={`${id}-sort`}
-            label="Sort"
-            items={sorts}
-            value={sort}
-            onChange={setSort}
-          />
-          <SmallSelect
-            id={`${id}-status`}
-            label="Status"
-            items={runStatusLabel}
-            value={status}
-            onChange={setStatus}
-          />
+          <SmallSelect id={`${id}-sort`} label="Sort" items={sorts} value={sort} onChange={setSort} />
+          <SmallSelect id={`${id}-status`} label="Status" items={runStatusLabel} value={status} onChange={setStatus} />
         </section>
         <div className="select-demo-inline-row">
           <Popover>
@@ -1080,11 +866,9 @@ export function SelectCompositions() {
                 <p className="select-demo-sentence">
                   Match
                   <Select
-                    items={{ all: "all conditions", any: "any condition" }}
+                    items={{ all: 'all conditions', any: 'any condition' }}
                     value={match}
-                    onValueChange={(value) =>
-                      value && setMatch(value as "all" | "any")
-                    }
+                    onValueChange={value => value && setMatch(value as 'all' | 'any')}
                   >
                     <SelectTrigger size="sm" aria-label="Condition match">
                       <SelectValue />
@@ -1100,13 +884,9 @@ export function SelectCompositions() {
                   <Select
                     items={comparisonWords}
                     value={comparison || null}
-                    onValueChange={(value) => setComparison(value ?? "")}
+                    onValueChange={value => setComparison(value ?? '')}
                   >
-                    <SelectTrigger
-                      size="sm"
-                      aria-label="Comparison for Amount"
-                      aria-invalid={!comparison || undefined}
-                    >
+                    <SelectTrigger size="sm" aria-label="Comparison for Amount" aria-invalid={!comparison || undefined}>
                       <SelectValue placeholder="Choose" />
                     </SelectTrigger>
                     <SelectContent>
@@ -1123,9 +903,7 @@ export function SelectCompositions() {
                   <Select
                     items={metricLabels}
                     value={metric}
-                    onValueChange={(value) =>
-                      value && setMetric(value as keyof typeof metricLabels)
-                    }
+                    onValueChange={value => value && setMetric(value as keyof typeof metricLabels)}
                   >
                     <SelectTrigger size="sm" aria-label="Metric">
                       <SelectValue />
@@ -1142,28 +920,18 @@ export function SelectCompositions() {
               </div>
             </PopoverContent>
           </Popover>
-          <div
-            className="select-demo-composer"
-            aria-label="Composer controls"
-            role="group"
-          >
+          <div className="select-demo-composer" aria-label="Composer controls" role="group">
             <Select
               value={mode}
-              onValueChange={(value) => {
-                if (value === "normal" || value === "plan") setMode(value);
+              onValueChange={value => {
+                if (value === 'normal' || value === 'plan') setMode(value);
               }}
             >
               <Tooltip>
-                <TooltipTrigger
-                  render={<SelectTrigger size="sm" aria-label="Chat mode" />}
-                >
-                  <SelectValue>
-                    {mode === "plan" ? "Plan" : "Normal"}
-                  </SelectValue>
+                <TooltipTrigger render={<SelectTrigger size="sm" aria-label="Chat mode" />}>
+                  <SelectValue>{mode === 'plan' ? 'Plan' : 'Normal'}</SelectValue>
                 </TooltipTrigger>
-                <TooltipContent>
-                  Normal acts on your request. Plan only proposes steps first.
-                </TooltipContent>
+                <TooltipContent>Normal acts on your request. Plan only proposes steps first.</TooltipContent>
               </Tooltip>
               <SelectContent>
                 <SelectItem value="normal">Normal</SelectItem>
@@ -1172,28 +940,19 @@ export function SelectCompositions() {
             </Select>
           </div>
           <Sheet>
-            <SheetTrigger render={<Button size="sm" variant="outline" />}>
-              Event details
-            </SheetTrigger>
+            <SheetTrigger render={<Button size="sm" variant="outline" />}>Event details</SheetTrigger>
             <SheetContent>
               <div className="select-demo-sheet">
                 <SheetTitle>Product review</SheetTitle>
                 <SheetDescription>Thu, June 12 · 10:00–10:30</SheetDescription>
                 <div className="select-demo-filter select-demo-filter-stack">
                   <label htmlFor={`${id}-sheet-zone`}>Shown in</label>
-                  <Select
-                    value={zone}
-                    onValueChange={(value) => value && setZone(value)}
-                  >
-                    <SelectTrigger
-                      id={`${id}-sheet-zone`}
-                      size="sm"
-                      width="full"
-                    >
+                  <Select value={zone} onValueChange={value => value && setZone(value)}>
+                    <SelectTrigger id={`${id}-sheet-zone`} size="sm" width="full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {timeZones.map((name) => (
+                      {timeZones.map(name => (
                         <SelectItem key={name} value={name}>
                           {name}
                         </SelectItem>

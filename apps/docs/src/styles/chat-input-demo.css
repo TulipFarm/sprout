@@ -37,8 +37,6 @@
   font-size: 12px;
   color: var(--sprout-muted);
 }
-.chat-input-demo-sample
-  .sprout-input-group
-  [data-slot="input-group-control"]:focus-visible {
+.chat-input-demo-sample .sprout-input-group [data-slot='input-group-control']:focus-visible {
   outline: none;
 }

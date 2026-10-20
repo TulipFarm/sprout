@@ -1,14 +1,14 @@
-import { useId, useRef, useState, type ReactNode } from "react";
-import { Add } from "reicon-react/icons/Add";
-import { AlertCircle } from "reicon-react/icons/AlertCircle";
-import { Calendar } from "reicon-react/icons/Calendar";
-import { Check } from "reicon-react/icons/Check";
-import { Cpu } from "reicon-react/icons/Cpu";
-import { Message } from "reicon-react/icons/Message";
-import { Scroll } from "reicon-react/icons/Scroll";
-import { Search } from "reicon-react/icons/Search";
-import { Setting } from "reicon-react/icons/Setting";
-import { ShieldCheck } from "reicon-react/icons/ShieldCheck";
+import { useId, useRef, useState, type ReactNode } from 'react';
+import { Add } from 'reicon-react/icons/Add';
+import { AlertCircle } from 'reicon-react/icons/AlertCircle';
+import { Calendar } from 'reicon-react/icons/Calendar';
+import { Check } from 'reicon-react/icons/Check';
+import { Cpu } from 'reicon-react/icons/Cpu';
+import { Message } from 'reicon-react/icons/Message';
+import { Scroll } from 'reicon-react/icons/Scroll';
+import { Search } from 'reicon-react/icons/Search';
+import { Setting } from 'reicon-react/icons/Setting';
+import { ShieldCheck } from 'reicon-react/icons/ShieldCheck';
 import {
   Tabs,
   TabsContent,
@@ -16,34 +16,17 @@ import {
   TabsTrigger,
   tabsListVariantNames,
   type TabsListVariant,
-} from "@tulipfarm/sprout/tabs";
-import { AgentAvatar } from "@tulipfarm/sprout/avatar";
-import { Badge, type BadgeVariant } from "@tulipfarm/sprout/badge";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
-import { StatePanel } from "@tulipfarm/sprout/state-panel";
-import DocsSelect from "./DocsSelect";
-import {
-  CheckField,
-  TextAreaField,
-  TextField,
-  useLater,
-} from "./dialog-demo-parts";
-import "../styles/tabs-demo.css";
+} from '@tulipfarm/sprout/tabs';
+import { AgentAvatar } from '@tulipfarm/sprout/avatar';
+import { Badge, type BadgeVariant } from '@tulipfarm/sprout/badge';
+import { Button } from '@tulipfarm/sprout/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
+import { StatePanel } from '@tulipfarm/sprout/state-panel';
+import DocsSelect from './DocsSelect';
+import { CheckField, TextAreaField, TextField, useLater } from './dialog-demo-parts';
+import '../styles/tabs-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="tabs-demo-card" aria-label={title}>
       <header>
@@ -64,26 +47,21 @@ function Controls({ children }: { children: ReactNode }) {
 /* ------------------------------------------------------------------ */
 
 const variantLabels: Record<TabsListVariant, string> = {
-  default: "Default",
-  line: "Line",
-  steps: "Steps",
+  default: 'Default',
+  line: 'Line',
+  steps: 'Steps',
 };
 
 export function TabsHero() {
-  const [variant, setVariant] = useState<TabsListVariant>("default");
-  const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
-    "horizontal",
-  );
+  const [variant, setVariant] = useState<TabsListVariant>('default');
+  const [orientation, setOrientation] = useState<'horizontal' | 'vertical'>('horizontal');
   return (
-    <Example
-      title="Tabs playground"
-      description="Fictional project tabs. The third tab is disabled and has no panel."
-    >
+    <Example title="Tabs playground" description="Fictional project tabs. The third tab is disabled and has no panel.">
       <Controls>
         <DocsSelect
           label="Variant"
           value={variant}
-          items={tabsListVariantNames.map((value) => ({
+          items={tabsListVariantNames.map(value => ({
             value,
             label: variantLabels[value],
           }))}
@@ -93,8 +71,8 @@ export function TabsHero() {
           label="Orientation"
           value={orientation}
           items={[
-            { value: "horizontal", label: "Horizontal" },
-            { value: "vertical", label: "Vertical" },
+            { value: 'horizontal', label: 'Horizontal' },
+            { value: 'vertical', label: 'Vertical' },
           ]}
           onValueChange={setOrientation}
         />
@@ -125,44 +103,35 @@ export function TabsHero() {
 /* ------------------------------------------------------------------ */
 
 const sampleMembers = [
-  { name: "Priya Raman", email: "priya@meadow.example", role: "Admin" },
-  { name: "Alex Meadow", email: "alex@meadow.example", role: "Member" },
-  { name: "Robin Field", email: "robin@meadow.example", role: "Member" },
+  { name: 'Priya Raman', email: 'priya@meadow.example', role: 'Admin' },
+  { name: 'Alex Meadow', email: 'alex@meadow.example', role: 'Member' },
+  { name: 'Robin Field', email: 'robin@meadow.example', role: 'Member' },
 ];
 
 export function TabsMembers() {
-  const [tab, setTab] = useState("members");
+  const [tab, setTab] = useState('members');
   const [invites, setInvites] = useState<string[]>([]);
   return (
-    <Example
-      title="Members settings"
-      description="Default tabs with a count in the label. Both panels stay mounted."
-    >
+    <Example title="Members settings" description="Default tabs with a count in the label. Both panels stay mounted.">
       <Tabs
         value={tab}
-        onValueChange={(value) => {
-          if (typeof value === "string") setTab(value);
+        onValueChange={value => {
+          if (typeof value === 'string') setTab(value);
         }}
       >
         <TabsList aria-label="Members settings">
-          <TabsTrigger value="members">
-            Members ({sampleMembers.length})
-          </TabsTrigger>
+          <TabsTrigger value="members">Members ({sampleMembers.length})</TabsTrigger>
           <TabsTrigger value="invitations">Invitations</TabsTrigger>
         </TabsList>
         <TabsContent value="members" keepMounted>
           <ul className="tabs-demo-list" aria-label="Members">
-            {sampleMembers.map((member) => (
+            {sampleMembers.map(member => (
               <li key={member.email}>
                 <span className="tabs-demo-list-main">
                   <span>{member.name}</span>
                   <span className="tabs-demo-muted">{member.email}</span>
                 </span>
-                <Badge
-                  variant={member.role === "Admin" ? "default" : "secondary"}
-                >
-                  {member.role}
-                </Badge>
+                <Badge variant={member.role === 'Admin' ? 'default' : 'secondary'}>{member.role}</Badge>
               </li>
             ))}
           </ul>
@@ -171,7 +140,7 @@ export function TabsMembers() {
           <div className="tabs-demo-stack">
             {invites.length ? (
               <ul className="tabs-demo-list" aria-label="Pending invitations">
-                {invites.map((email) => (
+                {invites.map(email => (
                   <li key={email}>
                     <span className="tabs-demo-list-main">{email}</span>
                     <Badge variant="warning">Pending</Badge>
@@ -182,14 +151,7 @@ export function TabsMembers() {
               <p className="tabs-demo-muted">No pending invitations.</p>
             )}
             <div>
-              <Button
-                onClick={() =>
-                  setInvites((current) => [
-                    ...current,
-                    `guest${current.length + 1}@meadow.example`,
-                  ])
-                }
-              >
+              <Button onClick={() => setInvites(current => [...current, `guest${current.length + 1}@meadow.example`])}>
                 <Add size={16} aria-hidden="true" />
                 Invite members
               </Button>
@@ -205,21 +167,21 @@ export function TabsMembers() {
 /* Line: model settings, controlled by the address                     */
 /* ------------------------------------------------------------------ */
 
-type ModelState = "ready" | "loading" | "empty" | "error";
+type ModelState = 'ready' | 'loading' | 'empty' | 'error';
 
 const families = [
   {
-    name: "Claude",
-    teams: "Research, Support",
-    status: "Available",
-    tone: "success",
+    name: 'Claude',
+    teams: 'Research, Support',
+    status: 'Available',
+    tone: 'success',
   },
-  { name: "GPT", teams: "All teams", status: "Available", tone: "success" },
+  { name: 'GPT', teams: 'All teams', status: 'Available', tone: 'success' },
   {
-    name: "Gemini",
-    teams: "No teams yet",
-    status: "Fallback: Claude",
-    tone: "warning",
+    name: 'Gemini',
+    teams: 'No teams yet',
+    status: 'Fallback: Claude',
+    tone: 'warning',
   },
 ] as const satisfies readonly {
   name: string;
@@ -230,8 +192,8 @@ const families = [
 
 export function TabsModels() {
   const [search, setSearch] = useState<string | undefined>(undefined);
-  const [state, setState] = useState<ModelState>("ready");
-  const tab = search ?? "access";
+  const [state, setState] = useState<ModelState>('ready');
+  const tab = search ?? 'access';
   return (
     <Example
       title="Model settings"
@@ -242,23 +204,18 @@ export function TabsModels() {
           label="Access state"
           value={state}
           items={[
-            { value: "ready", label: "Ready" },
-            { value: "loading", label: "Loading" },
-            { value: "empty", label: "Empty" },
-            { value: "error", label: "Error" },
+            { value: 'ready', label: 'Ready' },
+            { value: 'loading', label: 'Loading' },
+            { value: 'empty', label: 'Empty' },
+            { value: 'error', label: 'Error' },
           ]}
           onValueChange={setState}
         />
         <code className="tabs-demo-address" aria-label="Address">
-          /meadow/models{search ? `?tab=${search}` : ""}
+          /meadow/models{search ? `?tab=${search}` : ''}
         </code>
       </Controls>
-      <Tabs
-        value={tab}
-        onValueChange={(value) =>
-          setSearch(value === "access" ? undefined : String(value))
-        }
-      >
+      <Tabs value={tab} onValueChange={value => setSearch(value === 'access' ? undefined : String(value))}>
         <div className="tabs-demo-scroll">
           <TabsList variant="line" aria-label="Model settings">
             <TabsTrigger value="access">Access</TabsTrigger>
@@ -267,9 +224,9 @@ export function TabsModels() {
         </div>
         <TabsContent value="access" keepMounted>
           <div className="tabs-demo-pt-2">
-            {state === "ready" ? (
+            {state === 'ready' ? (
               <ul className="tabs-demo-list" aria-label="Model families">
-                {families.map((family) => (
+                {families.map(family => (
                   <li key={family.name}>
                     <span className="tabs-demo-list-main">
                       <span>{family.name}</span>
@@ -279,14 +236,14 @@ export function TabsModels() {
                   </li>
                 ))}
               </ul>
-            ) : state === "loading" ? (
+            ) : state === 'loading' ? (
               <StatePanel
                 kind="loading"
                 heading="h4"
                 title="Loading model access"
                 description="Checking which teams can use each model family."
               />
-            ) : state === "empty" ? (
+            ) : state === 'empty' ? (
               <StatePanel
                 kind="empty"
                 heading="h4"
@@ -301,7 +258,7 @@ export function TabsModels() {
                 title="Model access did not load"
                 description="Nothing changed. Try again in a moment."
               >
-                <Button variant="outline" onClick={() => setState("ready")}>
+                <Button variant="outline" onClick={() => setState('ready')}>
                   Try again
                 </Button>
               </StatePanel>
@@ -309,15 +266,10 @@ export function TabsModels() {
           </div>
         </TabsContent>
         <TabsContent value="compaction" keepMounted>
-          {state === "ready" && (
+          {state === 'ready' && (
             <div className="tabs-demo-pt-2 tabs-demo-stack">
-              <p>
-                Summarize long conversations after 80% of the context window.
-              </p>
-              <p className="tabs-demo-muted">
-                Applies to new tasks in every team. Earlier tasks keep their
-                policy.
-              </p>
+              <p>Summarize long conversations after 80% of the context window.</p>
+              <p className="tabs-demo-muted">Applies to new tasks in every team. Earlier tasks keep their policy.</p>
             </div>
           )}
         </TabsContent>
@@ -331,47 +283,41 @@ export function TabsModels() {
 /* ------------------------------------------------------------------ */
 
 const builderSteps = [
-  { id: "basics", label: "Basics" },
-  { id: "skills", label: "Skills" },
-  { id: "access", label: "Access" },
-  { id: "triggers", label: "Triggers" },
-  { id: "review", label: "Review" },
+  { id: 'basics', label: 'Basics' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'access', label: 'Access' },
+  { id: 'triggers', label: 'Triggers' },
+  { id: 'review', label: 'Review' },
 ] as const;
-type BuilderStep = (typeof builderSteps)[number]["id"];
+type BuilderStep = (typeof builderSteps)[number]['id'];
 
-const skillOptions = [
-  "Weekly report",
-  "Triage support inbox",
-  "Draft release notes",
-];
-const actionOptions = ["Read tables", "Update rows", "Send Slack messages"];
+const skillOptions = ['Weekly report', 'Triage support inbox', 'Draft release notes'];
+const actionOptions = ['Read tables', 'Update rows', 'Send Slack messages'];
 
 export function TabsBuilder() {
   const id = useId();
-  const [step, setStep] = useState<BuilderStep>("basics");
-  const [previewTab, setPreviewTab] = useState<"summary" | "test">("summary");
-  const [name, setName] = useState("");
-  const [instructions, setInstructions] = useState("");
+  const [step, setStep] = useState<BuilderStep>('basics');
+  const [previewTab, setPreviewTab] = useState<'summary' | 'test'>('summary');
+  const [name, setName] = useState('');
+  const [instructions, setInstructions] = useState('');
   const [skills, setSkills] = useState<string[]>([]);
   const [actions, setActions] = useState<string[]>([]);
   const [slack, setSlack] = useState(false);
   const [checked, setChecked] = useState(false);
   const choose = (value: unknown) => {
-    const next = builderSteps.find((item) => item.id === value);
+    const next = builderSteps.find(item => item.id === value);
     if (next) setStep(next.id);
   };
   const toggle = (list: string[], value: string, on: boolean) =>
-    on ? [...list, value] : list.filter((item) => item !== value);
+    on ? [...list, value] : list.filter(item => item !== value);
   const completed = new Set<BuilderStep>([
-    ...(name.trim() ? (["basics"] as const) : []),
-    ...(skills.length ? (["skills"] as const) : []),
-    ...(actions.length ? (["access"] as const) : []),
-    ...(slack ? (["triggers"] as const) : []),
+    ...(name.trim() ? (['basics'] as const) : []),
+    ...(skills.length ? (['skills'] as const) : []),
+    ...(actions.length ? (['access'] as const) : []),
+    ...(slack ? (['triggers'] as const) : []),
   ]);
-  const errors = new Set<BuilderStep>(
-    checked && !name.trim() ? ["basics"] : [],
-  );
-  const index = builderSteps.findIndex((item) => item.id === step);
+  const errors = new Set<BuilderStep>(checked && !name.trim() ? ['basics'] : []);
+  const index = builderSteps.findIndex(item => item.id === step);
   const panels: Record<BuilderStep, ReactNode> = {
     basics: (
       <>
@@ -380,38 +326,36 @@ export function TabsBuilder() {
           label="Agent name"
           value={name}
           placeholder="Weekly report writer"
-          aria-invalid={errors.has("basics") || undefined}
-          onChange={(event) => setName(event.target.value)}
+          aria-invalid={errors.has('basics') || undefined}
+          onChange={event => setName(event.target.value)}
         />
-        {errors.has("basics") && (
-          <p className="tabs-demo-error">Name the agent before you continue.</p>
-        )}
+        {errors.has('basics') && <p className="tabs-demo-error">Name the agent before you continue.</p>}
         <TextAreaField
           id={`${id}-instructions`}
           label="Instructions"
           value={instructions}
           rows={3}
           placeholder="Summarize last week's closed tasks for the team."
-          onChange={(event) => setInstructions(event.target.value)}
+          onChange={event => setInstructions(event.target.value)}
         />
       </>
     ),
-    skills: skillOptions.map((skill) => (
+    skills: skillOptions.map(skill => (
       <CheckField
         key={skill}
         id={`${id}-skill-${skill}`}
         checked={skills.includes(skill)}
-        onChange={(on) => setSkills((list) => toggle(list, skill, on))}
+        onChange={on => setSkills(list => toggle(list, skill, on))}
       >
         {skill}
       </CheckField>
     )),
-    access: actionOptions.map((action) => (
+    access: actionOptions.map(action => (
       <CheckField
         key={action}
         id={`${id}-action-${action}`}
         checked={actions.includes(action)}
-        onChange={(on) => setActions((list) => toggle(list, action, on))}
+        onChange={on => setActions(list => toggle(list, action, on))}
       >
         {action}
       </CheckField>
@@ -422,10 +366,7 @@ export function TabsBuilder() {
       </CheckField>
     ),
     review: (
-      <p className="tabs-demo-muted">
-        Check the summary, then save. Nothing runs until you review and
-        activate.
-      </p>
+      <p className="tabs-demo-muted">Check the summary, then save. Nothing runs until you review and activate.</p>
     ),
   };
   const summary = (
@@ -433,38 +374,36 @@ export function TabsBuilder() {
       {(
         [
           {
-            edit: "skills",
+            edit: 'skills',
             Icon: Scroll,
-            term: "Skills",
-            value: skills.length
-              ? `${skills.length} procedure${skills.length === 1 ? "" : "s"}`
-              : "No skills selected",
+            term: 'Skills',
+            value: skills.length ? `${skills.length} procedure${skills.length === 1 ? '' : 's'}` : 'No skills selected',
           },
           {
-            edit: "access",
+            edit: 'access',
             Icon: Setting,
-            term: "Actions",
+            term: 'Actions',
             value: actions.length
-              ? `${actions.length} permitted action${actions.length === 1 ? "" : "s"}`
-              : "No actions selected",
+              ? `${actions.length} permitted action${actions.length === 1 ? '' : 's'}`
+              : 'No actions selected',
           },
           {
-            edit: "basics",
+            edit: 'basics',
             Icon: ShieldCheck,
-            term: "Team placement",
-            value: "Personal agent",
+            term: 'Team placement',
+            value: 'Personal agent',
           },
           {
-            edit: "triggers",
+            edit: 'triggers',
             Icon: Message,
-            term: "Slack",
-            value: slack ? "#weekly-reports" : "Not attached",
+            term: 'Slack',
+            value: slack ? '#weekly-reports' : 'Not attached',
           },
           {
-            edit: "triggers",
+            edit: 'triggers',
             Icon: Calendar,
-            term: "Schedules",
-            value: "Manual use only",
+            term: 'Schedules',
+            value: 'Manual use only',
           },
         ] as const
       ).map(({ edit, Icon, term, value }) => (
@@ -474,12 +413,7 @@ export function TabsBuilder() {
             <span className="tabs-demo-muted">{term}</span>
             <span>{value}</span>
           </span>
-          <Button
-            variant="ghost"
-            size="xs"
-            aria-label={`Edit ${term.toLowerCase()}`}
-            onClick={() => setStep(edit)}
-          >
+          <Button variant="ghost" size="xs" aria-label={`Edit ${term.toLowerCase()}`} onClick={() => setStep(edit)}>
             Edit
           </Button>
         </li>
@@ -508,9 +442,7 @@ export function TabsBuilder() {
                       )}
                     </span>
                     {item.label}
-                    {errors.has(item.id) && (
-                      <span className="sr-only">, needs attention</span>
-                    )}
+                    {errors.has(item.id) && <span className="sr-only">, needs attention</span>}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -529,17 +461,15 @@ export function TabsBuilder() {
             <form
               aria-label="Agent setup"
               className="tabs-demo-stack tabs-demo-gap-5"
-              onSubmit={(event) => {
+              onSubmit={event => {
                 event.preventDefault();
                 setChecked(true);
-                if (!name.trim()) setStep("basics");
+                if (!name.trim()) setStep('basics');
               }}
             >
-              {builderSteps.map((item) => (
+              {builderSteps.map(item => (
                 <TabsContent key={item.id} value={item.id} keepMounted>
-                  <div className="tabs-demo-stack tabs-demo-gap-4">
-                    {panels[item.id]}
-                  </div>
+                  <div className="tabs-demo-stack tabs-demo-gap-4">{panels[item.id]}</div>
                 </TabsContent>
               ))}
               <div className="tabs-demo-footer">
@@ -552,10 +482,7 @@ export function TabsBuilder() {
                   Back
                 </Button>
                 {index < builderSteps.length - 1 ? (
-                  <Button
-                    type="button"
-                    onClick={() => setStep(builderSteps[index + 1]!.id)}
-                  >
+                  <Button type="button" onClick={() => setStep(builderSteps[index + 1]!.id)}>
                     Next
                   </Button>
                 ) : (
@@ -567,21 +494,17 @@ export function TabsBuilder() {
         </div>
         <section aria-label="Draft agent" className="tabs-demo-preview">
           <div className="tabs-demo-preview-head">
-            <AgentAvatar
-              agentId="weekly-report"
-              name={name.trim() || "New agent"}
-              size="lg"
-            />
+            <AgentAvatar agentId="weekly-report" name={name.trim() || 'New agent'} size="lg" />
             <span className="tabs-demo-list-main">
-              <h4>{name.trim() || "Your new agent"}</h4>
+              <h4>{name.trim() || 'Your new agent'}</h4>
               <span className="tabs-demo-muted">Personal agent</span>
             </span>
             <Badge variant="secondary">Draft</Badge>
           </div>
           <Tabs
             value={previewTab}
-            onValueChange={(value) => {
-              if (value === "summary" || value === "test") setPreviewTab(value);
+            onValueChange={value => {
+              if (value === 'summary' || value === 'test') setPreviewTab(value);
             }}
           >
             <TabsList variant="line" aria-label="Agent views">
@@ -597,9 +520,7 @@ export function TabsBuilder() {
               </div>
             </TabsContent>
           </Tabs>
-          <p className="tabs-demo-preview-note">
-            Nothing runs until you review and activate.
-          </p>
+          <p className="tabs-demo-preview-note">Nothing runs until you review and activate.</p>
         </section>
       </div>
     </Example>
@@ -608,18 +529,16 @@ export function TabsBuilder() {
 
 function TestChat() {
   const id = useId();
-  const [draft, setDraft] = useState("");
+  const [draft, setDraft] = useState('');
   return (
     <div className="tabs-demo-stack">
-      <p className="tabs-demo-muted">
-        Try the draft with a private message. Nothing is sent.
-      </p>
+      <p className="tabs-demo-muted">Try the draft with a private message. Nothing is sent.</p>
       <TextField
         id={`${id}-message`}
         label="Test message"
         value={draft}
         placeholder="What closed last week?"
-        onChange={(event) => setDraft(event.target.value)}
+        onChange={event => setDraft(event.target.value)}
       />
     </div>
   );
@@ -629,100 +548,86 @@ function TestChat() {
 /* Agent detail page: capability-filtered line tabs                    */
 /* ------------------------------------------------------------------ */
 
-type AgentTab =
-  | "overview"
-  | "instructions"
-  | "access"
-  | "execution"
-  | "slack"
-  | "schedules"
-  | "settings";
-type Role = "viewer" | "editor" | "manager";
+type AgentTab = 'overview' | 'instructions' | 'access' | 'execution' | 'slack' | 'schedules' | 'settings';
+type Role = 'viewer' | 'editor' | 'manager';
 
 const agentTabs: readonly {
   value: AgentTab;
   label: string;
   description: string;
-  requires: "edit" | "manage" | "invoke" | null;
+  requires: 'edit' | 'manage' | 'invoke' | null;
 }[] = [
   {
-    value: "overview",
-    label: "Overview",
-    description: "Check setup, then start a task with this agent.",
+    value: 'overview',
+    label: 'Overview',
+    description: 'Check setup, then start a task with this agent.',
     requires: null,
   },
   {
-    value: "instructions",
-    label: "Instructions",
-    description: "The role, model, skills, and actions this agent may use.",
-    requires: "edit",
+    value: 'instructions',
+    label: 'Instructions',
+    description: 'The role, model, skills, and actions this agent may use.',
+    requires: 'edit',
   },
   {
-    value: "access",
-    label: "Access",
+    value: 'access',
+    label: 'Access',
+    description: 'Who can use or manage this agent, and whose team permissions it runs with.',
+    requires: 'manage',
+  },
+  {
+    value: 'execution',
+    label: 'Execution',
     description:
-      "Who can use or manage this agent, and whose team permissions it runs with.",
-    requires: "manage",
+      'Turn execution on, limit the tables and Slack channels it may use, then activate the saved instructions.',
+    requires: 'manage',
   },
   {
-    value: "execution",
-    label: "Execution",
-    description:
-      "Turn execution on, limit the tables and Slack channels it may use, then activate the saved instructions.",
-    requires: "manage",
+    value: 'slack',
+    label: 'Slack',
+    description: 'Attach this agent to a Slack channel so people can ask it there.',
+    requires: 'invoke',
   },
   {
-    value: "slack",
-    label: "Slack",
-    description:
-      "Attach this agent to a Slack channel so people can ask it there.",
-    requires: "invoke",
+    value: 'schedules',
+    label: 'Triggers',
+    description: 'Choose how this agent starts, including repeating schedules.',
+    requires: 'manage',
   },
   {
-    value: "schedules",
-    label: "Triggers",
-    description: "Choose how this agent starts, including repeating schedules.",
-    requires: "manage",
-  },
-  {
-    value: "settings",
-    label: "Settings",
-    description: "Technical details and deletion.",
+    value: 'settings',
+    label: 'Settings',
+    description: 'Technical details and deletion.',
     requires: null,
   },
 ];
 
 const capabilities: Record<Role, readonly string[]> = {
-  viewer: ["invoke"],
-  editor: ["invoke", "edit"],
-  manager: ["invoke", "edit", "manage"],
+  viewer: ['invoke'],
+  editor: ['invoke', 'edit'],
+  manager: ['invoke', 'edit', 'manage'],
 };
 
 const panelBodies: Record<AgentTab, string> = {
-  overview: "Weekly report writer is ready. Start a private task to try it.",
+  overview: 'Weekly report writer is ready. Start a private task to try it.',
   instructions: "Summarize last week's closed tasks. Preferred model: Claude.",
-  access: "Research team members can use this agent. Priya Raman manages it.",
-  execution: "Execution is off. Two tables and one Slack channel are allowed.",
-  slack: "Not attached to a Slack channel.",
-  schedules: "Runs every Monday at 09:00.",
-  settings: "Agent ID agt_8f21c. Deleting revokes every activation.",
+  access: 'Research team members can use this agent. Priya Raman manages it.',
+  execution: 'Execution is off. Two tables and one Slack channel are allowed.',
+  slack: 'Not attached to a Slack channel.',
+  schedules: 'Runs every Monday at 09:00.',
+  settings: 'Agent ID agt_8f21c. Deleting revokes every activation.',
 };
 
 export function TabsAgentPage() {
   const root = useRef<HTMLDivElement>(null);
-  const [role, setRole] = useState<Role>("manager");
-  const [tab, setTab] = useState<AgentTab>("overview");
-  const tabs = agentTabs.filter(
-    (item) =>
-      item.requires === null || capabilities[role].includes(item.requires),
-  );
-  const active = tabs.some((item) => item.value === tab) ? tab : "overview";
+  const [role, setRole] = useState<Role>('manager');
+  const [tab, setTab] = useState<AgentTab>('overview');
+  const tabs = agentTabs.filter(item => item.requires === null || capabilities[role].includes(item.requires));
+  const active = tabs.some(item => item.value === tab) ? tab : 'overview';
   const open = (next: AgentTab) => {
     setTab(next);
     requestAnimationFrame(() =>
-      root.current
-        ?.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]')
-        ?.focus(),
+      root.current?.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]')?.focus(),
     );
   };
   return (
@@ -735,9 +640,9 @@ export function TabsAgentPage() {
           label="Viewing as"
           value={role}
           items={[
-            { value: "viewer", label: "Viewer" },
-            { value: "editor", label: "Editor" },
-            { value: "manager", label: "Manager" },
+            { value: 'viewer', label: 'Viewer' },
+            { value: 'editor', label: 'Editor' },
+            { value: 'manager', label: 'Manager' },
           ]}
           onValueChange={setRole}
         />
@@ -745,32 +650,28 @@ export function TabsAgentPage() {
       <div ref={root}>
         <Tabs
           value={active}
-          onValueChange={(value) => {
-            const next = tabs.find((item) => item.value === value);
+          onValueChange={value => {
+            const next = tabs.find(item => item.value === value);
             if (next) setTab(next.value);
           }}
         >
           <div className="tabs-demo-scroll">
             <TabsList variant="line" aria-label="Agent sections">
-              {tabs.map((item) => (
+              {tabs.map(item => (
                 <TabsTrigger key={item.value} value={item.value}>
                   {item.label}
                 </TabsTrigger>
               ))}
             </TabsList>
           </div>
-          {tabs.map((item) => (
+          {tabs.map(item => (
             <TabsContent key={item.value} value={item.value} keepMounted>
               <div className="tabs-demo-stack tabs-demo-gap-4 tabs-demo-pt-2">
                 <p className="tabs-demo-muted">{item.description}</p>
                 <p>{panelBodies[item.value]}</p>
-                {item.value === "overview" && role === "manager" && (
+                {item.value === 'overview' && role === 'manager' && (
                   <div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => open("execution")}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => open('execution')}>
                       Turn on execution
                     </Button>
                   </div>
@@ -788,57 +689,43 @@ export function TabsAgentPage() {
 /* Table search popover: line tabs in a panel, conditional tab         */
 /* ------------------------------------------------------------------ */
 
-type SearchMode = "text" | "ai" | "rsql";
+type SearchMode = 'text' | 'ai' | 'rsql';
 
 export function TabsSearchPopover() {
   const id = useId();
   const later = useLater();
   const [searchable, setSearchable] = useState(true);
   const [mode, setMode] = useState<SearchMode | undefined>(undefined);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [applied, setApplied] = useState<string | undefined>(undefined);
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState('');
   const [translating, setTranslating] = useState(false);
-  const [where, setWhere] = useState("status==open");
-  const tab =
-    mode === "text" && !searchable
-      ? "rsql"
-      : (mode ?? (searchable ? "text" : "rsql"));
+  const [where, setWhere] = useState('status==open');
+  const tab = mode === 'text' && !searchable ? 'rsql' : (mode ?? (searchable ? 'text' : 'rsql'));
   return (
     <Example
       title="Table search"
       description="Line tabs inside a panel popover. Tables without text fields hide the Text tab."
     >
       <Controls>
-        <CheckField
-          id={`${id}-searchable`}
-          checked={searchable}
-          onChange={setSearchable}
-        >
+        <CheckField id={`${id}-searchable`} checked={searchable} onChange={setSearchable}>
           Table has text fields
         </CheckField>
       </Controls>
       <div>
         <Popover>
-          <PopoverTrigger
-            render={
-              <Button variant={applied ? "secondary" : "outline"} size="sm" />
-            }
-          >
+          <PopoverTrigger render={<Button variant={applied ? 'secondary' : 'outline'} size="sm" />}>
             <Search size={14} aria-hidden="true" />
             {applied ? (
               <span title={applied} className="tabs-demo-truncate">
                 “{applied}”
               </span>
             ) : (
-              "Search"
+              'Search'
             )}
           </PopoverTrigger>
           <PopoverContent size="panel" align="start">
-            <Tabs
-              value={tab}
-              onValueChange={(value) => setMode(value as SearchMode)}
-            >
+            <Tabs value={tab} onValueChange={value => setMode(value as SearchMode)}>
               <div className="tabs-demo-popover-tabs">
                 <TabsList variant="line">
                   {searchable && <TabsTrigger value="text">Text</TabsTrigger>}
@@ -854,14 +741,13 @@ export function TabsSearchPopover() {
                       label="Search rows"
                       value={search}
                       placeholder="Search text fields"
-                      onChange={(event) => {
+                      onChange={event => {
                         setSearch(event.target.value);
                         setApplied(event.target.value.trim() || undefined);
                       }}
                     />
                     <p className="tabs-demo-muted">
-                      Finds rows whose text fields contain these words. Filters
-                      still apply.
+                      Finds rows whose text fields contain these words. Filters still apply.
                     </p>
                   </div>
                 </TabsContent>
@@ -874,7 +760,7 @@ export function TabsSearchPopover() {
                     value={question}
                     rows={2}
                     placeholder="Open tickets from enterprise customers"
-                    onChange={(event) => setQuestion(event.target.value)}
+                    onChange={event => setQuestion(event.target.value)}
                   />
                   <div>
                     <Button
@@ -885,12 +771,12 @@ export function TabsSearchPopover() {
                         setTranslating(true);
                         later(() => {
                           setTranslating(false);
-                          setWhere("status==open;plan==enterprise");
-                          setMode("rsql");
+                          setWhere('status==open;plan==enterprise');
+                          setMode('rsql');
                         });
                       }}
                     >
-                      {translating ? "Translating…" : "Translate to RSQL"}
+                      {translating ? 'Translating…' : 'Translate to RSQL'}
                     </Button>
                   </div>
                 </div>
@@ -902,11 +788,9 @@ export function TabsSearchPopover() {
                     label="RSQL filter"
                     value={where}
                     spellCheck={false}
-                    onChange={(event) => setWhere(event.target.value)}
+                    onChange={event => setWhere(event.target.value)}
                   />
-                  <p className="tabs-demo-muted">
-                    Use field==value and join conditions with ; for AND.
-                  </p>
+                  <p className="tabs-demo-muted">Use field==value and join conditions with ; for AND.</p>
                 </div>
               </TabsContent>
             </Tabs>
@@ -924,11 +808,7 @@ export function TabsSearchPopover() {
 export function TabsVariants() {
   return (
     <div className="tabs-demo-variants" role="group" aria-label="Variants">
-      <div
-        className="tabs-demo-variant"
-        role="group"
-        aria-label="Default variant"
-      >
+      <div className="tabs-demo-variant" role="group" aria-label="Default variant">
         <span className="tabs-demo-label">default</span>
         <Tabs defaultValue="members">
           <TabsList aria-label="Members settings">
@@ -946,18 +826,10 @@ export function TabsVariants() {
           </TabsList>
         </Tabs>
       </div>
-      <div
-        className="tabs-demo-variant"
-        role="group"
-        aria-label="Steps variant"
-      >
+      <div className="tabs-demo-variant" role="group" aria-label="Steps variant">
         <span className="tabs-demo-label">steps</span>
         <Tabs defaultValue="skills" className="tabs-demo-scroll">
-          <TabsList
-            variant="steps"
-            aria-label="Agent setup sections"
-            className="tabs-demo-steps-min"
-          >
+          <TabsList variant="steps" aria-label="Agent setup sections" className="tabs-demo-steps-min">
             {builderSteps.map((item, position) => (
               <TabsTrigger key={item.id} value={item.id}>
                 <span aria-hidden="true" className="tabs-demo-step-marker">

@@ -1,5 +1,5 @@
 ---
-import Docs from "../../layouts/Docs.astro";
+import Docs from '../../layouts/Docs.astro';
 import {
   MessageActionsConversation,
   MessageActionsHandoff,
@@ -7,8 +7,8 @@ import {
   MessageActionsStates,
   MessageActionsTimes,
   MessageActionsVersions,
-} from "../../components/MessageActionsDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+} from '../../components/MessageActionsDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -17,12 +17,13 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Message Actions</h1>
   <p class="docs-lead">
-    A compact row under a chat message. Copy turns the Markdown into plain text
-    and can add formatted HTML; the send time reads as Today, Yesterday, or a
-    date; assistant replies can be rated and regenerated. Message Branch steps
+    A compact row under a chat message. Copy turns the Markdown into plain text and can add formatted HTML; the send
+    time reads as Today, Yesterday, or a date; assistant replies can be rated and regenerated. Message Branch steps
     between regenerated versions.
   </p>
-  <div class="mt-8"><MessageActionsPlayground client:only="react" /></div>
+  <div class="mt-8">
+    <MessageActionsPlayground client:only="react" />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -39,18 +40,17 @@ import CodeBlock from "../../components/CodeBlock.astro";
 />`}
     />
     <p>
-      Only <code>text</code> is required, which shows a single Copy button. Each other
-      prop adds one part: <code>createdAt</code> the time,
+      Only <code>text</code> is required, which shows a single Copy button. Each other prop adds one part:{' '}
+      <code>createdAt</code> the time,
       <code>onFeedback</code> the Helpful and Unhelpful toggles, and
-      <code>onRetry</code> a Regenerate button. There are no visual variants; icon
-      buttons are ghost <code>icon-sm</code> and Regenerate is a ghost
+      <code>onRetry</code> a Regenerate button. There are no visual variants; icon buttons are ghost{' '}
+      <code>icon-sm</code> and Regenerate is a ghost
       <code>sm</code> button. A given rating uses the secondary fill.
     </p>
     <p>
-      <code>author</code> names the controls: <code>"assistant"</code> (the default)
-      says “response”, <code>"human"</code> says “message”.
-      <code>disabled</code> turns off every button, for example while a reply is still
-      running.
+      <code>author</code> names the controls: <code>"assistant"</code> (the default) says “response”,{' '}
+      <code>"human"</code> says “message”.
+      <code>disabled</code> turns off every button, for example while a reply is still running.
     </p>
   </section>
   <section class="prose-section">
@@ -77,21 +77,24 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </Message>`}
     />
     <p>
-      With <code>hover</code>, the row stays hidden until the pointer is over
-      the surrounding <code>Message</code> or anything in it has focus. On touch screens
-      it is always shown. <code>html</code> runs when Copy is pressed; when it returns
-      markup, the clipboard gets both HTML and plain text, so pasting into a document
-      keeps bold, code, and links.
+      With <code>hover</code>, the row stays hidden until the pointer is over the surrounding <code>Message</code> or
+      anything in it has focus. On touch screens it is always shown. <code>html</code> runs when Copy is pressed; when
+      it returns markup, the clipboard gets both HTML and plain text, so pasting into a document keeps bold, code, and
+      links.
     </p>
-    <div class="mt-6"><MessageActionsConversation client:only="react" /></div>
+    <div class="mt-6">
+      <MessageActionsConversation client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Send time</h2>
     <p>
-      <code>createdAt</code> is an ISO time shown in the reader’s locale and time
-      zone. Its title gives the full date and time.
+      <code>createdAt</code> is an ISO time shown in the reader’s locale and time zone. Its title gives the full date
+      and time.
     </p>
-    <div class="mt-6"><MessageActionsTimes client:only="react" /></div>
+    <div class="mt-6">
+      <MessageActionsTimes client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Versions</h2>
@@ -104,40 +107,41 @@ import CodeBlock from "../../components/CodeBlock.astro";
 <MessageActions text={versions[index].text} onRetry={regenerate} />`}
     />
     <p>
-      <code>index</code> is zero-based and shown as “2 / 3”. Previous is disabled
-      on the first version and Next on the last.
+      <code>index</code> is zero-based and shown as “2 / 3”. Previous is disabled on the first version and Next on the
+      last.
     </p>
-    <div class="mt-6"><MessageActionsVersions client:only="react" /></div>
+    <div class="mt-6">
+      <MessageActionsVersions client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Copy only</h2>
     <p>
-      Pass just <code>text</code> under text that is not a chat turn, such as a written
-      handoff in a dialog.
+      Pass just <code>text</code> under text that is not a chat turn, such as a written handoff in a dialog.
     </p>
-    <div class="mt-6"><MessageActionsHandoff client:only="react" /></div>
+    <div class="mt-6">
+      <MessageActionsHandoff client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">States</h2>
     <p>
-      After a copy the icon becomes a check and its label says it was copied. If
-      the browser refuses the write, a message under the row asks the reader to
-      select the text instead. Choose Blocked to try it; this demo blocks the
+      After a copy the icon becomes a check and its label says it was copied. If the browser refuses the write, a
+      message under the row asks the reader to select the text instead. Choose Blocked to try it; this demo blocks the
       clipboard only while that option is chosen.
     </p>
-    <div class="mt-6"><MessageActionsStates client:only="react" /></div>
+    <div class="mt-6">
+      <MessageActionsStates client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Actions sit in a group named “Response actions” or “Message actions”;
-      versions in a group named “Response versions”. Icon buttons have labels
-      and titles, and the ratings are toggle buttons with
-      <code>aria-pressed</code>. A successful copy is announced through a status
-      region and a failed one as an alert. The version count is a polite live
-      region. A hover row becomes visible as soon as keyboard focus enters the
-      message. It fades in over 120ms, or appears at once when reduced motion is
-      set.
+      Actions sit in a group named “Response actions” or “Message actions”; versions in a group named “Response
+      versions”. Icon buttons have labels and titles, and the ratings are toggle buttons with
+      <code>aria-pressed</code>. A successful copy is announced through a status region and a failed one as an alert.
+      The version count is a polite live region. A hover row becomes visible as soon as keyboard focus enters the
+      message. It fades in over 120ms, or appears at once when reduced motion is set.
     </p>
   </section>
 </Docs>

@@ -1,20 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
-import { MenubarEditor, MenubarPlayground } from "../../components/MenubarDemo";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { MenubarEditor, MenubarPlayground } from '../../components/MenubarDemo';
 ---
 
-<Docs
-  title="Menubar"
-  description="A row of app menus with items, shortcuts, checkboxes, radio groups, and submenus."
->
+<Docs title="Menubar" description="A row of app menus with items, shortcuts, checkboxes, radio groups, and submenus.">
   <h1 class="docs-title">Menubar</h1>
   <p class="docs-lead">
-    A row of menus, like the File and View menus of a desktop app. Use it for an
-    editor or tool that has many commands. For one set of actions, use a
-    Dropdown Menu.
+    A row of menus, like the File and View menus of a desktop app. Use it for an editor or tool that has many commands.
+    For one set of actions, use a Dropdown Menu.
   </p>
-  <div class="mt-8" id="menubar-demo"><MenubarPlayground client:load /></div>
+  <div class="mt-8" id="menubar-demo">
+    <MenubarPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -72,80 +70,58 @@ import { MenubarEditor, MenubarPlayground } from "../../components/MenubarDemo";
   <section class="prose-section">
     <h2 class="section-title">Variants and states</h2>
     <p>
-      <code>MenubarItem variant</code> is <code>"default"</code> or <code
-        >"destructive"</code
-      >; destructive items use the danger color and a tinted highlight. <code
-        >disabled</code
-      > items stay readable at half opacity and can still be reached with arrow keys.
-      Checkbox and radio items show a check at the start, so rows without a check
-      use <code>inset</code> to line up with them. Long names in a submenu can truncate
-      with an ellipsis.
+      <code>MenubarItem variant</code> is <code>"default"</code> or <code>"destructive"</code>; destructive items use
+      the danger color and a tinted highlight. <code>disabled</code> items stay readable at half opacity and can still
+      be reached with arrow keys. Checkbox and radio items show a check at the start, so rows without a check use{' '}
+      <code>inset</code> to line up with them. Long names in a submenu can truncate with an ellipsis.
     </p>
     <MenubarEditor client:load />
   </section>
   <section class="prose-section" id="menubar-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>Menubar</code> wraps the Base UI menubar and takes <code>modal</code
-      >, <code>disabled</code>, <code>orientation</code>, and <code
-        >loopFocus</code
-      >. Give it an <code>aria-label</code>. <code>MenubarMenu</code>, <code
-        >MenubarTrigger</code
-      >, <code>MenubarPortal</code>, <code>MenubarGroup</code>, <code
-        >MenubarSub</code
-      >, <code>MenubarRadioGroup</code>, and <code>MenubarSeparator</code> wrap the
-      Base UI menu parts and take their props, including <code>open</code>,
-      <code>onOpenChange</code>, and <code>render</code>.
+      <code>Menubar</code> wraps the Base UI menubar and takes <code>modal</code>, <code>disabled</code>,{' '}
+      <code>orientation</code>, and <code>loopFocus</code>. Give it an <code>aria-label</code>. <code>MenubarMenu</code>
+      , <code>MenubarTrigger</code>, <code>MenubarPortal</code>, <code>MenubarGroup</code>, <code>MenubarSub</code>,{' '}
+      <code>MenubarRadioGroup</code>, and <code>MenubarSeparator</code> wrap the Base UI menu parts and take their
+      props, including <code>open</code>,<code>onOpenChange</code>, and <code>render</code>.
     </p>
     <p>
       <code>MenubarContent</code> renders its own portal and positioner. It takes
-      <code>side</code> (<code>"bottom"</code>), <code>align</code> (<code
-        >"start"</code
-      >), <code>sideOffset</code> (8), <code>alignOffset</code> (-4), <code
-        >collisionPadding</code
-      > (8), <code>container</code>, and every Base UI popup prop. It is at
-      least 9rem wide and grows with its items up to 20rem. <code
-        >MenubarSubContent</code
-      > takes the same props and opens to the right.
+      <code>side</code> (<code>"bottom"</code>), <code>align</code> (<code>"start"</code>), <code>sideOffset</code> (8),{' '}
+      <code>alignOffset</code> (-4), <code>collisionPadding</code> (8), <code>container</code>, and every Base UI popup
+      prop. It is at least 9rem wide and grows with its items up to 20rem. <code>MenubarSubContent</code> takes the same
+      props and opens to the right.
     </p>
     <p>
-      <code>MenubarItem</code> takes <code>variant</code> and <code>inset</code
-      >. <code>MenubarLabel</code>, <code>MenubarSubTrigger</code>, and the
-      checkbox and radio items take <code>inset</code> too. Put a <code
-        >MenubarLabel</code
-      > inside a <code>MenubarGroup</code>; the group takes its name from the
-      label. <code>MenubarShortcut</code> is a plain <code>span</code> for hint text;
-      it does not bind keys. Every part sets a <code>data-slot</code>.
+      <code>MenubarItem</code> takes <code>variant</code> and <code>inset</code>. <code>MenubarLabel</code>,{' '}
+      <code>MenubarSubTrigger</code>, and the checkbox and radio items take <code>inset</code> too. Put a{' '}
+      <code>MenubarLabel</code> inside a <code>MenubarGroup</code>; the group takes its name from the label.{' '}
+      <code>MenubarShortcut</code> is a plain <code>span</code> for hint text; it does not bind keys. Every part sets a{' '}
+      <code>data-slot</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The bar has <code>role="menubar"</code> and is one Tab stop. Arrow Left and
-      Arrow Right move between triggers, Arrow Down or Enter opens a menu, and while
-      a menu is open Arrow Left and Arrow Right move to the next menu. Inside a menu,
-      arrow keys move, typing jumps to a matching item, Arrow Right opens a submenu,
-      and Escape closes the menu and returns focus to its trigger. A focused trigger
-      shows a focus ring.
+      The bar has <code>role="menubar"</code> and is one Tab stop. Arrow Left and Arrow Right move between triggers,
+      Arrow Down or Enter opens a menu, and while a menu is open Arrow Left and Arrow Right move to the next menu.
+      Inside a menu, arrow keys move, typing jumps to a matching item, Arrow Right opens a submenu, and Escape closes
+      the menu and returns focus to its trigger. A focused trigger shows a focus ring.
     </p>
     <p>
-      Menus fade and scale in over 120ms. Motion turns off when reduced motion
-      is requested. In forced-colors mode the open trigger and highlighted item
-      get an outline.
+      Menus fade and scale in over 120ms. Motion turns off when reduced motion is requested. In forced-colors mode the
+      open trigger and highlighted item get an outline.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Menubars use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code
-        >--sprout-hover</code
-      >, <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
-        >--sprout-danger</code
-      >, <code>--sprout-danger-subtle</code>, <code>--sprout-focus</code>, <code
-        >--sprout-shadow-control</code
-      >, <code>--sprout-shadow-overlay</code>, and the panel and control radii.
-      They need no brand color, so they look the same with the neutral and
-      TulipFarm themes in light and dark mode.
+      Menubars use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code>--sprout-hover</code>,{' '}
+      <code>--sprout-text</code>, <code>--sprout-muted</code>, <code>--sprout-danger</code>,{' '}
+      <code>--sprout-danger-subtle</code>, <code>--sprout-focus</code>, <code>--sprout-shadow-control</code>,{' '}
+      <code>--sprout-shadow-overlay</code>, and the panel and control radii. They need no brand color, so they look the
+      same with the neutral and TulipFarm themes in light and dark mode.
     </p>
   </section>
 </Docs>

@@ -29,16 +29,14 @@
   padding: 24px;
   background: var(--sprout-canvas);
 }
-.state-panel-samples-demo-stage[data-frame="window"] {
+.state-panel-samples-demo-stage[data-frame='window'] {
   justify-items: center;
 }
 .state-panel-samples-demo-stage > * {
   min-width: 0;
-  animation: state-panel-samples-demo-in var(--sprout-motion-normal)
-    var(--sprout-motion-ease) both;
+  animation: state-panel-samples-demo-in var(--sprout-motion-normal) var(--sprout-motion-ease) both;
 }
-.state-panel-samples-demo-stage[data-frame="window"]
-  > .state-panel-samples-demo-window {
+.state-panel-samples-demo-stage[data-frame='window'] > .state-panel-samples-demo-window {
   width: 100%;
   max-width: 36rem;
 }

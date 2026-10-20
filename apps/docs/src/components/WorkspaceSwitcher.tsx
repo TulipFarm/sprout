@@ -1,46 +1,40 @@
-import { useEffect, useId, useRef, useState } from "react";
-import { Menu } from "@base-ui/react/menu";
-import { Dialog } from "@base-ui/react/dialog";
-import { Buildings } from "reicon-react/icons/Buildings";
-import { UserCircle } from "reicon-react/icons/UserCircle";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Plus } from "reicon-react/icons/Plus";
-import { useSidebar } from "@tulipfarm/sprout/sidebar";
-import "../styles/workspace-switcher.css";
+import { useEffect, useId, useRef, useState } from 'react';
+import { Menu } from '@base-ui/react/menu';
+import { Dialog } from '@base-ui/react/dialog';
+import { Buildings } from 'reicon-react/icons/Buildings';
+import { UserCircle } from 'reicon-react/icons/UserCircle';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { Plus } from 'reicon-react/icons/Plus';
+import { useSidebar } from '@tulipfarm/sprout/sidebar';
+import '../styles/workspace-switcher.css';
 
 export interface Workspace {
   id: string;
   name: string;
   plan: string;
-  icon: "team" | "personal";
+  icon: 'team' | 'personal';
 }
 
 interface Props {
   workspaces: Workspace[];
   workspace: Workspace;
-  side: "left" | "right";
+  side: 'left' | 'right';
   onSelect: (workspace: Workspace) => void;
   onCreate: (name: string) => void;
 }
 
 function WorkspaceIcon({ workspace }: { workspace: Workspace }) {
-  const Icon = workspace.icon === "personal" ? UserCircle : Buildings;
+  const Icon = workspace.icon === 'personal' ? UserCircle : Buildings;
   return <Icon size={18} aria-hidden="true" />;
 }
 
-export default function WorkspaceSwitcher({
-  workspaces,
-  workspace,
-  side,
-  onSelect,
-  onCreate,
-}: Props) {
+export default function WorkspaceSwitcher({ workspaces, workspace, side, onSelect, onCreate }: Props) {
   const { isMobile } = useSidebar();
   const [open, setOpen] = useState(false);
   const [creating, setCreating] = useState(false);
-  const [name, setName] = useState("");
-  const [error, setError] = useState("");
-  const [modifier, setModifier] = useState("Ctrl");
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
+  const [modifier, setModifier] = useState('Ctrl');
   const triggerRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const inputId = useId();
@@ -48,7 +42,7 @@ export default function WorkspaceSwitcher({
   const summaryId = useId();
 
   useEffect(() => {
-    if (/Mac|iPhone|iPad/.test(navigator.platform)) setModifier("⌘");
+    if (/Mac|iPhone|iPad/.test(navigator.platform)) setModifier('⌘');
   }, []);
 
   function select(next: Workspace) {
@@ -80,7 +74,7 @@ export default function WorkspaceSwitcher({
         <Menu.Portal>
           <Menu.Positioner
             className="workspace-menu-positioner"
-            side={isMobile ? "bottom" : side === "left" ? "right" : "left"}
+            side={isMobile ? 'bottom' : side === 'left' ? 'right' : 'left'}
             align="start"
             sideOffset={10}
           >
@@ -88,13 +82,8 @@ export default function WorkspaceSwitcher({
               className="workspace-menu"
               aria-label="Workspaces"
               finalFocus={creating ? false : triggerRef}
-              onKeyDown={(event) => {
-                if (
-                  !(event.metaKey || event.ctrlKey) ||
-                  event.altKey ||
-                  event.nativeEvent.isComposing
-                )
-                  return;
+              onKeyDown={event => {
+                if (!(event.metaKey || event.ctrlKey) || event.altKey || event.nativeEvent.isComposing) return;
                 const index = Number(event.key) - 1;
                 const next = workspaces[index];
                 if (!/^[1-9]$/.test(event.key) || !next) return;
@@ -104,9 +93,7 @@ export default function WorkspaceSwitcher({
               }}
             >
               <Menu.Group>
-                <Menu.GroupLabel className="workspace-menu-label">
-                  Workspaces
-                </Menu.GroupLabel>
+                <Menu.GroupLabel className="workspace-menu-label">Workspaces</Menu.GroupLabel>
                 <Menu.RadioGroup value={workspace.id}>
                   {workspaces.map((item, index) => (
                     <Menu.RadioItem
@@ -116,11 +103,7 @@ export default function WorkspaceSwitcher({
                       className="workspace-menu-item"
                       closeOnClick
                       onClick={() => select(item)}
-                      aria-keyshortcuts={
-                        index < 9
-                          ? `Meta+${index + 1} Control+${index + 1}`
-                          : undefined
-                      }
+                      aria-keyshortcuts={index < 9 ? `Meta+${index + 1} Control+${index + 1}` : undefined}
                     >
                       <span className="workspace-avatar">
                         <WorkspaceIcon workspace={item} />
@@ -140,8 +123,8 @@ export default function WorkspaceSwitcher({
               <Menu.Item
                 className="workspace-menu-item workspace-add"
                 onClick={() => {
-                  setName("");
-                  setError("");
+                  setName('');
+                  setError('');
                   setCreating(true);
                 }}
               >
@@ -157,34 +140,23 @@ export default function WorkspaceSwitcher({
       <Dialog.Root open={creating} onOpenChange={setCreating}>
         <Dialog.Portal>
           <Dialog.Backdrop className="workspace-create-backdrop" />
-          <Dialog.Popup
-            className="workspace-create-dialog"
-            initialFocus={inputRef}
-            finalFocus={triggerRef}
-          >
-            <Dialog.Title className="workspace-create-title">
-              Add workspace
-            </Dialog.Title>
+          <Dialog.Popup className="workspace-create-dialog" initialFocus={inputRef} finalFocus={triggerRef}>
+            <Dialog.Title className="workspace-create-title">Add workspace</Dialog.Title>
             <Dialog.Description className="workspace-create-description">
-              Create a temporary workspace for this preview. It disappears when
-              you reload the page.
+              Create a temporary workspace for this preview. It disappears when you reload the page.
             </Dialog.Description>
             <form
               noValidate
-              onSubmit={(event) => {
+              onSubmit={event => {
                 event.preventDefault();
                 const trimmed = name.trim();
                 if (!trimmed) {
-                  setError("Enter a workspace name.");
+                  setError('Enter a workspace name.');
                   inputRef.current?.focus();
                   return;
                 }
-                if (
-                  workspaces.some(
-                    (item) => item.name.toLowerCase() === trimmed.toLowerCase(),
-                  )
-                ) {
-                  setError("A workspace with this name already exists.");
+                if (workspaces.some(item => item.name.toLowerCase() === trimmed.toLowerCase())) {
+                  setError('A workspace with this name already exists.');
                   inputRef.current?.focus();
                   return;
                 }
@@ -197,9 +169,9 @@ export default function WorkspaceSwitcher({
                 id={inputId}
                 ref={inputRef}
                 value={name}
-                onChange={(event) => {
+                onChange={event => {
                   setName(event.target.value);
-                  setError("");
+                  setError('');
                 }}
                 autoComplete="off"
                 required
@@ -212,9 +184,7 @@ export default function WorkspaceSwitcher({
                 </p>
               )}
               <div className="workspace-create-actions">
-                <Dialog.Close className="workspace-create-cancel">
-                  Cancel
-                </Dialog.Close>
+                <Dialog.Close className="workspace-create-cancel">Cancel</Dialog.Close>
                 <button type="submit" className="workspace-create-submit">
                   Create workspace
                 </button>

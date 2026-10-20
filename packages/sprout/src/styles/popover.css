@@ -106,34 +106,25 @@
       opacity: 0;
       scale: 0.96;
     }
-    .sprout-popover-content[data-side="bottom"]:is(
-        [data-starting-style],
-        [data-ending-style]
-      ) {
+    .sprout-popover-content[data-side='bottom']:is([data-starting-style], [data-ending-style]) {
       translate: 0 calc(var(--sprout-popover-shift) * -1);
     }
-    .sprout-popover-content[data-side="top"]:is(
+    .sprout-popover-content[data-side='top']:is([data-starting-style], [data-ending-style]) {
+      translate: 0 var(--sprout-popover-shift);
+    }
+    .sprout-popover-content:is([data-side='right'], [data-side='inline-end']):is(
         [data-starting-style],
         [data-ending-style]
       ) {
-      translate: 0 var(--sprout-popover-shift);
-    }
-    .sprout-popover-content:is(
-        [data-side="right"],
-        [data-side="inline-end"]
-      ):is([data-starting-style], [data-ending-style]) {
       translate: calc(var(--sprout-popover-shift) * -1) 0;
     }
-    .sprout-popover-content:is(
-        [data-side="left"],
-        [data-side="inline-start"]
-      ):is([data-starting-style], [data-ending-style]) {
+    .sprout-popover-content:is([data-side='left'], [data-side='inline-start']):is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
       translate: var(--sprout-popover-shift) 0;
     }
-    .sprout-popover-content:is(
-      .sprout-popover-app-actions,
-      .sprout-popover-bud
-    ) {
+    .sprout-popover-content:is(.sprout-popover-app-actions, .sprout-popover-bud) {
       transition-duration: var(--sprout-motion-normal);
     }
   }

@@ -5,7 +5,7 @@
     gap: 8px;
     min-width: 0;
   }
-  .sprout-tabs[data-orientation="vertical"] {
+  .sprout-tabs[data-orientation='vertical'] {
     flex-direction: row;
   }
 
@@ -22,7 +22,7 @@
     border-radius: calc(var(--sprout-radius-control) + 2px);
     color: var(--sprout-muted);
   }
-  .sprout-tabs-list[data-orientation="vertical"] {
+  .sprout-tabs-list[data-orientation='vertical'] {
     flex-direction: column;
     align-items: stretch;
     height: fit-content;
@@ -54,7 +54,7 @@
     border-radius: 0;
     background: transparent;
   }
-  .sprout-tabs-list-steps[data-orientation="vertical"] {
+  .sprout-tabs-list-steps[data-orientation='vertical'] {
     justify-content: flex-start;
     width: fit-content;
     border-bottom: 0;
@@ -86,17 +86,17 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
-  .sprout-tabs-trigger:has(> [data-icon="inline-start"]) {
+  .sprout-tabs-trigger:has(> [data-icon='inline-start']) {
     padding-inline-start: 6px;
   }
-  .sprout-tabs-trigger:has(> [data-icon="inline-end"]) {
+  .sprout-tabs-trigger:has(> [data-icon='inline-end']) {
     padding-inline-end: 6px;
   }
   .sprout-tabs-trigger svg {
     flex-shrink: 0;
     pointer-events: none;
   }
-  .sprout-tabs-trigger svg:not([class*="size-"]) {
+  .sprout-tabs-trigger svg:not([class*='size-']) {
     width: 16px;
     height: 16px;
   }
@@ -119,7 +119,7 @@
 
   /* The underline for line and steps lists. */
   .sprout-tabs-trigger::after {
-    content: "";
+    content: '';
     position: absolute;
     inset-inline: 0;
     bottom: -3px;
@@ -128,12 +128,12 @@
     opacity: 0;
     pointer-events: none;
   }
-  .sprout-tabs-trigger[data-orientation="vertical"] {
+  .sprout-tabs-trigger[data-orientation='vertical'] {
     flex: none;
     width: 100%;
     justify-content: flex-start;
   }
-  .sprout-tabs-trigger[data-orientation="vertical"]::after {
+  .sprout-tabs-trigger[data-orientation='vertical']::after {
     inset-inline: auto -3px;
     inset-block: 0;
     bottom: 0;
@@ -156,9 +156,7 @@
       0 1px 2px rgb(0 0 0 / 0.3);
   }
   @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark)
-      .sprout-tabs-list-default
-      > .sprout-tabs-trigger[data-active] {
+    :root:not(.light):not(.dark) .sprout-tabs-list-default > .sprout-tabs-trigger[data-active] {
       border-color: color-mix(in oklab, var(--sprout-text) 16%, transparent);
       background: color-mix(in oklab, var(--sprout-text) 9%, transparent);
       box-shadow:
@@ -181,8 +179,7 @@
     bottom: -1px;
     background: var(--sprout-primary);
   }
-  .sprout-tabs-list-steps
-    > .sprout-tabs-trigger[data-orientation="vertical"]::after {
+  .sprout-tabs-list-steps > .sprout-tabs-trigger[data-orientation='vertical']::after {
     inset-inline: auto -1px;
     bottom: 0;
   }
@@ -216,8 +213,7 @@
         box-shadow var(--sprout-motion-fast, 120ms) ease-out;
     }
     .sprout-tabs-trigger::after {
-      transition: opacity var(--sprout-motion-normal, 180ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: opacity var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
     }
   }
 }

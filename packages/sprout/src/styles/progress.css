@@ -52,8 +52,7 @@
     inset-block: 0;
     inset-inline-start: 0;
     width: 40%;
-    animation: sprout-progress-slide 1.4s var(--sprout-motion-ease, ease-in-out)
-      infinite;
+    animation: sprout-progress-slide 1.4s var(--sprout-motion-ease, ease-in-out) infinite;
   }
 
   @keyframes sprout-progress-slide {
@@ -67,8 +66,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-progress-indicator {
-      transition: width var(--sprout-motion-normal, 180ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: width var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
     }
   }
 

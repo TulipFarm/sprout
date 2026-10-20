@@ -6,15 +6,15 @@
  * that subtree.
  */
 @layer base {
-  [data-sprout-theme="raycast"] {
+  [data-sprout-theme='raycast'] {
     --sprout-font: ui-sans-serif, system-ui, sans-serif;
     --sprout-radius-control: 0.5rem;
     --sprout-radius-panel: 0.75rem;
   }
 
-  [data-sprout-theme="raycast"],
-  .light[data-sprout-theme="raycast"],
-  .light [data-sprout-theme="raycast"] {
+  [data-sprout-theme='raycast'],
+  .light[data-sprout-theme='raycast'],
+  .light [data-sprout-theme='raycast'] {
     --sprout-canvas: #f7f7f7;
     --sprout-surface: #ffffff;
     --sprout-hover: #f1f1f1;
@@ -40,17 +40,13 @@
     --sprout-success-subtle: #e8f4eb;
     --sprout-warning: #8a4b08;
     --sprout-warning-subtle: #fdf1dc;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 10%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 10%, var(--sprout-surface));
     --sprout-secondary: #eeeeee;
     --sprout-overlay: rgb(18 18 18 / 0.35);
   }
 
-  .dark[data-sprout-theme="raycast"],
-  .dark [data-sprout-theme="raycast"] {
+  .dark[data-sprout-theme='raycast'],
+  .dark [data-sprout-theme='raycast'] {
     --sprout-canvas: #0c0c0c;
     --sprout-surface: #161616;
     --sprout-hover: #282828;
@@ -76,18 +72,14 @@
     --sprout-success-subtle: #1c3223;
     --sprout-warning: #eec27e;
     --sprout-warning-subtle: #34291b;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 16%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
     --sprout-secondary: #2a2a2a;
     --sprout-overlay: rgb(8 8 8 / 0.65);
   }
 
   @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark)[data-sprout-theme="raycast"],
-    :root:not(.light):not(.dark) [data-sprout-theme="raycast"] {
+    :root:not(.light):not(.dark)[data-sprout-theme='raycast'],
+    :root:not(.light):not(.dark) [data-sprout-theme='raycast'] {
       --sprout-canvas: #0c0c0c;
       --sprout-surface: #161616;
       --sprout-hover: #282828;
@@ -113,11 +105,7 @@
       --sprout-success-subtle: #1c3223;
       --sprout-warning: #eec27e;
       --sprout-warning-subtle: #34291b;
-      --sprout-primary-subtle: color-mix(
-        in oklab,
-        var(--sprout-primary) 16%,
-        var(--sprout-surface)
-      );
+      --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
       --sprout-secondary: #2a2a2a;
       --sprout-overlay: rgb(8 8 8 / 0.65);
     }

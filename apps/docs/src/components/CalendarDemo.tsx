@@ -1,38 +1,28 @@
-import { useState, type ReactNode } from "react";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Calendar,
-  CalendarDayButton,
-  type CalendarDayButtonProps,
-  type DateRange,
-} from "@tulipfarm/sprout/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
-import DocsSelect from "./DocsSelect";
-import { Example, Row } from "./dialog-demo-parts";
-import "../styles/calendar-demo.css";
+import { useState, type ReactNode } from 'react';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { Button } from '@tulipfarm/sprout/button';
+import { Calendar, CalendarDayButton, type CalendarDayButtonProps, type DateRange } from '@tulipfarm/sprout/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
+import DocsSelect from './DocsSelect';
+import { Example, Row } from './dialog-demo-parts';
+import '../styles/calendar-demo.css';
 
 /* Sample data uses a fixed "today" so every reader sees the same month. */
 const today = new Date(2026, 9, 12);
 const october = new Date(2026, 9, 1);
 
 const long = (date: Date) =>
-  date.toLocaleDateString("en", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
+  date.toLocaleDateString('en', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
   });
 const isoDay = (date: Date) =>
-  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-const short = (date: Date) =>
-  date.toLocaleDateString("en", { month: "short", day: "numeric" });
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+const short = (date: Date) => date.toLocaleDateString('en', { month: 'short', day: 'numeric' });
 
 function Status({ children }: { children: ReactNode }) {
   return (
@@ -43,40 +33,32 @@ function Status({ children }: { children: ReactNode }) {
 }
 
 function rangeText(range: DateRange | undefined) {
-  if (!range?.from) return "No dates selected.";
+  if (!range?.from) return 'No dates selected.';
   if (!range.to) return `From ${short(range.from)}. Pick an end date.`;
   return `${short(range.from)} – ${short(range.to)}`;
 }
 
 function datesText(dates: Date[] | undefined) {
-  if (!dates?.length) return "No dates selected.";
+  if (!dates?.length) return 'No dates selected.';
   return [...dates]
     .sort((a, b) => a.getTime() - b.getTime())
     .map(short)
-    .join(", ");
+    .join(', ');
 }
 
 /* ------------------------------------------------------------------ */
 /* Playground                                                          */
 /* ------------------------------------------------------------------ */
 
-type Mode = "single" | "range" | "multiple";
-type Caption = "label" | "dropdown";
-type Nav = "ghost" | "outline";
+type Mode = 'single' | 'range' | 'multiple';
+type Caption = 'label' | 'dropdown';
+type Nav = 'ghost' | 'outline';
 
-function Toggle({
-  label,
-  pressed,
-  onChange,
-}: {
-  label: string;
-  pressed: boolean;
-  onChange: (next: boolean) => void;
-}) {
+function Toggle({ label, pressed, onChange }: { label: string; pressed: boolean; onChange: (next: boolean) => void }) {
   return (
     <Button
       size="sm"
-      variant={pressed ? "secondary" : "outline"}
+      variant={pressed ? 'secondary' : 'outline'}
       aria-pressed={pressed}
       onClick={() => onChange(!pressed)}
     >
@@ -86,10 +68,10 @@ function Toggle({
 }
 
 export function CalendarPlayground() {
-  const [mode, setMode] = useState<Mode>("single");
-  const [caption, setCaption] = useState<Caption>("label");
-  const [nav, setNav] = useState<Nav>("ghost");
-  const [weekStart, setWeekStart] = useState<"0" | "1">("0");
+  const [mode, setMode] = useState<Mode>('single');
+  const [caption, setCaption] = useState<Caption>('label');
+  const [nav, setNav] = useState<Nav>('ghost');
+  const [weekStart, setWeekStart] = useState<'0' | '1'>('0');
   const [outside, setOutside] = useState(true);
   const [weekNumbers, setWeekNumbers] = useState(false);
   const [weekends, setWeekends] = useState(false);
@@ -98,10 +80,7 @@ export function CalendarPlayground() {
     from: today,
     to: new Date(2026, 9, 16),
   });
-  const [dates, setDates] = useState<Date[] | undefined>([
-    new Date(2026, 9, 13),
-    new Date(2026, 9, 15),
-  ]);
+  const [dates, setDates] = useState<Date[] | undefined>([new Date(2026, 9, 13), new Date(2026, 9, 15)]);
   const shared = {
     defaultMonth: october,
     today,
@@ -114,19 +93,15 @@ export function CalendarPlayground() {
   };
   return (
     <div className="calendar-demo-playground">
-      <div
-        className="calendar-demo-controls"
-        role="group"
-        aria-label="Calendar options"
-      >
+      <div className="calendar-demo-controls" role="group" aria-label="Calendar options">
         <DocsSelect
           label="Mode"
           value={mode}
           onValueChange={setMode}
           items={[
-            { value: "single", label: "Single date" },
-            { value: "range", label: "Date range" },
-            { value: "multiple", label: "Multiple dates" },
+            { value: 'single', label: 'Single date' },
+            { value: 'range', label: 'Date range' },
+            { value: 'multiple', label: 'Multiple dates' },
           ]}
         />
         <DocsSelect
@@ -134,8 +109,8 @@ export function CalendarPlayground() {
           value={caption}
           onValueChange={setCaption}
           items={[
-            { value: "label", label: "Month label" },
-            { value: "dropdown", label: "Month and year menus" },
+            { value: 'label', label: 'Month label' },
+            { value: 'dropdown', label: 'Month and year menus' },
           ]}
         />
         <DocsSelect
@@ -143,8 +118,8 @@ export function CalendarPlayground() {
           value={nav}
           onValueChange={setNav}
           items={[
-            { value: "ghost", label: "Ghost buttons" },
-            { value: "outline", label: "Outline buttons" },
+            { value: 'ghost', label: 'Ghost buttons' },
+            { value: 'outline', label: 'Outline buttons' },
           ]}
         />
         <DocsSelect
@@ -152,47 +127,28 @@ export function CalendarPlayground() {
           value={weekStart}
           onValueChange={setWeekStart}
           items={[
-            { value: "0", label: "Sunday first" },
-            { value: "1", label: "Monday first" },
+            { value: '0', label: 'Sunday first' },
+            { value: '1', label: 'Monday first' },
           ]}
         />
         <Toggle label="Outside days" pressed={outside} onChange={setOutside} />
-        <Toggle
-          label="Week numbers"
-          pressed={weekNumbers}
-          onChange={setWeekNumbers}
-        />
+        <Toggle label="Week numbers" pressed={weekNumbers} onChange={setWeekNumbers} />
         <Toggle label="No weekends" pressed={weekends} onChange={setWeekends} />
       </div>
       <div className="calendar-demo-stage">
-        {mode === "single" ? (
-          <Calendar
-            {...shared}
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-          />
-        ) : mode === "range" ? (
-          <Calendar
-            {...shared}
-            mode="range"
-            selected={range}
-            onSelect={setRange}
-          />
+        {mode === 'single' ? (
+          <Calendar {...shared} mode="single" selected={date} onSelect={setDate} />
+        ) : mode === 'range' ? (
+          <Calendar {...shared} mode="range" selected={range} onSelect={setRange} />
         ) : (
-          <Calendar
-            {...shared}
-            mode="multiple"
-            selected={dates}
-            onSelect={setDates}
-          />
+          <Calendar {...shared} mode="multiple" selected={dates} onSelect={setDates} />
         )}
         <Status>
-          {mode === "single"
+          {mode === 'single'
             ? date
               ? long(date)
-              : "No date selected."
-            : mode === "range"
+              : 'No date selected.'
+            : mode === 'range'
               ? rangeText(range)
               : datesText(dates)}
         </Status>
@@ -211,49 +167,25 @@ export function CalendarSelection() {
     from: today,
     to: new Date(2026, 9, 16),
   });
-  const [dates, setDates] = useState<Date[] | undefined>([
-    new Date(2026, 9, 13),
-    new Date(2026, 9, 15),
-  ]);
+  const [dates, setDates] = useState<Date[] | undefined>([new Date(2026, 9, 13), new Date(2026, 9, 15)]);
   return (
     <Example
       title="Selection modes"
       description="Click a selected date again to clear it. Weekends are disabled in the multiple-date calendar."
     >
-      <Row
-        label="Single date"
-        note='mode="single" · ghost nav · label caption · Sunday first'
-      >
+      <Row label="Single date" note='mode="single" · ghost nav · label caption · Sunday first'>
         <div className="calendar-demo-stack">
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-            defaultMonth={october}
-            today={today}
-          />
-          <Status>{date ? long(date) : "No date selected."}</Status>
+          <Calendar mode="single" selected={date} onSelect={setDate} defaultMonth={october} today={today} />
+          <Status>{date ? long(date) : 'No date selected.'}</Status>
         </div>
       </Row>
-      <Row
-        label="Date range"
-        note='mode="range" · Oct 12 – 16 · start, middle, and end days'
-      >
+      <Row label="Date range" note='mode="range" · Oct 12 – 16 · start, middle, and end days'>
         <div className="calendar-demo-stack">
-          <Calendar
-            mode="range"
-            selected={range}
-            onSelect={setRange}
-            defaultMonth={october}
-            today={today}
-          />
+          <Calendar mode="range" selected={range} onSelect={setRange} defaultMonth={october} today={today} />
           <Status>{rangeText(range)}</Status>
         </div>
       </Row>
-      <Row
-        label="Multiple dates"
-        note='mode="multiple" · disabled={{ dayOfWeek: [0, 6] }}'
-      >
+      <Row label="Multiple dates" note='mode="multiple" · disabled={{ dayOfWeek: [0, 6] }}'>
         <div className="calendar-demo-stack">
           <Calendar
             mode="multiple"
@@ -282,22 +214,10 @@ export function CalendarCaptions() {
       title="Captions and navigation"
       description="Month and year menus are Sprõut selects, never native ones. Years run from 100 years ago to this year."
     >
-      <Row
-        label="Month label"
-        note='captionLayout="label" · buttonVariant="ghost" (defaults)'
-      >
-        <Calendar
-          mode="single"
-          selected={ghost}
-          onSelect={setGhost}
-          defaultMonth={october}
-          today={today}
-        />
+      <Row label="Month label" note='captionLayout="label" · buttonVariant="ghost" (defaults)'>
+        <Calendar mode="single" selected={ghost} onSelect={setGhost} defaultMonth={october} today={today} />
       </Row>
-      <Row
-        label="Dropdown captions"
-        note='captionLayout="dropdown" · buttonVariant="outline"'
-      >
+      <Row label="Dropdown captions" note='captionLayout="dropdown" · buttonVariant="outline"'>
         <Calendar
           mode="single"
           selected={outline}
@@ -316,10 +236,8 @@ export function CalendarCaptions() {
 /* Date picker in a popover (Cloud calendar page)                      */
 /* ------------------------------------------------------------------ */
 
-const monthTitle = (date: Date) =>
-  date.toLocaleDateString("en", { month: "long", year: "numeric" });
-const monthShort = (date: Date) =>
-  date.toLocaleDateString("en", { month: "short", year: "numeric" });
+const monthTitle = (date: Date) => date.toLocaleDateString('en', { month: 'long', year: 'numeric' });
+const monthShort = (date: Date) => date.toLocaleDateString('en', { month: 'short', year: 'numeric' });
 
 function moveWeek(date: Date, by: number) {
   const next = new Date(date);
@@ -336,10 +254,7 @@ export function CalendarDatePicker() {
       title="Date picker"
       description="The calendar page opens a Monday-first calendar from its month title. Picking a date closes the popover and moves the view."
     >
-      <Row
-        label="Toolbar title"
-        note="ghost calendar-title trigger · PopoverContent align start · weekStartsOn 1"
-      >
+      <Row label="Toolbar title" note="ghost calendar-title trigger · PopoverContent align start · weekStartsOn 1">
         <div className="calendar-demo-toolbar">
           <Button
             variant="ghost"
@@ -351,19 +266,9 @@ export function CalendarDatePicker() {
           </Button>
           <Popover open={open} onOpenChange={setOpen}>
             <h2 className="calendar-demo-title" aria-label={title}>
-              <PopoverTrigger
-                render={
-                  <Button
-                    variant="ghost"
-                    size="calendar-title"
-                    aria-label="Choose date"
-                  />
-                }
-              >
+              <PopoverTrigger render={<Button variant="ghost" size="calendar-title" aria-label="Choose date" />}>
                 <span className="calendar-demo-title-full">{title}</span>
-                <span className="calendar-demo-title-short">
-                  {monthShort(day)}
-                </span>
+                <span className="calendar-demo-title-short">{monthShort(day)}</span>
                 <ChevronDown size={14} aria-hidden="true" />
               </PopoverTrigger>
             </h2>
@@ -374,28 +279,16 @@ export function CalendarDatePicker() {
                 today={today}
                 selected={day}
                 defaultMonth={day}
-                onSelect={(date) => {
+                onSelect={date => {
                   if (date) {
                     setOpen(false);
-                    setDay(
-                      new Date(
-                        date.getFullYear(),
-                        date.getMonth(),
-                        date.getDate(),
-                        12,
-                      ),
-                    );
+                    setDay(new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12));
                   }
                 }}
               />
             </PopoverContent>
           </Popover>
-          <Button
-            variant="ghost"
-            size="calendar-icon"
-            aria-label="Next range"
-            onClick={() => setDay(moveWeek(day, 1))}
-          >
+          <Button variant="ghost" size="calendar-icon" aria-label="Next range" onClick={() => setDay(moveWeek(day, 1))}>
             <ChevronRight size={16} aria-hidden="true" />
           </Button>
         </div>
@@ -410,13 +303,13 @@ export function CalendarDatePicker() {
 /* ------------------------------------------------------------------ */
 
 const eventCounts: Record<string, number> = {
-  "2026-10-05": 2,
-  "2026-10-07": 1,
-  "2026-10-12": 3,
-  "2026-10-14": 1,
-  "2026-10-19": 4,
-  "2026-10-22": 2,
-  "2026-10-28": 1,
+  '2026-10-05': 2,
+  '2026-10-07': 1,
+  '2026-10-12': 3,
+  '2026-10-14': 1,
+  '2026-10-19': 4,
+  '2026-10-22': 2,
+  '2026-10-28': 1,
 };
 
 function EventDay({ children, ...props }: CalendarDayButtonProps) {
@@ -440,10 +333,7 @@ export function CalendarLayouts() {
       title="Layout and custom days"
       description="Show week numbers and two months for longer ranges. Add content under each date with CalendarDayButton."
     >
-      <Row
-        label="Out of office"
-        note="numberOfMonths 2 · showWeekNumber · weekStartsOn 1 · range across months"
-      >
+      <Row label="Out of office" note="numberOfMonths 2 · showWeekNumber · weekStartsOn 1 · range across months">
         <div className="calendar-demo-stack">
           <Calendar
             mode="range"
@@ -458,10 +348,7 @@ export function CalendarLayouts() {
           <Status>{rangeText(leave)}</Status>
         </div>
       </Row>
-      <Row
-        label="Event counts"
-        note="components.DayButton → CalendarDayButton · --sprout-calendar-cell 2.25rem"
-      >
+      <Row label="Event counts" note="components.DayButton → CalendarDayButton · --sprout-calendar-cell 2.25rem">
         <div className="calendar-demo-stack">
           <Calendar
             mode="single"
@@ -472,11 +359,7 @@ export function CalendarLayouts() {
             today={today}
             components={{ DayButton: EventDay }}
           />
-          <Status>
-            {day
-              ? `${long(day)} · ${eventCounts[isoDay(day)] ?? 0} events`
-              : "No date selected."}
-          </Status>
+          <Status>{day ? `${long(day)} · ${eventCounts[isoDay(day)] ?? 0} events` : 'No date selected.'}</Status>
         </div>
       </Row>
     </Example>

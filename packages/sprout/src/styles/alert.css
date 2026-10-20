@@ -20,7 +20,7 @@
     text-align: start;
     overflow-wrap: break-word;
   }
-  .sprout-alert:has(> [data-slot="alert-action"]) {
+  .sprout-alert:has(> [data-slot='alert-action']) {
     padding-inline-end: 4.5rem;
   }
 
@@ -35,18 +35,18 @@
     flex-shrink: 0;
     pointer-events: none;
   }
-  .sprout-alert > svg:not([class*="size-"]) {
+  .sprout-alert > svg:not([class*='size-']) {
     width: 16px;
     height: 16px;
   }
-  .sprout-alert:has(> svg) > :not(svg, [data-slot="alert-action"]) {
+  .sprout-alert:has(> svg) > :not(svg, [data-slot='alert-action']) {
     grid-column-start: 2;
   }
 
   .sprout-alert > :is(p, pre) {
     margin: 0;
   }
-  .sprout-alert > [data-slot="button"] {
+  .sprout-alert > [data-slot='button'] {
     justify-self: start;
     margin-top: 6px;
   }
@@ -68,12 +68,12 @@
   .sprout-alert-description p:not(:last-child) {
     margin-bottom: 1rem;
   }
-  .sprout-alert-description > [data-slot="button"]:not([data-variant="link"]) {
+  .sprout-alert-description > [data-slot='button']:not([data-variant='link']) {
     display: flex;
     width: fit-content;
     margin-top: 8px;
   }
-  .sprout-alert-description > [data-slot="button"][data-variant="link"] {
+  .sprout-alert-description > [data-slot='button'][data-variant='link'] {
     height: auto;
     margin-inline-start: 4px;
     padding: 0;
@@ -86,8 +86,7 @@
     text-decoration: underline;
     text-underline-offset: 3px;
   }
-  :is(.sprout-alert-title, .sprout-alert-description)
-    a:not([data-slot]):focus-visible {
+  :is(.sprout-alert-title, .sprout-alert-description) a:not([data-slot]):focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
@@ -110,13 +109,10 @@
   }
 
   @media (hover: hover) {
-    :is(.sprout-alert-title, .sprout-alert-description)
-      a:not([data-slot]):hover {
+    :is(.sprout-alert-title, .sprout-alert-description) a:not([data-slot]):hover {
       color: var(--sprout-text);
     }
-    .sprout-alert-destructive
-      :is(.sprout-alert-title, .sprout-alert-description)
-      a:not([data-slot]):hover {
+    .sprout-alert-destructive :is(.sprout-alert-title, .sprout-alert-description) a:not([data-slot]):hover {
       color: var(--sprout-danger-hover);
     }
   }
@@ -129,8 +125,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-alert {
-      animation: sprout-alert-in var(--sprout-motion-normal, 180ms)
-        var(--sprout-motion-ease, ease) both;
+      animation: sprout-alert-in var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease) both;
       transition:
         color var(--sprout-motion-fast) ease-out,
         border-color var(--sprout-motion-fast) ease-out;

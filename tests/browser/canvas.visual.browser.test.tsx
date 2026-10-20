@@ -1,12 +1,8 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import { Button } from "../../packages/sprout/src/components/button.js";
-import {
-  CanvasPanel,
-  CanvasSection,
-  CanvasToggle,
-} from "../../packages/sprout/src/components/canvas.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Button } from '../../packages/sprout/src/components/button.js';
+import { CanvasPanel, CanvasSection, CanvasToggle } from '../../packages/sprout/src/components/canvas.js';
+import { setTheme, settle, themes } from './support.js';
 
 const Icon = ({ size = 14 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 16 16" aria-hidden="true">
@@ -14,23 +10,20 @@ const Icon = ({ size = 14 }: { size?: number }) => (
   </svg>
 );
 
-it.each(themes)("canvas %s %s", async (theme, mode) => {
+it.each(themes)('canvas %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
-    <div
-      data-testid="shot"
-      style={{ display: "flex", gap: 16, padding: 16, width: 760 }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+    <div data-testid="shot" style={{ display: 'flex', gap: 16, padding: 16, width: 760 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <CanvasToggle open={false} count={3} onToggle={() => {}} />
         <CanvasToggle open count={3} onToggle={() => {}} />
       </div>
-      <div style={{ width: 560, height: 300, display: "flex" }}>
+      <div style={{ width: 560, height: 300, display: 'flex' }}>
         <CanvasPanel
           tabs={[
-            { id: "customers", title: "Customers", icon: Icon },
-            { id: "calendar", title: "Calendar events", icon: Icon },
-            { id: "checklist", title: "Launch checklist" },
+            { id: 'customers', title: 'Customers', icon: Icon },
+            { id: 'calendar', title: 'Calendar events', icon: Icon },
+            { id: 'checklist', title: 'Launch checklist' },
           ]}
           activeId="customers"
           onSelect={() => {}}
@@ -49,16 +42,12 @@ it.each(themes)("canvas %s %s", async (theme, mode) => {
               </>
             }
           >
-            <p style={{ margin: 0 }}>
-              Acme, Globex, and Initech renewed this quarter.
-            </p>
+            <p style={{ margin: 0 }}>Acme, Globex, and Initech renewed this quarter.</p>
           </CanvasSection>
         </CanvasPanel>
       </div>
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`canvas-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`canvas-${theme}-${mode}`);
 });

@@ -45,20 +45,16 @@
     font-family: inherit;
   }
   .sprout-attachment:has(> a, > button):hover {
-    background: color-mix(
-      in oklab,
-      var(--sprout-hover) 50%,
-      var(--sprout-surface)
-    );
+    background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
   }
   .sprout-attachment:has(> .sprout-attachment-trigger:focus-visible) {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
-  .sprout-attachment[data-state="idle"] {
+  .sprout-attachment[data-state='idle'] {
     border-style: dashed;
   }
-  .sprout-attachment[data-state="error"] {
+  .sprout-attachment[data-state='error'] {
     border-color: color-mix(in oklab, var(--sprout-danger) 35%, transparent);
   }
 
@@ -66,20 +62,20 @@
     gap: 8px;
     font-size: var(--sprout-text-sm);
   }
-  .sprout-attachment-size-default:has([data-slot="attachment-content"]) {
+  .sprout-attachment-size-default:has([data-slot='attachment-content']) {
     padding: 8px 10px;
   }
-  .sprout-attachment-size-default:has([data-slot="attachment-media"]) {
+  .sprout-attachment-size-default:has([data-slot='attachment-media']) {
     padding: 8px;
   }
   .sprout-attachment-size-sm {
     gap: 10px;
     font-size: var(--sprout-text-xs);
   }
-  .sprout-attachment-size-sm:has([data-slot="attachment-content"]) {
+  .sprout-attachment-size-sm:has([data-slot='attachment-content']) {
     padding: 6px 8px;
   }
-  .sprout-attachment-size-sm:has([data-slot="attachment-media"]) {
+  .sprout-attachment-size-sm:has([data-slot='attachment-media']) {
     padding: 6px;
   }
   .sprout-attachment-size-xs {
@@ -87,10 +83,10 @@
     border-radius: 8px;
     font-size: var(--sprout-text-xs);
   }
-  .sprout-attachment-size-xs:has([data-slot="attachment-content"]) {
+  .sprout-attachment-size-xs:has([data-slot='attachment-content']) {
     padding: 4px 6px;
   }
-  .sprout-attachment-size-xs:has([data-slot="attachment-media"]) {
+  .sprout-attachment-size-xs:has([data-slot='attachment-media']) {
     padding: 4px;
   }
 
@@ -102,7 +98,7 @@
     width: 6rem;
     flex-direction: column;
   }
-  .sprout-attachment-vertical:has([data-slot="attachment-content"]) {
+  .sprout-attachment-vertical:has([data-slot='attachment-content']) {
     width: 7.5rem;
   }
 
@@ -129,38 +125,33 @@
   .sprout-attachment-vertical .sprout-attachment-media {
     width: 100%;
   }
-  .sprout-attachment[data-state="error"] .sprout-attachment-media {
+  .sprout-attachment[data-state='error'] .sprout-attachment-media {
     background: var(--sprout-danger-subtle);
     color: var(--sprout-danger);
   }
   .sprout-attachment-media svg {
     pointer-events: none;
   }
-  .sprout-attachment-media svg:not([class*="size-"]) {
+  .sprout-attachment-media svg:not([class*='size-']) {
     width: 16px;
     height: 16px;
   }
-  .sprout-attachment-vertical
-    .sprout-attachment-media
-    svg:not([class*="size-"]),
-  .sprout-attachment-vertical .sprout-attachment-media > [data-slot="spinner"] {
+  .sprout-attachment-vertical .sprout-attachment-media svg:not([class*='size-']),
+  .sprout-attachment-vertical .sprout-attachment-media > [data-slot='spinner'] {
     width: 24px;
     height: 24px;
   }
-  .sprout-attachment-size-xs
-    .sprout-attachment-media
-    svg:not([class*="size-"]) {
+  .sprout-attachment-size-xs .sprout-attachment-media svg:not([class*='size-']) {
     width: 14px;
     height: 14px;
   }
-  .sprout-attachment-media[data-variant="image"] {
+  .sprout-attachment-media[data-variant='image'] {
     opacity: 0.6;
   }
-  .sprout-attachment:is([data-state="done"], [data-state="idle"])
-    .sprout-attachment-media[data-variant="image"] {
+  .sprout-attachment:is([data-state='done'], [data-state='idle']) .sprout-attachment-media[data-variant='image'] {
     opacity: 1;
   }
-  .sprout-attachment-media[data-variant="image"] > img {
+  .sprout-attachment-media[data-variant='image'] > img {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
@@ -195,7 +186,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .sprout-attachment[data-state="error"] .sprout-attachment-description {
+  .sprout-attachment[data-state='error'] .sprout-attachment-description {
     color: var(--sprout-danger);
   }
 
@@ -215,8 +206,7 @@
   .sprout-attachment-vertical .sprout-attachment-actions .sprout-button {
     background: color-mix(in oklab, var(--sprout-surface) 88%, transparent);
   }
-  .sprout-attachment-size-xs.sprout-attachment-vertical
-    .sprout-attachment-actions {
+  .sprout-attachment-size-xs.sprout-attachment-vertical .sprout-attachment-actions {
     top: 6px;
     right: 6px;
   }
@@ -235,13 +225,8 @@
   }
 
   /* The name shimmers while the file uploads or processes. */
-  .sprout-attachment:is([data-state="uploading"], [data-state="processing"])
-    .sprout-attachment-title,
-  .sprout-file-attachment:is(
-      [data-state="uploading"],
-      [data-state="processing"]
-    )
-    .sprout-file-attachment-name {
+  .sprout-attachment:is([data-state='uploading'], [data-state='processing']) .sprout-attachment-title,
+  .sprout-file-attachment:is([data-state='uploading'], [data-state='processing']) .sprout-file-attachment-name {
     color: var(--sprout-muted);
   }
 
@@ -301,31 +286,22 @@
     align-items: center;
     pointer-events: none;
   }
-  .sprout-attachment-carousel-edge[data-side="start"] {
+  .sprout-attachment-carousel-edge[data-side='start'] {
     left: 0;
     padding-right: 32px;
-    background: linear-gradient(
-      to right,
-      var(--sprout-attachment-fade),
-      transparent
-    );
+    background: linear-gradient(to right, var(--sprout-attachment-fade), transparent);
   }
-  .sprout-attachment-carousel-edge[data-side="end"] {
+  .sprout-attachment-carousel-edge[data-side='end'] {
     right: 0;
     padding-left: 32px;
-    background: linear-gradient(
-      to left,
-      var(--sprout-attachment-fade),
-      transparent
-    );
+    background: linear-gradient(to left, var(--sprout-attachment-fade), transparent);
   }
   .sprout-attachment-carousel-arrow {
     opacity: 0;
     pointer-events: auto;
   }
   .sprout-attachment-group-carousel:hover .sprout-attachment-carousel-arrow,
-  .sprout-attachment-group-carousel:focus-within
-    .sprout-attachment-carousel-arrow,
+  .sprout-attachment-group-carousel:focus-within .sprout-attachment-carousel-arrow,
   .sprout-attachment-carousel-arrow:focus-visible {
     opacity: 1;
   }
@@ -361,20 +337,19 @@
   .sprout-file-type-icon-badge {
     fill: var(--sprout-file-generic);
   }
-  .sprout-file-type-icon[data-kind="pdf"] .sprout-file-type-icon-badge {
+  .sprout-file-type-icon[data-kind='pdf'] .sprout-file-type-icon-badge {
     fill: var(--sprout-file-pdf);
   }
-  .sprout-file-type-icon[data-kind="sheet"] .sprout-file-type-icon-badge {
+  .sprout-file-type-icon[data-kind='sheet'] .sprout-file-type-icon-badge {
     fill: var(--sprout-file-sheet);
   }
-  .sprout-file-type-icon:is([data-kind="document"], [data-kind="google"])
-    .sprout-file-type-icon-badge {
+  .sprout-file-type-icon:is([data-kind='document'], [data-kind='google']) .sprout-file-type-icon-badge {
     fill: var(--sprout-file-document);
   }
-  .sprout-file-type-icon[data-kind="slides"] .sprout-file-type-icon-badge {
+  .sprout-file-type-icon[data-kind='slides'] .sprout-file-type-icon-badge {
     fill: var(--sprout-file-slides);
   }
-  .sprout-file-type-icon[data-kind="image"] .sprout-file-type-icon-badge {
+  .sprout-file-type-icon[data-kind='image'] .sprout-file-type-icon-badge {
     fill: var(--sprout-file-image);
   }
   .sprout-file-type-icon-label {
@@ -393,32 +368,30 @@
     color: var(--sprout-text);
     font-family: inherit;
   }
-  .sprout-file-attachment[data-state="error"] {
+  .sprout-file-attachment[data-state='error'] {
     border-color: var(--sprout-danger);
   }
-  .sprout-file-attachment[data-variant="list"] {
+  .sprout-file-attachment[data-variant='list'] {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 8px;
   }
-  .sprout-file-attachment[data-variant="inline"] {
+  .sprout-file-attachment[data-variant='inline'] {
     display: flex;
     align-items: center;
     gap: 4px;
     max-width: 100%;
     padding-left: 8px;
   }
-  .sprout-file-attachment[data-variant="inline"]:not(
-      :has(.sprout-file-attachment-actions)
-    ) {
+  .sprout-file-attachment[data-variant='inline']:not(:has(.sprout-file-attachment-actions)) {
     padding-right: 10px;
   }
-  .sprout-file-attachment[data-variant="grid"] {
+  .sprout-file-attachment[data-variant='grid'] {
     display: flex;
     flex-direction: column;
   }
-  .sprout-file-attachment[data-variant="chip"] {
+  .sprout-file-attachment[data-variant='chip'] {
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -428,7 +401,7 @@
     padding: 0 12px 0 10px;
     box-shadow: var(--sprout-shadow-control);
   }
-  .sprout-file-attachment[data-variant="chip"][data-removable] {
+  .sprout-file-attachment[data-variant='chip'][data-removable] {
     padding-right: 4px;
   }
 
@@ -451,10 +424,10 @@
   button.sprout-file-attachment-open:disabled {
     cursor: default;
   }
-  .sprout-file-attachment[data-variant="grid"] .sprout-file-attachment-open {
+  .sprout-file-attachment[data-variant='grid'] .sprout-file-attachment-open {
     padding: 12px;
   }
-  .sprout-file-attachment[data-variant="chip"] .sprout-file-attachment-open {
+  .sprout-file-attachment[data-variant='chip'] .sprout-file-attachment-open {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -469,14 +442,8 @@
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
-  .sprout-file-attachment:has(
-      button.sprout-file-attachment-open:not(:disabled)
-    ):hover {
-    background: color-mix(
-      in oklab,
-      var(--sprout-hover) 50%,
-      var(--sprout-surface)
-    );
+  .sprout-file-attachment:has(button.sprout-file-attachment-open:not(:disabled)):hover {
+    background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
   }
 
   .sprout-file-attachment-name {
@@ -489,7 +456,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .sprout-file-attachment[data-variant="chip"] .sprout-file-attachment-name {
+  .sprout-file-attachment[data-variant='chip'] .sprout-file-attachment-name {
     font-size: var(--sprout-text-xs);
     line-height: 1rem;
   }
@@ -502,7 +469,7 @@
     font-size: var(--sprout-text-xs);
     line-height: 1rem;
   }
-  .sprout-file-attachment[data-state="error"] .sprout-file-attachment-status,
+  .sprout-file-attachment[data-state='error'] .sprout-file-attachment-status,
   .sprout-file-attachment-failed {
     color: var(--sprout-danger);
   }
@@ -516,7 +483,7 @@
     flex-shrink: 0;
     color: var(--sprout-muted);
   }
-  .sprout-file-attachment[data-variant="list"] .sprout-file-attachment-media {
+  .sprout-file-attachment[data-variant='list'] .sprout-file-attachment-media {
     align-items: center;
     justify-content: center;
     width: 40px;
@@ -585,7 +552,7 @@
     flex-shrink: 0;
     align-items: center;
   }
-  .sprout-file-attachment[data-variant="grid"] .sprout-file-attachment-actions {
+  .sprout-file-attachment[data-variant='grid'] .sprout-file-attachment-actions {
     position: absolute;
     top: 4px;
     right: 4px;
@@ -608,11 +575,7 @@
     padding: 20px;
     border: 1px dashed var(--sprout-input);
     border-radius: 12px;
-    background: color-mix(
-      in oklab,
-      var(--sprout-hover) 30%,
-      var(--sprout-surface)
-    );
+    background: color-mix(in oklab, var(--sprout-hover) 30%, var(--sprout-surface));
     color: var(--sprout-text);
     text-align: center;
   }
@@ -646,7 +609,7 @@
         background-color var(--sprout-motion-normal) var(--sprout-motion-ease),
         border-color var(--sprout-motion-normal) var(--sprout-motion-ease);
     }
-    .sprout-attachment-media[data-variant="image"] {
+    .sprout-attachment-media[data-variant='image'] {
       transition: opacity var(--sprout-motion-normal) var(--sprout-motion-ease);
     }
     .sprout-attachment-carousel-arrow {
@@ -658,13 +621,8 @@
     .sprout-attachment-carousel-viewport {
       scroll-behavior: smooth;
     }
-    .sprout-attachment:is([data-state="uploading"], [data-state="processing"])
-      .sprout-attachment-title,
-    .sprout-file-attachment:is(
-        [data-state="uploading"],
-        [data-state="processing"]
-      )
-      .sprout-file-attachment-name {
+    .sprout-attachment:is([data-state='uploading'], [data-state='processing']) .sprout-attachment-title,
+    .sprout-file-attachment:is([data-state='uploading'], [data-state='processing']) .sprout-file-attachment-name {
       background: linear-gradient(
           90deg,
           var(--sprout-muted) 0%,

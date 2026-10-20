@@ -60,11 +60,11 @@
     color: var(--sprout-text);
     font-family: var(--sprout-font);
   }
-  .sprout-form-footer[data-layout="bar"] {
+  .sprout-form-footer[data-layout='bar'] {
     padding-top: 1rem;
     border-top: 1px solid var(--sprout-line);
   }
-  .sprout-form-footer[data-layout="compact"] {
+  .sprout-form-footer[data-layout='compact'] {
     padding-top: 0.75rem;
   }
   .sprout-form-footer-row {
@@ -75,7 +75,7 @@
     gap: 0.5rem 1rem;
     min-width: 0;
   }
-  .sprout-form-footer[data-layout="compact"] .sprout-form-footer-row {
+  .sprout-form-footer[data-layout='compact'] .sprout-form-footer-row {
     column-gap: 0.25rem;
   }
   .sprout-form-footer-status {

@@ -22,16 +22,12 @@
   }
   /* A 40 x 32px hit area around the 16px box. */
   .sprout-checkbox::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: -8px -12px;
   }
   @media (hover: hover) {
-    .sprout-checkbox:not(
-        [data-disabled],
-        [data-checked],
-        [data-indeterminate]
-      ):hover {
+    .sprout-checkbox:not([data-disabled], [data-checked], [data-indeterminate]):hover {
       border-color: var(--sprout-border-strong);
     }
   }
@@ -49,15 +45,11 @@
     background-color: var(--sprout-text);
     color: var(--sprout-surface);
   }
-  .sprout-checkbox[aria-invalid="true"]:not(
-      [data-checked],
-      [data-indeterminate]
-    ) {
+  .sprout-checkbox[aria-invalid='true']:not([data-checked], [data-indeterminate]) {
     border-color: var(--sprout-danger);
-    box-shadow: 0 0 0 3px
-      color-mix(in oklab, var(--sprout-danger) 20%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--sprout-danger) 20%, transparent);
   }
-  .sprout-checkbox[aria-invalid="true"]:focus-visible {
+  .sprout-checkbox[aria-invalid='true']:focus-visible {
     outline-color: var(--sprout-danger);
   }
   .sprout-checkbox[data-readonly] {
@@ -82,21 +74,15 @@
   @media (prefers-reduced-motion: no-preference) {
     .sprout-checkbox {
       transition:
-        background-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        border-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        box-shadow var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        opacity var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        box-shadow var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-checkbox-indicator {
       transition:
-        opacity var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        transform var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        opacity var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        transform var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-checkbox-indicator[data-starting-style],
     .sprout-checkbox-indicator[data-ending-style] {

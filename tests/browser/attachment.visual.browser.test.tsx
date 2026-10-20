@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   Attachment,
   AttachmentContent,
@@ -10,29 +10,29 @@ import {
   FileAttachment,
   FileTypeIcon,
   type AttachmentFile,
-} from "../../packages/sprout/src/components/attachment.js";
-import { emulate, setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/attachment.js';
+import { emulate, setTheme, settle, themes } from './support.js';
 
 const file = (name: string, mediaType: string): AttachmentFile => ({
   id: name,
   name,
   mediaType,
-  size: "12 KB",
-  state: "ready",
+  size: '12 KB',
+  state: 'ready',
 });
 
-it.each(themes)("attachment %s %s", async (theme, mode) => {
+it.each(themes)('attachment %s %s', async (theme, mode) => {
   await emulate({ reducedMotion: true });
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
+        display: 'grid',
         gap: 12,
         width: 360,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <Attachment state="done">
@@ -57,26 +57,14 @@ it.each(themes)("attachment %s %s", async (theme, mode) => {
         </AttachmentContent>
       </Attachment>
       <AttachmentGroup variant="list" aria-label="Files">
-        <FileAttachment
-          file={file("Price list 2026.xlsx", "text/csv")}
-          onOpen={() => {}}
-          onRemove={() => {}}
-        />
+        <FileAttachment file={file('Price list 2026.xlsx', 'text/csv')} onOpen={() => {}} onRemove={() => {}} />
       </AttachmentGroup>
       <AttachmentGroup variant="inline" aria-label="Chips">
-        <FileAttachment
-          variant="chip"
-          file={file("garden-notes.txt", "text/plain")}
-        />
-        <FileAttachment
-          variant="chip"
-          file={file("inventory.json", "application/json")}
-        />
+        <FileAttachment variant="chip" file={file('garden-notes.txt', 'text/plain')} />
+        <FileAttachment variant="chip" file={file('inventory.json', 'application/json')} />
       </AttachmentGroup>
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`attachment-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`attachment-${theme}-${mode}`);
 });

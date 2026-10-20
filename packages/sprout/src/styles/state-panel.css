@@ -3,10 +3,9 @@
     font-family: var(--sprout-font);
     color: var(--sprout-text);
     overflow-wrap: anywhere;
-    animation: sprout-state-panel-in var(--sprout-motion-normal, 180ms)
-      var(--sprout-motion-ease, ease) both;
+    animation: sprout-state-panel-in var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease) both;
   }
-  .sprout-state-panel[data-layout="centered"] {
+  .sprout-state-panel[data-layout='centered'] {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,7 +70,7 @@
     display: none;
   }
 
-  .sprout-state-panel[data-layout="sample"] {
+  .sprout-state-panel[data-layout='sample'] {
     container-type: inline-size;
     width: 100%;
   }
@@ -92,17 +91,17 @@
     gap: 1.5rem;
     padding: 1.5rem;
   }
-  [data-layout="sample"] .sprout-state-panel-text {
+  [data-layout='sample'] .sprout-state-panel-text {
     max-width: 28rem;
   }
-  [data-layout="sample"] .sprout-state-panel-title {
+  [data-layout='sample'] .sprout-state-panel-title {
     font-size: 1.25rem;
     line-height: 1.4;
   }
-  [data-layout="sample"] .sprout-state-panel-description {
+  [data-layout='sample'] .sprout-state-panel-description {
     font-size: var(--sprout-text-base);
   }
-  [data-layout="sample"] .sprout-state-panel-actions {
+  [data-layout='sample'] .sprout-state-panel-actions {
     align-items: stretch;
     gap: 0.5rem;
   }
@@ -127,7 +126,7 @@
   }
 
   @container (min-width: 24rem) {
-    [data-layout="sample"] .sprout-state-panel-actions {
+    [data-layout='sample'] .sprout-state-panel-actions {
       flex-direction: row;
       flex-wrap: wrap;
       align-items: center;

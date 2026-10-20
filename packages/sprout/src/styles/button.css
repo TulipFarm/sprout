@@ -28,7 +28,7 @@
     flex-shrink: 0;
     pointer-events: none;
   }
-  .sprout-button svg:not([class*="size-"]) {
+  .sprout-button svg:not([class*='size-']) {
     width: var(--sprout-button-icon);
     height: var(--sprout-button-icon);
   }
@@ -38,14 +38,14 @@
   }
   .sprout-button:disabled,
   .sprout-button[data-disabled],
-  .sprout-button[aria-disabled="true"] {
+  .sprout-button[aria-disabled='true'] {
     pointer-events: none;
     opacity: 0.5;
   }
-  .sprout-button[aria-busy="true"] {
+  .sprout-button[aria-busy='true'] {
     cursor: progress;
   }
-  .sprout-button[aria-invalid="true"] {
+  .sprout-button[aria-invalid='true'] {
     border-color: var(--sprout-danger);
   }
 
@@ -68,7 +68,7 @@
     background: var(--sprout-hover);
   }
   .sprout-button-variant-outline:active,
-  .sprout-button-variant-outline[aria-expanded="true"] {
+  .sprout-button-variant-outline[aria-expanded='true'] {
     background: var(--sprout-active);
   }
   .sprout-button-variant-secondary {
@@ -76,7 +76,7 @@
   }
   .sprout-button-variant-secondary:hover,
   .sprout-button-variant-secondary:active,
-  .sprout-button-variant-secondary[aria-expanded="true"] {
+  .sprout-button-variant-secondary[aria-expanded='true'] {
     background: var(--sprout-active);
   }
   .sprout-button-variant-ghost {
@@ -84,8 +84,8 @@
     color: var(--sprout-muted);
   }
   .sprout-button-variant-ghost:hover,
-  .sprout-button-variant-ghost[aria-expanded="true"],
-  .sprout-button-variant-ghost[aria-pressed="true"] {
+  .sprout-button-variant-ghost[aria-expanded='true'],
+  .sprout-button-variant-ghost[aria-pressed='true'] {
     background: var(--sprout-hover);
     color: var(--sprout-text);
   }
@@ -118,16 +118,16 @@
   }
   .sprout-button-variant-scope:hover,
   .sprout-button-variant-scope:active,
-  .sprout-button-variant-scope[aria-expanded="true"] {
+  .sprout-button-variant-scope[aria-expanded='true'] {
     background: color-mix(in srgb, var(--sprout-info) 16%, transparent);
   }
 
-  .sprout-button-size-default:has([data-icon="inline-start"]),
-  .sprout-button-size-lg:has([data-icon="inline-start"]) {
+  .sprout-button-size-default:has([data-icon='inline-start']),
+  .sprout-button-size-lg:has([data-icon='inline-start']) {
     padding-inline-start: 8px;
   }
-  .sprout-button-size-default:has([data-icon="inline-end"]),
-  .sprout-button-size-lg:has([data-icon="inline-end"]) {
+  .sprout-button-size-default:has([data-icon='inline-end']),
+  .sprout-button-size-lg:has([data-icon='inline-end']) {
     padding-inline-end: 8px;
   }
   .sprout-button-size-xs {
@@ -145,12 +145,12 @@
     border-radius: min(var(--sprout-radius-control), 12px);
     font-size: var(--sprout-text-xs);
   }
-  .sprout-button-size-xs:has([data-icon="inline-start"]),
-  .sprout-button-size-sm:has([data-icon="inline-start"]) {
+  .sprout-button-size-xs:has([data-icon='inline-start']),
+  .sprout-button-size-sm:has([data-icon='inline-start']) {
     padding-inline-start: 6px;
   }
-  .sprout-button-size-xs:has([data-icon="inline-end"]),
-  .sprout-button-size-sm:has([data-icon="inline-end"]) {
+  .sprout-button-size-xs:has([data-icon='inline-end']),
+  .sprout-button-size-sm:has([data-icon='inline-end']) {
     padding-inline-end: 6px;
   }
   .sprout-button-size-lg {
@@ -300,10 +300,10 @@
     width: 36px;
     height: 36px;
   }
-  [data-slot="button-group"] .sprout-button-size-xs,
-  [data-slot="button-group"] .sprout-button-size-sm,
-  [data-slot="button-group"] .sprout-button-size-icon-xs,
-  [data-slot="button-group"] .sprout-button-size-icon-sm {
+  [data-slot='button-group'] .sprout-button-size-xs,
+  [data-slot='button-group'] .sprout-button-size-sm,
+  [data-slot='button-group'] .sprout-button-size-icon-xs,
+  [data-slot='button-group'] .sprout-button-size-icon-sm {
     border-radius: var(--sprout-radius-control);
   }
 
@@ -317,12 +317,7 @@
     font-family: var(--sprout-font);
   }
   /* Long labels such as "Add #channel to execution limits" wrap instead of overflowing. */
-  .sprout-button-action
-    > :is(
-      .sprout-button-size-default,
-      .sprout-button-size-sm,
-      .sprout-button-size-lg
-    ),
+  .sprout-button-action > :is(.sprout-button-size-default, .sprout-button-size-sm, .sprout-button-size-lg),
   .sprout-action-group-row > .sprout-button {
     max-width: 100%;
     height: auto;

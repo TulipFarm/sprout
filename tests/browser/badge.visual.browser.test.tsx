@@ -1,26 +1,23 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import {
-  Badge,
-  badgeVariantNames,
-} from "../../packages/sprout/src/components/badge.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Badge, badgeVariantNames } from '../../packages/sprout/src/components/badge.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("badge %s %s", async (theme, mode) => {
+it.each(themes)('badge %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "flex",
-        flexWrap: "wrap",
+        display: 'flex',
+        flexWrap: 'wrap',
         gap: 8,
         width: 360,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
-      {badgeVariantNames.map((variant) => (
+      {badgeVariantNames.map(variant => (
         <Badge key={variant} variant={variant}>
           {variant}
         </Badge>
@@ -38,7 +35,5 @@ it.each(themes)("badge %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`badge-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`badge-${theme}-${mode}`);
 });

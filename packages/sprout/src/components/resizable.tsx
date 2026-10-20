@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Children,
@@ -20,10 +20,10 @@ import {
   type PointerEvent,
   type ReactNode,
   type Ref,
-} from "react";
-import { cn } from "../internal/classes.js";
+} from 'react';
+import { cn } from '../internal/classes.js';
 
-export const resizableOrientationNames = ["horizontal", "vertical"] as const;
+export const resizableOrientationNames = ['horizontal', 'vertical'] as const;
 
 /** `"horizontal"` places panels side by side. `"vertical"` stacks them. */
 export type ResizableOrientation = (typeof resizableOrientationNames)[number];
@@ -77,55 +77,46 @@ const GroupContext = createContext<GroupContextValue | null>(null);
 
 function useGroup(part: string) {
   const context = useContext(GroupContext);
-  if (!context)
-    throw new Error(`${part} must be used inside ResizablePanelGroup.`);
+  if (!context) throw new Error(`${part} must be used inside ResizablePanelGroup.`);
   return context;
 }
 
-const useIsomorphicLayoutEffect =
-  typeof window === "undefined" ? useEffect : useLayoutEffect;
+const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 const KEYBOARD_STEP = 5;
 const EPSILON = 0.001;
 
 /** Percent value of a size that can be resolved without measuring, or undefined. */
 function staticPercent(size: ResizableSize | undefined) {
-  if (typeof size !== "string") return undefined;
+  if (typeof size !== 'string') return undefined;
   const value = size.trim();
   if (/^-?[\d.]+%?$/.test(value)) return Number.parseFloat(value);
   return undefined;
 }
 
-function toPercent(
-  size: ResizableSize | undefined,
-  available: number,
-  element: HTMLElement,
-): number | undefined {
+function toPercent(size: ResizableSize | undefined, available: number, element: HTMLElement): number | undefined {
   if (size === undefined) return undefined;
   const percent = staticPercent(size);
   if (percent !== undefined) return percent;
   if (available <= 0) return undefined;
   let pixels: number;
-  if (typeof size === "number") pixels = size;
+  if (typeof size === 'number') pixels = size;
   else {
     const value = Number.parseFloat(size);
-    const unit = size.trim().replace(/^-?[\d.]+/, "");
+    const unit = size.trim().replace(/^-?[\d.]+/, '');
     const view = element.ownerDocument.defaultView;
-    const font = (node: Element) =>
-      Number.parseFloat(view?.getComputedStyle(node).fontSize ?? "") || 16;
-    if (unit === "px") pixels = value;
-    else if (unit === "rem")
-      pixels = value * font(element.ownerDocument.documentElement);
-    else if (unit === "em") pixels = value * font(element);
-    else if (unit === "vw") pixels = (value * (view?.innerWidth ?? 0)) / 100;
-    else if (unit === "vh") pixels = (value * (view?.innerHeight ?? 0)) / 100;
+    const font = (node: Element) => Number.parseFloat(view?.getComputedStyle(node).fontSize ?? '') || 16;
+    if (unit === 'px') pixels = value;
+    else if (unit === 'rem') pixels = value * font(element.ownerDocument.documentElement);
+    else if (unit === 'em') pixels = value * font(element);
+    else if (unit === 'vw') pixels = (value * (view?.innerWidth ?? 0)) / 100;
+    else if (unit === 'vh') pixels = (value * (view?.innerHeight ?? 0)) / 100;
     else return undefined;
   }
   return (pixels / available) * 100;
 }
 
-const clamp = (value: number, { min, max }: Bounds) =>
-  Math.min(Math.max(value, min), max);
+const clamp = (value: number, { min, max }: Bounds) => Math.min(Math.max(value, min), max);
 const total = (sizes: number[]) => sizes.reduce((sum, size) => sum + size, 0);
 
 /** Clamp each size to its bounds, then spread any remainder over panels with room. */
@@ -135,18 +126,13 @@ function validate(sizes: number[], bounds: Bounds[]) {
     const diff = 100 - total(next);
     if (Math.abs(diff) < EPSILON) break;
     const open = next.flatMap((size, index) =>
-      (diff > 0 ? size < bounds[index]!.max : size > bounds[index]!.min)
-        ? [index]
-        : [],
+      (diff > 0 ? size < bounds[index]!.max : size > bounds[index]!.min) ? [index] : [],
     );
     if (!open.length) break;
-    for (const index of open)
-      next[index] = clamp(next[index]! + diff / open.length, bounds[index]!);
+    for (const index of open) next[index] = clamp(next[index]! + diff / open.length, bounds[index]!);
   }
   const sum = total(next);
-  return Math.abs(sum - 100) < EPSILON || sum <= 0
-    ? next
-    : next.map((size) => (size / sum) * 100);
+  return Math.abs(sum - 100) < EPSILON || sum <= 0 ? next : next.map(size => (size / sum) * 100);
 }
 
 /**
@@ -154,12 +140,7 @@ function validate(sizes: number[], bounds: Bounds[]) {
  * on the growing side takes the space; panels on the shrinking side give it up
  * nearest first, each down to its minimum.
  */
-function resize(
-  base: number[],
-  bounds: Bounds[],
-  pivot: number,
-  delta: number,
-) {
+function resize(base: number[], bounds: Bounds[], pivot: number, delta: number) {
   const next = [...base];
   if (Math.abs(delta) < EPSILON) return next;
   const grow = delta > 0 ? pivot : pivot + 1;
@@ -170,10 +151,7 @@ function resize(
           .map((_, index) => index)
           .slice(0, pivot + 1)
           .reverse();
-  const room = Math.min(
-    bounds[grow]!.max - next[grow]!,
-    total(shrink.map((index) => next[index]! - bounds[index]!.min)),
-  );
+  const room = Math.min(bounds[grow]!.max - next[grow]!, total(shrink.map(index => next[index]! - bounds[index]!.min)));
   let remaining = Math.max(0, Math.min(Math.abs(delta), room));
   next[grow] = next[grow]! + remaining;
   for (const index of shrink) {
@@ -187,32 +165,24 @@ function resize(
 
 function sameLayout(a: ResizableLayout, b: ResizableLayout) {
   const keys = Object.keys(a);
-  return (
-    keys.length === Object.keys(b).length &&
-    keys.every((key) => key in b && Math.abs(a[key]! - b[key]!) < EPSILON)
-  );
+  return keys.length === Object.keys(b).length && keys.every(key => key in b && Math.abs(a[key]! - b[key]!) < EPSILON);
 }
 
-function collectPanelProps(
-  children: ReactNode,
-  found: ResizablePanelProps[] = [],
-) {
-  Children.forEach(children, (child) => {
+function collectPanelProps(children: ReactNode, found: ResizablePanelProps[] = []) {
+  Children.forEach(children, child => {
     if (!isValidElement<{ children?: ReactNode }>(child)) return;
-    if (child.type === ResizablePanel)
-      found.push(child.props as ResizablePanelProps);
-    else if (child.type === Fragment)
-      collectPanelProps(child.props.children, found);
+    if (child.type === ResizablePanel) found.push(child.props as ResizablePanelProps);
+    else if (child.type === Fragment) collectPanelProps(child.props.children, found);
   });
   return found;
 }
 
 function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
-  if (typeof ref === "function") ref(value);
+  if (typeof ref === 'function') ref(value);
   else if (ref) ref.current = value;
 }
 
-export interface ResizablePanelGroupProps extends ComponentProps<"div"> {
+export interface ResizablePanelGroupProps extends ComponentProps<'div'> {
   /** `"horizontal"` (default) places panels side by side. `"vertical"` stacks them. */
   orientation?: ResizableOrientation;
   /** Starting sizes by panel `id`, such as a layout saved by `useResizableLayout`. */
@@ -220,14 +190,12 @@ export interface ResizablePanelGroupProps extends ComponentProps<"div"> {
   /** Called on every change, including each pointer move while dragging. */
   onLayoutChange?: ((layout: ResizableLayout) => void) | undefined;
   /** Called once a change settles: on mount, after a drag ends, and after each key press. */
-  onLayoutChanged?:
-    | ((layout: ResizableLayout, details: ResizableLayoutChangeDetails) => void)
-    | undefined;
+  onLayoutChanged?: ((layout: ResizableLayout, details: ResizableLayoutChangeDetails) => void) | undefined;
 }
 
 /** A row or column of resizable panels separated by `ResizableHandle`s. */
 export function ResizablePanelGroup({
-  orientation = "horizontal",
+  orientation = 'horizontal',
   defaultLayout,
   onLayoutChange,
   onLayoutChanged,
@@ -251,26 +219,19 @@ export function ResizablePanelGroup({
   const interacted = useRef(false);
   const callbacks = useRef({ onLayoutChange, onLayoutChanged });
   callbacks.current = { onLayoutChange, onLayoutChanged };
-  const horizontal = orientation === "horizontal";
+  const horizontal = orientation === 'horizontal';
 
   const autoSize = useMemo(() => {
-    const declared = collectPanelProps(children).map((panel) =>
-      staticPercent(panel.defaultSize),
-    );
-    const unknown = declared.filter((size) => size === undefined).length;
-    const known = total(
-      declared.filter((size): size is number => size !== undefined),
-    );
+    const declared = collectPanelProps(children).map(panel => staticPercent(panel.defaultSize));
+    const unknown = declared.filter(size => size === undefined).length;
+    const known = total(declared.filter((size): size is number => size !== undefined));
     return unknown ? Math.max(0, 100 - known) / unknown : 0;
   }, [children]);
 
   const ordered = useCallback(
     () =>
       [...panels.current.values()].sort((a, b) =>
-        a.element.compareDocumentPosition(b.element) &
-        Node.DOCUMENT_POSITION_FOLLOWING
-          ? -1
-          : 1,
+        a.element.compareDocumentPosition(b.element) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
       ),
     [],
   );
@@ -287,7 +248,7 @@ export function ResizablePanelGroup({
   const measureBounds = useCallback(
     (entries: PanelEntry[]) => {
       const space = available();
-      return entries.map((entry) => {
+      return entries.map(entry => {
         const min = toPercent(entry.minSize, space, entry.element) ?? 0;
         const max = toPercent(entry.maxSize, space, entry.element) ?? 100;
         return {
@@ -299,30 +260,21 @@ export function ResizablePanelGroup({
     [available],
   );
 
-  const commit = useCallback(
-    (
-      ids: string[],
-      sizes: number[],
-      settled: ResizableLayoutChangeDetails | null,
-    ) => {
-      const next = Object.fromEntries(
-        ids.map((id, index) => [id, sizes[index]!]),
-      );
-      if (!sameLayout(next, layoutRef.current)) {
-        layoutRef.current = next;
-        setLayout(next);
-        callbacks.current.onLayoutChange?.(next);
-      } else if (!settled) return;
-      if (settled) callbacks.current.onLayoutChanged?.(next, settled);
-    },
-    [],
-  );
+  const commit = useCallback((ids: string[], sizes: number[], settled: ResizableLayoutChangeDetails | null) => {
+    const next = Object.fromEntries(ids.map((id, index) => [id, sizes[index]!]));
+    if (!sameLayout(next, layoutRef.current)) {
+      layoutRef.current = next;
+      setLayout(next);
+      callbacks.current.onLayoutChange?.(next);
+    } else if (!settled) return;
+    if (settled) callbacks.current.onLayoutChanged?.(next, settled);
+  }, []);
 
-  const defaultLayoutKey = defaultLayout ? JSON.stringify(defaultLayout) : "";
+  const defaultLayoutKey = defaultLayout ? JSON.stringify(defaultLayout) : '';
   useIsomorphicLayoutEffect(() => {
     const entries = ordered();
-    const ids = entries.map((entry) => entry.id);
-    const key = ids.join("\u0000");
+    const ids = entries.map(entry => entry.id);
+    const key = ids.join('\u0000');
     const limits = measureBounds(entries);
     const changedPanels = key !== panelKey.current;
     const changedDefaults = defaultLayoutKey !== defaultsKey.current;
@@ -330,34 +282,23 @@ export function ResizablePanelGroup({
     let sizes: number[];
     if (changedPanels || (changedDefaults && !interacted.current)) {
       const saved =
-        defaultLayout &&
-        ids.length &&
-        ids.every((id) => typeof defaultLayout[id] === "number")
-          ? ids.map((id) => defaultLayout[id]!)
+        defaultLayout && ids.length && ids.every(id => typeof defaultLayout[id] === 'number')
+          ? ids.map(id => defaultLayout[id]!)
           : null;
       if (saved) sizes = saved;
       else {
         const space = available();
-        const declared = entries.map((entry) =>
-          toPercent(entry.defaultSize, space, entry.element),
-        );
-        const unknown = declared.filter((size) => size === undefined).length;
+        const declared = entries.map(entry => toPercent(entry.defaultSize, space, entry.element));
+        const unknown = declared.filter(size => size === undefined).length;
         const rest =
-          Math.max(
-            0,
-            100 -
-              total(
-                declared.filter((size): size is number => size !== undefined),
-              ),
-          ) / Math.max(unknown, 1);
-        sizes = declared.map((size) => size ?? rest);
+          Math.max(0, 100 - total(declared.filter((size): size is number => size !== undefined))) /
+          Math.max(unknown, 1);
+        sizes = declared.map(size => size ?? rest);
       }
-    } else sizes = ids.map((id) => layoutRef.current[id] ?? 0);
+    } else sizes = ids.map(id => layoutRef.current[id] ?? 0);
     const before = layoutRef.current;
     const next = validate(sizes, limits);
-    const nextLayout = Object.fromEntries(
-      ids.map((id, index) => [id, next[index]!]),
-    );
+    const nextLayout = Object.fromEntries(ids.map((id, index) => [id, next[index]!]));
     commit(ids, next, null);
     if (changedPanels || !sameLayout(before, nextLayout))
       callbacks.current.onLayoutChanged?.(nextLayout, {
@@ -365,73 +306,47 @@ export function ResizablePanelGroup({
       });
     panelKey.current = key;
     defaultsKey.current = defaultLayoutKey;
-    const nextBounds = Object.fromEntries(
-      ids.map((id, index) => [id, limits[index]!]),
-    );
-    setBounds((current) =>
-      JSON.stringify(current) === JSON.stringify(nextBounds)
-        ? current
-        : nextBounds,
-    );
+    const nextBounds = Object.fromEntries(ids.map((id, index) => [id, limits[index]!]));
+    setBounds(current => (JSON.stringify(current) === JSON.stringify(nextBounds) ? current : nextBounds));
     const nextLinks: Record<string, SeparatorLink> = {};
     for (const [separatorId, separator] of separators.current) {
       let previous: PanelEntry | undefined;
       let following: PanelEntry | undefined;
       for (const entry of entries) {
-        if (
-          separator.compareDocumentPosition(entry.element) &
-          Node.DOCUMENT_POSITION_PRECEDING
-        )
-          previous = entry;
+        if (separator.compareDocumentPosition(entry.element) & Node.DOCUMENT_POSITION_PRECEDING) previous = entry;
         else {
           following = entry;
           break;
         }
       }
-      if (previous && following)
-        nextLinks[separatorId] = { before: previous.id, after: following.id };
+      if (previous && following) nextLinks[separatorId] = { before: previous.id, after: following.id };
     }
-    setLinks((current) =>
-      JSON.stringify(current) === JSON.stringify(nextLinks)
-        ? current
-        : nextLinks,
-    );
-  }, [
-    version,
-    extent,
-    defaultLayoutKey,
-    ordered,
-    measureBounds,
-    available,
-    commit,
-  ]);
+    setLinks(current => (JSON.stringify(current) === JSON.stringify(nextLinks) ? current : nextLinks));
+  }, [version, extent, defaultLayoutKey, ordered, measureBounds, available, commit]);
 
   useEffect(() => {
     const root = element.current;
-    if (!root || typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver(() =>
-      setExtent(Math.round(available())),
-    );
+    if (!root || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => setExtent(Math.round(available())));
     observer.observe(root);
     return () => observer.disconnect();
   }, [available]);
 
   const registerPanel = useCallback((entry: PanelEntry) => {
     panels.current.set(entry.id, entry);
-    setVersion((value) => value + 1);
+    setVersion(value => value + 1);
     return () => {
-      if (panels.current.get(entry.id) === entry)
-        panels.current.delete(entry.id);
-      setVersion((value) => value + 1);
+      if (panels.current.get(entry.id) === entry) panels.current.delete(entry.id);
+      setVersion(value => value + 1);
     };
   }, []);
 
   const registerSeparator = useCallback((id: string, node: HTMLElement) => {
     separators.current.set(id, node);
-    setVersion((value) => value + 1);
+    setVersion(value => value + 1);
     return () => {
       separators.current.delete(id);
-      setVersion((value) => value + 1);
+      setVersion(value => value + 1);
     };
   }, []);
 
@@ -442,18 +357,14 @@ export function ResizablePanelGroup({
       const entries = ordered();
       let pivot = -1;
       entries.forEach((entry, index) => {
-        if (
-          separator.compareDocumentPosition(entry.element) &
-          Node.DOCUMENT_POSITION_PRECEDING
-        )
-          pivot = index;
+        if (separator.compareDocumentPosition(entry.element) & Node.DOCUMENT_POSITION_PRECEDING) pivot = index;
       });
       if (pivot < 0 || pivot >= entries.length - 1) return null;
-      const ids = entries.map((entry) => entry.id);
+      const ids = entries.map(entry => entry.id);
       return {
         ids,
         pivot,
-        base: ids.map((id) => layoutRef.current[id] ?? 0),
+        base: ids.map(id => layoutRef.current[id] ?? 0),
         limits: measureBounds(entries),
       };
     },
@@ -461,10 +372,7 @@ export function ResizablePanelGroup({
   );
 
   const reversed = useCallback(
-    () =>
-      horizontal &&
-      !!element.current &&
-      getComputedStyle(element.current).direction === "rtl",
+    () => horizontal && !!element.current && getComputedStyle(element.current).direction === 'rtl',
     [horizontal],
   );
 
@@ -482,8 +390,8 @@ export function ResizablePanelGroup({
       const root = ownerDocument.documentElement;
       const previousCursor = root.style.cursor;
       const previousSelect = root.style.userSelect;
-      root.style.cursor = horizontal ? "col-resize" : "row-resize";
-      root.style.userSelect = "none";
+      root.style.cursor = horizontal ? 'col-resize' : 'row-resize';
+      root.style.userSelect = 'none';
       handle.setPointerCapture?.(pointerId);
       handle.focus({ preventScroll: true });
       setDragging(separatorId);
@@ -497,9 +405,9 @@ export function ResizablePanelGroup({
       };
       const end = (endEvent: globalThis.PointerEvent) => {
         if (endEvent.pointerId !== pointerId) return;
-        handle.removeEventListener("pointermove", move);
-        handle.removeEventListener("pointerup", end);
-        handle.removeEventListener("pointercancel", end);
+        handle.removeEventListener('pointermove', move);
+        handle.removeEventListener('pointerup', end);
+        handle.removeEventListener('pointercancel', end);
         handle.releasePointerCapture?.(pointerId);
         root.style.cursor = previousCursor;
         root.style.userSelect = previousSelect;
@@ -507,9 +415,9 @@ export function ResizablePanelGroup({
         interacted.current = true;
         commit(target.ids, latest, { isUserInteraction: true });
       };
-      handle.addEventListener("pointermove", move);
-      handle.addEventListener("pointerup", end);
-      handle.addEventListener("pointercancel", end);
+      handle.addEventListener('pointermove', move);
+      handle.addEventListener('pointerup', end);
+      handle.addEventListener('pointercancel', end);
     },
     [pivotFor, horizontal, available, reversed, commit],
   );
@@ -521,10 +429,10 @@ export function ResizablePanelGroup({
       const { base, limits, pivot } = target;
       const forward = reversed() ? -KEYBOARD_STEP : KEYBOARD_STEP;
       let delta: number;
-      if (key === (horizontal ? "ArrowRight" : "ArrowDown")) delta = forward;
-      else if (key === (horizontal ? "ArrowLeft" : "ArrowUp")) delta = -forward;
-      else if (key === "Home") delta = limits[pivot]!.min - base[pivot]!;
-      else if (key === "End") delta = limits[pivot]!.max - base[pivot]!;
+      if (key === (horizontal ? 'ArrowRight' : 'ArrowDown')) delta = forward;
+      else if (key === (horizontal ? 'ArrowLeft' : 'ArrowUp')) delta = -forward;
+      else if (key === 'Home') delta = limits[pivot]!.min - base[pivot]!;
+      else if (key === 'End') delta = limits[pivot]!.max - base[pivot]!;
       else return false;
       interacted.current = true;
       commit(target.ids, resize(base, limits, pivot, delta), {
@@ -567,9 +475,9 @@ export function ResizablePanelGroup({
       <div
         data-slot="resizable-panel-group"
         data-orientation={orientation}
-        data-dragging={dragging ? "" : undefined}
-        className={cn("sprout-resizable-group", className)}
-        ref={(node) => {
+        data-dragging={dragging ? '' : undefined}
+        className={cn('sprout-resizable-group', className)}
+        ref={node => {
           element.current = node;
           assignRef(ref, node);
         }}
@@ -581,7 +489,7 @@ export function ResizablePanelGroup({
   );
 }
 
-export interface ResizablePanelProps extends Omit<ComponentProps<"div">, "id"> {
+export interface ResizablePanelProps extends Omit<ComponentProps<'div'>, 'id'> {
   /** Key for this panel in layouts. Set it when saving layouts or showing panels conditionally. */
   id?: string;
   /** Starting size. Panels without one share the space that is left. */
@@ -603,7 +511,7 @@ export function ResizablePanel({
   ref,
   ...props
 }: ResizablePanelProps) {
-  const group = useGroup("ResizablePanel");
+  const group = useGroup('ResizablePanel');
   const generated = useId();
   const id = idProp ?? generated;
   const element = useRef<HTMLDivElement | null>(null);
@@ -625,8 +533,8 @@ export function ResizablePanel({
       data-slot="resizable-panel"
       data-panel-id={id}
       id={id}
-      className={cn("sprout-resizable-panel", className)}
-      ref={(node) => {
+      className={cn('sprout-resizable-panel', className)}
+      ref={node => {
         element.current = node;
         assignRef(ref, node);
       }}
@@ -636,7 +544,7 @@ export function ResizablePanel({
   );
 }
 
-export interface ResizableHandleProps extends ComponentProps<"div"> {
+export interface ResizableHandleProps extends ComponentProps<'div'> {
   /** Shows a small grip on the line, for splits people resize often. */
   withHandle?: boolean;
 }
@@ -654,7 +562,7 @@ export function ResizableHandle({
   ref,
   ...props
 }: ResizableHandleProps) {
-  const group = useGroup("ResizableHandle");
+  const group = useGroup('ResizableHandle');
   const id = useId();
   const element = useRef<HTMLDivElement | null>(null);
   const { registerSeparator } = group;
@@ -667,16 +575,13 @@ export function ResizableHandle({
   let limits: Bounds | undefined;
   if (link && group.bounds[link.before]) {
     const own = group.bounds[link.before]!;
-    const others = Object.entries(group.bounds).filter(
-      ([key]) => key !== link.before,
-    );
+    const others = Object.entries(group.bounds).filter(([key]) => key !== link.before);
     limits = {
       min: Math.max(own.min, 100 - total(others.map(([, bound]) => bound.max))),
       max: Math.min(own.max, 100 - total(others.map(([, bound]) => bound.min))),
     };
   }
-  const lineOrientation =
-    group.orientation === "horizontal" ? "vertical" : "horizontal";
+  const lineOrientation = group.orientation === 'horizontal' ? 'vertical' : 'horizontal';
   return (
     <div
       role="separator"
@@ -688,14 +593,14 @@ export function ResizableHandle({
       aria-valuemax={limits ? Math.round(limits.max) : 100}
       data-slot="resizable-handle"
       data-orientation={lineOrientation}
-      data-with-handle={withHandle ? "" : undefined}
-      data-dragging={group.dragging === id ? "" : undefined}
-      className={cn("sprout-resizable-handle", className)}
-      ref={(node) => {
+      data-with-handle={withHandle ? '' : undefined}
+      data-dragging={group.dragging === id ? '' : undefined}
+      className={cn('sprout-resizable-handle', className)}
+      ref={node => {
         element.current = node;
         assignRef(ref, node);
       }}
-      onPointerDown={(event) => {
+      onPointerDown={event => {
         onPointerDown?.(event);
         if (event.defaultPrevented || event.button !== 0) return;
         group.startDrag(id, event);
@@ -707,13 +612,7 @@ export function ResizableHandle({
       }}
       {...props}
     >
-      {withHandle && (
-        <span
-          aria-hidden="true"
-          data-slot="resizable-handle-grip"
-          className="sprout-resizable-grip"
-        />
-      )}
+      {withHandle && <span aria-hidden="true" data-slot="resizable-handle-grip" className="sprout-resizable-grip" />}
       {children}
     </div>
   );
@@ -727,22 +626,19 @@ export interface UseResizableLayoutOptions {
   /** Only save sizes the person chose, not the starting layout. */
   onlySaveAfterUserInteractions?: boolean | undefined;
   /** Where to save. Defaults to `localStorage`. */
-  storage?: Pick<Storage, "getItem" | "setItem"> | undefined;
+  storage?: Pick<Storage, 'getItem' | 'setItem'> | undefined;
 }
 
 export interface ResizableLayoutStore {
   defaultLayout: ResizableLayout | undefined;
-  onLayoutChanged: (
-    layout: ResizableLayout,
-    details: ResizableLayoutChangeDetails,
-  ) => void;
+  onLayoutChanged: (layout: ResizableLayout, details: ResizableLayoutChangeDetails) => void;
 }
 
 const storageListeners = new Set<() => void>();
 
 function browserStorage() {
   try {
-    return typeof window === "undefined" ? undefined : window.localStorage;
+    return typeof window === 'undefined' ? undefined : window.localStorage;
   } catch {
     return undefined;
   }
@@ -758,13 +654,13 @@ export function useResizableLayout({
   onlySaveAfterUserInteractions = false,
   storage,
 }: UseResizableLayoutOptions): ResizableLayoutStore {
-  const key = `sprout-resizable:${id}${panelIds ? `:${panelIds.join(",")}` : ""}`;
+  const key = `sprout-resizable:${id}${panelIds ? `:${panelIds.join(',')}` : ''}`;
   const subscribe = useCallback((listener: () => void) => {
     storageListeners.add(listener);
-    window.addEventListener("storage", listener);
+    window.addEventListener('storage', listener);
     return () => {
       storageListeners.delete(listener);
-      window.removeEventListener("storage", listener);
+      window.removeEventListener('storage', listener);
     };
   }, []);
   const raw = useSyncExternalStore(
@@ -782,12 +678,9 @@ export function useResizableLayout({
     if (!raw) return undefined;
     try {
       const parsed: unknown = JSON.parse(raw);
-      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
-        return undefined;
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return undefined;
       const entries = Object.entries(parsed);
-      return entries.every(
-        ([, size]) => typeof size === "number" && Number.isFinite(size),
-      )
+      return entries.every(([, size]) => typeof size === 'number' && Number.isFinite(size))
         ? (Object.fromEntries(entries) as ResizableLayout)
         : undefined;
     } catch {

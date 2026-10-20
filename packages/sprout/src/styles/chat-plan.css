@@ -59,10 +59,10 @@
     height: 20px;
     color: var(--sprout-muted);
   }
-  .sprout-chat-plan-step[data-state="complete"] .sprout-chat-plan-icon {
+  .sprout-chat-plan-step[data-state='complete'] .sprout-chat-plan-icon {
     color: var(--sprout-success);
   }
-  .sprout-chat-plan-step[data-state="error"] .sprout-chat-plan-icon {
+  .sprout-chat-plan-step[data-state='error'] .sprout-chat-plan-icon {
     color: var(--sprout-danger);
   }
   .sprout-chat-plan-text {
@@ -96,8 +96,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-chat-plan-icon {
-      animation: sprout-chat-plan-icon-in var(--sprout-motion-normal, 180ms)
-        var(--sprout-motion-ease, ease-out);
+      animation: sprout-chat-plan-icon-in var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
     }
   }
   @keyframes sprout-chat-plan-icon-in {

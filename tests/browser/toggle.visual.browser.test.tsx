@@ -1,7 +1,7 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import { Toggle } from "../../packages/sprout/src/components/toggle.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Toggle } from '../../packages/sprout/src/components/toggle.js';
+import { setTheme, settle, themes } from './support.js';
 
 const Icon = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true" data-icon="inline-start">
@@ -9,20 +9,20 @@ const Icon = () => (
   </svg>
 );
 
-it.each(themes)("toggle %s %s", async (theme, mode) => {
+it.each(themes)('toggle %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "inline-grid",
+        display: 'inline-grid',
         gap: 8,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
-      {(["default", "outline"] as const).map((variant) => (
-        <div key={variant} style={{ display: "flex", gap: 8 }}>
+      {(['default', 'outline'] as const).map(variant => (
+        <div key={variant} style={{ display: 'flex', gap: 8 }}>
           <Toggle variant={variant} size="sm">
             Off
           </Toggle>
@@ -41,7 +41,5 @@ it.each(themes)("toggle %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`toggle-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`toggle-${theme}-${mode}`);
 });

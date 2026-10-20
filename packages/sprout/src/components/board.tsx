@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   memo,
@@ -12,7 +12,7 @@ import {
   type KeyboardEvent,
   type MouseEvent,
   type ReactNode,
-} from "react";
+} from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -31,7 +31,7 @@ import {
   type DragOverEvent,
   type DragStartEvent,
   type DropAnimation,
-} from "@dnd-kit/core";
+} from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
@@ -41,19 +41,15 @@ import {
   useSortable,
   verticalListSortingStrategy,
   type AnimateLayoutChanges,
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import {
-  defaultRangeExtractor,
-  useVirtualizer,
-  type Range,
-} from "@tanstack/react-virtual";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { MoreH } from "reicon-react/icons/MoreH";
-import { Plus } from "reicon-react/icons/Plus";
-import { Reorder } from "reicon-react/icons/Reorder";
-import { cn } from "../internal/classes.js";
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { defaultRangeExtractor, useVirtualizer, type Range } from '@tanstack/react-virtual';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { MoreH } from 'reicon-react/icons/MoreH';
+import { Plus } from 'reicon-react/icons/Plus';
+import { Reorder } from 'reicon-react/icons/Reorder';
+import { cn } from '../internal/classes.js';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -63,25 +59,19 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "./alert-dialog.js";
-import { Badge } from "./badge.js";
-import { Button } from "./button.js";
+} from './alert-dialog.js';
+import { Badge } from './badge.js';
+import { Button } from './button.js';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./dropdown-menu.js";
-import { Input } from "./input.js";
-import { SearchField } from "./search-field.js";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./select.js";
+} from './dropdown-menu.js';
+import { Input } from './input.js';
+import { SearchField } from './search-field.js';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select.js';
 
 export interface BoardColumn {
   id: string;
@@ -164,49 +154,41 @@ export interface BoardProps<T extends BoardItem> {
 }
 
 type Cell = { laneId: string; columnId: string };
-type DragData =
-  | { type: "card"; id: string }
-  | { type: "column"; id: string }
-  | { type: "cell"; cell: Cell };
+type DragData = { type: 'card'; id: string } | { type: 'column'; id: string } | { type: 'cell'; cell: Cell };
 
-const CARD = "card:";
-const COLUMN = "column:";
-const cellKey = (laneId: string, columnId: string) =>
-  `${laneId}\u0000${columnId}`;
+const CARD = 'card:';
+const COLUMN = 'column:';
+const cellKey = (laneId: string, columnId: string) => `${laneId}\u0000${columnId}`;
 const dataOf = (value: unknown) => value as DragData | undefined;
 
 const dndAccessibility = {
-  container: typeof document === "undefined" ? undefined : document.body,
+  container: typeof document === 'undefined' ? undefined : document.body,
 };
 
 const keyboardCodes = {
-  start: ["Space"],
-  cancel: ["Escape"],
-  end: ["Space"],
+  start: ['Space'],
+  cancel: ['Escape'],
+  end: ['Space'],
 };
 
 // dnd-kit only animates neighbors while the moved card is still in their list,
 // so cards in a cell the dragged card just left would jump without this.
-const animateLayoutChanges: AnimateLayoutChanges = (args) =>
-  defaultAnimateLayoutChanges({ ...args, wasDragging: true });
+const animateLayoutChanges: AnimateLayoutChanges = args => defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
 const dropAnimation: DropAnimation = {
   duration: 160,
-  easing: "cubic-bezier(0.2, 0, 0, 1)",
+  easing: 'cubic-bezier(0.2, 0, 0, 1)',
 };
 const reducedMotion = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Touch goes to TouchSensor, which waits for a press so a swipe still scrolls.
 class NoTouchPointerSensor extends PointerSensor {
   static override activators = [
     {
-      eventName: "onPointerDown" as const,
+      eventName: 'onPointerDown' as const,
       handler: ({ nativeEvent }: { nativeEvent: PointerEvent }) =>
-        nativeEvent.pointerType !== "touch" &&
-        nativeEvent.isPrimary &&
-        nativeEvent.button === 0,
+        nativeEvent.pointerType !== 'touch' && nativeEvent.isPrimary && nativeEvent.button === 0,
     },
   ];
 }
@@ -214,22 +196,18 @@ class NoTouchPointerSensor extends PointerSensor {
 const sameList = <T,>(a: T[] | undefined, b: T[]) =>
   a !== undefined && a.length === b.length && a.every((x, i) => x === b[i]);
 
-const collide: CollisionDetection = (args) => {
+const collide: CollisionDetection = args => {
   const type = dataOf(args.active.data.current)?.type;
-  const droppableContainers = args.droppableContainers.filter((container) =>
-    type === "column"
-      ? dataOf(container.data.current)?.type === "column"
-      : dataOf(container.data.current)?.type !== "column",
+  const droppableContainers = args.droppableContainers.filter(container =>
+    type === 'column'
+      ? dataOf(container.data.current)?.type === 'column'
+      : dataOf(container.data.current)?.type !== 'column',
   );
   const scoped = { ...args, droppableContainers };
-  if (type === "column") return closestCenter(scoped);
+  if (type === 'column') return closestCenter(scoped);
   const pointer = pointerWithin(scoped);
   const hits = pointer.length ? pointer : rectIntersection(scoped);
-  const card = hits.find(
-    (hit) =>
-      dataOf(droppableContainers.find((c) => c.id === hit.id)?.data.current)
-        ?.type === "card",
-  );
+  const card = hits.find(hit => dataOf(droppableContainers.find(c => c.id === hit.id)?.data.current)?.type === 'card');
   return card ? [card] : hits.slice(0, 1);
 };
 
@@ -243,8 +221,8 @@ function place<T extends BoardItem>(
   withLanes: boolean,
 ): T[] {
   const moving = new Set(ids);
-  const moved = ids.flatMap((id) => {
-    const item = list.find((i) => i.id === id);
+  const moved = ids.flatMap(id => {
+    const item = list.find(i => i.id === id);
     if (!item) return [];
     return [
       {
@@ -254,8 +232,8 @@ function place<T extends BoardItem>(
       },
     ];
   });
-  const rest = list.filter((item) => !moving.has(item.id));
-  let at = beforeId === null ? -1 : rest.findIndex((i) => i.id === beforeId);
+  const rest = list.filter(item => !moving.has(item.id));
+  let at = beforeId === null ? -1 : rest.findIndex(i => i.id === beforeId);
   if (at === -1) {
     at = rest.length;
     for (let i = rest.length - 1; i >= 0; i--) {
@@ -292,16 +270,13 @@ export function Board<T extends BoardItem>({
   searchable,
   searchText,
   laneBy,
-  label = "Board",
+  label = 'Board',
   className,
 }: BoardProps<T>) {
   const dndId = useId();
   const withLanes = lanes !== undefined;
-  const laneList = useMemo<BoardLane[]>(
-    () => lanes ?? [{ id: "", title: label }],
-    [lanes, label],
-  );
-  const laneOf = (item: T) => (withLanes ? (item.laneId ?? "") : "");
+  const laneList = useMemo<BoardLane[]>(() => lanes ?? [{ id: '', title: label }], [lanes, label]);
+  const laneOf = (item: T) => (withLanes ? (item.laneId ?? '') : '');
 
   const [draft, setDraft] = useState<T[] | null>(null);
   const draftRef = useRef<T[] | null>(null);
@@ -311,15 +286,11 @@ export function Board<T extends BoardItem>({
   };
   const shown = draft ?? items;
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<Set<string>>(() => new Set());
   const [anchor, setAnchor] = useState<string | null>(null);
-  const [collapsedColumns, setCollapsedColumns] = useState<Set<string>>(
-    () => new Set(),
-  );
-  const [collapsedLanes, setCollapsedLanes] = useState<Set<string>>(
-    () => new Set(),
-  );
+  const [collapsedColumns, setCollapsedColumns] = useState<Set<string>>(() => new Set());
+  const [collapsedLanes, setCollapsedLanes] = useState<Set<string>>(() => new Set());
   const [active, setActive] = useState<DragData | null>(null);
   const [extras, setExtras] = useState<string[]>([]);
   const [laneLock, setLaneLock] = useState<Map<string, number> | null>(null);
@@ -353,28 +324,22 @@ export function Board<T extends BoardItem>({
 
   const columnTotals = useMemo(() => {
     const totals = new Map<string, number>();
-    for (const item of shown)
-      totals.set(item.columnId, (totals.get(item.columnId) ?? 0) + 1);
+    for (const item of shown) totals.set(item.columnId, (totals.get(item.columnId) ?? 0) + 1);
     return totals;
   }, [shown]);
 
   const laneTotals = (laneId: string) =>
-    columns.reduce(
-      (sum, column) =>
-        sum + (cells.get(cellKey(laneId, column.id))?.length ?? 0),
-      0,
-    );
+    columns.reduce((sum, column) => sum + (cells.get(cellKey(laneId, column.id))?.length ?? 0), 0);
   const visibleCount = [...cells.values()].reduce((s, l) => s + l.length, 0);
 
-  const findItem = (id: string) =>
-    (draftRef.current ?? items).find((item) => item.id === id);
+  const findItem = (id: string) => (draftRef.current ?? items).find(item => item.id === id);
   const cellOf = (item: T): Cell => ({
     laneId: laneOf(item),
     columnId: item.columnId,
   });
   const cellName = (cell: Cell) => {
-    const column = columns.find((c) => c.id === cell.columnId)?.title ?? "";
-    const lane = laneList.find((l) => l.id === cell.laneId)?.title;
+    const column = columns.find(c => c.id === cell.columnId)?.title ?? '';
+    const lane = laneList.find(l => l.id === cell.laneId)?.title;
     return withLanes && lane ? `${column}, ${lane}` : column;
   };
 
@@ -393,49 +358,39 @@ export function Board<T extends BoardItem>({
     const data = dataOf(a.data.current);
     if (!data) return;
     setActive(data);
-    if (data.type !== "card") return;
+    if (data.type !== 'card') return;
     // Lanes may grow but not shrink mid-drag, so the lane under the pointer
     // does not move away when a card leaves it.
-    setLaneLock(
-      new Map(
-        laneVirtualizer
-          .getVirtualItems()
-          .map((row) => [laneList[row.index]?.id ?? "", row.size]),
-      ),
-    );
+    setLaneLock(new Map(laneVirtualizer.getVirtualItems().map(row => [laneList[row.index]?.id ?? '', row.size])));
     const others = selected.has(data.id)
-      ? shown
-          .filter((item) => selected.has(item.id) && item.id !== data.id)
-          .map((item) => item.id)
+      ? shown.filter(item => selected.has(item.id) && item.id !== data.id).map(item => item.id)
       : [];
     if (!selected.has(data.id)) setSelected(new Set());
     setExtras(others);
     const hidden = new Set(others);
-    setDraftBoth(items.filter((item) => !hidden.has(item.id)));
+    setDraftBoth(items.filter(item => !hidden.has(item.id)));
   };
 
   const onDragOver = ({ active: a, over }: DragOverEvent) => {
     const data = dataOf(a.data.current);
     const target = dataOf(over?.data.current);
-    if (data?.type !== "card" || !over || !target || movedRef.current) return;
+    if (data?.type !== 'card' || !over || !target || movedRef.current) return;
     const list = draftRef.current;
     const item = findItem(data.id);
     if (!list || !item) return;
     let to: Cell;
     let beforeId: string | null = null;
-    if (target.type === "card") {
+    if (target.type === 'card') {
       if (target.id === data.id) return;
       const overItem = findItem(target.id);
       if (!overItem) return;
       to = cellOf(overItem);
       const siblings = cells.get(cellKey(to.laneId, to.columnId)) ?? [];
       const translated = a.rect.current.translated;
-      const below =
-        translated !== null &&
-        translated.top > over.rect.top + over.rect.height / 2;
-      const index = siblings.findIndex((s) => s.id === target.id);
+      const below = translated !== null && translated.top > over.rect.top + over.rect.height / 2;
+      const index = siblings.findIndex(s => s.id === target.id);
       beforeId = below ? (siblings[index + 1]?.id ?? null) : target.id;
-    } else if (target.type === "cell") {
+    } else if (target.type === 'cell') {
       to = target.cell;
     } else return;
     const from = cellOf(item);
@@ -457,62 +412,36 @@ export function Board<T extends BoardItem>({
   const onDragEnd = ({ active: a, over }: DragEndEvent) => {
     const data = dataOf(a.data.current);
     const target = dataOf(over?.data.current);
-    if (data?.type === "column") {
-      if (
-        target?.type === "column" &&
-        target.id !== data.id &&
-        onColumnsChange
-      ) {
-        const ids = columns.map((c) => c.id);
-        onColumnsChange(
-          arrayMove(columns, ids.indexOf(data.id), ids.indexOf(target.id)),
-        );
+    if (data?.type === 'column') {
+      if (target?.type === 'column' && target.id !== data.id && onColumnsChange) {
+        const ids = columns.map(c => c.id);
+        onColumnsChange(arrayMove(columns, ids.indexOf(data.id), ids.indexOf(target.id)));
       }
       return finish();
     }
     let list = draftRef.current;
-    const item = data?.type === "card" ? findItem(data.id) : undefined;
-    if (!list || !item || data?.type !== "card") return finish();
+    const item = data?.type === 'card' ? findItem(data.id) : undefined;
+    if (!list || !item || data?.type !== 'card') return finish();
     const cell = cellOf(item);
     const siblings = cells.get(cellKey(cell.laneId, cell.columnId)) ?? [];
-    if (target?.type === "card" && target.id !== data.id) {
-      const ids = siblings.map((s) => s.id);
+    if (target?.type === 'card' && target.id !== data.id) {
+      const ids = siblings.map(s => s.id);
       const from = ids.indexOf(data.id);
       const to = ids.indexOf(target.id);
       if (from !== -1 && to !== -1) {
         const order = arrayMove(ids, from, to);
-        list = place(
-          list,
-          [data.id],
-          cell,
-          order[to + 1] ?? null,
-          laneOf,
-          withLanes,
-        );
+        list = place(list, [data.id], cell, order[to + 1] ?? null, laneOf, withLanes);
       }
     }
     if (extras.length) {
-      list = [...list, ...items.filter((i) => extras.includes(i.id))];
-      const after = list.indexOf(list.find((i) => i.id === data.id)!) + 1;
-      list = place(
-        list,
-        extras,
-        cell,
-        list[after]?.id ?? null,
-        laneOf,
-        withLanes,
-      );
-      const next = list[list.findIndex((i) => i.id === extras.at(-1)) + 1];
-      if (
-        next &&
-        cellKey(laneOf(next), next.columnId) !==
-          cellKey(cell.laneId, cell.columnId)
-      )
+      list = [...list, ...items.filter(i => extras.includes(i.id))];
+      const after = list.indexOf(list.find(i => i.id === data.id)!) + 1;
+      list = place(list, extras, cell, list[after]?.id ?? null, laneOf, withLanes);
+      const next = list[list.findIndex(i => i.id === extras.at(-1)) + 1];
+      if (next && cellKey(laneOf(next), next.columnId) !== cellKey(cell.laneId, cell.columnId))
         list = place(list, extras, cell, null, laneOf, withLanes);
     }
-    const changed =
-      list.some((i, index) => i !== items[index]) ||
-      list.length !== items.length;
+    const changed = list.some((i, index) => i !== items[index]) || list.length !== items.length;
     finish();
     if (changed) onItemsChange?.(list);
   };
@@ -520,76 +449,56 @@ export function Board<T extends BoardItem>({
   const announcements: Announcements = {
     onDragStart: ({ active: a }) => {
       const data = dataOf(a.data.current);
-      if (data?.type === "column")
-        return `Picked up column ${columns.find((c) => c.id === data.id)?.title}.`;
-      const item = data?.type === "card" ? findItem(data.id) : undefined;
+      if (data?.type === 'column') return `Picked up column ${columns.find(c => c.id === data.id)?.title}.`;
+      const item = data?.type === 'card' ? findItem(data.id) : undefined;
       return item ? `Picked up card ${item.title}.` : undefined;
     },
     onDragOver: ({ active: a, over }) => {
       const data = dataOf(a.data.current);
       if (!over) return undefined;
-      if (data?.type === "column") {
+      if (data?.type === 'column') {
         const target = dataOf(over.data.current);
-        return target?.type === "column"
-          ? `Over column ${columns.find((c) => c.id === target.id)?.title}.`
-          : undefined;
+        return target?.type === 'column' ? `Over column ${columns.find(c => c.id === target.id)?.title}.` : undefined;
       }
-      const item = data?.type === "card" ? findItem(data.id) : undefined;
-      return item
-        ? `Card ${item.title} is in ${cellName(cellOf(item))}.`
-        : undefined;
+      const item = data?.type === 'card' ? findItem(data.id) : undefined;
+      return item ? `Card ${item.title} is in ${cellName(cellOf(item))}.` : undefined;
     },
     onDragEnd: ({ active: a }) => {
       const data = dataOf(a.data.current);
-      if (data?.type === "column") return "Column dropped.";
-      const item = data?.type === "card" ? findItem(data.id) : undefined;
-      return item
-        ? `Card ${item.title} dropped in ${cellName(cellOf(item))}.`
-        : undefined;
+      if (data?.type === 'column') return 'Column dropped.';
+      const item = data?.type === 'card' ? findItem(data.id) : undefined;
+      return item ? `Card ${item.title} dropped in ${cellName(cellOf(item))}.` : undefined;
     },
-    onDragCancel: () => "Move cancelled. The card went back.",
+    onDragCancel: () => 'Move cancelled. The card went back.',
   };
 
   const select = (item: T, event: MouseEvent) => {
     const next = new Set(selected);
     if (event.shiftKey && anchor) {
-      const flat = laneList.flatMap((lane) =>
-        columns.flatMap((c) => cells.get(cellKey(lane.id, c.id)) ?? []),
-      );
-      const from = flat.findIndex((i) => i.id === anchor);
-      const to = flat.findIndex((i) => i.id === item.id);
+      const flat = laneList.flatMap(lane => columns.flatMap(c => cells.get(cellKey(lane.id, c.id)) ?? []));
+      const from = flat.findIndex(i => i.id === anchor);
+      const to = flat.findIndex(i => i.id === item.id);
       if (from !== -1 && to !== -1)
-        for (const i of flat.slice(Math.min(from, to), Math.max(from, to) + 1))
-          next.add(i.id);
+        for (const i of flat.slice(Math.min(from, to), Math.max(from, to) + 1)) next.add(i.id);
     } else if (next.has(item.id)) next.delete(item.id);
     else next.add(item.id);
     setSelected(next);
     setAnchor(item.id);
   };
 
-  const rename = (item: T, title: string) =>
-    onItemsChange?.(items.map((i) => (i.id === item.id ? { ...i, title } : i)));
+  const rename = (item: T, title: string) => onItemsChange?.(items.map(i => (i.id === item.id ? { ...i, title } : i)));
   const renameColumn = (column: BoardColumn, title: string) =>
-    onColumnsChange?.(
-      columns.map((c) => (c.id === column.id ? { ...c, title } : c)),
-    );
+    onColumnsChange?.(columns.map(c => (c.id === column.id ? { ...c, title } : c)));
   const deleteColumn = (column: BoardColumn) => {
-    onColumnsChange?.(columns.filter((c) => c.id !== column.id));
-    if (items.some((i) => i.columnId === column.id))
-      onItemsChange?.(items.filter((i) => i.columnId !== column.id));
+    onColumnsChange?.(columns.filter(c => c.id !== column.id));
+    if (items.some(i => i.columnId === column.id)) onItemsChange?.(items.filter(i => i.columnId !== column.id));
   };
   const latest = useRef({ select, rename });
   useLayoutEffect(() => {
     latest.current = { select, rename };
   });
-  const onSelect = useCallback(
-    (item: T, event: MouseEvent) => latest.current.select(item, event),
-    [],
-  );
-  const onRename = useCallback(
-    (item: T, title: string) => latest.current.rename(item, title),
-    [],
-  );
+  const onSelect = useCallback((item: T, event: MouseEvent) => latest.current.select(item, event), []);
+  const onRename = useCallback((item: T, title: string) => latest.current.rename(item, title), []);
   const toggle = (set: Set<string>, id: string) => {
     const next = new Set(set);
     if (next.has(id)) next.delete(id);
@@ -610,26 +519,22 @@ export function Board<T extends BoardItem>({
     if (!viewport || !frame) return;
     const update = () => {
       const { scrollLeft, scrollWidth, clientWidth } = viewport;
-      frame.toggleAttribute("data-more-start", scrollLeft > 1);
-      frame.toggleAttribute(
-        "data-more-end",
-        scrollLeft + clientWidth < scrollWidth - 1,
-      );
+      frame.toggleAttribute('data-more-start', scrollLeft > 1);
+      frame.toggleAttribute('data-more-end', scrollLeft + clientWidth < scrollWidth - 1);
     };
     update();
-    viewport.addEventListener("scroll", update, { passive: true });
+    viewport.addEventListener('scroll', update, { passive: true });
     const observer = new ResizeObserver(update);
     observer.observe(viewport);
-    if (viewport.firstElementChild)
-      observer.observe(viewport.firstElementChild);
+    if (viewport.firstElementChild) observer.observe(viewport.firstElementChild);
     return () => {
-      viewport.removeEventListener("scroll", update);
+      viewport.removeEventListener('scroll', update);
       observer.disconnect();
     };
   }, []);
   const activeLane =
-    active?.type === "card"
-      ? laneList.findIndex((l) => {
+    active?.type === 'card'
+      ? laneList.findIndex(l => {
           const item = findItem(active.id);
           return item ? l.id === laneOf(item) : false;
         })
@@ -641,7 +546,7 @@ export function Board<T extends BoardItem>({
     overscan: 2,
     scrollMargin: bodyTop,
     initialRect: { width: 0, height: 720 },
-    getItemKey: (index) => laneList[index]?.id ?? index,
+    getItemKey: index => laneList[index]?.id ?? index,
     rangeExtractor: (range: Range) => {
       const indexes = defaultRangeExtractor(range);
       return activeLane !== -1 && !indexes.includes(activeLane)
@@ -661,33 +566,25 @@ export function Board<T extends BoardItem>({
       rows[i - 1]?.index !== row.index - 1 &&
       rows[i + 1]?.index !== row.index + 1,
   }));
-  const firstFlow = laneRows.find((row) => !row.pinned);
+  const firstFlow = laneRows.find(row => !row.pinned);
 
   const onBoardKeyDown = (event: KeyboardEvent) => {
-    if (event.key === "Escape" && selected.size && !active)
-      setSelected(new Set());
+    if (event.key === 'Escape' && selected.size && !active) setSelected(new Set());
   };
 
-  const activeItem = active?.type === "card" ? findItem(active.id) : undefined;
-  const activeColumn =
-    active?.type === "column"
-      ? columns.find((c) => c.id === active.id)
-      : undefined;
+  const activeItem = active?.type === 'card' ? findItem(active.id) : undefined;
+  const activeColumn = active?.type === 'column' ? columns.find(c => c.id === active.id) : undefined;
 
   const columnTemplate = columns
-    .map((c) =>
-      collapsedColumns.has(c.id)
-        ? "var(--sprout-board-collapsed-width)"
-        : "var(--sprout-board-column-width)",
-    )
-    .join(" ");
+    .map(c => (collapsedColumns.has(c.id) ? 'var(--sprout-board-collapsed-width)' : 'var(--sprout-board-column-width)'))
+    .join(' ');
   const gridStyle = {
-    gridTemplateColumns: `${columnTemplate}${onColumnAdd ? " var(--sprout-board-column-width)" : ""}`,
+    gridTemplateColumns: `${columnTemplate}${onColumnAdd ? ' var(--sprout-board-column-width)' : ''}`,
   };
 
   const renderRow = (lane: BoardLane) => (
     <div className="sprout-board-row" style={gridStyle}>
-      {columns.map((column) => (
+      {columns.map(column => (
         <BoardCell
           key={column.id}
           laneId={lane.id}
@@ -696,7 +593,7 @@ export function Board<T extends BoardItem>({
           items={cells.get(cellKey(lane.id, column.id)) ?? []}
           collapsed={collapsedColumns.has(column.id)}
           fill={!withLanes}
-          activeId={active?.type === "card" ? active.id : null}
+          activeId={active?.type === 'card' ? active.id : null}
           movable={!!onItemsChange && !needle}
           selected={selected}
           onSelect={onSelect}
@@ -716,43 +613,26 @@ export function Board<T extends BoardItem>({
 
   const toolbar = searchable || laneBy || selected.size > 0;
   return (
-    <div
-      data-slot="board"
-      className={cn("sprout-board", className)}
-      onKeyDown={onBoardKeyDown}
-    >
+    <div data-slot="board" className={cn('sprout-board', className)} onKeyDown={onBoardKeyDown}>
       {toolbar && (
         <div className="sprout-board-toolbar" data-slot="board-toolbar">
           {searchable && (
-            <SearchField
-              label="Search cards"
-              value={query}
-              onChange={setQuery}
-              className="sprout-board-search"
-            />
+            <SearchField label="Search cards" value={query} onChange={setQuery} className="sprout-board-search" />
           )}
           {laneBy && (
             <span className="sprout-board-lane-by">
-              <span>{laneBy.label ?? "Lanes by"}</span>
+              <span>{laneBy.label ?? 'Lanes by'}</span>
               <Select
                 value={laneBy.value}
-                onValueChange={(value) => {
-                  if (typeof value === "string") laneBy.onChange(value);
+                onValueChange={value => {
+                  if (typeof value === 'string') laneBy.onChange(value);
                 }}
               >
-                <SelectTrigger
-                  size="sm"
-                  aria-label={laneBy.label ?? "Lanes by"}
-                >
-                  <SelectValue>
-                    {
-                      laneBy.options.find((o) => o.value === laneBy.value)
-                        ?.label
-                    }
-                  </SelectValue>
+                <SelectTrigger size="sm" aria-label={laneBy.label ?? 'Lanes by'}>
+                  <SelectValue>{laneBy.options.find(o => o.value === laneBy.value)?.label}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
-                  {laneBy.options.map((option) => (
+                  {laneBy.options.map(option => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
                     </SelectItem>
@@ -765,22 +645,18 @@ export function Board<T extends BoardItem>({
             {selected.size > 0 ? (
               <>
                 {selected.size} selected
-                <Button
-                  variant="ghost"
-                  size="xs"
-                  onClick={() => setSelected(new Set())}
-                >
+                <Button variant="ghost" size="xs" onClick={() => setSelected(new Set())}>
                   Clear
                 </Button>
               </>
             ) : needle ? (
               visibleCount ? (
-                `${visibleCount.toLocaleString("en-US")} of ${items.length.toLocaleString("en-US")} cards`
+                `${visibleCount.toLocaleString('en-US')} of ${items.length.toLocaleString('en-US')} cards`
               ) : (
                 `No cards match “${query.trim()}”`
               )
             ) : (
-              `${items.length.toLocaleString("en-US")} cards`
+              `${items.length.toLocaleString('en-US')} cards`
             )}
           </span>
         </div>
@@ -805,19 +681,14 @@ export function Board<T extends BoardItem>({
           >
             <div className="sprout-board-canvas">
               <div className="sprout-board-header" style={gridStyle}>
-                <SortableContext
-                  items={columns.map((c) => COLUMN + c.id)}
-                  strategy={horizontalListSortingStrategy}
-                >
-                  {columns.map((column) => (
+                <SortableContext items={columns.map(c => COLUMN + c.id)} strategy={horizontalListSortingStrategy}>
+                  {columns.map(column => (
                     <BoardColumnHeader
                       key={column.id}
                       column={column}
                       total={columnTotals.get(column.id) ?? 0}
                       collapsed={collapsedColumns.has(column.id)}
-                      onCollapse={() =>
-                        setCollapsedColumns((s) => toggle(s, column.id))
-                      }
+                      onCollapse={() => setCollapsedColumns(s => toggle(s, column.id))}
                       onRename={onColumnsChange ? renameColumn : undefined}
                       onDelete={onColumnsChange ? deleteColumn : undefined}
                     />
@@ -826,12 +697,8 @@ export function Board<T extends BoardItem>({
                 {onColumnAdd && <AddColumn onAdd={onColumnAdd} />}
               </div>
               {withLanes ? (
-                <div
-                  ref={bodyRef}
-                  className="sprout-board-lanes"
-                  style={{ height: laneVirtualizer.getTotalSize() }}
-                >
-                  {laneRows.map((row) => {
+                <div ref={bodyRef} className="sprout-board-lanes" style={{ height: laneVirtualizer.getTotalSize() }}>
+                  {laneRows.map(row => {
                     const lane = laneList[row.index];
                     if (!lane) return null;
                     const collapsed = collapsedLanes.has(lane.id);
@@ -859,18 +726,10 @@ export function Board<T extends BoardItem>({
                             type="button"
                             className="sprout-board-lane-toggle"
                             aria-expanded={!collapsed}
-                            onClick={() =>
-                              setCollapsedLanes((s) => toggle(s, lane.id))
-                            }
+                            onClick={() => setCollapsedLanes(s => toggle(s, lane.id))}
                           >
-                            {collapsed ? (
-                              <ChevronRight aria-hidden="true" />
-                            ) : (
-                              <ChevronDown aria-hidden="true" />
-                            )}
-                            <span className="sprout-board-lane-title">
-                              {lane.title}
-                            </span>
+                            {collapsed ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+                            <span className="sprout-board-lane-title">{lane.title}</span>
                             <span className="sprout-board-count">{count}</span>
                           </button>
                         </div>
@@ -899,9 +758,7 @@ export function Board<T extends BoardItem>({
             </div>
           ) : activeColumn ? (
             <div className="sprout-board-column-header sprout-board-overlay">
-              <span className="sprout-board-column-title">
-                {activeColumn.title}
-              </span>
+              <span className="sprout-board-column-title">{activeColumn.title}</span>
             </div>
           ) : null}
         </DragOverlay>
@@ -918,17 +775,10 @@ interface CardLook<T extends BoardItem> {
 }
 
 const cardTitle = <T extends BoardItem>(item: T, look: CardLook<T>) => (
-  <span className="sprout-board-card-title">
-    {look.renderTitle ? look.renderTitle(item) : item.title}
-  </span>
+  <span className="sprout-board-card-title">{look.renderTitle ? look.renderTitle(item) : item.title}</span>
 );
 
-function cardInside<T extends BoardItem>(
-  item: T,
-  look: CardLook<T>,
-  parts: BoardCardParts,
-  bodyId?: string,
-) {
+function cardInside<T extends BoardItem>(item: T, look: CardLook<T>, parts: BoardCardParts, bodyId?: string) {
   if (look.renderCard) return look.renderCard(item, parts);
   const body = look.renderBody?.(item);
   return (
@@ -946,19 +796,9 @@ function cardInside<T extends BoardItem>(
   );
 }
 
-function CardFace<T extends BoardItem>({
-  item,
-  look,
-}: {
-  item: T;
-  look: CardLook<T>;
-}) {
+function CardFace<T extends BoardItem>({ item, look }: { item: T; look: CardLook<T> }) {
   return (
-    <div
-      className="sprout-board-card"
-      data-overlay=""
-      data-custom={look.renderCard ? "" : undefined}
-    >
+    <div className="sprout-board-card" data-overlay="" data-custom={look.renderCard ? '' : undefined}>
       {cardInside(item, look, { title: cardTitle(item, look), menu: null })}
     </div>
   );
@@ -1000,10 +840,10 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
   const cell = useMemo(() => ({ laneId, columnId }), [laneId, columnId]);
   const drop = useDroppable({
     id: `cell:${cellKey(cell.laneId, cell.columnId)}`,
-    data: { type: "cell", cell } satisfies DragData,
+    data: { type: 'cell', cell } satisfies DragData,
   });
   const scrollRef = useRef<HTMLDivElement>(null);
-  const activeIndex = activeId ? items.findIndex((i) => i.id === activeId) : -1;
+  const activeIndex = activeId ? items.findIndex(i => i.id === activeId) : -1;
   const virtualizer = useVirtualizer({
     count: collapsed ? 0 : items.length,
     getScrollElement: () => scrollRef.current,
@@ -1011,7 +851,7 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
     gap: 4,
     overscan: 6,
     initialRect: { width: 0, height: 480 },
-    getItemKey: (index) => items[index]?.id ?? index,
+    getItemKey: index => items[index]?.id ?? index,
     rangeExtractor: (range: Range) => {
       const indexes = defaultRangeExtractor(range);
       return activeIndex !== -1 && !indexes.includes(activeIndex)
@@ -1031,7 +871,7 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
         aria-label={`${name}, ${items.length} cards, collapsed`}
         role="group"
       >
-        <span className="sprout-board-count">{items.length || ""}</span>
+        <span className="sprout-board-count">{items.length || ''}</span>
       </div>
     );
 
@@ -1043,17 +883,14 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
       data-over={drop.isOver || undefined}
     >
       <div ref={scrollRef} className="sprout-board-cell-scroll">
-        <SortableContext
-          items={items.map((i) => CARD + i.id)}
-          strategy={verticalListSortingStrategy}
-        >
+        <SortableContext items={items.map(i => CARD + i.id)} strategy={verticalListSortingStrategy}>
           <div
             role="list"
             aria-label={`${name}, ${items.length} cards`}
             className="sprout-board-cards"
             style={{ height: virtualizer.getTotalSize() }}
           >
-            {virtualizer.getVirtualItems().map((row) => {
+            {virtualizer.getVirtualItems().map(row => {
               const item = items[row.index];
               if (!item) return null;
               return (
@@ -1087,7 +924,7 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
             placeholder="Card title"
             initial=""
             keepOpen
-            onCommit={(title) =>
+            onCommit={title =>
               onItemAdd({
                 title,
                 columnId: cell.columnId,
@@ -1134,7 +971,7 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
   const [editing, setEditing] = useState(false);
   const sortable = useSortable({
     id: CARD + item.id,
-    data: { type: "card", id: item.id } satisfies DragData,
+    data: { type: 'card', id: item.id } satisfies DragData,
     disabled: !movable || editing,
     animateLayoutChanges,
   });
@@ -1152,10 +989,10 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
   };
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.target !== event.currentTarget) return;
-    if (event.key === "Enter" && onOpen) {
+    if (event.key === 'Enter' && onOpen) {
       event.preventDefault();
       onOpen(item);
-    } else if (event.key === "F2" && onRename) {
+    } else if (event.key === 'F2' && onRename) {
       event.preventDefault();
       setEditing(true);
     }
@@ -1168,28 +1005,25 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
       {...sortable.listeners}
       aria-disabled={undefined}
       role="group"
-      aria-roledescription={movable ? "draggable card" : "card"}
+      aria-roledescription={movable ? 'draggable card' : 'card'}
       aria-label={item.title}
       aria-describedby={describe ? bodyId : undefined}
       tabIndex={0}
       className="sprout-board-card"
       data-selected={selected || undefined}
       data-dragging={sortable.isDragging || undefined}
-      data-openable={onOpen ? "" : undefined}
-      data-custom={look.renderCard ? "" : undefined}
+      data-openable={onOpen ? '' : undefined}
+      data-custom={look.renderCard ? '' : undefined}
       style={{
         transform: CSS.Translate.toString(sortable.transform),
         transition: sortable.transition,
       }}
       onClick={editing ? undefined : onClick}
-      onDoubleClick={
-        onRename && !onOpen && !editing ? () => setEditing(true) : undefined
-      }
-      onKeyDown={(event) => {
+      onDoubleClick={onRename && !onOpen && !editing ? () => setEditing(true) : undefined}
+      onKeyDown={event => {
         onKeyDown(event);
         // Space in the menu button or title must not pick the card up.
-        if (event.target === event.currentTarget && !event.defaultPrevented)
-          sortable.listeners?.onKeyDown?.(event);
+        if (event.target === event.currentTarget && !event.defaultPrevented) sortable.listeners?.onKeyDown?.(event);
       }}
     >
       {cardInside(
@@ -1201,7 +1035,7 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
               <InlineText
                 label="Card title"
                 initial={item.title}
-                onCommit={(title) => onRename(item, title)}
+                onCommit={title => onRename(item, title)}
                 onClose={() => setEditing(false)}
               />
             ) : (
@@ -1217,19 +1051,15 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
                       size="icon-xs"
                       className="sprout-board-card-menu"
                       aria-label={`Actions for ${item.title}`}
-                      onClick={(event) => event.stopPropagation()}
-                      onPointerDown={(event) => event.stopPropagation()}
+                      onClick={event => event.stopPropagation()}
+                      onPointerDown={event => event.stopPropagation()}
                     />
                   }
                 >
                   <MoreH aria-hidden="true" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  {onRename && (
-                    <DropdownMenuItem onClick={() => setEditing(true)}>
-                      Rename
-                    </DropdownMenuItem>
-                  )}
+                  {onRename && <DropdownMenuItem onClick={() => setEditing(true)}>Rename</DropdownMenuItem>}
                   {onRename && actions != null && <DropdownMenuSeparator />}
                   {actions}
                 </DropdownMenuContent>
@@ -1251,37 +1081,25 @@ interface BoardColumnHeaderProps {
   onDelete: ((column: BoardColumn) => void) | undefined;
 }
 
-function BoardColumnHeader({
-  column,
-  total,
-  collapsed,
-  onCollapse,
-  onRename,
-  onDelete,
-}: BoardColumnHeaderProps) {
+function BoardColumnHeader({ column, total, collapsed, onCollapse, onRename, onDelete }: BoardColumnHeaderProps) {
   const [editing, setEditing] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const sortable = useSortable({
     id: COLUMN + column.id,
-    data: { type: "column", id: column.id } satisfies DragData,
+    data: { type: 'column', id: column.id } satisfies DragData,
     disabled: !onRename || editing,
   });
   const over = column.limit !== undefined && total > column.limit;
-  const count =
-    column.limit !== undefined ? `${total} / ${column.limit}` : `${total}`;
+  const count = column.limit !== undefined ? `${total} / ${column.limit}` : `${total}`;
   const toggleButton = (
     <button
       type="button"
       className="sprout-board-column-toggle"
       aria-expanded={!collapsed}
-      aria-label={`${collapsed ? "Expand" : "Collapse"} ${column.title}`}
+      aria-label={`${collapsed ? 'Expand' : 'Collapse'} ${column.title}`}
       onClick={onCollapse}
     >
-      {collapsed ? (
-        <ChevronRight aria-hidden="true" />
-      ) : (
-        <ChevronDown aria-hidden="true" />
-      )}
+      {collapsed ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
     </button>
   );
 
@@ -1290,7 +1108,7 @@ function BoardColumnHeader({
       ref={sortable.setNodeRef}
       {...sortable.listeners}
       role="group"
-      aria-label={`${column.title}, ${total} cards${over ? ", over limit" : ""}`}
+      aria-label={`${column.title}, ${total} cards${over ? ', over limit' : ''}`}
       className="sprout-board-column-header"
       data-collapsed={collapsed || undefined}
       data-over-limit={over || undefined}
@@ -1305,7 +1123,7 @@ function BoardColumnHeader({
         <InlineText
           label="Column title"
           initial={column.title}
-          onCommit={(title) => onRename(column, title)}
+          onCommit={title => onRename(column, title)}
           onClose={() => setEditing(false)}
         />
       ) : onRename && !collapsed ? (
@@ -1352,26 +1170,19 @@ function BoardColumnHeader({
                       variant="ghost"
                       size="icon-xs"
                       aria-label={`${column.title} column actions`}
-                      onPointerDown={(event) => event.stopPropagation()}
+                      onPointerDown={event => event.stopPropagation()}
                     />
                   }
                 >
                   <MoreH aria-hidden="true" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => setEditing(true)}>
-                    Rename
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={onCollapse}>
-                    Collapse
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setEditing(true)}>Rename</DropdownMenuItem>
+                  <DropdownMenuItem onClick={onCollapse}>Collapse</DropdownMenuItem>
                   {onDelete && (
                     <>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        variant="destructive"
-                        onClick={() => setConfirming(true)}
-                      >
+                      <DropdownMenuItem variant="destructive" onClick={() => setConfirming(true)}>
                         Delete column…
                       </DropdownMenuItem>
                     </>
@@ -1389,8 +1200,8 @@ function BoardColumnHeader({
               <AlertDialogTitle>Delete “{column.title}”?</AlertDialogTitle>
               <AlertDialogDescription>
                 {total
-                  ? `Its ${total} ${total === 1 ? "card is" : "cards are"} deleted too. This can’t be undone.`
-                  : "The column is empty. This can’t be undone."}
+                  ? `Its ${total} ${total === 1 ? 'card is' : 'cards are'} deleted too. This can’t be undone.`
+                  : 'The column is empty. This can’t be undone.'}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -1463,7 +1274,7 @@ function InlineText({
     if (close || !keepOpen) {
       done.current = true;
       onClose();
-    } else setValue("");
+    } else setValue('');
   };
   return (
     <Input
@@ -1472,15 +1283,15 @@ function InlineText({
       placeholder={placeholder}
       value={value}
       className="sprout-board-inline-input"
-      onChange={(event) => setValue(event.currentTarget.value)}
-      onPointerDown={(event) => event.stopPropagation()}
-      onClick={(event) => event.stopPropagation()}
-      onKeyDown={(event) => {
+      onChange={event => setValue(event.currentTarget.value)}
+      onPointerDown={event => event.stopPropagation()}
+      onClick={event => event.stopPropagation()}
+      onKeyDown={event => {
         event.stopPropagation();
-        if (event.key === "Enter") {
+        if (event.key === 'Enter') {
           event.preventDefault();
           commit(false);
-        } else if (event.key === "Escape") {
+        } else if (event.key === 'Escape') {
           event.preventDefault();
           done.current = true;
           onClose();

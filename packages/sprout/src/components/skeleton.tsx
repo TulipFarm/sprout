@@ -1,20 +1,13 @@
-import type { ComponentProps } from "react";
-import { mergeProps } from "@base-ui/react/merge-props";
-import { useRender } from "@base-ui/react/use-render";
-import { cn } from "../internal/classes.js";
+import type { ComponentProps } from 'react';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
+import { cn } from '../internal/classes.js';
 
-export const skeletonShapeNames = [
-  "line",
-  "title",
-  "avatar",
-  "panel",
-  "checkbox",
-  "action",
-] as const;
+export const skeletonShapeNames = ['line', 'title', 'avatar', 'panel', 'checkbox', 'action'] as const;
 
 export type SkeletonShape = (typeof skeletonShapeNames)[number];
 
-export interface SkeletonProps extends ComponentProps<"div"> {
+export interface SkeletonProps extends ComponentProps<'div'> {
   /**
    * The placeholder footprint. `"line"` is a 16px text row, `"title"` a 24px
    * heading at two thirds width, `"avatar"` a 32px circle, `"panel"` a 128px
@@ -24,35 +17,28 @@ export interface SkeletonProps extends ComponentProps<"div"> {
 }
 
 /** A pulsing placeholder that holds the space of content still loading. */
-export function Skeleton({
-  shape = "line",
-  className,
-  ...props
-}: SkeletonProps) {
+export function Skeleton({ shape = 'line', className, ...props }: SkeletonProps) {
   return (
     <div
       aria-hidden="true"
       data-slot="skeleton"
       data-shape={shape}
-      className={cn("sprout-skeleton", className)}
+      className={cn('sprout-skeleton', className)}
       {...props}
     />
   );
 }
 
-export const skeletonGroupGapNames = ["sm", "md", "lg"] as const;
+export const skeletonGroupGapNames = ['sm', 'md', 'lg'] as const;
 
 export type SkeletonGroupGap = (typeof skeletonGroupGapNames)[number];
 
 export interface SkeletonGroupState extends Record<string, unknown> {
-  slot: "skeleton-group";
+  slot: 'skeleton-group';
   gap: SkeletonGroupGap;
 }
 
-export interface SkeletonGroupProps extends useRender.ComponentProps<
-  "div",
-  SkeletonGroupState
-> {
+export interface SkeletonGroupProps extends useRender.ComponentProps<'div', SkeletonGroupState> {
   /**
    * Names the loading region, such as `"Loading projects"`. It becomes the
    * accessible name and is also read as visually hidden text.
@@ -63,35 +49,25 @@ export interface SkeletonGroupProps extends useRender.ComponentProps<
 }
 
 /** A `status` region that stacks skeletons and names what is loading. */
-export function SkeletonGroup({
-  label,
-  gap = "md",
-  className,
-  children,
-  render,
-  ref,
-  ...props
-}: SkeletonGroupProps) {
+export function SkeletonGroup({ label, gap = 'md', className, children, render, ref, ...props }: SkeletonGroupProps) {
   return useRender({
-    defaultTagName: "div",
+    defaultTagName: 'div',
     ref,
     render,
-    props: mergeProps<"div">(
+    props: mergeProps<'div'>(
       {
-        role: "status",
-        "aria-label": label,
-        className: cn("sprout-skeleton-group", className),
+        role: 'status',
+        'aria-label': label,
+        className: cn('sprout-skeleton-group', className),
         children: (
           <>
             {children}
-            {label ? (
-              <span className="sprout-skeleton-group-label">{`${label}…`}</span>
-            ) : null}
+            {label ? <span className="sprout-skeleton-group-label">{`${label}…`}</span> : null}
           </>
         ),
       },
       props,
     ),
-    state: { slot: "skeleton-group", gap },
+    state: { slot: 'skeleton-group', gap },
   });
 }

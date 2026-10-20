@@ -1,13 +1,13 @@
 ---
-import Docs from "../../layouts/Docs.astro";
+import Docs from '../../layouts/Docs.astro';
 import {
   ChatPlanCanvas,
   ChatPlanEmpty,
   ChatPlanLongContent,
   ChatPlanPlayground,
   ChatPlanStates,
-} from "../../components/ChatPlanDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+} from '../../components/ChatPlanDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -16,10 +16,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Chat Plan</h1>
   <p class="docs-lead">
-    A plan an agent proposed in chat. Each step shows if it is not started, in
-    progress, complete, or failed. The header counts completed steps.
+    A plan an agent proposed in chat. Each step shows if it is not started, in progress, complete, or failed. The header
+    counts completed steps.
   </p>
-  <div class="mt-8"><ChatPlanPlayground client:load /></div>
+  <div class="mt-8">
+    <ChatPlanPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -36,35 +38,36 @@ const steps: ChatPlanStep[] = [
 <ChatPlan title="Fill in missing suppliers" steps={steps} />`}
     />
     <ul>
-      <li><code>title</code>: the plan name. It also names the section.</li>
       <li>
-        <code>steps</code>: <code>{"{ id, title, detail?, state }[]"}</code>, in
-        order. <code>state</code> is <code>pending</code>,
-        <code>running</code>, <code>complete</code>, or <code>error</code>.
-        <code>detail</code> is one optional line under the title.
+        <code>title</code>: the plan name. It also names the section.
+      </li>
+      <li>
+        <code>steps</code>: <code>{'{ id, title, detail?, state }[]'}</code>, in order. <code>state</code> is{' '}
+        <code>pending</code>,<code>running</code>, <code>complete</code>, or <code>error</code>.<code>detail</code> is
+        one optional line under the title.
       </li>
     </ul>
     <p>Chat Plan has one look and one size. It fills the width it gets.</p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Step states</h2>
-    <p>
-      Complete shows a green check, in progress a spinner, failed a red warning,
-      and not started a clock.
-    </p>
-    <div class="mt-4"><ChatPlanStates client:load /></div>
+    <p>Complete shows a green check, in progress a spinner, failed a red warning, and not started a clock.</p>
+    <div class="mt-4">
+      <ChatPlanStates client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Empty plan</h2>
     <p>With no steps, the plan says none were proposed yet.</p>
-    <div class="mt-4"><ChatPlanEmpty client:load /></div>
+    <div class="mt-4">
+      <ChatPlanEmpty client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">In the canvas</h2>
     <p>
-      A to-do result opens in the <a href="/components/canvas/">Canvas</a>. Wrap
-      the plan in <code>CanvasSection</code> with no title, so the plan's own title
-      leads.
+      A to-do result opens in the <a href="/components/canvas/">Canvas</a>. Wrap the plan in <code>CanvasSection</code>{' '}
+      with no title, so the plan's own title leads.
     </p>
     <CodeBlock
       lang="tsx"
@@ -72,28 +75,25 @@ const steps: ChatPlanStep[] = [
   <ChatPlan title={item.title} steps={item.steps} />
 </CanvasSection>`}
     />
-    <div class="mt-4"><ChatPlanCanvas client:load /></div>
+    <div class="mt-4">
+      <ChatPlanCanvas client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Long content</h2>
-    <p>
-      Long titles, links, and details wrap. The count moves below the title when
-      space runs out.
-    </p>
-    <div class="mt-4"><ChatPlanLongContent client:load /></div>
+    <p>Long titles, links, and details wrap. The count moves below the title when space runs out.</p>
+    <div class="mt-4">
+      <ChatPlanLongContent client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
       The plan is a <code>section</code> named by its title, which is an
-      <code>h4</code>. Steps are an ordered list. Icons are hidden; each step
-      ends with hidden text such as “In progress” or “Failed”, so screen readers
-      hear the state.
+      <code>h4</code>. Steps are an ordered list. Icons are hidden; each step ends with hidden text such as “In
+      progress” or “Failed”, so screen readers hear the state.
     </p>
-    <p>
-      When a step changes state its icon fades in over 180ms; with reduced
-      motion it changes at once.
-    </p>
+    <p>When a step changes state its icon fades in over 180ms; with reduced motion it changes at once.</p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>

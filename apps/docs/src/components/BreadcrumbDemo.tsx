@@ -1,6 +1,6 @@
-import { Fragment, useState, type MouseEvent, type ReactNode } from "react";
-import { Folder } from "reicon-react/icons/Folder";
-import { Home } from "reicon-react/icons/Home";
+import { Fragment, useState, type MouseEvent, type ReactNode } from 'react';
+import { Folder } from 'reicon-react/icons/Folder';
+import { Home } from 'reicon-react/icons/Home';
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -9,22 +9,14 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@tulipfarm/sprout/breadcrumb";
-import { Button } from "@tulipfarm/sprout/button";
-import "../styles/breadcrumb-demo.css";
-import DocsSelect from "./DocsSelect";
+} from '@tulipfarm/sprout/breadcrumb';
+import { Button } from '@tulipfarm/sprout/button';
+import '../styles/breadcrumb-demo.css';
+import DocsSelect from './DocsSelect';
 
 const stay = (event: MouseEvent) => event.preventDefault();
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="breadcrumb-demo-card" aria-label={title}>
       <header>
@@ -50,52 +42,51 @@ function Hidden({ children }: { children: ReactNode }) {
 
 type Crumb = { id: string; name: string };
 
-type Source = "files" | "drive";
+type Source = 'files' | 'drive';
 const sources: { value: Source; label: string }[] = [
-  { value: "files", label: "Workspace files" },
-  { value: "drive", label: "Google Drive" },
+  { value: 'files', label: 'Workspace files' },
+  { value: 'drive', label: 'Google Drive' },
 ];
 
-type PathState =
-  "root" | "nested" | "restricted" | "shared" | "search" | "loading" | "error";
+type PathState = 'root' | 'nested' | 'restricted' | 'shared' | 'search' | 'loading' | 'error';
 const pathStates: Record<Source, { value: PathState; label: string }[]> = {
   files: [
-    { value: "root", label: "Root" },
-    { value: "nested", label: "Nested folder" },
-    { value: "restricted", label: "Folders you can’t open" },
-    { value: "search", label: "Search results" },
+    { value: 'root', label: 'Root' },
+    { value: 'nested', label: 'Nested folder' },
+    { value: 'restricted', label: 'Folders you can’t open' },
+    { value: 'search', label: 'Search results' },
   ],
   drive: [
-    { value: "root", label: "Root" },
-    { value: "nested", label: "Higher folders hidden" },
-    { value: "restricted", label: "Folders you can’t open" },
-    { value: "shared", label: "Shared with me" },
-    { value: "search", label: "Search results" },
-    { value: "loading", label: "Loading" },
-    { value: "error", label: "Error" },
+    { value: 'root', label: 'Root' },
+    { value: 'nested', label: 'Higher folders hidden' },
+    { value: 'restricted', label: 'Folders you can’t open' },
+    { value: 'shared', label: 'Shared with me' },
+    { value: 'search', label: 'Search results' },
+    { value: 'loading', label: 'Loading' },
+    { value: 'error', label: 'Error' },
   ],
 };
 
 const library: Crumb[] = [
-  { id: "finance", name: "Finance" },
+  { id: 'finance', name: 'Finance' },
   {
-    id: "board",
-    name: "Q3 board meeting — statements and supporting schedules",
+    id: 'board',
+    name: 'Q3 board meeting — statements and supporting schedules',
   },
-  { id: "drafts", name: "Drafts" },
+  { id: 'drafts', name: 'Drafts' },
 ];
 
 function FolderPath() {
-  const [source, setSource] = useState<Source>("files");
-  const [state, setState] = useState<PathState>("nested");
+  const [source, setSource] = useState<Source>('files');
+  const [state, setState] = useState<PathState>('nested');
   const [depth, setDepth] = useState(library.length);
-  const root = source === "files" ? "All files" : "Google Drive";
-  const atRoot = state === "root" || (state === "nested" && depth === 0);
+  const root = source === 'files' ? 'All files' : 'Google Drive';
+  const atRoot = state === 'root' || (state === 'nested' && depth === 0);
   const trail = library.slice(0, depth);
   const go = (next: number) => (event: MouseEvent) => {
     event.preventDefault();
-    if (next === 0) setState("root");
-    else if (state === "root") setState("nested");
+    if (next === 0) setState('root');
+    else if (state === 'root') setState('nested');
     setDepth(next);
   };
   const crumbs = (items: Crumb[]) =>
@@ -106,11 +97,7 @@ function FolderPath() {
           {index === items.length - 1 ? (
             <BreadcrumbPage truncate>{crumb.name}</BreadcrumbPage>
           ) : (
-            <BreadcrumbLink
-              truncate
-              href={`#folder-${crumb.id}`}
-              onClick={go(library.indexOf(crumb) + 1)}
-            >
+            <BreadcrumbLink truncate href={`#folder-${crumb.id}`} onClick={go(library.indexOf(crumb) + 1)}>
               {crumb.name}
             </BreadcrumbLink>
           )}
@@ -126,9 +113,9 @@ function FolderPath() {
           <DocsSelect<Source>
             label="Source"
             value={source}
-            onValueChange={(next) => {
+            onValueChange={next => {
               setSource(next);
-              setState("nested");
+              setState('nested');
               setDepth(library.length);
             }}
             items={sources}
@@ -139,7 +126,7 @@ function FolderPath() {
           <DocsSelect<PathState>
             label="Path state"
             value={state}
-            onValueChange={(next) => {
+            onValueChange={next => {
               setState(next);
               setDepth(library.length);
             }}
@@ -159,39 +146,33 @@ function FolderPath() {
                 </BreadcrumbLink>
               )}
             </BreadcrumbItem>
-            {state === "search" ? (
+            {state === 'search' ? (
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbPage truncate>Search results</BreadcrumbPage>
                 </BreadcrumbItem>
               </>
-            ) : state === "shared" ? (
+            ) : state === 'shared' ? (
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbPage truncate>Shared with me</BreadcrumbPage>
                 </BreadcrumbItem>
               </>
-            ) : state === "loading" ? (
+            ) : state === 'loading' ? (
               <Hidden>Loading folder path</Hidden>
-            ) : state === "error" ? (
+            ) : state === 'error' ? (
               <Hidden>Folder path unavailable</Hidden>
-            ) : state === "restricted" ? (
+            ) : state === 'restricted' ? (
               <>
-                <Hidden>
-                  {source === "files"
-                    ? "Folders you cannot open"
-                    : "Folders you can’t open"}
-                </Hidden>
+                <Hidden>{source === 'files' ? 'Folders you cannot open' : 'Folders you can’t open'}</Hidden>
                 {crumbs(trail.slice(1))}
               </>
             ) : (
               !atRoot && (
                 <>
-                  {source === "drive" && (
-                    <Hidden>Higher folders not shown</Hidden>
-                  )}
+                  {source === 'drive' && <Hidden>Higher folders not shown</Hidden>}
                   {crumbs(trail)}
                 </>
               )
@@ -205,11 +186,11 @@ function FolderPath() {
           placeholder={`Search ${root}`}
         />
       </div>
-      {state === "error" ? (
+      {state === 'error' ? (
         <p className="breadcrumb-demo-note" role="alert">
           We couldn’t load this folder’s path. Its files are still listed below.
         </p>
-      ) : state === "loading" ? (
+      ) : state === 'loading' ? (
         <p className="breadcrumb-demo-note" role="status">
           Loading folder path…
         </p>
@@ -218,30 +199,30 @@ function FolderPath() {
   );
 }
 
-type Section = "mine" | "shared";
+type Section = 'mine' | 'shared';
 const sections: Record<Section, string> = {
-  mine: "My files",
-  shared: "Shared with me",
+  mine: 'My files',
+  shared: 'Shared with me',
 };
 const folders: Record<string, Crumb[]> = {
   mine: [
-    { id: "clients", name: "Clients" },
-    { id: "contracts", name: "Contracts" },
+    { id: 'clients', name: 'Clients' },
+    { id: 'contracts', name: 'Contracts' },
   ],
-  shared: [{ id: "ops", name: "Operations handbook and vendor onboarding" }],
-  clients: [{ id: "northwind", name: "Northwind Traders — renewal 2027" }],
-  northwind: [{ id: "signed", name: "Signed agreements" }],
+  shared: [{ id: 'ops', name: 'Operations handbook and vendor onboarding' }],
+  clients: [{ id: 'northwind', name: 'Northwind Traders — renewal 2027' }],
+  northwind: [{ id: 'signed', name: 'Signed agreements' }],
   contracts: [],
-  ops: [{ id: "vendors", name: "Vendors" }],
+  ops: [{ id: 'vendors', name: 'Vendors' }],
   vendors: [],
   signed: [],
 };
 
 function DestinationPicker() {
-  const [section, setSection] = useState<Section>("mine");
+  const [section, setSection] = useState<Section>('mine');
   const [path, setPath] = useState<Crumb[]>([
-    { id: "clients", name: "Clients" },
-    { id: "northwind", name: "Northwind Traders — renewal 2027" },
+    { id: 'clients', name: 'Clients' },
+    { id: 'northwind', name: 'Northwind Traders — renewal 2027' },
   ]);
   const [moving, setMoving] = useState(false);
   const here = path.at(-1)?.id ?? section;
@@ -250,10 +231,10 @@ function DestinationPicker() {
   return (
     <div className="breadcrumb-demo-picker">
       <div role="group" aria-label="Location" className="breadcrumb-demo-row">
-        {(["mine", "shared"] as const).map((key) => (
+        {(['mine', 'shared'] as const).map(key => (
           <Button
             key={key}
-            variant={section === key ? "secondary" : "ghost"}
+            variant={section === key ? 'secondary' : 'ghost'}
             size="sm"
             disabled={moving}
             aria-pressed={section === key}
@@ -266,24 +247,14 @@ function DestinationPicker() {
           </Button>
         ))}
       </div>
-      <Breadcrumb
-        aria-label="Destination path"
-        className="breadcrumb-demo-narrow"
-      >
+      <Breadcrumb aria-label="Destination path" className="breadcrumb-demo-narrow">
         <BreadcrumbList>
           <BreadcrumbItem>
             {path.length === 0 ? (
               <BreadcrumbPage>{sections[section]}</BreadcrumbPage>
             ) : (
               <BreadcrumbLink
-                render={
-                  <Button
-                    variant="ghost"
-                    size="xs"
-                    disabled={moving}
-                    onClick={() => setPath([])}
-                  />
-                }
+                render={<Button variant="ghost" size="xs" disabled={moving} onClick={() => setPath([])} />}
               >
                 {sections[section]}
               </BreadcrumbLink>
@@ -317,19 +288,11 @@ function DestinationPicker() {
       </Breadcrumb>
       {list.length ? (
         <ul aria-label="Folders" className="breadcrumb-demo-folders">
-          {list.map((folder) => (
+          {list.map(folder => (
             <li key={folder.id}>
-              <Button
-                variant="ghost"
-                size="nav"
-                disabled={moving}
-                onClick={() => setPath([...path, folder])}
-              >
+              <Button variant="ghost" size="nav" disabled={moving} onClick={() => setPath([...path, folder])}>
                 <Folder size={16} aria-hidden="true" />
-                <span
-                  className="breadcrumb-demo-folder-name"
-                  title={folder.name}
-                >
+                <span className="breadcrumb-demo-folder-name" title={folder.name}>
                   {folder.name}
                 </span>
               </Button>
@@ -341,12 +304,12 @@ function DestinationPicker() {
       )}
       <div className="breadcrumb-demo-row">
         <Button
-          variant={moving ? "outline" : "default"}
+          variant={moving ? 'outline' : 'default'}
           size="sm"
           aria-pressed={moving}
           onClick={() => setMoving(!moving)}
         >
-          {moving ? "Stop moving" : "Move here"}
+          {moving ? 'Stop moving' : 'Move here'}
         </Button>
         {moving && (
           <span className="breadcrumb-demo-note" role="status">
@@ -369,13 +332,7 @@ function PageTrail({ title, chrome }: { title: string; chrome?: boolean }) {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem aria-current="page">
-          <h4
-            className={
-              chrome
-                ? "breadcrumb-demo-title breadcrumb-demo-title-chrome"
-                : "breadcrumb-demo-title"
-            }
-          >
+          <h4 className={chrome ? 'breadcrumb-demo-title breadcrumb-demo-title-chrome' : 'breadcrumb-demo-title'}>
             {title}
           </h4>
         </BreadcrumbItem>
@@ -421,15 +378,8 @@ export default function BreadcrumbDemo() {
         <div className="breadcrumb-demo-page">
           <PageTrail title="Weekly revenue digest" />
         </div>
-        <div
-          className="breadcrumb-demo-chrome"
-          aria-label="App header"
-          role="group"
-        >
-          <PageTrail
-            chrome
-            title="Weekly revenue digest for the finance and operations team"
-          />
+        <div className="breadcrumb-demo-chrome" aria-label="App header" role="group">
+          <PageTrail chrome title="Weekly revenue digest for the finance and operations team" />
         </div>
       </Example>
 
@@ -447,28 +397,19 @@ export default function BreadcrumbDemo() {
         <DestinationPicker />
       </Example>
 
-      <Example
-        title="Direction"
-        description="Separators point along the reading direction."
-      >
-        {(["ltr", "rtl"] as const).map((dir) => (
+      <Example title="Direction" description="Separators point along the reading direction.">
+        {(['ltr', 'rtl'] as const).map(dir => (
           <div key={dir} dir={dir} className="breadcrumb-demo-direction">
-            <Breadcrumb
-              aria-label={
-                dir === "rtl" ? "مسار التنقل" : "Breadcrumb, left to right"
-              }
-            >
+            <Breadcrumb aria-label={dir === 'rtl' ? 'مسار التنقل' : 'Breadcrumb, left to right'}>
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink href="#example" onClick={stay}>
-                    {dir === "rtl" ? "المشاريع" : "Projects"}
+                    {dir === 'rtl' ? 'المشاريع' : 'Projects'}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>
-                    {dir === "rtl" ? "الحديقة" : "Garden"}
-                  </BreadcrumbPage>
+                  <BreadcrumbPage>{dir === 'rtl' ? 'الحديقة' : 'Garden'}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

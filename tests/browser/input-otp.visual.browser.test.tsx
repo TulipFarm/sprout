@@ -1,12 +1,12 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "../../packages/sprout/src/components/input-otp.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/input-otp.js';
+import { setTheme, settle, themes } from './support.js';
 
 function Code(props: Partial<Parameters<typeof InputOTP>[0]>) {
   return (
@@ -26,16 +26,16 @@ function Code(props: Partial<Parameters<typeof InputOTP>[0]>) {
   );
 }
 
-it.each(themes)("input-otp %s %s", async (theme, mode) => {
+it.each(themes)('input-otp %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "inline-grid",
+        display: 'inline-grid',
         gap: 12,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <Code defaultValue="12" />
@@ -44,7 +44,5 @@ it.each(themes)("input-otp %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`input-otp-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`input-otp-${theme}-${mode}`);
 });

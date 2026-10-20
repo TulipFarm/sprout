@@ -90,9 +90,7 @@
       background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
     }
   }
-  .sprout-questionnaire-choice:has(
-    > .sprout-questionnaire-choice-input:focus-visible
-  ) {
+  .sprout-questionnaire-choice:has(> .sprout-questionnaire-choice-input:focus-visible) {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-questionnaire-choice[data-checked] {
@@ -102,9 +100,7 @@
   .sprout-questionnaire-choice[data-invalid] {
     border-color: var(--sprout-danger);
   }
-  .sprout-questionnaire-choice[data-invalid]:has(
-      > .sprout-questionnaire-choice-input:focus-visible
-    ) {
+  .sprout-questionnaire-choice[data-invalid]:has(> .sprout-questionnaire-choice-input:focus-visible) {
     outline-color: var(--sprout-danger);
   }
   .sprout-questionnaire-choice[data-disabled] {
@@ -140,12 +136,10 @@
     color: var(--sprout-on-primary);
     pointer-events: none;
   }
-  .sprout-questionnaire-choice[data-type="radio"]
-    .sprout-questionnaire-choice-indicator {
+  .sprout-questionnaire-choice[data-type='radio'] .sprout-questionnaire-choice-indicator {
     border-radius: 999px;
   }
-  .sprout-questionnaire-choice[data-checked]
-    .sprout-questionnaire-choice-indicator {
+  .sprout-questionnaire-choice[data-checked] .sprout-questionnaire-choice-indicator {
     border-color: var(--sprout-primary);
     background: var(--sprout-primary);
   }
@@ -163,10 +157,8 @@
     width: 12px;
     height: 12px;
   }
-  .sprout-questionnaire-choice[data-type="radio"][data-checked]
-    .sprout-questionnaire-choice-dot,
-  .sprout-questionnaire-choice[data-type="checkbox"][data-checked]
-    .sprout-questionnaire-choice-check {
+  .sprout-questionnaire-choice[data-type='radio'][data-checked] .sprout-questionnaire-choice-dot,
+  .sprout-questionnaire-choice[data-type='checkbox'][data-checked] .sprout-questionnaire-choice-check {
     display: block;
   }
 
@@ -187,13 +179,8 @@
     font-variant-numeric: tabular-nums;
     pointer-events: none;
   }
-  .sprout-questionnaire-choice[data-checked]
-    .sprout-questionnaire-choice-shortcut {
-    border-color: color-mix(
-      in oklab,
-      var(--sprout-focus) 40%,
-      var(--sprout-line)
-    );
+  .sprout-questionnaire-choice[data-checked] .sprout-questionnaire-choice-shortcut {
+    border-color: color-mix(in oklab, var(--sprout-focus) 40%, var(--sprout-line));
     color: var(--sprout-text);
   }
 
@@ -260,24 +247,16 @@
     .sprout-questionnaire-choice-indicator,
     .sprout-questionnaire-choice-shortcut {
       transition:
-        background-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        border-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-questionnaire-item[data-active] {
-      animation: sprout-questionnaire-enter var(--sprout-motion-normal, 160ms)
-        var(--sprout-motion-ease, ease-out);
+      animation: sprout-questionnaire-enter var(--sprout-motion-normal, 160ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-questionnaire-choice[data-checked]
-      :is(
-        .sprout-questionnaire-choice-dot,
-        .sprout-questionnaire-choice-check
-      ) {
-      animation: sprout-questionnaire-pop var(--sprout-motion-fast, 140ms)
-        ease-out both;
+      :is(.sprout-questionnaire-choice-dot, .sprout-questionnaire-choice-check) {
+      animation: sprout-questionnaire-pop var(--sprout-motion-fast, 140ms) ease-out both;
     }
   }
   @keyframes sprout-questionnaire-enter {
@@ -295,13 +274,10 @@
 
   @media (forced-colors: active) {
     .sprout-questionnaire-choice[data-checked],
-    .sprout-questionnaire-choice[data-checked]
-      .sprout-questionnaire-choice-indicator {
+    .sprout-questionnaire-choice[data-checked] .sprout-questionnaire-choice-indicator {
       border-color: Highlight;
     }
-    .sprout-questionnaire-choice:has(
-      > .sprout-questionnaire-choice-input:focus-visible
-    ) {
+    .sprout-questionnaire-choice:has(> .sprout-questionnaire-choice-input:focus-visible) {
       outline-color: Highlight;
     }
   }

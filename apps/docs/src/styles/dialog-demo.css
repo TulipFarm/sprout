@@ -639,8 +639,8 @@
   cursor: pointer;
   transition: background-color var(--sprout-motion-fast) ease-out;
 }
-.dialog-demo-search-list li[aria-selected="true"],
-.dialog-demo-command-list li[aria-selected="true"] {
+.dialog-demo-search-list li[aria-selected='true'],
+.dialog-demo-command-list li[aria-selected='true'] {
   background: var(--sprout-active);
 }
 .dialog-demo-search-icon {
@@ -696,11 +696,7 @@
   gap: 4px 14px;
   padding: 8px 14px;
   border-top: 1px solid var(--sprout-line);
-  background: color-mix(
-    in oklab,
-    var(--sprout-canvas) 70%,
-    var(--sprout-surface)
-  );
+  background: color-mix(in oklab, var(--sprout-canvas) 70%, var(--sprout-surface));
   font-size: var(--sprout-text-xs);
   color: var(--sprout-muted);
 }

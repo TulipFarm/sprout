@@ -1,25 +1,19 @@
-"use client";
+'use client';
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ReactElement,
-  type ReactNode,
-} from "react";
-import { cn } from "../internal/classes.js";
-import { Alert } from "./alert.js";
-import { Badge } from "./badge.js";
+import { useEffect, useRef, useState, type ReactElement, type ReactNode } from 'react';
+import { cn } from '../internal/classes.js';
+import { Alert } from './alert.js';
+import { Badge } from './badge.js';
 import {
   Button,
   jumpTo,
   useActionControl,
   type ButtonBlockerFix as ActionBlockerFix,
   type ButtonState as ActionControlState,
-} from "./button.js";
-import { FieldsDisabled } from "./field.js";
+} from './button.js';
+import { FieldsDisabled } from './field.js';
 
-export const formFooterLayoutNames = ["bar", "stack", "compact"] as const;
+export const formFooterLayoutNames = ['bar', 'stack', 'compact'] as const;
 export const formSectionLevelNames = [2, 3] as const;
 
 export type FormFooterLayout = (typeof formFooterLayoutNames)[number];
@@ -33,7 +27,7 @@ export interface FormProps {
   /** Locks every Field, ChoiceGroup, and CheckboxField inside. */
   disabled?: boolean | undefined;
   /** Return `"invalid"` after revealing errors; Form then focuses the first invalid control. */
-  onSubmit: () => "invalid" | void;
+  onSubmit: () => 'invalid' | void;
   /** The form's accessible name. */
   label?: string | undefined;
   className?: string | undefined;
@@ -45,21 +39,11 @@ export interface FormProps {
  * while `disabled`, and moves focus to the first invalid control after a
  * failed submit.
  */
-export function Form({
-  id,
-  disabled = false,
-  onSubmit,
-  label,
-  className,
-  children,
-}: FormProps) {
+export function Form({ id, disabled = false, onSubmit, label, className, children }: FormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [failedSubmits, setFailedSubmits] = useState(0);
   useEffect(() => {
-    const invalid =
-      failedSubmits > 0
-        ? formRef.current?.querySelector('[aria-invalid="true"]')
-        : null;
+    const invalid = failedSubmits > 0 ? formRef.current?.querySelector('[aria-invalid="true"]') : null;
     if (invalid) jumpTo(invalid);
   }, [failedSubmits]);
   return (
@@ -70,10 +54,10 @@ export function Form({
         data-slot="form"
         noValidate
         aria-label={label}
-        className={cn("sprout-form", className)}
-        onSubmit={(event) => {
+        className={cn('sprout-form', className)}
+        onSubmit={event => {
           event.preventDefault();
-          if (onSubmit() === "invalid") setFailedSubmits((count) => count + 1);
+          if (onSubmit() === 'invalid') setFailedSubmits(count => count + 1);
         }}
       >
         {children}
@@ -96,30 +80,19 @@ export interface FormSectionProps {
 }
 
 /** A bordered, named region of a form with a title, description, and optional meta badge. */
-export function FormSection({
-  title,
-  description,
-  meta,
-  label,
-  id,
-  level = 2,
-  className,
-  children,
-}: FormSectionProps) {
-  const Heading = level === 3 ? "h3" : "h2";
+export function FormSection({ title, description, meta, label, id, level = 2, className, children }: FormSectionProps) {
+  const Heading = level === 3 ? 'h3' : 'h2';
   return (
     <section
       id={id}
       data-slot="form-section"
       aria-label={label ?? title}
-      className={cn("sprout-form-section", className)}
+      className={cn('sprout-form-section', className)}
     >
       <div className="sprout-form-section-header">
         <div className="sprout-form-section-text">
           <Heading className="sprout-form-section-title">{title}</Heading>
-          {description && (
-            <p className="sprout-form-section-description">{description}</p>
-          )}
+          {description && <p className="sprout-form-section-description">{description}</p>}
         </div>
         {meta && <Badge variant="secondary">{meta}</Badge>}
       </div>
@@ -130,9 +103,9 @@ export function FormSection({
 
 export type FormCancel =
   /** Shown only while the form is dirty and not busy. */
-  | { kind: "reset"; label: string; onReset: () => void }
+  | { kind: 'reset'; label: string; onReset: () => void }
   /** A link element, such as a router `<Link>`, rendered through Button `render`. */
-  | { kind: "leave"; label: string; link: ReactElement };
+  | { kind: 'leave'; label: string; link: ReactElement };
 
 export interface FormFooterSubmit {
   label: string;
@@ -179,24 +152,18 @@ export function FormFooter({
   cancel,
   note,
   error,
-  layout = "bar",
+  layout = 'bar',
   className,
   children,
 }: FormFooterProps) {
   const action = useActionControl(submit.state);
-  const stack = layout === "stack";
-  const compact = layout === "compact";
-  const size = stack ? "lg" : "default";
-  const wide = stack ? "sprout-form-footer-wide" : undefined;
+  const stack = layout === 'stack';
+  const compact = layout === 'compact';
+  const size = stack ? 'lg' : 'default';
+  const wide = stack ? 'sprout-form-footer-wide' : undefined;
   const save = (
-    <Button
-      type="submit"
-      form={form}
-      size={size}
-      className={wide}
-      {...action.button}
-    >
-      {submit.state.kind === "busy" ? submit.pendingLabel : submit.label}
+    <Button type="submit" form={form} size={size} className={wide} {...action.button}>
+      {submit.state.kind === 'busy' ? submit.pendingLabel : submit.label}
     </Button>
   );
   const secondary = secondarySubmit && (
@@ -212,23 +179,12 @@ export function FormFooter({
       {secondarySubmit.label}
     </Button>
   );
-  const cancelButton = !cancel ? null : cancel.kind === "leave" ? (
-    <Button
-      variant="outline"
-      size={size}
-      className={wide}
-      nativeButton={false}
-      render={cancel.link}
-    >
+  const cancelButton = !cancel ? null : cancel.kind === 'leave' ? (
+    <Button variant="outline" size={size} className={wide} nativeButton={false} render={cancel.link}>
       {cancel.label}
     </Button>
-  ) : dirty && submit.state.kind !== "busy" ? (
-    <Button
-      variant="outline"
-      size={size}
-      className={wide}
-      onClick={cancel.onReset}
-    >
+  ) : dirty && submit.state.kind !== 'busy' ? (
+    <Button variant="outline" size={size} className={wide} onClick={cancel.onReset}>
       {cancel.label}
     </Button>
   ) : null;
@@ -244,11 +200,7 @@ export function FormFooter({
     </>
   );
   return (
-    <div
-      data-slot="form-footer"
-      data-layout={layout}
-      className={cn("sprout-form-footer", className)}
-    >
+    <div data-slot="form-footer" data-layout={layout} className={cn('sprout-form-footer', className)}>
       {stack ? (
         <>
           {status}
@@ -260,13 +212,7 @@ export function FormFooter({
         </>
       ) : (
         <div className="sprout-form-footer-row">
-          <div
-            className={
-              compact && !summary
-                ? "sprout-form-footer-sr-only"
-                : "sprout-form-footer-status"
-            }
-          >
+          <div className={compact && !summary ? 'sprout-form-footer-sr-only' : 'sprout-form-footer-status'}>
             {summary ?? status}
           </div>
           <div className="sprout-form-footer-actions">

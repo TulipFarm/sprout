@@ -171,7 +171,7 @@
     background: var(--sprout-primary);
     color: var(--sprout-on-primary);
   }
-  .sprout-agent-fanout-root[data-state="stopped"] {
+  .sprout-agent-fanout-root[data-state='stopped'] {
     background: var(--sprout-hover);
     color: var(--sprout-muted);
     box-shadow: inset 0 0 0 1px var(--sprout-line);
@@ -205,48 +205,35 @@
     z-index: -1;
     inset: calc(var(--sprout-agent-fanout-dot) * -0.27);
     border-radius: 50%;
-    background: color-mix(
-      in oklab,
-      var(--sprout-agent-fanout-color) 14%,
-      transparent
-    );
-    content: "";
+    background: color-mix(in oklab, var(--sprout-agent-fanout-color) 14%, transparent);
+    content: '';
     opacity: 0;
   }
   .sprout-agent-fanout-node {
     isolation: isolate;
   }
-  .sprout-agent-fanout-node[data-status="queued"] .sprout-agent-fanout-dot {
+  .sprout-agent-fanout-node[data-status='queued'] .sprout-agent-fanout-dot {
     color: color-mix(in oklab, var(--sprout-muted) 70%, var(--sprout-surface));
   }
-  .sprout-agent-fanout-node[data-status="working"] .sprout-agent-fanout-dot {
+  .sprout-agent-fanout-node[data-status='working'] .sprout-agent-fanout-dot {
     border-color: var(--sprout-agent-fanout-color);
-    background: color-mix(
-      in oklab,
-      var(--sprout-agent-fanout-color) 6%,
-      var(--sprout-surface)
-    );
-    color: color-mix(
-      in oklab,
-      var(--sprout-agent-fanout-color) 78%,
-      var(--sprout-text)
-    );
+    background: color-mix(in oklab, var(--sprout-agent-fanout-color) 6%, var(--sprout-surface));
+    color: color-mix(in oklab, var(--sprout-agent-fanout-color) 78%, var(--sprout-text));
   }
-  .sprout-agent-fanout-node[data-status="working"]
-    .sprout-agent-fanout-dot::before {
+  .sprout-agent-fanout-node[data-status='working'] .sprout-agent-fanout-dot::before {
     opacity: 1;
   }
-  .sprout-agent-fanout-node[data-status="done"] .sprout-agent-fanout-dot {
+  .sprout-agent-fanout-node[data-status='done'] .sprout-agent-fanout-dot {
     border-color: var(--sprout-agent-fanout-color);
     background: var(--sprout-agent-fanout-color);
     color: var(--sprout-agent-fanout-check);
   }
-  .sprout-agent-fanout-node[data-status="failed"] .sprout-agent-fanout-dot {
+  .sprout-agent-fanout-node[data-status='failed'] .sprout-agent-fanout-dot {
     border-color: var(--sprout-danger);
     background: var(--sprout-danger-subtle);
     color: var(--sprout-danger);
   }
-  .sprout-agent-fanout-node[data-status="stopped"] .sprout-agent-fanout-dot {
+  .sprout-agent-fanout-node[data-status='stopped'] .sprout-agent-fanout-dot {
     border-color: var(--sprout-border);
     opacity: 0.6;
   }
@@ -333,19 +320,13 @@
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
-  .sprout-agent-fanout-row[data-status="working"]
-    .sprout-agent-fanout-row-status {
-    color: color-mix(
-      in oklab,
-      var(--sprout-agent-fanout-color) 72%,
-      var(--sprout-text)
-    );
+  .sprout-agent-fanout-row[data-status='working'] .sprout-agent-fanout-row-status {
+    color: color-mix(in oklab, var(--sprout-agent-fanout-color) 72%, var(--sprout-text));
   }
-  .sprout-agent-fanout-row[data-status="done"] .sprout-agent-fanout-row-status {
+  .sprout-agent-fanout-row[data-status='done'] .sprout-agent-fanout-row-status {
     color: var(--sprout-text);
   }
-  .sprout-agent-fanout-row[data-status="failed"]
-    .sprout-agent-fanout-row-status {
+  .sprout-agent-fanout-row[data-status='failed'] .sprout-agent-fanout-row-status {
     color: var(--sprout-danger);
   }
   .sprout-agent-fanout-pulse {
@@ -395,21 +376,18 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .sprout-agent-fanout-trail[data-trip="out"] {
-      animation: sprout-agent-fanout-out var(--sprout-agent-fanout-trip)
-        var(--sprout-agent-fanout-trip-ease) both;
+    .sprout-agent-fanout-trail[data-trip='out'] {
+      animation: sprout-agent-fanout-out var(--sprout-agent-fanout-trip) var(--sprout-agent-fanout-trip-ease) both;
     }
-    .sprout-agent-fanout-trail[data-trip="back"] {
-      animation: sprout-agent-fanout-back var(--sprout-agent-fanout-trip)
-        var(--sprout-agent-fanout-trip-ease) both;
+    .sprout-agent-fanout-trail[data-trip='back'] {
+      animation: sprout-agent-fanout-back var(--sprout-agent-fanout-trip) var(--sprout-agent-fanout-trip-ease) both;
     }
-    .sprout-agent-fanout-comet[data-trip="out"] {
-      animation: sprout-agent-fanout-comet-out var(--sprout-agent-fanout-trip)
-        var(--sprout-agent-fanout-trip-ease) both;
+    .sprout-agent-fanout-comet[data-trip='out'] {
+      animation: sprout-agent-fanout-comet-out var(--sprout-agent-fanout-trip) var(--sprout-agent-fanout-trip-ease) both;
     }
-    .sprout-agent-fanout-comet[data-trip="back"] {
-      animation: sprout-agent-fanout-comet-back var(--sprout-agent-fanout-trip)
-        var(--sprout-agent-fanout-trip-ease) both;
+    .sprout-agent-fanout-comet[data-trip='back'] {
+      animation: sprout-agent-fanout-comet-back var(--sprout-agent-fanout-trip) var(--sprout-agent-fanout-trip-ease)
+        both;
     }
 
     .sprout-agent-fanout-dot,
@@ -421,19 +399,15 @@
         opacity 240ms var(--sprout-motion-ease);
     }
     /* The node lights up when the pulse lands, not when it leaves. */
-    .sprout-agent-fanout-node[data-status="working"][data-changed]
-      .sprout-agent-fanout-dot,
-    .sprout-agent-fanout-node[data-status="working"][data-changed]
-      .sprout-agent-fanout-dot::before {
+    .sprout-agent-fanout-node[data-status='working'][data-changed] .sprout-agent-fanout-dot,
+    .sprout-agent-fanout-node[data-status='working'][data-changed] .sprout-agent-fanout-dot::before {
       transition-delay: calc(var(--sprout-agent-fanout-trip) * 0.85);
     }
-    .sprout-agent-fanout-node[data-status="working"]
-      .sprout-agent-fanout-dot::before {
+    .sprout-agent-fanout-node[data-status='working'] .sprout-agent-fanout-dot::before {
       animation: sprout-agent-fanout-breathe 1.6s ease-in-out infinite alternate;
       animation-delay: calc(var(--sprout-agent-fanout-index) * -0.55s);
     }
-    .sprout-agent-fanout-node[data-status="done"][data-changed]
-      .sprout-agent-fanout-dot {
+    .sprout-agent-fanout-node[data-status='done'][data-changed] .sprout-agent-fanout-dot {
       animation: sprout-agent-fanout-pop 420ms var(--sprout-motion-ease);
     }
     .sprout-agent-fanout-root[data-changed] {
@@ -536,8 +510,7 @@
 }
 @keyframes sprout-agent-fanout-ring {
   from {
-    box-shadow: 0 0 0 0
-      color-mix(in oklab, var(--sprout-primary) 28%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--sprout-primary) 28%, transparent);
   }
   to {
     box-shadow: 0 0 0 14px transparent;
@@ -545,8 +518,7 @@
 }
 @keyframes sprout-agent-fanout-pulse {
   0% {
-    box-shadow: 0 0 0 0
-      color-mix(in oklab, var(--sprout-agent-fanout-color) 45%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--sprout-agent-fanout-color) 45%, transparent);
   }
   100% {
     box-shadow: 0 0 0 5px transparent;

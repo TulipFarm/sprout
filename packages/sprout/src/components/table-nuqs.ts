@@ -1,34 +1,23 @@
-"use client";
+'use client';
 
-import {
-  createParser,
-  parseAsArrayOf,
-  parseAsInteger,
-  parseAsJson,
-  parseAsString,
-  useQueryStates,
-} from "nuqs";
-import type { ColumnFiltersState, SortingState } from "@tanstack/react-table";
-import type { TableState } from "./table.js";
+import { createParser, parseAsArrayOf, parseAsInteger, parseAsJson, parseAsString, useQueryStates } from 'nuqs';
+import type { ColumnFiltersState, SortingState } from '@tanstack/react-table';
+import type { TableState } from './table.js';
 
 const parseAsSorting = createParser<SortingState>({
-  parse: (value) =>
+  parse: value =>
     value
-      .split(",")
+      .split(',')
       .filter(Boolean)
-      .map((part) => {
-        const [id = "", dir] = part.split(".");
-        return { id, desc: dir === "desc" };
+      .map(part => {
+        const [id = '', dir] = part.split('.');
+        return { id, desc: dir === 'desc' };
       }),
-  serialize: (sorting) =>
-    sorting.map((s) => `${s.id}.${s.desc ? "desc" : "asc"}`).join(","),
+  serialize: sorting => sorting.map(s => `${s.id}.${s.desc ? 'desc' : 'asc'}`).join(','),
 });
 
 const isFilters = (value: unknown): ColumnFiltersState | null =>
-  Array.isArray(value) &&
-  value.every(
-    (f) => typeof f === "object" && f !== null && typeof f.id === "string",
-  )
+  Array.isArray(value) && value.every(f => typeof f === 'object' && f !== null && typeof f.id === 'string')
     ? (value as ColumnFiltersState)
     : null;
 
@@ -44,15 +33,12 @@ export interface TableUrlStateOptions {
  * URL with nuqs, so a shared link opens the same view. Spread the result into
  * `<Table {...useTableUrlState()} />`. Needs a nuqs adapter higher in the tree.
  */
-export function useTableUrlState({
-  prefix = "",
-  pageSize = 10,
-}: TableUrlStateOptions = {}) {
+export function useTableUrlState({ prefix = '', pageSize = 10 }: TableUrlStateOptions = {}) {
   const [query, setQuery] = useQueryStates(
     {
       sort: parseAsSorting.withDefault([]),
       filters: parseAsJson(isFilters).withDefault([]),
-      q: parseAsString.withDefault(""),
+      q: parseAsString.withDefault(''),
       group: parseAsArrayOf(parseAsString).withDefault([]),
       page: parseAsInteger.withDefault(1),
       size: parseAsInteger.withDefault(pageSize),
@@ -87,8 +73,7 @@ export function useTableUrlState({
       q: next.globalFilter || null,
       group: next.grouping.length ? next.grouping : null,
       page: next.pagination.pageIndex ? next.pagination.pageIndex + 1 : null,
-      size:
-        next.pagination.pageSize === pageSize ? null : next.pagination.pageSize,
+      size: next.pagination.pageSize === pageSize ? null : next.pagination.pageSize,
     });
 
   return { state, onStateChange };

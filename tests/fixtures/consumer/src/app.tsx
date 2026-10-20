@@ -6,8 +6,8 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@tulipfarm/sprout/sidebar";
-import { Button as LocalButton } from "./components/ui/button";
+} from '@tulipfarm/sprout/sidebar';
+import { Button as LocalButton } from './components/ui/button';
 
 export function App() {
   return (

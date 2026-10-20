@@ -1,42 +1,30 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Add } from "reicon-react/icons/Add";
-import { ArrowLeft } from "reicon-react/icons/ArrowLeft";
-import { BranchDown } from "reicon-react/icons/BranchDown";
-import { ChatRound } from "reicon-react/icons/ChatRound";
-import { Cpu } from "reicon-react/icons/Cpu";
-import { Database } from "reicon-react/icons/Database";
-import { Files } from "reicon-react/icons/Files";
-import { Folder } from "reicon-react/icons/Folder";
-import { Inbox } from "reicon-react/icons/Inbox";
-import { Loader } from "reicon-react/icons/Loader";
-import { Plug } from "reicon-react/icons/Plug";
-import { Button } from "@tulipfarm/sprout/button";
-import { Toggle } from "@tulipfarm/sprout/toggle";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Add } from 'reicon-react/icons/Add';
+import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
+import { BranchDown } from 'reicon-react/icons/BranchDown';
+import { ChatRound } from 'reicon-react/icons/ChatRound';
+import { Cpu } from 'reicon-react/icons/Cpu';
+import { Database } from 'reicon-react/icons/Database';
+import { Files } from 'reicon-react/icons/Files';
+import { Folder } from 'reicon-react/icons/Folder';
+import { Inbox } from 'reicon-react/icons/Inbox';
+import { Loader } from 'reicon-react/icons/Loader';
+import { Plug } from 'reicon-react/icons/Plug';
+import { Button } from '@tulipfarm/sprout/button';
+import { Toggle } from '@tulipfarm/sprout/toggle';
 import {
   StatePanel,
   statePanelKindNames,
   type StatePanelHeading,
   type StatePanelIcon,
   type StatePanelKind,
-} from "@tulipfarm/sprout/state-panel";
-import DocsSelect from "./DocsSelect";
-import "../styles/state-panel-demo.css";
+} from '@tulipfarm/sprout/state-panel';
+import DocsSelect from './DocsSelect';
+import '../styles/state-panel-demo.css';
 
-function Frame({
-  title,
-  children,
-  wide,
-}: {
-  title: string;
-  children: ReactNode;
-  wide?: boolean;
-}) {
+function Frame({ title, children, wide }: { title: string; children: ReactNode; wide?: boolean }) {
   return (
-    <section
-      className="state-demo-frame"
-      data-wide={wide || undefined}
-      aria-label={title}
-    >
+    <section className="state-demo-frame" data-wide={wide || undefined} aria-label={title}>
       <div className="state-demo-frame-bar">{title}</div>
       <div className="state-demo-frame-body">{children}</div>
     </section>
@@ -55,48 +43,40 @@ function DriveGlyph({ size = 20 }: { size?: number }) {
 }
 
 const icons = {
-  inbox: { label: "Inbox (default)", icon: Inbox },
-  files: { label: "Files", icon: Files },
-  database: { label: "Database", icon: Database },
-  folder: { label: "Folder", icon: Folder },
-  glyph: { label: "Custom glyph", icon: DriveGlyph },
+  inbox: { label: 'Inbox (default)', icon: Inbox },
+  files: { label: 'Files', icon: Files },
+  database: { label: 'Database', icon: Database },
+  folder: { label: 'Folder', icon: Folder },
+  glyph: { label: 'Custom glyph', icon: DriveGlyph },
 } satisfies Record<string, { label: string; icon: StatePanelIcon }>;
 type IconName = keyof typeof icons;
 
 const copy: Record<StatePanelKind, { title: string; description: string }> = {
   empty: {
-    title: "No files yet",
-    description:
-      "Upload the documents your work depends on, like price lists and contracts.",
+    title: 'No files yet',
+    description: 'Upload the documents your work depends on, like price lists and contracts.',
   },
   loading: {
-    title: "Opening file",
-    description: "Preparing the document viewer.",
+    title: 'Opening file',
+    description: 'Preparing the document viewer.',
   },
   success: {
-    title: "Slack is connected",
-    description: "Agents can now post to the channels you choose.",
+    title: 'Slack is connected',
+    description: 'Agents can now post to the channels you choose.',
   },
   unavailable: {
-    title: "This format cannot be displayed",
-    description:
-      "Download the original file to open it in a compatible application.",
+    title: 'This format cannot be displayed',
+    description: 'Download the original file to open it in a compatible application.',
   },
   error: {
-    title: "Could not open this file",
-    description: "The connection dropped while loading. Try again.",
+    title: 'Could not open this file',
+    description: 'The connection dropped while loading. Try again.',
   },
 };
 
-type ActionMode = "buttons" | "link" | "guidance" | "none";
+type ActionMode = 'buttons' | 'link' | 'guidance' | 'none';
 
-function SampleRows({
-  rows,
-  icon: Icon,
-}: {
-  rows: [string, string, string][];
-  icon: StatePanelIcon;
-}) {
+function SampleRows({ rows, icon: Icon }: { rows: [string, string, string][]; icon: StatePanelIcon }) {
   return (
     <div className="state-demo-sample">
       <div className="state-demo-sample-bar">
@@ -124,11 +104,11 @@ function SampleRows({
 }
 
 const fileRows: [string, string, string][] = [
-  ["Supplier contracts", "Folder · Shared with Purchasing", "You"],
-  ["Month-end close", "Folder", "You"],
-  ["Price list 2026.xlsx", "Spreadsheet · 48 KB", "You"],
-  ["Returns policy.pdf", "PDF · 212 KB", "You"],
-  ["Onboarding checklist.docx", "Document · 31 KB", "You"],
+  ['Supplier contracts', 'Folder · Shared with Purchasing', 'You'],
+  ['Month-end close', 'Folder', 'You'],
+  ['Price list 2026.xlsx', 'Spreadsheet · 48 KB', 'You'],
+  ['Returns policy.pdf', 'PDF · 212 KB', 'You'],
+  ['Onboarding checklist.docx', 'Document · 31 KB', 'You'],
 ];
 
 function FilesSample() {
@@ -150,7 +130,7 @@ function PlaygroundPanel({
 }) {
   const { title, description } = copy[kind];
   const children =
-    actions === "buttons" ? (
+    actions === 'buttons' ? (
       <>
         <Button>
           <Add aria-hidden="true" />
@@ -158,27 +138,23 @@ function PlaygroundPanel({
         </Button>
         <Button variant="outline">Try again</Button>
       </>
-    ) : actions === "link" ? (
+    ) : actions === 'link' ? (
       <Button nativeButton={false} render={<a href="#state-panel-actions" />}>
         Read about actions
       </Button>
-    ) : actions === "guidance" ? (
+    ) : actions === 'guidance' ? (
       <p>Ask again in the chat.</p>
     ) : undefined;
   const shared = { title, description, heading, icon };
-  if (kind === "error")
+  if (kind === 'error')
     return (
       <StatePanel kind="error" {...shared}>
         {children ?? <p>Ask again in the chat.</p>}
       </StatePanel>
     );
-  if (kind === "empty")
+  if (kind === 'empty')
     return (
-      <StatePanel
-        kind="empty"
-        {...shared}
-        sample={sample ? <FilesSample /> : undefined}
-      >
+      <StatePanel kind="empty" {...shared} sample={sample ? <FilesSample /> : undefined}>
         {children}
       </StatePanel>
     );
@@ -190,24 +166,21 @@ function PlaygroundPanel({
 }
 
 export function StatePanelPlayground() {
-  const [kind, setKind] = useState<StatePanelKind>("empty");
-  const [heading, setHeading] = useState<StatePanelHeading>("h3");
-  const [icon, setIcon] = useState<IconName>("inbox");
-  const [actions, setActions] = useState<ActionMode>("buttons");
+  const [kind, setKind] = useState<StatePanelKind>('empty');
+  const [heading, setHeading] = useState<StatePanelHeading>('h3');
+  const [icon, setIcon] = useState<IconName>('inbox');
+  const [actions, setActions] = useState<ActionMode>('buttons');
   const [sample, setSample] = useState(false);
-  const iconUsed = kind === "empty" || kind === "unavailable";
+  const iconUsed = kind === 'empty' || kind === 'unavailable';
   return (
-    <section
-      className="state-demo-playground"
-      aria-label="State panel playground"
-    >
+    <section className="state-demo-playground" aria-label="State panel playground">
       <div className="state-demo-toolbar">
         <label>
           Kind
           <DocsSelect
             label="Kind"
             value={kind}
-            items={statePanelKindNames.map((value) => ({
+            items={statePanelKindNames.map(value => ({
               value,
               label: value,
             }))}
@@ -219,9 +192,9 @@ export function StatePanelPlayground() {
           <DocsSelect
             label="Heading"
             value={heading}
-            items={(["h1", "h2", "h3", "h4"] as const).map((value) => ({
+            items={(['h1', 'h2', 'h3', 'h4'] as const).map(value => ({
               value,
-              label: value === "h2" ? "h2 (default)" : value,
+              label: value === 'h2' ? 'h2 (default)' : value,
             }))}
             onValueChange={setHeading}
           />
@@ -244,10 +217,10 @@ export function StatePanelPlayground() {
             label="Actions"
             value={actions}
             items={[
-              { value: "buttons", label: "Buttons" },
-              { value: "link", label: "Link" },
-              { value: "guidance", label: "Guidance text" },
-              { value: "none", label: "None" },
+              { value: 'buttons', label: 'Buttons' },
+              { value: 'link', label: 'Link' },
+              { value: 'guidance', label: 'Guidance text' },
+              { value: 'none', label: 'None' },
             ]}
             onValueChange={setActions}
           />
@@ -256,31 +229,20 @@ export function StatePanelPlayground() {
           variant="outline"
           size="sm"
 
-          pressed={sample && kind === "empty"}
-          disabled={kind !== "empty"}
-          onClick={() => setSample((value) => !value)}
+          pressed={sample && kind === 'empty'}
+          disabled={kind !== 'empty'}
+          onClick={() => setSample(value => !value)}
         >
           Sample preview
         </Toggle>
       </div>
-      <div
-        className="state-demo-stage"
-        data-sample={sample && kind === "empty" ? "" : undefined}
-      >
-        <PlaygroundPanel
-          kind={kind}
-          heading={heading}
-          icon={icons[icon].icon}
-          actions={actions}
-          sample={sample}
-        />
+      <div className="state-demo-stage" data-sample={sample && kind === 'empty' ? '' : undefined}>
+        <PlaygroundPanel kind={kind} heading={heading} icon={icons[icon].icon} actions={actions} sample={sample} />
       </div>
       <p className="state-demo-foot">
-        {!iconUsed ? `${kind} uses a fixed icon. ` : ""}
-        {kind === "error" && actions === "none"
-          ? "Errors always need recovery, so guidance text stays. "
-          : ""}
-        {kind !== "empty" ? "Sample previews are for empty states only." : ""}
+        {!iconUsed ? `${kind} uses a fixed icon. ` : ''}
+        {kind === 'error' && actions === 'none' ? 'Errors always need recovery, so guidance text stays. ' : ''}
+        {kind !== 'empty' ? 'Sample previews are for empty states only.' : ''}
       </p>
     </section>
   );
@@ -289,10 +251,10 @@ export function StatePanelPlayground() {
 export function StatePanelKinds() {
   return (
     <div className="state-demo-grid">
-      {statePanelKindNames.map((kind) => (
+      {statePanelKindNames.map(kind => (
         <Frame key={kind} title={kind}>
           <div data-kind-sample={kind}>
-            {kind === "error" ? (
+            {kind === 'error' ? (
               <StatePanel kind="error" heading="h3" {...copy.error}>
                 <Button variant="outline">Try again</Button>
               </StatePanel>
@@ -307,25 +269,21 @@ export function StatePanelKinds() {
 }
 
 const widths = [
-  { value: "narrow", label: "Narrow", px: 340 },
-  { value: "medium", label: "Medium", px: 600 },
-  { value: "wide", label: "Wide", px: null },
+  { value: 'narrow', label: 'Narrow', px: 340 },
+  { value: 'medium', label: 'Medium', px: 600 },
+  { value: 'wide', label: 'Wide', px: null },
 ] as const;
 
 export function StatePanelSamples() {
-  const [width, setWidth] = useState<(typeof widths)[number]["value"]>("wide");
-  const [shelf, setShelf] = useState<"current" | "archived">("current");
-  const px = widths.find((item) => item.value === width)?.px;
+  const [width, setWidth] = useState<(typeof widths)[number]['value']>('wide');
+  const [shelf, setShelf] = useState<'current' | 'archived'>('current');
+  const px = widths.find(item => item.value === width)?.px;
   return (
     <div className="state-demo-stack">
       <section className="state-demo-playground" aria-label="Sample layout">
         <div className="state-demo-toolbar">
-          <div
-            role="group"
-            aria-label="Container width"
-            className="state-demo-segments"
-          >
-            {widths.map((item) => (
+          <div role="group" aria-label="Container width" className="state-demo-segments">
+            {widths.map(item => (
               <Toggle
                 variant="outline"
                 size="sm"
@@ -340,11 +298,7 @@ export function StatePanelSamples() {
           </div>
         </div>
         <div className="state-demo-stage">
-          <div
-            className="state-demo-resize"
-            data-width={width}
-            style={px ? { maxWidth: px } : undefined}
-          >
+          <div className="state-demo-resize" data-width={width} style={px ? { maxWidth: px } : undefined}>
             <StatePanel
               kind="empty"
               heading="h3"
@@ -377,21 +331,17 @@ export function StatePanelSamples() {
               <SampleRows
                 icon={Cpu}
                 rows={[
-                  ["Fast model", "General chat and drafting", "Default"],
-                  ["Reasoning model", "Planning and analysis", "Enabled"],
-                  ["Vision model", "Images and documents", "Enabled"],
+                  ['Fast model', 'General chat and drafting', 'Default'],
+                  ['Reasoning model', 'Planning and analysis', 'Enabled'],
+                  ['Vision model', 'Images and documents', 'Enabled'],
                 ]}
               />
             }
           />
         </Frame>
         <Frame title="Optional sample">
-          <div
-            className="state-demo-segments"
-            role="group"
-            aria-label="Workflow shelf"
-          >
-            {(["current", "archived"] as const).map((value) => (
+          <div className="state-demo-segments" role="group" aria-label="Workflow shelf">
+            {(['current', 'archived'] as const).map(value => (
               <Toggle
                 variant="outline"
                 size="sm"
@@ -400,7 +350,7 @@ export function StatePanelSamples() {
                 pressed={shelf === value}
                 onClick={() => setShelf(value)}
               >
-                {value === "current" ? "Current" : "Archived"}
+                {value === 'current' ? 'Current' : 'Archived'}
               </Toggle>
             ))}
           </div>
@@ -408,35 +358,26 @@ export function StatePanelSamples() {
             kind="empty"
             heading="h3"
             icon={BranchDown}
-            title={
-              shelf === "archived"
-                ? "No archived workflows"
-                : "No workflows yet"
-            }
+            title={shelf === 'archived' ? 'No archived workflows' : 'No workflows yet'}
             description={
-              shelf === "archived"
-                ? "Archived workflows keep their run history here."
-                : "Describe the steps once, then run them on a schedule."
+              shelf === 'archived'
+                ? 'Archived workflows keep their run history here.'
+                : 'Describe the steps once, then run them on a schedule.'
             }
             sample={
-              shelf === "current" ? (
+              shelf === 'current' ? (
                 <SampleRows
                   icon={BranchDown}
                   rows={[
-                    ["Invoice reminders", "Every weekday at 9:00", "Active"],
-                    ["New customer kickoff", "When a deal closes", "Active"],
+                    ['Invoice reminders', 'Every weekday at 9:00', 'Active'],
+                    ['New customer kickoff', 'When a deal closes', 'Active'],
                   ]}
                 />
               ) : undefined
             }
           >
-            <Button
-              variant="outline"
-              onClick={() =>
-                setShelf(shelf === "current" ? "archived" : "current")
-              }
-            >
-              {shelf === "current" ? "View archived" : "Show current workflows"}
+            <Button variant="outline" onClick={() => setShelf(shelf === 'current' ? 'archived' : 'current')}>
+              {shelf === 'current' ? 'View archived' : 'Show current workflows'}
             </Button>
           </StatePanel>
         </Frame>
@@ -445,34 +386,34 @@ export function StatePanelSamples() {
   );
 }
 
-type Outcome = "success" | "error" | "empty" | "unavailable";
-type FlowState = { kind: "idle" } | { kind: "loading" } | { kind: Outcome };
+type Outcome = 'success' | 'error' | 'empty' | 'unavailable';
+type FlowState = { kind: 'idle' } | { kind: 'loading' } | { kind: Outcome };
 
 // Sample adapter: stands in for an application request.
 function useSampleRequest(next: Outcome) {
-  const [state, setState] = useState<FlowState>({ kind: "loading" });
+  const [state, setState] = useState<FlowState>({ kind: 'loading' });
   const timer = useRef<number | undefined>(undefined);
   const run = () => {
     window.clearTimeout(timer.current);
-    setState({ kind: "loading" });
+    setState({ kind: 'loading' });
     timer.current = window.setTimeout(() => setState({ kind: next }), 900);
   };
   useEffect(() => {
-    timer.current = window.setTimeout(() => setState({ kind: "error" }), 900);
+    timer.current = window.setTimeout(() => setState({ kind: 'error' }), 900);
     return () => window.clearTimeout(timer.current);
   }, []);
   return [state, run] as const;
 }
 
 export function StatePanelFlow() {
-  const [next, setNext] = useState<Outcome>("success");
+  const [next, setNext] = useState<Outcome>('success');
   const [state, run] = useSampleRequest(next);
   const stage = useRef<HTMLDivElement>(null);
   const retry = () => {
     stage.current?.focus();
     run();
   };
-  const kind = state.kind === "idle" ? "loading" : state.kind;
+  const kind = state.kind === 'idle' ? 'loading' : state.kind;
   return (
     <section className="state-demo-playground" aria-label="Recovery flow">
       <div className="state-demo-toolbar">
@@ -482,20 +423,15 @@ export function StatePanelFlow() {
             label="Next result"
             value={next}
             items={[
-              { value: "success", label: "Success" },
-              { value: "error", label: "Error" },
-              { value: "empty", label: "Empty" },
-              { value: "unavailable", label: "Unavailable" },
+              { value: 'success', label: 'Success' },
+              { value: 'error', label: 'Error' },
+              { value: 'empty', label: 'Empty' },
+              { value: 'unavailable', label: 'Unavailable' },
             ]}
             onValueChange={setNext}
           />
         </label>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={retry}
-          disabled={kind === "loading"}
-        >
+        <Button variant="outline" size="sm" onClick={retry} disabled={kind === 'loading'}>
           Reload
         </Button>
       </div>
@@ -506,7 +442,7 @@ export function StatePanelFlow() {
         aria-label="Request result"
         data-state={kind}
       >
-        {kind === "error" ? (
+        {kind === 'error' ? (
           <StatePanel
             kind="error"
             heading="h3"
@@ -517,7 +453,7 @@ export function StatePanelFlow() {
               Retry loading Google Drive
             </Button>
           </StatePanel>
-        ) : kind === "empty" ? (
+        ) : kind === 'empty' ? (
           <StatePanel
             kind="empty"
             heading="h3"
@@ -535,26 +471,23 @@ export function StatePanelFlow() {
             heading="h3"
             icon={DriveGlyph}
             title={
-              kind === "loading"
-                ? "Loading Google Drive"
-                : kind === "success"
-                  ? "Google Drive is ready"
-                  : "Allow Google Drive access"
+              kind === 'loading'
+                ? 'Loading Google Drive'
+                : kind === 'success'
+                  ? 'Google Drive is ready'
+                  : 'Allow Google Drive access'
             }
             description={
-              kind === "loading"
-                ? "Checking your connection and files."
-                : kind === "success"
-                  ? "Browse and open your Drive files here."
-                  : "Google access expired or changed. Reconnect to keep browsing."
+              kind === 'loading'
+                ? 'Checking your connection and files.'
+                : kind === 'success'
+                  ? 'Browse and open your Drive files here.'
+                  : 'Google access expired or changed. Reconnect to keep browsing.'
             }
           >
-            {kind === "loading" ? null : (
-              <Button
-                variant={kind === "success" ? "outline" : "default"}
-                onClick={retry}
-              >
-                {kind === "success" ? "Refresh" : "Check access again"}
+            {kind === 'loading' ? null : (
+              <Button variant={kind === 'success' ? 'outline' : 'default'} onClick={retry}>
+                {kind === 'success' ? 'Refresh' : 'Check access again'}
               </Button>
             )}
           </StatePanel>
@@ -565,13 +498,13 @@ export function StatePanelFlow() {
 }
 
 function BusyAction() {
-  const [state, setState] = useState<"idle" | "pending" | "done">("idle");
+  const [state, setState] = useState<'idle' | 'pending' | 'done'>('idle');
   useEffect(() => {
-    if (state !== "pending") return;
-    const timer = window.setTimeout(() => setState("done"), 900);
+    if (state !== 'pending') return;
+    const timer = window.setTimeout(() => setState('done'), 900);
     return () => window.clearTimeout(timer);
   }, [state]);
-  if (state === "done")
+  if (state === 'done')
     return (
       <StatePanel
         kind="success"
@@ -579,7 +512,7 @@ function BusyAction() {
         title="Default knowledge is on"
         description="New chats can read the shared drive."
       >
-        <Button variant="outline" onClick={() => setState("idle")}>
+        <Button variant="outline" onClick={() => setState('idle')}>
           Reset example
         </Button>
       </StatePanel>
@@ -593,14 +526,12 @@ function BusyAction() {
       description="Choose a shared drive that every new chat can read."
     >
       <Button
-        disabled={state === "pending"}
-        aria-busy={state === "pending" || undefined}
-        onClick={() => setState("pending")}
+        disabled={state === 'pending'}
+        aria-busy={state === 'pending' || undefined}
+        onClick={() => setState('pending')}
       >
-        {state === "pending" && (
-          <Loader aria-hidden="true" className="state-demo-spin" />
-        )}
-        {state === "pending" ? "Turning on" : "Use as default"}
+        {state === 'pending' && <Loader aria-hidden="true" className="state-demo-spin" />}
+        {state === 'pending' ? 'Turning on' : 'Use as default'}
       </Button>
     </StatePanel>
   );
@@ -628,11 +559,7 @@ export function StatePanelCompositions() {
           description="Check your workspace access before continuing."
         >
           <Button>Check workspace access again</Button>
-          <Button
-            variant="outline"
-            nativeButton={false}
-            render={<a href="#main" />}
-          >
+          <Button variant="outline" nativeButton={false} render={<a href="#main" />}>
             Back to overview
           </Button>
         </StatePanel>
@@ -649,11 +576,7 @@ export function StatePanelCompositions() {
             <Button nativeButton={false} render={<a href="#main" />}>
               Open tasks
             </Button>
-            <Button
-              variant="outline"
-              nativeButton={false}
-              render={<a href="#main" />}
-            >
+            <Button variant="outline" nativeButton={false} render={<a href="#main" />}>
               <ChatRound aria-hidden="true" />
               Open chats
             </Button>
@@ -693,11 +616,7 @@ export function StatePanelCompositions() {
           title="You can’t open this folder"
           description="Ask the owner to share it with you."
         >
-          <Button
-            variant="outline"
-            nativeButton={false}
-            render={<a href="#main" />}
-          >
+          <Button variant="outline" nativeButton={false} render={<a href="#main" />}>
             <ArrowLeft aria-hidden="true" />
             Back to My Drive
           </Button>
@@ -742,7 +661,7 @@ export function StatePanelCompositions() {
             size="sm"
 
             pressed={synced}
-            onClick={() => setSynced((value) => !value)}
+            onClick={() => setSynced(value => !value)}
           >
             Sync finished
           </Toggle>

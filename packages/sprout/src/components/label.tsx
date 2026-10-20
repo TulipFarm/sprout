@@ -1,7 +1,7 @@
-import type { ComponentProps } from "react";
-import { cn } from "../internal/classes.js";
+import type { ComponentProps } from 'react';
+import { cn } from '../internal/classes.js';
 
-export type LabelProps = ComponentProps<"label">;
+export type LabelProps = ComponentProps<'label'>;
 
 /**
  * Names one form control. Point `htmlFor` at a control's `id`, or wrap a
@@ -9,11 +9,5 @@ export type LabelProps = ComponentProps<"label">;
  * such as a textarea, stacks the text above it.
  */
 export function Label({ className, ...props }: LabelProps) {
-  return (
-    <label
-      data-slot="label"
-      className={cn("sprout-label", className)}
-      {...props}
-    />
-  );
+  return <label data-slot="label" className={cn('sprout-label', className)} {...props} />;
 }

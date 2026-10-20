@@ -1,26 +1,17 @@
-import type { ComponentType, HTMLAttributes, ReactNode } from "react";
-import { Check } from "reicon-react/icons/Check";
-import { Inbox } from "reicon-react/icons/Inbox";
-import { Warning } from "reicon-react/icons/Warning";
-import { cn } from "../internal/classes.js";
-import { Spinner } from "./spinner.js";
+import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { Inbox } from 'reicon-react/icons/Inbox';
+import { Warning } from 'reicon-react/icons/Warning';
+import { cn } from '../internal/classes.js';
+import { Spinner } from './spinner.js';
 
-export const statePanelKindNames = [
-  "empty",
-  "loading",
-  "success",
-  "unavailable",
-  "error",
-] as const;
+export const statePanelKindNames = ['empty', 'loading', 'success', 'unavailable', 'error'] as const;
 
 export type StatePanelKind = (typeof statePanelKindNames)[number];
-export type StatePanelHeading = "h1" | "h2" | "h3" | "h4";
+export type StatePanelHeading = 'h1' | 'h2' | 'h3' | 'h4';
 export type StatePanelIcon = ComponentType<{ size?: number }>;
 
-interface StatePanelBaseProps extends Omit<
-  HTMLAttributes<HTMLElement>,
-  "title" | "children" | "role"
-> {
+interface StatePanelBaseProps extends Omit<HTMLAttributes<HTMLElement>, 'title' | 'children' | 'role'> {
   title: ReactNode;
   description: ReactNode;
   /** Heading element for `title`. Match the surrounding document outline. */
@@ -37,40 +28,36 @@ interface StatePanelBaseProps extends Omit<
 export type StatePanelProps = StatePanelBaseProps &
   (
     | {
-        kind: "empty";
+        kind: 'empty';
         /** Decorative preview of the filled state. Switches to the split layout. */
         sample?: ReactNode;
       }
     | {
-        kind: "loading" | "success" | "unavailable";
+        kind: 'loading' | 'success' | 'unavailable';
         sample?: never;
       }
     | {
-        kind: "error";
+        kind: 'error';
         /** Errors always offer a recovery action or guidance. */
         children: ReactNode;
         sample?: never;
       }
   );
 
-const roles: Partial<Record<StatePanelKind, "alert" | "status">> = {
-  error: "alert",
-  loading: "status",
-  success: "status",
+const roles: Partial<Record<StatePanelKind, 'alert' | 'status'>> = {
+  error: 'alert',
+  loading: 'status',
+  success: 'status',
 };
 
 function Media({ kind, Icon }: { kind: StatePanelKind; Icon: StatePanelIcon }) {
   return (
-    <div
-      data-slot="state-panel-media"
-      className="sprout-state-panel-media"
-      aria-hidden="true"
-    >
-      {kind === "loading" ? (
+    <div data-slot="state-panel-media" className="sprout-state-panel-media" aria-hidden="true">
+      {kind === 'loading' ? (
         <Spinner aria-hidden="true" />
-      ) : kind === "success" ? (
+      ) : kind === 'success' ? (
         <Check size={20} />
-      ) : kind === "error" ? (
+      ) : kind === 'error' ? (
         <Warning size={20} className="sprout-state-panel-danger" />
       ) : (
         <Icon size={20} />
@@ -83,7 +70,7 @@ export function StatePanel({
   kind,
   title,
   description,
-  heading: Heading = "h2",
+  heading: Heading = 'h2',
   icon = Inbox,
   children,
   sample,
@@ -91,11 +78,8 @@ export function StatePanel({
   ...props
 }: StatePanelProps) {
   const media =
-    icon === null && (kind === "empty" || kind === "unavailable") ? null : (
-      <Media kind={kind} Icon={icon ?? Inbox} />
-    );
-  const hasActions =
-    children !== undefined && children !== null && children !== false;
+    icon === null && (kind === 'empty' || kind === 'unavailable') ? null : <Media kind={kind} Icon={icon ?? Inbox} />;
+  const hasActions = children !== undefined && children !== null && children !== false;
 
   if (sample)
     return (
@@ -104,7 +88,7 @@ export function StatePanel({
         data-kind={kind}
         data-layout="sample"
         {...props}
-        className={cn("sprout-state-panel", className)}
+        className={cn('sprout-state-panel', className)}
       >
         <div className="sprout-state-panel-card">
           <div className="sprout-state-panel-copy">
@@ -114,20 +98,12 @@ export function StatePanel({
               <p className="sprout-state-panel-description">{description}</p>
             </div>
             {hasActions && (
-              <div
-                data-slot="state-panel-actions"
-                className="sprout-state-panel-actions"
-              >
+              <div data-slot="state-panel-actions" className="sprout-state-panel-actions">
                 {children}
               </div>
             )}
           </div>
-          <div
-            data-slot="state-panel-sample"
-            className="sprout-state-panel-sample"
-            aria-hidden="true"
-            inert
-          >
+          <div data-slot="state-panel-sample" className="sprout-state-panel-sample" aria-hidden="true" inert>
             <div className="sprout-state-panel-sample-window">{sample}</div>
           </div>
         </div>
@@ -140,22 +116,15 @@ export function StatePanel({
       data-kind={kind}
       data-layout="centered"
       {...props}
-      className={cn("sprout-state-panel", className)}
+      className={cn('sprout-state-panel', className)}
     >
       {media}
-      <div
-        role={roles[kind]}
-        aria-atomic="true"
-        className="sprout-state-panel-text"
-      >
+      <div role={roles[kind]} aria-atomic="true" className="sprout-state-panel-text">
         <Heading className="sprout-state-panel-title">{title}</Heading>
         <p className="sprout-state-panel-description">{description}</p>
       </div>
       {hasActions && (
-        <div
-          data-slot="state-panel-actions"
-          className="sprout-state-panel-actions"
-        >
+        <div data-slot="state-panel-actions" className="sprout-state-panel-actions">
           {children}
         </div>
       )}
@@ -163,4 +132,4 @@ export function StatePanel({
   );
 }
 
-export * from "./state-panel-samples.js";
+export * from './state-panel-samples.js';

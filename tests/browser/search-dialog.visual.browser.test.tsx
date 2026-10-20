@@ -1,6 +1,6 @@
-import { expect, it } from "vitest";
-import { page } from "vitest/browser";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { page } from 'vitest/browser';
+import { render } from 'vitest-browser-react';
 import {
   SearchDialog,
   SearchFilter,
@@ -12,8 +12,8 @@ import {
   SearchItem,
   SearchItemIcon,
   SearchList,
-} from "../../packages/sprout/src/components/search-dialog.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/search-dialog.js';
+import { setTheme, settle, themes } from './support.js';
 
 const Dot = () => (
   <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
@@ -27,22 +27,12 @@ const media = (
   </SearchItemIcon>
 );
 
-it.each(themes)("search-dialog %s %s", async (theme, mode) => {
+it.each(themes)('search-dialog %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   await page.viewport(720, 560);
   await render(
-    <SearchDialog
-      open
-      onOpenChange={() => {}}
-      title="Search records"
-      description="Find pages and actions."
-    >
-      <SearchInput
-        value=""
-        onValueChange={() => {}}
-        placeholder="Search…"
-        label="Search records"
-      />
+    <SearchDialog open onOpenChange={() => {}} title="Search records" description="Find pages and actions.">
+      <SearchInput value="" onValueChange={() => {}} placeholder="Search…" label="Search records" />
       <SearchFilters label="Record type">
         <SearchFilter pressed onPressedChange={() => {}} icon={<Dot />}>
           Documents only
@@ -61,22 +51,10 @@ it.each(themes)("search-dialog %s %s", async (theme, mode) => {
             meta="Document"
             detail="Edited 2 hours ago · Notes"
           />
-          <SearchItem
-            value="chats"
-            onSelect={() => {}}
-            media={media}
-            title="Chats"
-            trailing="G C"
-          />
+          <SearchItem value="chats" onSelect={() => {}} media={media} title="Chats" trailing="G C" />
         </SearchGroup>
         <SearchGroup heading="Actions" count={1}>
-          <SearchItem
-            value="new-chat"
-            onSelect={() => {}}
-            media={media}
-            title="New chat"
-            trailing="C"
-          />
+          <SearchItem value="new-chat" onSelect={() => {}} media={media} title="New chat" trailing="C" />
         </SearchGroup>
       </SearchList>
       <SearchFooter>
@@ -87,7 +65,5 @@ it.each(themes)("search-dialog %s %s", async (theme, mode) => {
     </SearchDialog>,
   );
   await settle();
-  await expect
-    .element(page.elementLocator(document.body))
-    .toMatchScreenshot(`search-dialog-${theme}-${mode}`);
+  await expect.element(page.elementLocator(document.body)).toMatchScreenshot(`search-dialog-${theme}-${mode}`);
 });

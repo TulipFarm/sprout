@@ -1,6 +1,6 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   PopoverCalendar,
   PopoverHoverCards,
@@ -11,20 +11,18 @@ import {
   PopoverQuickChat,
   PopoverSources,
   PopoverStatus,
-} from "../../components/PopoverDemo";
+} from '../../components/PopoverDemo';
 ---
 
-<Docs
-  title="Popover"
-  description="Floating panels for details, pickers, filters, and quick chat."
->
+<Docs title="Popover" description="Floating panels for details, pickers, filters, and quick chat.">
   <h1 class="docs-title">Popover</h1>
   <p class="docs-lead">
-    A floating panel tied to a button. Use it for source details, pickers,
-    filters, and short forms. Unlike a menu it can hold any content, and unlike
-    a dialog it leaves the rest of the page usable.
+    A floating panel tied to a button. Use it for source details, pickers, filters, and short forms. Unlike a menu it
+    can hold any content, and unlike a dialog it leaves the rest of the page usable.
   </p>
-  <div class="mt-8" id="popover-demo"><PopoverPlayground client:load /></div>
+  <div class="mt-8" id="popover-demo">
+    <PopoverPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -53,165 +51,127 @@ import {
 </Popover>`}
     />
     <p>
-      Pass a <code>Button</code> to <code>PopoverTrigger</code> through <code
-        >render</code
-      >. Icon-only triggers need an <code>aria-label</code>. Add a <code
-        >PopoverTitle</code
-      > or an <code>aria-label</code> on the content so the panel has a name.
+      Pass a <code>Button</code> to <code>PopoverTrigger</code> through <code>render</code>. Icon-only triggers need an{' '}
+      <code>aria-label</code>. Add a <code>PopoverTitle</code> or an <code>aria-label</code> on the content so the panel
+      has a name.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Sizes</h2>
     <p>
-      <code>PopoverContent size</code> picks the width and padding. <code
-        >"default"</code
-      > is an 18rem padded panel for text. <code>"menu"</code> (24rem) and <code
-        >"picker"</code
-      > (18rem) have no padding so search lists can run edge to edge. <code
-        >"panel"</code
-      > fits filters and tabs up to 32rem. <code>"work-list"</code> is as wide as
-      a panel and caps its height so a header, scroll area, and footer fit. <code
-        >"app-actions"</code
-      > is a 20rem scrolling card, and <code>"bud"</code> is a fixed-height quick
-      chat window.
+      <code>PopoverContent size</code> picks the width and padding. <code>"default"</code> is an 18rem padded panel for
+      text. <code>"menu"</code> (24rem) and <code>"picker"</code> (18rem) have no padding so search lists can run edge
+      to edge. <code>"panel"</code> fits filters and tabs up to 32rem. <code>"work-list"</code> is as wide as a panel
+      and caps its height so a header, scroll area, and footer fit. <code>"app-actions"</code> is a 20rem scrolling
+      card, and <code>"bud"</code> is a fixed-height quick chat window.
     </p>
   </section>
   <section class="prose-section" id="popover-sources">
     <h2 class="section-title">Sources and help</h2>
     <p>
-      Default-size popovers hold short explanations: a citation, why a
-      repository is missing, or who can see a project. Load slow content in <code
-        >onOpenChange</code
-      > and show loading, error, and retry states inside the panel.
+      Default-size popovers hold short explanations: a citation, why a repository is missing, or who can see a project.
+      Load slow content in <code>onOpenChange</code> and show loading, error, and retry states inside the panel.
     </p>
     <PopoverSources client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Status</h2>
     <p>
-      A toolbar status button can open with <code>defaultOpen</code> to call out a
-      problem. Keep a visually hidden <code>role="status"</code> or <code
-        >role="alert"</code
-      > next to it so changes are announced even when the panel is closed.
+      A toolbar status button can open with <code>defaultOpen</code> to call out a problem. Keep a visually hidden{' '}
+      <code>role="status"</code> or <code>role="alert"</code> next to it so changes are announced even when the panel is
+      closed.
     </p>
     <PopoverStatus client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Pickers</h2>
     <p>
-      Pickers open above composers with <code>side="top"</code> and below toolbars
-      by default. A picker trigger can also be a tooltip trigger. Show loading, failed,
-      empty-search, and no-results states in the list, and clear the search when the
-      picker closes.
+      Pickers open above composers with <code>side="top"</code> and below toolbars by default. A picker trigger can also
+      be a tooltip trigger. Show loading, failed, empty-search, and no-results states in the list, and clear the search
+      when the picker closes.
     </p>
     <PopoverPickers client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Panels</h2>
     <p>
-      The <code>panel</code> size holds tabs and filter forms. Control it with <code
-        >open</code
-      > and <code>onOpenChange</code> to keep it open while a rule is invalid, and
-      close it after a valid rule is added.
+      The <code>panel</code> size holds tabs and filter forms. Control it with <code>open</code> and{' '}
+      <code>onOpenChange</code> to keep it open while a rule is invalid, and close it after a valid rule is added.
     </p>
     <PopoverPanels client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Calendar</h2>
     <p>
-      A date picker opens from the month title. The <code>work-list</code> size lists
-      pending work and overlapping events, with a focusable scroll area and a footer
-      link.
+      A date picker opens from the month title. The <code>work-list</code> size lists pending work and overlapping
+      events, with a focusable scroll area and a footer link.
     </p>
     <PopoverCalendar client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Hover cards</h2>
     <p>
-      <code>PopoverTrigger openOnHover</code> opens after <code>delay</code> and closes
-      after <code>closeDelay</code>. Pass <code
-        >{'initialFocus={(type) => type !== "mouse"}'}</code
-      > so pointer hover doesn’t steal focus, while keyboard and touch users land
-      inside.
+      <code>PopoverTrigger openOnHover</code> opens after <code>delay</code> and closes after <code>closeDelay</code>.
+      Pass <code>{'initialFocus={(type) => type !== "mouse"}'}</code> so pointer hover doesn’t steal focus, while
+      keyboard and touch users land inside.
     </p>
     <PopoverHoverCards client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Quick chat</h2>
     <p>
-      A popover doesn’t need a trigger. Pass <code>anchor</code> to tie it to any
-      element, <code>keepMounted</code> to keep its draft while closed, and <code
-        >{"modal={false}"}</code
-      > so the page stays usable. Cancel the outside press in <code
-        >onOpenChange</code
-      > when the launcher should toggle it, and return focus with <code
-        >finalFocus</code
-      >.
+      A popover doesn’t need a trigger. Pass <code>anchor</code> to tie it to any element, <code>keepMounted</code> to
+      keep its draft while closed, and <code>{'modal={false}'}</code> so the page stays usable. Cancel the outside press
+      in <code>onOpenChange</code> when the launcher should toggle it, and return focus with <code>finalFocus</code>.
     </p>
     <PopoverQuickChat client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Placement</h2>
     <p>
-      Set <code>side</code>, <code>align</code>, <code>sideOffset</code>, and <code
-        >alignOffset</code
-      >. Popovers open below and centered by default, and flip or shift to stay
-      inside the viewport.
+      Set <code>side</code>, <code>align</code>, <code>sideOffset</code>, and <code>alignOffset</code>. Popovers open
+      below and centered by default, and flip or shift to stay inside the viewport.
     </p>
     <PopoverPlacement client:load />
   </section>
   <section class="prose-section" id="popover-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>Popover</code> and <code>PopoverTrigger</code> wrap the Base UI popover
-      root and trigger and take their props, including <code>modal</code>, <code
-        >defaultOpen</code
-      >, <code>openOnHover</code>, <code>delay</code>, <code>closeDelay</code>,
-      and <code>render</code>.
+      <code>Popover</code> and <code>PopoverTrigger</code> wrap the Base UI popover root and trigger and take their
+      props, including <code>modal</code>, <code>defaultOpen</code>, <code>openOnHover</code>, <code>delay</code>,{' '}
+      <code>closeDelay</code>, and <code>render</code>.
     </p>
     <p>
       <code>PopoverContent</code> renders its own portal and positioner. It takes
-      <code>size</code>, <code>side</code> (<code>"bottom"</code>), <code
-        >align</code
-      > (<code>"center"</code>), <code>sideOffset</code> (4), <code
-        >alignOffset</code
-      >, <code>collisionPadding</code> (8), <code>anchor</code>, <code
-        >keepMounted</code
-      >, <code>container</code>, and every Base UI popup prop such as <code
-        >initialFocus</code
-      > and <code>finalFocus</code>.
+      <code>size</code>, <code>side</code> (<code>"bottom"</code>), <code>align</code> (<code>"center"</code>),{' '}
+      <code>sideOffset</code> (4), <code>alignOffset</code>, <code>collisionPadding</code> (8), <code>anchor</code>,{' '}
+      <code>keepMounted</code>, <code>container</code>, and every Base UI popup prop such as <code>initialFocus</code>{' '}
+      and <code>finalFocus</code>.
     </p>
     <p>
-      <code>PopoverHeader</code> is a <code>div</code> that stacks <code
-        >PopoverTitle</code
-      > (an <code>h2</code>) and <code>PopoverDescription</code> (a <code
-        >p</code
-      >). Every part sets a <code>data-slot</code>, and you can override it.
+      <code>PopoverHeader</code> is a <code>div</code> that stacks <code>PopoverTitle</code> (an <code>h2</code>) and{' '}
+      <code>PopoverDescription</code> (a <code>p</code>). Every part sets a <code>data-slot</code>, and you can override
+      it.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The trigger has <code>aria-haspopup="dialog"</code> and <code
-        >aria-expanded</code
-      >. Enter and Space open the popover and move focus inside. Tab moves
-      through its content, and Escape or an outside click closes it and returns
+      The trigger has <code>aria-haspopup="dialog"</code> and <code>aria-expanded</code>. Enter and Space open the
+      popover and move focus inside. Tab moves through its content, and Escape or an outside click closes it and returns
       focus to the trigger.
     </p>
     <p>
-      Popovers fade and scale in from their side over 120ms; the app-actions and
-      bud sizes take 180ms. Motion turns off when reduced motion is requested.
-      In forced-colors mode the panel keeps a visible border.
+      Popovers fade and scale in from their side over 120ms; the app-actions and bud sizes take 180ms. Motion turns off
+      when reduced motion is requested. In forced-colors mode the panel keeps a visible border.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Popovers use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code
-        >--sprout-text</code
-      >, <code>--sprout-muted</code>, <code>--sprout-shadow-overlay</code>, and
-      the panel radius. They need no brand color, so they look the same with the
-      neutral and TulipFarm themes in light and dark mode.
+      Popovers use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code>--sprout-text</code>,{' '}
+      <code>--sprout-muted</code>, <code>--sprout-shadow-overlay</code>, and the panel radius. They need no brand color,
+      so they look the same with the neutral and TulipFarm themes in light and dark mode.
     </p>
   </section>
 </Docs>

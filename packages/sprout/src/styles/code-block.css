@@ -10,25 +10,21 @@
     font-family: var(--sprout-font);
     font-size: var(--sprout-text-sm);
   }
-  .sprout-code-block[data-variant="inline"] {
+  .sprout-code-block[data-variant='inline'] {
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: color-mix(
-      in oklab,
-      var(--sprout-hover) 40%,
-      var(--sprout-surface)
-    );
+    background: color-mix(in oklab, var(--sprout-hover) 40%, var(--sprout-surface));
   }
-  .sprout-code-block[data-variant="file"] {
+  .sprout-code-block[data-variant='file'] {
     height: 100%;
     min-height: 0;
   }
-  .sprout-code-block[data-variant="preview"] {
+  .sprout-code-block[data-variant='preview'] {
     max-height: 100%;
     font-size: var(--sprout-text-xs);
     mask-image: linear-gradient(to bottom, #000 75%, transparent);
   }
-  .sprout-code-block[data-variant="preview"] .sprout-code-block-viewport {
+  .sprout-code-block[data-variant='preview'] .sprout-code-block-viewport {
     overflow: hidden;
     padding: 12px;
     font-size: var(--sprout-text-xs);
@@ -72,10 +68,10 @@
     font-size: var(--sprout-text-sm);
     line-height: 1.25rem;
   }
-  .sprout-code-block[data-variant="inline"] .sprout-code-block-viewport {
+  .sprout-code-block[data-variant='inline'] .sprout-code-block-viewport {
     max-height: 24rem;
   }
-  .sprout-code-block[data-variant="file"] .sprout-code-block-viewport {
+  .sprout-code-block[data-variant='file'] .sprout-code-block-viewport {
     flex: 1;
     min-height: 0;
   }
@@ -126,25 +122,16 @@
     color: var(--sprout-syntax-constant, var(--sprout-warning));
   }
   .sprout-syntax-function {
-    color: var(
-      --sprout-syntax-function,
-      color-mix(in oklab, var(--sprout-info) 55%, var(--sprout-danger))
-    );
+    color: var(--sprout-syntax-function, color-mix(in oklab, var(--sprout-info) 55%, var(--sprout-danger)));
   }
   .sprout-syntax-parameter {
-    color: var(
-      --sprout-syntax-parameter,
-      color-mix(in oklab, var(--sprout-danger) 65%, var(--sprout-warning))
-    );
+    color: var(--sprout-syntax-parameter, color-mix(in oklab, var(--sprout-danger) 65%, var(--sprout-warning)));
   }
   .sprout-syntax-comment {
     color: var(--sprout-syntax-comment, var(--sprout-muted));
   }
   .sprout-syntax-punctuation {
-    color: var(
-      --sprout-syntax-punctuation,
-      color-mix(in oklab, var(--sprout-text) 70%, var(--sprout-muted))
-    );
+    color: var(--sprout-syntax-punctuation, color-mix(in oklab, var(--sprout-text) 70%, var(--sprout-muted)));
   }
   .sprout-syntax-link {
     color: var(--sprout-syntax-link, var(--sprout-info));
@@ -199,8 +186,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-code-block-error {
-      animation: sprout-code-block-in var(--sprout-motion-normal)
-        var(--sprout-motion-ease);
+      animation: sprout-code-block-in var(--sprout-motion-normal) var(--sprout-motion-ease);
     }
   }
   @keyframes sprout-code-block-in {

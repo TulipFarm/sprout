@@ -21,46 +21,22 @@
           </div>
         </div>
         <div class="topbar-meta">
-          <span
-            class="badge badge-model"
-            id="model-badge"
-            title="Model used for builds"
-            >Opus 5.5</span
-          >
+          <span class="badge badge-model" id="model-badge" title="Model used for builds">Opus 5.5</span>
           <span class="conn" id="conn" data-state="connecting" role="status">
             <span class="conn-dot" aria-hidden="true"></span>
             <span id="conn-label">Connecting…</span>
           </span>
-          <button
-            class="icon-btn"
-            id="theme-toggle"
-            type="button"
-            aria-label="Theme: System. Switch to light."
-          >
-            <svg
-              class="i theme-icon ti-system"
-              viewBox="0 0 16 16"
-              aria-hidden="true"
-            >
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Theme: System. Switch to light.">
+            <svg class="i theme-icon ti-system" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M2.5 3.5h11v7h-11zM6 13.5h4M8 10.5v3" />
             </svg>
-            <svg
-              class="i theme-icon ti-light"
-              viewBox="0 0 16 16"
-              aria-hidden="true"
-            >
+            <svg class="i theme-icon ti-light" viewBox="0 0 16 16" aria-hidden="true">
               <path
                 d="M8 5.25a2.75 2.75 0 1 0 0 5.5 2.75 2.75 0 0 0 0-5.5zM8 1.5v1.25M8 13.25v1.25M1.5 8h1.25M13.25 8h1.25M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9"
               />
             </svg>
-            <svg
-              class="i theme-icon ti-dark"
-              viewBox="0 0 16 16"
-              aria-hidden="true"
-            >
-              <path
-                d="M13.5 9.6A5.75 5.75 0 0 1 6.4 2.5a5.75 5.75 0 1 0 7.1 7.1z"
-              />
+            <svg class="i theme-icon ti-dark" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M13.5 9.6A5.75 5.75 0 0 1 6.4 2.5a5.75 5.75 0 1 0 7.1 7.1z" />
             </svg>
           </button>
         </div>
@@ -77,36 +53,24 @@
             </summary>
             <ul class="onboarding-list">
               <li>
-                <strong>PICK starts paid work.</strong> Moving a card to PICK
-                starts a local Copilot build with Opus 5.5.
+                <strong>PICK starts paid work.</strong> Moving a card to PICK starts a local Copilot build with Opus
+                5.5.
               </li>
               <li>
-                <strong>Max 5 builds.</strong> Up to 5 picked cards build at
-                once, directly in the main Sprout checkout. Watch them live on
-                port 4321.
+                <strong>Max 5 builds.</strong> Up to 5 picked cards build at once, directly in the main Sprout checkout.
+                Watch them live on port 4321.
+              </li>
+              <li><strong>Checks one at a time.</strong> Typecheck, build and tests run for one card at a time.</li>
+              <li><strong>You decide DONE.</strong> Finished builds land in REVIEW. Only you can mark a card DONE.</li>
+              <li>
+                <strong>Full Cloud coverage.</strong> A build reaches REVIEW only after it covers every Cloud usage:
+                variants, sizes, combinations, and features.
               </li>
               <li>
-                <strong>Checks one at a time.</strong> Typecheck, build and
-                tests run for one card at a time.
+                <strong>Sprout only.</strong> Components are delivered in Sprout. Cloud stays read-only and is not
+                migrated. No commits or pushes are made.
               </li>
-              <li>
-                <strong>You decide DONE.</strong> Finished builds land in
-                REVIEW. Only you can mark a card DONE.
-              </li>
-              <li>
-                <strong>Full Cloud coverage.</strong> A build reaches REVIEW
-                only after it covers every Cloud usage: variants, sizes,
-                combinations, and features.
-              </li>
-              <li>
-                <strong>Sprout only.</strong> Components are delivered in
-                Sprout. Cloud stays read-only and is not migrated. No commits or
-                pushes are made.
-              </li>
-              <li>
-                <strong>No mouse needed.</strong> Every move has a named button.
-                Drag and drop is optional.
-              </li>
+              <li><strong>No mouse needed.</strong> Every move has a named button. Drag and drop is optional.</li>
             </ul>
           </details>
         </section>
@@ -149,17 +113,9 @@
             <div class="search">
               <label class="sr-only" for="search">Search components</label>
               <svg class="i search-icon" viewBox="0 0 16 16" aria-hidden="true">
-                <path
-                  d="M7 2.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zM10.4 10.4l3.1 3.1"
-                />
+                <path d="M7 2.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zM10.4 10.4l3.1 3.1" />
               </svg>
-              <input
-                id="search"
-                type="search"
-                placeholder="Search components"
-                autocomplete="off"
-                spellcheck="false"
-              />
+              <input id="search" type="search" placeholder="Search components" autocomplete="off" spellcheck="false" />
               <kbd class="search-kbd" aria-hidden="true">/</kbd>
             </div>
 
@@ -178,23 +134,10 @@
                   <path d="M4.5 6.5 8 10l3.5-3.5" />
                 </svg>
               </button>
-              <div
-                class="popover"
-                id="cat-pop"
-                role="menu"
-                aria-label="Filter by category"
-                hidden
-              ></div>
+              <div class="popover" id="cat-pop" role="menu" aria-label="Filter by category" hidden></div>
             </div>
 
-            <button
-              class="btn btn-ghost"
-              id="clear-filters"
-              type="button"
-              hidden
-            >
-              Clear filters
-            </button>
+            <button class="btn btn-ghost" id="clear-filters" type="button" hidden>Clear filters</button>
 
             <button
               class="switch"
@@ -205,9 +148,7 @@
               aria-label="Pause queue"
               aria-describedby="pause-state"
             >
-              <span class="switch-track" aria-hidden="true"
-                ><span class="switch-thumb"></span
-              ></span>
+              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
               <span class="switch-text">Pause queue</span>
               <span class="switch-state" id="pause-state">Running</span>
             </button>
@@ -216,104 +157,52 @@
 
         <p class="inventory-meta" id="inventory-meta"></p>
 
-        <div
-          class="banner banner-warn"
-          id="offline-banner"
-          role="status"
-          hidden
-        >
+        <div class="banner banner-warn" id="offline-banner" role="status" hidden>
           Connection lost. Actions are paused until the board reconnects.
         </div>
-        <div
-          class="banner banner-error"
-          id="queue-banner"
-          role="alert"
-          hidden
-        ></div>
+        <div class="banner banner-error" id="queue-banner" role="alert" hidden></div>
 
         <div class="board-state" id="board-state" hidden></div>
 
-        <section
-          class="board is-loading"
-          id="board"
-          aria-label="Kanban board"
-          aria-busy="true"
-          tabindex="-1"
-        >
-          <section
-            class="column"
-            data-state="TODO"
-            data-column="TODO"
-            aria-labelledby="col-TODO-title"
-          >
+        <section class="board is-loading" id="board" aria-label="Kanban board" aria-busy="true" tabindex="-1">
+          <section class="column" data-state="TODO" data-column="TODO" aria-labelledby="col-TODO-title">
             <header class="column-head">
               <span class="col-dot" aria-hidden="true"></span>
               <h2 id="col-TODO-title">TODO</h2>
               <span class="col-count" data-count></span>
             </header>
             <p class="col-note" data-note hidden></p>
-            <ul
-              class="col-list"
-              data-list
-              aria-labelledby="col-TODO-title"
-            ></ul>
+            <ul class="col-list" data-list aria-labelledby="col-TODO-title"></ul>
             <p class="col-empty" data-empty hidden></p>
           </section>
-          <section
-            class="column"
-            data-state="PICK"
-            data-column="PICK"
-            aria-labelledby="col-PICK-title"
-          >
+          <section class="column" data-state="PICK" data-column="PICK" aria-labelledby="col-PICK-title">
             <header class="column-head">
               <span class="col-dot" aria-hidden="true"></span>
               <h2 id="col-PICK-title">PICK</h2>
               <span class="col-count" data-count></span>
             </header>
             <p class="col-note" data-note hidden></p>
-            <ul
-              class="col-list"
-              data-list
-              aria-labelledby="col-PICK-title"
-            ></ul>
+            <ul class="col-list" data-list aria-labelledby="col-PICK-title"></ul>
             <p class="col-empty" data-empty hidden></p>
           </section>
-          <section
-            class="column"
-            data-state="REVIEW"
-            data-column="REVIEW"
-            aria-labelledby="col-REVIEW-title"
-          >
+          <section class="column" data-state="REVIEW" data-column="REVIEW" aria-labelledby="col-REVIEW-title">
             <header class="column-head">
               <span class="col-dot" aria-hidden="true"></span>
               <h2 id="col-REVIEW-title">REVIEW</h2>
               <span class="col-count" data-count></span>
             </header>
             <p class="col-note" data-note hidden></p>
-            <ul
-              class="col-list"
-              data-list
-              aria-labelledby="col-REVIEW-title"
-            ></ul>
+            <ul class="col-list" data-list aria-labelledby="col-REVIEW-title"></ul>
             <p class="col-empty" data-empty hidden></p>
           </section>
-          <section
-            class="column"
-            data-state="DONE"
-            data-column="DONE"
-            aria-labelledby="col-DONE-title"
-          >
+          <section class="column" data-state="DONE" data-column="DONE" aria-labelledby="col-DONE-title">
             <header class="column-head">
               <span class="col-dot" aria-hidden="true"></span>
               <h2 id="col-DONE-title">DONE</h2>
               <span class="col-count" data-count></span>
             </header>
             <p class="col-note" data-note hidden></p>
-            <ul
-              class="col-list"
-              data-list
-              aria-labelledby="col-DONE-title"
-            ></ul>
+            <ul class="col-list" data-list aria-labelledby="col-DONE-title"></ul>
             <p class="col-empty" data-empty hidden></p>
           </section>
         </section>
@@ -331,12 +220,7 @@
             </p>
             <h2 id="d-title"></h2>
           </div>
-          <button
-            class="icon-btn"
-            id="d-close"
-            type="button"
-            aria-label="Close details"
-          >
+          <button class="icon-btn" id="d-close" type="button" aria-label="Close details">
             <svg class="i" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4 4l8 8M12 4l-8 8" />
             </svg>
@@ -344,24 +228,15 @@
         </header>
 
         <div class="dlg-body">
-          <p class="banner banner-warn" id="d-gone" hidden>
-            This card is no longer on the board.
-          </p>
+          <p class="banner banner-warn" id="d-gone" hidden>This card is no longer on the board.</p>
 
           <section class="d-status" aria-label="Status">
             <div class="d-status-row">
               <span class="stage" id="d-stage"
-                ><span class="stage-dot" aria-hidden="true"></span
-                ><span id="d-stage-text"></span
+                ><span class="stage-dot" aria-hidden="true"></span><span id="d-stage-text"></span
               ></span>
               <span class="d-updated" id="d-updated"></span>
-              <a
-                class="card-preview"
-                id="d-preview"
-                target="_blank"
-                rel="noopener noreferrer"
-                hidden
-              >
+              <a class="card-preview" id="d-preview" target="_blank" rel="noopener noreferrer" hidden>
                 <span>Open preview</span>
                 <svg class="i" viewBox="0 0 16 16" aria-hidden="true">
                   <path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" />
@@ -377,22 +252,16 @@
           <section class="d-section" aria-labelledby="d-source-h">
             <h3 id="d-source-h">Source</h3>
             <p class="d-source"><code id="d-source"></code></p>
-            <p class="chip chip-warn" id="d-missing" hidden>
-              Source file missing
-            </p>
+            <p class="chip chip-warn" id="d-missing" hidden>Source file missing</p>
           </section>
 
           <div class="d-grid">
             <section class="d-section" aria-labelledby="d-exports-h">
-              <h3 id="d-exports-h">
-                Exports <span class="d-count" id="d-exports-count"></span>
-              </h3>
+              <h3 id="d-exports-h">Exports <span class="d-count" id="d-exports-count"></span></h3>
               <ul class="d-list" id="d-exports"></ul>
             </section>
             <section class="d-section" aria-labelledby="d-deps-h">
-              <h3 id="d-deps-h">
-                Dependencies <span class="d-count" id="d-deps-count"></span>
-              </h3>
+              <h3 id="d-deps-h">Dependencies <span class="d-count" id="d-deps-count"></span></h3>
               <ul class="d-list" id="d-deps"></ul>
             </section>
           </div>
@@ -407,9 +276,7 @@
 
           <section class="d-section" aria-labelledby="d-feedback-label">
             <h3>
-              <label id="d-feedback-label" for="d-feedback"
-                >Notes and feedback</label
-              >
+              <label id="d-feedback-label" for="d-feedback">Notes and feedback</label>
             </h3>
             <textarea
               id="d-feedback"
@@ -418,8 +285,7 @@
               aria-describedby="d-feedback-hint"
             ></textarea>
             <p class="hint" id="d-feedback-hint">
-              Sent when you send this card back to PICK or retry it. Drafts stay
-              while this page is open.
+              Sent when you send this card back to PICK or retry it. Drafts stay while this page is open.
             </p>
             <div class="d-last-feedback" id="d-last-feedback" hidden>
               <span class="hint">Last sent feedback</span>
@@ -431,28 +297,15 @@
             <div class="d-log-head">
               <h3 id="d-log-h">Log</h3>
               <span class="hint" id="d-log-status" role="status"></span>
-              <button
-                class="btn btn-ghost btn-sm"
-                id="d-log-refresh"
-                type="button"
-                aria-label="Refresh log"
-              >
+              <button class="btn btn-ghost btn-sm" id="d-log-refresh" type="button" aria-label="Refresh log">
                 <svg class="i" viewBox="0 0 16 16" aria-hidden="true">
                   <path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5v3h-3" />
                 </svg>
                 <span>Refresh</span>
               </button>
             </div>
-            <p class="hint" id="d-log-trim" hidden>
-              Showing the latest part of the log.
-            </p>
-            <pre
-              class="log"
-              id="d-log"
-              tabindex="0"
-              aria-labelledby="d-log-h"
-              hidden
-            ></pre>
+            <p class="hint" id="d-log-trim" hidden>Showing the latest part of the log.</p>
+            <pre class="log" id="d-log" tabindex="0" aria-labelledby="d-log-h" hidden></pre>
             <p class="log-empty" id="d-log-empty">No log output yet.</p>
           </section>
         </div>
@@ -466,12 +319,7 @@
     <dialog id="shot" aria-labelledby="shot-title">
       <header class="dlg-head">
         <h2 id="shot-title"></h2>
-        <button
-          class="icon-btn"
-          id="shot-close"
-          type="button"
-          aria-label="Close screenshot"
-        >
+        <button class="icon-btn" id="shot-close" type="button" aria-label="Close screenshot">
           <svg class="i" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M4 4l8 8M12 4l-8 8" />
           </svg>

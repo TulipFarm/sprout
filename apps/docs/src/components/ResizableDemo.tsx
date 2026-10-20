@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowLeft } from "reicon-react/icons/ArrowLeft";
-import { FileText } from "reicon-react/icons/FileText";
-import { Refresh } from "reicon-react/icons/Refresh";
-import { SidebarRight } from "reicon-react/icons/SidebarRight";
-import { Button } from "@tulipfarm/sprout/button";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
+import { FileText } from 'reicon-react/icons/FileText';
+import { Refresh } from 'reicon-react/icons/Refresh';
+import { SidebarRight } from 'reicon-react/icons/SidebarRight';
+import { Button } from '@tulipfarm/sprout/button';
 import {
   ResizableHandle,
   ResizablePanel,
@@ -11,28 +11,13 @@ import {
   useResizableLayout,
   type ResizableLayout,
   type ResizableOrientation,
-} from "@tulipfarm/sprout/resizable";
-import {
-  Sheet,
-  SheetBody,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@tulipfarm/sprout/sheet";
-import { StatePanel } from "@tulipfarm/sprout/state-panel";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import "../styles/resizable-demo.css";
+} from '@tulipfarm/sprout/resizable';
+import { Sheet, SheetBody, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@tulipfarm/sprout/sheet';
+import { StatePanel } from '@tulipfarm/sprout/state-panel';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import '../styles/resizable-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="resizable-demo-card" aria-label={title}>
       <header>
@@ -61,15 +46,12 @@ function useWidth() {
 
 const sizes = (layout: ResizableLayout) =>
   Object.values(layout)
-    .map((size) => `${Math.round(size)}%`)
-    .join(" · ");
+    .map(size => `${Math.round(size)}%`)
+    .join(' · ');
 
-const splits: Record<
-  ResizableOrientation,
-  { label: string; first: ReactNode; second: ReactNode }
-> = {
+const splits: Record<ResizableOrientation, { label: string; first: ReactNode; second: ReactNode }> = {
   horizontal: {
-    label: "Side by side",
+    label: 'Side by side',
     first: (
       <div className="resizable-demo-pane">
         <p className="resizable-demo-eyebrow">Runs</p>
@@ -84,28 +66,23 @@ const splits: Record<
       <div className="resizable-demo-pane">
         <p className="resizable-demo-eyebrow">Run details</p>
         <p className="resizable-demo-strong">Weekly digest</p>
-        <p className="resizable-demo-muted">
-          Finished in 42 seconds. Sent to 18 people in the Growth workspace.
-        </p>
+        <p className="resizable-demo-muted">Finished in 42 seconds. Sent to 18 people in the Growth workspace.</p>
       </div>
     ),
   },
   vertical: {
-    label: "Stacked",
+    label: 'Stacked',
     first: (
       <div className="resizable-demo-pane">
         <p className="resizable-demo-eyebrow">Prompt</p>
-        <p className="resizable-demo-muted">
-          Summarise the open invoices older than 30 days.
-        </p>
+        <p className="resizable-demo-muted">Summarise the open invoices older than 30 days.</p>
       </div>
     ),
     second: (
       <div className="resizable-demo-pane">
         <p className="resizable-demo-eyebrow">Response</p>
         <p className="resizable-demo-muted">
-          Four invoices are overdue, totalling $12,480. Northwind Ltd has the
-          oldest, at 47 days.
+          Four invoices are overdue, totalling $12,480. Northwind Ltd has the oldest, at 47 days.
         </p>
       </div>
     ),
@@ -114,8 +91,8 @@ const splits: Record<
 
 function Orientations() {
   const [layouts, setLayouts] = useState<Record<ResizableOrientation, string>>({
-    horizontal: "40% · 60%",
-    vertical: "40% · 60%",
+    horizontal: '40% · 60%',
+    vertical: '40% · 60%',
   });
   return (
     <Example
@@ -123,16 +100,13 @@ function Orientations() {
       description="Drag the divider, or focus it and use the arrow keys. Home and End jump to the first panel's limits."
     >
       <div className="resizable-demo-orientations">
-        {(["horizontal", "vertical"] as const).map((orientation) => (
+        {(['horizontal', 'vertical'] as const).map(orientation => (
           <div key={orientation} className="resizable-demo-stack">
-            <div
-              className="resizable-demo-frame"
-              data-testid={`${orientation}-frame`}
-            >
+            <div className="resizable-demo-frame" data-testid={`${orientation}-frame`}>
               <ResizablePanelGroup
                 orientation={orientation}
-                onLayoutChange={(layout) =>
-                  setLayouts((current) => ({
+                onLayoutChange={layout =>
+                  setLayouts(current => ({
                     ...current,
                     [orientation]: sizes(layout),
                   }))
@@ -141,20 +115,14 @@ function Orientations() {
                 <ResizablePanel defaultSize="40%" minSize="20%">
                   {splits[orientation].first}
                 </ResizablePanel>
-                <ResizableHandle
-                  withHandle
-                  aria-label={`Resize ${orientation} panels`}
-                />
+                <ResizableHandle withHandle aria-label={`Resize ${orientation} panels`} />
                 <ResizablePanel defaultSize="60%" minSize="20%">
                   {splits[orientation].second}
                 </ResizablePanel>
               </ResizablePanelGroup>
             </div>
             <p className="resizable-demo-muted">
-              {splits[orientation].label}:{" "}
-              <span data-testid={`${orientation}-sizes`}>
-                {layouts[orientation]}
-              </span>
+              {splits[orientation].label}: <span data-testid={`${orientation}-sizes`}>{layouts[orientation]}</span>
             </p>
           </div>
         ))}
@@ -164,7 +132,7 @@ function Orientations() {
 }
 
 const canvasSplitMinWidth = 720;
-const chatLayoutId = "sprout-docs:chat-canvas";
+const chatLayoutId = 'sprout-docs:chat-canvas';
 
 function CanvasBody() {
   return (
@@ -216,35 +184,28 @@ function ChatCanvas() {
       <div className="resizable-demo-toolbar">
         <Button variant="outline" size="sm" onClick={() => setOpen(!open)}>
           <SidebarRight size={14} aria-hidden="true" />
-          {open ? "Close canvas" : "Open canvas"}
+          {open ? 'Close canvas' : 'Open canvas'}
         </Button>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => {
             for (const key of Object.keys(localStorage))
-              if (key.startsWith(`sprout-resizable:${chatLayoutId}`))
-                localStorage.removeItem(key);
-            setReset((value) => value + 1);
+              if (key.startsWith(`sprout-resizable:${chatLayoutId}`)) localStorage.removeItem(key);
+            setReset(value => value + 1);
           }}
         >
           Reset saved size
         </Button>
       </div>
-      <div
-        ref={ref}
-        className="resizable-demo-chat-frame"
-        data-testid="chat-frame"
-      >
+      <div ref={ref} className="resizable-demo-chat-frame" data-testid="chat-frame">
         <ChatSplit key={reset} open={open} split={split} />
       </div>
       <Sheet open={open && mobile} onOpenChange={setOpen}>
         <SheetContent side="right" size="full">
           <SheetHeader>
             <SheetTitle>Canvas</SheetTitle>
-            <SheetDescription>
-              Detailed result. Close it to return to the chat.
-            </SheetDescription>
+            <SheetDescription>Detailed result. Close it to return to the chat.</SheetDescription>
           </SheetHeader>
           <SheetBody>
             <CanvasBody />
@@ -258,7 +219,7 @@ function ChatCanvas() {
 function ChatSplit({ open, split }: { open: boolean; split: boolean }) {
   const layout = useResizableLayout({
     id: chatLayoutId,
-    panelIds: split ? ["docs-chat", "docs-canvas"] : ["docs-chat"],
+    panelIds: split ? ['docs-chat', 'docs-canvas'] : ['docs-chat'],
     onlySaveAfterUserInteractions: true,
   });
   return (
@@ -267,22 +228,15 @@ function ChatSplit({ open, split }: { open: boolean; split: boolean }) {
       defaultLayout={layout.defaultLayout}
       onLayoutChanged={layout.onLayoutChanged}
     >
-      <ResizablePanel
-        id="docs-chat"
-        minSize="40%"
-        defaultSize={split ? "55%" : "100%"}
-      >
+      <ResizablePanel id="docs-chat" minSize="40%" defaultSize={split ? '55%' : '100%'}>
         <div className="resizable-demo-chat">
           <p className="resizable-demo-bubble" data-from="user">
             Which invoices are overdue?
           </p>
           <p className="resizable-demo-bubble">
-            Three customers are more than 30 days late. I opened the details in
-            the canvas.
+            Three customers are more than 30 days late. I opened the details in the canvas.
           </p>
-          <p className="resizable-demo-muted">
-            {open ? "Canvas is open." : "Canvas is closed."}
-          </p>
+          <p className="resizable-demo-muted">{open ? 'Canvas is open.' : 'Canvas is closed.'}</p>
         </div>
       </ResizablePanel>
       {split && (
@@ -298,18 +252,15 @@ function ChatSplit({ open, split }: { open: boolean; split: boolean }) {
 }
 
 const files: Record<string, string> = {
-  "soul/identity.md":
-    "# Identity\n\nTulip helps the Growth team keep\nfollow-ups short and kind.",
-  "soul/tone.md":
-    "# Tone\n\n- Plain words\n- One idea per sentence\n- No exclamation marks",
-  "soul/memory/customers.md":
-    "# Customers\n\nNorthwind Ltd prefers email.\nBloom & Co pays on the 5th.",
+  'soul/identity.md': '# Identity\n\nTulip helps the Growth team keep\nfollow-ups short and kind.',
+  'soul/tone.md': '# Tone\n\n- Plain words\n- One idea per sentence\n- No exclamation marks',
+  'soul/memory/customers.md': '# Customers\n\nNorthwind Ltd prefers email.\nBloom & Co pays on the 5th.',
 };
 
-type ExplorerState = "ready" | "loading" | "error";
+type ExplorerState = 'ready' | 'loading' | 'error';
 
 function FileExplorer() {
-  const [state, setState] = useState<ExplorerState>("ready");
+  const [state, setState] = useState<ExplorerState>('ready');
   const [selected, setSelected] = useState<string | null>(null);
   const [ref, width] = useWidth();
   const mobile = width !== null && width < 560;
@@ -319,11 +270,11 @@ function FileExplorer() {
         Soul files
       </p>
       <ul aria-labelledby="soul-files-label">
-        {Object.keys(files).map((path) => (
+        {Object.keys(files).map(path => (
           <li key={path}>
             <button
               type="button"
-              aria-current={selected === path ? "true" : undefined}
+              aria-current={selected === path ? 'true' : undefined}
               onClick={() => setSelected(path)}
             >
               <FileText size={14} aria-hidden="true" />
@@ -358,7 +309,7 @@ function FileExplorer() {
         variant="outline"
         spacing={0}
         value={[state]}
-        onValueChange={(value) => {
+        onValueChange={value => {
           if (value[0]) setState(value[0] as ExplorerState);
         }}
       >
@@ -372,54 +323,40 @@ function FileExplorer() {
             Accepted revision <code>9f3c2a71be04</code>
           </span>
           <div className="resizable-demo-explorer-actions">
-            {mobile && selected && state === "ready" && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSelected(null)}
-              >
+            {mobile && selected && state === 'ready' && (
+              <Button variant="ghost" size="sm" onClick={() => setSelected(null)}>
                 <ArrowLeft size={14} aria-hidden="true" />
                 Back
               </Button>
             )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setState("ready")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setState('ready')}>
               <Refresh size={14} aria-hidden="true" />
               Refresh
             </Button>
           </div>
         </div>
-        <div
-          ref={ref}
-          className="resizable-demo-explorer-body"
-          data-testid="explorer-body"
-        >
-          {state === "loading" ? (
+        <div ref={ref} className="resizable-demo-explorer-body" data-testid="explorer-body">
+          {state === 'loading' ? (
             <StatePanel
               kind="loading"
               heading="h4"
               title="Loading Soul"
               description="Checking access and reading the saved files."
             />
-          ) : state === "error" ? (
+          ) : state === 'error' ? (
             <StatePanel
               kind="error"
               heading="h4"
               title="Soul could not be read"
               description="The saved files did not load. Try again in a moment."
             >
-              <Button size="sm" onClick={() => setState("ready")}>
+              <Button size="sm" onClick={() => setState('ready')}>
                 <Refresh size={14} aria-hidden="true" />
                 Try again
               </Button>
             </StatePanel>
           ) : mobile ? (
-            <div className="resizable-demo-scroll">
-              {selected ? file : tree}
-            </div>
+            <div className="resizable-demo-scroll">{selected ? file : tree}</div>
           ) : (
             <ResizablePanelGroup orientation="horizontal">
               <ResizablePanel defaultSize="28%" minSize="220px">

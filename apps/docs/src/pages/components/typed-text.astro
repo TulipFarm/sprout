@@ -1,20 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import TypedTextDemo from "../../components/TypedTextDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import TypedTextDemo from '../../components/TypedTextDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Typed Text"
-  description="Text that types itself in when an agent changes it, such as a chat title."
->
+<Docs title="Typed Text" description="Text that types itself in when an agent changes it, such as a chat title.">
   <h1 class="docs-title">Typed Text</h1>
   <p class="docs-lead">
-    Types new text in, one character at a time, when it changes. Use it for
-    short text an agent rewrites while someone watches, such as a chat title.
-    The first render shows the text at once.
+    Types new text in, one character at a time, when it changes. Use it for short text an agent rewrites while someone
+    watches, such as a chat title. The first render shows the text at once.
   </p>
-  <div class="mt-8"><TypedTextDemo client:load /></div>
+  <div class="mt-8">
+    <TypedTextDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -27,19 +25,15 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </h1>`}
     />
     <p>
-      <code>text</code> is the full text. When it changes, the new text types in at
-      25ms a character, and never takes longer than 800ms (<code
-        >typedTextCharacterDuration</code
-      > and
-      <code>typedTextMaxDuration</code>). It steps by graphemes, so emoji and
-      accented letters never split.
+      <code>text</code> is the full text. When it changes, the new text types in at 25ms a character, and never takes
+      longer than 800ms (<code>typedTextCharacterDuration</code> and
+      <code>typedTextMaxDuration</code>). It steps by graphemes, so emoji and accented letters never split.
     </p>
     <p>
       <code>animate</code> defaults to <code>true</code>. Pass
-      <code>false</code> to show changes at once, such as a title someone typed by
-      hand. The text is inline, so a truncating parent still adds an ellipsis. <code
-        >className</code
-      >, <code>data-*</code>, and other span attributes pass through.
+      <code>false</code> to show changes at once, such as a title someone typed by hand. The text is inline, so a
+      truncating parent still adds an ellipsis. <code>className</code>, <code>data-*</code>, and other span attributes
+      pass through.
     </p>
   </section>
   <section class="prose-section">
@@ -53,18 +47,17 @@ import CodeBlock from "../../components/CodeBlock.astro";
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Screen readers get the full text at once from a visually hidden copy; the
-      typing letters are hidden from them, so nothing is read in pieces. With
-      reduced motion the text changes at once, and turning reduced motion on
-      mid-change finishes it right away. While typing, the root has
+      Screen readers get the full text at once from a visually hidden copy; the typing letters are hidden from them, so
+      nothing is read in pieces. With reduced motion the text changes at once, and turning reduced motion on mid-change
+      finishes it right away. While typing, the root has
       <code>data-state="typing"</code>; otherwise <code>"idle"</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Typed Text has no color or font of its own. It inherits from the heading
-      or paragraph it sits in, in light, dark, and brand themes.
+      Typed Text has no color or font of its own. It inherits from the heading or paragraph it sits in, in light, dark,
+      and brand themes.
     </p>
   </section>
 </Docs>

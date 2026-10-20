@@ -1,12 +1,9 @@
-import {
-  FileExplorer,
-  type FileExplorerFile,
-} from "@tulipfarm/sprout/file-explorer";
-import "../styles/file-explorer-demo.css";
+import { FileExplorer, type FileExplorerFile } from '@tulipfarm/sprout/file-explorer';
+import '../styles/file-explorer-demo.css';
 
 const soul: FileExplorerFile[] = [
   {
-    path: "SOUL.md",
+    path: 'SOUL.md',
     content: `# Meadow
 
 Meadow is the operations agent for the Tulip Farm greenhouse team.
@@ -31,7 +28,7 @@ escalate:
 `,
   },
   {
-    path: "agents/scout/persona.md",
+    path: 'agents/scout/persona.md',
     content: `# Scout
 
 Scout walks the beds each morning and writes the daily crop report.
@@ -42,7 +39,7 @@ Scout walks the beds each morning and writes the daily crop report.
 `,
   },
   {
-    path: "agents/scout/tools.ts",
+    path: 'agents/scout/tools.ts',
     content: `import { defineTool } from "@tulipfarm/agents";
 import { z } from "zod";
 
@@ -68,7 +65,7 @@ export const tools = [readBed];
 `,
   },
   {
-    path: "agents/harvest/persona.md",
+    path: 'agents/harvest/persona.md',
     content: `# Harvest
 
 Harvest plans the week's picking from ripeness scores and orders.
@@ -76,7 +73,7 @@ Keep the plan to one table: bed, crop, crates, and picker.
 `,
   },
   {
-    path: "agents/harvest/schedule.py",
+    path: 'agents/harvest/schedule.py',
     content: `from dataclasses import dataclass
 from datetime import date, timedelta
 
@@ -102,7 +99,7 @@ def plan_week(scores: dict[str, float], start: date) -> list[Pick]:
 `,
   },
   {
-    path: "memory/beds.json",
+    path: 'memory/beds.json',
     content: `{
   "greenhouse": "North",
   "beds": [
@@ -115,7 +112,7 @@ def plan_week(scores: dict[str, float], start: date) -> list[Pick]:
 `,
   },
   {
-    path: "memory/notes/2026-10-12.md",
+    path: 'memory/notes/2026-10-12.md',
     content: `# Shift notes, 12 October
 
 - Bed A2: wilt on the north edge. Scout flagged it twice.
@@ -123,7 +120,7 @@ def plan_week(scores: dict[str, float], start: date) -> list[Pick]:
 `,
   },
   {
-    path: "memory/notes/2026-10-18.md",
+    path: 'memory/notes/2026-10-18.md',
     content: `# Shift notes, 18 October
 
 - Harvest picked 18 crates from A1.
@@ -131,7 +128,7 @@ def plan_week(scores: dict[str, float], start: date) -> list[Pick]:
 `,
   },
   {
-    path: "skills/frost-watch/SKILL.md",
+    path: 'skills/frost-watch/SKILL.md',
     content: `# Frost watch
 
 Use when the forecast drops below 4 °C.
@@ -142,7 +139,7 @@ Use when the forecast drops below 4 °C.
 `,
   },
   {
-    path: "skills/frost-watch/check.sh",
+    path: 'skills/frost-watch/check.sh',
     content: `#!/usr/bin/env bash
 set -euo pipefail
 
@@ -156,7 +153,7 @@ done
 `,
   },
   {
-    path: "config.yaml",
+    path: 'config.yaml',
     content: `name: meadow
 model: claude-sonnet-5-5
 timezone: Europe/Amsterdam
@@ -172,26 +169,22 @@ channels:
   reports: "#crop-reports"
 `,
   },
-  { path: ".env.example", content: `SENSORS_URL=\nFROST_BELOW_C=2\n` },
+  { path: '.env.example', content: `SENSORS_URL=\nFROST_BELOW_C=2\n` },
   {
-    path: "styles/report.css",
+    path: 'styles/report.css',
     content: `.report {\n  font: 14px/1.5 system-ui;\n  color: #1d6a37;\n}\n`,
   },
   {
-    path: "assets/greenhouse-map.png",
-    unavailable: "Images cannot be displayed here.",
+    path: 'assets/greenhouse-map.png',
+    unavailable: 'Images cannot be displayed here.',
   },
-  { path: "README", content: "" },
+  { path: 'README', content: '' },
 ];
 
 export function FileExplorerPlayground() {
   return (
     <div className="file-explorer-demo">
-      <FileExplorer
-        files={soul}
-        label="Soul"
-        defaultPath="agents/scout/tools.ts"
-      />
+      <FileExplorer files={soul} label="Soul" defaultPath="agents/scout/tools.ts" />
     </div>
   );
 }

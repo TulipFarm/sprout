@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
-import RichTextEditorDemo from "../../components/RichTextEditorDemo";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import RichTextEditorDemo from '../../components/RichTextEditorDemo';
 ---
 
 <Docs
@@ -10,11 +10,12 @@ import RichTextEditorDemo from "../../components/RichTextEditorDemo";
 >
   <h1 class="docs-title">Rich Text Editor</h1>
   <p class="docs-lead">
-    The message box behind the chat composer. Enter sends, Shift+Enter adds a
-    line, and headings, lists, links, and code fences work as you type. Put it
-    in a composer <code>InputGroup</code> and hand it a toolbar.
+    The message box behind the chat composer. Enter sends, Shift+Enter adds a line, and headings, lists, links, and code
+    fences work as you type. Put it in a composer <code>InputGroup</code> and hand it a toolbar.
   </p>
-  <div class="mt-8"><RichTextEditorDemo client:load /></div>
+  <div class="mt-8">
+    <RichTextEditorDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -79,37 +80,32 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
     <h2 class="section-title">Props</h2>
     <p>
       <code>value</code> is a Tiptap JSON document and <code>onChange</code>
-      gets the new one on every edit. A new <code>value</code> from outside replaces
-      the content without calling <code>onChange</code>.
-      <code>onSend</code> runs on Enter and on Cmd or Ctrl+Enter.
+      gets the new one on every edit. A new <code>value</code> from outside replaces the content without calling{' '}
+      <code>onChange</code>.<code>onSend</code> runs on Enter and on Cmd or Ctrl+Enter.
     </p>
     <p>
-      <code>size</code> is <code>default</code> (80px to 256px, 16px text, a toolbar
-      row below) or <code>compact</code> (40px to 128px, 14px text, the toolbar inline
-      at the end). <code>condensed</code> shrinks a default editor to the same single
-      row, such as while an agent question waits. Past the maximum height the editor
-      scrolls.
+      <code>size</code> is <code>default</code> (80px to 256px, 16px text, a toolbar row below) or <code>compact</code>{' '}
+      (40px to 128px, 14px text, the toolbar inline at the end). <code>condensed</code> shrinks a default editor to the
+      same single row, such as while an agent question waits. Past the maximum height the editor scrolls.
     </p>
     <p>
       <code>toolbarAddon</code> holds buttons and pickers.
       <code>extensions</code> adds Tiptap extensions, such as mention nodes and
       <code>@</code> or <code>/</code> suggestion triggers. Pass a stable array with
       <code>useMemo</code>; a new array rebuilds the editor.
-      <code>placeholder</code> defaults to <code>Ask anything…</code> and can change
-      while mounted.
+      <code>placeholder</code> defaults to <code>Ask anything…</code> and can change while mounted.
     </p>
     <p>
       <code>disabled</code> stops editing and dims the editor.
       <code>ariaLabel</code> (default <code>Message</code>),
-      <code>ariaInvalid</code>, <code>ariaDescribedBy</code>,
-      <code>ariaControls</code>, and <code>ariaActiveDescendant</code> go on the textbox.
-      <code>ariaExpanded</code> tells the editor a suggestion list is open; it isn't
-      written to the DOM, because ARIA doesn't allow
+      <code>ariaInvalid</code>, <code>ariaDescribedBy</code>,<code>ariaControls</code>, and{' '}
+      <code>ariaActiveDescendant</code> go on the textbox.
+      <code>ariaExpanded</code> tells the editor a suggestion list is open; it isn't written to the DOM, because ARIA
+      doesn't allow
       <code>aria-expanded</code> on a textbox.
     </p>
     <p>
-      The <code>ref</code> handle has <code>focus()</code>,
-      <code>editor()</code> for Tiptap commands, and
+      The <code>ref</code> handle has <code>focus()</code>,<code>editor()</code> for Tiptap commands, and
       <code>setContent(doc)</code>, which replaces the document and calls
       <code>onChange</code>.
     </p>
@@ -117,18 +113,17 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
   <section class="prose-section">
     <h2 class="section-title">Behavior</h2>
     <p>
-      Enter sends unless the caret is in a list item or code block, a suggestion
-      list is open (<code>ariaExpanded</code>), or the line is a bare code
-      fence. Shift+Enter adds a line break; Cmd or Ctrl+Enter always sends.
-      Enter during IME composition never sends.
+      Enter sends unless the caret is in a list item or code block, a suggestion list is open (<code>ariaExpanded</code>
+      ), or the line is a bare code fence. Shift+Enter adds a line break; Cmd or Ctrl+Enter always sends. Enter during
+      IME composition never sends.
     </p>
     <p>
-      Headings go up to level 3. Typing <code>```sql</code> and Space starts a code
-      block, even after a Shift+Enter line break. Pasted text with
-      <code>```</code> or <code>~~~</code> fences becomes code blocks. Links allow
-      only <code>http</code>, <code>https</code>, and
-      <code>mailto</code>, don't open on click, and stop extending once you type
-      past them. There is no underline or horizontal rule.
+      Headings go up to level 3. Typing <code>```sql</code> and Space starts a code block, even after a Shift+Enter line
+      break. Pasted text with
+      <code>```</code> or <code>~~~</code> fences becomes code blocks. Links allow only <code>http</code>,{' '}
+      <code>https</code>, and
+      <code>mailto</code>, don't open on click, and stop extending once you type past them. There is no underline or
+      horizontal rule.
     </p>
   </section>
   <section class="prose-section">
@@ -137,18 +132,15 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
       The editor is a multi-line <code>textbox</code> with
       <code>aria-autocomplete="list"</code>. Point
       <code>ariaControls</code> at a suggestion listbox and
-      <code>ariaActiveDescendant</code> at its active option, so screen readers follow
-      arrow keys while focus stays in the text. Name icon-only toolbar buttons with
-      <code>aria-label</code> and show pressed formats with <code
-        >aria-pressed</code
-      >.
+      <code>ariaActiveDescendant</code> at its active option, so screen readers follow arrow keys while focus stays in
+      the text. Name icon-only toolbar buttons with
+      <code>aria-label</code> and show pressed formats with <code>aria-pressed</code>.
     </p>
     <p>
       On its own the editor shows a 2px focus outline. Inside an
       <code>InputGroup</code> it is marked
-      <code>data-slot="input-group-control"</code>, so the group draws focus and
-      invalid borders instead. Fades take 120ms and stop when reduced motion is
-      requested. Forced colors mode keeps a system focus outline.
+      <code>data-slot="input-group-control"</code>, so the group draws focus and invalid borders instead. Fades take
+      120ms and stop when reduced motion is requested. Forced colors mode keeps a system focus outline.
     </p>
   </section>
   <section class="prose-section">
@@ -156,10 +148,9 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
     <p>
       Text uses <code>--sprout-text</code>, the placeholder and quotes
       <code>--sprout-muted</code>, code backgrounds
-      <code>--sprout-hover</code>, and links <code>--sprout-primary</code>. The
-      toolbar divider is <code>--sprout-line</code> and focus
-      <code>--sprout-focus</code>. The opt-in TulipFarm theme tints links and
-      the send button through these tokens.
+      <code>--sprout-hover</code>, and links <code>--sprout-primary</code>. The toolbar divider is{' '}
+      <code>--sprout-line</code> and focus
+      <code>--sprout-focus</code>. The opt-in TulipFarm theme tints links and the send button through these tokens.
     </p>
   </section>
 </Docs>

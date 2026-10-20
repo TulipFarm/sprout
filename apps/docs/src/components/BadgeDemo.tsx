@@ -1,18 +1,18 @@
-import { useState, type ReactNode } from "react";
-import { AddCircle } from "reicon-react/icons/AddCircle";
-import { ArrowUpRight } from "reicon-react/icons/ArrowUpRight";
-import { Bell } from "reicon-react/icons/Bell";
-import { BellOff } from "reicon-react/icons/BellOff";
-import { BookOpen } from "reicon-react/icons/BookOpen";
-import { Calendar } from "reicon-react/icons/Calendar";
-import { Check } from "reicon-react/icons/Check";
-import { Edit2 } from "reicon-react/icons/Edit2";
-import { Eye } from "reicon-react/icons/Eye";
-import { Loader } from "reicon-react/icons/Loader";
-import { Repeat } from "reicon-react/icons/Repeat";
-import { Trash } from "reicon-react/icons/Trash";
-import { Video } from "reicon-react/icons/Video";
-import { X } from "reicon-react/icons/X";
+import { useState, type ReactNode } from 'react';
+import { AddCircle } from 'reicon-react/icons/AddCircle';
+import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
+import { Bell } from 'reicon-react/icons/Bell';
+import { BellOff } from 'reicon-react/icons/BellOff';
+import { BookOpen } from 'reicon-react/icons/BookOpen';
+import { Calendar } from 'reicon-react/icons/Calendar';
+import { Check } from 'reicon-react/icons/Check';
+import { Edit2 } from 'reicon-react/icons/Edit2';
+import { Eye } from 'reicon-react/icons/Eye';
+import { Loader } from 'reicon-react/icons/Loader';
+import { Repeat } from 'reicon-react/icons/Repeat';
+import { Trash } from 'reicon-react/icons/Trash';
+import { Video } from 'reicon-react/icons/Video';
+import { X } from 'reicon-react/icons/X';
 import {
   Badge,
   badgeSizeNames,
@@ -20,57 +20,56 @@ import {
   badgeVariants,
   type BadgeSize,
   type BadgeVariant,
-} from "@tulipfarm/sprout/badge";
-import { Button } from "@tulipfarm/sprout/button";
-import "../styles/badge-demo.css";
-import DocsSelect from "./DocsSelect";
+} from '@tulipfarm/sprout/badge';
+import { Button } from '@tulipfarm/sprout/button';
+import '../styles/badge-demo.css';
+import DocsSelect from './DocsSelect';
 
-type Scenario = "ready" | "loading" | "empty" | "error";
+type Scenario = 'ready' | 'loading' | 'empty' | 'error';
 const scenarios: { value: Scenario; label: string }[] = [
-  { value: "ready", label: "Ready" },
-  { value: "loading", label: "Loading" },
-  { value: "empty", label: "Empty" },
-  { value: "error", label: "Error" },
+  { value: 'ready', label: 'Ready' },
+  { value: 'loading', label: 'Loading' },
+  { value: 'empty', label: 'Empty' },
+  { value: 'error', label: 'Error' },
 ];
 
-type ConnectionState =
-  "connected" | "installed" | "attention" | "unavailable" | "soon" | "off";
+type ConnectionState = 'connected' | 'installed' | 'attention' | 'unavailable' | 'soon' | 'off';
 
 const integrations: {
   name: string;
   detail: string;
   state: ConnectionState;
 }[] = [
-  { name: "Chat", detail: "Replies in two channels", state: "connected" },
-  { name: "Mail", detail: "Reads new mail", state: "installed" },
-  { name: "Tracker", detail: "Searches one board", state: "attention" },
-  { name: "Drive", detail: "Waiting for an administrator", state: "off" },
+  { name: 'Chat', detail: 'Replies in two channels', state: 'connected' },
+  { name: 'Mail', detail: 'Reads new mail', state: 'installed' },
+  { name: 'Tracker', detail: 'Searches one board', state: 'attention' },
+  { name: 'Drive', detail: 'Waiting for an administrator', state: 'off' },
   {
-    name: "Docs",
-    detail: "Not supported in this region",
-    state: "unavailable",
+    name: 'Docs',
+    detail: 'Not supported in this region',
+    state: 'unavailable',
   },
-  { name: "Forms", detail: "Planned integration", state: "soon" },
+  { name: 'Forms', detail: 'Planned integration', state: 'soon' },
 ];
 
 function ConnectionBadge({ state }: { state: ConnectionState }) {
   switch (state) {
-    case "connected":
+    case 'connected':
       return (
         <Badge variant="success">
           <Check aria-hidden="true" />
           Connected
         </Badge>
       );
-    case "installed":
+    case 'installed':
       return <Badge variant="secondary">Installed</Badge>;
-    case "attention":
+    case 'attention':
       return <Badge variant="warning">Needs attention</Badge>;
-    case "off":
+    case 'off':
       return <Badge variant="outline">Not granted</Badge>;
-    case "unavailable":
+    case 'unavailable':
       return <Badge variant="outline">Unavailable</Badge>;
-    case "soon":
+    case 'soon':
       return <Badge variant="outline">Coming soon</Badge>;
   }
 }
@@ -83,39 +82,39 @@ const tasks: {
   variant: BadgeVariant;
 }[] = [
   {
-    title: "Send reminders for invoices past 30 days",
-    owner: "Collections assistant",
-    started: "4m ago",
-    status: "Needs review",
-    variant: "warning",
+    title: 'Send reminders for invoices past 30 days',
+    owner: 'Collections assistant',
+    started: '4m ago',
+    status: 'Needs review',
+    variant: 'warning',
   },
   {
-    title: "Book a kickoff with a new customer",
-    owner: "Onboarding guide",
-    started: "1h ago",
-    status: "Completed",
-    variant: "success",
+    title: 'Book a kickoff with a new customer',
+    owner: 'Onboarding guide',
+    started: '1h ago',
+    status: 'Completed',
+    variant: 'success',
   },
   {
     title: "Tag this week's billing tickets",
-    owner: "Support triage",
-    started: "Yesterday",
-    status: "Pending",
-    variant: "secondary",
+    owner: 'Support triage',
+    started: 'Yesterday',
+    status: 'Pending',
+    variant: 'secondary',
   },
   {
-    title: "Import supplier price list",
-    owner: "Inventory watcher",
-    started: "Today",
-    status: "Failed",
-    variant: "destructive",
+    title: 'Import supplier price list',
+    owner: 'Inventory watcher',
+    started: 'Today',
+    status: 'Failed',
+    variant: 'destructive',
   },
   {
-    title: "Draft quarterly review",
-    owner: "Weekly reporter",
-    started: "Today",
-    status: "In progress",
-    variant: "info",
+    title: 'Draft quarterly review',
+    owner: 'Weekly reporter',
+    started: 'Today',
+    status: 'In progress',
+    variant: 'info',
   },
 ];
 
@@ -123,67 +122,67 @@ const attendees: {
   name: string;
   email: string;
   response?: string;
-  change: "kept" | "added" | "removed";
+  change: 'kept' | 'added' | 'removed';
 }[] = [
   {
-    name: "Maya Chen",
-    email: "maya@example.com",
-    response: "accepted",
-    change: "kept",
+    name: 'Maya Chen',
+    email: 'maya@example.com',
+    response: 'accepted',
+    change: 'kept',
   },
-  { name: "Leo Martins", email: "leo@example.com", change: "added" },
+  { name: 'Leo Martins', email: 'leo@example.com', change: 'added' },
   {
-    name: "Priya Nair",
-    email: "priya.nair@example.com",
-    response: "declined",
-    change: "removed",
+    name: 'Priya Nair',
+    email: 'priya.nair@example.com',
+    response: 'declined',
+    change: 'removed',
   },
 ];
 
 const tags = [
-  "Urgent",
-  "Billing and invoicing enquiries from enterprise accounts",
-  "Waiting on customer",
-  "Resolved",
-  "Follow up",
+  'Urgent',
+  'Billing and invoicing enquiries from enterprise accounts',
+  'Waiting on customer',
+  'Resolved',
+  'Follow up',
 ];
 const tagTone = (label: string): BadgeVariant =>
   /urgent|failed|blocked/i.test(label)
-    ? "destructive"
+    ? 'destructive'
     : /resolved|done/i.test(label)
-      ? "success"
+      ? 'success'
       : /waiting|pending/i.test(label)
-        ? "warning"
-        : "secondary";
+        ? 'warning'
+        : 'secondary';
 
 const runSteps: { label: string; variant: BadgeVariant }[] = [
-  { label: "Not yet applied", variant: "info" },
-  { label: "In progress", variant: "info" },
-  { label: "Created", variant: "success" },
-  { label: "Failed", variant: "destructive" },
-  { label: "Rejected", variant: "secondary" },
+  { label: 'Not yet applied', variant: 'info' },
+  { label: 'In progress', variant: 'info' },
+  { label: 'Created', variant: 'success' },
+  { label: 'Failed', variant: 'destructive' },
+  { label: 'Rejected', variant: 'secondary' },
 ];
 
 const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
   default: {
-    default: "Pinned",
+    default: 'Pinned',
     success: (
       <>
         <Check aria-hidden="true" />
         Connected
       </>
     ),
-    warning: "Needs review",
-    info: "Recommended",
-    secondary: "Draft",
+    warning: 'Needs review',
+    info: 'Recommended',
+    secondary: 'Draft',
     destructive: (
       <>
         <Trash aria-hidden="true" />
         Will be deleted
       </>
     ),
-    outline: "Coming soon",
-    ghost: "No status",
+    outline: 'Coming soon',
+    ghost: 'No status',
     link: (
       <>
         View workflow
@@ -192,14 +191,14 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
     ),
   },
   chip: {
-    default: "Pinned · Brand guidelines 2026.pdf",
+    default: 'Pinned · Brand guidelines 2026.pdf',
     success: (
       <>
         <AddCircle aria-hidden="true" />
         Leo Martins · leo@example.com
       </>
     ),
-    warning: "Needs your input · Approve a refund over $500",
+    warning: 'Needs your input · Approve a refund over $500',
     info: (
       <>
         <Calendar aria-hidden="true" />
@@ -218,8 +217,8 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
         Priya Nair · priya.nair@example.com · declined
       </>
     ),
-    outline: "Maya Chen · maya@example.com · accepted",
-    ghost: "No status",
+    outline: 'Maya Chen · maya@example.com · accepted',
+    ghost: 'No status',
     link: (
       <>
         billing-runbook.md
@@ -229,15 +228,7 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
   },
 };
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="badge-demo-card" aria-label={title}>
       <header>
@@ -250,41 +241,28 @@ function Example({
 }
 
 export default function BadgeDemo() {
-  const [scenario, setScenario] = useState<Scenario>("ready");
+  const [scenario, setScenario] = useState<Scenario>('ready');
   const [filters, setFilters] = useState(2);
   const [run, setRun] = useState(0);
   const [skills, setSkills] = useState([
-    { id: "a1b2c3d4e5", name: "Qualify an inbound lead" },
+    { id: 'a1b2c3d4e5', name: 'Qualify an inbound lead' },
     {
-      id: "f6a7b8c9d0",
-      name: "Prepare a quarterly review with revenue, churn, and open risks",
+      id: 'f6a7b8c9d0',
+      name: 'Prepare a quarterly review with revenue, churn, and open risks',
     },
   ]);
   const step = runSteps[run] ?? runSteps[0]!;
 
   return (
     <div className="badge-demo" id="badge-demo">
-      <Example
-        title="Variants and sizes"
-        description="Nine variants in the default pill and the wrapping chip size."
-      >
+      <Example title="Variants and sizes" description="Nine variants in the default pill and the wrapping chip size.">
         <div className="badge-demo-matrix">
-          {badgeSizeNames.map((size) => (
-            <div
-              key={size}
-              className="badge-demo-row"
-              aria-label={`${size} size`}
-              role="group"
-            >
+          {badgeSizeNames.map(size => (
+            <div key={size} className="badge-demo-row" aria-label={`${size} size`} role="group">
               <span className="badge-demo-label">{size}</span>
               <div className="badge-demo-wrap">
-                {badgeVariantNames.map((variant) => (
-                  <Badge
-                    key={variant}
-                    variant={variant}
-                    size={size}
-                    title={variant}
-                  >
+                {badgeVariantNames.map(variant => (
+                  <Badge key={variant} variant={variant} size={size} title={variant}>
                     {matrix[size][variant]}
                   </Badge>
                 ))}
@@ -309,15 +287,11 @@ export default function BadgeDemo() {
             />
           </label>
         </div>
-        {scenario === "empty" ? (
+        {scenario === 'empty' ? (
           <p className="badge-demo-empty">No integrations yet.</p>
         ) : (
-          <ul
-            className="badge-demo-list"
-            aria-label="Integrations"
-            aria-busy={scenario === "loading"}
-          >
-            {integrations.map((item) => (
+          <ul className="badge-demo-list" aria-label="Integrations" aria-busy={scenario === 'loading'}>
+            {integrations.map(item => (
               <li key={item.name}>
                 <span className="badge-demo-mark" aria-hidden="true">
                   {item.name.slice(0, 1)}
@@ -326,12 +300,12 @@ export default function BadgeDemo() {
                   <strong>{item.name}</strong>
                   <span>{item.detail}</span>
                 </span>
-                {scenario === "loading" ? (
+                {scenario === 'loading' ? (
                   <Badge variant="secondary">
                     <Loader aria-hidden="true" className="badge-demo-spin" />
                     Checking
                   </Badge>
-                ) : scenario === "error" ? (
+                ) : scenario === 'error' ? (
                   <Badge variant="destructive">Couldn’t check</Badge>
                 ) : (
                   <ConnectionBadge state={item.state} />
@@ -350,7 +324,7 @@ export default function BadgeDemo() {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task) => (
+            {tasks.map(task => (
               <tr key={task.title}>
                 <td>
                   <strong>{task.title}</strong>
@@ -428,7 +402,7 @@ export default function BadgeDemo() {
           <Button
             variant="outline"
 
-            onClick={() => setFilters((value) => (value + 1) % 4)}
+            onClick={() => setFilters(value => (value + 1) % 4)}
           >
             Filters
             {filters > 0 && <Badge variant="secondary">{filters}</Badge>}
@@ -444,55 +418,35 @@ export default function BadgeDemo() {
         </div>
       </Example>
 
-      <Example
-        title="Chips"
-        description="Chips wrap long values and hold avatars or removable content."
-      >
+      <Example title="Chips" description="Chips wrap long values and hold avatars or removable content.">
         <ul className="badge-demo-wrap" aria-label="Attendees">
-          {attendees.map((person) => (
+          {attendees.map(person => (
             <li key={person.email} className="badge-demo-chip-item">
               <Badge
                 size="chip"
                 variant={
-                  person.change === "added"
-                    ? "success"
-                    : person.change === "removed"
-                      ? "destructive"
-                      : "outline"
+                  person.change === 'added' ? 'success' : person.change === 'removed' ? 'destructive' : 'outline'
                 }
               >
                 <span className="badge-demo-avatar" aria-hidden="true">
                   {person.name.slice(0, 1)}
                 </span>
                 <span
-                  className={
-                    person.change === "removed"
-                      ? "badge-demo-break badge-demo-strike"
-                      : "badge-demo-break"
-                  }
+                  className={person.change === 'removed' ? 'badge-demo-break badge-demo-strike' : 'badge-demo-break'}
                 >
-                  {person.change === "added" && (
-                    <span className="sr-only">Adds </span>
-                  )}
-                  {person.change === "removed" && (
-                    <span className="sr-only">Removes </span>
-                  )}
+                  {person.change === 'added' && <span className="sr-only">Adds </span>}
+                  {person.change === 'removed' && <span className="sr-only">Removes </span>}
                   {person.name} · {person.email}
-                  {person.response ? ` · ${person.response}` : ""}
+                  {person.response ? ` · ${person.response}` : ''}
                 </span>
               </Badge>
             </li>
           ))}
         </ul>
         <ul className="badge-demo-wrap" aria-label="Selected skills">
-          {skills.length === 0 && (
-            <li className="badge-demo-empty">No skills selected.</li>
-          )}
-          {skills.map((skill) => (
-            <li
-              key={skill.id}
-              className="badge-demo-chip-item badge-demo-removable"
-            >
+          {skills.length === 0 && <li className="badge-demo-empty">No skills selected.</li>}
+          {skills.map(skill => (
+            <li key={skill.id} className="badge-demo-chip-item badge-demo-removable">
               <Badge variant="secondary" size="chip" title={skill.name}>
                 <BookOpen aria-hidden="true" />
                 {skill.name}
@@ -502,11 +456,7 @@ export default function BadgeDemo() {
                 size="icon-xs"
 
                 aria-label={`Remove skill ${skill.name}`}
-                onClick={() =>
-                  setSkills((list) =>
-                    list.filter((item) => item.id !== skill.id),
-                  )
-                }
+                onClick={() => setSkills(list => list.filter(item => item.id !== skill.id))}
               >
                 <X size={14} aria-hidden="true" />
               </Button>
@@ -527,27 +477,15 @@ export default function BadgeDemo() {
         <div className="badge-demo-narrow">
           <Badge variant="secondary" size="chip">
             <Calendar aria-hidden="true" />
-            <span className="badge-demo-break">
-              c_9f3a1e0b7d2c4a58b6e1f0d9a7c3b2e1@group.calendar.example.com
-            </span>
+            <span className="badge-demo-break">c_9f3a1e0b7d2c4a58b6e1f0d9a7c3b2e1@group.calendar.example.com</span>
           </Badge>
         </div>
       </Example>
 
-      <Example
-        title="Overflow"
-        description="Inner truncation in tight cells, with an outline count for hidden values."
-      >
-        <div className="badge-demo-cell" title={tags.join(", ")}>
-          {tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className={
-                tag.length > 12
-                  ? "badge-demo-shrink"
-                  : "badge-demo-shrink badge-demo-keep"
-              }
-            >
+      <Example title="Overflow" description="Inner truncation in tight cells, with an outline count for hidden values.">
+        <div className="badge-demo-cell" title={tags.join(', ')}>
+          {tags.slice(0, 3).map(tag => (
+            <span key={tag} className={tag.length > 12 ? 'badge-demo-shrink' : 'badge-demo-shrink badge-demo-keep'}>
               <Badge variant={tagTone(tag)}>
                 <span className="badge-demo-truncate">{tag}</span>
               </Badge>
@@ -558,11 +496,11 @@ export default function BadgeDemo() {
         <div className="badge-demo-lanes">
           {[
             {
-              label: "Billing and invoicing enquiries",
-              variant: "warning" as const,
+              label: 'Billing and invoicing enquiries',
+              variant: 'warning' as const,
             },
-            { label: "No status", variant: "ghost" as const },
-          ].map((lane) => (
+            { label: 'No status', variant: 'ghost' as const },
+          ].map(lane => (
             <header key={lane.label} className="badge-demo-lane">
               <span className="badge-demo-shrink" title={lane.label}>
                 <Badge variant={lane.variant}>
@@ -581,9 +519,7 @@ export default function BadgeDemo() {
       >
         <div className="badge-demo-stack">
           <p className="badge-demo-title">
-            <span className="badge-demo-truncate">
-              Brand guidelines 2026.pdf
-            </span>
+            <span className="badge-demo-truncate">Brand guidelines 2026.pdf</span>
             <Badge>Pinned</Badge>
           </p>
           <p className="badge-demo-title">
@@ -604,7 +540,7 @@ export default function BadgeDemo() {
             <Button
               variant="outline"
 
-              onClick={() => setRun((value) => (value + 1) % runSteps.length)}
+              onClick={() => setRun(value => (value + 1) % runSteps.length)}
             >
               Next status
             </Button>
@@ -636,7 +572,7 @@ export default function BadgeDemo() {
           <Badge variant="destructive" render={<a href="#badge-api" />}>
             Destructive link
           </Badge>
-          <a href="#badge-api" className={badgeVariants({ variant: "info" })}>
+          <a href="#badge-api" className={badgeVariants({ variant: 'info' })}>
             badgeVariants()
           </a>
           <Badge variant="outline" aria-invalid="true">

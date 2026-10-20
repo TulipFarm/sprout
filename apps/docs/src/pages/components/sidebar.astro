@@ -1,16 +1,17 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import SidebarDemo from "../../components/SidebarDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import SidebarDemo from '../../components/SidebarDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs title="Sidebar">
   <h1 class="docs-title">Sidebar</h1>
   <p class="docs-lead">
-    A home for your navigation. Collapsible groups, an icon rail, and a mobile
-    drawer, built with Base UI.
+    A home for your navigation. Collapsible groups, an icon rail, and a mobile drawer, built with Base UI.
   </p>
-  <div class="mt-8"><SidebarDemo client:load /></div>
+  <div class="mt-8">
+    <SidebarDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -48,39 +49,28 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </SidebarProvider>`}
     />
     <p>
-      Supply icons from your own icon library. Use the <code>render</code> prop with
-      your router's link and <code>nativeButton={false}</code> for navigation. Use
-      a normal button for actions.
+      Supply icons from your own icon library. Use the <code>render</code> prop with your router's link and{' '}
+      <code>nativeButton={false}</code> for navigation. Use a normal button for actions.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Parts</h2>
     <p>
-      <code>SidebarProvider</code> owns open state. <code>Sidebar</code> handles the
-      panel and mobile drawer. <code>SidebarHeader</code> and <code
-        >SidebarFooter</code
-      > stay visible while <code>SidebarContent</code> scrolls. Put a
-      <code>SidebarInput</code> in the header to search or filter the menu; it is
-      an <a href="/components/input/">Input</a> on the canvas color.
+      <code>SidebarProvider</code> owns open state. <code>Sidebar</code> handles the panel and mobile drawer.{' '}
+      <code>SidebarHeader</code> and <code>SidebarFooter</code> stay visible while <code>SidebarContent</code> scrolls.
+      Put a<code>SidebarInput</code> in the header to search or filter the menu; it is an{' '}
+      <a href="/components/input/">Input</a> on the canvas color.
     </p>
     <p>
-      <code>SidebarGroup</code> and <code>SidebarGroupLabel</code> organize a <code
-        >SidebarMenu</code
-      >. Each <code>SidebarMenuItem</code> contains a <code
-        >SidebarMenuButton</code
-      >, with optional <code>icon</code>, <code>badge</code>, <code
-        >isActive</code
-      >, and <code>tooltip</code> props. Give complex labels an explicit <code
-        >aria-label</code
-      > or <code>tooltip</code>.
+      <code>SidebarGroup</code> and <code>SidebarGroupLabel</code> organize a <code>SidebarMenu</code>. Each{' '}
+      <code>SidebarMenuItem</code> contains a <code>SidebarMenuButton</code>, with optional <code>icon</code>,{' '}
+      <code>badge</code>, <code>isActive</code>, and <code>tooltip</code> props. Give complex labels an explicit{' '}
+      <code>aria-label</code> or <code>tooltip</code>.
     </p>
     <p>
-      <code>SidebarMenuAction</code> adds a separate action. <code
-        >SidebarSection</code
-      > combines a navigation link with an independent disclosure button. Put <code
-        >SidebarMenuSubItem</code
-      > and <code>SidebarMenuSubButton</code> inside it. For a custom composition,
-      use <code>SidebarMenuSub</code> directly.
+      <code>SidebarMenuAction</code> adds a separate action. <code>SidebarSection</code> combines a navigation link with
+      an independent disclosure button. Put <code>SidebarMenuSubItem</code> and <code>SidebarMenuSubButton</code> inside
+      it. For a custom composition, use <code>SidebarMenuSub</code> directly.
     </p>
   </section>
   <section class="prose-section">
@@ -106,59 +96,45 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </SidebarSection>`}
     />
     <p>
-      The label navigates; the arrow expands. Collapsing the whole sidebar hides
-      nested links without forgetting which sections were open. Sections also
-      accept <code>open</code> and <code>onOpenChange</code>.
+      The label navigates; the arrow expands. Collapsing the whole sidebar hides nested links without forgetting which
+      sections were open. Sections also accept <code>open</code> and <code>onOpenChange</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">State and layout</h2>
     <p>
-      <code>Sidebar</code> supports <code>side="left"</code> or <code
-        >"right"</code
-      >, and <code>collapsible="icon"</code>, <code>"offcanvas"</code>, or <code
-        >"none"</code
-      >. Put a right sidebar after your content in the DOM. The provider follows
-      its container's height; give it a viewport height or a bounded preview
+      <code>Sidebar</code> supports <code>side="left"</code> or <code>"right"</code>, and{' '}
+      <code>collapsible="icon"</code>, <code>"offcanvas"</code>, or <code>"none"</code>. Put a right sidebar after your
+      content in the DOM. The provider follows its container's height; give it a viewport height or a bounded preview
       height.
     </p>
     <p>
-      <code>SidebarProvider</code> accepts <code>defaultOpen</code>, or
-      controlled <code>open</code> / <code>onOpenChange</code>. Mobile state is
-      separate through <code>openMobile</code> / <code>onOpenMobileChange</code
-      >. <code>useSidebar()</code> exposes these states, their setters, <code
-        >isMobile</code
-      >, <code>state</code>, and <code>toggleSidebar()</code>.
+      <code>SidebarProvider</code> accepts <code>defaultOpen</code>, or controlled <code>open</code> /{' '}
+      <code>onOpenChange</code>. Mobile state is separate through <code>openMobile</code> /{' '}
+      <code>onOpenMobileChange</code>. <code>useSidebar()</code> exposes these states, their setters,{' '}
+      <code>isMobile</code>, <code>state</code>, and <code>toggleSidebar()</code>.
     </p>
     <p>
-      Saving preferences belongs to the application. This preview stores its
-      open state in local storage; the package never writes cookies or storage.
-      For server rendering, pass your saved preference as <code
-        >defaultOpen</code
-      >.
+      Saving preferences belongs to the application. This preview stores its open state in local storage; the package
+      never writes cookies or storage. For server rendering, pass your saved preference as <code>defaultOpen</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Behavior and accessibility</h2>
     <p>
-      Below 768px, collapsible sidebars become modal drawers. Base UI handles
-      focus trapping, Escape dismissal, and scroll locking. Links close the
-      drawer; custom navigation handlers can call <code
-        >setOpenMobile(false)</code
-      >. A visible Close action is always provided.
+      Below 768px, collapsible sidebars become modal drawers. Base UI handles focus trapping, Escape dismissal, and
+      scroll locking. Links close the drawer; custom navigation handlers can call <code>setOpenMobile(false)</code>. A
+      visible Close action is always provided.
     </p>
     <p>
-      Tab follows normal link order. Enter activates links; Enter or Space
-      toggles disclosures. Icon-only items keep accessible names and show
-      tooltips on hover or focus. Set <code>keyboardShortcut={false}</code> on the
-      provider to disable Cmd/Ctrl+B. The shortcut does not run inside editable fields.
+      Tab follows normal link order. Enter activates links; Enter or Space toggles disclosures. Icon-only items keep
+      accessible names and show tooltips on hover or focus. Set <code>keyboardShortcut={false}</code> on the provider to
+      disable Cmd/Ctrl+B. The shortcut does not run inside editable fields.
     </p>
     <p>
-      <code>SidebarMenuSkeleton</code> provides a static loading row. <code
-        >SidebarSeparator</code
-      > draws an inset line between groups. Your application supplies loading announcements,
-      empty messages, error messages, and retry actions. Routes, permissions, workspace
-      switchers, account menus, and data fetching are not part of the package.
+      <code>SidebarMenuSkeleton</code> provides a static loading row. <code>SidebarSeparator</code> draws an inset line
+      between groups. Your application supplies loading announcements, empty messages, error messages, and retry
+      actions. Routes, permissions, workspace switchers, account menus, and data fetching are not part of the package.
     </p>
   </section>
 </Docs>

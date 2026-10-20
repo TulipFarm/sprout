@@ -1,25 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
-import {
-  CommandComposer,
-  CommandPalette,
-  CommandPlayground,
-  CommandProjects,
-} from "../../components/CommandDemo";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { CommandComposer, CommandPalette, CommandPlayground, CommandProjects } from '../../components/CommandDemo';
 ---
 
-<Docs
-  title="Command"
-  description="Searchable lists of actions and choices for pickers and command palettes."
->
+<Docs title="Command" description="Searchable lists of actions and choices for pickers and command palettes.">
   <h1 class="docs-title">Command</h1>
   <p class="docs-lead">
-    A search field over a list of actions or choices. Type to filter, move with
-    the arrow keys, and press Enter to choose. Put it inline, inside a popover
-    picker, or in a command palette dialog.
+    A search field over a list of actions or choices. Type to filter, move with the arrow keys, and press Enter to
+    choose. Put it inline, inside a popover picker, or in a command palette dialog.
   </p>
-  <div class="mt-8" id="command-demo"><CommandPlayground client:load /></div>
+  <div class="mt-8" id="command-demo">
+    <CommandPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -59,123 +52,90 @@ import {
 </Command>`}
     />
     <p>
-      Give the input an <code>aria-label</code> or pass <code>label</code> to <code
-        >Command</code
-      >. Each item matches on its text unless you pass a <code>value</code>, and <code
-        >onSelect</code
-      > receives that value. Groups and separators hide while nothing in them matches.
+      Give the input an <code>aria-label</code> or pass <code>label</code> to <code>Command</code>. Each item matches on
+      its text unless you pass a <code>value</code>, and <code>onSelect</code> receives that value. Groups and
+      separators hide while nothing in them matches.
     </p>
   </section>
   <section class="prose-section" id="command-palette">
     <h2 class="section-title">Command palette</h2>
     <p>
-      <code>CommandDialog</code> pins a Command near the top of the screen in a 24rem
-      dialog. Its <code>title</code> and <code>description</code> are visually hidden
-      but announced. Escape closes it; add <code>showCloseButton</code> for a corner
-      close button. Wire your own shortcut such as ⌘K to open it.
+      <code>CommandDialog</code> pins a Command near the top of the screen in a 24rem dialog. Its <code>title</code> and{' '}
+      <code>description</code> are visually hidden but announced. Escape closes it; add <code>showCloseButton</code> for
+      a corner close button. Wire your own shortcut such as ⌘K to open it.
     </p>
     <CommandPalette client:load />
   </section>
   <section class="prose-section" id="command-composer">
     <h2 class="section-title">Pickers in a popover</h2>
     <p>
-      Put a Command in <code>PopoverContent size="menu"</code> or <code
-        >size="picker"</code
-      >; both have no padding, so the search and list run edge to edge. Set <code
-        >data-checked</code
-      > on the current item to show a trailing check. Use a long <code
-        >value</code
-      > such as label plus description so both are searchable. Content after <code
-        >Command</code
-      >, such as an effort setting, stays outside the list.
+      Put a Command in <code>PopoverContent size="menu"</code> or <code>size="picker"</code>; both have no padding, so
+      the search and list run edge to edge. Set <code>data-checked</code> on the current item to show a trailing check.
+      Use a long <code>value</code> such as label plus description so both are searchable. Content after{' '}
+      <code>Command</code>, such as an effort setting, stays outside the list.
     </p>
     <CommandComposer client:load />
   </section>
   <section class="prose-section" id="command-projects">
     <h2 class="section-title">Controlled search and list states</h2>
     <p>
-      Pass <code>value</code> and <code>onValueChange</code> to <code
-        >CommandInput</code
-      > to clear the search when the popover closes or from a button in <code
-        >CommandEmpty</code
-      >. When an item's <code>value</code> is an id, pass its name in <code
-        >keywords</code
-      > so it still matches. Show loading, error with retry, and empty-workspace notes
-      as siblings after <code>CommandList</code>.
+      Pass <code>value</code> and <code>onValueChange</code> to <code>CommandInput</code> to clear the search when the
+      popover closes or from a button in <code>CommandEmpty</code>. When an item's <code>value</code> is an id, pass its
+      name in <code>keywords</code> so it still matches. Show loading, error with retry, and empty-workspace notes as
+      siblings after <code>CommandList</code>.
     </p>
     <CommandProjects client:load />
   </section>
   <section class="prose-section" id="command-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>Command</code> is a <code>div</code> that owns the search and the active
-      item. It takes <code>label</code>, <code>loop</code> (wrap at the ends), <code
-        >shouldFilter</code
-      > (set <code>false</code> to filter items yourself), and <code
-        >filter(value, search, keywords)</code
-      >, which returns a score where <code>0</code> hides the item. Matches are ranked:
-      prefix, then word start, then substring, then letters in order. The default
-      is exported as <code>defaultCommandFilter</code>.
+      <code>Command</code> is a <code>div</code> that owns the search and the active item. It takes <code>label</code>,{' '}
+      <code>loop</code> (wrap at the ends), <code>shouldFilter</code> (set <code>false</code> to filter items yourself),
+      and <code>filter(value, search, keywords)</code>, which returns a score where <code>0</code> hides the item.
+      Matches are ranked: prefix, then word start, then substring, then letters in order. The default is exported as{' '}
+      <code>defaultCommandFilter</code>.
     </p>
     <p>
-      <code>CommandInput</code> takes input props plus controlled <code
-        >value</code
-      > and <code>onValueChange</code>, and forwards <code>ref</code>. <code
-        >CommandList</code
-      > scrolls at 18rem. <code>CommandEmpty</code> renders only when nothing matches.
-      <code>CommandGroup</code> takes an optional <code>heading</code> and <code
-        >forceMount</code
-      >. <code>CommandSeparator</code> hides while searching unless <code
-        >alwaysRender</code
-      >.
+      <code>CommandInput</code> takes input props plus controlled <code>value</code> and <code>onValueChange</code>, and
+      forwards <code>ref</code>. <code>CommandList</code> scrolls at 18rem. <code>CommandEmpty</code> renders only when
+      nothing matches.
+      <code>CommandGroup</code> takes an optional <code>heading</code> and <code>forceMount</code>.{' '}
+      <code>CommandSeparator</code> hides while searching unless <code>alwaysRender</code>.
     </p>
     <p>
-      <code>CommandItem</code> takes <code>value</code>, <code>keywords</code>, <code
-        >disabled</code
-      >, <code>onSelect</code>, <code>forceMount</code>, and <code
-        >data-checked</code
-      >. <code>CommandShortcut</code> is a trailing hint and replaces the check. <code
-        >CommandDialog</code
-      > takes the Dialog root props plus <code>title</code>, <code
-        >description</code
-      >, <code>showCloseButton</code>, <code>closeLabel</code>, <code
-        >container</code
-      >, and <code>className</code>. Every part sets a <code>data-slot</code>.
+      <code>CommandItem</code> takes <code>value</code>, <code>keywords</code>, <code>disabled</code>,{' '}
+      <code>onSelect</code>, <code>forceMount</code>, and <code>data-checked</code>. <code>CommandShortcut</code> is a
+      trailing hint and replaces the check. <code>CommandDialog</code> takes the Dialog root props plus{' '}
+      <code>title</code>, <code>description</code>, <code>showCloseButton</code>, <code>closeLabel</code>,{' '}
+      <code>container</code>, and <code>className</code>. Every part sets a <code>data-slot</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The input is a <code>combobox</code> that controls the <code>listbox</code
-      >. Focus stays in the input and the active option is announced through <code
-        >aria-activedescendant</code
-      >. Arrow keys move, Home and End jump to the ends, ⌘ or Ctrl with arrows
-      jumps to the first or last item, Alt with arrows jumps between groups,
-      Ctrl+N and Ctrl+P also move, and Enter chooses. Disabled items are
-      skipped. Buttons inside the Command, such as Clear search, keep their own
-      keys.
+      The input is a <code>combobox</code> that controls the <code>listbox</code>. Focus stays in the input and the
+      active option is announced through <code>aria-activedescendant</code>. Arrow keys move, Home and End jump to the
+      ends, ⌘ or Ctrl with arrows jumps to the first or last item, Alt with arrows jumps between groups, Ctrl+N and
+      Ctrl+P also move, and Enter chooses. Disabled items are skipped. Buttons inside the Command, such as Clear search,
+      keep their own keys.
     </p>
     <p>
-      When nothing matches, the list drops its <code>listbox</code> role, the input
-      reports <code>aria-expanded="false"</code>, and the empty message and its
-      actions read as ordinary content. Separators are decorative and hidden
-      from assistive technology.
+      When nothing matches, the list drops its <code>listbox</code> role, the input reports{' '}
+      <code>aria-expanded="false"</code>, and the empty message and its actions read as ordinary content. Separators are
+      decorative and hidden from assistive technology.
     </p>
     <p>
-      Highlight and check changes fade over 120ms and stop when reduced motion
-      is requested. In forced-colors mode the active item gets an outline.
+      Highlight and check changes fade over 120ms and stop when reduced motion is requested. In forced-colors mode the
+      active item gets an outline.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Command uses <code>--sprout-surface</code>, <code>--sprout-text</code>, <code
-        >--sprout-muted</code
-      >, <code>--sprout-line</code>, <code>--sprout-input</code>, <code
-        >--sprout-hover</code
-      >, <code>--sprout-focus</code>, and the control and panel radii. It needs
-      no brand color, so it looks the same with the neutral and TulipFarm themes
-      in light and dark mode.
+      Command uses <code>--sprout-surface</code>, <code>--sprout-text</code>, <code>--sprout-muted</code>,{' '}
+      <code>--sprout-line</code>, <code>--sprout-input</code>, <code>--sprout-hover</code>, <code>--sprout-focus</code>,
+      and the control and panel radii. It needs no brand color, so it looks the same with the neutral and TulipFarm
+      themes in light and dark mode.
     </p>
   </section>
 </Docs>

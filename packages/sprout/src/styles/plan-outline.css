@@ -66,19 +66,19 @@
     border-start-end-radius: 999px;
     border-end-end-radius: 999px;
   }
-  .sprout-plan-outline-segment[data-mark="running"] {
+  .sprout-plan-outline-segment[data-mark='running'] {
     background: var(--sprout-info);
   }
-  .sprout-plan-outline-segment[data-mark="attention"] {
+  .sprout-plan-outline-segment[data-mark='attention'] {
     background: var(--sprout-warning);
   }
-  .sprout-plan-outline-segment[data-mark="blocked"] {
+  .sprout-plan-outline-segment[data-mark='blocked'] {
     background: color-mix(in oklab, var(--sprout-muted) 40%, transparent);
   }
-  .sprout-plan-outline-segment[data-mark="done"] {
+  .sprout-plan-outline-segment[data-mark='done'] {
     background: var(--sprout-success);
   }
-  .sprout-plan-outline-segment[data-mark="failed"] {
+  .sprout-plan-outline-segment[data-mark='failed'] {
     background: var(--sprout-danger);
   }
   .sprout-plan-outline-progress-text {
@@ -160,16 +160,16 @@
     width: 14px;
     height: 14px;
   }
-  [data-mark="running"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+  [data-mark='running'] > .sprout-plan-outline-row .sprout-plan-outline-mark {
     color: var(--sprout-info);
   }
-  [data-mark="attention"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+  [data-mark='attention'] > .sprout-plan-outline-row .sprout-plan-outline-mark {
     color: var(--sprout-warning);
   }
-  [data-mark="done"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+  [data-mark='done'] > .sprout-plan-outline-row .sprout-plan-outline-mark {
     color: var(--sprout-success);
   }
-  [data-mark="failed"] > .sprout-plan-outline-row .sprout-plan-outline-mark {
+  [data-mark='failed'] > .sprout-plan-outline-row .sprout-plan-outline-mark {
     color: var(--sprout-danger);
   }
   .sprout-plan-outline-text {
@@ -184,21 +184,13 @@
     line-height: 1.25rem;
     overflow-wrap: anywhere;
   }
-  [data-kind="group"]
-    > .sprout-plan-outline-row
-    .sprout-plan-outline-task-title {
+  [data-kind='group'] > .sprout-plan-outline-row .sprout-plan-outline-task-title {
     font-weight: 500;
   }
-  [data-mark="cancelled"]
-    > .sprout-plan-outline-row
-    .sprout-plan-outline-task-title {
+  [data-mark='cancelled'] > .sprout-plan-outline-row .sprout-plan-outline-task-title {
     color: var(--sprout-muted);
     text-decoration: line-through;
-    text-decoration-color: color-mix(
-      in oklab,
-      var(--sprout-muted) 60%,
-      transparent
-    );
+    text-decoration-color: color-mix(in oklab, var(--sprout-muted) 60%, transparent);
   }
   .sprout-plan-outline-assignee {
     display: flex;
@@ -225,13 +217,11 @@
     line-height: 1rem;
     text-align: end;
   }
-  [data-mark="attention"]
-    > .sprout-plan-outline-row
-    .sprout-plan-outline-label {
+  [data-mark='attention'] > .sprout-plan-outline-row .sprout-plan-outline-label {
     color: var(--sprout-warning);
     font-weight: 500;
   }
-  [data-mark="failed"] > .sprout-plan-outline-row .sprout-plan-outline-label {
+  [data-mark='failed'] > .sprout-plan-outline-row .sprout-plan-outline-label {
     color: var(--sprout-danger);
   }
   .sprout-plan-outline-chevron {
@@ -287,10 +277,7 @@
     margin: 0;
     overflow-wrap: anywhere;
   }
-  [data-mark="failed"]
-    > .sprout-plan-outline-panel
-    > .sprout-plan-outline-detail
-    > .sprout-plan-outline-reason {
+  [data-mark='failed'] > .sprout-plan-outline-panel > .sprout-plan-outline-detail > .sprout-plan-outline-reason {
     color: var(--sprout-danger);
   }
   .sprout-plan-outline-task-brief {
@@ -364,21 +351,17 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-plan-outline-segment {
-      transition: background-color var(--sprout-motion-normal, 180ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: background-color var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-plan-outline-trigger {
-      transition: background-color var(--sprout-motion-fast, 120ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-plan-outline-chevron {
-      transition: transform var(--sprout-motion-fast, 120ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: transform var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-plan-outline-panel {
       transition:
-        height var(--sprout-motion-normal, 180ms)
-          var(--sprout-motion-ease, ease-out),
+        height var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out),
         opacity var(--sprout-motion-fast, 120ms) ease-out;
     }
   }
@@ -386,7 +369,7 @@
     .sprout-plan-outline-segment {
       background: GrayText;
     }
-    .sprout-plan-outline-segment[data-mark="done"] {
+    .sprout-plan-outline-segment[data-mark='done'] {
       background: CanvasText;
     }
   }

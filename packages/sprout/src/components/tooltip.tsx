@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   cloneElement,
@@ -12,9 +12,9 @@ import {
   useState,
   type ReactElement,
   type RefObject,
-} from "react";
-import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
-import { stateClassName } from "../internal/classes.js";
+} from 'react';
+import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
+import { stateClassName } from '../internal/classes.js';
 
 interface TooltipContextValue {
   id: string;
@@ -25,7 +25,7 @@ interface TooltipContextValue {
 const TooltipContext = createContext<TooltipContextValue | null>(null);
 
 function joinIds(...ids: (string | undefined)[]) {
-  return ids.filter(Boolean).join(" ") || undefined;
+  return ids.filter(Boolean).join(' ') || undefined;
 }
 
 export type TooltipProviderProps = TooltipPrimitive.Provider.Props;
@@ -53,9 +53,7 @@ export function Tooltip({ onOpenChange, actionsRef, ...props }: TooltipProps) {
   const id = useId();
   const actions = useRef<TooltipActions | null>(null);
   const [registered, setDescribedBy] = useState<string>();
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(
-    props.defaultOpen ?? false,
-  );
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(props.defaultOpen ?? false);
   const open = props.open ?? uncontrolledOpen;
   // A kept-mounted popup stays in the DOM while closed; only describe while open.
   const describedBy = open ? registered : undefined;
@@ -101,33 +99,22 @@ export type TooltipTriggerProps = TooltipPrimitive.Trigger.Props;
  * `Button`, a link, or another component's trigger through `render`. While the
  * tooltip shows, the trigger is described by it.
  */
-export function TooltipTrigger({
-  render,
-  "aria-describedby": ownDescribedBy,
-  ...props
-}: TooltipTriggerProps) {
+export function TooltipTrigger({ render, 'aria-describedby': ownDescribedBy, ...props }: TooltipTriggerProps) {
   const context = useContext(TooltipContext);
   const tooltipId = context?.describedBy;
   // Base UI lets props on the render element win, so merge the id into it.
-  const element = render as ReactElement<{ "aria-describedby"?: string }>;
+  const element = render as ReactElement<{ 'aria-describedby'?: string }>;
   const merged =
     tooltipId && isValidElement(element)
       ? cloneElement(element, {
-          "aria-describedby": joinIds(
-            element.props["aria-describedby"],
-            ownDescribedBy,
-            tooltipId,
-          ),
+          'aria-describedby': joinIds(element.props['aria-describedby'], ownDescribedBy, tooltipId),
         })
-      : typeof render === "function" && tooltipId
+      : typeof render === 'function' && tooltipId
         ? (((renderProps, state) =>
             render(
               {
                 ...renderProps,
-                "aria-describedby": joinIds(
-                  renderProps["aria-describedby"],
-                  tooltipId,
-                ),
+                'aria-describedby': joinIds(renderProps['aria-describedby'], tooltipId),
               },
               state,
             )) as typeof render)
@@ -144,23 +131,22 @@ export function TooltipTrigger({
 
 type PositionerProps = Pick<
   TooltipPrimitive.Positioner.Props,
-  | "align"
-  | "alignOffset"
-  | "side"
-  | "sideOffset"
-  | "anchor"
-  | "collisionPadding"
-  | "collisionAvoidance"
-  | "sticky"
-  | "positionMethod"
+  | 'align'
+  | 'alignOffset'
+  | 'side'
+  | 'sideOffset'
+  | 'anchor'
+  | 'collisionPadding'
+  | 'collisionAvoidance'
+  | 'sticky'
+  | 'positionMethod'
 >;
 
-export interface TooltipContentProps
-  extends TooltipPrimitive.Popup.Props, PositionerProps {
+export interface TooltipContentProps extends TooltipPrimitive.Popup.Props, PositionerProps {
   /** Keep the tooltip in the DOM while closed. */
-  keepMounted?: TooltipPrimitive.Portal.Props["keepMounted"];
+  keepMounted?: TooltipPrimitive.Portal.Props['keepMounted'];
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: TooltipPrimitive.Portal.Props["container"];
+  container?: TooltipPrimitive.Portal.Props['container'];
   /** Render nothing, for example while a sidebar is expanded and its labels show. */
   hidden?: boolean;
 }
@@ -179,9 +165,9 @@ function Describe({ id }: { id: string }) {
  * place it directly inside `Tooltip`.
  */
 export function TooltipContent({
-  side = "top",
+  side = 'top',
   sideOffset = 4,
-  align = "center",
+  align = 'center',
   alignOffset = 0,
   collisionPadding = 8,
   collisionAvoidance,
@@ -218,17 +204,11 @@ export function TooltipContent({
           role="tooltip"
           id={popupId}
           {...props}
-          className={stateClassName<TooltipPrimitive.Popup.State>(
-            "sprout-tooltip-content",
-            className,
-          )}
+          className={stateClassName<TooltipPrimitive.Popup.State>('sprout-tooltip-content', className)}
         >
           {popupId && <Describe id={popupId} />}
           {children}
-          <TooltipPrimitive.Arrow
-            data-slot="tooltip-arrow"
-            className="sprout-tooltip-arrow"
-          />
+          <TooltipPrimitive.Arrow data-slot="tooltip-arrow" className="sprout-tooltip-arrow" />
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>

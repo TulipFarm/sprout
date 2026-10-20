@@ -1,45 +1,33 @@
-"use client";
+'use client';
 
-import { Collapsible } from "@base-ui/react/collapsible";
-import {
-  createContext,
-  useContext,
-  useId,
-  type ComponentProps,
-  type ReactNode,
-} from "react";
-import { Ban } from "reicon-react/icons/Ban";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { Clock } from "reicon-react/icons/Clock";
-import { HelpCircle } from "reicon-react/icons/HelpCircle";
-import { Lock } from "reicon-react/icons/Lock";
-import { User } from "reicon-react/icons/User";
-import { Warning } from "reicon-react/icons/Warning";
-import { cn } from "../internal/classes.js";
-import { Badge, type BadgeVariant } from "./badge.js";
-import { Spinner } from "./spinner.js";
+import { Collapsible } from '@base-ui/react/collapsible';
+import { createContext, useContext, useId, type ComponentProps, type ReactNode } from 'react';
+import { Ban } from 'reicon-react/icons/Ban';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { Clock } from 'reicon-react/icons/Clock';
+import { HelpCircle } from 'reicon-react/icons/HelpCircle';
+import { Lock } from 'reicon-react/icons/Lock';
+import { User } from 'reicon-react/icons/User';
+import { Warning } from 'reicon-react/icons/Warning';
+import { cn } from '../internal/classes.js';
+import { Badge, type BadgeVariant } from './badge.js';
+import { Spinner } from './spinner.js';
 
 export const planOutlineMarkNames = [
-  "pending",
-  "running",
-  "attention",
-  "blocked",
-  "done",
-  "failed",
-  "cancelled",
+  'pending',
+  'running',
+  'attention',
+  'blocked',
+  'done',
+  'failed',
+  'cancelled',
 ] as const;
 
 /** How a task row is marked. Every mark is paired with a text label; color is never the only signal. */
 export type PlanOutlineMark = (typeof planOutlineMarkNames)[number];
 
-export const planOutlineToneNames = [
-  "active",
-  "attention",
-  "done",
-  "failed",
-  "neutral",
-] as const;
+export const planOutlineToneNames = ['active', 'attention', 'done', 'failed', 'neutral'] as const;
 
 /** The color of the plan's status badge. */
 export type PlanOutlineTone = (typeof planOutlineToneNames)[number];
@@ -74,10 +62,7 @@ export type PlanOutlineTask = {
   children?: readonly PlanOutlineTask[] | undefined;
 };
 
-export interface PlanOutlineProps extends Omit<
-  ComponentProps<"section">,
-  "title" | "children"
-> {
+export interface PlanOutlineProps extends Omit<ComponentProps<'section'>, 'title' | 'children'> {
   /** The plan name. It names the section and shows as an `h3`. */
   title: string;
   /** One paragraph under the title. */
@@ -96,7 +81,7 @@ export interface PlanOutlineProps extends Omit<
   stale?: ReactNode;
 }
 
-const markIcons: Record<Exclude<PlanOutlineMark, "running">, ReactNode> = {
+const markIcons: Record<Exclude<PlanOutlineMark, 'running'>, ReactNode> = {
   pending: <Clock size={14} />,
   attention: <HelpCircle size={14} />,
   blocked: <Lock size={14} />,
@@ -106,24 +91,18 @@ const markIcons: Record<Exclude<PlanOutlineMark, "running">, ReactNode> = {
 };
 
 const toneBadges: Record<PlanOutlineTone, BadgeVariant> = {
-  active: "info",
-  attention: "warning",
-  done: "success",
-  failed: "destructive",
-  neutral: "secondary",
+  active: 'info',
+  attention: 'warning',
+  done: 'success',
+  failed: 'destructive',
+  neutral: 'secondary',
 };
 
 function leaves(tasks: readonly PlanOutlineTask[]): PlanOutlineTask[] {
-  return tasks.flatMap((task) =>
-    task.children
-      ? leaves(task.children)
-      : task.mark === "cancelled"
-        ? []
-        : [task],
-  );
+  return tasks.flatMap(task => (task.children ? leaves(task.children) : task.mark === 'cancelled' ? [] : [task]));
 }
 
-const Scope = createContext("plan");
+const Scope = createContext('plan');
 
 function useTaskId() {
   const scope = useContext(Scope);
@@ -148,41 +127,24 @@ export function PlanOutline({
   className,
   ...props
 }: PlanOutlineProps) {
-  const scope = `plan-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
+  const scope = `plan-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   const work = leaves(tasks);
   return (
     <Scope value={scope}>
-      <section
-        data-slot="plan-outline"
-        aria-label={title}
-        {...props}
-        className={cn("sprout-plan-outline", className)}
-      >
+      <section data-slot="plan-outline" aria-label={title} {...props} className={cn('sprout-plan-outline', className)}>
         <header className="sprout-plan-outline-header">
           <div className="sprout-plan-outline-heading">
             <h3 className="sprout-plan-outline-title">{title}</h3>
-            <Badge
-              variant={toneBadges[tone]}
-              data-tone={tone}
-              className="sprout-plan-outline-status"
-            >
+            <Badge variant={toneBadges[tone]} data-tone={tone} className="sprout-plan-outline-status">
               {status}
             </Badge>
           </div>
           {brief && <p className="sprout-plan-outline-brief">{brief}</p>}
           <div className="sprout-plan-outline-progress">
             {work.length > 0 && (
-              <div
-                aria-hidden="true"
-                data-slot="plan-outline-rail"
-                className="sprout-plan-outline-rail"
-              >
-                {work.map((task) => (
-                  <span
-                    key={task.id}
-                    data-mark={task.mark}
-                    className="sprout-plan-outline-segment"
-                  />
+              <div aria-hidden="true" data-slot="plan-outline-rail" className="sprout-plan-outline-rail">
+                {work.map(task => (
+                  <span key={task.id} data-mark={task.mark} className="sprout-plan-outline-segment" />
                 ))}
               </div>
             )}
@@ -192,9 +154,7 @@ export function PlanOutline({
           {stale}
         </header>
         {tasks.length === 0 ? (
-          <p className="sprout-plan-outline-empty">
-            No tasks have been added yet.
-          </p>
+          <p className="sprout-plan-outline-empty">No tasks have been added yet.</p>
         ) : (
           <TaskList tasks={tasks} label="Tasks" level={0} />
         )}
@@ -203,26 +163,14 @@ export function PlanOutline({
   );
 }
 
-function TaskList({
-  tasks,
-  label,
-  level,
-}: {
-  tasks: readonly PlanOutlineTask[];
-  label: string;
-  level: number;
-}) {
+function TaskList({ tasks, label, level }: { tasks: readonly PlanOutlineTask[]; label: string; level: number }) {
   return (
     <ol
       aria-label={label}
       data-level={level}
-      className={
-        level === 0
-          ? "sprout-plan-outline-list"
-          : "sprout-plan-outline-list sprout-plan-outline-sublist"
-      }
+      className={level === 0 ? 'sprout-plan-outline-list' : 'sprout-plan-outline-list sprout-plan-outline-sublist'}
     >
-      {tasks.map((task) => (
+      {tasks.map(task => (
         <TaskRow key={task.id} task={task} level={level} />
       ))}
     </ol>
@@ -232,7 +180,7 @@ function TaskList({
 function Mark({ mark }: { mark: PlanOutlineMark }) {
   return (
     <span aria-hidden="true" className="sprout-plan-outline-mark">
-      {mark === "running" ? <Spinner aria-hidden="true" /> : markIcons[mark]}
+      {mark === 'running' ? <Spinner aria-hidden="true" /> : markIcons[mark]}
     </span>
   );
 }
@@ -241,14 +189,7 @@ function TaskRow({ task, level }: { task: PlanOutlineTask; level: number }) {
   const taskId = useTaskId();
   const group = !!task.children;
   const hasDetail =
-    group ||
-    !!(
-      task.brief ||
-      task.criteria?.length ||
-      task.dependencies?.length ||
-      task.reason ||
-      task.action
-    );
+    group || !!(task.brief || task.criteria?.length || task.dependencies?.length || task.reason || task.action);
   const head = (
     <>
       <Mark mark={task.mark} />
@@ -262,23 +203,17 @@ function TaskRow({ task, level }: { task: PlanOutlineTask; level: number }) {
         )}
       </span>
       <span className="sprout-plan-outline-label">{task.label}</span>
-      {hasDetail && (
-        <ChevronRight
-          size={14}
-          aria-hidden="true"
-          className="sprout-plan-outline-chevron"
-        />
-      )}
+      {hasDetail && <ChevronRight size={14} aria-hidden="true" className="sprout-plan-outline-chevron" />}
     </>
   );
   const rowProps = {
     id: taskId(task.id),
     tabIndex: -1,
-    "data-slot": "plan-outline-task",
-    "data-kind": group ? "group" : "task",
-    "data-mark": task.mark,
-    "data-level": level,
-    className: "sprout-plan-outline-task",
+    'data-slot': 'plan-outline-task',
+    'data-kind': group ? 'group' : 'task',
+    'data-mark': task.mark,
+    'data-level': level,
+    className: 'sprout-plan-outline-task',
   } as const;
   if (!hasDetail)
     return (
@@ -288,29 +223,15 @@ function TaskRow({ task, level }: { task: PlanOutlineTask; level: number }) {
     );
   return (
     <Collapsible.Root defaultOpen={group} render={<li {...rowProps} />}>
-      <Collapsible.Trigger className="sprout-plan-outline-row sprout-plan-outline-trigger">
-        {head}
-      </Collapsible.Trigger>
-      <Collapsible.Panel
-        hiddenUntilFound={group}
-        data-slot="plan-outline-panel"
-        className="sprout-plan-outline-panel"
-      >
+      <Collapsible.Trigger className="sprout-plan-outline-row sprout-plan-outline-trigger">{head}</Collapsible.Trigger>
+      <Collapsible.Panel hiddenUntilFound={group} data-slot="plan-outline-panel" className="sprout-plan-outline-panel">
         {group ? (
           <>
-            {task.brief && (
-              <p className="sprout-plan-outline-group-brief">{task.brief}</p>
-            )}
+            {task.brief && <p className="sprout-plan-outline-group-brief">{task.brief}</p>}
             {task.children!.length ? (
-              <TaskList
-                tasks={task.children!}
-                label={`${task.title} tasks`}
-                level={level + 1}
-              />
+              <TaskList tasks={task.children!} label={`${task.title} tasks`} level={level + 1} />
             ) : (
-              <p className="sprout-plan-outline-group-empty">
-                This group has no tasks yet.
-              </p>
+              <p className="sprout-plan-outline-group-empty">This group has no tasks yet.</p>
             )}
           </>
         ) : (
@@ -323,21 +244,15 @@ function TaskRow({ task, level }: { task: PlanOutlineTask; level: number }) {
 
 // The browser follows the link, which also opens a closed group; then focus moves to the row.
 function followDependency(target: string) {
-  requestAnimationFrame(() =>
-    document.getElementById(target)?.focus({ preventScroll: true }),
-  );
+  requestAnimationFrame(() => document.getElementById(target)?.focus({ preventScroll: true }));
 }
 
 function TaskDetail({ task }: { task: PlanOutlineTask }) {
   const taskId = useTaskId();
   return (
     <div data-slot="plan-outline-detail" className="sprout-plan-outline-detail">
-      {task.reason && (
-        <p className="sprout-plan-outline-reason">{task.reason}</p>
-      )}
-      {task.brief && (
-        <p className="sprout-plan-outline-task-brief">{task.brief}</p>
-      )}
+      {task.reason && <p className="sprout-plan-outline-reason">{task.reason}</p>}
+      {task.brief && <p className="sprout-plan-outline-task-brief">{task.brief}</p>}
       {!!task.criteria?.length && (
         <div className="sprout-plan-outline-field">
           <p className="sprout-plan-outline-field-title">Done when</p>
@@ -352,7 +267,7 @@ function TaskDetail({ task }: { task: PlanOutlineTask }) {
         <div className="sprout-plan-outline-field">
           <p className="sprout-plan-outline-field-title">Starts after</p>
           <ul className="sprout-plan-outline-dependencies">
-            {task.dependencies.map((dependency) => (
+            {task.dependencies.map(dependency => (
               <li key={dependency.id}>
                 <a
                   href={`#${taskId(dependency.id)}`}
@@ -361,17 +276,13 @@ function TaskDetail({ task }: { task: PlanOutlineTask }) {
                 >
                   {dependency.title}
                 </a>
-                <span className="sprout-plan-outline-dependency-label">
-                  {dependency.label}
-                </span>
+                <span className="sprout-plan-outline-dependency-label">{dependency.label}</span>
               </li>
             ))}
           </ul>
         </div>
       )}
-      {task.action && (
-        <div className="sprout-plan-outline-action">{task.action}</div>
-      )}
+      {task.action && <div className="sprout-plan-outline-action">{task.action}</div>}
     </div>
   );
 }

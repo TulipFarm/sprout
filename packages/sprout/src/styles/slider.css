@@ -1,15 +1,11 @@
 @layer components {
   .sprout-slider {
     --sprout-slider-thumb: #fff;
-    --sprout-slider-ring: color-mix(
-      in oklab,
-      var(--sprout-focus) 50%,
-      transparent
-    );
+    --sprout-slider-ring: color-mix(in oklab, var(--sprout-focus) 50%, transparent);
     display: block;
     width: 100%;
   }
-  .sprout-slider[data-orientation="vertical"] {
+  .sprout-slider[data-orientation='vertical'] {
     width: auto;
     height: 100%;
   }
@@ -26,7 +22,7 @@
     user-select: none;
     cursor: pointer;
   }
-  .sprout-slider-control[data-orientation="vertical"] {
+  .sprout-slider-control[data-orientation='vertical'] {
     flex-direction: column;
     width: auto;
     height: 100%;
@@ -48,11 +44,11 @@
     background-color: var(--sprout-input);
     user-select: none;
   }
-  .sprout-slider-track[data-orientation="horizontal"] {
+  .sprout-slider-track[data-orientation='horizontal'] {
     width: 100%;
     height: 4px;
   }
-  .sprout-slider-track[data-orientation="vertical"] {
+  .sprout-slider-track[data-orientation='vertical'] {
     width: 4px;
     height: 100%;
   }
@@ -61,10 +57,10 @@
     background-color: var(--sprout-primary);
     user-select: none;
   }
-  .sprout-slider-range[data-orientation="horizontal"] {
+  .sprout-slider-range[data-orientation='horizontal'] {
     height: 100%;
   }
-  .sprout-slider-range[data-orientation="vertical"] {
+  .sprout-slider-range[data-orientation='vertical'] {
     width: 100%;
   }
 
@@ -84,7 +80,7 @@
   }
   /* A 28px hit area around the thumb. */
   .sprout-slider-thumb::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: -8px;
   }
@@ -96,11 +92,7 @@
       0 0 0 3px var(--sprout-slider-ring);
   }
   .sprout-slider-thumb[data-invalid] {
-    --sprout-slider-ring: color-mix(
-      in oklab,
-      var(--sprout-danger) 30%,
-      transparent
-    );
+    --sprout-slider-ring: color-mix(in oklab, var(--sprout-danger) 30%, transparent);
     border-color: var(--sprout-danger);
   }
   .sprout-slider-thumb[data-disabled],
@@ -112,10 +104,8 @@
   @media (prefers-reduced-motion: no-preference) {
     .sprout-slider-thumb {
       transition:
-        box-shadow var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        border-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        box-shadow var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
   }
 

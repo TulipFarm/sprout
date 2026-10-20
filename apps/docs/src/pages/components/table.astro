@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import TableDemo from "../../components/TableDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import TableDemo from '../../components/TableDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,11 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Table</h1>
   <p class="docs-lead">
-    One table for every list of records. Pass rows and columns. Turn on the
-    features you need: sorting, search and filter chips, group rows with totals,
-    row edit, column layout, virtual rows, and row drag.
+    One table for every list of records. Pass rows and columns. Turn on the features you need: sorting, search and
+    filter chips, group rows with totals, row edit, column layout, virtual rows, and row drag.
   </p>
-  <div class="mt-8"><TableDemo client:load /></div>
+  <div class="mt-8">
+    <TableDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -40,56 +41,53 @@ const columns: TableColumn<Order>[] = [
     />
     <p>
       <code>variant</code> is <code>"plain"</code> (default) or
-      <code>"grid"</code>. Grid tables sit in a bordered scroll region capped at <code
-        >60dvh</code
-      >, with a pinned header. <code>narrow</code> is
-      <code>"scroll"</code> (default) or <code>"stack"</code>, which turns rows
-      into cards when the table is narrower than 36rem.
+      <code>"grid"</code>. Grid tables sit in a bordered scroll region capped at <code>60dvh</code>, with a pinned
+      header. <code>narrow</code> is
+      <code>"scroll"</code> (default) or <code>"stack"</code>, which turns rows into cards when the table is narrower
+      than 36rem.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Columns</h2>
     <p>
-      Each column reads <code>row[key]</code>. <code>cell</code> changes what shows,
-      but sort, filter, and edit still use the raw value.
+      Each column reads <code>row[key]</code>. <code>cell</code> changes what shows, but sort, filter, and edit still
+      use the raw value.
       <code>sort</code> adds a sort button. <code>filter</code> is
-      <code>"text"</code>, <code>"number"</code>, <code>"select"</code>,
-      <code>"date"</code>, or <code>"boolean"</code>. <code>edit</code> is
-      <code>"text"</code>, <code>"number"</code>, <code>"select"</code>,
-      <code>"date"</code>, or <code>"checkbox"</code>. <code>options</code>
-      feeds select filters and editors. <code>group</code> lets people group by the
-      column. <code>aggregate</code> (<code>"sum"</code>,
-      <code>"count"</code>, <code>"min"</code>, <code>"max"</code>,
-      <code>"mean"</code>) shows totals on group rows and in the footer.
-      <code>hint</code> adds an info tooltip. <code>width</code>,
-      <code>pin</code>, and <code>hidden</code> set the starting layout.
+      <code>"text"</code>, <code>"number"</code>, <code>"select"</code>,<code>"date"</code>, or <code>"boolean"</code>.{' '}
+      <code>edit</code> is
+      <code>"text"</code>, <code>"number"</code>, <code>"select"</code>,<code>"date"</code>, or <code>"checkbox"</code>.{' '}
+      <code>options</code>
+      feeds select filters and editors. <code>group</code> lets people group by the column. <code>aggregate</code> (
+      <code>"sum"</code>,<code>"count"</code>, <code>"min"</code>, <code>"max"</code>,<code>"mean"</code>) shows totals
+      on group rows and in the footer.
+      <code>hint</code> adds an info tooltip. <code>width</code>,<code>pin</code>, and <code>hidden</code> set the
+      starting layout.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Rows</h2>
     <p>
-      <code>getRowHref</code> or <code>onRowClick</code> turns the first cell into
-      a link or button that covers the row. <code>actions</code> adds a pinned actions
-      cell. <code>onRowSave</code> adds Edit, Save, and Cancel; if it rejects, the
-      row stays open and shows the error.
+      <code>getRowHref</code> or <code>onRowClick</code> turns the first cell into a link or button that covers the row.{' '}
+      <code>actions</code> adds a pinned actions cell. <code>onRowSave</code> adds Edit, Save, and Cancel; if it
+      rejects, the row stays open and shows the error.
       <code>selectable</code> adds checkboxes and calls
-      <code>onSelectionChange</code> with row ids. Shift+click a checkbox to set every
-      row since the last one picked. <code>getSubRows</code>
+      <code>onSelectionChange</code> with row ids. Shift+click a checkbox to set every row since the last one picked.{' '}
+      <code>getSubRows</code>
       nests rows. <code>onRowReorder</code> adds drag handles.
       <code>onRowDrop</code> accepts files dropped on a row.
-      <code>pageSize</code> adds pages, and <code>virtual</code> draws only the rows
-      in view. <code>loading</code> shows skeleton rows, and
+      <code>pageSize</code> adds pages, and <code>virtual</code> draws only the rows in view. <code>loading</code> shows
+      skeleton rows, and
       <code>empty</code> shows when no rows match.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">State and URLs</h2>
     <p>
-      The table keeps its own state. Pass <code>state</code> to control any part,
-      and <code>onStateChange</code> to hear every change. With
+      The table keeps its own state. Pass <code>state</code> to control any part, and <code>onStateChange</code> to hear
+      every change. With
       <code>manual</code>, the server sorts, filters, and pages; pass
-      <code>rowCount</code>. <code>persistKey</code> saves column widths, order, pinning,
-      and visibility to localStorage.
+      <code>rowCount</code>. <code>persistKey</code> saves column widths, order, pinning, and visibility to
+      localStorage.
     </p>
     <CodeBlock
       lang="tsx"
@@ -101,8 +99,8 @@ const url = useTableUrlState({ prefix: "orders-" });
 <Table aria-label="Orders" data={orders} columns={columns} getRowId={(row) => row.id} {...url} />`}
     />
     <p>
-      <code>useTableUrlState</code> keeps sort, filters, search, grouping, and page
-      in the URL with nuqs, so a shared link opens the same view. Install
+      <code>useTableUrlState</code> keeps sort, filters, search, grouping, and page in the URL with nuqs, so a shared
+      link opens the same view. Install
       <code>nuqs</code> and add its adapter.
     </p>
   </section>
@@ -110,21 +108,19 @@ const url = useTableUrlState({ prefix: "orders-" });
     <h2 class="section-title">Accessibility</h2>
     <p>
       The table renders native <code>table</code> elements. Headings carry
-      <code>aria-sort</code>. Checkboxes, editors, drag handles, and resize
-      handles all work from the keyboard: drag handles use Space and the Arrow
-      keys, and resize handles use the Arrow keys. Group rows use
+      <code>aria-sort</code>. Checkboxes, editors, drag handles, and resize handles all work from the keyboard: drag
+      handles use Space and the Arrow keys, and resize handles use the Arrow keys. Group rows use
       <code>aria-expanded</code>. Virtual rows set <code>aria-rowcount</code>
-      and <code>aria-rowindex</code>. The stack layout keeps table roles and
-      labels each value with its column name.
+      and <code>aria-rowindex</code>. The stack layout keeps table roles and labels each value with its column name.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Row dividers use <code>--sprout-line</code>; grid dividers and the frame
-      use <code>--sprout-input</code>. Hover and grid header tints are
-      <code>--sprout-table-hover</code> and <code>--sprout-table-head-bg</code>.
-      Selected rows use <code>--sprout-primary-subtle</code>.
+      Row dividers use <code>--sprout-line</code>; grid dividers and the frame use <code>--sprout-input</code>. Hover
+      and grid header tints are
+      <code>--sprout-table-hover</code> and <code>--sprout-table-head-bg</code>. Selected rows use{' '}
+      <code>--sprout-primary-subtle</code>.
     </p>
   </section>
 </Docs>

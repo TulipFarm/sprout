@@ -1,15 +1,7 @@
-"use client";
+'use client';
 
-import {
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type KeyboardEvent,
-  type PointerEvent,
-} from "react";
-import { cn } from "../internal/classes.js";
+import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { cn } from '../internal/classes.js';
 
 const TRACK = 256;
 const HEIGHT = 32;
@@ -40,10 +32,7 @@ function smoothstep(t: number) {
 }
 
 function reducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
-  );
+  return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 }
 
 function plateauFor(textW: number) {
@@ -99,14 +88,7 @@ function shellGeom(cx: number, plateauW: number) {
 }
 
 /** One shoulder curve. `phi` tilts the foot onto the cap tangent; 0 is flat. */
-function shoulderCmds(
-  footX: number,
-  footY: number,
-  platX: number,
-  platY: number,
-  phi: number,
-  dir: 1 | -1,
-) {
+function shoulderCmds(footX: number, footY: number, platX: number, platY: number, phi: number, dir: 1 | -1) {
   const xScale = Math.abs(platX - footX) / SHOULDER;
   const yScale = Math.max(0.001, (footY - platY) / 20);
   const tangent = { x: dir * Math.cos(phi), y: -Math.sin(phi) };
@@ -122,10 +104,8 @@ function shoulderCmds(
   const c3 = map(11.916, 4.577);
   const c4 = map(17.277, 0);
   const p3 = { x: platX, y: platY };
-  const fmt = (p: { x: number; y: number }) =>
-    `${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
-  if (dir === 1)
-    return `C${fmt(c1)} ${fmt(c2)} ${fmt(p1)}C${fmt(c3)} ${fmt(c4)} ${fmt(p3)}`;
+  const fmt = (p: { x: number; y: number }) => `${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
+  if (dir === 1) return `C${fmt(c1)} ${fmt(c2)} ${fmt(p1)}C${fmt(c3)} ${fmt(c4)} ${fmt(p3)}`;
   return `C${fmt(c4)} ${fmt(c3)} ${fmt(p1)}C${fmt(c2)} ${fmt(c1)} ${fmt(p0)}`;
 }
 
@@ -145,9 +125,7 @@ function shellPath(cx: number, open: number, plateauW: number) {
 
   if (phiL > 0.001) {
     const foot = capFoot(-1, phiL);
-    cmds.push(
-      `A${RADIUS} ${RADIUS} 0 0 1 ${foot.x.toFixed(2)} ${foot.y.toFixed(2)}`,
-    );
+    cmds.push(`A${RADIUS} ${RADIUS} 0 0 1 ${foot.x.toFixed(2)} ${foot.y.toFixed(2)}`);
     cmds.push(shoulderCmds(foot.x, foot.y, topL, bumpTop, phiL, 1));
   } else {
     cmds.push(`A${RADIUS} ${RADIUS} 0 0 1 ${crownL} ${trackTop}`);
@@ -170,7 +148,7 @@ function shellPath(cx: number, open: number, plateauW: number) {
   }
 
   cmds.push(`H${crownL}Z`);
-  return cmds.join("");
+  return cmds.join('');
 }
 
 function useTween(target: number, duration: number, delay = 0) {
@@ -214,9 +192,9 @@ export interface ReasoningEffortProps {
    */
   label?: string | undefined;
   /** Names the slider. Defaults to "Reasoning effort". */
-  "aria-label"?: string | undefined;
+  'aria-label'?: string | undefined;
   /** Points at visible text that names the slider, instead of `aria-label`. */
-  "aria-labelledby"?: string | undefined;
+  'aria-labelledby'?: string | undefined;
   className?: string | undefined;
 }
 
@@ -230,8 +208,8 @@ export function ReasoningEffort({
   value,
   onValueChange,
   label,
-  "aria-label": ariaLabel = "Reasoning effort",
-  "aria-labelledby": ariaLabelledBy,
+  'aria-label': ariaLabel = 'Reasoning effort',
+  'aria-labelledby': ariaLabelledBy,
   className,
 }: ReasoningEffortProps) {
   const max = Math.max(0, levels.length - 1);
@@ -246,24 +224,15 @@ export function ReasoningEffort({
   const settled = useTween(dragging ? dragValue : current, 220);
   const display = dragging ? dragValue : settled;
   const open = useTween(dragging ? 1 : 0, 220);
-  const reveal = useTween(
-    dragging ? 1 : 0,
-    dragging ? 132 : 90,
-    dragging ? 85 : 0,
-  );
+  const reveal = useTween(dragging ? 1 : 0, dragging ? 132 : 90, dragging ? 85 : 0);
   const plateauW = useTween(plateauFor(textW), 90);
 
-  const centerFor = (index: number) =>
-    RADIUS + (max === 0 ? 0 : index / max) * (TRACK - RADIUS * 2);
+  const centerFor = (index: number) => RADIUS + (max === 0 ? 0 : index / max) * (TRACK - RADIUS * 2);
 
   const valueFrom = (clientX: number) => {
     const rect = trackRef.current?.getBoundingClientRect();
     if (!rect || max === 0) return current;
-    return clamp(
-      ((clientX - rect.left - RADIUS) / (rect.width - RADIUS * 2)) * max,
-      0,
-      max,
-    );
+    return clamp(((clientX - rect.left - RADIUS) / (rect.width - RADIUS * 2)) * max, 0, max);
   };
 
   const move = (next: number) => {
@@ -307,18 +276,13 @@ export function ReasoningEffort({
 
   const center = centerFor(display);
   const thumbW = REST_W + (DRAG_W - REST_W) * open;
-  const thumbLeft = clamp(
-    center - thumbW / 2,
-    EDGE_PAD,
-    TRACK - EDGE_PAD - thumbW,
-  );
+  const thumbLeft = clamp(center - thumbW / 2, EDGE_PAD, TRACK - EDGE_PAD - thumbW);
   const thumbRight = thumbLeft + thumbW;
   const fillW = Math.min(TRACK, thumbRight + EDGE_PAD);
   const active = Math.round(display);
   const level = levels[active];
   const plateau = shellGeom(center, plateauW);
-  const labelX =
-    (plateau.topL + plateau.topR) / 2 + (plateau.insetL - plateau.insetR) / 2;
+  const labelX = (plateau.topL + plateau.topR) / 2 + (plateau.insetL - plateau.insetR) / 2;
 
   useLayoutEffect(() => {
     const w = labelRef.current?.getBoundingClientRect().width ?? 0;
@@ -326,16 +290,8 @@ export function ReasoningEffort({
   }, [level, label, textW]);
 
   return (
-    <div
-      data-slot="reasoning-effort"
-      data-dragging={dragging}
-      className={cn("sprout-reasoning-effort", className)}
-    >
-      <svg
-        className="sprout-reasoning-effort-shell"
-        viewBox={`0 0 ${TRACK} ${BUMP_H + HEIGHT}`}
-        aria-hidden="true"
-      >
+    <div data-slot="reasoning-effort" data-dragging={dragging} className={cn('sprout-reasoning-effort', className)}>
+      <svg className="sprout-reasoning-effort-shell" viewBox={`0 0 ${TRACK} ${BUMP_H + HEIGHT}`} aria-hidden="true">
         <defs>
           <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" className="sprout-reasoning-effort-stop-top" />
@@ -359,19 +315,12 @@ export function ReasoningEffort({
         style={{
           left: labelX,
           opacity: reveal,
-          filter:
-            reveal > 0.98
-              ? undefined
-              : `blur(${((1 - reveal) * 3).toFixed(2)}px)`,
+          filter: reveal > 0.98 ? undefined : `blur(${((1 - reveal) * 3).toFixed(2)}px)`,
           transform: `translate(-50%, ${3 * (1 - open)}px)`,
         }}
       >
         <span key={level} className="sprout-reasoning-effort-bubble-text">
-          {label && (
-            <span className="sprout-reasoning-effort-bubble-label">
-              {label}
-            </span>
-          )}
+          {label && <span className="sprout-reasoning-effort-bubble-label">{label}</span>}
           <span className="sprout-reasoning-effort-bubble-level">{level}</span>
         </span>
       </div>
@@ -394,11 +343,7 @@ export function ReasoningEffort({
         onPointerCancel={onPointerUp}
         onKeyDown={onKeyDown}
       >
-        <div
-          data-slot="reasoning-effort-fill"
-          className="sprout-reasoning-effort-fill"
-          style={{ width: fillW }}
-        />
+        <div data-slot="reasoning-effort-fill" className="sprout-reasoning-effort-fill" style={{ width: fillW }} />
         <div
           data-slot="reasoning-effort-thumb"
           className="sprout-reasoning-effort-thumb"

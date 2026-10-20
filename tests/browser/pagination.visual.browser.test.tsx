@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   Pagination,
   PaginationContent,
@@ -8,18 +8,18 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../../packages/sprout/src/components/pagination.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/pagination.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("pagination %s %s", async (theme, mode) => {
+it.each(themes)('pagination %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "inline-grid",
+        display: 'inline-grid',
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <Pagination>
@@ -27,7 +27,7 @@ it.each(themes)("pagination %s %s", async (theme, mode) => {
           <PaginationItem>
             <PaginationPrevious href="#" disabled />
           </PaginationItem>
-          {[1, 2, 3].map((n) => (
+          {[1, 2, 3].map(n => (
             <PaginationItem key={n}>
               <PaginationLink href="#" isActive={n === 1}>
                 {n}
@@ -45,7 +45,5 @@ it.each(themes)("pagination %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`pagination-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`pagination-${theme}-${mode}`);
 });

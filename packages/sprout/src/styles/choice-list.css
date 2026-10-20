@@ -126,8 +126,7 @@
     width: 13px;
     height: 13px;
   }
-  :is(.sprout-choice-list-option, .sprout-choice-list-text)[data-checked]
-    .sprout-choice-list-mark {
+  :is(.sprout-choice-list-option, .sprout-choice-list-text)[data-checked] .sprout-choice-list-mark {
     border-color: var(--sprout-focus);
     background: var(--sprout-primary-subtle);
   }
@@ -186,32 +185,28 @@
   }
 
   /* Compact: numbered rows in a short scrolling list, for chat questions. */
-  .sprout-choice-list[data-layout="compact"] .sprout-choice-list-options {
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-options {
     gap: 0;
     max-height: max(76px, min(224px, calc(34dvh - 96px)));
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: 2px;
   }
-  .sprout-choice-list[data-layout="compact"] .sprout-choice-list-option {
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option {
     width: 100%;
     min-height: 36px;
     padding: 4px 8px;
     border-color: transparent;
     border-radius: var(--sprout-radius-control);
   }
-  .sprout-choice-list[data-layout="compact"]
-    .sprout-choice-list-option[data-checked] {
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option[data-checked] {
     border-color: var(--sprout-focus);
   }
-  .sprout-choice-list[data-layout="compact"]
-    .sprout-choice-list-option[data-disabled][data-checked] {
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option[data-disabled][data-checked] {
     border-color: var(--sprout-input);
   }
-  .sprout-choice-list[data-layout="compact"]
-    .sprout-choice-list-option
-    + .sprout-choice-list-option::before {
-    content: "";
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option + .sprout-choice-list-option::before {
+    content: '';
     position: absolute;
     top: -1px;
     right: 8px;
@@ -219,16 +214,13 @@
     height: 1px;
     background: color-mix(in oklab, var(--sprout-text) 8%, transparent);
   }
-  .sprout-choice-list[data-layout="compact"]
-    .sprout-choice-list-option[data-checked]::before,
-  .sprout-choice-list[data-layout="compact"]
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option[data-checked]::before,
+  .sprout-choice-list[data-layout='compact']
     .sprout-choice-list-option[data-checked]
     + .sprout-choice-list-option::before {
     visibility: hidden;
   }
-  .sprout-choice-list[data-layout="compact"]
-    .sprout-choice-list-option
-    .sprout-choice-list-mark {
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option .sprout-choice-list-mark {
     width: 24px;
     height: 24px;
     border: 0;
@@ -239,17 +231,15 @@
     font-variant-numeric: tabular-nums;
     color: var(--sprout-muted);
   }
-  .sprout-choice-list[data-layout="compact"]
-    .sprout-choice-list-option[data-checked]
-    .sprout-choice-list-mark {
+  .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option[data-checked] .sprout-choice-list-mark {
     background: var(--sprout-primary-subtle);
     color: var(--sprout-primary);
   }
   @media (any-pointer: coarse) {
-    .sprout-choice-list[data-layout="compact"] .sprout-choice-list-options {
+    .sprout-choice-list[data-layout='compact'] .sprout-choice-list-options {
       max-height: max(94px, min(224px, calc(40dvh - 128px)));
     }
-    .sprout-choice-list[data-layout="compact"] .sprout-choice-list-option {
+    .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option {
       min-height: 44px;
     }
   }
@@ -309,17 +299,13 @@
     .sprout-choice-list-text,
     .sprout-choice-list-mark {
       transition:
-        background-color var(--sprout-motion-normal, 180ms)
-          var(--sprout-motion-ease, ease-out),
-        border-color var(--sprout-motion-normal, 180ms)
-          var(--sprout-motion-ease, ease-out),
-        color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        background-color var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out),
+        color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-choice-list-mark svg,
     .sprout-choice-summary-check {
-      animation: sprout-choice-pop var(--sprout-motion-normal, 150ms) ease-out
-        both;
+      animation: sprout-choice-pop var(--sprout-motion-normal, 150ms) ease-out both;
     }
   }
   @keyframes sprout-choice-pop {

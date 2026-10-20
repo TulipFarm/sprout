@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { ArrowLeft as ArrowLeftIcon } from "reicon-react/icons/ArrowLeft";
-import { Bell as BellIcon } from "reicon-react/icons/Bell";
-import { ChevronRight as ChevronRightIcon } from "reicon-react/icons/ChevronRight";
-import { FileText as FileTextIcon } from "reicon-react/icons/FileText";
-import { Folder as FolderIcon } from "reicon-react/icons/Folder";
-import { Home as HomeIcon } from "reicon-react/icons/Home";
-import { Search3 as SearchIcon } from "reicon-react/icons/Search3";
-import { SidebarLeft as SidebarIcon } from "reicon-react/icons/SidebarLeft";
-import { Settings as SettingsIcon } from "reicon-react/icons/Settings";
-import { Users as UsersIcon } from "reicon-react/icons/Users";
-import { UserCircle as UserCircleIcon } from "reicon-react/icons/UserCircle";
-import { Grid as GridIcon } from "reicon-react/icons/Grid";
+import { useEffect, useState } from 'react';
+import { ArrowLeft as ArrowLeftIcon } from 'reicon-react/icons/ArrowLeft';
+import { Bell as BellIcon } from 'reicon-react/icons/Bell';
+import { ChevronRight as ChevronRightIcon } from 'reicon-react/icons/ChevronRight';
+import { FileText as FileTextIcon } from 'reicon-react/icons/FileText';
+import { Folder as FolderIcon } from 'reicon-react/icons/Folder';
+import { Home as HomeIcon } from 'reicon-react/icons/Home';
+import { Search3 as SearchIcon } from 'reicon-react/icons/Search3';
+import { SidebarLeft as SidebarIcon } from 'reicon-react/icons/SidebarLeft';
+import { Settings as SettingsIcon } from 'reicon-react/icons/Settings';
+import { Users as UsersIcon } from 'reicon-react/icons/Users';
+import { UserCircle as UserCircleIcon } from 'reicon-react/icons/UserCircle';
+import { Grid as GridIcon } from 'reicon-react/icons/Grid';
 import {
   Sidebar,
   SidebarContent,
@@ -29,48 +29,46 @@ import {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
-} from "@tulipfarm/sprout/sidebar";
-import "../styles/sidebar-demo.css";
-import DocsSelect from "./DocsSelect";
-import WorkspaceSwitcher, { type Workspace } from "./WorkspaceSwitcher";
+} from '@tulipfarm/sprout/sidebar';
+import '../styles/sidebar-demo.css';
+import DocsSelect from './DocsSelect';
+import WorkspaceSwitcher, { type Workspace } from './WorkspaceSwitcher';
 
-type Scenario = "ready" | "loading" | "empty" | "error" | "long";
+type Scenario = 'ready' | 'loading' | 'empty' | 'error' | 'long';
 const scenarios: { value: Scenario; label: string }[] = [
-  { value: "ready", label: "Ready" },
-  { value: "loading", label: "Loading" },
-  { value: "empty", label: "Empty" },
-  { value: "error", label: "Error" },
-  { value: "long", label: "Long names" },
+  { value: 'ready', label: 'Ready' },
+  { value: 'loading', label: 'Loading' },
+  { value: 'empty', label: 'Empty' },
+  { value: 'error', label: 'Error' },
+  { value: 'long', label: 'Long names' },
 ];
-const projects = ["Website refresh", "Autumn launch", "Customer research"];
-const storageKey = "sprout-sidebar-preview-open";
+const projects = ['Website refresh', 'Autumn launch', 'Customer research'];
+const storageKey = 'sprout-sidebar-preview-open';
 const initialWorkspaces: Workspace[] = [
-  { id: "studio", name: "Studio workspace", plan: "Team plan", icon: "team" },
+  { id: 'studio', name: 'Studio workspace', plan: 'Team plan', icon: 'team' },
   {
-    id: "personal",
-    name: "Personal workspace",
-    plan: "Personal plan",
-    icon: "personal",
+    id: 'personal',
+    name: 'Personal workspace',
+    plan: 'Personal plan',
+    icon: 'personal',
   },
 ];
 
 export default function SidebarDemo() {
   const [open, setOpen] = useState(true);
-  const [storageError, setStorageError] = useState("");
-  const [scenario, setScenario] = useState<Scenario>("ready");
+  const [storageError, setStorageError] = useState('');
+  const [scenario, setScenario] = useState<Scenario>('ready');
   const [settings, setSettings] = useState(false);
-  const [side, setSide] = useState<"left" | "right">("left");
-  const [collapsible, setCollapsible] = useState<"icon" | "offcanvas" | "none">(
-    "icon",
-  );
+  const [side, setSide] = useState<'left' | 'right'>('left');
+  const [collapsible, setCollapsible] = useState<'icon' | 'offcanvas' | 'none'>('icon');
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(storageKey);
-      if (saved === "true" || saved === "false") setOpen(saved === "true");
+      if (saved === 'true' || saved === 'false') setOpen(saved === 'true');
     } catch (error) {
-      console.warn("Could not restore the sidebar preview preference.", error);
-      setStorageError("Your browser could not restore the sidebar preference.");
+      console.warn('Could not restore the sidebar preview preference.', error);
+      setStorageError('Your browser could not restore the sidebar preference.');
     }
   }, []);
 
@@ -78,35 +76,21 @@ export default function SidebarDemo() {
     setOpen(value);
     try {
       localStorage.setItem(storageKey, String(value));
-      setStorageError("");
+      setStorageError('');
     } catch (error) {
-      console.warn("Could not save the sidebar preview preference.", error);
-      setStorageError(
-        "The sidebar works, but your browser could not save its preference.",
-      );
+      console.warn('Could not save the sidebar preview preference.', error);
+      setStorageError('The sidebar works, but your browser could not save its preference.');
     }
   }
 
   return (
-    <section
-      className="sidebar-demo"
-      aria-label="Sidebar playground"
-      id="sidebar-demo"
-    >
+    <section className="sidebar-demo" aria-label="Sidebar playground" id="sidebar-demo">
       <div className="sidebar-demo-toolbar">
         <div className="sidebar-demo-tabs" aria-label="Navigation example">
-          <button
-            type="button"
-            aria-pressed={!settings}
-            onClick={() => setSettings(false)}
-          >
+          <button type="button" aria-pressed={!settings} onClick={() => setSettings(false)}>
             Workspace
           </button>
-          <button
-            type="button"
-            aria-pressed={settings}
-            onClick={() => setSettings(true)}
-          >
+          <button type="button" aria-pressed={settings} onClick={() => setSettings(true)}>
             Settings
           </button>
         </div>
@@ -122,29 +106,29 @@ export default function SidebarDemo() {
           </label>
           <label>
             Collapse
-            <DocsSelect<"icon" | "offcanvas" | "none">
+            <DocsSelect<'icon' | 'offcanvas' | 'none'>
               label="Collapse behavior"
               value={collapsible}
-              onValueChange={(value) => {
+              onValueChange={value => {
                 setCollapsible(value);
                 setOpen(true);
               }}
               items={[
-                { value: "icon", label: "Icons" },
-                { value: "offcanvas", label: "Hidden" },
-                { value: "none", label: "Never" },
+                { value: 'icon', label: 'Icons' },
+                { value: 'offcanvas', label: 'Hidden' },
+                { value: 'none', label: 'Never' },
               ]}
             />
           </label>
           <label>
             Side
-            <DocsSelect<"left" | "right">
+            <DocsSelect<'left' | 'right'>
               label="Sidebar side"
               value={side}
               onValueChange={setSide}
               items={[
-                { value: "left", label: "Left" },
-                { value: "right", label: "Right" },
+                { value: 'left', label: 'Left' },
+                { value: 'right', label: 'Right' },
               ]}
             />
           </label>
@@ -153,14 +137,14 @@ export default function SidebarDemo() {
       <SidebarProvider
         open={open}
         onOpenChange={updateOpen}
-        keyboardShortcut={collapsible !== "none"}
+        keyboardShortcut={collapsible !== 'none'}
         className="sidebar-demo-frame"
       >
         <DemoNavigation
           settings={settings}
           setSettings={setSettings}
           scenario={scenario}
-          retry={() => setScenario("ready")}
+          retry={() => setScenario('ready')}
           side={side}
           collapsible={collapsible}
         />
@@ -190,14 +174,14 @@ function DemoNavigation({
   setSettings: (value: boolean) => void;
   scenario: Scenario;
   retry: () => void;
-  side: "left" | "right";
-  collapsible: "icon" | "offcanvas" | "none";
+  side: 'left' | 'right';
+  collapsible: 'icon' | 'offcanvas' | 'none';
 }) {
   const { setOpenMobile } = useSidebar();
-  const [active, setActive] = useState("Overview");
+  const [active, setActive] = useState('Overview');
   const [workspaces, setWorkspaces] = useState(initialWorkspaces);
   const [workspace, setWorkspace] = useState(initialWorkspaces[0]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [projectsOpen, setProjectsOpen] = useState(true);
 
   function navigate(page: string) {
@@ -214,11 +198,11 @@ function DemoNavigation({
           disabled={disabled}
           nativeButton={false}
           render={<a href="#sidebar-demo" />}
-          onClick={(event) => {
+          onClick={event => {
             event.preventDefault();
             navigate(label);
           }}
-          badge={label === "Inbox" ? "4" : undefined}
+          badge={label === 'Inbox' ? '4' : undefined}
         >
           {label}
         </SidebarMenuButton>
@@ -233,25 +217,25 @@ function DemoNavigation({
           workspace={workspace}
           workspaces={workspaces}
           side={side}
-          onSelect={(value) => {
+          onSelect={value => {
             setWorkspace(value);
-            setActive("Overview");
+            setActive('Overview');
           }}
-          onCreate={(name) => {
+          onCreate={name => {
             const next: Workspace = {
               id: crypto.randomUUID(),
               name,
-              plan: "Preview workspace",
-              icon: "team",
+              plan: 'Preview workspace',
+              icon: 'team',
             };
-            setWorkspaces((current) => [...current, next]);
+            setWorkspaces(current => [...current, next]);
             setWorkspace(next);
-            setActive("Overview");
+            setActive('Overview');
           }}
         />
       </SidebarHeader>
       <SidebarContent>
-        <nav aria-label={settings ? "Settings navigation" : "Workspace pages"}>
+        <nav aria-label={settings ? 'Settings navigation' : 'Workspace pages'}>
           {settings ? (
             <>
               <SidebarGroup>
@@ -261,7 +245,7 @@ function DemoNavigation({
                       icon={<ArrowLeftIcon />}
                       onClick={() => {
                         setSettings(false);
-                        navigate("Overview");
+                        navigate('Overview');
                       }}
                     >
                       Back to workspace
@@ -273,15 +257,15 @@ function DemoNavigation({
               <SidebarGroup>
                 <SidebarGroupLabel>Personal</SidebarGroupLabel>
                 <SidebarMenu>
-                  {navItem("Profile", <UserCircleIcon />)}
-                  {navItem("Notifications", <BellIcon />)}
+                  {navItem('Profile', <UserCircleIcon />)}
+                  {navItem('Notifications', <BellIcon />)}
                 </SidebarMenu>
               </SidebarGroup>
               <SidebarGroup>
                 <SidebarGroupLabel>Workspace</SidebarGroupLabel>
                 <SidebarMenu>
-                  {navItem("General", <SettingsIcon />)}
-                  {navItem("Members", <UsersIcon />)}
+                  {navItem('General', <SettingsIcon />)}
+                  {navItem('Members', <UsersIcon />)}
                 </SidebarMenu>
               </SidebarGroup>
             </>
@@ -296,78 +280,60 @@ function DemoNavigation({
                   <input
                     id="sidebar-demo-filter"
                     value={query}
-                    onChange={(event) => setQuery(event.target.value)}
+                    onChange={event => setQuery(event.target.value)}
                     placeholder="Find a page..."
                   />
                 </div>
                 <SidebarMenu>
-                  {["Overview", "Inbox"]
-                    .filter((label) =>
-                      label.toLowerCase().includes(query.toLowerCase()),
-                    )
-                    .map((label) =>
-                      navItem(
-                        label,
-                        label === "Overview" ? <HomeIcon /> : <BellIcon />,
-                      ),
-                    )}
+                  {['Overview', 'Inbox']
+                    .filter(label => label.toLowerCase().includes(query.toLowerCase()))
+                    .map(label => navItem(label, label === 'Overview' ? <HomeIcon /> : <BellIcon />))}
                 </SidebarMenu>
               </SidebarGroup>
               <SidebarGroup>
                 <SidebarGroupLabel>Workspace</SidebarGroupLabel>
                 <SidebarMenu>
-                  {"projects".includes(query.toLowerCase()) && (
+                  {'projects'.includes(query.toLowerCase()) && (
                     <SidebarSection
                       label="Projects"
                       icon={<FolderIcon />}
                       open={projectsOpen}
                       onOpenChange={setProjectsOpen}
-                      isActive={active === "Projects"}
+                      isActive={active === 'Projects'}
                       nativeButton={false}
                       render={<a href="#sidebar-demo" />}
-                      onClick={(event) => {
+                      onClick={event => {
                         event.preventDefault();
-                        navigate("Projects");
+                        navigate('Projects');
                       }}
                     >
-                      {scenario === "loading" ? (
+                      {scenario === 'loading' ? (
                         <SidebarMenuSubItem>
-                          <div
-                            role="status"
-                            aria-label="Loading recent projects"
-                          >
-                            <span className="sr-only">
-                              Loading recent projects
-                            </span>
+                          <div role="status" aria-label="Loading recent projects">
+                            <span className="sr-only">Loading recent projects</span>
                             <SidebarMenuSkeleton />
                             <SidebarMenuSkeleton />
                             <SidebarMenuSkeleton />
                           </div>
                         </SidebarMenuSubItem>
-                      ) : scenario === "empty" ? (
+                      ) : scenario === 'empty' ? (
                         <SidebarMenuSubItem>
-                          <p className="sidebar-demo-message">
-                            No projects yet. Open Projects to get started.
-                          </p>
+                          <p className="sidebar-demo-message">No projects yet. Open Projects to get started.</p>
                         </SidebarMenuSubItem>
-                      ) : scenario === "error" ? (
+                      ) : scenario === 'error' ? (
                         <SidebarMenuSubItem>
                           <p role="alert" className="sidebar-demo-message">
                             Could not load projects.
                           </p>
-                          <button
-                            type="button"
-                            className="sidebar-demo-retry"
-                            onClick={retry}
-                          >
+                          <button type="button" className="sidebar-demo-retry" onClick={retry}>
                             Try again
                           </button>
                         </SidebarMenuSubItem>
                       ) : (
                         projects.map((name, index) => {
                           const label =
-                            scenario === "long" && index === 0
-                              ? "Website refresh and the complete design system documentation"
+                            scenario === 'long' && index === 0
+                              ? 'Website refresh and the complete design system documentation'
                               : name;
                           return (
                             <SidebarMenuSubItem key={name}>
@@ -376,7 +342,7 @@ function DemoNavigation({
                                 render={<a href="#sidebar-demo" />}
                                 isActive={active === label}
                                 title={label}
-                                onClick={(event) => {
+                                onClick={event => {
                                   event.preventDefault();
                                   navigate(label);
                                 }}
@@ -389,21 +355,13 @@ function DemoNavigation({
                       )}
                     </SidebarSection>
                   )}
-                  {"files".includes(query.toLowerCase()) &&
-                    navItem("Files", <FileTextIcon />)}
-                  {"members".includes(query.toLowerCase()) &&
-                    navItem("Members", <UsersIcon />)}
-                  {"integrations".includes(query.toLowerCase()) &&
-                    navItem("Integrations", <GridIcon />, true)}
+                  {'files'.includes(query.toLowerCase()) && navItem('Files', <FileTextIcon />)}
+                  {'members'.includes(query.toLowerCase()) && navItem('Members', <UsersIcon />)}
+                  {'integrations'.includes(query.toLowerCase()) && navItem('Integrations', <GridIcon />, true)}
                 </SidebarMenu>
-                {![
-                  "overview",
-                  "inbox",
-                  "projects",
-                  "files",
-                  "members",
-                  "integrations",
-                ].some((name) => name.includes(query.toLowerCase())) && (
+                {!['overview', 'inbox', 'projects', 'files', 'members', 'integrations'].some(name =>
+                  name.includes(query.toLowerCase()),
+                ) && (
                   <p role="status" className="sidebar-demo-message">
                     No matching pages.
                   </p>
@@ -421,7 +379,7 @@ function DemoNavigation({
               isActive={settings}
               onClick={() => {
                 setSettings(!settings);
-                navigate(settings ? "Overview" : "General");
+                navigate(settings ? 'Overview' : 'General');
               }}
             >
               Settings
@@ -432,7 +390,7 @@ function DemoNavigation({
               icon={<UserCircleIcon />}
               onClick={() => {
                 setSettings(true);
-                navigate("Profile");
+                navigate('Profile');
               }}
             >
               Your account
@@ -444,10 +402,10 @@ function DemoNavigation({
   );
   return (
     <>
-      {side === "left" && panel}
+      {side === 'left' && panel}
       <div className="sidebar-demo-main">
         <header className="sidebar-demo-page-header">
-          {collapsible !== "none" && (
+          {collapsible !== 'none' && (
             <SidebarTrigger>
               <SidebarIcon size={18} aria-hidden="true" />
             </SidebarTrigger>
@@ -455,15 +413,11 @@ function DemoNavigation({
           <span className="sidebar-demo-breadcrumb">
             {workspace.name}
             <ChevronRightIcon size={12} aria-hidden="true" />
-            <span>{settings ? "Settings" : active}</span>
+            <span>{settings ? 'Settings' : active}</span>
           </span>
           <span className="sidebar-demo-preview-label">Preview</span>
         </header>
-        <section
-          className="sidebar-demo-page-content"
-          aria-label="Selected page"
-          aria-live="polite"
-        >
+        <section className="sidebar-demo-page-content" aria-label="Selected page" aria-live="polite">
           <div className="sidebar-demo-page-symbol" aria-hidden="true">
             {settings ? <SettingsIcon size={26} /> : <FolderIcon size={26} />}
           </div>
@@ -475,8 +429,7 @@ function DemoNavigation({
             Try a page, open a group, or collapse the sidebar.
           </p>
           <a href="/components/sidebar/" className="sidebar-demo-usage-link">
-            Explore the Sidebar API{" "}
-            <ChevronRightIcon size={14} aria-hidden="true" />
+            Explore the Sidebar API <ChevronRightIcon size={14} aria-hidden="true" />
           </a>
         </section>
         <div className="sidebar-demo-page-footer">
@@ -486,7 +439,7 @@ function DemoNavigation({
           </span>
         </div>
       </div>
-      {side === "right" && panel}
+      {side === 'right' && panel}
     </>
   );
 }

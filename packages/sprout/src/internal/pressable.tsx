@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@base-ui/react/button";
-import { useRender } from "@base-ui/react/use-render";
+import { Button } from '@base-ui/react/button';
+import { useRender } from '@base-ui/react/use-render';
 
 // Base UI gives non-native renders role="button"; navigation needs real link semantics.
 export function Pressable({
@@ -16,24 +16,23 @@ export function Pressable({
 }: Button.Props) {
   const link = useRender({
     enabled: !nativeButton,
-    defaultTagName: "a",
+    defaultTagName: 'a',
     render,
     ref,
     state: { disabled },
     props: {
       ...props,
-      className:
-        typeof className === "function" ? className({ disabled }) : className,
-      "aria-disabled": disabled || undefined,
+      className: typeof className === 'function' ? className({ disabled }) : className,
+      'aria-disabled': disabled || undefined,
       tabIndex: disabled && !focusableWhenDisabled ? -1 : props.tabIndex,
-      onClick: ((event) => {
+      onClick: (event => {
         if (disabled) {
           event.preventDefault();
           event.stopPropagation();
           return;
         }
         onClick?.(event);
-      }) satisfies NonNullable<Button.Props["onClick"]>,
+      }) satisfies NonNullable<Button.Props['onClick']>,
     },
   });
   return nativeButton ? (

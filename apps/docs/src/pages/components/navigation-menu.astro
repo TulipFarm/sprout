@@ -1,21 +1,14 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
-import {
-  NavigationMenuPlayground,
-  NavigationMenuSiteHeader,
-} from "../../components/NavigationMenuDemo";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { NavigationMenuPlayground, NavigationMenuSiteHeader } from '../../components/NavigationMenuDemo';
 ---
 
-<Docs
-  title="Navigation Menu"
-  description="A row of site links where some items open a panel of more links."
->
+<Docs title="Navigation Menu" description="A row of site links where some items open a panel of more links.">
   <h1 class="docs-title">Navigation Menu</h1>
   <p class="docs-lead">
-    A row of site links. Some items are plain links; others open a panel of more
-    links. Every panel shares one popup that resizes and slides as you move
-    between triggers.
+    A row of site links. Some items are plain links; others open a panel of more links. Every panel shares one popup
+    that resizes and slides as you move between triggers.
   </p>
   <div class="mt-8" id="navigation-menu-demo">
     <NavigationMenuPlayground client:load />
@@ -52,82 +45,64 @@ import {
 </NavigationMenu>`}
     />
     <p>
-      An item holds either a <code>NavigationMenuTrigger</code> with its <code
-        >NavigationMenuContent</code
-      >, or a single <code>NavigationMenuLink</code>. Top-level links get the
-      same 32px height as triggers. Set the panel width on the content you put
-      inside it; the popup sizes itself to fit.
+      An item holds either a <code>NavigationMenuTrigger</code> with its <code>NavigationMenuContent</code>, or a single{' '}
+      <code>NavigationMenuLink</code>. Top-level links get the same 32px height as triggers. Set the panel width on the
+      content you put inside it; the popup sizes itself to fit.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Site header</h2>
     <p>
-      Panels can hold anything: a list of links with icons and descriptions, or
-      a two-column grid that drops to one column on narrow screens. Pass <code
-        >active</code
-      > to mark the current page. Add <code>NavigationMenuIndicator</code> after a
-      trigger for a pointer under the open item, and use <code
-        >navigationMenuTriggerStyle()</code
-      > to give any link the trigger look. Disabled triggers are skipped by pointer
-      and dimmed.
+      Panels can hold anything: a list of links with icons and descriptions, or a two-column grid that drops to one
+      column on narrow screens. Pass <code>active</code> to mark the current page. Add{' '}
+      <code>NavigationMenuIndicator</code> after a trigger for a pointer under the open item, and use{' '}
+      <code>navigationMenuTriggerStyle()</code> to give any link the trigger look. Disabled triggers are skipped by
+      pointer and dimmed.
     </p>
     <NavigationMenuSiteHeader client:load />
   </section>
   <section class="prose-section" id="navigation-menu-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>NavigationMenu</code> wraps the Base UI navigation menu root and renders
-      the shared popup for you. It takes <code>align</code> (<code>"start"</code
-      >, <code>"center"</code>, or <code>"end"</code>; default <code
-        >"start"</code
-      >), <code>value</code>, <code>defaultValue</code>, <code
-        >onValueChange</code
-      >, <code>delay</code>, <code>closeDelay</code>, and every <code>nav</code>
+      <code>NavigationMenu</code> wraps the Base UI navigation menu root and renders the shared popup for you. It takes{' '}
+      <code>align</code> (<code>"start"</code>, <code>"center"</code>, or <code>"end"</code>; default{' '}
+      <code>"start"</code>), <code>value</code>, <code>defaultValue</code>, <code>onValueChange</code>,{' '}
+      <code>delay</code>, <code>closeDelay</code>, and every <code>nav</code>
       prop.
     </p>
     <p>
-      <code>NavigationMenuTrigger</code> takes <code>disabled</code> and adds a chevron
-      that turns while its panel is open. <code>NavigationMenuContent</code> takes
-      <code>keepMounted</code>. <code>NavigationMenuLink</code> takes <code
-        >active</code
-      > (sets <code>aria-current="page"</code>), <code>closeOnClick</code> (default
+      <code>NavigationMenuTrigger</code> takes <code>disabled</code> and adds a chevron that turns while its panel is
+      open. <code>NavigationMenuContent</code> takes
+      <code>keepMounted</code>. <code>NavigationMenuLink</code> takes <code>active</code> (sets{' '}
+      <code>aria-current="page"</code>), <code>closeOnClick</code> (default
       <code>false</code>), and <code>render</code> for your router link.
     </p>
     <p>
-      <code>NavigationMenuPositioner</code> is the portal, positioner, popup, and
-      viewport. The root already renders one with <code>side="bottom"</code>, <code
-        >sideOffset</code
-      > 8, <code>alignOffset</code> 0, and <code>collisionPadding</code> 8; use it
-      directly only when composing a root by hand. Each part sets a
+      <code>NavigationMenuPositioner</code> is the portal, positioner, popup, and viewport. The root already renders one
+      with <code>side="bottom"</code>, <code>sideOffset</code> 8, <code>alignOffset</code> 0, and{' '}
+      <code>collisionPadding</code> 8; use it directly only when composing a root by hand. Each part sets a
       <code>data-slot</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The root is a <code>nav</code>; give it an <code>aria-label</code> when a page
-      has more than one. Tab moves between items. Enter, Space, or Arrow Down opens
-      a panel and moves focus into it; arrow keys move between links; Escape closes
-      the panel and returns focus to its trigger. Panels also open on hover after
-      a short delay.
+      The root is a <code>nav</code>; give it an <code>aria-label</code> when a page has more than one. Tab moves
+      between items. Enter, Space, or Arrow Down opens a panel and moves focus into it; arrow keys move between links;
+      Escape closes the panel and returns focus to its trigger. Panels also open on hover after a short delay.
     </p>
     <p>
-      The popup fades and scales over 120ms, and resizes and slides between
-      panels over 180ms. Motion turns off when reduced motion is requested. In
-      forced-colors mode the popup keeps a visible border.
+      The popup fades and scales over 120ms, and resizes and slides between panels over 180ms. Motion turns off when
+      reduced motion is requested. In forced-colors mode the popup keeps a visible border.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Navigation menus use <code>--sprout-surface</code>, <code
-        >--sprout-line</code
-      >, <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
-        >--sprout-hover</code
-      >, <code>--sprout-active</code>, <code>--sprout-focus</code>, <code
-        >--sprout-shadow-overlay</code
-      >, and the control and panel radii. They need no brand color, so they look
-      the same with the neutral and TulipFarm themes in light and dark mode.
+      Navigation menus use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code>--sprout-text</code>,{' '}
+      <code>--sprout-muted</code>, <code>--sprout-hover</code>, <code>--sprout-active</code>,{' '}
+      <code>--sprout-focus</code>, <code>--sprout-shadow-overlay</code>, and the control and panel radii. They need no
+      brand color, so they look the same with the neutral and TulipFarm themes in light and dark mode.
     </p>
   </section>
 </Docs>

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { mergeProps } from "@base-ui/react/merge-props";
-import { useRender } from "@base-ui/react/use-render";
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import {
   createContext,
   useCallback,
@@ -19,27 +19,17 @@ import {
   type KeyboardEvent,
   type MouseEvent,
   type Ref,
-} from "react";
-import { Check } from "reicon-react/icons/Check";
-import { cn } from "../internal/classes.js";
-import {
-  buttonVariants,
-  type ButtonSize,
-  type ButtonVariant,
-} from "./button.js";
-import { Kbd } from "./kbd.js";
+} from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { cn } from '../internal/classes.js';
+import { buttonVariants, type ButtonSize, type ButtonVariant } from './button.js';
+import { Kbd } from './kbd.js';
 
-export const questionnaireItemStatusNames = [
-  "unanswered",
-  "answered",
-  "skipped",
-] as const;
-export const questionnaireShortcutModeNames = ["letters", "numbers"] as const;
+export const questionnaireItemStatusNames = ['unanswered', 'answered', 'skipped'] as const;
+export const questionnaireShortcutModeNames = ['letters', 'numbers'] as const;
 
-export type QuestionnaireItemStatus =
-  (typeof questionnaireItemStatusNames)[number];
-export type QuestionnaireShortcutMode =
-  (typeof questionnaireShortcutModeNames)[number];
+export type QuestionnaireItemStatus = (typeof questionnaireItemStatusNames)[number];
+export type QuestionnaireShortcutMode = (typeof questionnaireShortcutModeNames)[number];
 
 export interface QuestionnaireChoiceDefinition {
   value: string;
@@ -54,31 +44,31 @@ export interface QuestionnaireItemDefinition {
 }
 
 export type QuestionnaireInputType =
-  | "date"
-  | "datetime-local"
-  | "email"
-  | "month"
-  | "number"
-  | "password"
-  | "search"
-  | "tel"
-  | "text"
-  | "time"
-  | "url"
-  | "week";
+  | 'date'
+  | 'datetime-local'
+  | 'email'
+  | 'month'
+  | 'number'
+  | 'password'
+  | 'search'
+  | 'tel'
+  | 'text'
+  | 'time'
+  | 'url'
+  | 'week';
 
 /* Helpers ------------------------------------------------------------------- */
 
 type AnswerControl =
   | {
-      type: "choice";
+      type: 'choice';
       id: string;
       element: HTMLInputElement;
       disabled: boolean;
       ownDisabled: boolean;
       value: string;
     }
-  | { type: "input"; id: string; element: HTMLInputElement; disabled: boolean };
+  | { type: 'input'; id: string; element: HTMLInputElement; disabled: boolean };
 
 interface ItemRegistration {
   name: string;
@@ -94,67 +84,53 @@ interface ItemRegistration {
   skip: () => void;
   getAnswerByElement: (element: Element) => AnswerControl | null;
   getAnswerByShortcut: (shortcut: string) => AnswerControl | null;
-  moveAnswerFocus: (target: Element, direction: "next" | "previous") => boolean;
+  moveAnswerFocus: (target: Element, direction: 'next' | 'previous') => boolean;
 }
 
 function hasText(value: unknown) {
   return Array.isArray(value)
-    ? value.some((part) => String(part).trim().length > 0)
+    ? value.some(part => String(part).trim().length > 0)
     : value != null && String(value).trim().length > 0;
 }
 
 function shortcutKeys(mode: QuestionnaireShortcutMode | null) {
-  if (mode === "letters")
-    return Array.from({ length: 26 }, (_, index) =>
-      String.fromCharCode(65 + index),
-    );
-  if (mode === "numbers")
-    return Array.from({ length: 9 }, (_, index) => String(index + 1));
+  if (mode === 'letters') return Array.from({ length: 26 }, (_, index) => String.fromCharCode(65 + index));
+  if (mode === 'numbers') return Array.from({ length: 9 }, (_, index) => String(index + 1));
   return [];
 }
 
 function shortcutFromKey(key: string, mode: QuestionnaireShortcutMode) {
-  const normalized = mode === "letters" ? key.toUpperCase() : key;
+  const normalized = mode === 'letters' ? key.toUpperCase() : key;
   return shortcutKeys(mode).includes(normalized) ? normalized : null;
 }
 
 function keyShortcuts(shortcut: string | null, enter: boolean) {
-  return (
-    [shortcut, enter ? "Enter" : null].filter(Boolean).join(" ") || undefined
-  );
+  return [shortcut, enter ? 'Enter' : null].filter(Boolean).join(' ') || undefined;
 }
 
 function isAnswered(control: AnswerControl) {
-  return control.type === "choice"
+  return control.type === 'choice'
     ? control.element.checked
-    : control.element.hasAttribute("name") && hasText(control.element.value);
+    : control.element.hasAttribute('name') && hasText(control.element.value);
 }
 
 function isEmptyTextInput(control: AnswerControl | null | undefined) {
   return (
-    control?.type === "input" &&
-    ["email", "password", "search", "tel", "text", "url"].includes(
-      control.element.type,
-    ) &&
+    control?.type === 'input' &&
+    ['email', 'password', 'search', 'tel', 'text', 'url'].includes(control.element.type) &&
     !hasText(control.element.value)
   );
 }
 
 function isTextEntry(element: EventTarget) {
-  if (
-    element instanceof HTMLTextAreaElement ||
-    element instanceof HTMLSelectElement
-  )
-    return true;
+  if (element instanceof HTMLTextAreaElement || element instanceof HTMLSelectElement) return true;
   if (element instanceof HTMLInputElement)
-    return !["button", "checkbox", "radio", "reset", "submit"].includes(
-      element.type,
-    );
+    return !['button', 'checkbox', 'radio', 'reset', 'submit'].includes(element.type);
   return element instanceof HTMLElement && element.isContentEditable;
 }
 
 function isRadio(element: EventTarget) {
-  return element instanceof HTMLInputElement && element.type === "radio";
+  return element instanceof HTMLInputElement && element.type === 'radio';
 }
 
 function byDocumentOrder(a: { element: Element }, b: { element: Element }) {
@@ -166,7 +142,7 @@ function byDocumentOrder(a: { element: Element }, b: { element: Element }) {
 }
 
 function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
-  if (typeof ref === "function") ref(value);
+  if (typeof ref === 'function') ref(value);
   else if (ref) (ref as { current: T | null }).current = value;
 }
 
@@ -176,17 +152,10 @@ interface Definitions {
   itemByName: Map<string, QuestionnaireItemDefinition>;
 }
 
-function initialItem(
-  definitions: Definitions | null,
-  defaultItem: string | undefined,
-) {
+function initialItem(definitions: Definitions | null, defaultItem: string | undefined) {
   if (!definitions) return defaultItem ?? null;
-  const match = defaultItem
-    ? definitions.itemByName.get(defaultItem)
-    : undefined;
-  return match && !match.disabled
-    ? match.name
-    : (definitions.enabledItems[0]?.name ?? null);
+  const match = defaultItem ? definitions.itemByName.get(defaultItem) : undefined;
+  return match && !match.disabled ? match.name : (definitions.enabledItems[0]?.name ?? null);
 }
 
 function shortcutsForDefinition(
@@ -259,8 +228,7 @@ function useRoot(part: string) {
 
 function useItem(part: string) {
   const context = useContext(ItemContext);
-  if (!context)
-    throw new Error(`${part} must be used within a QuestionnaireItem.`);
+  if (!context) throw new Error(`${part} must be used within a QuestionnaireItem.`);
   return context;
 }
 
@@ -273,10 +241,7 @@ export interface QuestionnaireState extends Record<string, unknown> {
   total: number;
 }
 
-export type QuestionnaireProps = Omit<
-  ComponentProps<"form">,
-  "defaultValue" | "value"
-> & {
+export type QuestionnaireProps = Omit<ComponentProps<'form'>, 'defaultValue' | 'value'> & {
   /** The item shown first when uncontrolled. Falls back to the first enabled item. */
   defaultItem?: string | undefined;
   /** The shown item, when controlled. */
@@ -316,20 +281,16 @@ export function Questionnaire({
         ? null
         : {
             items,
-            enabledItems: items.filter((entry) => !entry.disabled),
-            itemByName: new Map(items.map((entry) => [entry.name, entry])),
+            enabledItems: items.filter(entry => !entry.disabled),
+            itemByName: new Map(items.map(entry => [entry.name, entry])),
           },
     [items],
   );
   const [registered, setRegistered] = useState<ItemRegistration[]>([]);
-  const [internalItem, setInternalItem] = useState(() =>
-    initialItem(definitions, defaultItem),
-  );
+  const [internalItem, setInternalItem] = useState(() => initialItem(definitions, defaultItem));
   const [form, setForm] = useState<HTMLFormElement | null>(null);
   const [domVersion, setDomVersion] = useState(0);
-  const pending = useRef<{ name: string; target: "item" | "invalid" } | null>(
-    null,
-  );
+  const pending = useRef<{ name: string; target: 'item' | 'invalid' } | null>(null);
   const controlled = item !== undefined;
   const activeName = controlled ? item : internalItem;
   const previousActive = useRef(activeName);
@@ -337,45 +298,32 @@ export function Questionnaire({
   const shortcutMode = shortcuts ?? null;
 
   useLayoutEffect(() => {
-    if (!form || typeof MutationObserver === "undefined") return;
-    const observer = new MutationObserver(() =>
-      setDomVersion((version) => version + 1),
-    );
+    if (!form || typeof MutationObserver === 'undefined') return;
+    const observer = new MutationObserver(() => setDomVersion(version => version + 1));
     observer.observe(form, { childList: true, subtree: true });
     return () => observer.disconnect();
   }, [form]);
 
   const enabledRegistered = useMemo(
-    () => registered.filter((entry) => !entry.disabled).sort(byDocumentOrder),
+    () => registered.filter(entry => !entry.disabled).sort(byDocumentOrder),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [registered, domVersion],
   );
   const registeredByName = useMemo(
-    () => new Map(enabledRegistered.map((entry) => [entry.name, entry])),
+    () => new Map(enabledRegistered.map(entry => [entry.name, entry])),
     [enabledRegistered],
   );
-  const sequence: readonly { name: string }[] =
-    definitions?.enabledItems ?? enabledRegistered;
-  const index = sequence.findIndex((entry) => entry.name === activeName);
-  const active =
-    index < 0 || !activeName
-      ? null
-      : (registeredByName.get(activeName) ?? null);
-  const activeDefinition = activeName
-    ? definitions?.itemByName.get(activeName)
-    : undefined;
+  const sequence: readonly { name: string }[] = definitions?.enabledItems ?? enabledRegistered;
+  const index = sequence.findIndex(entry => entry.name === activeName);
+  const active = index < 0 || !activeName ? null : (registeredByName.get(activeName) ?? null);
+  const activeDefinition = activeName ? definitions?.itemByName.get(activeName) : undefined;
   const activeRequired =
-    index < 0
-      ? null
-      : activeDefinition
-        ? !!activeDefinition.required
-        : (active?.required ?? false);
-  const activeStatus =
-    index < 0 ? null : (active?.status ?? (activeName ? "unanswered" : null));
+    index < 0 ? null : activeDefinition ? !!activeDefinition.required : (active?.required ?? false);
+  const activeStatus = index < 0 ? null : (active?.status ?? (activeName ? 'unanswered' : null));
   const ordered = useMemo(
     () =>
       definitions
-        ? definitions.enabledItems.flatMap((entry) => {
+        ? definitions.enabledItems.flatMap(entry => {
             const match = registeredByName.get(entry.name);
             return match ? [match] : [];
           })
@@ -388,7 +336,7 @@ export function Questionnaire({
   const last = total > 0 && index === total - 1;
 
   const go = useCallback(
-    (name: string, target: "item" | "invalid" = "item") => {
+    (name: string, target: 'item' | 'invalid' = 'item') => {
       if (name === activeName) return;
       pending.current = { name, target };
       if (!controlled) setInternalItem(name);
@@ -417,20 +365,17 @@ export function Questionnaire({
       }
       return;
     }
-    if (request.target === "invalid") active?.focusInvalid();
+    if (request.target === 'invalid') active?.focusInvalid();
     else active?.focus();
     pending.current = null;
   }, [active, activeName, controlled, index, sequence, go, total]);
 
   const registerItem = useCallback((entry: ItemRegistration) => {
-    setRegistered((list) => [
-      ...list.filter(
-        (other) => other.element !== entry.element && other.name !== entry.name,
-      ),
+    setRegistered(list => [
+      ...list.filter(other => other.element !== entry.element && other.name !== entry.name),
       entry,
     ]);
-    return () =>
-      setRegistered((list) => list.filter((other) => other !== entry));
+    return () => setRegistered(list => list.filter(other => other !== entry));
   }, []);
 
   const goPrevious = useCallback(() => {
@@ -476,16 +421,15 @@ export function Questionnaire({
     for (const entry of registered) entry.reset();
     const target = definitions
       ? initialItem(definitions, defaultItem)
-      : (enabledRegistered.find((entry) => entry.name === defaultItem)?.name ??
-        enabledRegistered[0]?.name);
+      : (enabledRegistered.find(entry => entry.name === defaultItem)?.name ?? enabledRegistered[0]?.name);
     if (target) go(target);
   }
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    const invalid = ordered.find((entry) => !entry.validate());
+    const invalid = ordered.find(entry => !entry.validate());
     if (invalid) {
       event.preventDefault();
-      go(invalid.name, "invalid");
+      go(invalid.name, 'invalid');
       if (invalid.name === activeName) {
         invalid.focusInvalid();
         pending.current = null;
@@ -505,39 +449,27 @@ export function Questionnaire({
       !(target instanceof Element)
     )
       return;
-    if (
-      event.key === "Enter" &&
-      (event.metaKey || event.ctrlKey) &&
-      !event.altKey &&
-      !event.shiftKey
-    ) {
+    if (event.key === 'Enter' && (event.metaKey || event.ctrlKey) && !event.altKey && !event.shiftKey) {
       event.preventDefault();
       if (!event.repeat) advance();
       return;
     }
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (
-      (event.key === "ArrowUp" || event.key === "ArrowDown") &&
-      active.moveAnswerFocus(
-        target,
-        event.key === "ArrowDown" ? "next" : "previous",
-      )
+      (event.key === 'ArrowUp' || event.key === 'ArrowDown') &&
+      active.moveAnswerFocus(target, event.key === 'ArrowDown' ? 'next' : 'previous')
     ) {
       event.preventDefault();
       return;
     }
-    if (
-      (event.key === "ArrowLeft" || event.key === "ArrowRight") &&
-      !isTextEntry(target) &&
-      !isRadio(target)
-    ) {
+    if ((event.key === 'ArrowLeft' || event.key === 'ArrowRight') && !isTextEntry(target) && !isRadio(target)) {
       event.preventDefault();
       if (event.repeat) return;
-      if (event.key === "ArrowLeft") goPrevious();
-      else if (active.status !== "unanswered") goNext();
+      if (event.key === 'ArrowLeft') goPrevious();
+      else if (active.status !== 'unanswered') goNext();
       return;
     }
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       const control = active.getAnswerByElement(target);
       if (!control) return;
       event.preventDefault();
@@ -551,7 +483,7 @@ export function Questionnaire({
     event.preventDefault();
     if (event.repeat) return;
     control.element.focus();
-    if (control.type === "choice") control.element.click();
+    if (control.type === 'choice') control.element.click();
   }
 
   const context = useMemo<RootContextValue>(
@@ -600,12 +532,12 @@ export function Questionnaire({
   );
 
   const element = useRender({
-    defaultTagName: "form",
-    props: mergeProps<"form">(
+    defaultTagName: 'form',
+    props: mergeProps<'form'>(
       {
-        "data-slot": "questionnaire",
-        "data-shortcuts": shortcutMode ?? undefined,
-        className: cn("sprout-questionnaire", className),
+        'data-slot': 'questionnaire',
+        'data-shortcuts': shortcutMode ?? undefined,
+        className: cn('sprout-questionnaire', className),
         noValidate,
         onKeyDown: handleKeyDown,
         onReset: handleReset,
@@ -621,34 +553,26 @@ export function Questionnaire({
 
 /* Progress ------------------------------------------------------------------ */
 
-export type QuestionnaireProgressProps = useRender.ComponentProps<
-  "div",
-  QuestionnaireState
->;
+export type QuestionnaireProgressProps = useRender.ComponentProps<'div', QuestionnaireState>;
 
 /** "Question 2 of 3", announced politely as the step changes. */
-export function QuestionnaireProgress({
-  children,
-  className,
-  render,
-  ...props
-}: QuestionnaireProgressProps) {
-  const { current, first, last, total } = useRoot("QuestionnaireProgress");
+export function QuestionnaireProgress({ children, className, render, ...props }: QuestionnaireProgressProps) {
+  const { current, first, last, total } = useRoot('QuestionnaireProgress');
   const text = total ? `Question ${current} of ${total}` : undefined;
   return useRender({
-    defaultTagName: "div",
+    defaultTagName: 'div',
     render,
-    props: mergeProps<"div">(
+    props: mergeProps<'div'>(
       {
-        "data-slot": "questionnaire-progress",
-        className: cn("sprout-questionnaire-progress", className),
-        role: "progressbar",
-        "aria-label": "Questionnaire progress",
-        "aria-live": "polite",
-        "aria-valuemin": total ? 1 : undefined,
-        "aria-valuemax": total || undefined,
-        "aria-valuenow": total ? current : undefined,
-        "aria-valuetext": text,
+        'data-slot': 'questionnaire-progress',
+        className: cn('sprout-questionnaire-progress', className),
+        role: 'progressbar',
+        'aria-label': 'Questionnaire progress',
+        'aria-live': 'polite',
+        'aria-valuemin': total ? 1 : undefined,
+        'aria-valuemax': total || undefined,
+        'aria-valuenow': total ? current : undefined,
+        'aria-valuetext': text,
         children: children ?? text,
       } as object,
       props,
@@ -668,10 +592,7 @@ export interface QuestionnaireItemState extends Record<string, unknown> {
   status: QuestionnaireItemStatus;
 }
 
-export type QuestionnaireItemProps = Omit<
-  ComponentProps<"fieldset">,
-  "name" | "value"
-> & {
+export type QuestionnaireItemProps = Omit<ComponentProps<'fieldset'>, 'name' | 'value'> & {
   name: string;
   /** Checkbox choices instead of radios. */
   multiple?: boolean | undefined;
@@ -684,8 +605,8 @@ export type QuestionnaireItemProps = Omit<
 
 /** One question. Only the current item is shown; the rest are hidden and inert. */
 export function QuestionnaireItem({
-  "aria-describedby": ariaDescribedBy,
-  "aria-keyshortcuts": ariaKeyShortcuts,
+  'aria-describedby': ariaDescribedBy,
+  'aria-keyshortcuts': ariaKeyShortcuts,
   children,
   className,
   disabled = false,
@@ -697,17 +618,9 @@ export function QuestionnaireItem({
   required = false,
   ...props
 }: QuestionnaireItemProps) {
-  const root = useRoot("QuestionnaireItem");
-  const {
-    activeItemName,
-    domVersion,
-    first,
-    last,
-    itemDefinitionByName,
-    nativeValidation,
-    registerItem,
-    shortcuts,
-  } = root;
+  const root = useRoot('QuestionnaireItem');
+  const { activeItemName, domVersion, first, last, itemDefinitionByName, nativeValidation, registerItem, shortcuts } =
+    root;
   const [element, setElement] = useState<HTMLFieldSetElement | null>(null);
   const [controls, setControls] = useState<AnswerControl[]>([]);
   const [attempted, setAttempted] = useState(false);
@@ -727,40 +640,24 @@ export function QuestionnaireItem({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [controls, domVersion],
   );
-  const enabled = useMemo(
-    () => sorted.filter((control) => !control.disabled),
-    [sorted],
-  );
-  const answered = enabled.some((control) => selected.includes(control.id));
-  const status: QuestionnaireItemStatus = skipped
-    ? "skipped"
-    : answered
-      ? "answered"
-      : "unanswered";
-  const skippedOptional = status === "skipped" && !required;
-  const valid =
-    disabled || skippedOptional || (!invalid && status === "answered");
-  const showInvalid =
-    !disabled && !skippedOptional && (invalid || (attempted && !valid));
-  const hasInputAnswer = enabled.some((control) => control.type === "input");
+  const enabled = useMemo(() => sorted.filter(control => !control.disabled), [sorted]);
+  const answered = enabled.some(control => selected.includes(control.id));
+  const status: QuestionnaireItemStatus = skipped ? 'skipped' : answered ? 'answered' : 'unanswered';
+  const skippedOptional = status === 'skipped' && !required;
+  const valid = disabled || skippedOptional || (!invalid && status === 'answered');
+  const showInvalid = !disabled && !skippedOptional && (invalid || (attempted && !valid));
+  const hasInputAnswer = enabled.some(control => control.type === 'input');
   const lastStatus = useRef(status);
   const definition = itemDefinitionByName?.get(name);
   const shortcutByChoiceValue = useMemo(
-    () =>
-      itemDefinitionByName
-        ? shortcutsForDefinition(definition, shortcuts)
-        : null,
+    () => (itemDefinitionByName ? shortcutsForDefinition(definition, shortcuts) : null),
     [definition, itemDefinitionByName, shortcuts],
   );
   const shortcutByAnswerId = useMemo(() => {
     if (shortcutByChoiceValue) return new Map<string, string>();
     const keys = shortcutKeys(shortcuts);
-    const choices = enabled.filter((control) => control.type === "choice");
-    return new Map(
-      choices
-        .slice(0, keys.length)
-        .map((control, position) => [control.id, keys[position]!]),
-    );
+    const choices = enabled.filter(control => control.type === 'choice');
+    return new Map(choices.slice(0, keys.length).map((control, position) => [control.id, keys[position]!]));
   }, [enabled, shortcutByChoiceValue, shortcuts]);
 
   useLayoutEffect(() => {
@@ -770,20 +667,17 @@ export function QuestionnaireItem({
   }, [onStatusChange, status]);
 
   const registerAnswerControl = useCallback((control: AnswerControl) => {
-    setControls((list) => [
-      ...list.filter(
-        (other) => other.element !== control.element && other.id !== control.id,
-      ),
+    setControls(list => [
+      ...list.filter(other => other.element !== control.element && other.id !== control.id),
       control,
     ]);
-    return () =>
-      setControls((list) => list.filter((other) => other !== control));
+    return () => setControls(list => list.filter(other => other !== control));
   }, []);
 
   const select = useCallback(
     (id: string, on: boolean) => {
-      setSelected((list) => {
-        if (!on) return list.filter((other) => other !== id);
+      setSelected(list => {
+        if (!on) return list.filter(other => other !== id);
         if (!multiple) return [id];
         return list.includes(id) ? list : [...list, id];
       });
@@ -807,45 +701,36 @@ export function QuestionnaireItem({
     [select],
   );
 
-  const registerAnswerSelection = useCallback(
-    (id: string, initial: boolean) => {
-      if (initial) {
-        defaults.current = [
-          ...defaults.current.filter((other) => other !== id),
-          id,
-        ];
-        setSelected((list) => {
-          if (multipleRef.current)
-            return list.includes(id) ? list : [...list, id];
-          return list.length ? list : [id];
-        });
-      }
-      return () => {
-        defaults.current = defaults.current.filter((other) => other !== id);
-        setSelected((list) => list.filter((other) => other !== id));
-      };
-    },
-    [],
-  );
+  const registerAnswerSelection = useCallback((id: string, initial: boolean) => {
+    if (initial) {
+      defaults.current = [...defaults.current.filter(other => other !== id), id];
+      setSelected(list => {
+        if (multipleRef.current) return list.includes(id) ? list : [...list, id];
+        return list.length ? list : [id];
+      });
+    }
+    return () => {
+      defaults.current = defaults.current.filter(other => other !== id);
+      setSelected(list => list.filter(other => other !== id));
+    };
+  }, []);
 
   const setAnswerDefault = useCallback((id: string, on: boolean) => {
     if (on) {
-      if (!defaults.current.includes(id))
-        defaults.current = [...defaults.current, id];
+      if (!defaults.current.includes(id)) defaults.current = [...defaults.current, id];
       return;
     }
-    defaults.current = defaults.current.filter((other) => other !== id);
+    defaults.current = defaults.current.filter(other => other !== id);
   }, []);
 
   const registerDescription = useCallback((id: string) => {
-    setDescriptionIds((list) => (list.includes(id) ? list : [...list, id]));
-    return () =>
-      setDescriptionIds((list) => list.filter((other) => other !== id));
+    setDescriptionIds(list => (list.includes(id) ? list : [...list, id]));
+    return () => setDescriptionIds(list => list.filter(other => other !== id));
   }, []);
 
   const registerError = useCallback((id: string) => {
-    setErrorIds((list) => (list.includes(id) ? list : [...list, id]));
-    return () => setErrorIds((list) => list.filter((other) => other !== id));
+    setErrorIds(list => (list.includes(id) ? list : [...list, id]));
+    return () => setErrorIds(list => list.filter(other => other !== id));
   }, []);
 
   const validate = useCallback(() => {
@@ -853,10 +738,7 @@ export function QuestionnaireItem({
     if (!valid) return false;
     if (!nativeValidation) return true;
     const failing = enabled.find(
-      (control) =>
-        isAnswered(control) &&
-        control.element.willValidate &&
-        !control.element.validity.valid,
+      control => isAnswered(control) && control.element.willValidate && !control.element.validity.valid,
     );
     if (!failing) return true;
     failing.element.focus();
@@ -867,11 +749,9 @@ export function QuestionnaireItem({
   const focus = useCallback(() => element?.focus(), [element]);
 
   const focusInvalid = useCallback(() => {
-    const filled = element?.querySelector<HTMLElement>(
-      "input[data-filled][name]:not(:disabled)",
-    );
+    const filled = element?.querySelector<HTMLElement>('input[data-filled][name]:not(:disabled)');
     const firstField = element?.querySelector<HTMLElement>(
-      "input:not([type=hidden]):not(:disabled), textarea:not(:disabled)",
+      'input:not([type=hidden]):not(:disabled), textarea:not(:disabled)',
     );
     (filled ?? firstField ?? element)?.focus();
   }, [element]);
@@ -879,10 +759,8 @@ export function QuestionnaireItem({
   const reset = useCallback(() => {
     setAttempted(false);
     setSkipped(false);
-    setSelected(
-      multiple ? [...defaults.current] : defaults.current.slice(0, 1),
-    );
-    setResetVersion((version) => version + 1);
+    setSelected(multiple ? [...defaults.current] : defaults.current.slice(0, 1));
+    setResetVersion(version => version + 1);
   }, [multiple]);
 
   const skip = useCallback(() => {
@@ -895,43 +773,32 @@ export function QuestionnaireItem({
     const wasMultiple = previousMultiple.current;
     previousMultiple.current = multiple;
     if (!wasMultiple || multiple) return;
-    setSelected((list) => {
-      const keep = enabled.find((control) => list.includes(control.id));
+    setSelected(list => {
+      const keep = enabled.find(control => list.includes(control.id));
       return keep ? [keep.id] : [];
     });
   }, [enabled, multiple]);
 
   const getAnswerByElement = useCallback(
-    (target: Element) =>
-      enabled.find((control) => control.element === target) ?? null,
+    (target: Element) => enabled.find(control => control.element === target) ?? null,
     [enabled],
   );
 
   const getAnswerByShortcut = useCallback(
     (shortcut: string) => {
       if (shortcutByChoiceValue) {
-        const value = [...shortcutByChoiceValue.entries()].find(
-          ([, key]) => key === shortcut,
-        )?.[0];
-        return (
-          enabled.find(
-            (control) => control.type === "choice" && control.value === value,
-          ) ?? null
-        );
+        const value = [...shortcutByChoiceValue.entries()].find(([, key]) => key === shortcut)?.[0];
+        return enabled.find(control => control.type === 'choice' && control.value === value) ?? null;
       }
-      const id = [...shortcutByAnswerId.entries()].find(
-        ([, key]) => key === shortcut,
-      )?.[0];
-      return enabled.find((control) => control.id === id) ?? null;
+      const id = [...shortcutByAnswerId.entries()].find(([, key]) => key === shortcut)?.[0];
+      return enabled.find(control => control.id === id) ?? null;
     },
     [enabled, shortcutByAnswerId, shortcutByChoiceValue],
   );
 
   const moveAnswerFocus = useCallback(
-    (target: Element, direction: "next" | "previous") => {
-      const position = enabled.findIndex(
-        (control) => control.element === target,
-      );
+    (target: Element, direction: 'next' | 'previous') => {
+      const position = enabled.findIndex(control => control.element === target);
       const currentControl = position < 0 ? null : (enabled[position] ?? null);
       if (
         !enabled.length ||
@@ -941,20 +808,11 @@ export function QuestionnaireItem({
         return false;
       const next =
         position < 0
-          ? (enabled.find(isAnswered) ??
-            (direction === "next" ? enabled[0] : enabled[enabled.length - 1]))
-          : enabled[
-              (position + (direction === "next" ? 1 : -1) + enabled.length) %
-                enabled.length
-            ];
-      if (
-        !next ||
-        next.element === target ||
-        (position >= 0 && isRadio(target) && isRadio(next.element))
-      )
-        return false;
+          ? (enabled.find(isAnswered) ?? (direction === 'next' ? enabled[0] : enabled[enabled.length - 1]))
+          : enabled[(position + (direction === 'next' ? 1 : -1) + enabled.length) % enabled.length];
+      if (!next || next.element === target || (position >= 0 && isRadio(target) && isRadio(next.element))) return false;
       next.element.focus();
-      if (next.type === "choice" && isRadio(next.element)) next.element.click();
+      if (next.type === 'choice' && isRadio(next.element)) next.element.click();
       return true;
     },
     [element, enabled],
@@ -968,10 +826,8 @@ export function QuestionnaireItem({
       disabled,
       required,
       status,
-      choices: sorted.flatMap((control) =>
-        control.type === "choice"
-          ? [{ value: control.value, disabled: control.ownDisabled }]
-          : [],
+      choices: sorted.flatMap(control =>
+        control.type === 'choice' ? [{ value: control.value, disabled: control.ownDisabled }] : [],
       ),
       focus,
       focusInvalid,
@@ -1052,19 +908,17 @@ export function QuestionnaireItem({
   );
 
   const describedBy =
-    [...descriptionIds, ...(showInvalid ? errorIds : []), ariaDescribedBy]
-      .filter(Boolean)
-      .join(" ") || undefined;
+    [...descriptionIds, ...(showInvalid ? errorIds : []), ariaDescribedBy].filter(Boolean).join(' ') || undefined;
   const itemShortcuts =
     [
       ariaKeyShortcuts,
-      active ? "Meta+Enter Control+Enter" : undefined,
-      active && enabled.length ? "ArrowUp ArrowDown" : undefined,
-      active && !first ? "ArrowLeft" : undefined,
-      active && !last && status !== "unanswered" ? "ArrowRight" : undefined,
+      active ? 'Meta+Enter Control+Enter' : undefined,
+      active && enabled.length ? 'ArrowUp ArrowDown' : undefined,
+      active && !first ? 'ArrowLeft' : undefined,
+      active && !last && status !== 'unanswered' ? 'ArrowRight' : undefined,
     ]
       .filter(Boolean)
-      .join(" ") || undefined;
+      .join(' ') || undefined;
 
   const state: QuestionnaireItemState = {
     active,
@@ -1078,15 +932,15 @@ export function QuestionnaireItem({
     <ItemContext.Provider value={context}>
       <fieldset
         data-slot="questionnaire-item"
-        data-active={active ? "" : undefined}
-        data-disabled={disabled ? "" : undefined}
-        data-invalid={showInvalid ? "" : undefined}
-        data-multiple={multiple ? "" : undefined}
-        data-required={required ? "" : undefined}
+        data-active={active ? '' : undefined}
+        data-disabled={disabled ? '' : undefined}
+        data-invalid={showInvalid ? '' : undefined}
+        data-multiple={multiple ? '' : undefined}
+        data-required={required ? '' : undefined}
         data-status={state.status}
         {...props}
         ref={handleRef}
-        className={cn("sprout-questionnaire-item", className)}
+        className={cn('sprout-questionnaire-item', className)}
         aria-describedby={describedBy}
         aria-invalid={showInvalid || undefined}
         aria-keyshortcuts={itemShortcuts}
@@ -1103,52 +957,40 @@ export function QuestionnaireItem({
 
 /* Text ---------------------------------------------------------------------- */
 
-export type QuestionnaireTitleProps = useRender.ComponentProps<"legend">;
+export type QuestionnaireTitleProps = useRender.ComponentProps<'legend'>;
 
 /** The question, as the item's `legend`. */
-export function QuestionnaireTitle({
-  className,
-  render,
-  ...props
-}: QuestionnaireTitleProps) {
-  useItem("QuestionnaireTitle");
+export function QuestionnaireTitle({ className, render, ...props }: QuestionnaireTitleProps) {
+  useItem('QuestionnaireTitle');
   return useRender({
-    defaultTagName: "legend",
+    defaultTagName: 'legend',
     render,
-    props: mergeProps<"legend">(
+    props: mergeProps<'legend'>(
       {
-        "data-slot": "questionnaire-title",
-        className: cn("sprout-questionnaire-title", className),
+        'data-slot': 'questionnaire-title',
+        className: cn('sprout-questionnaire-title', className),
       } as object,
       props,
     ),
   });
 }
 
-export type QuestionnaireDescriptionProps = useRender.ComponentProps<"p">;
+export type QuestionnaireDescriptionProps = useRender.ComponentProps<'p'>;
 
 /** Help text under the question. The item references it with `aria-describedby`. */
-export function QuestionnaireDescription({
-  className,
-  id,
-  render,
-  ...props
-}: QuestionnaireDescriptionProps) {
-  const { registerDescription } = useItem("QuestionnaireDescription");
+export function QuestionnaireDescription({ className, id, render, ...props }: QuestionnaireDescriptionProps) {
+  const { registerDescription } = useItem('QuestionnaireDescription');
   const generated = useId();
   const resolved = id ?? generated;
-  useLayoutEffect(
-    () => registerDescription(resolved),
-    [resolved, registerDescription],
-  );
+  useLayoutEffect(() => registerDescription(resolved), [resolved, registerDescription]);
   return useRender({
-    defaultTagName: "p",
+    defaultTagName: 'p',
     render,
-    props: mergeProps<"p">(
+    props: mergeProps<'p'>(
       {
-        "data-slot": "questionnaire-description",
+        'data-slot': 'questionnaire-description',
         id: resolved,
-        className: cn("sprout-questionnaire-description", className),
+        className: cn('sprout-questionnaire-description', className),
       } as object,
       props,
     ),
@@ -1161,26 +1003,19 @@ export interface QuestionnaireChoicesState extends Record<string, unknown> {
   shortcuts: QuestionnaireShortcutMode | null;
 }
 
-export type QuestionnaireChoicesProps = useRender.ComponentProps<
-  "div",
-  QuestionnaireChoicesState
->;
+export type QuestionnaireChoicesProps = useRender.ComponentProps<'div', QuestionnaireChoicesState>;
 
 /** Stacks the item's choices. */
-export function QuestionnaireChoices({
-  className,
-  render,
-  ...props
-}: QuestionnaireChoicesProps) {
-  useItem("QuestionnaireChoices");
-  const { shortcuts } = useRoot("QuestionnaireChoices");
+export function QuestionnaireChoices({ className, render, ...props }: QuestionnaireChoicesProps) {
+  useItem('QuestionnaireChoices');
+  const { shortcuts } = useRoot('QuestionnaireChoices');
   return useRender({
-    defaultTagName: "div",
+    defaultTagName: 'div',
     render,
-    props: mergeProps<"div">(
+    props: mergeProps<'div'>(
       {
-        "data-slot": "questionnaire-choices",
-        className: cn("sprout-questionnaire-choices", className),
+        'data-slot': 'questionnaire-choices',
+        className: cn('sprout-questionnaire-choices', className),
       } as object,
       props,
     ),
@@ -1193,13 +1028,10 @@ export interface QuestionnaireChoiceState extends Record<string, unknown> {
   disabled: boolean;
   invalid: boolean;
   shortcut: string | null;
-  type: "checkbox" | "radio";
+  type: 'checkbox' | 'radio';
 }
 
-export type QuestionnaireChoiceProps = Omit<
-  useRender.ComponentProps<"label", QuestionnaireChoiceState>,
-  "onChange"
-> & {
+export type QuestionnaireChoiceProps = Omit<useRender.ComponentProps<'label', QuestionnaireChoiceState>, 'onChange'> & {
   value: string;
   checked?: boolean | undefined;
   defaultChecked?: boolean | undefined;
@@ -1222,7 +1054,7 @@ export function QuestionnaireChoice({
   value,
   ...props
 }: QuestionnaireChoiceProps) {
-  const item = useItem("QuestionnaireChoice");
+  const item = useItem('QuestionnaireChoice');
   const {
     disabled: itemDisabled,
     hasInputAnswer,
@@ -1246,27 +1078,16 @@ export function QuestionnaireChoice({
   const initialChecked = useRef(defaultChecked);
   const controlled = checked !== undefined;
   const disabled = itemDisabled || ownDisabled;
-  const isChecked = controlled
-    ? status === "skipped"
-      ? false
-      : checked
-    : selectedAnswerIds.includes(id);
-  const type = multiple ? "checkbox" : "radio";
-  const shortcut =
-    shortcutByChoiceValue?.get(value) ?? shortcutByAnswerId.get(id) ?? null;
+  const isChecked = controlled ? (status === 'skipped' ? false : checked) : selectedAnswerIds.includes(id);
+  const type = multiple ? 'checkbox' : 'radio';
+  const shortcut = shortcutByChoiceValue?.get(value) ?? shortcutByAnswerId.get(id) ?? null;
 
-  useLayoutEffect(
-    () => registerAnswerSelection(id, initialChecked.current),
-    [id, registerAnswerSelection],
-  );
-  useLayoutEffect(
-    () => setAnswerDefault(id, defaultChecked),
-    [id, defaultChecked, setAnswerDefault],
-  );
+  useLayoutEffect(() => registerAnswerSelection(id, initialChecked.current), [id, registerAnswerSelection]);
+  useLayoutEffect(() => setAnswerDefault(id, defaultChecked), [id, defaultChecked, setAnswerDefault]);
   useLayoutEffect(() => {
     if (!input) return;
     return registerAnswerControl({
-      type: "choice",
+      type: 'choice',
       id,
       element: input,
       disabled,
@@ -1290,8 +1111,7 @@ export function QuestionnaireChoice({
       setAnswerSelectionFromInteraction(id, event.target.checked);
       return;
     }
-    if (status === "skipped" && checked === event.target.checked)
-      setAnswerSelectionFromInteraction(id, checked);
+    if (status === 'skipped' && checked === event.target.checked) setAnswerSelectionFromInteraction(id, checked);
   }
 
   const state: QuestionnaireChoiceState = {
@@ -1302,12 +1122,12 @@ export function QuestionnaireChoice({
     type,
   };
   return useRender({
-    defaultTagName: "label",
+    defaultTagName: 'label',
     render,
-    props: mergeProps<"label">(
+    props: mergeProps<'label'>(
       {
-        "data-slot": "questionnaire-choice",
-        className: cn("sprout-questionnaire-choice", className),
+        'data-slot': 'questionnaire-choice',
+        className: cn('sprout-questionnaire-choice', className),
         children: (
           <>
             <input
@@ -1316,15 +1136,15 @@ export function QuestionnaireChoice({
               ref={setInput}
               id={id}
               type={type}
-              name={status === "skipped" ? undefined : name}
+              name={status === 'skipped' ? undefined : name}
               value={value}
               checked={isChecked}
               disabled={disabled}
               required={required && !multiple && !hasInputAnswer}
               aria-invalid={invalid || undefined}
               aria-keyshortcuts={keyShortcuts(shortcut, !disabled && isChecked)}
-              data-checked={isChecked ? "" : undefined}
-              data-unchecked={isChecked ? undefined : ""}
+              data-checked={isChecked ? '' : undefined}
+              data-unchecked={isChecked ? undefined : ''}
               onChange={handleChange}
             />
             <span
@@ -1335,10 +1155,7 @@ export function QuestionnaireChoice({
               <span className="sprout-questionnaire-choice-dot" />
               <Check className="sprout-questionnaire-choice-check" />
             </span>
-            <span
-              data-slot="questionnaire-choice-label"
-              className="sprout-questionnaire-choice-label"
-            >
+            <span data-slot="questionnaire-choice-label" className="sprout-questionnaire-choice-label">
               {children}
             </span>
             {shortcut !== null && (
@@ -1358,23 +1175,19 @@ export function QuestionnaireChoice({
     ),
     state,
     stateAttributesMapping: {
-      checked: (on: unknown): Record<string, string> =>
-        on ? { "data-checked": "" } : { "data-unchecked": "" },
+      checked: (on: unknown): Record<string, string> => (on ? { 'data-checked': '' } : { 'data-unchecked': '' }),
     },
   });
 }
 
-export type QuestionnaireChoiceDescriptionProps = ComponentProps<"span">;
+export type QuestionnaireChoiceDescriptionProps = ComponentProps<'span'>;
 
 /** A muted second line inside a choice. */
-export function QuestionnaireChoiceDescription({
-  className,
-  ...props
-}: QuestionnaireChoiceDescriptionProps) {
+export function QuestionnaireChoiceDescription({ className, ...props }: QuestionnaireChoiceDescriptionProps) {
   return (
     <span
       data-slot="questionnaire-choice-description"
-      className={cn("sprout-questionnaire-choice-description", className)}
+      className={cn('sprout-questionnaire-choice-description', className)}
       {...props}
     />
   );
@@ -1389,8 +1202,8 @@ export interface QuestionnaireInputState extends Record<string, unknown> {
 }
 
 export type QuestionnaireInputProps = Omit<
-  useRender.ComponentProps<"input", QuestionnaireInputState>,
-  "form" | "name" | "type"
+  useRender.ComponentProps<'input', QuestionnaireInputState>,
+  'form' | 'name' | 'type'
 > & {
   type?: QuestionnaireInputType | undefined;
 };
@@ -1406,7 +1219,7 @@ export function QuestionnaireInput({
   onChange,
   ref,
   render,
-  type = "text",
+  type = 'text',
   value,
   ...props
 }: QuestionnaireInputProps) {
@@ -1421,7 +1234,7 @@ export function QuestionnaireInput({
     setAnswerDefault,
     setAnswerSelectionFromInteraction,
     syncControlledAnswerSelection,
-  } = useItem("QuestionnaireInput");
+  } = useItem('QuestionnaireInput');
   const id = useId();
   const element = useRef<HTMLInputElement | null>(null);
   const initialFilled = useRef(hasText(defaultValue));
@@ -1433,19 +1246,13 @@ export function QuestionnaireInput({
   const filled = controlled ? valueFilled : filledState;
   const selected = selectedAnswerIds.includes(id);
 
-  useLayoutEffect(
-    () => registerAnswerSelection(id, initialFilled.current),
-    [id, registerAnswerSelection],
-  );
-  useLayoutEffect(
-    () => setAnswerDefault(id, defaultFilled),
-    [defaultFilled, id, setAnswerDefault],
-  );
+  useLayoutEffect(() => registerAnswerSelection(id, initialFilled.current), [id, registerAnswerSelection]);
+  useLayoutEffect(() => setAnswerDefault(id, defaultFilled), [defaultFilled, id, setAnswerDefault]);
   useLayoutEffect(() => {
     const node = element.current;
     if (!node) return;
     return registerAnswerControl({
-      type: "input",
+      type: 'input',
       id,
       element: node,
       disabled,
@@ -1457,15 +1264,7 @@ export function QuestionnaireInput({
       return;
     }
     if (resetVersion > 0) setFilledState(defaultFilled);
-  }, [
-    controlled,
-    valueFilled,
-    value,
-    defaultFilled,
-    id,
-    resetVersion,
-    syncControlledAnswerSelection,
-  ]);
+  }, [controlled, valueFilled, value, defaultFilled, id, resetVersion, syncControlledAnswerSelection]);
   useLayoutEffect(() => {
     const node = element.current;
     if (node && controlled) node.defaultValue = String(value);
@@ -1488,20 +1287,17 @@ export function QuestionnaireInput({
   );
 
   const input = useRender({
-    defaultTagName: "input",
+    defaultTagName: 'input',
     render,
-    props: mergeProps<"input">(
+    props: mergeProps<'input'>(
       {
-        "data-slot": "questionnaire-input",
-        className: cn("sprout-input", "sprout-questionnaire-input", className),
-        "aria-invalid": invalid || undefined,
-        "aria-keyshortcuts": keyShortcuts(
-          null,
-          !disabled && filled && selected,
-        ),
+        'data-slot': 'questionnaire-input',
+        className: cn('sprout-input', 'sprout-questionnaire-input', className),
+        'aria-invalid': invalid || undefined,
+        'aria-keyshortcuts': keyShortcuts(null, !disabled && filled && selected),
         defaultValue: controlled ? undefined : defaultValue,
         disabled,
-        form: selected ? undefined : "",
+        form: selected ? undefined : '',
         id,
         name: selected ? name : undefined,
         onChange: handleChange,
@@ -1513,15 +1309,11 @@ export function QuestionnaireInput({
     ),
     state: { disabled, filled, invalid },
     stateAttributesMapping: {
-      filled: (on): Record<string, string> =>
-        on ? { "data-filled": "" } : { "data-empty": "" },
+      filled: (on): Record<string, string> => (on ? { 'data-filled': '' } : { 'data-empty': '' }),
     },
   });
   return (
-    <div
-      data-slot="questionnaire-input-wrapper"
-      className="sprout-questionnaire-input-wrapper"
-    >
+    <div data-slot="questionnaire-input-wrapper" className="sprout-questionnaire-input-wrapper">
       {input}
     </div>
   );
@@ -1533,38 +1325,25 @@ export interface QuestionnaireErrorState extends Record<string, unknown> {
   invalid: boolean;
 }
 
-export type QuestionnaireErrorProps = useRender.ComponentProps<
-  "p",
-  QuestionnaireErrorState
->;
+export type QuestionnaireErrorProps = useRender.ComponentProps<'p', QuestionnaireErrorState>;
 
 /** Shown after someone tries to move on without a valid answer. */
-export function QuestionnaireError({
-  children,
-  className,
-  id,
-  render,
-  ...props
-}: QuestionnaireErrorProps) {
-  const { invalid, registerError, required } = useItem("QuestionnaireError");
+export function QuestionnaireError({ children, className, id, render, ...props }: QuestionnaireErrorProps) {
+  const { invalid, registerError, required } = useItem('QuestionnaireError');
   const generated = useId();
   const resolved = id ?? generated;
   useLayoutEffect(() => registerError(resolved), [resolved, registerError]);
   return useRender({
-    defaultTagName: "p",
+    defaultTagName: 'p',
     render,
-    props: mergeProps<"p">(
+    props: mergeProps<'p'>(
       {
-        "data-slot": "questionnaire-error",
-        className: cn("sprout-questionnaire-error", className),
+        'data-slot': 'questionnaire-error',
+        className: cn('sprout-questionnaire-error', className),
         id: resolved,
         hidden: !invalid,
-        role: invalid ? "alert" : undefined,
-        children:
-          children ??
-          (required
-            ? "Choose an answer to continue."
-            : "Choose an answer or skip this question."),
+        role: invalid ? 'alert' : undefined,
+        children: children ?? (required ? 'Choose an answer to continue.' : 'Choose an answer or skip this question.'),
       } as object,
       props,
     ),
@@ -1574,33 +1353,21 @@ export function QuestionnaireError({
 
 /* Actions ------------------------------------------------------------------- */
 
-export type QuestionnaireActionsProps = ComponentProps<"div">;
+export type QuestionnaireActionsProps = ComponentProps<'div'>;
 
 /** Previous on the start side; Skip and Next or Submit on the end side. */
-export function QuestionnaireActions({
-  className,
-  ...props
-}: QuestionnaireActionsProps) {
-  return (
-    <div
-      data-slot="questionnaire-actions"
-      className={cn("sprout-questionnaire-actions", className)}
-      {...props}
-    />
-  );
+export function QuestionnaireActions({ className, ...props }: QuestionnaireActionsProps) {
+  return <div data-slot="questionnaire-actions" className={cn('sprout-questionnaire-actions', className)} {...props} />;
 }
 
 export interface QuestionnaireNavigationState extends Record<string, unknown> {
   disabled: boolean;
-  shortcut: "Enter" | null;
+  shortcut: 'Enter' | null;
   status: QuestionnaireItemStatus | null;
   visible: boolean;
 }
 
-export type QuestionnaireNavigationProps = useRender.ComponentProps<
-  "button",
-  QuestionnaireNavigationState
-> & {
+export type QuestionnaireNavigationProps = useRender.ComponentProps<'button', QuestionnaireNavigationState> & {
   /** A Button variant. */
   variant?: ButtonVariant | undefined;
   /** A Button size. */
@@ -1612,7 +1379,7 @@ export type QuestionnaireSkipProps = QuestionnaireNavigationProps;
 export type QuestionnaireNextProps = QuestionnaireNavigationProps;
 export type QuestionnaireSubmitProps = QuestionnaireNavigationProps;
 
-type NavigationSlot = "previous" | "skip" | "next" | "submit";
+type NavigationSlot = 'previous' | 'skip' | 'next' | 'submit';
 
 function useNavigationButton(
   slot: NavigationSlot,
@@ -1622,7 +1389,7 @@ function useNavigationButton(
     disabled = false,
     onClick,
     render,
-    size = "default",
+    size = 'default',
     tabIndex,
     type,
     variant,
@@ -1638,56 +1405,54 @@ function useNavigationButton(
     label: string;
     visible: boolean;
     status: QuestionnaireItemStatus | null;
-    shortcut?: "Enter";
+    shortcut?: 'Enter';
     action?: () => void;
   },
 ) {
-  const resolvedVariant =
-    variant ?? (slot === "next" || slot === "submit" ? "default" : "outline");
+  const resolvedVariant = variant ?? (slot === 'next' || slot === 'submit' ? 'default' : 'outline');
   const activeShortcut = visible && !disabled ? (shortcut ?? null) : null;
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     onClick?.(event);
     if (!event.defaultPrevented) action?.();
   }
   return useRender({
-    defaultTagName: "button",
+    defaultTagName: 'button',
     render,
-    props: mergeProps<"button">(
+    props: mergeProps<'button'>(
       {
-        "data-slot": `questionnaire-${slot}`,
-        "data-size": size,
-        "data-variant": resolvedVariant,
+        'data-slot': `questionnaire-${slot}`,
+        'data-size': size,
+        'data-variant': resolvedVariant,
         className: cn(
           buttonVariants({ variant: resolvedVariant, size }),
-          "sprout-questionnaire-action",
+          'sprout-questionnaire-action',
           `sprout-questionnaire-${slot}`,
           className,
         ),
-        "aria-hidden": !visible || undefined,
-        "aria-keyshortcuts": activeShortcut ?? undefined,
+        'aria-hidden': !visible || undefined,
+        'aria-keyshortcuts': activeShortcut ?? undefined,
         children: children ?? label,
         disabled,
         hidden: !visible,
         inert: !visible,
         onClick: action ? handleClick : onClick,
         tabIndex: visible ? tabIndex : -1,
-        type: type ?? (slot === "submit" ? "submit" : "button"),
+        type: type ?? (slot === 'submit' ? 'submit' : 'button'),
       } as object,
       props,
     ),
     state: { disabled, shortcut: activeShortcut, status, visible },
     stateAttributesMapping: {
-      visible: (on): Record<string, string> =>
-        on ? { "data-visible": "" } : { "data-hidden": "" },
+      visible: (on): Record<string, string> => (on ? { 'data-visible': '' } : { 'data-hidden': '' }),
     },
   });
 }
 
 /** Goes back one item. Hidden on the first item. */
 export function QuestionnairePrevious(props: QuestionnairePreviousProps) {
-  const root = useRoot("QuestionnairePrevious");
-  return useNavigationButton("previous", props, {
-    label: "Previous",
+  const root = useRoot('QuestionnairePrevious');
+  return useNavigationButton('previous', props, {
+    label: 'Previous',
     visible: root.total > 1 && !root.first,
     status: root.activeItemStatus,
     action: root.goPrevious,
@@ -1696,9 +1461,9 @@ export function QuestionnairePrevious(props: QuestionnairePreviousProps) {
 
 /** Clears the answer and moves on. Shown only on optional items; submits on the last one. */
 export function QuestionnaireSkip(props: QuestionnaireSkipProps) {
-  const root = useRoot("QuestionnaireSkip");
-  return useNavigationButton("skip", props, {
-    label: "Skip",
+  const root = useRoot('QuestionnaireSkip');
+  return useNavigationButton('skip', props, {
+    label: 'Skip',
     visible: root.activeItemRequired === false,
     status: root.activeItemStatus,
     action: root.skipCurrent,
@@ -1707,23 +1472,23 @@ export function QuestionnaireSkip(props: QuestionnaireSkipProps) {
 
 /** Checks the answer and moves on. Hidden on the last item. */
 export function QuestionnaireNext(props: QuestionnaireNextProps) {
-  const root = useRoot("QuestionnaireNext");
-  return useNavigationButton("next", props, {
-    label: "Next",
+  const root = useRoot('QuestionnaireNext');
+  return useNavigationButton('next', props, {
+    label: 'Next',
     visible: root.total > 1 && !root.last,
     status: root.activeItemStatus,
-    shortcut: "Enter",
+    shortcut: 'Enter',
     action: root.goNext,
   });
 }
 
 /** Submits the form. Shown only on the last item. */
 export function QuestionnaireSubmit(props: QuestionnaireSubmitProps) {
-  const root = useRoot("QuestionnaireSubmit");
-  return useNavigationButton("submit", props, {
-    label: "Submit",
+  const root = useRoot('QuestionnaireSubmit');
+  return useNavigationButton('submit', props, {
+    label: 'Submit',
     visible: root.total > 0 && root.last,
     status: root.activeItemStatus,
-    shortcut: "Enter",
+    shortcut: 'Enter',
   });
 }

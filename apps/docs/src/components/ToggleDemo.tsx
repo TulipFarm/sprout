@@ -1,34 +1,26 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Toggle as BaseToggle } from "@base-ui/react/toggle";
-import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group";
-import { Bell } from "reicon-react/icons/Bell";
-import { Bold } from "reicon-react/icons/Bold";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Code } from "reicon-react/icons/Code";
-import { Eye } from "reicon-react/icons/Eye";
-import { Filter } from "reicon-react/icons/Filter";
-import { Italic } from "reicon-react/icons/Italic";
-import { Pin } from "reicon-react/icons/Pin";
-import { Star } from "reicon-react/icons/Star";
-import { Underline } from "reicon-react/icons/Underline";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Toggle as BaseToggle } from '@base-ui/react/toggle';
+import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
+import { Bell } from 'reicon-react/icons/Bell';
+import { Bold } from 'reicon-react/icons/Bold';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { Code } from 'reicon-react/icons/Code';
+import { Eye } from 'reicon-react/icons/Eye';
+import { Filter } from 'reicon-react/icons/Filter';
+import { Italic } from 'reicon-react/icons/Italic';
+import { Pin } from 'reicon-react/icons/Pin';
+import { Star } from 'reicon-react/icons/Star';
+import { Underline } from 'reicon-react/icons/Underline';
 import {
   Toggle,
   toggleVariantNames,
   toggleVariants,
   type ToggleSize,
   type ToggleVariant,
-} from "@tulipfarm/sprout/toggle";
-import "../styles/toggle-demo.css";
+} from '@tulipfarm/sprout/toggle';
+import '../styles/toggle-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="toggle-demo-card" aria-label={title}>
       <header>
@@ -41,22 +33,16 @@ function Example({
 }
 
 const sizes: Record<ToggleSize, { label: string; note: string }> = {
-  sm: { label: "Small", note: "28px · filter chip" },
-  default: { label: "Default", note: "32px · icon and label" },
-  lg: { label: "Large", note: "36px · view option" },
+  sm: { label: 'Small', note: '28px · filter chip' },
+  default: { label: 'Default', note: '32px · icon and label' },
+  lg: { label: 'Large', note: '36px · view option' },
 };
 
 /* Each size shows the content Cloud pairs with it. */
-function SizeSample({
-  variant,
-  size,
-}: {
-  variant: ToggleVariant;
-  size: ToggleSize;
-}) {
+function SizeSample({ variant, size }: { variant: ToggleVariant; size: ToggleSize }) {
   return (
     <div className="toggle-demo-row">
-      {size === "sm" ? (
+      {size === 'sm' ? (
         <>
           <Toggle variant={variant} size="sm" defaultPressed>
             <Star data-icon="inline-start" aria-hidden="true" />
@@ -66,7 +52,7 @@ function SizeSample({
             <Bold aria-hidden="true" />
           </Toggle>
         </>
-      ) : size === "lg" ? (
+      ) : size === 'lg' ? (
         <>
           <Toggle variant={variant} size="lg" defaultPressed>
             <Eye data-icon="inline-start" aria-hidden="true" />
@@ -98,18 +84,14 @@ export function ToggleVariants() {
       description="default has no border. outline draws a control border. Each size pairs a labeled toggle with an icon-only one."
     >
       <div className="toggle-demo-matrix">
-        {(["sm", "default", "lg"] as const).map((size) => (
+        {(['sm', 'default', 'lg'] as const).map(size => (
           <div key={size} className="toggle-demo-matrix-row">
             <div className="toggle-demo-matrix-label">
               <p>{sizes[size].label}</p>
               <span>{sizes[size].note}</span>
             </div>
-            {toggleVariantNames.map((variant) => (
-              <div
-                key={variant}
-                className="toggle-demo-matrix-cell"
-                data-testid={`sample-${variant}-${size}`}
-              >
+            {toggleVariantNames.map(variant => (
+              <div key={variant} className="toggle-demo-matrix-cell" data-testid={`sample-${variant}-${size}`}>
                 <span className="toggle-demo-caption">{variant}</span>
                 <SizeSample variant={variant} size={size} />
               </div>
@@ -127,37 +109,20 @@ export function ToggleStates() {
       title="States"
       description="Off, on, disabled, and disabled while on. A disabled toggle keeps its pressed look so the saved value stays visible."
     >
-      {toggleVariantNames.map((variant) => (
-        <div
-          key={variant}
-          className="toggle-demo-stack"
-          data-testid={`states-${variant}`}
-        >
+      {toggleVariantNames.map(variant => (
+        <div key={variant} className="toggle-demo-stack" data-testid={`states-${variant}`}>
           <span className="toggle-demo-caption">{variant}</span>
           <div className="toggle-demo-row">
             <Toggle variant={variant} aria-label={`${variant} bold off`}>
               <Bold aria-hidden="true" />
             </Toggle>
-            <Toggle
-              variant={variant}
-              defaultPressed
-              aria-label={`${variant} bold on`}
-            >
+            <Toggle variant={variant} defaultPressed aria-label={`${variant} bold on`}>
               <Bold aria-hidden="true" />
             </Toggle>
-            <Toggle
-              variant={variant}
-              disabled
-              aria-label={`${variant} italic disabled`}
-            >
+            <Toggle variant={variant} disabled aria-label={`${variant} italic disabled`}>
               <Italic aria-hidden="true" />
             </Toggle>
-            <Toggle
-              variant={variant}
-              disabled
-              defaultPressed
-              aria-label={`${variant} italic disabled on`}
-            >
+            <Toggle variant={variant} disabled defaultPressed aria-label={`${variant} italic disabled on`}>
               <Italic aria-hidden="true" />
             </Toggle>
           </div>
@@ -167,39 +132,31 @@ export function ToggleStates() {
   );
 }
 
-type Format = "bold" | "italic" | "underline" | "code";
+type Format = 'bold' | 'italic' | 'underline' | 'code';
 const formats: { value: Format; label: string; icon: typeof Bold }[] = [
-  { value: "bold", label: "Bold", icon: Bold },
-  { value: "italic", label: "Italic", icon: Italic },
-  { value: "underline", label: "Underline", icon: Underline },
-  { value: "code", label: "Inline code", icon: Code },
+  { value: 'bold', label: 'Bold', icon: Bold },
+  { value: 'italic', label: 'Italic', icon: Italic },
+  { value: 'underline', label: 'Underline', icon: Underline },
+  { value: 'code', label: 'Inline code', icon: Code },
 ];
 
 export function ToggleToolbar() {
-  const [applied, setApplied] = useState<Format[]>(["bold"]);
+  const [applied, setApplied] = useState<Format[]>(['bold']);
   return (
     <Example
       title="Formatting toolbar"
       description="Each toggle is controlled with pressed and onPressedChange. Tab moves between them; Space or Enter presses one."
     >
       <div className="toggle-demo-panel">
-        <div
-          className="toggle-demo-row"
-          role="toolbar"
-          aria-label="Text formatting"
-        >
+        <div className="toggle-demo-row" role="toolbar" aria-label="Text formatting">
           {formats.map(({ value, label, icon: Icon }) => (
             <Toggle
               key={value}
               size="sm"
               aria-label={label}
               pressed={applied.includes(value)}
-              onPressedChange={(pressed) =>
-                setApplied((current) =>
-                  pressed
-                    ? [...current, value]
-                    : current.filter((item) => item !== value),
-                )
+              onPressedChange={pressed =>
+                setApplied(current => (pressed ? [...current, value] : current.filter(item => item !== value)))
               }
             >
               <Icon aria-hidden="true" />
@@ -211,8 +168,8 @@ export function ToggleToolbar() {
             ? `Applied: ${formats
                 .filter(({ value }) => applied.includes(value))
                 .map(({ label }) => label)
-                .join(", ")}`
-            : "No formatting"}
+                .join(', ')}`
+            : 'No formatting'}
         </p>
       </div>
     </Example>
@@ -261,7 +218,7 @@ export function ToggleSaving() {
             pressed={following}
             disabled={saving}
             aria-busy={saving || undefined}
-            onPressedChange={(pressed) => {
+            onPressedChange={pressed => {
               setSaving(true);
               timer.current = window.setTimeout(() => {
                 setFollowing(pressed);
@@ -273,7 +230,7 @@ export function ToggleSaving() {
             Follow table
           </Toggle>
           <span className="toggle-demo-muted" role="status">
-            {saving ? "Saving…" : following ? "You get updates." : ""}
+            {saving ? 'Saving…' : following ? 'You get updates.' : ''}
           </span>
         </div>
         <div className="toggle-demo-stack">
@@ -281,8 +238,8 @@ export function ToggleSaving() {
             <Toggle
               variant="outline"
               aria-invalid={failed || undefined}
-              aria-describedby={failed ? "toggle-demo-error" : undefined}
-              onPressedChange={(pressed) => setFailed(pressed)}
+              aria-describedby={failed ? 'toggle-demo-error' : undefined}
+              onPressedChange={pressed => setFailed(pressed)}
               pressed={failed}
             >
               <Pin data-icon="inline-start" aria-hidden="true" />
@@ -294,9 +251,7 @@ export function ToggleSaving() {
               The sidebar holds 8 pins. Unpin one first.
             </p>
           ) : (
-            <p className="toggle-demo-muted">
-              Press Pin to sidebar to see the error.
-            </p>
+            <p className="toggle-demo-muted">Press Pin to sidebar to see the error.</p>
           )}
         </div>
       </div>
@@ -304,32 +259,28 @@ export function ToggleSaving() {
   );
 }
 
-const ranges = ["7d", "30d", "90d"] as const;
+const ranges = ['7d', '30d', '90d'] as const;
 
 export function ToggleVariantsFunction() {
-  const [range, setRange] = useState<string[]>(["30d"]);
+  const [range, setRange] = useState<string[]>(['30d']);
   return (
     <Example
       title="toggleVariants"
       description="Give a Base UI Toggle the same look inside your own group. This is how Toggle Group items get their style."
     >
-      {(["default", "outline"] as const).map((variant) => (
+      {(['default', 'outline'] as const).map(variant => (
         <div key={variant} className="toggle-demo-stack">
           <span className="toggle-demo-caption">{variant} · sm</span>
           <BaseToggleGroup
             aria-label={`${variant} time range`}
             className="toggle-demo-group"
             value={range}
-            onValueChange={(value) => {
+            onValueChange={value => {
               if (value[0]) setRange(value);
             }}
           >
-            {ranges.map((value) => (
-              <BaseToggle
-                key={value}
-                value={value}
-                className={toggleVariants({ variant, size: "sm" })}
-              >
+            {ranges.map(value => (
+              <BaseToggle key={value} value={value} className={toggleVariants({ variant, size: 'sm' })}>
                 {value}
               </BaseToggle>
             ))}

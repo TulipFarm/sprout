@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
-import { describe, expect, it } from "vitest";
-import { renderToString } from "react-dom/server";
-import * as sprout from "../packages/sprout/src/index.js";
+import type { ReactNode } from 'react';
+import { describe, expect, it } from 'vitest';
+import { renderToString } from 'react-dom/server';
+import * as sprout from '../packages/sprout/src/index.js';
 import {
   Toast,
   ToastAction,
@@ -17,20 +17,15 @@ import {
   toast,
   toastTypeNames,
   useToastManager,
-} from "../packages/sprout/src/components/toast.js";
+} from '../packages/sprout/src/components/toast.js';
 
 function tag(html: string, slot: string) {
-  const match = html.match(
-    new RegExp(`<([a-z0-9]+)[^>]*data-slot="${slot}"[^>]*>`),
-  );
+  const match = html.match(new RegExp(`<([a-z0-9]+)[^>]*data-slot="${slot}"[^>]*>`));
   expect(match, slot).toBeTruthy();
   return match![0];
 }
 
-function renderToast(
-  item: Parameters<typeof Toast>[0]["toast"],
-  extra?: ReactNode,
-) {
+function renderToast(item: Parameters<typeof Toast>[0]['toast'], extra?: ReactNode) {
   return renderToString(
     <ToastProvider toastManager={createToastManager()}>
       <ToastViewport className="viewport-extra">
@@ -48,8 +43,8 @@ function renderToast(
   );
 }
 
-describe("Toast", () => {
-  it("is exported from the package root", () => {
+describe('Toast', () => {
+  it('is exported from the package root', () => {
     expect(sprout.Toast).toBe(Toast);
     expect(sprout.ToastAction).toBe(ToastAction);
     expect(sprout.ToastClose).toBe(ToastClose);
@@ -65,19 +60,13 @@ describe("Toast", () => {
     expect(sprout.useToastManager).toBe(useToastManager);
   });
 
-  it("lists every type Cloud shows an icon for", () => {
-    expect(toastTypeNames).toEqual([
-      "success",
-      "error",
-      "warning",
-      "info",
-      "loading",
-    ]);
+  it('lists every type Cloud shows an icon for', () => {
+    expect(toastTypeNames).toEqual(['success', 'error', 'warning', 'info', 'loading']);
   });
 
-  it("shares one manager and creates isolated ones on demand", () => {
-    for (const method of ["add", "close", "update", "promise"] as const) {
-      expect(typeof toast[method]).toBe("function");
+  it('shares one manager and creates isolated ones on demand', () => {
+    for (const method of ['add', 'close', 'update', 'promise'] as const) {
+      expect(typeof toast[method]).toBe('function');
     }
     const a = createToastManager();
     const b = createToastManager();
@@ -85,101 +74,88 @@ describe("Toast", () => {
     expect(a).not.toBe(toast);
   });
 
-  it("renders Toaster children on the server without a viewport", () => {
+  it('renders Toaster children on the server without a viewport', () => {
     const html = renderToString(
       <Toaster toastManager={createToastManager()}>
         <button type="button">Save sample</button>
       </Toaster>,
     );
-    expect(html).toContain("Save sample");
-    expect(html).not.toContain("toast-viewport");
+    expect(html).toContain('Save sample');
+    expect(html).not.toContain('toast-viewport');
   });
 
-  it("composes the parts with their slots, classes, and labels", () => {
+  it('composes the parts with their slots, classes, and labels', () => {
     const html = renderToast({
-      id: "invite",
-      title: "Invite sent",
-      description: "Ana Ruiz can now join the Meadow workspace.",
-      type: "success",
+      id: 'invite',
+      title: 'Invite sent',
+      description: 'Ana Ruiz can now join the Meadow workspace.',
+      type: 'success',
     });
-    const viewport = tag(html, "toast-viewport");
-    expect(viewport).toMatch(
-      /class="[^"]*sprout-toast-viewport[^"]*viewport-extra/,
-    );
-    const root = tag(html, "toast");
+    const viewport = tag(html, 'toast-viewport');
+    expect(viewport).toMatch(/class="[^"]*sprout-toast-viewport[^"]*viewport-extra/);
+    const root = tag(html, 'toast');
     expect(root).toMatch(/class="[^"]*sprout-toast toast-extra/);
     expect(root).toContain('data-type="success"');
     expect(root).toContain('role="dialog"');
-    expect(tag(html, "toast-content")).toContain("sprout-toast-content");
-    expect(tag(html, "toast-title")).toContain("sprout-toast-title");
-    expect(html).toContain("Invite sent");
-    expect(tag(html, "toast-description")).toContain(
-      "sprout-toast-description",
-    );
-    expect(html).toContain("Ana Ruiz can now join the Meadow workspace.");
+    expect(tag(html, 'toast-content')).toContain('sprout-toast-content');
+    expect(tag(html, 'toast-title')).toContain('sprout-toast-title');
+    expect(html).toContain('Invite sent');
+    expect(tag(html, 'toast-description')).toContain('sprout-toast-description');
+    expect(html).toContain('Ana Ruiz can now join the Meadow workspace.');
 
-    const close = tag(html, "toast-close");
+    const close = tag(html, 'toast-close');
     expect(close).toMatch(/^<button/);
     expect(close).toContain('aria-label="Close toast"');
-    expect(close).toContain("sprout-toast-close");
-    expect(close).toContain("sprout-button-variant-ghost");
-    expect(close).toContain("sprout-button-size-icon-sm");
-    expect(html).toMatch(
-      /data-slot="toast-close"[^>]*>.*<svg[^>]*aria-hidden="true"/,
-    );
+    expect(close).toContain('sprout-toast-close');
+    expect(close).toContain('sprout-button-variant-ghost');
+    expect(close).toContain('sprout-button-size-icon-sm');
+    expect(html).toMatch(/data-slot="toast-close"[^>]*>.*<svg[^>]*aria-hidden="true"/);
   });
 
-  it("hides the action until the toast has a label", () => {
-    expect(renderToast({ id: "plain", title: "Draft saved" })).not.toContain(
-      "toast-action",
-    );
+  it('hides the action until the toast has a label', () => {
+    expect(renderToast({ id: 'plain', title: 'Draft saved' })).not.toContain('toast-action');
     const html = renderToast({
-      id: "undo",
-      title: "Sample saved",
-      description: "Changes exist only in this example.",
-      actionProps: { children: "Undo" },
+      id: 'undo',
+      title: 'Sample saved',
+      description: 'Changes exist only in this example.',
+      actionProps: { children: 'Undo' },
     });
-    const action = tag(html, "toast-action");
+    const action = tag(html, 'toast-action');
     expect(action).toMatch(/^<button/);
-    expect(action).toContain("sprout-toast-action");
-    expect(action).toContain("sprout-button-variant-outline");
-    expect(action).toContain("sprout-button-size-sm");
+    expect(action).toContain('sprout-toast-action');
+    expect(action).toContain('sprout-button-variant-outline');
+    expect(action).toContain('sprout-button-size-sm');
     expect(html).toMatch(/data-slot="toast-action"[^>]*>Undo</);
   });
 
-  it("omits the description when the toast has none", () => {
+  it('omits the description when the toast has none', () => {
     const html = renderToast({
-      id: "undone",
-      title: "Sample undone",
-      type: "info",
+      id: 'undone',
+      title: 'Sample undone',
+      type: 'info',
     });
-    expect(html).toContain("Sample undone");
+    expect(html).toContain('Sample undone');
     expect(html).not.toContain('data-slot="toast-description"');
   });
 
-  it("lets a custom list label its own action and swap the close button", () => {
+  it('lets a custom list label its own action and swap the close button', () => {
     const html = renderToString(
       <ToastProvider toastManager={createToastManager()}>
         <ToastViewport>
-          <Toast
-            toast={{ id: "file", title: "harvest-photos.zip", type: "error" }}
-            swipeDirection="right"
-          >
+          <Toast toast={{ id: 'file', title: 'harvest-photos.zip', type: 'error' }} swipeDirection="right">
             <ToastContent>
               <ToastTitle />
               <ToastAction>Retry</ToastAction>
-              <ToastClose render={<button type="button" className="plain" />}>
-                Dismiss
-              </ToastClose>
+              <ToastClose render={<button type="button" className="plain" />}>Dismiss</ToastClose>
             </ToastContent>
           </Toast>
         </ToastViewport>
       </ToastProvider>,
     );
     expect(html).toMatch(/data-slot="toast-action"[^>]*>Retry</);
-    const close = tag(html, "toast-close");
-    expect(close).toContain("plain");
-    expect(close).not.toContain("sprout-button");
+    const close = tag(html, 'toast-close');
+    expect(close).toContain('plain');
+    expect(close).not.toContain('sprout-button');
     expect(html).toMatch(/data-slot="toast-close"[^>]*>Dismiss</);
   });
 });

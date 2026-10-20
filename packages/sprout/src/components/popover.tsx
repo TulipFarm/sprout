@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import type { ComponentProps } from "react";
-import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
-import { cn, stateClassName } from "../internal/classes.js";
+import type { ComponentProps } from 'react';
+import { Popover as PopoverPrimitive } from '@base-ui/react/popover';
+import { cn, stateClassName } from '../internal/classes.js';
 
 export const popoverContentSizeNames = [
-  "default",
-  "menu",
-  "picker",
-  "panel",
-  "work-list",
-  "app-actions",
-  "bud",
+  'default',
+  'menu',
+  'picker',
+  'panel',
+  'work-list',
+  'app-actions',
+  'bud',
 ] as const;
 
 export type PopoverContentSize = (typeof popoverContentSizeNames)[number];
@@ -30,19 +30,18 @@ export function PopoverTrigger(props: PopoverTriggerProps) {
 
 type PositionerProps = Pick<
   PopoverPrimitive.Positioner.Props,
-  | "align"
-  | "alignOffset"
-  | "side"
-  | "sideOffset"
-  | "anchor"
-  | "collisionPadding"
-  | "collisionAvoidance"
-  | "sticky"
-  | "positionMethod"
+  | 'align'
+  | 'alignOffset'
+  | 'side'
+  | 'sideOffset'
+  | 'anchor'
+  | 'collisionPadding'
+  | 'collisionAvoidance'
+  | 'sticky'
+  | 'positionMethod'
 >;
 
-export interface PopoverContentProps
-  extends PopoverPrimitive.Popup.Props, PositionerProps {
+export interface PopoverContentProps extends PopoverPrimitive.Popup.Props, PositionerProps {
   /**
    * `default` is an 18rem padded panel for text. `menu`, `picker`, and `panel`
    * are unpadded hosts for search lists and forms. `work-list` caps the height
@@ -51,9 +50,9 @@ export interface PopoverContentProps
    */
   size?: PopoverContentSize;
   /** Keep the content in the DOM while closed, for example to preserve chat state. */
-  keepMounted?: PopoverPrimitive.Portal.Props["keepMounted"];
+  keepMounted?: PopoverPrimitive.Portal.Props['keepMounted'];
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: PopoverPrimitive.Portal.Props["container"];
+  container?: PopoverPrimitive.Portal.Props['container'];
 }
 
 /**
@@ -61,16 +60,16 @@ export interface PopoverContentProps
  * directly inside `Popover`.
  */
 export function PopoverContent({
-  align = "center",
+  align = 'center',
   alignOffset = 0,
-  side = "bottom",
+  side = 'bottom',
   sideOffset = 4,
   collisionPadding = 8,
   collisionAvoidance,
   sticky,
   positionMethod,
   anchor,
-  size = "default",
+  size = 'default',
   keepMounted = false,
   container,
   className,
@@ -95,7 +94,7 @@ export function PopoverContent({
           data-size={size}
           {...props}
           className={stateClassName<PopoverPrimitive.Popup.State>(
-            cn("sprout-popover-content", `sprout-popover-${size}`),
+            cn('sprout-popover-content', `sprout-popover-${size}`),
             className,
           )}
         />
@@ -104,16 +103,10 @@ export function PopoverContent({
   );
 }
 
-export type PopoverHeaderProps = ComponentProps<"div">;
+export type PopoverHeaderProps = ComponentProps<'div'>;
 
 export function PopoverHeader({ className, ...props }: PopoverHeaderProps) {
-  return (
-    <div
-      data-slot="popover-header"
-      {...props}
-      className={cn("sprout-popover-header", className)}
-    />
-  );
+  return <div data-slot="popover-header" {...props} className={cn('sprout-popover-header', className)} />;
 }
 
 export type PopoverTitleProps = PopoverPrimitive.Title.Props;
@@ -123,28 +116,19 @@ export function PopoverTitle({ className, ...props }: PopoverTitleProps) {
     <PopoverPrimitive.Title
       data-slot="popover-title"
       {...props}
-      className={stateClassName<PopoverPrimitive.Title.State>(
-        "sprout-popover-title",
-        className,
-      )}
+      className={stateClassName<PopoverPrimitive.Title.State>('sprout-popover-title', className)}
     />
   );
 }
 
 export type PopoverDescriptionProps = PopoverPrimitive.Description.Props;
 
-export function PopoverDescription({
-  className,
-  ...props
-}: PopoverDescriptionProps) {
+export function PopoverDescription({ className, ...props }: PopoverDescriptionProps) {
   return (
     <PopoverPrimitive.Description
       data-slot="popover-description"
       {...props}
-      className={stateClassName<PopoverPrimitive.Description.State>(
-        "sprout-popover-description",
-        className,
-      )}
+      className={stateClassName<PopoverPrimitive.Description.State>('sprout-popover-description', className)}
     />
   );
 }

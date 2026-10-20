@@ -1,14 +1,9 @@
-"use client";
+'use client';
 
-import {
-  useId,
-  type ComponentProps,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
-import { ArrowRight } from "reicon-react/icons/ArrowRight";
-import { cn } from "../internal/classes.js";
-import { BrandStack, type BrandStackItem } from "./brand-icon.js";
+import { useId, type ComponentProps, type CSSProperties, type ReactNode } from 'react';
+import { ArrowRight } from 'reicon-react/icons/ArrowRight';
+import { cn } from '../internal/classes.js';
+import { BrandStack, type BrandStackItem } from './brand-icon.js';
 
 export interface PromptListItem {
   id: string;
@@ -20,10 +15,7 @@ export interface PromptListItem {
   brands?: readonly BrandStackItem[] | undefined;
 }
 
-export interface PromptListProps extends Omit<
-  ComponentProps<"section">,
-  "title" | "children" | "onSelect"
-> {
+export interface PromptListProps extends Omit<ComponentProps<'section'>, 'title' | 'children' | 'onSelect'> {
   /** Names the list. Shown as a small heading unless `showTitle` is false. */
   title: string;
   /** Hide the heading but keep `title` as the list's accessible name. */
@@ -52,7 +44,7 @@ export function PromptList({
       {...props}
       aria-labelledby={showTitle ? heading : undefined}
       aria-label={showTitle ? undefined : title}
-      className={cn("sprout-prompt-list", className)}
+      className={cn('sprout-prompt-list', className)}
     >
       {showTitle && (
         <h3 id={heading} className="sprout-prompt-list-title">
@@ -65,7 +57,7 @@ export function PromptList({
             key={item.id}
             data-slot="prompt-list-item"
             className="sprout-prompt-list-item"
-            style={{ "--sprout-prompt-index": index } as CSSProperties}
+            style={{ '--sprout-prompt-index': index } as CSSProperties}
           >
             <span aria-hidden="true" className="sprout-prompt-list-icon">
               {item.icon}
@@ -79,16 +71,8 @@ export function PromptList({
             >
               {item.label}
             </button>
-            {!!item.brands?.length && (
-              <BrandStack
-                brands={item.brands}
-                className="sprout-prompt-list-brands"
-              />
-            )}
-            <ArrowRight
-              aria-hidden="true"
-              className="sprout-prompt-list-arrow"
-            />
+            {!!item.brands?.length && <BrandStack brands={item.brands} className="sprout-prompt-list-brands" />}
+            <ArrowRight aria-hidden="true" className="sprout-prompt-list-arrow" />
           </li>
         ))}
       </ul>

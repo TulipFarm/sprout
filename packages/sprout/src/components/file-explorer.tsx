@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   useDeferredValue,
@@ -11,19 +11,19 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
   type ReactNode,
-} from "react";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { FileText } from "reicon-react/icons/FileText";
-import { Folder } from "reicon-react/icons/Folder";
-import { FolderOpen } from "reicon-react/icons/FolderOpen";
-import { MinusSquare } from "reicon-react/icons/MinusSquare";
-import { X } from "reicon-react/icons/X";
-import { cn } from "../internal/classes.js";
-import { tokenClass, useCodeTokens } from "../internal/code-tokens.js";
-import { codeLanguageNames, type CodeLanguage } from "../internal/languages.js";
-import { languageForFilename } from "../internal/syntax.js";
-import { SearchField } from "./search-field.js";
-import { StatePanel } from "./state-panel.js";
+} from 'react';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { FileText } from 'reicon-react/icons/FileText';
+import { Folder } from 'reicon-react/icons/Folder';
+import { FolderOpen } from 'reicon-react/icons/FolderOpen';
+import { MinusSquare } from 'reicon-react/icons/MinusSquare';
+import { X } from 'reicon-react/icons/X';
+import { cn } from '../internal/classes.js';
+import { tokenClass, useCodeTokens } from '../internal/code-tokens.js';
+import { codeLanguageNames, type CodeLanguage } from '../internal/languages.js';
+import { languageForFilename } from '../internal/syntax.js';
+import { SearchField } from './search-field.js';
+import { StatePanel } from './state-panel.js';
 
 export interface FileExplorerTextFile {
   /** A slash-separated path, such as `agents/scout/persona.md`. Folders come from the paths. */
@@ -37,13 +37,9 @@ export interface FileExplorerUnavailableFile {
   unavailable: string;
 }
 
-export type FileExplorerFile =
-  FileExplorerTextFile | FileExplorerUnavailableFile;
+export type FileExplorerFile = FileExplorerTextFile | FileExplorerUnavailableFile;
 
-export interface FileExplorerProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "children"
-> {
+export interface FileExplorerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   files: FileExplorerFile[];
   /** Heads the sidebar and names the tree, such as “Soul”. */
   label?: string | undefined;
@@ -52,8 +48,8 @@ export interface FileExplorerProps extends Omit<
 }
 
 type Node =
-  | { kind: "folder"; path: string; name: string; children: Node[] }
-  | { kind: "file"; path: string; name: string; file: FileExplorerFile };
+  | { kind: 'folder'; path: string; name: string; children: Node[] }
+  | { kind: 'file'; path: string; name: string; file: FileExplorerFile };
 
 type Row = { node: Node; depth: number; size: number; position: number };
 type Range = [start: number, end: number];
@@ -62,39 +58,32 @@ type Hit = { line: number; text: string; ranges: Range[] };
 /** Search stops after this many matching lines, so one common word cannot flood the list. */
 export const fileExplorerMaxMatches = 500;
 
-const nameOf = (path: string) => path.slice(path.lastIndexOf("/") + 1);
-const folderOf = (path: string) =>
-  path.slice(0, Math.max(0, path.lastIndexOf("/")));
+const nameOf = (path: string) => path.slice(path.lastIndexOf('/') + 1);
+const folderOf = (path: string) => path.slice(0, Math.max(0, path.lastIndexOf('/')));
 const order = (a: Node, b: Node) =>
-  a.kind === b.kind
-    ? a.name.localeCompare(b.name, undefined, { numeric: true })
-    : a.kind === "folder"
-      ? -1
-      : 1;
+  a.kind === b.kind ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.kind === 'folder' ? -1 : 1;
 
 function ancestors(path: string) {
-  const parts = path.split("/").slice(0, -1);
-  return parts.map((_, index) => parts.slice(0, index + 1).join("/"));
+  const parts = path.split('/').slice(0, -1);
+  return parts.map((_, index) => parts.slice(0, index + 1).join('/'));
 }
 
 function buildTree(files: FileExplorerFile[]) {
   const root: Node[] = [];
-  const folders = new Map<string, Node[]>([["", root]]);
+  const folders = new Map<string, Node[]>([['', root]]);
   for (const file of files) {
     for (const folder of ancestors(file.path)) {
       if (folders.has(folder)) continue;
       const children: Node[] = [];
       folders.get(folderOf(folder))!.push({
-        kind: "folder",
+        kind: 'folder',
         path: folder,
         name: nameOf(folder),
         children,
       });
       folders.set(folder, children);
     }
-    folders
-      .get(folderOf(file.path))!
-      .push({ kind: "file", path: file.path, name: nameOf(file.path), file });
+    folders.get(folderOf(file.path))!.push({ kind: 'file', path: file.path, name: nameOf(file.path), file });
   }
   for (const children of folders.values()) children.sort(order);
   return root;
@@ -103,20 +92,14 @@ function buildTree(files: FileExplorerFile[]) {
 function visibleRows(nodes: Node[], expanded: Set<string>, depth = 0): Row[] {
   return nodes.flatMap((node, index) => [
     { node, depth, size: nodes.length, position: index + 1 },
-    ...(node.kind === "folder" && expanded.has(node.path)
-      ? visibleRows(node.children, expanded, depth + 1)
-      : []),
+    ...(node.kind === 'folder' && expanded.has(node.path) ? visibleRows(node.children, expanded, depth + 1) : []),
   ]);
 }
 
 function rangesIn(text: string, needle: string): Range[] {
   const haystack = text.toLowerCase();
   const ranges: Range[] = [];
-  for (
-    let at = haystack.indexOf(needle);
-    at >= 0;
-    at = haystack.indexOf(needle, at + needle.length)
-  )
+  for (let at = haystack.indexOf(needle); at >= 0; at = haystack.indexOf(needle, at + needle.length))
     ranges.push([at, at + needle.length]);
   return ranges;
 }
@@ -125,21 +108,19 @@ const excerptLead = 32;
 
 function searchFiles(files: FileExplorerFile[], query: string) {
   const needle = query.toLowerCase();
-  const names = files.filter((file) =>
-    file.path.toLowerCase().includes(needle),
-  );
+  const names = files.filter(file => file.path.toLowerCase().includes(needle));
   const hits: { file: FileExplorerTextFile; lines: Hit[] }[] = [];
   let total = 0;
   for (const file of files) {
-    if (!("content" in file) || total >= fileExplorerMaxMatches) continue;
+    if (!('content' in file) || total >= fileExplorerMaxMatches) continue;
     const lines: Hit[] = [];
-    file.content.split("\n").forEach((raw, index) => {
+    file.content.split('\n').forEach((raw, index) => {
       if (total >= fileExplorerMaxMatches) return;
       const ranges = rangesIn(raw, needle);
       if (!ranges.length) return;
       const indent = raw.length - raw.trimStart().length;
       const cut = Math.max(indent, ranges[0]![0] - excerptLead);
-      const prefix = cut > indent ? "…" : "";
+      const prefix = cut > indent ? '…' : '';
       const shift = cut - prefix.length;
       lines.push({
         line: index + 1,
@@ -154,18 +135,13 @@ function searchFiles(files: FileExplorerFile[], query: string) {
 }
 
 /** Splits text pieces at the match ranges and wraps the matches in `mark`. */
-function marked(
-  pieces: { content: string; className?: string | undefined }[],
-  ranges: Range[],
-) {
+function marked(pieces: { content: string; className?: string | undefined }[], ranges: Range[]) {
   const out: ReactNode[] = [];
   let offset = 0;
   pieces.forEach((piece, index) => {
     const end = offset + piece.content.length;
     const cuts = new Set([offset, end]);
-    for (const [start, stop] of ranges)
-      for (const cut of [start, stop])
-        if (cut > offset && cut < end) cuts.add(cut);
+    for (const [start, stop] of ranges) for (const cut of [start, stop]) if (cut > offset && cut < end) cuts.add(cut);
     const sorted = [...cuts].sort((a, b) => a - b);
     for (let at = 0; at < sorted.length - 1; at += 1) {
       const from = sorted[at]!;
@@ -190,49 +166,39 @@ function marked(
   return out;
 }
 
-type Tone = "info" | "success" | "warning" | "danger" | "accent" | "muted";
+type Tone = 'info' | 'success' | 'warning' | 'danger' | 'accent' | 'muted';
 
 const glyphs: Partial<Record<CodeLanguage, [label: string, tone: Tone]>> = {
-  typescript: ["TS", "info"],
-  tsx: ["TSX", "info"],
-  javascript: ["JS", "warning"],
-  jsx: ["JSX", "warning"],
-  json: ["{ }", "warning"],
-  jsonc: ["{ }", "warning"],
-  json5: ["{ }", "warning"],
-  markdown: ["MD", "accent"],
-  mdx: ["MDX", "accent"],
-  python: ["PY", "info"],
-  yaml: ["YML", "danger"],
-  toml: ["TML", "danger"],
-  css: ["CSS", "accent"],
-  scss: ["SCS", "accent"],
-  html: ["< >", "danger"],
-  xml: ["< >", "warning"],
-  shellscript: ["SH", "success"],
-  dotenv: ["ENV", "success"],
-  sql: ["SQL", "accent"],
-  rust: ["RS", "danger"],
-  go: ["GO", "info"],
-  ruby: ["RB", "danger"],
+  typescript: ['TS', 'info'],
+  tsx: ['TSX', 'info'],
+  javascript: ['JS', 'warning'],
+  jsx: ['JSX', 'warning'],
+  json: ['{ }', 'warning'],
+  jsonc: ['{ }', 'warning'],
+  json5: ['{ }', 'warning'],
+  markdown: ['MD', 'accent'],
+  mdx: ['MDX', 'accent'],
+  python: ['PY', 'info'],
+  yaml: ['YML', 'danger'],
+  toml: ['TML', 'danger'],
+  css: ['CSS', 'accent'],
+  scss: ['SCS', 'accent'],
+  html: ['< >', 'danger'],
+  xml: ['< >', 'warning'],
+  shellscript: ['SH', 'success'],
+  dotenv: ['ENV', 'success'],
+  sql: ['SQL', 'accent'],
+  rust: ['RS', 'danger'],
+  go: ['GO', 'info'],
+  ruby: ['RB', 'danger'],
 };
 
 /** A 16px tile with a short language label, tinted by language. Decorative. */
 function FileGlyph({ name }: { name: string }) {
   const language = languageForFilename(name);
-  const extension = name.includes(".") ? (name.split(".").at(-1) ?? "") : "";
-  const [label, tone] = (language && glyphs[language]) ?? [
-    extension.slice(0, 3).toUpperCase(),
-    "muted" as const,
-  ];
-  if (!label)
-    return (
-      <FileText
-        size={16}
-        aria-hidden="true"
-        className="sprout-file-explorer-glyph"
-      />
-    );
+  const extension = name.includes('.') ? (name.split('.').at(-1) ?? '') : '';
+  const [label, tone] = (language && glyphs[language]) ?? [extension.slice(0, 3).toUpperCase(), 'muted' as const];
+  if (!label) return <FileText size={16} aria-hidden="true" className="sprout-file-explorer-glyph" />;
   return (
     <svg
       viewBox="0 0 16 16"
@@ -241,14 +207,7 @@ function FileGlyph({ name }: { name: string }) {
       data-tone={tone}
       className="sprout-file-explorer-glyph"
     >
-      <rect
-        x="0.5"
-        y="1.5"
-        width="15"
-        height="13"
-        rx="3"
-        className="sprout-file-explorer-glyph-tile"
-      />
+      <rect x="0.5" y="1.5" width="15" height="13" rx="3" className="sprout-file-explorer-glyph-tile" />
       <text
         x="8"
         y="10.8"
@@ -263,32 +222,22 @@ function FileGlyph({ name }: { name: string }) {
   );
 }
 
-function CodeView({
-  file,
-  query,
-  line,
-}: {
-  file: FileExplorerTextFile;
-  query: string;
-  line: number | null;
-}) {
+function CodeView({ file, query, line }: { file: FileExplorerTextFile; query: string; line: number | null }) {
   const language = languageForFilename(file.path);
   const tokens = useCodeTokens(file.content, language);
   const needle = query.toLowerCase();
   const current = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    current.current?.scrollIntoView({ block: "center" });
+    current.current?.scrollIntoView({ block: 'center' });
   }, [line, file.path]);
-  const lines = useMemo<
-    { content: string; className?: string | undefined }[][]
-  >(
+  const lines = useMemo<{ content: string; className?: string | undefined }[][]>(
     () =>
-      tokens?.map((row) =>
-        row.map((token) => ({
+      tokens?.map(row =>
+        row.map(token => ({
           content: token.content,
           className: tokenClass(token),
         })),
-      ) ?? file.content.split("\n").map((content) => [{ content }]),
+      ) ?? file.content.split('\n').map(content => [{ content }]),
     [tokens, file.content],
   );
   // ponytail: one DOM row per line; virtualize if files past ~20k lines matter.
@@ -298,23 +247,20 @@ function CodeView({
       tabIndex={0}
       role="region"
       aria-label={file.path}
-      data-highlighted={tokens ? "" : undefined}
+      data-highlighted={tokens ? '' : undefined}
     >
       <pre className="sprout-file-explorer-pre">
         <code>
           {lines.map((pieces, index) => {
-            const text = pieces.map((piece) => piece.content).join("");
+            const text = pieces.map(piece => piece.content).join('');
             return (
               <div
                 key={index}
                 ref={index + 1 === line ? current : undefined}
-                data-current={index + 1 === line ? "" : undefined}
+                data-current={index + 1 === line ? '' : undefined}
                 className="sprout-file-explorer-line"
               >
-                <span
-                  aria-hidden="true"
-                  className="sprout-file-explorer-line-number"
-                >
+                <span aria-hidden="true" className="sprout-file-explorer-line-number">
                   {index + 1}
                 </span>
                 <span className="sprout-file-explorer-line-text">
@@ -325,7 +271,7 @@ function CodeView({
                           {piece.content}
                         </span>
                       ))}
-                  {"\n"}
+                  {'\n'}
                 </span>
               </div>
             );
@@ -341,39 +287,23 @@ function CodeView({
  * file pane. Search filters file names and lists matching lines across every
  * file; picking a line opens the file there.
  */
-export function FileExplorer({
-  files,
-  label = "Files",
-  defaultPath,
-  className,
-  ...props
-}: FileExplorerProps) {
+export function FileExplorer({ files, label = 'Files', defaultPath, className, ...props }: FileExplorerProps) {
   const tree = useMemo(() => buildTree(files), [files]);
-  const byPath = useMemo(
-    () => new Map(files.map((file) => [file.path, file])),
-    [files],
-  );
-  const [expanded, setExpanded] = useState(
-    () => new Set(defaultPath ? ancestors(defaultPath) : []),
-  );
-  const [tabs, setTabs] = useState<string[]>(
-    defaultPath && byPath.has(defaultPath) ? [defaultPath] : [],
-  );
+  const byPath = useMemo(() => new Map(files.map(file => [file.path, file])), [files]);
+  const [expanded, setExpanded] = useState(() => new Set(defaultPath ? ancestors(defaultPath) : []));
+  const [tabs, setTabs] = useState<string[]>(defaultPath && byPath.has(defaultPath) ? [defaultPath] : []);
   const [active, setActive] = useState<string | null>(tabs[0] ?? null);
   const [focused, setFocused] = useState<string | null>(active);
   const [line, setLine] = useState<number | null>(null);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const deferred = useDeferredValue(query.trim());
-  const results = useMemo(
-    () => (deferred ? searchFiles(files, deferred) : null),
-    [files, deferred],
-  );
+  const results = useMemo(() => (deferred ? searchFiles(files, deferred) : null), [files, deferred]);
   const rows = useMemo(() => visibleRows(tree, expanded), [tree, expanded]);
   const treeRef = useRef<HTMLDivElement>(null);
   const id = useId();
 
   const toggle = (path: string, open?: boolean) =>
-    setExpanded((current) => {
+    setExpanded(current => {
       const next = new Set(current);
       if (open ?? !next.has(path)) next.add(path);
       else next.delete(path);
@@ -381,7 +311,7 @@ export function FileExplorer({
     });
 
   const open = (path: string, at: number | null = null) => {
-    setTabs((current) => {
+    setTabs(current => {
       if (current.includes(path)) return current;
       const next = [...current];
       next.splice(active ? next.indexOf(active) + 1 : next.length, 0, path);
@@ -390,12 +320,12 @@ export function FileExplorer({
     setActive(path);
     setFocused(path);
     setLine(at);
-    setExpanded((current) => new Set([...current, ...ancestors(path)]));
+    setExpanded(current => new Set([...current, ...ancestors(path)]));
   };
 
   const close = (path: string) => {
     const index = tabs.indexOf(path);
-    const next = tabs.filter((tab) => tab !== path);
+    const next = tabs.filter(tab => tab !== path);
     setTabs(next);
     if (active === path) {
       setActive(next[Math.min(index, next.length - 1)] ?? null);
@@ -406,42 +336,40 @@ export function FileExplorer({
   const focusRow = (path: string | undefined) => {
     if (!path) return;
     setFocused(path);
-    treeRef.current
-      ?.querySelector<HTMLElement>(`[data-path="${CSS.escape(path)}"]`)
-      ?.focus();
+    treeRef.current?.querySelector<HTMLElement>(`[data-path="${CSS.escape(path)}"]`)?.focus();
   };
 
   const onTreeKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    const index = rows.findIndex((row) => row.node.path === focused);
+    const index = rows.findIndex(row => row.node.path === focused);
     const row = rows[index];
     if (!row) return;
     const { node } = row;
-    const isOpen = node.kind === "folder" && expanded.has(node.path);
+    const isOpen = node.kind === 'folder' && expanded.has(node.path);
     switch (event.key) {
-      case "ArrowDown":
+      case 'ArrowDown':
         focusRow(rows[index + 1]?.node.path);
         break;
-      case "ArrowUp":
+      case 'ArrowUp':
         focusRow(rows[index - 1]?.node.path);
         break;
-      case "Home":
+      case 'Home':
         focusRow(rows[0]?.node.path);
         break;
-      case "End":
+      case 'End':
         focusRow(rows.at(-1)?.node.path);
         break;
-      case "ArrowRight":
-        if (node.kind !== "folder") return;
+      case 'ArrowRight':
+        if (node.kind !== 'folder') return;
         if (isOpen) focusRow(rows[index + 1]?.node.path);
         else toggle(node.path, true);
         break;
-      case "ArrowLeft":
+      case 'ArrowLeft':
         if (isOpen) toggle(node.path, false);
         else focusRow(folderOf(node.path) || undefined);
         break;
-      case "Enter":
-      case " ":
-        if (node.kind === "folder") toggle(node.path);
+      case 'Enter':
+      case ' ':
+        if (node.kind === 'folder') toggle(node.path);
         else open(node.path);
         break;
       default:
@@ -452,17 +380,10 @@ export function FileExplorer({
 
   const activeFile = active ? byPath.get(active) : undefined;
   const language = activeFile ? languageForFilename(activeFile.path) : null;
-  const rovingPath =
-    focused && rows.some((row) => row.node.path === focused)
-      ? focused
-      : rows[0]?.node.path;
+  const rovingPath = focused && rows.some(row => row.node.path === focused) ? focused : rows[0]?.node.path;
 
   return (
-    <div
-      data-slot="file-explorer"
-      {...props}
-      className={cn("sprout-file-explorer", className)}
-    >
+    <div data-slot="file-explorer" {...props} className={cn('sprout-file-explorer', className)}>
       <aside className="sprout-file-explorer-sidebar" aria-label={label}>
         <div className="sprout-file-explorer-sidebar-header">
           <span className="sprout-file-explorer-title">{label}</span>
@@ -488,13 +409,10 @@ export function FileExplorer({
           />
         </div>
         {results ? (
-          <div
-            className="sprout-file-explorer-results"
-            aria-busy={deferred !== query.trim() || undefined}
-          >
+          <div className="sprout-file-explorer-results" aria-busy={deferred !== query.trim() || undefined}>
             <p role="status" className="sprout-file-explorer-summary">
               {results.names.length || results.total
-                ? `${results.names.length} ${results.names.length === 1 ? "file name" : "file names"}, ${results.capped ? `first ${results.total}` : results.total} ${results.total === 1 ? "line" : "lines"}`
+                ? `${results.names.length} ${results.names.length === 1 ? 'file name' : 'file names'}, ${results.capped ? `first ${results.total}` : results.total} ${results.total === 1 ? 'line' : 'lines'}`
                 : `No files or lines match “${deferred}”.`}
             </p>
             {results.names.length > 0 && (
@@ -503,7 +421,7 @@ export function FileExplorer({
                   File names
                 </h3>
                 <ul className="sprout-file-explorer-list">
-                  {results.names.map((file) => (
+                  {results.names.map(file => (
                     <li key={file.path}>
                       <button
                         type="button"
@@ -518,9 +436,7 @@ export function FileExplorer({
                             rangesIn(nameOf(file.path), deferred.toLowerCase()),
                           )}
                         </span>
-                        <span className="sprout-file-explorer-dir">
-                          {folderOf(file.path)}
-                        </span>
+                        <span className="sprout-file-explorer-dir">{folderOf(file.path)}</span>
                       </button>
                     </li>
                   ))}
@@ -541,32 +457,21 @@ export function FileExplorer({
                         onClick={() => open(file.path, lines[0]!.line)}
                       >
                         <FileGlyph name={file.path} />
-                        <span className="sprout-file-explorer-name">
-                          {nameOf(file.path)}
-                        </span>
-                        <span className="sprout-file-explorer-dir">
-                          {folderOf(file.path)}
-                        </span>
-                        <span className="sprout-file-explorer-count">
-                          {lines.length}
-                        </span>
+                        <span className="sprout-file-explorer-name">{nameOf(file.path)}</span>
+                        <span className="sprout-file-explorer-dir">{folderOf(file.path)}</span>
+                        <span className="sprout-file-explorer-count">{lines.length}</span>
                       </button>
                       <ul className="sprout-file-explorer-list">
-                        {lines.map((hit) => (
+                        {lines.map(hit => (
                           <li key={hit.line}>
                             <button
                               type="button"
                               className="sprout-file-explorer-hit"
                               aria-label={`${file.path}, line ${hit.line}: ${hit.text}`}
-                              aria-current={
-                                (file.path === active && hit.line === line) ||
-                                undefined
-                              }
+                              aria-current={(file.path === active && hit.line === line) || undefined}
                               onClick={() => open(file.path, hit.line)}
                             >
-                              <span className="sprout-file-explorer-hit-line">
-                                {hit.line}
-                              </span>
+                              <span className="sprout-file-explorer-hit-line">{hit.line}</span>
                               <span className="sprout-file-explorer-hit-text">
                                 {marked([{ content: hit.text }], hit.ranges)}
                               </span>
@@ -588,11 +493,9 @@ export function FileExplorer({
             className="sprout-file-explorer-tree"
             onKeyDown={onTreeKeyDown}
           >
-            {rows.length === 0 && (
-              <p className="sprout-file-explorer-summary">No files yet.</p>
-            )}
+            {rows.length === 0 && <p className="sprout-file-explorer-summary">No files yet.</p>}
             {rows.map(({ node, depth, size, position }) => {
-              const folder = node.kind === "folder";
+              const folder = node.kind === 'folder';
               const isOpen = folder && expanded.has(node.path);
               return (
                 <div
@@ -607,36 +510,21 @@ export function FileExplorer({
                   aria-selected={folder ? undefined : node.path === active}
                   tabIndex={node.path === rovingPath ? 0 : -1}
                   className="sprout-file-explorer-row"
-                  style={{ "--depth": depth } as CSSProperties}
+                  style={{ '--depth': depth } as CSSProperties}
                   onFocus={() => setFocused(node.path)}
                   onClick={() => (folder ? toggle(node.path) : open(node.path))}
                 >
                   {Array.from({ length: depth }, (_, at) => (
-                    <span
-                      key={at}
-                      aria-hidden="true"
-                      className="sprout-file-explorer-guide"
-                    />
+                    <span key={at} aria-hidden="true" className="sprout-file-explorer-guide" />
                   ))}
-                  <span
-                    aria-hidden="true"
-                    className="sprout-file-explorer-chevron"
-                  >
+                  <span aria-hidden="true" className="sprout-file-explorer-chevron">
                     {folder && <ChevronRight size={12} />}
                   </span>
                   {folder ? (
                     isOpen ? (
-                      <FolderOpen
-                        size={16}
-                        aria-hidden="true"
-                        className="sprout-file-explorer-folder"
-                      />
+                      <FolderOpen size={16} aria-hidden="true" className="sprout-file-explorer-folder" />
                     ) : (
-                      <Folder
-                        size={16}
-                        aria-hidden="true"
-                        className="sprout-file-explorer-folder"
-                      />
+                      <Folder size={16} aria-hidden="true" className="sprout-file-explorer-folder" />
                     )
                   ) : (
                     <FileGlyph name={node.name} />
@@ -653,12 +541,8 @@ export function FileExplorer({
       <section className="sprout-file-explorer-editor" aria-label="Editor">
         {tabs.length > 0 && (
           <div className="sprout-file-explorer-tabs" aria-label="Open files">
-            {tabs.map((path) => (
-              <div
-                key={path}
-                className="sprout-file-explorer-tab"
-                data-active={path === active ? "" : undefined}
-              >
+            {tabs.map(path => (
+              <div key={path} className="sprout-file-explorer-tab" data-active={path === active ? '' : undefined}>
                 <button
                   type="button"
                   className="sprout-file-explorer-tab-open"
@@ -668,7 +552,7 @@ export function FileExplorer({
                     setActive(path);
                     setLine(null);
                   }}
-                  onAuxClick={(event) => {
+                  onAuxClick={event => {
                     if (event.button === 1) close(path);
                   }}
                 >
@@ -691,19 +575,10 @@ export function FileExplorer({
           <>
             <nav className="sprout-file-explorer-crumbs" aria-label="File path">
               <ol>
-                {activeFile.path.split("/").map((part, index, parts) => (
-                  <li
-                    key={index}
-                    aria-current={
-                      index === parts.length - 1 ? "page" : undefined
-                    }
-                  >
+                {activeFile.path.split('/').map((part, index, parts) => (
+                  <li key={index} aria-current={index === parts.length - 1 ? 'page' : undefined}>
                     {index > 0 && (
-                      <ChevronRight
-                        size={10}
-                        aria-hidden="true"
-                        className="sprout-file-explorer-crumb-separator"
-                      />
+                      <ChevronRight size={10} aria-hidden="true" className="sprout-file-explorer-crumb-separator" />
                     )}
                     {part}
                   </li>
@@ -711,18 +586,11 @@ export function FileExplorer({
               </ol>
             </nav>
             <div className="sprout-file-explorer-body">
-              {"content" in activeFile ? (
-                activeFile.content === "" ? (
-                  <p className="sprout-file-explorer-summary">
-                    This file is empty.
-                  </p>
+              {'content' in activeFile ? (
+                activeFile.content === '' ? (
+                  <p className="sprout-file-explorer-summary">This file is empty.</p>
                 ) : (
-                  <CodeView
-                    key={activeFile.path}
-                    file={activeFile}
-                    query={results ? deferred : ""}
-                    line={line}
-                  />
+                  <CodeView key={activeFile.path} file={activeFile} query={results ? deferred : ''} line={line} />
                 )
               ) : (
                 <StatePanel
@@ -734,14 +602,8 @@ export function FileExplorer({
               )}
             </div>
             <div className="sprout-file-explorer-status">
-              <span>
-                {language ? codeLanguageNames[language] : "Plain text"}
-              </span>
-              {"content" in activeFile && (
-                <span>
-                  {activeFile.content.split("\n").length.toLocaleString()} lines
-                </span>
-              )}
+              <span>{language ? codeLanguageNames[language] : 'Plain text'}</span>
+              {'content' in activeFile && <span>{activeFile.content.split('\n').length.toLocaleString()} lines</span>}
               {line !== null && <span>Line {line}</span>}
               <span className="sprout-file-explorer-status-end">Read only</span>
             </div>

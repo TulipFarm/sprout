@@ -1,6 +1,6 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   ComboboxBasics,
   ComboboxGroups,
@@ -9,20 +9,18 @@ import {
   ComboboxPlayground,
   ComboboxStates,
   ComboboxTriggerPicker,
-} from "../../components/ComboboxDemo";
+} from '../../components/ComboboxDemo';
 ---
 
-<Docs
-  title="Combobox"
-  description="Search a list and pick one or more values, in forms and filters."
->
+<Docs title="Combobox" description="Search a list and pick one or more values, in forms and filters.">
   <h1 class="docs-title">Combobox</h1>
   <p class="docs-lead">
-    A text field that filters a list as you type. Pick one value, or many as
-    chips. Use it when a list is too long to scan, such as teammates, channels,
-    or time zones. For a short fixed list, use Select.
+    A text field that filters a list as you type. Pick one value, or many as chips. Use it when a list is too long to
+    scan, such as teammates, channels, or time zones. For a short fixed list, use Select.
   </p>
-  <div class="mt-8" id="combobox-demo"><ComboboxPlayground client:load /></div>
+  <div class="mt-8" id="combobox-demo">
+    <ComboboxPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -54,43 +52,36 @@ const fruits = ["Apple", "Apricot", "Blueberry", "Cherry", "Pear"];
 </Combobox>`}
     />
     <p>
-      Pass <code>items</code> to <code>Combobox</code> and a function to <code
-        >ComboboxList</code
-      >. The list filters as you type, and <code>ComboboxEmpty</code> shows when nothing
-      matches. For objects, pass <code>itemToStringLabel</code> and
+      Pass <code>items</code> to <code>Combobox</code> and a function to <code>ComboboxList</code>. The list filters as
+      you type, and <code>ComboboxEmpty</code> shows when nothing matches. For objects, pass{' '}
+      <code>itemToStringLabel</code> and
       <code>isItemEqualToValue</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Single, multiple, and disabled</h2>
     <p>
-      These are the three forms TulipFarm uses: a single choice with a clear
-      button, many choices as chips with a starting value, and a disabled field.
+      These are the three forms TulipFarm uses: a single choice with a clear button, many choices as chips with a
+      starting value, and a disabled field.
     </p>
     <ComboboxBasics client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Input options</h2>
     <p>
-      <code>ComboboxInput</code> shows a chevron by default. Turn it off with <code
-        >showTrigger={"{false}"}</code
-      > so the list opens on typing or ↓. <code>showClear</code> adds a clear button
-      that replaces the chevron once there is a value. Children are added to the group,
-      such as a leading icon.
+      <code>ComboboxInput</code> shows a chevron by default. Turn it off with <code>showTrigger={'{false}'}</code> so
+      the list opens on typing or ↓. <code>showClear</code> adds a clear button that replaces the chevron once there is
+      a value. Children are added to the group, such as a leading icon.
     </p>
     <ComboboxInputOptions client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Chips</h2>
     <p>
-      With <code>multiple</code>, render <code>ComboboxChip</code>s from <code
-        >ComboboxValue</code
-      > inside <code>ComboboxChips</code>, then a <code>ComboboxChipsInput</code
-      >. Pass a ref from <code>useComboboxAnchor</code> to the chips and to <code
-        >ComboboxContent</code
-      >’s <code>anchor</code> so the list matches the field. Set <code
-        >showRemove={"{false}"}</code
-      > on a chip that must stay. Chips wrap when they don’t fit.
+      With <code>multiple</code>, render <code>ComboboxChip</code>s from <code>ComboboxValue</code> inside{' '}
+      <code>ComboboxChips</code>, then a <code>ComboboxChipsInput</code>. Pass a ref from <code>useComboboxAnchor</code>{' '}
+      to the chips and to <code>ComboboxContent</code>’s <code>anchor</code> so the list matches the field. Set{' '}
+      <code>showRemove={'{false}'}</code> on a chip that must stay. Chips wrap when they don’t fit.
     </p>
     <ComboboxMultiple client:load />
     <CodeBlock
@@ -119,22 +110,17 @@ const fruits = ["Apple", "Apricot", "Blueberry", "Cherry", "Pear"];
   <section class="prose-section">
     <h2 class="section-title">Trigger button</h2>
     <p>
-      <code>ComboboxTrigger</code> can be the whole control. Render it as a <code
-        >Button</code
-      >, show <code>ComboboxValue</code> inside, and put a <code
-        >ComboboxInput</code
-      > with <code>showTrigger={"{false}"}</code> at the top of the list. With no
-      children it is an icon button named “Show options”.
+      <code>ComboboxTrigger</code> can be the whole control. Render it as a <code>Button</code>, show{' '}
+      <code>ComboboxValue</code> inside, and put a <code>ComboboxInput</code> with <code>showTrigger={'{false}'}</code>{' '}
+      at the top of the list. With no children it is an icon button named “Show options”.
     </p>
     <ComboboxTriggerPicker client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Groups and separators</h2>
     <p>
-      Pass groups as <code>items</code>. Render each one as a <code
-        >ComboboxGroup</code
-      > with its own <code>items</code>, a <code>ComboboxLabel</code>, and a
-      <code>ComboboxCollection</code>. Put a <code>ComboboxSeparator</code>
+      Pass groups as <code>items</code>. Render each one as a <code>ComboboxGroup</code> with its own <code>items</code>
+      , a <code>ComboboxLabel</code>, and a<code>ComboboxCollection</code>. Put a <code>ComboboxSeparator</code>
       between groups.
     </p>
     <ComboboxGroups client:load />
@@ -142,78 +128,58 @@ const fruits = ["Apple", "Apricot", "Blueberry", "Cherry", "Pear"];
   <section class="prose-section">
     <h2 class="section-title">States</h2>
     <p>
-      While items load, pass an empty list, set <code>aria-busy</code> on the input,
-      and say so in <code>ComboboxEmpty</code>. Set <code>aria-invalid</code> and
-      point <code>aria-describedby</code> at the error. Disabled items can be reached
-      with the arrow keys but can’t be chosen. A disabled combobox can’t be focused.
+      While items load, pass an empty list, set <code>aria-busy</code> on the input, and say so in{' '}
+      <code>ComboboxEmpty</code>. Set <code>aria-invalid</code> and point <code>aria-describedby</code> at the error.
+      Disabled items can be reached with the arrow keys but can’t be chosen. A disabled combobox can’t be focused.
     </p>
     <ComboboxStates client:load />
   </section>
   <section class="prose-section" id="combobox-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>Combobox</code> is the Base UI combobox root. It takes <code
-        >items</code
-      >, <code>multiple</code>, <code>value</code>, <code>defaultValue</code>,
-      <code>onValueChange</code>, <code>itemToStringLabel</code>, <code
-        >disabled</code
-      >, <code>name</code>, and every other root prop.
+      <code>Combobox</code> is the Base UI combobox root. It takes <code>items</code>, <code>multiple</code>,{' '}
+      <code>value</code>, <code>defaultValue</code>,<code>onValueChange</code>, <code>itemToStringLabel</code>,{' '}
+      <code>disabled</code>, <code>name</code>, and every other root prop.
     </p>
     <p>
-      <code>ComboboxInput</code> takes <code>showTrigger</code> (true), <code
-        >showClear</code
-      > (false), <code>disabled</code>, and every input prop. Its <code
-        >className</code
-      > goes on the <code>InputGroup</code>.
+      <code>ComboboxInput</code> takes <code>showTrigger</code> (true), <code>showClear</code> (false),{' '}
+      <code>disabled</code>, and every input prop. Its <code>className</code> goes on the <code>InputGroup</code>.
     </p>
     <p>
       <code>ComboboxContent</code> renders its own portal and positioner. It takes
-      <code>side</code> (bottom), <code>align</code> (start), <code
-        >sideOffset</code
-      > (6), <code>alignOffset</code> (0), and <code>anchor</code>.
+      <code>side</code> (bottom), <code>align</code> (start), <code>sideOffset</code> (6), <code>alignOffset</code> (0),
+      and <code>anchor</code>.
     </p>
     <p>
-      <code>ComboboxChip</code> takes <code>showRemove</code> (true). <code
-        >ComboboxTrigger</code
-      >, <code>ComboboxValue</code>, <code>ComboboxList</code>, <code
-        >ComboboxItem</code
-      >, <code>ComboboxGroup</code>, <code>ComboboxLabel</code>, <code
-        >ComboboxCollection</code
-      >, <code>ComboboxEmpty</code>, <code>ComboboxSeparator</code>, <code
-        >ComboboxChips</code
-      >, and <code>ComboboxChipsInput</code> wrap the Base UI parts and take their
-      props. <code>useComboboxAnchor</code> returns a ref for the chips. Every part
-      sets a <code>data-slot</code>.
+      <code>ComboboxChip</code> takes <code>showRemove</code> (true). <code>ComboboxTrigger</code>,{' '}
+      <code>ComboboxValue</code>, <code>ComboboxList</code>, <code>ComboboxItem</code>, <code>ComboboxGroup</code>,{' '}
+      <code>ComboboxLabel</code>, <code>ComboboxCollection</code>, <code>ComboboxEmpty</code>,{' '}
+      <code>ComboboxSeparator</code>, <code>ComboboxChips</code>, and <code>ComboboxChipsInput</code> wrap the Base UI
+      parts and take their props. <code>useComboboxAnchor</code> returns a ref for the chips. Every part sets a{' '}
+      <code>data-slot</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The input is a combobox with <code>aria-expanded</code> and <code
-        >aria-autocomplete</code
-      >. Typing or ↓ opens the list. Arrow keys move, Enter picks, and Escape
-      closes and keeps focus in the input. In a chips field, ← and → move
-      between chips and Backspace removes one. Each remove button is named
-      “Remove” plus the chip text. <code>ComboboxEmpty</code> is a polite live region.
+      The input is a combobox with <code>aria-expanded</code> and <code>aria-autocomplete</code>. Typing or ↓ opens the
+      list. Arrow keys move, Enter picks, and Escape closes and keeps focus in the input. In a chips field, ← and → move
+      between chips and Backspace removes one. Each remove button is named “Remove” plus the chip text.{' '}
+      <code>ComboboxEmpty</code> is a polite live region.
     </p>
     <p>
-      The list fades and scales in over 120ms. Motion turns off when reduced
-      motion is requested. On touch screens items are at least 44px tall. In
-      forced-colors mode the highlighted item gets an outline.
+      The list fades and scales in over 120ms. Motion turns off when reduced motion is requested. On touch screens items
+      are at least 44px tall. In forced-colors mode the highlighted item gets an outline.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Comboboxes use <code>--sprout-surface</code>, <code>--sprout-canvas</code
-      >, <code>--sprout-input</code>, <code>--sprout-line</code>, <code
-        >--sprout-hover</code
-      >, <code>--sprout-secondary</code>, <code>--sprout-text</code>, <code
-        >--sprout-muted</code
-      >, <code>--sprout-focus</code>, <code>--sprout-danger</code>, <code
-        >--sprout-shadow-overlay</code
-      >, and the control and panel radii. Only the focus ring follows the brand,
-      so they work with the neutral and TulipFarm themes in light and dark mode.
+      Comboboxes use <code>--sprout-surface</code>, <code>--sprout-canvas</code>, <code>--sprout-input</code>,{' '}
+      <code>--sprout-line</code>, <code>--sprout-hover</code>, <code>--sprout-secondary</code>,{' '}
+      <code>--sprout-text</code>, <code>--sprout-muted</code>, <code>--sprout-focus</code>, <code>--sprout-danger</code>
+      , <code>--sprout-shadow-overlay</code>, and the control and panel radii. Only the focus ring follows the brand, so
+      they work with the neutral and TulipFarm themes in light and dark mode.
     </p>
   </section>
 </Docs>

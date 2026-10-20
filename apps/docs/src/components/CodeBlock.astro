@@ -1,38 +1,32 @@
 ---
-import { Code } from "astro:components";
-import { Copy } from "reicon-react/icons/Copy";
-import { Check } from "reicon-react/icons/Check";
+import { Code } from 'astro:components';
+import { Copy } from 'reicon-react/icons/Copy';
+import { Check } from 'reicon-react/icons/Check';
 
 interface Props {
   code: string;
-  lang: "tsx" | "css" | "bash";
+  lang: 'tsx' | 'css' | 'bash';
   title?: string;
 }
 
 const { code, lang, title } = Astro.props;
-const language = { tsx: "TSX", css: "CSS", bash: "Terminal" }[lang];
+const language = { tsx: 'TSX', css: 'CSS', bash: 'Terminal' }[lang];
 const label = title ?? language;
 ---
 
-<sprout-code-block
-  class="code-block"
-  data-code={code}
-  role="group"
-  aria-label={label}
->
+<sprout-code-block class="code-block" data-code={code} role="group" aria-label={label}>
   <div class="code-toolbar">
     <span class="code-heading">
       {label}
       {title && <span class="code-language">{language}</span>}
     </span>
-    <button
-      type="button"
-      class="code-copy"
-      aria-label={`Copy ${label} code`}
-      hidden
-    >
-      <span class="copy-icon"><Copy size={15} aria-hidden="true" /></span>
-      <span class="copied-icon"><Check size={15} aria-hidden="true" /></span>
+    <button type="button" class="code-copy" aria-label={`Copy ${label} code`} hidden>
+      <span class="copy-icon">
+        <Copy size={15} aria-hidden="true" />
+      </span>
+      <span class="copied-icon">
+        <Check size={15} aria-hidden="true" />
+      </span>
       <span data-copy-label>Copy</span>
     </button>
   </div>
@@ -40,8 +34,8 @@ const label = title ?? language;
     code={code}
     lang={lang}
     themes={{
-      light: "github-light-high-contrast",
-      dark: "github-dark-default",
+      light: 'github-light-high-contrast',
+      dark: 'github-dark-default',
     }}
     defaultColor={false}
     tabindex="0"
@@ -55,49 +49,42 @@ const label = title ?? language;
     private timer: ReturnType<typeof setTimeout> | undefined;
 
     connectedCallback() {
-      const button = this.querySelector<HTMLButtonElement>(".code-copy")!;
+      const button = this.querySelector<HTMLButtonElement>('.code-copy')!;
       button.hidden = false;
-      button.addEventListener("click", this.copy);
+      button.addEventListener('click', this.copy);
     }
 
     disconnectedCallback() {
       clearTimeout(this.timer);
-      this.querySelector(".code-copy")?.removeEventListener("click", this.copy);
+      this.querySelector('.code-copy')?.removeEventListener('click', this.copy);
     }
 
-    private setFeedback(state: "idle" | "copied" | "error", message = "") {
+    private setFeedback(state: 'idle' | 'copied' | 'error', message = '') {
       this.dataset.copyState = state;
-      this.querySelector("[data-copy-label]")!.textContent =
-        state === "copied"
-          ? "Copied"
-          : state === "error"
-            ? "Try again"
-            : "Copy";
-      const status = this.querySelector<HTMLElement>(".code-status")!;
-      status.classList.toggle("sr-only", state !== "error");
+      this.querySelector('[data-copy-label]')!.textContent =
+        state === 'copied' ? 'Copied' : state === 'error' ? 'Try again' : 'Copy';
+      const status = this.querySelector<HTMLElement>('.code-status')!;
+      status.classList.toggle('sr-only', state !== 'error');
       status.textContent = message;
     }
 
     private copy = async () => {
-      const button = this.querySelector<HTMLButtonElement>(".code-copy")!;
+      const button = this.querySelector<HTMLButtonElement>('.code-copy')!;
       clearTimeout(this.timer);
-      this.setFeedback("idle");
+      this.setFeedback('idle');
       button.disabled = true;
       try {
         if (!navigator.clipboard?.writeText) {
-          throw new Error("Clipboard access is unavailable.");
+          throw new Error('Clipboard access is unavailable.');
         }
         await navigator.clipboard.writeText(this.dataset.code!);
         if (!this.isConnected) return;
-        this.setFeedback("copied", "Code copied to clipboard.");
-        this.timer = setTimeout(() => this.setFeedback("idle"), 1600);
+        this.setFeedback('copied', 'Code copied to clipboard.');
+        this.timer = setTimeout(() => this.setFeedback('idle'), 1600);
       } catch (error) {
-        console.error("Could not copy the code example.", error);
+        console.error('Could not copy the code example.', error);
         if (this.isConnected) {
-          this.setFeedback(
-            "error",
-            "Copy failed. Select the code and copy it manually.",
-          );
+          this.setFeedback('error', 'Copy failed. Select the code and copy it manually.');
         }
       } finally {
         button.disabled = false;
@@ -105,8 +92,8 @@ const label = title ?? language;
     };
   }
 
-  if (!customElements.get("sprout-code-block")) {
-    customElements.define("sprout-code-block", SproutCodeBlock);
+  if (!customElements.get('sprout-code-block')) {
+    customElements.define('sprout-code-block', SproutCodeBlock);
   }
 </script>
 
@@ -164,10 +151,10 @@ const label = title ?? language;
   }
   .code-copy[hidden],
   .copied-icon,
-  [data-copy-state="copied"] .copy-icon {
+  [data-copy-state='copied'] .copy-icon {
     display: none;
   }
-  [data-copy-state="copied"] .copied-icon {
+  [data-copy-state='copied'] .copied-icon {
     display: inline-flex;
   }
   .code-status:not(.sr-only) {

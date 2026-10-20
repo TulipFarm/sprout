@@ -23,10 +23,10 @@
     text-decoration: none;
     color: var(--sprout-text);
   }
-  .sprout-badge:has(> [data-icon="inline-start"]) {
+  .sprout-badge:has(> [data-icon='inline-start']) {
     padding-inline-start: 6px;
   }
-  .sprout-badge:has(> [data-icon="inline-end"]) {
+  .sprout-badge:has(> [data-icon='inline-end']) {
     padding-inline-end: 6px;
   }
   .sprout-badge > svg {
@@ -39,10 +39,9 @@
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
-  .sprout-badge[aria-invalid="true"] {
+  .sprout-badge[aria-invalid='true'] {
     border-color: var(--sprout-danger);
-    box-shadow: 0 0 0 3px
-      color-mix(in oklab, var(--sprout-danger) 22%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--sprout-danger) 22%, transparent);
   }
   .sprout-badge:is(a[href], button):not(:disabled) {
     cursor: pointer;
@@ -52,7 +51,7 @@
     margin: 0;
   }
   .sprout-badge:is(button):disabled,
-  .sprout-badge[aria-disabled="true"] {
+  .sprout-badge[aria-disabled='true'] {
     opacity: 0.55;
     cursor: not-allowed;
   }
@@ -115,46 +114,22 @@
 
   @media (hover: hover) {
     .sprout-badge-default:is(a[href], button:not(:disabled)):hover {
-      background: color-mix(
-        in oklab,
-        var(--sprout-primary) 16%,
-        var(--sprout-surface)
-      );
+      background: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
     }
     .sprout-badge-success:is(a[href], button:not(:disabled)):hover {
-      background: color-mix(
-        in oklab,
-        var(--sprout-success) 18%,
-        var(--sprout-success-subtle)
-      );
+      background: color-mix(in oklab, var(--sprout-success) 18%, var(--sprout-success-subtle));
     }
     .sprout-badge-warning:is(a[href], button:not(:disabled)):hover {
-      background: color-mix(
-        in oklab,
-        var(--sprout-warning) 18%,
-        var(--sprout-warning-subtle)
-      );
+      background: color-mix(in oklab, var(--sprout-warning) 18%, var(--sprout-warning-subtle));
     }
     .sprout-badge-info:is(a[href], button:not(:disabled)):hover {
-      background: color-mix(
-        in oklab,
-        var(--sprout-info) 18%,
-        var(--sprout-info-subtle)
-      );
+      background: color-mix(in oklab, var(--sprout-info) 18%, var(--sprout-info-subtle));
     }
     .sprout-badge-secondary:is(a[href], button:not(:disabled)):hover {
-      background: color-mix(
-        in oklab,
-        var(--sprout-text) 8%,
-        var(--sprout-secondary)
-      );
+      background: color-mix(in oklab, var(--sprout-text) 8%, var(--sprout-secondary));
     }
     .sprout-badge-destructive:is(a[href], button:not(:disabled)):hover {
-      background: color-mix(
-        in oklab,
-        var(--sprout-danger) 20%,
-        var(--sprout-danger-subtle)
-      );
+      background: color-mix(in oklab, var(--sprout-danger) 20%, var(--sprout-danger-subtle));
     }
     .sprout-badge-outline:is(a[href], button:not(:disabled)):hover,
     .sprout-badge-ghost:is(a[href], button:not(:disabled)):hover {

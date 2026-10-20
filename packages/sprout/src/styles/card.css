@@ -1,31 +1,18 @@
 @layer base {
   :root,
   .light {
-    --sprout-card-raised: color-mix(
-      in oklab,
-      var(--sprout-text) 3%,
-      var(--sprout-surface)
-    );
-    --sprout-card-raised-shadow:
-      0 1px 3px rgb(24 24 24 / 0.08), 0 1px 2px -1px rgb(24 24 24 / 0.06);
+    --sprout-card-raised: color-mix(in oklab, var(--sprout-text) 3%, var(--sprout-surface));
+    --sprout-card-raised-shadow: 0 1px 3px rgb(24 24 24 / 0.08), 0 1px 2px -1px rgb(24 24 24 / 0.06);
   }
 
   .dark {
-    --sprout-card-raised: color-mix(
-      in oklab,
-      var(--sprout-text) 8%,
-      var(--sprout-surface)
-    );
+    --sprout-card-raised: color-mix(in oklab, var(--sprout-text) 8%, var(--sprout-surface));
     --sprout-card-raised-shadow: none;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) {
-      --sprout-card-raised: color-mix(
-        in oklab,
-        var(--sprout-text) 8%,
-        var(--sprout-surface)
-      );
+      --sprout-card-raised: color-mix(in oklab, var(--sprout-text) 8%, var(--sprout-surface));
       --sprout-card-raised-shadow: none;
     }
   }
@@ -59,10 +46,7 @@
   }
 
   /* The footer is flush with the bottom edge, even inside a wrapper. */
-  .sprout-card:has(
-    > [data-slot="card-footer"],
-    > :not([data-slot]) > [data-slot="card-footer"]
-  ) {
+  .sprout-card:has(> [data-slot='card-footer'], > :not([data-slot]) > [data-slot='card-footer']) {
     padding-bottom: 0;
   }
   .sprout-card:has(> img:first-child) {
@@ -83,11 +67,11 @@
     min-width: 0;
     padding-inline: var(--sprout-card-spacing);
   }
-  .sprout-card-header:has(> [data-slot="card-action"]) {
+  .sprout-card-header:has(> [data-slot='card-action']) {
     grid-template-columns: minmax(0, 1fr) auto;
     column-gap: 12px;
   }
-  .sprout-card-header:has(> [data-slot="card-description"]) {
+  .sprout-card-header:has(> [data-slot='card-description']) {
     grid-template-rows: auto auto;
   }
   .sprout-card-header.border-b {

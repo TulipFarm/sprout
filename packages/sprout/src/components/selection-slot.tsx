@@ -1,17 +1,9 @@
-"use client";
+'use client';
 
-import {
-  useLayoutEffect,
-  useRef,
-  type ComponentProps,
-  type ReactNode,
-} from "react";
-import { cn } from "../internal/classes.js";
+import { useLayoutEffect, useRef, type ComponentProps, type ReactNode } from 'react';
+import { cn } from '../internal/classes.js';
 
-export interface SelectionSlotProps extends Omit<
-  ComponentProps<"div">,
-  "children"
-> {
+export interface SelectionSlotProps extends Omit<ComponentProps<'div'>, 'children'> {
   /** Shows `selection` in place of `children`. */
   active: boolean;
   /** The toolbar for the current selection, such as a count and bulk actions. */
@@ -25,7 +17,7 @@ const tabbable =
 
 function focusable(root: HTMLElement | null) {
   return Array.from(root?.querySelectorAll<HTMLElement>(tabbable) ?? []).find(
-    (node) => !node.closest("[inert]") && node.getClientRects().length > 0,
+    node => !node.closest('[inert]') && node.getClientRects().length > 0,
   );
 }
 
@@ -42,13 +34,7 @@ function lost() {
  * and returns to where it was when the selection closes. If that element is
  * gone, focus that was in the selection goes to the first tool.
  */
-export function SelectionSlot({
-  active,
-  selection,
-  children,
-  className,
-  ...props
-}: SelectionSlotProps) {
+export function SelectionSlot({ active, selection, children, className, ...props }: SelectionSlotProps) {
   const tools = useRef<HTMLDivElement>(null);
   const selected = useRef<HTMLDivElement>(null);
   const origin = useRef<HTMLElement | null>(null);
@@ -57,18 +43,13 @@ export function SelectionSlot({
   useLayoutEffect(() => {
     if (active && !previous.current) {
       const current = document.activeElement;
-      origin.current =
-        current instanceof HTMLElement && current !== document.body
-          ? current
-          : null;
+      origin.current = current instanceof HTMLElement && current !== document.body ? current : null;
       if (origin.current && tools.current?.contains(origin.current))
         focusable(selected.current)?.focus({ preventScroll: true });
     }
     if (!active && previous.current && lost()) {
-      if (origin.current?.isConnected)
-        origin.current.focus({ preventScroll: true });
-      else if (inside.current)
-        focusable(tools.current)?.focus({ preventScroll: true });
+      if (origin.current?.isConnected) origin.current.focus({ preventScroll: true });
+      else if (inside.current) focusable(tools.current)?.focus({ preventScroll: true });
     }
     if (!active) inside.current = false;
     previous.current = active;
@@ -77,7 +58,7 @@ export function SelectionSlot({
     <div
       data-slot="selection-slot"
       data-active={active || undefined}
-      className={cn("sprout-selection-slot", className)}
+      className={cn('sprout-selection-slot', className)}
       {...props}
     >
       <div
@@ -93,11 +74,10 @@ export function SelectionSlot({
         <div
           ref={selected}
           onFocus={() => (inside.current = true)}
-          onBlur={(event) => {
+          onBlur={event => {
             // A null target means focus was dropped, as when the focused button is disabled.
             const next = event.relatedTarget;
-            if (next && !event.currentTarget.contains(next))
-              inside.current = false;
+            if (next && !event.currentTarget.contains(next)) inside.current = false;
           }}
           data-slot="selection-slot-selection"
           className="sprout-selection-slot-layer sprout-selection-slot-selection"

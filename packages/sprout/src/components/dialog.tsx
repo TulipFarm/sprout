@@ -1,19 +1,14 @@
-"use client";
+'use client';
 
-import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { mergeProps } from "@base-ui/react/merge-props";
-import { useRender } from "@base-ui/react/use-render";
-import { X } from "reicon-react/icons/X";
-import { cn, stateClassName } from "../internal/classes.js";
-import { Button } from "./button.js";
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
+import { X } from 'reicon-react/icons/X';
+import { cn, stateClassName } from '../internal/classes.js';
+import { Button } from './button.js';
 
-export const dialogSizeNames = [
-  "default",
-  "form",
-  "split",
-  "fullscreen",
-] as const;
-export const dialogPlacementNames = ["center", "top"] as const;
+export const dialogSizeNames = ['default', 'form', 'split', 'fullscreen'] as const;
+export const dialogPlacementNames = ['center', 'top'] as const;
 
 export type DialogSize = (typeof dialogSizeNames)[number];
 export type DialogPlacement = (typeof dialogPlacementNames)[number];
@@ -49,10 +44,7 @@ export function DialogOverlay({ className, ...props }: DialogOverlayProps) {
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
       {...props}
-      className={stateClassName<DialogPrimitive.Backdrop.State>(
-        "sprout-dialog-overlay",
-        className,
-      )}
+      className={stateClassName<DialogPrimitive.Backdrop.State>('sprout-dialog-overlay', className)}
     />
   );
 }
@@ -66,7 +58,7 @@ export interface DialogContentProps extends DialogPrimitive.Popup.Props {
   /** `top` pins the dialog near the top of the viewport for search and command palettes. */
   placement?: DialogPlacement;
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: DialogPrimitive.Portal.Props["container"];
+  container?: DialogPrimitive.Portal.Props['container'];
 }
 
 /**
@@ -77,9 +69,9 @@ export function DialogContent({
   className,
   children,
   showCloseButton = true,
-  closeLabel = "Close",
-  size = "default",
-  placement = "center",
+  closeLabel = 'Close',
+  size = 'default',
+  placement = 'center',
   container,
   ...props
 }: DialogContentProps) {
@@ -89,10 +81,10 @@ export function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         data-size={size}
-        data-placement={size === "fullscreen" ? undefined : placement}
+        data-placement={size === 'fullscreen' ? undefined : placement}
         {...props}
         className={stateClassName<DialogPrimitive.Popup.State>(
-          cn("sprout-dialog-content", `sprout-dialog-${size}`),
+          cn('sprout-dialog-content', `sprout-dialog-${size}`),
           className,
         )}
       >
@@ -112,42 +104,34 @@ export function DialogContent({
   );
 }
 
-type PartSlot = "dialog-header" | "dialog-body";
+type PartSlot = 'dialog-header' | 'dialog-body';
 
 export interface DialogPartState extends Record<string, unknown> {
-  slot: PartSlot | "dialog-footer";
+  slot: PartSlot | 'dialog-footer';
 }
 
-export type DialogPartProps = useRender.ComponentProps<"div", DialogPartState>;
+export type DialogPartProps = useRender.ComponentProps<'div', DialogPartState>;
 
 function part(slot: PartSlot, base: string) {
-  return function DialogPart({
-    className,
-    render,
-    ref,
-    ...props
-  }: DialogPartProps) {
+  return function DialogPart({ className, render, ref, ...props }: DialogPartProps) {
     return useRender({
-      defaultTagName: "div",
+      defaultTagName: 'div',
       ref,
       render,
-      props: mergeProps<"div">(
-        { "data-slot": slot, className: cn(base, className) } as object,
-        props,
-      ),
+      props: mergeProps<'div'>({ 'data-slot': slot, className: cn(base, className) } as object, props),
       state: { slot },
     });
   };
 }
 
 /** Stacks the title and description. */
-export const DialogHeader = part("dialog-header", "sprout-dialog-header");
+export const DialogHeader = part('dialog-header', 'sprout-dialog-header');
 
 /**
  * The scrolling middle of a `form` dialog. It bleeds to the dialog edges so
  * scrollbars and focus rings are not clipped.
  */
-export const DialogBody = part("dialog-body", "sprout-dialog-body");
+export const DialogBody = part('dialog-body', 'sprout-dialog-body');
 
 export interface DialogFooterProps extends DialogPartProps {
   /** Appends an outline Close button after the other actions. */
@@ -165,32 +149,30 @@ export function DialogFooter({
   render,
   ref,
   showCloseButton = false,
-  closeLabel = "Close",
+  closeLabel = 'Close',
   children,
   ...props
 }: DialogFooterProps) {
   return useRender({
-    defaultTagName: "div",
+    defaultTagName: 'div',
     ref,
     render,
-    props: mergeProps<"div">(
+    props: mergeProps<'div'>(
       {
-        "data-slot": "dialog-footer",
-        className: cn("sprout-dialog-footer", className),
+        'data-slot': 'dialog-footer',
+        className: cn('sprout-dialog-footer', className),
         children: (
           <>
             {children}
             {showCloseButton && (
-              <DialogPrimitive.Close render={<Button variant="outline" />}>
-                {closeLabel}
-              </DialogPrimitive.Close>
+              <DialogPrimitive.Close render={<Button variant="outline" />}>{closeLabel}</DialogPrimitive.Close>
             )}
           </>
         ),
       } as object,
       props,
     ),
-    state: { slot: "dialog-footer" },
+    state: { slot: 'dialog-footer' },
   });
 }
 
@@ -201,28 +183,19 @@ export function DialogTitle({ className, ...props }: DialogTitleProps) {
     <DialogPrimitive.Title
       data-slot="dialog-title"
       {...props}
-      className={stateClassName<DialogPrimitive.Title.State>(
-        "sprout-dialog-title",
-        className,
-      )}
+      className={stateClassName<DialogPrimitive.Title.State>('sprout-dialog-title', className)}
     />
   );
 }
 
 export type DialogDescriptionProps = DialogPrimitive.Description.Props;
 
-export function DialogDescription({
-  className,
-  ...props
-}: DialogDescriptionProps) {
+export function DialogDescription({ className, ...props }: DialogDescriptionProps) {
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
       {...props}
-      className={stateClassName<DialogPrimitive.Description.State>(
-        "sprout-dialog-description",
-        className,
-      )}
+      className={stateClassName<DialogPrimitive.Description.State>('sprout-dialog-description', className)}
     />
   );
 }

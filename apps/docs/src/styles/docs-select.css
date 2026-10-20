@@ -100,8 +100,8 @@
     opacity: 0;
     transform: translateY(-3px);
   }
-  .docs-select-popup[data-side="top"][data-starting-style],
-  .docs-select-popup[data-side="top"][data-ending-style] {
+  .docs-select-popup[data-side='top'][data-starting-style],
+  .docs-select-popup[data-side='top'][data-ending-style] {
     transform: translateY(3px);
   }
 }
@@ -135,8 +135,7 @@
   width: 10px;
   height: 10px;
   border-radius: 3px;
-  box-shadow: inset 0 0 0 1px
-    color-mix(in oklab, var(--sprout-text) 12%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sprout-text) 12%, transparent);
 }
 .docs-theme-swatches i:nth-child(1) {
   background: var(--sprout-primary);

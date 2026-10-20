@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { createContext, useContext, type CSSProperties } from "react";
-import { Toggle as BaseToggle } from "@base-ui/react/toggle";
-import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group";
-import { cn } from "../internal/classes.js";
+import { createContext, useContext, type CSSProperties } from 'react';
+import { Toggle as BaseToggle } from '@base-ui/react/toggle';
+import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
+import { cn } from '../internal/classes.js';
 
-export const toggleGroupVariantNames = ["default", "outline"] as const;
-export const toggleGroupSizeNames = ["default", "sm", "lg"] as const;
+export const toggleGroupVariantNames = ['default', 'outline'] as const;
+export const toggleGroupSizeNames = ['default', 'sm', 'lg'] as const;
 
 export type ToggleGroupVariant = (typeof toggleGroupVariantNames)[number];
 export type ToggleGroupSize = (typeof toggleGroupSizeNames)[number];
@@ -15,19 +15,17 @@ interface ToggleGroupContextValue {
   variant: ToggleGroupVariant;
   size: ToggleGroupSize;
   spacing: number;
-  orientation: "horizontal" | "vertical";
+  orientation: 'horizontal' | 'vertical';
 }
 
 const ToggleGroupContext = createContext<ToggleGroupContextValue>({
-  variant: "default",
-  size: "default",
+  variant: 'default',
+  size: 'default',
   spacing: 2,
-  orientation: "horizontal",
+  orientation: 'horizontal',
 });
 
-export interface ToggleGroupProps<
-  Value extends string = string,
-> extends BaseToggleGroup.Props<Value> {
+export interface ToggleGroupProps<Value extends string = string> extends BaseToggleGroup.Props<Value> {
   /** `default` is borderless. `outline` draws a control border on each item. */
   variant?: ToggleGroupVariant;
   /** `sm` is 28px, `default` 32px, and `lg` 36px tall. */
@@ -47,14 +45,14 @@ export interface ToggleGroupProps<
 export function ToggleGroup<Value extends string = string>({
   className,
   style,
-  variant = "default",
-  size = "default",
+  variant = 'default',
+  size = 'default',
   spacing = 2,
-  orientation = "horizontal",
+  orientation = 'horizontal',
   children,
   ...props
 }: ToggleGroupProps<Value>) {
-  const gap = { "--sprout-toggle-group-spacing": spacing } as CSSProperties;
+  const gap = { '--sprout-toggle-group-spacing': spacing } as CSSProperties;
   return (
     <BaseToggleGroup<Value>
       data-slot="toggle-group"
@@ -64,42 +62,34 @@ export function ToggleGroup<Value extends string = string>({
       orientation={orientation}
       {...props}
       style={
-        typeof style === "function"
+        typeof style === 'function'
           ? (state: BaseToggleGroup.State) => ({ ...gap, ...style(state) })
           : { ...gap, ...style }
       }
       className={
-        typeof className === "function"
-          ? (state: BaseToggleGroup.State) =>
-              cn("sprout-toggle-group", className(state))
-          : cn("sprout-toggle-group", className)
+        typeof className === 'function'
+          ? (state: BaseToggleGroup.State) => cn('sprout-toggle-group', className(state))
+          : cn('sprout-toggle-group', className)
       }
     >
-      <ToggleGroupContext.Provider
-        value={{ variant, size, spacing, orientation }}
-      >
+      <ToggleGroupContext.Provider value={{ variant, size, spacing, orientation }}>
         {children}
       </ToggleGroupContext.Provider>
     </BaseToggleGroup>
   );
 }
 
-export type ToggleGroupItemProps<Value extends string = string> =
-  BaseToggle.Props<Value>;
+export type ToggleGroupItemProps<Value extends string = string> = BaseToggle.Props<Value>;
 
 /**
  * One toggle button in a `ToggleGroup`. Its `value` is added to the group
  * value while pressed. It takes the group's variant, size, and spacing.
  * An icon-only item needs an `aria-label`.
  */
-export function ToggleGroupItem<Value extends string = string>({
-  className,
-  ...props
-}: ToggleGroupItemProps<Value>) {
-  const { variant, size, spacing, orientation } =
-    useContext(ToggleGroupContext);
+export function ToggleGroupItem<Value extends string = string>({ className, ...props }: ToggleGroupItemProps<Value>) {
+  const { variant, size, spacing, orientation } = useContext(ToggleGroupContext);
   const base = cn(
-    "sprout-toggle-group-item",
+    'sprout-toggle-group-item',
     `sprout-toggle-group-item-${variant}`,
     `sprout-toggle-group-item-size-${size}`,
   );
@@ -112,9 +102,7 @@ export function ToggleGroupItem<Value extends string = string>({
       data-orientation={orientation}
       {...props}
       className={
-        typeof className === "function"
-          ? (state: BaseToggle.State) => cn(base, className(state))
-          : cn(base, className)
+        typeof className === 'function' ? (state: BaseToggle.State) => cn(base, className(state)) : cn(base, className)
       }
     />
   );

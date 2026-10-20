@@ -10,16 +10,8 @@
   }
 
   .sprout-table {
-    --sprout-table-hover: color-mix(
-      in oklab,
-      var(--sprout-hover) 55%,
-      var(--sprout-surface)
-    );
-    --sprout-table-head-bg: color-mix(
-      in oklab,
-      var(--sprout-hover) 70%,
-      var(--sprout-surface)
-    );
+    --sprout-table-hover: color-mix(in oklab, var(--sprout-hover) 55%, var(--sprout-surface));
+    --sprout-table-head-bg: color-mix(in oklab, var(--sprout-hover) 70%, var(--sprout-surface));
     width: 100%;
     caption-side: bottom;
     border-collapse: collapse;
@@ -45,21 +37,21 @@
       background-color: var(--sprout-table-hover);
     }
   }
-  .sprout-table-row:has([aria-expanded="true"]),
+  .sprout-table-row:has([aria-expanded='true']),
   .sprout-table-row[data-interactive]:has(:focus-visible) {
     --sprout-table-row-bg: var(--sprout-table-hover);
     background-color: var(--sprout-table-hover);
   }
-  .sprout-table-row[data-state="selected"],
-  .sprout-table-body > .sprout-table-row[data-state="selected"]:hover {
+  .sprout-table-row[data-state='selected'],
+  .sprout-table-body > .sprout-table-row[data-state='selected']:hover {
     --sprout-table-row-bg: var(--sprout-primary-subtle);
     background-color: var(--sprout-primary-subtle);
   }
-  .sprout-table-row[data-state="selected"] > td:first-child {
+  .sprout-table-row[data-state='selected'] > td:first-child {
     position: relative;
   }
-  .sprout-table-row[data-state="selected"] > td:first-child::before {
-    content: "";
+  .sprout-table-row[data-state='selected'] > td:first-child::before {
+    content: '';
     position: absolute;
     inset-block: 0;
     inset-inline-start: 0;
@@ -88,10 +80,10 @@
     white-space: nowrap;
     text-align: start;
   }
-  .sprout-table-head[data-align="right"] {
+  .sprout-table-head[data-align='right'] {
     text-align: end;
   }
-  .sprout-table-cell[data-align="right"] {
+  .sprout-table-cell[data-align='right'] {
     text-align: end;
     font-variant-numeric: tabular-nums;
   }
@@ -117,7 +109,7 @@
   }
   .sprout-table-head[data-sticky-end]::before,
   .sprout-table-cell[data-sticky-end]::before {
-    content: "";
+    content: '';
     pointer-events: none;
     position: absolute;
     inset-block: 0;
@@ -132,33 +124,31 @@
     color: var(--sprout-muted);
   }
 
-  .sprout-table[data-variant="grid"] .sprout-table-row {
+  .sprout-table[data-variant='grid'] .sprout-table-row {
     border-color: var(--sprout-input);
   }
-  .sprout-table[data-variant="grid"] > .sprout-table-header {
+  .sprout-table[data-variant='grid'] > .sprout-table-header {
     position: sticky;
     top: 0;
     z-index: 10;
     background: var(--sprout-table-head-bg);
   }
-  .sprout-table[data-variant="grid"]
-    > .sprout-table-header
-    > .sprout-table-row {
+  .sprout-table[data-variant='grid'] > .sprout-table-header > .sprout-table-row {
     border-bottom: 0;
   }
-  .sprout-table[data-variant="grid"] .sprout-table-head {
+  .sprout-table[data-variant='grid'] .sprout-table-head {
     padding: 0 12px;
     box-shadow: inset 0 -1px var(--sprout-input);
   }
-  .sprout-table[data-variant="grid"] .sprout-table-cell {
+  .sprout-table[data-variant='grid'] .sprout-table-cell {
     padding: 10px 12px;
   }
-  .sprout-table[data-variant="grid"] .sprout-table-head,
-  .sprout-table[data-variant="grid"] .sprout-table-cell {
+  .sprout-table[data-variant='grid'] .sprout-table-head,
+  .sprout-table[data-variant='grid'] .sprout-table-cell {
     border-inline-end: 1px solid var(--sprout-input);
   }
-  .sprout-table[data-variant="grid"] .sprout-table-head:last-child,
-  .sprout-table[data-variant="grid"] .sprout-table-cell:last-child {
+  .sprout-table[data-variant='grid'] .sprout-table-head:last-child,
+  .sprout-table[data-variant='grid'] .sprout-table-cell:last-child {
     border-inline-end: 0;
   }
 
@@ -248,7 +238,7 @@
     align-items: center;
     gap: 4px;
   }
-  .sprout-table-head[data-align="right"] > .sprout-table-head-inner {
+  .sprout-table-head[data-align='right'] > .sprout-table-head-inner {
     flex-direction: row-reverse;
   }
   .sprout-table-hint,
@@ -305,7 +295,7 @@
     user-select: none;
   }
   .sprout-table-resizer::after {
-    content: "";
+    content: '';
     position: absolute;
     inset-block: 0;
     inset-inline-end: 2px;
@@ -338,16 +328,15 @@
     z-index: 20;
     background: var(--sprout-table-head-bg);
   }
-  .sprout-table-head[data-pinned="start"],
-  .sprout-table-cell[data-pinned="start"] {
+  .sprout-table-head[data-pinned='start'],
+  .sprout-table-cell[data-pinned='start'] {
     box-shadow: inset -1px 0 var(--sprout-input);
   }
-  .sprout-table-head[data-pinned="end"],
-  .sprout-table-cell[data-pinned="end"] {
+  .sprout-table-head[data-pinned='end'],
+  .sprout-table-cell[data-pinned='end'] {
     box-shadow: inset 1px 0 var(--sprout-input);
   }
-  .sprout-table[data-pin-start]
-    :is(.sprout-table-head, .sprout-table-cell)[data-selection] {
+  .sprout-table[data-pin-start] :is(.sprout-table-head, .sprout-table-cell)[data-selection] {
     position: sticky;
     z-index: 1;
     background: var(--sprout-table-row-bg, var(--sprout-surface));
@@ -410,7 +399,7 @@
     outline: none;
   }
   .sprout-table-link::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
   }
@@ -424,21 +413,14 @@
     box-shadow: inset 0 0 0 var(--sprout-focus-width) var(--sprout-focus-ring);
   }
   .sprout-table-row[data-linked]
-    :is(
-      .sprout-table-handle,
-      [data-slot="checkbox"],
-      .sprout-table-toggle,
-      .sprout-table-hint
-    ),
+    :is(.sprout-table-handle, [data-slot='checkbox'], .sprout-table-toggle, .sprout-table-hint),
   .sprout-table-row[data-linked] > td[data-selection],
   .sprout-table-row[data-linked] > td[data-sticky-end] {
     position: relative;
     z-index: 10;
   }
   .sprout-table-row[data-linked] > td[data-sticky-end],
-  .sprout-table[data-pin-start]
-    .sprout-table-row[data-linked]
-    > td[data-selection] {
+  .sprout-table[data-pin-start] .sprout-table-row[data-linked] > td[data-selection] {
     position: sticky;
   }
   .sprout-table-row[data-drop-target] {
@@ -459,7 +441,7 @@
   .sprout-table-input {
     min-width: 6rem;
   }
-  .sprout-table-cell[data-align="right"] .sprout-table-input {
+  .sprout-table-cell[data-align='right'] .sprout-table-input {
     text-align: end;
   }
   .sprout-table-select {
@@ -519,27 +501,27 @@
 
   /* Stack layout: under 36rem each row becomes a card of label and value pairs. */
   @container sprout-table (width < 36rem) {
-    .sprout-table[data-narrow="stack"],
-    .sprout-table[data-narrow="stack"] > :is(thead, tbody, tfoot),
-    .sprout-table[data-narrow="stack"] .sprout-table-row,
-    .sprout-table[data-narrow="stack"] .sprout-table-cell {
+    .sprout-table[data-narrow='stack'],
+    .sprout-table[data-narrow='stack'] > :is(thead, tbody, tfoot),
+    .sprout-table[data-narrow='stack'] .sprout-table-row,
+    .sprout-table[data-narrow='stack'] .sprout-table-cell {
       display: block;
     }
-    .sprout-table[data-narrow="stack"] {
+    .sprout-table[data-narrow='stack'] {
       min-width: 0 !important;
     }
-    .sprout-table[data-narrow="stack"] > thead {
+    .sprout-table[data-narrow='stack'] > thead {
       position: absolute;
       width: 1px;
       height: 1px;
       overflow: hidden;
       clip-path: inset(50%);
     }
-    .sprout-table[data-narrow="stack"] .sprout-table-row {
+    .sprout-table[data-narrow='stack'] .sprout-table-row {
       position: relative;
       padding: 10px 8px;
     }
-    .sprout-table[data-narrow="stack"] .sprout-table-cell {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell {
       display: flex;
       gap: 12px;
       padding: 2px 0;
@@ -547,28 +529,24 @@
       text-align: start;
       overflow-wrap: anywhere;
     }
-    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-label]::before {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell[data-label]::before {
       content: attr(data-label);
       flex: 0 0 40%;
       color: var(--sprout-muted);
       font-weight: 400;
     }
-    .sprout-table[data-narrow="stack"]
-      .sprout-table-cell:first-of-type[data-label]::before,
-    .sprout-table[data-narrow="stack"]
-      .sprout-table-row[data-group]
-      .sprout-table-cell::before {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell:first-of-type[data-label]::before,
+    .sprout-table[data-narrow='stack'] .sprout-table-row[data-group] .sprout-table-cell::before {
       content: none;
     }
-    .sprout-table[data-narrow="stack"] .sprout-table-cell:first-of-type {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell:first-of-type {
       font-weight: 500;
     }
-    .sprout-table[data-narrow="stack"] .sprout-table-cell:empty,
-    .sprout-table[data-narrow="stack"]
-      .sprout-table-cell[data-selection]:empty {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell:empty,
+    .sprout-table[data-narrow='stack'] .sprout-table-cell[data-selection]:empty {
       display: none;
     }
-    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-selection] {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell[data-selection] {
       position: absolute;
       inset-block-start: 10px;
       inset-inline-start: auto;
@@ -576,20 +554,17 @@
       width: auto;
       min-width: 0;
     }
-    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-sticky-end],
-    .sprout-table[data-narrow="stack"] .sprout-table-cell[data-pinned] {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell[data-sticky-end],
+    .sprout-table[data-narrow='stack'] .sprout-table-cell[data-pinned] {
       position: static;
       width: auto;
       background: none;
       box-shadow: none;
     }
-    .sprout-table[data-narrow="stack"]
-      .sprout-table-cell[data-sticky-end]::before {
+    .sprout-table[data-narrow='stack'] .sprout-table-cell[data-sticky-end]::before {
       content: none;
     }
-    .sprout-table[data-narrow="stack"]
-      .sprout-table-row[data-state="selected"]
-      > td:first-child::before {
+    .sprout-table[data-narrow='stack'] .sprout-table-row[data-state='selected'] > td:first-child::before {
       content: none;
     }
   }
@@ -597,8 +572,7 @@
   @media (prefers-reduced-motion: no-preference) {
     .sprout-table-row,
     .sprout-table-cell[data-sticky-end] {
-      transition: background-color var(--sprout-motion-fast)
-        var(--sprout-motion-ease);
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
   }
 }

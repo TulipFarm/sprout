@@ -60,12 +60,8 @@
   border-radius: var(--sprout-radius-panel);
   background: var(--sprout-surface);
 }
-.kbd-demo-variant:has([data-variant="outline"]) {
-  background: color-mix(
-    in oklab,
-    var(--sprout-canvas) 70%,
-    var(--sprout-surface)
-  );
+.kbd-demo-variant:has([data-variant='outline']) {
+  background: color-mix(in oklab, var(--sprout-canvas) 70%, var(--sprout-surface));
 }
 .kbd-demo-variant-text {
   display: grid;
@@ -140,11 +136,7 @@
   padding: 10px 16px;
   border: 1px solid var(--sprout-line);
   border-radius: var(--sprout-radius-control);
-  background: color-mix(
-    in oklab,
-    var(--sprout-canvas) 70%,
-    var(--sprout-surface)
-  );
+  background: color-mix(in oklab, var(--sprout-canvas) 70%, var(--sprout-surface));
   color: var(--sprout-muted);
   font-size: var(--sprout-text-xs);
   line-height: 1rem;

@@ -138,7 +138,7 @@
   gap: 6px;
   min-width: 0;
 }
-.attachment-demo-chips[data-align="start"] {
+.attachment-demo-chips[data-align='start'] {
   justify-content: flex-start;
 }
 .attachment-demo-icons {

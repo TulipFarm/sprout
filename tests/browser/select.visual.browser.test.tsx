@@ -1,6 +1,6 @@
-import { expect, it } from "vitest";
-import { page } from "vitest/browser";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { page } from 'vitest/browser';
+import { render } from 'vitest-browser-react';
 import {
   Select,
   SelectContent,
@@ -10,14 +10,14 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "../../packages/sprout/src/components/select.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/select.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("select %s %s", async (theme, mode) => {
+it.each(themes)('select %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   await page.viewport(320, 240);
   const screen = await render(
-    <div style={{ display: "flex", gap: 8, padding: 16 }}>
+    <div style={{ display: 'flex', gap: 8, padding: 16 }}>
       <Select defaultValue="Weekly">
         <SelectTrigger aria-label="Digest">
           <SelectValue />
@@ -52,9 +52,7 @@ it.each(themes)("select %s %s", async (theme, mode) => {
       </Select>
     </div>,
   );
-  await screen.getByRole("combobox", { name: "Digest" }).click();
+  await screen.getByRole('combobox', { name: 'Digest' }).click();
   await settle();
-  await expect
-    .element(page.elementLocator(document.body))
-    .toMatchScreenshot(`select-${theme}-${mode}`);
+  await expect.element(page.elementLocator(document.body)).toMatchScreenshot(`select-${theme}-${mode}`);
 });

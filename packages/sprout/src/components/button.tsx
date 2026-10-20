@@ -1,46 +1,38 @@
-"use client";
+'use client';
 
-import type { Button as BaseButton } from "@base-ui/react/button";
-import { useId, type ReactElement } from "react";
-import { cn, stateClassName } from "../internal/classes.js";
-import { Pressable } from "../internal/pressable.js";
-import { Spinner } from "./spinner.js";
+import type { Button as BaseButton } from '@base-ui/react/button';
+import { useId, type ReactElement } from 'react';
+import { cn, stateClassName } from '../internal/classes.js';
+import { Pressable } from '../internal/pressable.js';
+import { Spinner } from './spinner.js';
 
-export const buttonVariantNames = [
-  "default",
-  "outline",
-  "secondary",
-  "ghost",
-  "destructive",
-  "link",
-  "scope",
-] as const;
+export const buttonVariantNames = ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link', 'scope'] as const;
 
 export const buttonSizeNames = [
-  "default",
-  "xs",
-  "sm",
-  "lg",
-  "icon",
-  "icon-xs",
-  "icon-sm",
-  "icon-lg",
-  "back",
-  "onboarding",
-  "bud",
-  "bud-labeled",
-  "chat-row",
-  "task-link",
-  "card-title",
-  "result-card",
-  "calendar-title",
-  "calendar",
-  "calendar-icon",
-  "nav",
-  "column-header",
-  "column-header-end",
-  "table-link",
-  "badge",
+  'default',
+  'xs',
+  'sm',
+  'lg',
+  'icon',
+  'icon-xs',
+  'icon-sm',
+  'icon-lg',
+  'back',
+  'onboarding',
+  'bud',
+  'bud-labeled',
+  'chat-row',
+  'task-link',
+  'card-title',
+  'result-card',
+  'calendar-title',
+  'calendar',
+  'calendar-icon',
+  'nav',
+  'column-header',
+  'column-header-end',
+  'table-link',
+  'badge',
 ] as const;
 
 export type ButtonVariant = (typeof buttonVariantNames)[number];
@@ -52,30 +44,26 @@ export interface ButtonVariantOptions {
   className?: string;
 }
 
-export function buttonVariants({
-  variant,
-  size,
-  className,
-}: ButtonVariantOptions = {}) {
+export function buttonVariants({ variant, size, className }: ButtonVariantOptions = {}) {
   return cn(
-    "sprout-button",
-    `sprout-button-variant-${variant ?? "default"}`,
-    `sprout-button-size-${size ?? "default"}`,
+    'sprout-button',
+    `sprout-button-variant-${variant ?? 'default'}`,
+    `sprout-button-size-${size ?? 'default'}`,
     className,
   );
 }
 
 export type ButtonBlockerFix =
   /** An element id on this page; scrolled into view and focused (or, when it has no tabindex, its first focusable descendant). */
-  | { kind: "jump"; label: string; target: string }
+  | { kind: 'jump'; label: string; target: string }
   /** A link element, such as a router `<Link>`, rendered through Button `render`. */
-  | { kind: "link"; label: string; link: ReactElement }
-  | { kind: "action"; label: string; onClick: () => void };
+  | { kind: 'link'; label: string; link: ReactElement }
+  | { kind: 'action'; label: string; onClick: () => void };
 
 export type ButtonState =
-  | { kind: "ready" }
-  | { kind: "busy" }
-  | { kind: "blocked"; reason: string; fix?: ButtonBlockerFix | undefined };
+  | { kind: 'ready' }
+  | { kind: 'busy' }
+  | { kind: 'blocked'; reason: string; fix?: ButtonBlockerFix | undefined };
 
 export interface ButtonProps extends BaseButton.Props {
   variant?: ButtonVariant | null;
@@ -92,53 +80,27 @@ export interface ButtonProps extends BaseButton.Props {
 }
 
 export function Button({ state, pendingLabel, ...props }: ButtonProps) {
-  return state ? (
-    <StatefulButton state={state} pendingLabel={pendingLabel} {...props} />
-  ) : (
-    <ButtonElement {...props} />
-  );
+  return state ? <StatefulButton state={state} pendingLabel={pendingLabel} {...props} /> : <ButtonElement {...props} />;
 }
 
-function ButtonElement({
-  variant,
-  size,
-  className,
-  ...props
-}: Omit<ButtonProps, "state" | "pendingLabel">) {
+function ButtonElement({ variant, size, className, ...props }: Omit<ButtonProps, 'state' | 'pendingLabel'>) {
   return (
     <Pressable
       data-slot="button"
-      data-variant={variant ?? "default"}
-      data-size={size ?? "default"}
+      data-variant={variant ?? 'default'}
+      data-size={size ?? 'default'}
       {...props}
-      className={stateClassName<BaseButton.State>(
-        buttonVariants({ variant, size }),
-        className,
-      )}
+      className={stateClassName<BaseButton.State>(buttonVariants({ variant, size }), className)}
     />
   );
 }
 
-function StatefulButton({
-  state,
-  pendingLabel,
-  className,
-  children,
-  ...props
-}: ButtonProps & { state: ButtonState }) {
+function StatefulButton({ state, pendingLabel, className, children, ...props }: ButtonProps & { state: ButtonState }) {
   const action = useActionControl(state);
-  const pending = state.kind === "busy" && pendingLabel;
+  const pending = state.kind === 'busy' && pendingLabel;
   return (
-    <div
-      data-slot="button-action"
-      data-state={state.kind}
-      className={cn("sprout-button-action", className)}
-    >
-      <ButtonElement
-        {...props}
-        {...action.button}
-        disabled={action.button.disabled || props.disabled}
-      >
+    <div data-slot="button-action" data-state={state.kind} className={cn('sprout-button-action', className)}>
+      <ButtonElement {...props} {...action.button} disabled={action.button.disabled || props.disabled}>
         {pending ? (
           <>
             <Spinner aria-hidden="true" />
@@ -170,19 +132,10 @@ export interface ActionGroupProps {
 export function ActionGroup({ state, actions, className }: ActionGroupProps) {
   const action = useActionControl(state);
   return (
-    <div
-      data-slot="action-group"
-      data-state={state.kind}
-      className={cn("sprout-action-group", className)}
-    >
+    <div data-slot="action-group" data-state={state.kind} className={cn('sprout-action-group', className)}>
       <div className="sprout-action-group-row">
-        {actions.map((item) => (
-          <Button
-            key={item.label}
-            variant={item.variant}
-            onClick={item.onClick}
-            {...action.button}
-          >
+        {actions.map(item => (
+          <Button key={item.label} variant={item.variant} onClick={item.onClick} {...action.button}>
             {item.label}
           </Button>
         ))}
@@ -196,14 +149,11 @@ const focusable =
   ':is(a[href], button, input, select, textarea, [tabindex]):not([disabled], [tabindex="-1"], [type="hidden"])';
 
 export function jumpTo(target: string | Element) {
-  const element =
-    typeof target === "string" ? document.getElementById(target) : target;
+  const element = typeof target === 'string' ? document.getElementById(target) : target;
   if (!element) return;
   const control =
-    element.matches(focusable) || element.hasAttribute("tabindex")
-      ? element
-      : element.querySelector(focusable);
-  (control ?? element).scrollIntoView({ block: "center" });
+    element.matches(focusable) || element.hasAttribute('tabindex') ? element : element.querySelector(focusable);
+  (control ?? element).scrollIntoView({ block: 'center' });
   if (control instanceof HTMLElement) control.focus({ preventScroll: true });
 }
 
@@ -215,13 +165,13 @@ export function useActionControl(state: ButtonState) {
   const reasonId = useId();
   return {
     button: {
-      disabled: state.kind !== "ready",
+      disabled: state.kind !== 'ready',
       focusableWhenDisabled: true,
-      ...(state.kind === "busy" && { "aria-busy": true as const }),
-      ...(state.kind === "blocked" && { "aria-describedby": reasonId }),
+      ...(state.kind === 'busy' && { 'aria-busy': true as const }),
+      ...(state.kind === 'blocked' && { 'aria-describedby': reasonId }),
     },
     reason:
-      state.kind === "blocked" ? (
+      state.kind === 'blocked' ? (
         <p data-slot="action-reason" className="sprout-action-reason">
           <span id={reasonId}>{state.reason}</span>
           {state.fix && <FixButton fix={state.fix} />}
@@ -231,18 +181,14 @@ export function useActionControl(state: ButtonState) {
 }
 
 function FixButton({ fix }: { fix: ButtonBlockerFix }) {
-  if (fix.kind === "link")
+  if (fix.kind === 'link')
     return (
       <Button variant="link" size="xs" nativeButton={false} render={fix.link}>
         {fix.label}
       </Button>
     );
   return (
-    <Button
-      variant="link"
-      size="xs"
-      onClick={fix.kind === "jump" ? () => jumpTo(fix.target) : fix.onClick}
-    >
+    <Button variant="link" size="xs" onClick={fix.kind === 'jump' ? () => jumpTo(fix.target) : fix.onClick}>
       {fix.label}
     </Button>
   );

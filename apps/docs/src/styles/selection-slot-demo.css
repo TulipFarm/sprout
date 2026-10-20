@@ -73,18 +73,18 @@
   display: flex;
 }
 @container sprout-selection (width >= 36rem) {
-  .selection-slot-demo-wide[data-at="sm"] {
+  .selection-slot-demo-wide[data-at='sm'] {
     display: flex;
   }
-  .selection-slot-demo-narrow[data-at="sm"] {
+  .selection-slot-demo-narrow[data-at='sm'] {
     display: none;
   }
 }
 @container sprout-selection (width >= 44rem) {
-  .selection-slot-demo-wide[data-at="md"] {
+  .selection-slot-demo-wide[data-at='md'] {
     display: flex;
   }
-  .selection-slot-demo-narrow[data-at="md"] {
+  .selection-slot-demo-narrow[data-at='md'] {
     display: none;
   }
 }

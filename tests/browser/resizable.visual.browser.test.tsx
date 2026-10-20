@@ -1,25 +1,22 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "../../packages/sprout/src/components/resizable.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/resizable.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("resizable %s %s", async (theme, mode) => {
+it.each(themes)('resizable %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
-    <div
-      data-testid="shot"
-      style={{ padding: 16, background: "var(--sprout-canvas)", width: 360 }}
-    >
+    <div data-testid="shot" style={{ padding: 16, background: 'var(--sprout-canvas)', width: 360 }}>
       <div
         style={{
           height: 180,
-          border: "1px solid var(--sprout-line)",
+          border: '1px solid var(--sprout-line)',
           borderRadius: 8,
-          background: "var(--sprout-surface)",
+          background: 'var(--sprout-surface)',
         }}
       >
         <ResizablePanelGroup>
@@ -29,11 +26,7 @@ it.each(themes)("resizable %s %s", async (theme, mode) => {
           <ResizableHandle withHandle aria-label="Resize runs" />
           <ResizablePanel id="detail">
             <ResizablePanelGroup orientation="vertical">
-              <ResizablePanel
-                id="top"
-                defaultSize="50%"
-                style={{ padding: 12 }}
-              >
+              <ResizablePanel id="top" defaultSize="50%" style={{ padding: 12 }}>
                 Prompt
               </ResizablePanel>
               <ResizableHandle aria-label="Resize prompt" />
@@ -47,7 +40,5 @@ it.each(themes)("resizable %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`resizable-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`resizable-${theme}-${mode}`);
 });

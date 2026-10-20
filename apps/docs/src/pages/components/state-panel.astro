@@ -1,28 +1,30 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   StatePanelPlayground,
   StatePanelKinds,
   StatePanelSamples,
   StatePanelFlow,
   StatePanelCompositions,
-} from "../../components/StatePanelDemo";
+} from '../../components/StatePanelDemo';
 import {
   SamplePresetsPlayground,
   SamplePresetsGallery,
   SamplePresetsRecords,
   SamplePresetsProps,
-} from "../../components/StatePanelSamplesDemo";
+} from '../../components/StatePanelSamplesDemo';
 ---
 
 <Docs title="State Panel">
   <h1 class="docs-title">State Panel</h1>
   <p class="docs-lead">
-    One calm place for empty, loading, success, unavailable, and error states.
-    It explains what happened and offers the next step.
+    One calm place for empty, loading, success, unavailable, and error states. It explains what happened and offers the
+    next step.
   </p>
-  <div class="mt-8"><StatePanelPlayground client:load /></div>
+  <div class="mt-8">
+    <StatePanelPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -40,20 +42,17 @@ import {
 </StatePanel>`}
     />
     <p>
-      <code>kind</code> is <code>"empty"</code>, <code>"loading"</code>, <code
-        >"success"</code
-      >, <code>"unavailable"</code>, or <code>"error"</code>. Loading shows a
-      spinner, success a check, and error a warning. Empty and unavailable show
-      <code>icon</code>, which defaults to an inbox. Any component that takes a
-      <code>size</code> number works, including your own brand glyphs. Pass
+      <code>kind</code> is <code>"empty"</code>, <code>"loading"</code>, <code>"success"</code>,{' '}
+      <code>"unavailable"</code>, or <code>"error"</code>. Loading shows a spinner, success a check, and error a
+      warning. Empty and unavailable show
+      <code>icon</code>, which defaults to an inbox. Any component that takes a<code>size</code> number works, including
+      your own brand glyphs. Pass
       <code>icon={null}</code> for a text-only empty or unavailable panel.
     </p>
     <p>
-      <code>heading</code> sets the title element, <code>h1</code> to <code
-        >h4</code
-      >, and defaults to <code>h2</code>. Use <code>h1</code> when the panel is the
-      whole page, like a not-found route. An error panel must have children, so people
-      always have a way to recover.
+      <code>heading</code> sets the title element, <code>h1</code> to <code>h4</code>, and defaults to <code>h2</code>.
+      Use <code>h1</code> when the panel is the whole page, like a not-found route. An error panel must have children,
+      so people always have a way to recover.
     </p>
     <StatePanelKinds client:load />
   </section>
@@ -73,11 +72,9 @@ import {
 </StatePanel>`}
     />
     <p>
-      Empty panels can take a <code>sample</code>: a picture of the page once it
-      has content. The panel becomes a card that sizes to its container, not the
-      window. The preview hides below 28rem and moves beside the text from
-      48rem. The preview is hidden from assistive technology and cannot be
-      focused. Pass
+      Empty panels can take a <code>sample</code>: a picture of the page once it has content. The panel becomes a card
+      that sizes to its container, not the window. The preview hides below 28rem and moves beside the text from 48rem.
+      The preview is hidden from assistive technology and cannot be focused. Pass
       <code>undefined</code> to fall back to the centered layout.
     </p>
     <StatePanelSamples client:load />
@@ -85,10 +82,8 @@ import {
   <section class="prose-section">
     <h2 class="section-title">Sample presets</h2>
     <p>
-      Sixteen ready-made samples ship with State Panel, one for each TulipFarm
-      page that can be empty. Each one is a <a href="/components/state-sample/"
-        >State Sample</a
-      > window with fixed, realistic content.
+      Sixteen ready-made samples ship with State Panel, one for each TulipFarm page that can be empty. Each one is a{' '}
+      <a href="/components/state-sample/">State Sample</a> window with fixed, realistic content.
     </p>
     <CodeBlock
       lang="tsx"
@@ -105,25 +100,21 @@ import {
   <Button variant="outline">New workflow</Button>
 </StatePanel>`}
     />
-    <div class="mt-6"><SamplePresetsPlayground client:load /></div>
+    <div class="mt-6">
+      <SamplePresetsPlayground client:load />
+    </div>
     <p>
-      Only <code>RecordsSample</code> takes data, because it copies the table you
-      are looking at. Every preset also accepts the outer window props: <code
-        >label</code
-      > changes the “Example” chip, and <code>className</code>, <code
-        >data-*</code
-      >, and other <code>div</code> attributes go to the window root.
+      Only <code>RecordsSample</code> takes data, because it copies the table you are looking at. Every preset also
+      accepts the outer window props: <code>label</code> changes the “Example” chip, and <code>className</code>,{' '}
+      <code>data-*</code>, and other <code>div</code> attributes go to the window root.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Every preset</h2>
     <p>
-      Each card names the export and the TulipFarm page that shows it. Avatars,
-      brand icons, file-type icons, and badges come from Sprõut's <a
-        href="/components/avatar/">Avatar</a
-      >, <a href="/components/brand-icon/">Brand Icon</a>, <a
-        href="/components/attachment/">Attachment</a
-      >, and <a href="/components/badge/">Badge</a>.
+      Each card names the export and the TulipFarm page that shows it. Avatars, brand icons, file-type icons, and badges
+      come from Sprõut's <a href="/components/avatar/">Avatar</a>, <a href="/components/brand-icon/">Brand Icon</a>,{' '}
+      <a href="/components/attachment/">Attachment</a>, and <a href="/components/badge/">Badge</a>.
     </p>
     <SamplePresetsGallery client:load />
   </section>
@@ -139,50 +130,46 @@ import {
     />
     <p>
       <code>table</code> becomes the current crumb after “Tables”. The first three
-      <code>fields</code> become columns. The first is wide and starts with a colored
-      mark, and the rest share the space. With no fields, one wide “Row” column is
-      shown. Cell values are gray bars, so the sample never shows made-up data.
+      <code>fields</code> become columns. The first is wide and starts with a colored mark, and the rest share the
+      space. With no fields, one wide “Row” column is shown. Cell values are gray bars, so the sample never shows
+      made-up data.
     </p>
     <SamplePresetsRecords client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Window props and overflow</h2>
     <p>
-      Presets fill their container. Long titles, crumbs, and column names
-      truncate with an ellipsis instead of widening the page.
+      Presets fill their container. Long titles, crumbs, and column names truncate with an ellipsis instead of widening
+      the page.
     </p>
     <SamplePresetsProps client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Changing state</h2>
     <p>
-      Render the panel that matches your request. Loading and success are
-      announced politely; errors are announced right away. When a retry removes
-      the focused button, move focus to the surrounding region.
+      Render the panel that matches your request. Loading and success are announced politely; errors are announced right
+      away. When a retry removes the focused button, move focus to the surrounding region.
     </p>
-    <div class="mt-6"><StatePanelFlow client:load /></div>
+    <div class="mt-6">
+      <StatePanelFlow client:load />
+    </div>
   </section>
   <section class="prose-section" id="state-panel-actions">
     <h2 class="section-title">Actions</h2>
     <p>
-      Children sit under the description. Use buttons, links rendered as
-      buttons, guidance text, or an inline alert. Wrap several links in your own
-      row to keep them side by side. A child that renders nothing leaves no gap.
+      Children sit under the description. Use buttons, links rendered as buttons, guidance text, or an inline alert.
+      Wrap several links in your own row to keep them side by side. A child that renders nothing leaves no gap.
     </p>
     <StatePanelCompositions client:load />
-    <p>
-      Requests, permissions, and routing in these examples are sample code. The
-      package only draws the panel.
-    </p>
+    <p>Requests, permissions, and routing in these examples are sample code. The package only draws the panel.</p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The icon tile is decorative. Error text uses <code>role="alert"</code>;
-      loading and success text use <code>role="status"</code>. Match
-      <code>heading</code> to the surrounding outline. Sample presets are pictures,
-      not controls, and nothing in them can be focused. The panel fades in over 180ms
-      and the spinner turns; reduced motion turns both off.
+      The icon tile is decorative. Error text uses <code>role="alert"</code>; loading and success text use{' '}
+      <code>role="status"</code>. Match
+      <code>heading</code> to the surrounding outline. Sample presets are pictures, not controls, and nothing in them
+      can be focused. The panel fades in over 180ms and the spinner turns; reduced motion turns both off.
     </p>
   </section>
 </Docs>

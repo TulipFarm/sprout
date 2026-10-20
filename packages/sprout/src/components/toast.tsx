@@ -1,24 +1,18 @@
-"use client";
+'use client';
 
-import type { ReactNode } from "react";
-import { Toast as ToastPrimitive } from "@base-ui/react/toast";
-import { CheckCircle } from "reicon-react/icons/CheckCircle";
-import { Danger } from "reicon-react/icons/Danger";
-import { XCircle } from "reicon-react/icons/XCircle";
-import { InfoCircle } from "reicon-react/icons/InfoCircle";
-import { X } from "reicon-react/icons/X";
-import { stateClassName } from "../internal/classes.js";
-import { Button } from "./button.js";
-import { Spinner } from "./spinner.js";
+import type { ReactNode } from 'react';
+import { Toast as ToastPrimitive } from '@base-ui/react/toast';
+import { CheckCircle } from 'reicon-react/icons/CheckCircle';
+import { Danger } from 'reicon-react/icons/Danger';
+import { XCircle } from 'reicon-react/icons/XCircle';
+import { InfoCircle } from 'reicon-react/icons/InfoCircle';
+import { X } from 'reicon-react/icons/X';
+import { stateClassName } from '../internal/classes.js';
+import { Button } from './button.js';
+import { Spinner } from './spinner.js';
 
 /** Toast types that `Toaster` gives an icon. Any other `type` shows no icon. */
-export const toastTypeNames = [
-  "success",
-  "error",
-  "warning",
-  "info",
-  "loading",
-] as const;
+export const toastTypeNames = ['success', 'error', 'warning', 'info', 'loading'] as const;
 
 export type ToastType = (typeof toastTypeNames)[number];
 
@@ -53,10 +47,7 @@ export function ToastViewport({ className, ...props }: ToastViewportProps) {
     <ToastPrimitive.Viewport
       data-slot="toast-viewport"
       {...props}
-      className={stateClassName<ToastPrimitive.Viewport.State>(
-        "sprout-toast-viewport",
-        className,
-      )}
+      className={stateClassName<ToastPrimitive.Viewport.State>('sprout-toast-viewport', className)}
     />
   );
 }
@@ -69,10 +60,7 @@ export function Toast({ className, ...props }: ToastProps) {
     <ToastPrimitive.Root
       data-slot="toast"
       {...props}
-      className={stateClassName<ToastPrimitive.Root.State>(
-        "sprout-toast",
-        className,
-      )}
+      className={stateClassName<ToastPrimitive.Root.State>('sprout-toast', className)}
     />
   );
 }
@@ -84,10 +72,7 @@ export function ToastContent({ className, ...props }: ToastContentProps) {
     <ToastPrimitive.Content
       data-slot="toast-content"
       {...props}
-      className={stateClassName<ToastPrimitive.Content.State>(
-        "sprout-toast-content",
-        className,
-      )}
+      className={stateClassName<ToastPrimitive.Content.State>('sprout-toast-content', className)}
     />
   );
 }
@@ -99,28 +84,19 @@ export function ToastTitle({ className, ...props }: ToastTitleProps) {
     <ToastPrimitive.Title
       data-slot="toast-title"
       {...props}
-      className={stateClassName<ToastPrimitive.Title.State>(
-        "sprout-toast-title",
-        className,
-      )}
+      className={stateClassName<ToastPrimitive.Title.State>('sprout-toast-title', className)}
     />
   );
 }
 
 export type ToastDescriptionProps = ToastPrimitive.Description.Props;
 
-export function ToastDescription({
-  className,
-  ...props
-}: ToastDescriptionProps) {
+export function ToastDescription({ className, ...props }: ToastDescriptionProps) {
   return (
     <ToastPrimitive.Description
       data-slot="toast-description"
       {...props}
-      className={stateClassName<ToastPrimitive.Description.State>(
-        "sprout-toast-description",
-        className,
-      )}
+      className={stateClassName<ToastPrimitive.Description.State>('sprout-toast-description', className)}
     />
   );
 }
@@ -141,10 +117,7 @@ export function ToastAction({
       data-slot="toast-action"
       render={render}
       {...props}
-      className={stateClassName<ToastPrimitive.Action.State>(
-        "sprout-toast-action",
-        className,
-      )}
+      className={stateClassName<ToastPrimitive.Action.State>('sprout-toast-action', className)}
     />
   );
 }
@@ -164,10 +137,7 @@ export function ToastClose({
       aria-label="Close toast"
       render={render}
       {...props}
-      className={stateClassName<ToastPrimitive.Close.State>(
-        "sprout-toast-close",
-        className,
-      )}
+      className={stateClassName<ToastPrimitive.Close.State>('sprout-toast-close', className)}
     >
       {children ?? <X aria-hidden="true" />}
     </ToastPrimitive.Close>
@@ -183,8 +153,7 @@ const toastIcons: Record<ToastType, ReactNode> = {
 };
 
 function ToastIcon({ type }: { type: string | undefined }) {
-  const icon =
-    type && type in toastIcons ? toastIcons[type as ToastType] : null;
+  const icon = type && type in toastIcons ? toastIcons[type as ToastType] : null;
   if (!icon) return null;
   return (
     <span data-slot="toast-icon" data-type={type} className="sprout-toast-icon">
@@ -195,7 +164,7 @@ function ToastIcon({ type }: { type: string | undefined }) {
 
 function ToastList() {
   const { toasts } = useToastManager();
-  return toasts.map((item) => (
+  return toasts.map(item => (
     <Toast key={item.id} toast={item}>
       <ToastContent>
         <ToastIcon type={item.type} />
@@ -212,18 +181,14 @@ function ToastList() {
 
 export interface ToasterProps extends ToastProviderProps {
   /** Defaults to the shared `toast` manager. Pass your own to isolate a region. */
-  toastManager?: ToastProviderProps["toastManager"];
+  toastManager?: ToastProviderProps['toastManager'];
 }
 
 /**
  * A provider with a ready-made viewport. Each toast shows an icon for its
  * `type`, its title and description, an optional action, and a close button.
  */
-export function Toaster({
-  children,
-  toastManager = toast,
-  ...props
-}: ToasterProps) {
+export function Toaster({ children, toastManager = toast, ...props }: ToasterProps) {
   return (
     <ToastProvider toastManager={toastManager} {...props}>
       {children}

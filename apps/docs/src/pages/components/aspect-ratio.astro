@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import AspectRatioDemo from "../../components/AspectRatioDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import AspectRatioDemo from '../../components/AspectRatioDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,10 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Aspect Ratio</h1>
   <p class="docs-lead">
-    Keeps content at a fixed shape as its width changes. Use it for images,
-    video, and the placeholders that hold their space.
+    Keeps content at a fixed shape as its width changes. Use it for images, video, and the placeholders that hold their
+    space.
   </p>
-  <div class="mt-8"><AspectRatioDemo client:load /></div>
+  <div class="mt-8">
+    <AspectRatioDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -33,29 +35,27 @@ import CodeBlock from "../../components/CodeBlock.astro";
     />
     <p>
       <code>ratio</code> is required. It is width divided by height, so
-      <code>16 / 9</code>, <code>4 / 3</code>, and <code>1</code> give wide, photo,
-      and square frames. The frame takes the full width it is given and sets its height
-      from the ratio. Content taller than the frame does not stretch it.
+      <code>16 / 9</code>, <code>4 / 3</code>, and <code>1</code> give wide, photo, and square frames. The frame takes
+      the full width it is given and sets its height from the ratio. Content taller than the frame does not stretch it.
     </p>
     <p>
       The frame is a <code>div</code> with <code>position: relative</code> and
       <code>data-slot="aspect-ratio"</code>. It takes all <code>div</code> props.
-      <code>className</code> and <code>style</code> merge with its own, and the ratio
-      is set as <code>--sprout-aspect-ratio</code>. Make children fill it with <code
-        >size-full</code
-      >, or place them with <code>absolute inset-0</code>.
+      <code>className</code> and <code>style</code> merge with its own, and the ratio is set as{' '}
+      <code>--sprout-aspect-ratio</code>. Make children fill it with <code>size-full</code>, or place them with{' '}
+      <code>absolute inset-0</code>.
     </p>
     <p>
-      The frame does not round or clip. Wrap it, or pass <code>className</code>,
-      with <code>overflow-hidden</code> and a radius when the corners should be round.
+      The frame does not round or clip. Wrap it, or pass <code>className</code>, with <code>overflow-hidden</code> and a
+      radius when the corners should be round.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
       Aspect Ratio adds no role and no focus stop. Give images real
-      <code>alt</code> text. While content loads, put <code>aria-busy</code> on the
-      frame and a <code>role="status"</code> placeholder inside it.
+      <code>alt</code> text. While content loads, put <code>aria-busy</code> on the frame and a{' '}
+      <code>role="status"</code> placeholder inside it.
     </p>
   </section>
 </Docs>

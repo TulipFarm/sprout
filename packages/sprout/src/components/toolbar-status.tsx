@@ -1,14 +1,8 @@
-"use client";
+'use client';
 
-import { Children, type ReactNode } from "react";
-import { Button } from "./button.js";
-import {
-  Popover,
-  PopoverContent,
-  PopoverDescription,
-  PopoverTitle,
-  PopoverTrigger,
-} from "./popover.js";
+import { Children, type ReactNode } from 'react';
+import { Button } from './button.js';
+import { Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger } from './popover.js';
 
 export interface ToolbarStatusProps {
   /** Short outcome on the trigger and the popover title, like "Exported". */
@@ -30,20 +24,14 @@ export interface ToolbarStatusProps {
  * A compact toolbar button that reports the result of an action and opens its
  * details. It replaces the action button until the person acts again.
  */
-export function ToolbarStatus({
-  label,
-  message,
-  error = false,
-  children,
-  defaultOpen = false,
-}: ToolbarStatusProps) {
-  const tone = error ? "error" : "success";
+export function ToolbarStatus({ label, message, error = false, children, defaultOpen = false }: ToolbarStatusProps) {
+  const tone = error ? 'error' : 'success';
   const hasActions = Children.toArray(children).length > 0;
   return (
     <Popover defaultOpen={defaultOpen}>
       <span
         data-slot="toolbar-status-message"
-        role={error ? "alert" : "status"}
+        role={error ? 'alert' : 'status'}
         className="sprout-toolbar-status-message"
       >
         {message}
@@ -52,9 +40,7 @@ export function ToolbarStatus({
         data-slot="toolbar-status-trigger"
         data-status={tone}
         className="sprout-toolbar-status-trigger"
-        render={
-          <Button variant={error ? "destructive" : "outline"} size="sm" />
-        }
+        render={<Button variant={error ? 'destructive' : 'outline'} size="sm" />}
       >
         <span className="sprout-toolbar-status-label">{label}</span>
       </PopoverTrigger>
@@ -65,16 +51,11 @@ export function ToolbarStatus({
         className="sprout-toolbar-status-content"
       >
         <div className="sprout-toolbar-status-header">
-          <PopoverTitle className="sprout-toolbar-status-title">
-            {label}
-          </PopoverTitle>
+          <PopoverTitle className="sprout-toolbar-status-title">{label}</PopoverTitle>
           <PopoverDescription>{message}</PopoverDescription>
         </div>
         {hasActions && (
-          <div
-            data-slot="toolbar-status-actions"
-            className="sprout-toolbar-status-actions"
-          >
+          <div data-slot="toolbar-status-actions" className="sprout-toolbar-status-actions">
             {children}
           </div>
         )}

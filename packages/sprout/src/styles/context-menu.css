@@ -76,10 +76,10 @@
     background: var(--sprout-hover);
     color: var(--sprout-text);
   }
-  .sprout-context-menu-item[data-variant="destructive"] {
+  .sprout-context-menu-item[data-variant='destructive'] {
     color: var(--sprout-danger);
   }
-  .sprout-context-menu-item[data-variant="destructive"][data-highlighted] {
+  .sprout-context-menu-item[data-variant='destructive'][data-highlighted] {
     background: var(--sprout-danger-subtle);
     color: var(--sprout-danger);
   }

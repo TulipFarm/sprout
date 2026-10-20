@@ -6,15 +6,15 @@
  * that subtree.
  */
 @layer base {
-  [data-sprout-theme="claude"] {
-    --sprout-font: ui-serif, Georgia, "Times New Roman", serif;
+  [data-sprout-theme='claude'] {
+    --sprout-font: ui-serif, Georgia, 'Times New Roman', serif;
     --sprout-radius-control: 0.5rem;
     --sprout-radius-panel: 0.875rem;
   }
 
-  [data-sprout-theme="claude"],
-  .light[data-sprout-theme="claude"],
-  .light [data-sprout-theme="claude"] {
+  [data-sprout-theme='claude'],
+  .light[data-sprout-theme='claude'],
+  .light [data-sprout-theme='claude'] {
     --sprout-canvas: #f5f4ed;
     --sprout-surface: #faf9f5;
     --sprout-hover: #efede9;
@@ -40,17 +40,13 @@
     --sprout-success-subtle: #e8f4eb;
     --sprout-warning: #8a4b08;
     --sprout-warning-subtle: #fdf1dc;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 10%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 10%, var(--sprout-surface));
     --sprout-secondary: #edece7;
     --sprout-overlay: rgb(18 18 18 / 0.35);
   }
 
-  .dark[data-sprout-theme="claude"],
-  .dark [data-sprout-theme="claude"] {
+  .dark[data-sprout-theme='claude'],
+  .dark [data-sprout-theme='claude'] {
     --sprout-canvas: #262624;
     --sprout-surface: #30302e;
     --sprout-hover: #40403d;
@@ -76,18 +72,14 @@
     --sprout-success-subtle: #1c3223;
     --sprout-warning: #eec27e;
     --sprout-warning-subtle: #34291b;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 16%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
     --sprout-secondary: #42423f;
     --sprout-overlay: rgb(8 8 8 / 0.65);
   }
 
   @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark)[data-sprout-theme="claude"],
-    :root:not(.light):not(.dark) [data-sprout-theme="claude"] {
+    :root:not(.light):not(.dark)[data-sprout-theme='claude'],
+    :root:not(.light):not(.dark) [data-sprout-theme='claude'] {
       --sprout-canvas: #262624;
       --sprout-surface: #30302e;
       --sprout-hover: #40403d;
@@ -113,11 +105,7 @@
       --sprout-success-subtle: #1c3223;
       --sprout-warning: #eec27e;
       --sprout-warning-subtle: #34291b;
-      --sprout-primary-subtle: color-mix(
-        in oklab,
-        var(--sprout-primary) 16%,
-        var(--sprout-surface)
-      );
+      --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
       --sprout-secondary: #42423f;
       --sprout-overlay: rgb(8 8 8 / 0.65);
     }

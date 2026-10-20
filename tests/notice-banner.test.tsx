@@ -1,19 +1,16 @@
-import { describe, expect, it } from "vitest";
-import { renderToString } from "react-dom/server";
-import { NoticeBanner } from "../packages/sprout/src/components/notice-banner.js";
-import * as sprout from "../packages/sprout/src/index.js";
+import { describe, expect, it } from 'vitest';
+import { renderToString } from 'react-dom/server';
+import { NoticeBanner } from '../packages/sprout/src/components/notice-banner.js';
+import * as sprout from '../packages/sprout/src/index.js';
 
-describe("NoticeBanner", () => {
-  it("is exported from the package root", () => {
-    expect(sprout).toHaveProperty("NoticeBanner", NoticeBanner);
+describe('NoticeBanner', () => {
+  it('is exported from the package root', () => {
+    expect(sprout).toHaveProperty('NoticeBanner', NoticeBanner);
   });
 
-  it("renders a named section with message and actions slots", () => {
+  it('renders a named section with message and actions slots', () => {
     const html = renderToString(
-      <NoticeBanner
-        aria-label="Integration authorization"
-        actions={<button type="button">Update permissions</button>}
-      >
+      <NoticeBanner aria-label="Integration authorization" actions={<button type="button">Update permissions</button>}>
         <p role="status">Slack workspace needs authorization.</p>
       </NoticeBanner>,
     );
@@ -28,7 +25,7 @@ describe("NoticeBanner", () => {
     );
   });
 
-  it("renders a select and button together in the actions slot", () => {
+  it('renders a select and button together in the actions slot', () => {
     const html = renderToString(
       <NoticeBanner
         actions={
@@ -48,16 +45,14 @@ describe("NoticeBanner", () => {
     );
   });
 
-  it("leaves out the actions slot when there are no actions", () => {
+  it('leaves out the actions slot when there are no actions', () => {
     for (const actions of [undefined, null, false]) {
-      const html = renderToString(
-        <NoticeBanner actions={actions}>Read-only notice</NoticeBanner>,
-      );
-      expect(html).not.toContain("notice-banner-actions");
+      const html = renderToString(<NoticeBanner actions={actions}>Read-only notice</NoticeBanner>);
+      expect(html).not.toContain('notice-banner-actions');
     }
   });
 
-  it("merges classes and passes props to the section", () => {
+  it('merges classes and passes props to the section', () => {
     const html = renderToString(
       <NoticeBanner className="rounded" id="notice" data-x="1" actions="Act">
         Text

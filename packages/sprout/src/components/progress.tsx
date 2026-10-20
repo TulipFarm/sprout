@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Progress as BaseProgress } from "@base-ui/react/progress";
-import { stateClassName } from "../internal/classes.js";
+import { Progress as BaseProgress } from '@base-ui/react/progress';
+import { stateClassName } from '../internal/classes.js';
 
 export type ProgressProps = BaseProgress.Root.Props;
 
@@ -16,10 +16,7 @@ export function Progress({ className, children, ...props }: ProgressProps) {
     <BaseProgress.Root
       data-slot="progress"
       {...props}
-      className={stateClassName<BaseProgress.Root.State>(
-        "sprout-progress",
-        className,
-      )}
+      className={stateClassName<BaseProgress.Root.State>('sprout-progress', className)}
     >
       {children}
       <ProgressTrack>
@@ -37,10 +34,7 @@ export function ProgressTrack({ className, ...props }: ProgressTrackProps) {
     <BaseProgress.Track
       data-slot="progress-track"
       {...props}
-      className={stateClassName<BaseProgress.Root.State>(
-        "sprout-progress-track",
-        className,
-      )}
+      className={stateClassName<BaseProgress.Root.State>('sprout-progress-track', className)}
     />
   );
 }
@@ -51,18 +45,12 @@ export type ProgressIndicatorProps = BaseProgress.Indicator.Props;
  * The filled part of the track. Its width follows the value; with a `null`
  * value it slides across the track instead.
  */
-export function ProgressIndicator({
-  className,
-  ...props
-}: ProgressIndicatorProps) {
+export function ProgressIndicator({ className, ...props }: ProgressIndicatorProps) {
   return (
     <BaseProgress.Indicator
       data-slot="progress-indicator"
       {...props}
-      className={stateClassName<BaseProgress.Root.State>(
-        "sprout-progress-indicator",
-        className,
-      )}
+      className={stateClassName<BaseProgress.Root.State>('sprout-progress-indicator', className)}
     />
   );
 }
@@ -75,10 +63,7 @@ export function ProgressLabel({ className, ...props }: ProgressLabelProps) {
     <BaseProgress.Label
       data-slot="progress-label"
       {...props}
-      className={stateClassName<BaseProgress.Root.State>(
-        "sprout-progress-label",
-        className,
-      )}
+      className={stateClassName<BaseProgress.Root.State>('sprout-progress-label', className)}
     />
   );
 }
@@ -94,10 +79,7 @@ export function ProgressValue({ className, ...props }: ProgressValueProps) {
     <BaseProgress.Value
       data-slot="progress-value"
       {...props}
-      className={stateClassName<BaseProgress.Root.State>(
-        "sprout-progress-value",
-        className,
-      )}
+      className={stateClassName<BaseProgress.Root.State>('sprout-progress-value', className)}
     />
   );
 }

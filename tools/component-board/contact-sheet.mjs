@@ -1,15 +1,14 @@
-import { writeFile } from "node:fs/promises";
+import { writeFile } from 'node:fs/promises';
 
-const escape = (value) =>
-  String(value ?? "").replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
+const escape = value => String(value ?? '').replace(/[&<>"']/g, char => `&#${char.charCodeAt(0)};`);
 
 function tile(entry) {
   const image = entry.screenshot
     ? `<a class="shot" href="${escape(entry.screenshot)}"><img loading="lazy" src="${escape(entry.screenshot)}" alt="${escape(entry.name)} screenshot"></a>`
     : `<div class="shot none">No screenshot</div>`;
-  return `<article class="tile ${escape(entry.classification ?? "unclassified")}" id="${escape(entry.slug)}">
+  return `<article class="tile ${escape(entry.classification ?? 'unclassified')}" id="${escape(entry.slug)}">
 ${image}
-<h3>${escape(entry.name)} <span class="tag">${escape(entry.classification ?? "unclassified")}</span></h3>
+<h3>${escape(entry.name)} <span class="tag">${escape(entry.classification ?? 'unclassified')}</span></h3>
 <p class="source">${escape(entry.source)}</p>
 <p class="meta">usageCount ${escape(entry.usageCount)}</p>
 <p class="reason">${escape(entry.reason)}</p>
@@ -17,21 +16,17 @@ ${image}
 }
 
 export function contactSheet(entries) {
-  const categories = [
-    ...new Set(entries.map((entry) => entry.category)),
-  ].sort();
-  const count = (filter) => entries.filter(filter).length;
-  const classes = ["primitive", "pattern", "app"]
-    .map((name) => `${name} ${count((entry) => entry.classification === name)}`)
-    .join(" · ");
+  const categories = [...new Set(entries.map(entry => entry.category))].sort();
+  const count = filter => entries.filter(filter).length;
+  const classes = ['primitive', 'pattern', 'app']
+    .map(name => `${name} ${count(entry => entry.classification === name)}`)
+    .join(' · ');
   const sections = categories
-    .map((category) => {
-      const items = entries
-        .filter((entry) => entry.category === category)
-        .sort((a, b) => a.name.localeCompare(b.name));
-      return `<section><h2>${escape(category)} <small>${items.filter((entry) => entry.screenshot).length}/${items.length} captured</small></h2><div class="grid">${items.map(tile).join("\n")}</div></section>`;
+    .map(category => {
+      const items = entries.filter(entry => entry.category === category).sort((a, b) => a.name.localeCompare(b.name));
+      return `<section><h2>${escape(category)} <small>${items.filter(entry => entry.screenshot).length}/${items.length} captured</small></h2><div class="grid">${items.map(tile).join('\n')}</div></section>`;
     })
-    .join("\n");
+    .join('\n');
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>TODO components in TulipFarm Cloud</title>
 <style>
@@ -49,7 +44,7 @@ h2 small,.summary{color:#6b6b66;font-weight:400}
 .source{font:12px ui-monospace,monospace;color:#55554f;margin:0;overflow-wrap:anywhere}.meta{margin:0;color:#6b6b66;font-size:12px}.reason{margin:0;font-size:13px}
 </style></head><body>
 <h1>TODO components in TulipFarm Cloud</h1>
-<p class="summary">${entries.length} cards · ${count((entry) => entry.screenshot)} captured · ${classes}</p>
+<p class="summary">${entries.length} cards · ${count(entry => entry.screenshot)} captured · ${classes}</p>
 ${sections}
 </body></html>
 `;

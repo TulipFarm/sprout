@@ -1,19 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import SwitchDemo from "../../components/SwitchDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import SwitchDemo from '../../components/SwitchDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Switch"
-  description="An on/off control for settings that apply right away."
->
+<Docs title="Switch" description="An on/off control for settings that apply right away.">
   <h1 class="docs-title">Switch</h1>
   <p class="docs-lead">
-    A track and thumb that turns one setting on or off. Use it for settings that
-    take effect at once, such as notifications or model access.
+    A track and thumb that turns one setting on or off. Use it for settings that take effect at once, such as
+    notifications or model access.
   </p>
-  <div class="mt-8"><SwitchDemo client:load /></div>
+  <div class="mt-8">
+    <SwitchDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -43,18 +42,16 @@ const [paused, setPaused] = useState(false);
 />`}
     />
     <p>
-      Pass <code>checked</code> and <code>onCheckedChange</code> to control the switch,
-      or <code>defaultChecked</code> to let it keep its own state.
-      <code>onCheckedChange</code> gets a boolean, so a state setter can be passed
-      straight in.
+      Pass <code>checked</code> and <code>onCheckedChange</code> to control the switch, or <code>defaultChecked</code>{' '}
+      to let it keep its own state.
+      <code>onCheckedChange</code> gets a boolean, so a state setter can be passed straight in.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Props</h2>
     <p>
-      <code>size</code> is <code>"default"</code> (a 32 × 18px track with a 16px thumb)
-      or <code>"sm"</code> (a 24 × 14px track with a 12px thumb). Both have a hit
-      area 12px wider and 8px taller on each side.
+      <code>size</code> is <code>"default"</code> (a 32 × 18px track with a 16px thumb) or <code>"sm"</code> (a 24 ×
+      14px track with a 12px thumb). Both have a hit area 12px wider and 8px taller on each side.
     </p>
     <p>
       <code>disabled</code> dims the switch and blocks changes; a disabled
@@ -63,9 +60,8 @@ const [paused, setPaused] = useState(false);
       <code>aria-busy</code> while a change is saving to show a progress cursor.
     </p>
     <p>
-      The switch also takes Base UI props such as <code>id</code>,
-      <code>name</code>, <code>value</code>, <code>required</code>,
-      <code>readOnly</code>, <code>inputRef</code>, and state functions for
+      The switch also takes Base UI props such as <code>id</code>,<code>name</code>, <code>value</code>,{' '}
+      <code>required</code>,<code>readOnly</code>, <code>inputRef</code>, and state functions for
       <code>className</code>.
     </p>
   </section>
@@ -73,27 +69,23 @@ const [paused, setPaused] = useState(false);
     <h2 class="section-title">Accessibility</h2>
     <p>
       Switch renders an element with <code>role="switch"</code> and
-      <code>aria-checked</code>, plus a hidden input for forms. Tab moves focus
-      to it, and Space or Enter toggles it. A focused switch shows a 2px focus
-      ring. Name every switch with a wrapping <code>Label</code>, a
+      <code>aria-checked</code>, plus a hidden input for forms. Tab moves focus to it, and Space or Enter toggles it. A
+      focused switch shows a 2px focus ring. Name every switch with a wrapping <code>Label</code>, a
       <code>Label htmlFor</code> or <code>SettingsRow htmlFor</code>, or
       <code>aria-label</code>.
     </p>
     <p>
-      The track color changes in 120ms and the thumb slides in 180ms. Both stop
-      when reduced motion is requested. The thumb slides the other way in
-      right-to-left text. In forced colors mode the track gets a system border
-      and an on switch is highlighted.
+      The track color changes in 120ms and the thumb slides in 180ms. Both stop when reduced motion is requested. The
+      thumb slides the other way in right-to-left text. In forced colors mode the track gets a system border and an on
+      switch is highlighted.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Off uses a <code>--sprout-muted</code> track with a
-      <code>--sprout-surface</code> thumb (<code>--sprout-text</code> in dark mode).
-      On uses <code>--sprout-primary</code> with a
-      <code>--sprout-on-primary</code> thumb, so the opt-in TulipFarm theme tints
-      it green. Invalid uses <code>--sprout-danger</code>, and focus uses
+      Off uses a <code>--sprout-muted</code> track with a<code>--sprout-surface</code> thumb (<code>--sprout-text</code>{' '}
+      in dark mode). On uses <code>--sprout-primary</code> with a<code>--sprout-on-primary</code> thumb, so the opt-in
+      TulipFarm theme tints it green. Invalid uses <code>--sprout-danger</code>, and focus uses
       <code>--sprout-focus</code>.
     </p>
   </section>

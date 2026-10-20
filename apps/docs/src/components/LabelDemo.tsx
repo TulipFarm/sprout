@@ -1,32 +1,18 @@
-import { useId, useRef, useState, type ReactNode } from "react";
-import { Checkbox } from "@base-ui/react/checkbox";
-import { Radio } from "@base-ui/react/radio";
-import { RadioGroup } from "@base-ui/react/radio-group";
-import { Switch } from "@base-ui/react/switch";
-import { Check } from "reicon-react/icons/Check";
-import { Minus } from "reicon-react/icons/Minus";
-import { Button } from "@tulipfarm/sprout/button";
-import { Input } from "@tulipfarm/sprout/input";
-import { Label } from "@tulipfarm/sprout/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@tulipfarm/sprout/select";
-import { Textarea } from "@tulipfarm/sprout/textarea";
-import "../styles/label-demo.css";
+import { useId, useRef, useState, type ReactNode } from 'react';
+import { Checkbox } from '@base-ui/react/checkbox';
+import { Radio } from '@base-ui/react/radio';
+import { RadioGroup } from '@base-ui/react/radio-group';
+import { Switch } from '@base-ui/react/switch';
+import { Check } from 'reicon-react/icons/Check';
+import { Minus } from 'reicon-react/icons/Minus';
+import { Button } from '@tulipfarm/sprout/button';
+import { Input } from '@tulipfarm/sprout/input';
+import { Label } from '@tulipfarm/sprout/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@tulipfarm/sprout/select';
+import { Textarea } from '@tulipfarm/sprout/textarea';
+import '../styles/label-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="label-demo-card" aria-label={title}>
       <header>
@@ -51,12 +37,9 @@ function DemoCheckbox(props: Checkbox.Root.Props) {
   );
 }
 
-type SwitchSize = "default" | "sm";
+type SwitchSize = 'default' | 'sm';
 
-function DemoSwitch({
-  size = "default",
-  ...props
-}: Switch.Root.Props & { size?: SwitchSize }) {
+function DemoSwitch({ size = 'default', ...props }: Switch.Root.Props & { size?: SwitchSize }) {
   return (
     <Switch.Root className="label-demo-switch" data-size={size} {...props}>
       <Switch.Thumb className="label-demo-switch-thumb" />
@@ -77,27 +60,23 @@ function Stack({ children }: { children: ReactNode }) {
 }
 
 const access = [
-  { value: "viewer", label: "Can view" },
-  { value: "editor", label: "Can edit" },
-  { value: "owner", label: "Owner" },
+  { value: 'viewer', label: 'Can view' },
+  { value: 'editor', label: 'Can edit' },
+  { value: 'owner', label: 'Owner' },
 ];
 
 function AboveControls() {
   const id = useId();
-  const [slug, setSlug] = useState("tulipfarm");
-  const [role, setRole] = useState("editor");
-  const taken = slug.trim() === "tulipfarm";
+  const [slug, setSlug] = useState('tulipfarm');
+  const [role, setRole] = useState('editor');
+  const taken = slug.trim() === 'tulipfarm';
   return (
     <Example
       title="Above a control"
       description="htmlFor names an input, select, or textarea. A click on the label moves focus to the control."
     >
       <div className="label-demo-columns">
-        <form
-          className="label-demo-form"
-          aria-label="Create workspace"
-          onSubmit={(event) => event.preventDefault()}
-        >
+        <form className="label-demo-form" aria-label="Create workspace" onSubmit={event => event.preventDefault()}>
           <span className="label-demo-caption">Large input · onboarding</span>
           <Stack>
             <Label htmlFor={`${id}-workspace-name`}>Workspace name</Label>
@@ -116,44 +95,27 @@ function AboveControls() {
               value={slug}
               aria-invalid={taken || undefined}
               aria-describedby={`${id}-workspace-slug-error`}
-              onChange={(event) => setSlug(event.target.value)}
+              onChange={event => setSlug(event.target.value)}
             />
-            <p
-              id={`${id}-workspace-slug-error`}
-              className="label-demo-message"
-              data-tone={taken ? "danger" : "muted"}
-            >
-              {taken
-                ? "This URL is taken. Try another."
-                : `app.tulipfarm.ai/${slug || "…"}`}
+            <p id={`${id}-workspace-slug-error`} className="label-demo-message" data-tone={taken ? 'danger' : 'muted'}>
+              {taken ? 'This URL is taken. Try another.' : `app.tulipfarm.ai/${slug || '…'}`}
             </p>
           </Stack>
         </form>
-        <form
-          className="label-demo-form"
-          aria-label="Share file"
-          onSubmit={(event) => event.preventDefault()}
-        >
+        <form className="label-demo-form" aria-label="Share file" onSubmit={event => event.preventDefault()}>
           <span className="label-demo-caption">Default input · dialogs</span>
           <Stack>
             <Label htmlFor={`${id}-share-subject`}>Person or team</Label>
-            <Input
-              id={`${id}-share-subject`}
-              placeholder="Name, email, or team"
-            />
+            <Input id={`${id}-share-subject`} placeholder="Name, email, or team" />
           </Stack>
           <Stack>
             <Label htmlFor={`${id}-share-role`}>Access</Label>
-            <Select
-              items={access}
-              value={role}
-              onValueChange={(value) => value && setRole(value)}
-            >
+            <Select items={access} value={role} onValueChange={value => value && setRole(value)}>
               <SelectTrigger id={`${id}-share-role`} width="full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {access.map((item) => (
+                {access.map(item => (
                   <SelectItem key={item.value} value={item.value}>
                     {item.label}
                   </SelectItem>
@@ -181,27 +143,20 @@ function AboveControls() {
 }
 
 const filterOptions = {
-  Type: ["Any type", "Documents", "Spreadsheets", "Folders"],
-  Owner: ["Anyone", "Me", "Not me"],
-  Modified: ["Any time", "Today", "Last 7 days", "Last 30 days"],
-  Sort: ["Last modified", "Name", "Size"],
+  Type: ['Any type', 'Documents', 'Spreadsheets', 'Folders'],
+  Owner: ['Anyone', 'Me', 'Not me'],
+  Modified: ['Any time', 'Today', 'Last 7 days', 'Last 30 days'],
+  Sort: ['Last modified', 'Name', 'Size'],
 } as const;
 
 function Filters() {
   const id = useId();
   const names = Object.keys(filterOptions) as (keyof typeof filterOptions)[];
   return (
-    <Example
-      title="Compact filters"
-      description="The same label over 28px select triggers in a files toolbar."
-    >
-      <div
-        className="label-demo-filters"
-        role="group"
-        aria-label="File filters"
-      >
-        {names.map((name) => {
-          const items = filterOptions[name].map((label) => ({
+    <Example title="Compact filters" description="The same label over 28px select triggers in a files toolbar.">
+      <div className="label-demo-filters" role="group" aria-label="File filters">
+        {names.map(name => {
+          const items = filterOptions[name].map(label => ({
             value: label,
             label,
           }));
@@ -213,7 +168,7 @@ function Filters() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {items.map((item) => (
+                  {items.map(item => (
                     <SelectItem key={item.value} value={item.value}>
                       {item.label}
                     </SelectItem>
@@ -229,13 +184,13 @@ function Filters() {
 }
 
 const permissions = [
-  { value: "invoke", label: "Run workflow" },
-  { value: "read", label: "Read definition" },
-  { value: "manage", label: "Manage and share" },
+  { value: 'invoke', label: 'Run workflow' },
+  { value: 'read', label: 'Read definition' },
+  { value: 'manage', label: 'Manage and share' },
 ];
 
 function WrappedCheckboxes() {
-  const [granted, setGranted] = useState<string[]>(["invoke", "read"]);
+  const [granted, setGranted] = useState<string[]>(['invoke', 'read']);
   const [business, setBusiness] = useState(true);
   return (
     <Example
@@ -267,18 +222,14 @@ function WrappedCheckboxes() {
           </Label>
         </div>
         <div className="label-demo-list" data-testid="checkbox-grants">
-          <span className="label-demo-caption">
-            Workflow access for Maya Chen
-          </span>
-          {permissions.map((permission) => (
+          <span className="label-demo-caption">Workflow access for Maya Chen</span>
+          {permissions.map(permission => (
             <Label key={permission.value}>
               <DemoCheckbox
                 checked={granted.includes(permission.value)}
-                onCheckedChange={(checked) =>
-                  setGranted((previous) =>
-                    checked
-                      ? [...previous, permission.value]
-                      : previous.filter((item) => item !== permission.value),
+                onCheckedChange={checked =>
+                  setGranted(previous =>
+                    checked ? [...previous, permission.value] : previous.filter(item => item !== permission.value),
                   )
                 }
               />
@@ -286,10 +237,7 @@ function WrappedCheckboxes() {
             </Label>
           ))}
           <Label>
-            <DemoCheckbox
-              checked={business}
-              onCheckedChange={(checked) => setBusiness(checked)}
-            />
+            <DemoCheckbox checked={business} onCheckedChange={checked => setBusiness(checked)} />
             Shared business account
           </Label>
           <Label>
@@ -299,8 +247,7 @@ function WrappedCheckboxes() {
           <Label>
             <DemoCheckbox disabled />
             <span className="label-demo-break">
-              GitHub ·
-              ops-automation-bot@tulipfarm-production-integrations.example
+              GitHub · ops-automation-bot@tulipfarm-production-integrations.example
             </span>
           </Label>
           <p className="label-demo-message" role="status">
@@ -315,20 +262,13 @@ function WrappedCheckboxes() {
 function WrappedSwitches() {
   const [paused, setPaused] = useState(false);
   const sizes: { size: SwitchSize; note: string }[] = [
-    { size: "default", note: "18px track · settings rows" },
-    { size: "sm", note: "14px track · dense lists" },
+    { size: 'default', note: '18px track · settings rows' },
+    { size: 'sm', note: '14px track · dense lists' },
   ];
   return (
-    <Example
-      title="Wrapping a switch"
-      description="Both switch sizes keep the 8px gap and the 14px label text."
-    >
+    <Example title="Wrapping a switch" description="Both switch sizes keep the 8px gap and the 14px label text.">
       {sizes.map(({ size, note }) => (
-        <div
-          key={size}
-          className="label-demo-size"
-          data-testid={`switch-${size}`}
-        >
+        <div key={size} className="label-demo-size" data-testid={`switch-${size}`}>
           <div className="label-demo-size-text">
             <code>{`size="${size}"`}</code>
             <span>{note}</span>
@@ -367,11 +307,7 @@ function WrappedRadios() {
       title="Wrapping a radio"
       description="Each option is a label around its radio. Arrow keys move between options."
     >
-      <RadioGroup
-        defaultValue="weekly"
-        aria-label="Digest frequency"
-        className="label-demo-row"
-      >
+      <RadioGroup defaultValue="weekly" aria-label="Digest frequency" className="label-demo-row">
         <Label>
           <DemoRadio value="daily" />
           Daily
@@ -399,27 +335,18 @@ function Confirmations() {
     >
       <div className="label-demo-list" data-testid="confirmations">
         <div className="label-demo-confirm">
-          <DemoCheckbox
-            id={`${id}-retained`}
-            checked={retained}
-            onCheckedChange={setRetained}
-          />
-          <Label htmlFor={`${id}-retained`}>
-            I understand that workspace data is retained, not erased.
-          </Label>
+          <DemoCheckbox id={`${id}-retained`} checked={retained} onCheckedChange={setRetained} />
+          <Label htmlFor={`${id}-retained`}>I understand that workspace data is retained, not erased.</Label>
         </div>
         <div className="label-demo-confirm">
           <DemoCheckbox id={`${id}-move`} />
           <Label htmlFor={`${id}-move`}>
-            I understand that every project member can read the full history of
-            this chat, including earlier messages.
+            I understand that every project member can read the full history of this chat, including earlier messages.
           </Label>
         </div>
         <div className="label-demo-confirm">
           <DemoCheckbox id={`${id}-delete`} disabled />
-          <Label htmlFor={`${id}-delete`}>
-            Delete this integration and stop future use. This cannot be undone.
-          </Label>
+          <Label htmlFor={`${id}-delete`}>Delete this integration and stop future use. This cannot be undone.</Label>
         </div>
         <Button size="sm" disabled={!retained} className="label-demo-action">
           Close workspace
@@ -430,9 +357,9 @@ function Confirmations() {
 }
 
 const people = [
-  { id: "maya", name: "Maya Chen" },
-  { id: "jordan", name: "Jordan Okafor" },
-  { id: "priya", name: "Priya Raman-Lindqvist" },
+  { id: 'maya', name: 'Maya Chen' },
+  { id: 'jordan', name: 'Jordan Okafor' },
+  { id: 'priya', name: 'Priya Raman-Lindqvist' },
 ];
 
 function HiddenText() {
@@ -453,12 +380,12 @@ function HiddenText() {
           {people.map((person, index) => (
             <tr key={person.id}>
               <th scope="row">{person.name}</th>
-              {(["Use", "Manage"] as const).map((kind) => (
+              {(['Use', 'Manage'] as const).map(kind => (
                 <td key={kind}>
                   <Label>
                     <DemoCheckbox
-                      defaultChecked={kind === "Use" || index === 0}
-                      disabled={kind === "Manage" && index === 2}
+                      defaultChecked={kind === 'Use' || index === 0}
+                      disabled={kind === 'Manage' && index === 2}
                     />
                     <span className="label-demo-sr">
                       {kind} {person.name}
@@ -476,7 +403,7 @@ function HiddenText() {
 
 function WrappedText() {
   const [advanced, setAdvanced] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   return (
     <Example
       title="Wrapping a text control"
@@ -485,37 +412,27 @@ function WrappedText() {
       <div className="label-demo-columns">
         <div className="label-demo-list">
           <Label>
-            {advanced ? "Response JSON" : "Decision or comment"}
+            {advanced ? 'Response JSON' : 'Decision or comment'}
             <Textarea
               rows={3}
               value={text}
-              placeholder={
-                advanced ? '{ "approved": true }' : "Approved for Friday."
-              }
-              onChange={(event) => setText(event.target.value)}
+              placeholder={advanced ? '{ "approved": true }' : 'Approved for Friday.'}
+              onChange={event => setText(event.target.value)}
             />
           </Label>
           <div className="label-demo-row">
             <Button size="sm" disabled={!text.trim()}>
               Submit response
             </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => setAdvanced(!advanced)}
-            >
-              {advanced ? "Use plain text" : "Use JSON"}
+            <Button size="sm" variant="ghost" onClick={() => setAdvanced(!advanced)}>
+              {advanced ? 'Use plain text' : 'Use JSON'}
             </Button>
           </div>
         </div>
         <div className="label-demo-list" data-testid="closed-response">
           <Label>
             Decision or comment
-            <Textarea
-              rows={3}
-              disabled
-              defaultValue="This run finished. Responses are closed."
-            />
+            <Textarea rows={3} disabled defaultValue="This run finished. Responses are closed." />
           </Label>
         </div>
       </div>
@@ -544,12 +461,9 @@ function CustomControl() {
           suppressContentEditableWarning
           className="label-demo-editor"
         >
-          New sign-up from{" "}
-          <span className="label-demo-token">Form · Email</span>
+          New sign-up from <span className="label-demo-token">Form · Email</span>
         </div>
-        <p className="label-demo-message">
-          The value must be text, from 1 to 4,000 characters.
-        </p>
+        <p className="label-demo-message">The value must be text, from 1 to 4,000 characters.</p>
       </Stack>
     </Example>
   );
@@ -571,22 +485,13 @@ function LockedFields() {
         <div data-slot="field" data-disabled={saving || undefined}>
           <Stack>
             <Label htmlFor={`${id}-cadence`}>Check every, in minutes</Label>
-            <Input
-              id={`${id}-cadence`}
-              inputMode="numeric"
-              defaultValue="15"
-              disabled={saving}
-            />
+            <Input id={`${id}-cadence`} inputMode="numeric" defaultValue="15" disabled={saving} />
           </Stack>
         </div>
         <div data-slot="field" data-disabled={saving || undefined}>
           <Stack>
             <Label htmlFor={`${id}-query`}>Gmail query</Label>
-            <Input
-              id={`${id}-query`}
-              defaultValue="label:invoices is:unread"
-              disabled={saving}
-            />
+            <Input id={`${id}-query`} defaultValue="label:invoices is:unread" disabled={saving} />
           </Stack>
         </div>
       </div>

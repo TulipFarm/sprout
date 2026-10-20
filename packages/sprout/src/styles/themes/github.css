@@ -6,15 +6,15 @@
  * that subtree.
  */
 @layer base {
-  [data-sprout-theme="github"] {
+  [data-sprout-theme='github'] {
     --sprout-font: ui-sans-serif, system-ui, sans-serif;
     --sprout-radius-control: 0.375rem;
     --sprout-radius-panel: 0.75rem;
   }
 
-  [data-sprout-theme="github"],
-  .light[data-sprout-theme="github"],
-  .light [data-sprout-theme="github"] {
+  [data-sprout-theme='github'],
+  .light[data-sprout-theme='github'],
+  .light [data-sprout-theme='github'] {
     --sprout-canvas: #f6f8fa;
     --sprout-surface: #ffffff;
     --sprout-hover: #f2f2f2;
@@ -40,17 +40,13 @@
     --sprout-success-subtle: #e8f4eb;
     --sprout-warning: #8a4b08;
     --sprout-warning-subtle: #fdf1dc;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 10%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 10%, var(--sprout-surface));
     --sprout-secondary: #eff0f0;
     --sprout-overlay: rgb(18 18 18 / 0.35);
   }
 
-  .dark[data-sprout-theme="github"],
-  .dark [data-sprout-theme="github"] {
+  .dark[data-sprout-theme='github'],
+  .dark [data-sprout-theme='github'] {
     --sprout-canvas: #010409;
     --sprout-surface: #0d1117;
     --sprout-hover: #1f2329;
@@ -76,18 +72,14 @@
     --sprout-success-subtle: #1c3223;
     --sprout-warning: #eec27e;
     --sprout-warning-subtle: #34291b;
-    --sprout-primary-subtle: color-mix(
-      in oklab,
-      var(--sprout-primary) 16%,
-      var(--sprout-surface)
-    );
+    --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
     --sprout-secondary: #21262c;
     --sprout-overlay: rgb(8 8 8 / 0.65);
   }
 
   @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark)[data-sprout-theme="github"],
-    :root:not(.light):not(.dark) [data-sprout-theme="github"] {
+    :root:not(.light):not(.dark)[data-sprout-theme='github'],
+    :root:not(.light):not(.dark) [data-sprout-theme='github'] {
       --sprout-canvas: #010409;
       --sprout-surface: #0d1117;
       --sprout-hover: #1f2329;
@@ -113,11 +105,7 @@
       --sprout-success-subtle: #1c3223;
       --sprout-warning: #eec27e;
       --sprout-warning-subtle: #34291b;
-      --sprout-primary-subtle: color-mix(
-        in oklab,
-        var(--sprout-primary) 16%,
-        var(--sprout-surface)
-      );
+      --sprout-primary-subtle: color-mix(in oklab, var(--sprout-primary) 16%, var(--sprout-surface));
       --sprout-secondary: #21262c;
       --sprout-overlay: rgb(8 8 8 / 0.65);
     }

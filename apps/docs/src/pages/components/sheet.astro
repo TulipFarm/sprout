@@ -1,13 +1,8 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
-import {
-  SheetPlayground,
-  SheetSides,
-  SheetSizes,
-  SheetSwipe,
-} from "../../components/SheetDemo";
-import { SheetPatterns, SheetStates } from "../../components/SheetPatternsDemo";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { SheetPlayground, SheetSides, SheetSizes, SheetSwipe } from '../../components/SheetDemo';
+import { SheetPatterns, SheetStates } from '../../components/SheetPatternsDemo';
 ---
 
 <Docs
@@ -16,12 +11,13 @@ import { SheetPatterns, SheetStates } from "../../components/SheetPatternsDemo";
 >
   <h1 class="docs-title">Sheet</h1>
   <p class="docs-lead">
-    A modal panel that slides in from an edge of the screen. Use it for details,
-    filters, and editors that need more room than a dialog but should keep the
-    page behind in view. Focus stays inside until it closes. On a touch screen,
+    A modal panel that slides in from an edge of the screen. Use it for details, filters, and editors that need more
+    room than a dialog but should keep the page behind in view. Focus stays inside until it closes. On a touch screen,
     swipe it back toward its edge to close it.
   </p>
-  <div class="mt-8" id="sheet-demo"><SheetPlayground client:load /></div>
+  <div class="mt-8" id="sheet-demo">
+    <SheetPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -58,53 +54,40 @@ import {
 </Sheet>`}
     />
     <p>
-      <code>Sheet</code> works controlled with <code>open</code> and <code
-        >onOpenChange</code
-      >, or uncontrolled with a <code>SheetTrigger</code>. To keep it open while
-      a save runs or while a second sheet is on top, ignore the change in <code
-        >onOpenChange</code
-      > and hide the corner button with <code
-        >showCloseButton={"{!saving}"}</code
-      >.
+      <code>Sheet</code> works controlled with <code>open</code> and <code>onOpenChange</code>, or uncontrolled with a{' '}
+      <code>SheetTrigger</code>. To keep it open while a save runs or while a second sheet is on top, ignore the change
+      in <code>onOpenChange</code> and hide the corner button with <code>showCloseButton={'{!saving}'}</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Sides</h2>
     <p>
-      <code>side</code> is <code>"right"</code> (default), <code>"left"</code>,
-      <code>"top"</code>, or <code>"bottom"</code>. Top and bottom sheets span
-      the width, grow with their content up to 85% of the height, and lay out
-      footer actions in a row from 640px.
+      <code>side</code> is <code>"right"</code> (default), <code>"left"</code>,<code>"top"</code>, or{' '}
+      <code>"bottom"</code>. Top and bottom sheets span the width, grow with their content up to 85% of the height, and
+      lay out footer actions in a row from 640px.
     </p>
     <SheetSides client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Sizes</h2>
     <p>
-      <code>size</code> sets the width of left and right sheets: <code
-        >"default"</code
-      > (24rem), <code>"lg"</code> (32rem), or <code>"xl"</code> (42rem). <code
-        >"full"</code
-      > covers the viewport from any side and respects safe areas. <code
-        >SheetTitle size="lg"</code
-      > is the larger title for product-style detail sheets.
+      <code>size</code> sets the width of left and right sheets: <code>"default"</code> (24rem), <code>"lg"</code>{' '}
+      (32rem), or <code>"xl"</code> (42rem). <code>"full"</code> covers the viewport from any side and respects safe
+      areas. <code>SheetTitle size="lg"</code> is the larger title for product-style detail sheets.
     </p>
     <SheetSizes client:load />
   </section>
   <section class="prose-section" id="sheet-swipe">
     <h2 class="section-title">Swipe to close</h2>
     <p>
-      Every sheet follows a touch swipe toward its <code>side</code>. A right
-      sheet swipes right and a bottom sheet swipes down. Let go past half the
-      panel, or flick it, and the sheet closes. A shorter swipe springs back.
+      Every sheet follows a touch swipe toward its <code>side</code>. A right sheet swipes right and a bottom sheet
+      swipes down. Let go past half the panel, or flick it, and the sheet closes. A shorter swipe springs back.
       Scrolling a long body scrolls first and swipes only from the edge.
     </p>
     <p>
-      A mouse or pen drags the sheet only from the handle or empty panel space.
-      Drags on text, fields, and buttons select and click as usual, so desktop
-      forms are safe. <code>showSwipeHandle</code> adds a grab bar on the edge facing
-      the page. It is off by default. Turn it on for bottom sheets on phones, where
-      people expect it.
+      A mouse or pen drags the sheet only from the handle or empty panel space. Drags on text, fields, and buttons
+      select and click as usual, so desktop forms are safe. <code>showSwipeHandle</code> adds a grab bar on the edge
+      facing the page. It is off by default. Turn it on for bottom sheets on phones, where people expect it.
     </p>
     <CodeBlock
       lang="tsx"
@@ -128,15 +111,10 @@ import {
   <section class="prose-section">
     <h2 class="section-title">Cloud patterns</h2>
     <p>
-      Put a custom bar and your own scroll region directly in <code
-        >SheetContent</code
-      >, or use <code>SheetBody</code>, which scrolls between the header and
-      footer. <code>initialFocus</code> can target a title with <code
-        >tabIndex={"{-1}"}</code
-      >, <code>finalFocus</code> can return focus to a trigger ref, and <code
-        >keepMounted</code
-      > keeps drafts while the sheet is closed. A dialog or a second sheet can open
-      on top.
+      Put a custom bar and your own scroll region directly in <code>SheetContent</code>, or use <code>SheetBody</code>,
+      which scrolls between the header and footer. <code>initialFocus</code> can target a title with{' '}
+      <code>tabIndex={'{-1}'}</code>, <code>finalFocus</code> can return focus to a trigger ref, and{' '}
+      <code>keepMounted</code> keeps drafts while the sheet is closed. A dialog or a second sheet can open on top.
     </p>
     <SheetPatterns client:load />
   </section>
@@ -144,70 +122,49 @@ import {
     <h2 class="section-title">States</h2>
     <p>
       Show a skeleton with <code>role="status"</code> while data loads, an error
-      <code>StatePanel</code> with a retry, and a short sentence when nothing needs
-      attention.
+      <code>StatePanel</code> with a retry, and a short sentence when nothing needs attention.
     </p>
     <SheetStates client:load />
   </section>
   <section class="prose-section" id="sheet-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>Sheet</code>, <code>SheetTrigger</code>, <code>SheetPortal</code>,
-      <code>SheetClose</code>, <code>SheetOverlay</code>, <code>SheetTitle</code
-      >, and <code>SheetDescription</code> wrap the Base UI drawer parts and take
-      their props, including <code>render</code>. <code>SheetHeader</code>, <code
-        >SheetBody</code
-      >, and <code>SheetFooter</code> render a <code>div</code> and accept <code
-        >render</code
-      >, so a body can be the form. <code>Sheet</code> leaves out <code
-        >swipeDirection</code
-      > and snap points. The <code>side</code> on <code>SheetContent</code> sets the
-      swipe direction.
+      <code>Sheet</code>, <code>SheetTrigger</code>, <code>SheetPortal</code>,<code>SheetClose</code>,{' '}
+      <code>SheetOverlay</code>, <code>SheetTitle</code>, and <code>SheetDescription</code> wrap the Base UI drawer
+      parts and take their props, including <code>render</code>. <code>SheetHeader</code>, <code>SheetBody</code>, and{' '}
+      <code>SheetFooter</code> render a <code>div</code> and accept <code>render</code>, so a body can be the form.{' '}
+      <code>Sheet</code> leaves out <code>swipeDirection</code> and snap points. The <code>side</code> on{' '}
+      <code>SheetContent</code> sets the swipe direction.
     </p>
     <p>
-      <code>SheetContent</code> takes <code>side</code>, <code>size</code>, <code
-        >showCloseButton</code
-      >, <code>closeLabel</code>, <code>keepMounted</code>, <code
-        >container</code
-      >, <code>showSwipeHandle</code>, and every Base UI popup prop such as <code
-        >initialFocus</code
-      > and <code>finalFocus</code>. It sets <code
-        >data-slot="sheet-content"</code
-      > (overridable), <code>data-side</code>, and <code>data-size</code>. Its
-      corner button has <code>data-slot="sheet-close"</code>, so you can move it
-      with a <code>className</code> selector. <code>SheetTitle</code> takes <code
-        >size</code
-      > (<code>"default"</code> or <code>"lg"</code>).
+      <code>SheetContent</code> takes <code>side</code>, <code>size</code>, <code>showCloseButton</code>,{' '}
+      <code>closeLabel</code>, <code>keepMounted</code>, <code>container</code>, <code>showSwipeHandle</code>, and every
+      Base UI popup prop such as <code>initialFocus</code> and <code>finalFocus</code>. It sets{' '}
+      <code>data-slot="sheet-content"</code> (overridable), <code>data-side</code>, and <code>data-size</code>. Its
+      corner button has <code>data-slot="sheet-close"</code>, so you can move it with a <code>className</code> selector.{' '}
+      <code>SheetTitle</code> takes <code>size</code> (<code>"default"</code> or <code>"lg"</code>).
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The panel has <code>role="dialog"</code> and is named by <code
-        >SheetTitle</code
-      >. Every sheet needs a title, even if it is hidden with <code
-        >sr-only</code
-      >. Tab and Shift+Tab stay inside, and Escape or a click on the overlay
+      The panel has <code>role="dialog"</code> and is named by <code>SheetTitle</code>. Every sheet needs a title, even
+      if it is hidden with <code>sr-only</code>. Tab and Shift+Tab stay inside, and Escape or a click on the overlay
       closes it unless you ignore the change.
     </p>
     <p>
-      Opening slides 2.5rem and fades over 180ms. Closing takes 120ms. A swipe
-      moves the panel with the finger, and the overlay fades as it goes. Motion
-      turns off when reduced motion is requested. The swipe still works. The
-      handle is hidden from assistive tech, so keep a close button or a footer
-      action in every sheet.
+      Opening slides 2.5rem and fades over 180ms. Closing takes 120ms. A swipe moves the panel with the finger, and the
+      overlay fades as it goes. Motion turns off when reduced motion is requested. The swipe still works. The handle is
+      hidden from assistive tech, so keep a close button or a footer action in every sheet.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Sheets use <code>--sprout-overlay</code>, <code>--sprout-surface</code>, <code
-        >--sprout-line</code
-      >, <code>--sprout-text</code>, <code>--sprout-muted</code>, <code
-        >--sprout-shadow-overlay</code
-      >, and <code>--sprout-radius-panel</code>. They need no brand color, so
-      they look the same with the neutral and TulipFarm themes in light and dark
-      mode.
+      Sheets use <code>--sprout-overlay</code>, <code>--sprout-surface</code>, <code>--sprout-line</code>,{' '}
+      <code>--sprout-text</code>, <code>--sprout-muted</code>, <code>--sprout-shadow-overlay</code>, and{' '}
+      <code>--sprout-radius-panel</code>. They need no brand color, so they look the same with the neutral and TulipFarm
+      themes in light and dark mode.
     </p>
   </section>
 </Docs>

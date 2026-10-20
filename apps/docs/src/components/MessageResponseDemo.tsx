@@ -1,18 +1,14 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Check } from "reicon-react/icons/Check";
-import { Copy } from "reicon-react/icons/Copy";
-import { Alert, AlertDescription } from "@tulipfarm/sprout/alert";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  FileRenderersProvider,
-  ViewableFileContent,
-  type ViewableFile,
-} from "@tulipfarm/sprout/file-viewer";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { Copy } from 'reicon-react/icons/Copy';
+import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
+import { Button } from '@tulipfarm/sprout/button';
+import { FileRenderersProvider, ViewableFileContent, type ViewableFile } from '@tulipfarm/sprout/file-viewer';
 import {
   MessageResponse,
   MessageTableViewport,
   type MessageResponseRenderLink,
-} from "@tulipfarm/sprout/message-response";
+} from '@tulipfarm/sprout/message-response';
 import {
   Popover,
   PopoverContent,
@@ -20,12 +16,12 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
-import { Spinner } from "@tulipfarm/sprout/spinner";
-import { Switch } from "@tulipfarm/sprout/switch";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import DocsSelect from "./DocsSelect";
-import "../styles/message-response-demo.css";
+} from '@tulipfarm/sprout/popover';
+import { Spinner } from '@tulipfarm/sprout/spinner';
+import { Switch } from '@tulipfarm/sprout/switch';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import DocsSelect from './DocsSelect';
+import '../styles/message-response-demo.css';
 
 function Frame({
   id,
@@ -71,12 +67,12 @@ function Segmented<Value extends string>({
       size="sm"
       variant="outline"
       value={[value]}
-      onValueChange={(next) => {
-        const picked = items.find((item) => item.value === next[0]);
+      onValueChange={next => {
+        const picked = items.find(item => item.value === next[0]);
         if (picked) onChange(picked.value);
       }}
     >
-      {items.map((item) => (
+      {items.map(item => (
         <ToggleGroupItem key={item.value} value={item.value}>
           {item.label}
         </ToggleGroupItem>
@@ -136,16 +132,16 @@ ORDER BY revenue DESC;
 West leads with **$212,400**. Run it again after the import finishes at 6 PM.`;
 
 const replies = {
-  garden: { label: "Garden plan", text: gardenPlan },
-  pipeline: { label: "Weekly pipeline", text: pipeline },
-  sql: { label: "SQL answer", text: sqlAnswer },
+  garden: { label: 'Garden plan', text: gardenPlan },
+  pipeline: { label: 'Weekly pipeline', text: pipeline },
+  sql: { label: 'SQL answer', text: sqlAnswer },
 } as const;
 type ReplyKey = keyof typeof replies;
 
 /* Playground ------------------------------------------------------------------ */
 
 export function MessageResponsePlayground() {
-  const [reply, setReply] = useState<ReplyKey>("pipeline");
+  const [reply, setReply] = useState<ReplyKey>('pipeline');
   const [streaming, setStreaming] = useState(false);
   const [bounded, setBounded] = useState(false);
   return (
@@ -165,21 +161,11 @@ export function MessageResponsePlayground() {
             onValueChange={setReply}
           />
           <label className="mr-demo-switch">
-            <Switch
-              size="sm"
-              aria-label="Streaming"
-              checked={streaming}
-              onCheckedChange={setStreaming}
-            />
+            <Switch size="sm" aria-label="Streaming" checked={streaming} onCheckedChange={setStreaming} />
             Streaming
           </label>
           <label className="mr-demo-switch">
-            <Switch
-              size="sm"
-              aria-label="Bounded tables"
-              checked={bounded}
-              onCheckedChange={setBounded}
-            />
+            <Switch size="sm" aria-label="Bounded tables" checked={bounded} onCheckedChange={setBounded} />
             Bounded tables
           </label>
         </>
@@ -187,9 +173,7 @@ export function MessageResponsePlayground() {
     >
       <div className="mr-demo-bubble" data-testid="playground-response">
         <MessageTableViewport bounded={bounded}>
-          <MessageResponse streaming={streaming}>
-            {replies[reply].text}
-          </MessageResponse>
+          <MessageResponse streaming={streaming}>{replies[reply].text}</MessageResponse>
         </MessageTableViewport>
       </div>
     </Frame>
@@ -267,11 +251,11 @@ const streamed = `Here is a **partially streamed** response for the Meadow beds.
 
 Water within an hour of planting.`;
 
-type StreamState = "waiting" | "streaming" | "done";
-const streamPoint = streamed.indexOf("| Mulch");
+type StreamState = 'waiting' | 'streaming' | 'done';
+const streamPoint = streamed.indexOf('| Mulch');
 
 export function MessageResponseStreaming() {
-  const [state, setState] = useState<StreamState>("streaming");
+  const [state, setState] = useState<StreamState>('streaming');
   const [length, setLength] = useState(streamPoint);
   const timer = useRef<ReturnType<typeof setInterval>>(undefined);
   useEffect(() => () => clearInterval(timer.current), []);
@@ -279,21 +263,15 @@ export function MessageResponseStreaming() {
   const show = (next: StreamState) => {
     clearInterval(timer.current);
     setState(next);
-    setLength(
-      next === "waiting"
-        ? 0
-        : next === "streaming"
-          ? streamPoint
-          : streamed.length,
-    );
+    setLength(next === 'waiting' ? 0 : next === 'streaming' ? streamPoint : streamed.length);
   };
   const replay = () => {
-    show("waiting");
+    show('waiting');
     let at = 0;
     timer.current = setInterval(() => {
       at = Math.min(streamed.length, at + 6);
       setLength(at);
-      setState(at === streamed.length ? "done" : "streaming");
+      setState(at === streamed.length ? 'done' : 'streaming');
       if (at === streamed.length) clearInterval(timer.current);
     }, 50);
   };
@@ -309,9 +287,9 @@ export function MessageResponseStreaming() {
             label="Stream state"
             value={state}
             items={[
-              { value: "waiting", label: "Waiting" },
-              { value: "streaming", label: "Streaming" },
-              { value: "done", label: "Done" },
+              { value: 'waiting', label: 'Waiting' },
+              { value: 'streaming', label: 'Streaming' },
+              { value: 'done', label: 'Done' },
             ]}
             onChange={show}
           />
@@ -323,9 +301,7 @@ export function MessageResponseStreaming() {
     >
       <div className="mr-demo-bubble" data-testid="streaming-response">
         <MessageTableViewport bounded>
-          <MessageResponse streaming={state !== "done"}>
-            {streamed.slice(0, length)}
-          </MessageResponse>
+          <MessageResponse streaming={state !== 'done'}>{streamed.slice(0, length)}</MessageResponse>
         </MessageTableViewport>
       </div>
     </Frame>
@@ -335,17 +311,10 @@ export function MessageResponseStreaming() {
 /* Table viewport (records canvas) ---------------------------------------------------- */
 
 const leads = Array.from({ length: 12 }, (_, index) => {
-  const names = [
-    "Northwind",
-    "Blue Harbor",
-    "Fennel & Co.",
-    "Lumen Labs",
-    "Orchard Supply",
-    "Kestrel Health",
-  ];
-  const stages = ["Discovery", "Proposal", "Security review", "Closed won"];
-  return `| ${names[index % names.length]} ${index >= names.length ? "EU" : "US"} | ${stages[index % stages.length]} | $${(8 + index * 3.5).toFixed(1)}k |`;
-}).join("\n");
+  const names = ['Northwind', 'Blue Harbor', 'Fennel & Co.', 'Lumen Labs', 'Orchard Supply', 'Kestrel Health'];
+  const stages = ['Discovery', 'Proposal', 'Security review', 'Closed won'];
+  return `| ${names[index % names.length]} ${index >= names.length ? 'EU' : 'US'} | ${stages[index % stages.length]} | $${(8 + index * 3.5).toFixed(1)}k |`;
+}).join('\n');
 const leadsReply = `I found **12 leads** that match “opened a pricing email this week”.
 
 | Company | Stage | Value |
@@ -358,9 +327,7 @@ function RowViewChip({ table, rows }: { table: string; rows: number }) {
   return (
     <div className="mr-demo-row-view">
       <span className="mr-demo-row-view-name">{table}</span>
-      <span className="mr-demo-row-view-count">
-        {rows} rows · open in canvas
-      </span>
+      <span className="mr-demo-row-view-count">{rows} rows · open in canvas</span>
     </div>
   );
 }
@@ -368,11 +335,7 @@ function RowViewChip({ table, rows }: { table: string; rows: number }) {
 export function MessageResponseTables() {
   return (
     <div className="mr-demo-split">
-      <Frame
-        id="bounded"
-        title="With row views"
-        note="bounded: tables stop at 12rem and scroll both ways."
-      >
+      <Frame id="bounded" title="With row views" note="bounded: tables stop at 12rem and scroll both ways.">
         <div className="mr-demo-stack">
           <div className="mr-demo-bubble" data-testid="bounded-response">
             <MessageTableViewport bounded>
@@ -382,11 +345,7 @@ export function MessageResponseTables() {
           <RowViewChip table="Leads" rows={12} />
         </div>
       </Frame>
-      <Frame
-        id="unbounded"
-        title="Without row views"
-        note="Not bounded: tables grow to full height."
-      >
+      <Frame id="unbounded" title="Without row views" note="Not bounded: tables grow to full height.">
         <div className="mr-demo-bubble" data-testid="unbounded-response">
           <MessageTableViewport bounded={false}>
             <MessageResponse>{pipeline}</MessageResponse>
@@ -399,66 +358,61 @@ export function MessageResponseTables() {
 
 /* Custom links (GitHub downloads and knowledge citations) ---------------------------- */
 
-const workspaceId = "ws_meadow";
-const chatId = "3f6b2c1e-8a4d-4f7e-9b1c-2d5e6f7a8b9c";
-const taskId = "c2d4e6f8-1a3b-4c5d-8e7f-9a0b1c2d3e4f";
-const goodFile = "0b8f6a2e-5c1d-4e3f-9a7b-6c5d4e3f2a1b";
-const lostFile = "9e8d7c6b-5a4f-4e3d-8c2b-1a0f9e8d7c6b";
-const source = "6a7b8c9d-0e1f-4a2b-8c3d-4e5f6a7b8c9d";
-const citationPrefix = "#knowledge-citation=";
+const workspaceId = 'ws_meadow';
+const chatId = '3f6b2c1e-8a4d-4f7e-9b1c-2d5e6f7a8b9c';
+const taskId = 'c2d4e6f8-1a3b-4c5d-8e7f-9a0b1c2d3e4f';
+const goodFile = '0b8f6a2e-5c1d-4e3f-9a7b-6c5d4e3f2a1b';
+const lostFile = '9e8d7c6b-5a4f-4e3d-8c2b-1a0f9e8d7c6b';
+const source = '6a7b8c9d-0e1f-4a2b-8c3d-4e5f6a7b8c9d';
+const citationPrefix = '#knowledge-citation=';
 
 type CitationState =
-  | { kind: "idle" | "loading" }
-  | { kind: "ready"; title: string; location: string; excerpt: string }
-  | { kind: "unavailable" | "error"; message: string };
+  | { kind: 'idle' | 'loading' }
+  | { kind: 'ready'; title: string; location: string; excerpt: string }
+  | { kind: 'unavailable' | 'error'; message: string };
 
 const passages: Record<string, CitationState> = {
-  "0": {
-    kind: "ready",
-    title: "Returns policy",
-    location: "Note · Refund window",
-    excerpt:
-      "Customers can return unopened bulbs within 30 days for a full refund. Opened packs get store credit…",
+  '0': {
+    kind: 'ready',
+    title: 'Returns policy',
+    location: 'Note · Refund window',
+    excerpt: 'Customers can return unopened bulbs within 30 days for a full refund. Opened packs get store credit…',
   },
-  "1": {
-    kind: "unavailable",
+  '1': {
+    kind: 'unavailable',
     message:
-      "This source changed, was removed, or your access ended. Its passage is hidden. Ask again to search current knowledge.",
+      'This source changed, was removed, or your access ended. Its passage is hidden. Ask again to search current knowledge.',
   },
-  "2": {
-    kind: "error",
-    message:
-      "We couldn’t check access to this source. Your answer is unchanged.",
+  '2': {
+    kind: 'error',
+    message: 'We couldn’t check access to this source. Your answer is unchanged.',
   },
 };
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 function SampleCitation({ id, children }: { id: string; children: ReactNode }) {
-  const [state, setState] = useState<CitationState>({ kind: "idle" });
-  const passage = id.split(":")[1] ?? "0";
+  const [state, setState] = useState<CitationState>({ kind: 'idle' });
+  const passage = id.split(':')[1] ?? '0';
   const load = async () => {
-    setState({ kind: "loading" });
+    setState({ kind: 'loading' });
     await wait(500);
-    setState(passages[passage] ?? passages["1"]!);
+    setState(passages[passage] ?? passages['1']!);
   };
   return (
-    <Popover onOpenChange={(open) => open && void load()}>
+    <Popover onOpenChange={open => open && void load()}>
       <PopoverTrigger className="mr-demo-citation">{children}</PopoverTrigger>
       <PopoverContent align="start">
-        {state.kind === "ready" ? (
+        {state.kind === 'ready' ? (
           <PopoverHeader>
             <PopoverTitle>{state.title}</PopoverTitle>
             <PopoverDescription>{state.location}</PopoverDescription>
             <p className="mr-demo-excerpt">{state.excerpt}</p>
           </PopoverHeader>
-        ) : state.kind === "unavailable" || state.kind === "error" ? (
-          <div
-            className="mr-demo-citation-message"
-            role={state.kind === "error" ? "alert" : undefined}
-          >
+        ) : state.kind === 'unavailable' || state.kind === 'error' ? (
+          <div className="mr-demo-citation-message" role={state.kind === 'error' ? 'alert' : undefined}>
             <p>{state.message}</p>
-            {state.kind === "error" && (
+            {state.kind === 'error' && (
               <Button variant="outline" size="sm" onClick={() => void load()}>
                 Retry
               </Button>
@@ -474,62 +428,49 @@ function SampleCitation({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
-function SampleDownload({
-  path,
-  children,
-}: {
-  path: string;
-  children: ReactNode;
-}) {
-  const [state, setState] = useState<"idle" | "loading" | "success" | "error">(
-    "idle",
-  );
+function SampleDownload({ path, children }: { path: string; children: ReactNode }) {
+  const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const download = async () => {
-    if (state === "loading") return;
-    setState("loading");
+    if (state === 'loading') return;
+    setState('loading');
     await wait(600);
     if (path.endsWith(lostFile)) {
-      setState("error");
+      setState('error');
       return;
     }
     const url = URL.createObjectURL(
-      new Blob(["Sample export from the Sprõut docs.\n"], {
-        type: "text/plain",
+      new Blob(['Sample export from the Sprõut docs.\n'], {
+        type: 'text/plain',
       }),
     );
     try {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = url;
-      link.download = "orders-export.txt";
+      link.download = 'orders-export.txt';
       link.click();
     } finally {
       URL.revokeObjectURL(url);
     }
-    setState("success");
+    setState('success');
   };
   return (
     <span>
       <Button
         variant="link"
         size="task-link"
-        disabled={state === "loading"}
-        aria-busy={state === "loading"}
+        disabled={state === 'loading'}
+        aria-busy={state === 'loading'}
         onClick={() => void download()}
       >
         {children}
       </Button>
-      {state === "loading" && (
-        <span role="status"> Checking access and downloading…</span>
-      )}
-      {state === "success" && (
-        <span role="status"> Download sent to your browser.</span>
-      )}
-      {state === "error" && (
+      {state === 'loading' && <span role="status"> Checking access and downloading…</span>}
+      {state === 'success' && <span role="status"> Download sent to your browser.</span>}
+      {state === 'error' && (
         <span role="alert">
-          {" "}
-          Download unavailable. Check your selected GitHub account and source
-          access, then select the link to retry. If the file changed or expired,
-          request a new download.
+          {' '}
+          Download unavailable. Check your selected GitHub account and source access, then select the link to retry. If
+          the file changed or expired, request a new download.
         </span>
       )}
     </span>
@@ -538,16 +479,11 @@ function SampleDownload({
 
 /** Sample adapter: citations open a passage, workspace downloads fetch a file, and other links open a new tab. */
 function githubLinks(id: string, task: boolean): MessageResponseRenderLink {
-  const prefix = `/v1/workspaces/${workspaceId}/github/${task ? "tasks" : "chats"}/${id}/downloads/`;
+  const prefix = `/v1/workspaces/${workspaceId}/github/${task ? 'tasks' : 'chats'}/${id}/downloads/`;
   return (href, label) => {
     if (href.startsWith(citationPrefix))
-      return (
-        <SampleCitation id={href.slice(citationPrefix.length)}>
-          {label}
-        </SampleCitation>
-      );
-    return href.startsWith(prefix) &&
-      /^[0-9a-f-]{36}$/.test(href.slice(prefix.length)) ? (
+      return <SampleCitation id={href.slice(citationPrefix.length)}>{label}</SampleCitation>;
+    return href.startsWith(prefix) && /^[0-9a-f-]{36}$/.test(href.slice(prefix.length)) ? (
       <SampleDownload path={href}>{label}</SampleDownload>
     ) : (
       <a href={href} target="_blank" rel="noopener noreferrer">
@@ -557,9 +493,7 @@ function githubLinks(id: string, task: boolean): MessageResponseRenderLink {
   };
 }
 
-const githubReply = (
-  prefix: string,
-) => `I compared the two exports in **meadow/storefront**.
+const githubReply = (prefix: string) => `I compared the two exports in **meadow/storefront**.
 
 - The refund rule matches [the returns policy](${citationPrefix}${source}:0).
 - The shipping rule cites [an old pricing note](${citationPrefix}${source}:1) that you can no longer open.
@@ -568,9 +502,9 @@ const githubReply = (
 Download [orders-export.csv](${prefix}${goodFile}) or the older [orders-2025.csv](${prefix}${lostFile}). The diff is on [GitHub](https://github.com/).`;
 
 export function MessageResponseLinks() {
-  const [mode, setMode] = useState<"chat" | "task">("chat");
-  const id = mode === "task" ? taskId : chatId;
-  const prefix = `/v1/workspaces/${workspaceId}/github/${mode === "task" ? "tasks" : "chats"}/${id}/downloads/`;
+  const [mode, setMode] = useState<'chat' | 'task'>('chat');
+  const id = mode === 'task' ? taskId : chatId;
+  const prefix = `/v1/workspaces/${workspaceId}/github/${mode === 'task' ? 'tasks' : 'chats'}/${id}/downloads/`;
   return (
     <Frame
       id="links"
@@ -581,17 +515,15 @@ export function MessageResponseLinks() {
           label="Download scope"
           value={mode}
           items={[
-            { value: "chat", label: "Chat" },
-            { value: "task", label: "Agent task" },
+            { value: 'chat', label: 'Chat' },
+            { value: 'task', label: 'Agent task' },
           ]}
           onChange={setMode}
         />
       }
     >
       <div className="mr-demo-bubble" data-testid="links-response">
-        <MessageResponse renderLink={githubLinks(id, mode === "task")}>
-          {githubReply(prefix)}
-        </MessageResponse>
+        <MessageResponse renderLink={githubLinks(id, mode === 'task')}>{githubReply(prefix)}</MessageResponse>
       </div>
     </Frame>
   );
@@ -600,12 +532,12 @@ export function MessageResponseLinks() {
 const taskPrefix = `/v1/workspaces/${workspaceId}/github/tasks/${taskId}/downloads/`;
 const history = [
   {
-    role: "owner",
-    text: "Export last month’s orders from **meadow/storefront** as CSV.",
+    role: 'owner',
+    text: 'Export last month’s orders from **meadow/storefront** as CSV.',
     sources: 0,
   },
   {
-    role: "agent",
+    role: 'agent',
     text: `Done. [orders-export.csv](${taskPrefix}${goodFile}) has 1,284 rows. I skipped 3 test orders.`,
     sources: 2,
   },
@@ -614,31 +546,20 @@ const history = [
 export function MessageResponseTaskHistory() {
   const renderLink = githubLinks(taskId, true);
   return (
-    <Frame
-      id="task"
-      title="Agent task result"
-      note="The latest agent update, then the full history."
-    >
+    <Frame id="task" title="Agent task result" note="The latest agent update, then the full history.">
       <div className="mr-demo-task">
         <section aria-label="Latest task update" className="mr-demo-stack">
           <h4 className="mr-demo-heading">Result</h4>
-          <MessageResponse renderLink={renderLink}>
-            {history[1].text}
-          </MessageResponse>
+          <MessageResponse renderLink={renderLink}>{history[1].text}</MessageResponse>
         </section>
         <ol className="mr-demo-history" aria-label="Request and history">
           {history.map((message, index) => (
             <li key={index}>
-              <h5 className="mr-demo-subheading">
-                {message.role === "owner" ? "You" : "Agent"}
-              </h5>
-              <MessageResponse renderLink={renderLink}>
-                {message.text}
-              </MessageResponse>
+              <h5 className="mr-demo-subheading">{message.role === 'owner' ? 'You' : 'Agent'}</h5>
+              <MessageResponse renderLink={renderLink}>{message.text}</MessageResponse>
               {message.sources > 0 && (
                 <p className="mr-demo-muted">
-                  {message.sources} explicit source references. Access is
-                  checked on each read.
+                  {message.sources} explicit source references. Access is checked on each read.
                 </p>
               )}
             </li>
@@ -674,23 +595,19 @@ Plant **400 tulip bulbs** across four beds before the ground freezes.
 - [ ] Buy bone meal`;
 
 const planFile: ViewableFile = {
-  name: "Spring planting plan.md",
-  mediaType: "text/markdown",
+  name: 'Spring planting plan.md',
+  mediaType: 'text/markdown',
   source: {
-    kind: "local",
-    file: new File([plan], "Spring planting plan.md", {
-      type: "text/markdown",
+    kind: 'local',
+    file: new File([plan], 'Spring planting plan.md', {
+      type: 'text/markdown',
     }),
   },
 };
 
 export function MessageResponseFile() {
   return (
-    <Frame
-      id="file"
-      title="Markdown file"
-      note="FileViewer's markdown renderer, with Show source and Show formatted."
-    >
+    <Frame id="file" title="Markdown file" note="FileViewer's markdown renderer, with Show source and Show formatted.">
       <FileRenderersProvider
         renderers={{
           markdown: ({ text }) => <MessageResponse>{text}</MessageResponse>,
@@ -722,7 +639,7 @@ function CopyHandoff({ text }: { text: string }) {
       <Button
         variant="ghost"
         size="icon-sm"
-        aria-label={copied ? "Copied" : "Copy handoff"}
+        aria-label={copied ? 'Copied' : 'Copy handoff'}
         onClick={() =>
           void navigator.clipboard.writeText(text).then(
             () => setCopied(true),
@@ -737,9 +654,7 @@ function CopyHandoff({ text }: { text: string }) {
 }
 
 export function MessageResponseHandoff() {
-  const [status, setStatus] = useState<"completed" | "hidden" | "failed">(
-    "completed",
-  );
+  const [status, setStatus] = useState<'completed' | 'hidden' | 'failed'>('completed');
   return (
     <Frame
       id="handoff"
@@ -750,34 +665,29 @@ export function MessageResponseHandoff() {
           label="Handoff state"
           value={status}
           items={[
-            { value: "completed", label: "Written" },
-            { value: "hidden", label: "Hidden" },
-            { value: "failed", label: "Failed" },
+            { value: 'completed', label: 'Written' },
+            { value: 'hidden', label: 'Hidden' },
+            { value: 'failed', label: 'Failed' },
           ]}
           onChange={setStatus}
         />
       }
     >
-      <section
-        className="mr-demo-stack"
-        aria-label="Handoff"
-        data-testid="handoff"
-      >
-        {status === "failed" && (
+      <section className="mr-demo-stack" aria-label="Handoff" data-testid="handoff">
+        {status === 'failed' && (
           <Alert variant="destructive">
             <AlertDescription>
-              The handoff could not be written. The model stopped early.
-              Retrying writes only the handoff; the working summary is kept.
+              The handoff could not be written. The model stopped early. Retrying writes only the handoff; the working
+              summary is kept.
             </AlertDescription>
           </Alert>
         )}
-        {status === "hidden" && (
+        {status === 'hidden' && (
           <p className="mr-demo-muted">
-            This handoff is hidden because you can no longer read some of the
-            sources it was written from.
+            This handoff is hidden because you can no longer read some of the sources it was written from.
           </p>
         )}
-        {status === "completed" && (
+        {status === 'completed' && (
           <>
             <div className="mr-demo-panel">
               <MessageResponse>{handoff}</MessageResponse>
@@ -785,9 +695,7 @@ export function MessageResponseHandoff() {
             <CopyHandoff text={handoff} />
           </>
         )}
-        <p className="mr-demo-small">
-          Instructions: Keep order numbers and the open question.
-        </p>
+        <p className="mr-demo-small">Instructions: Keep order numbers and the open question.</p>
       </section>
     </Frame>
   );

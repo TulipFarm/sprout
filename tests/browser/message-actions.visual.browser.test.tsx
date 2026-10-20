@@ -1,22 +1,19 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import {
-  MessageActions,
-  MessageBranch,
-} from "../../packages/sprout/src/components/message-actions.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { MessageActions, MessageBranch } from '../../packages/sprout/src/components/message-actions.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("message-actions %s %s", async (theme, mode) => {
+it.each(themes)('message-actions %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
+        display: 'grid',
         gap: 12,
         padding: 16,
         width: 360,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <MessageActions
@@ -32,7 +29,5 @@ it.each(themes)("message-actions %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`message-actions-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`message-actions-${theme}-${mode}`);
 });

@@ -21,12 +21,12 @@
     width: 64px;
     height: 64px;
   }
-  .sprout-spinner[data-variant="thinking"] {
+  .sprout-spinner[data-variant='thinking'] {
     vertical-align: middle;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .sprout-spinner[data-variant="default"] {
+    .sprout-spinner[data-variant='default'] {
       animation: sprout-spinner-spin 1s linear infinite;
     }
   }

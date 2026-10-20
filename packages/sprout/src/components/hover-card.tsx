@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
-import { stateClassName } from "../internal/classes.js";
+import { PreviewCard as PreviewCardPrimitive } from '@base-ui/react/preview-card';
+import { stateClassName } from '../internal/classes.js';
 
 export type HoverCardProps = PreviewCardPrimitive.Root.Props;
 
@@ -20,41 +20,34 @@ export type HoverCardTriggerProps = PreviewCardPrimitive.Trigger.Props;
  * link or router link through `render`. Takes `delay` (600ms) and
  * `closeDelay` (300ms).
  */
-export function HoverCardTrigger({
-  className,
-  ...props
-}: HoverCardTriggerProps) {
+export function HoverCardTrigger({ className, ...props }: HoverCardTriggerProps) {
   return (
     <PreviewCardPrimitive.Trigger
       data-slot="hover-card-trigger"
       {...props}
-      className={stateClassName<PreviewCardPrimitive.Trigger.State>(
-        "sprout-hover-card-trigger",
-        className,
-      )}
+      className={stateClassName<PreviewCardPrimitive.Trigger.State>('sprout-hover-card-trigger', className)}
     />
   );
 }
 
 type PositionerProps = Pick<
   PreviewCardPrimitive.Positioner.Props,
-  | "align"
-  | "alignOffset"
-  | "side"
-  | "sideOffset"
-  | "anchor"
-  | "collisionPadding"
-  | "collisionAvoidance"
-  | "sticky"
-  | "positionMethod"
+  | 'align'
+  | 'alignOffset'
+  | 'side'
+  | 'sideOffset'
+  | 'anchor'
+  | 'collisionPadding'
+  | 'collisionAvoidance'
+  | 'sticky'
+  | 'positionMethod'
 >;
 
-export interface HoverCardContentProps
-  extends PreviewCardPrimitive.Popup.Props, PositionerProps {
+export interface HoverCardContentProps extends PreviewCardPrimitive.Popup.Props, PositionerProps {
   /** Keep the card in the DOM while closed. */
-  keepMounted?: PreviewCardPrimitive.Portal.Props["keepMounted"];
+  keepMounted?: PreviewCardPrimitive.Portal.Props['keepMounted'];
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: PreviewCardPrimitive.Portal.Props["container"];
+  container?: PreviewCardPrimitive.Portal.Props['container'];
 }
 
 /**
@@ -62,9 +55,9 @@ export interface HoverCardContentProps
  * it directly inside `HoverCard`.
  */
 export function HoverCardContent({
-  side = "bottom",
+  side = 'bottom',
   sideOffset = 4,
-  align = "center",
+  align = 'center',
   alignOffset = 4,
   collisionPadding = 8,
   collisionAvoidance,
@@ -77,11 +70,7 @@ export function HoverCardContent({
   ...props
 }: HoverCardContentProps) {
   return (
-    <PreviewCardPrimitive.Portal
-      data-slot="hover-card-portal"
-      keepMounted={keepMounted}
-      container={container}
-    >
+    <PreviewCardPrimitive.Portal data-slot="hover-card-portal" keepMounted={keepMounted} container={container}>
       <PreviewCardPrimitive.Positioner
         className="sprout-hover-card-positioner"
         anchor={anchor}
@@ -97,10 +86,7 @@ export function HoverCardContent({
         <PreviewCardPrimitive.Popup
           data-slot="hover-card-content"
           {...props}
-          className={stateClassName<PreviewCardPrimitive.Popup.State>(
-            "sprout-hover-card-content",
-            className,
-          )}
+          className={stateClassName<PreviewCardPrimitive.Popup.State>('sprout-hover-card-content', className)}
         />
       </PreviewCardPrimitive.Positioner>
     </PreviewCardPrimitive.Portal>

@@ -61,10 +61,7 @@
     .sprout-pagination-label {
       display: none;
     }
-    .sprout-pagination-link:is(
-      .sprout-pagination-previous,
-      .sprout-pagination-next
-    ) {
+    .sprout-pagination-link:is(.sprout-pagination-previous, .sprout-pagination-next) {
       aspect-ratio: 1;
       padding-inline: 0;
     }

@@ -1,22 +1,13 @@
-import {
-  useEffect,
-  useId,
-  useRef,
-  type ComponentProps,
-  type ReactNode,
-} from "react";
-import { cn } from "../internal/classes.js";
-import { Button } from "./button.js";
-import { Spinner } from "./spinner.js";
+import { useEffect, useId, useRef, type ComponentProps, type ReactNode } from 'react';
+import { cn } from '../internal/classes.js';
+import { Button } from './button.js';
+import { Spinner } from './spinner.js';
 
-export const mentionStatusToneNames = ["loading", "empty", "error"] as const;
+export const mentionStatusToneNames = ['loading', 'empty', 'error'] as const;
 
 export type MentionStatusTone = (typeof mentionStatusToneNames)[number];
 
-export interface MentionListProps extends Omit<
-  ComponentProps<"div">,
-  "id" | "children"
-> {
+export interface MentionListProps extends Omit<ComponentProps<'div'>, 'id' | 'children'> {
   /** The listbox id. Point the text field's `aria-controls` at it. */
   id: string;
   /** Names the listbox, such as “Files you can add”. */
@@ -36,27 +27,10 @@ export interface MentionListProps extends Omit<
  * A suggestion panel for `@` and `/` triggers. The text field keeps focus and
  * owns the arrow keys; it points `aria-activedescendant` at the active option.
  */
-export function MentionList({
-  id,
-  label,
-  status,
-  announcement,
-  children,
-  className,
-  ...props
-}: MentionListProps) {
+export function MentionList({ id, label, status, announcement, children, className, ...props }: MentionListProps) {
   return (
-    <div
-      data-slot="mention-list"
-      className={cn("sprout-mention-list", className)}
-      {...props}
-    >
-      <ul
-        id={id}
-        role="listbox"
-        aria-label={label}
-        className="sprout-mention-list-options"
-      >
+    <div data-slot="mention-list" className={cn('sprout-mention-list', className)} {...props}>
+      <ul id={id} role="listbox" aria-label={label} className="sprout-mention-list-options">
         {children}
       </ul>
       {status}
@@ -67,10 +41,7 @@ export function MentionList({
   );
 }
 
-export interface MentionOptionProps extends Omit<
-  ComponentProps<"li">,
-  "id" | "title" | "children" | "onSelect"
-> {
+export interface MentionOptionProps extends Omit<ComponentProps<'li'>, 'id' | 'title' | 'children' | 'onSelect'> {
   /** Unique id the text field uses in `aria-activedescendant`. */
   id: string;
   /** The keyboard-highlighted option. It scrolls into view when it becomes active. */
@@ -94,7 +65,7 @@ export function MentionOption({
 }: MentionOptionProps) {
   const option = useRef<HTMLLIElement>(null);
   useEffect(() => {
-    if (active) option.current?.scrollIntoView?.({ block: "nearest" });
+    if (active) option.current?.scrollIntoView?.({ block: 'nearest' });
   }, [active]);
   return (
     <li
@@ -103,18 +74,15 @@ export function MentionOption({
       role="option"
       aria-selected={active}
       data-slot="mention-option"
-      data-active={active ? "" : undefined}
-      className={cn("sprout-mention-option", className)}
+      data-active={active ? '' : undefined}
+      className={cn('sprout-mention-option', className)}
       {...props}
       // Keeps focus (and the caret) in the text field.
-      onMouseDown={(event) => event.preventDefault()}
+      onMouseDown={event => event.preventDefault()}
       onClick={onSelect}
     >
       {media != null && media !== false && (
-        <span
-          data-slot="mention-option-media"
-          className="sprout-mention-option-media"
-        >
+        <span data-slot="mention-option-media" className="sprout-mention-option-media">
           {media}
         </span>
       )}
@@ -122,11 +90,7 @@ export function MentionOption({
         <span className="sprout-mention-option-title" title={title}>
           {title}
         </span>
-        {description && (
-          <span className="sprout-mention-option-description">
-            {description}
-          </span>
-        )}
+        {description && <span className="sprout-mention-option-description">{description}</span>}
       </span>
     </li>
   );
@@ -142,19 +106,11 @@ export interface MentionGroupProps {
 export function MentionGroup({ label, children }: MentionGroupProps) {
   const id = useId();
   return (
-    <li
-      role="presentation"
-      data-slot="mention-group"
-      className="sprout-mention-group"
-    >
+    <li role="presentation" data-slot="mention-group" className="sprout-mention-group">
       <span id={id} aria-hidden="true" className="sprout-mention-group-label">
         {label}
       </span>
-      <ul
-        role="group"
-        aria-labelledby={id}
-        className="sprout-mention-group-options"
-      >
+      <ul role="group" aria-labelledby={id} className="sprout-mention-group-options">
         {children}
       </ul>
     </li>
@@ -179,17 +135,17 @@ export function MentionStatus({ tone, children, action }: MentionStatusProps) {
     <div
       data-slot="mention-status"
       data-tone={tone}
-      role={tone === "error" ? "alert" : "status"}
+      role={tone === 'error' ? 'alert' : 'status'}
       className="sprout-mention-status"
     >
-      {tone === "loading" && <Spinner aria-hidden="true" />}
+      {tone === 'loading' && <Spinner aria-hidden="true" />}
       <span className="sprout-mention-status-text">{children}</span>
       {action && (
         <Button
           size="sm"
           variant="outline"
           className="sprout-mention-status-action"
-          onMouseDown={(event) => event.preventDefault()}
+          onMouseDown={event => event.preventDefault()}
           onClick={action.onAction}
         >
           {action.label}

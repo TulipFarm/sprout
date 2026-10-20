@@ -91,12 +91,11 @@
   gap: 4px;
   min-width: 0;
   padding: 8px 12px;
-  border: 1px solid
-    color-mix(in oklab, var(--sprout-text) 16%, var(--sprout-surface));
+  border: 1px solid color-mix(in oklab, var(--sprout-text) 16%, var(--sprout-surface));
   border-radius: var(--sprout-radius-panel);
   background: var(--sprout-surface);
 }
-.choice-list-demo-question [data-slot="form-footer"] {
+.choice-list-demo-question [data-slot='form-footer'] {
   padding-top: 4px;
 }
 .choice-list-demo-answered {

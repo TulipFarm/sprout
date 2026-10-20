@@ -68,7 +68,7 @@
     font-size: var(--sprout-text-sm);
     line-height: 1.25rem;
   }
-  .sprout-accordion-content[hidden]:not([hidden="until-found"]) {
+  .sprout-accordion-content[hidden]:not([hidden='until-found']) {
     display: none;
   }
   .sprout-accordion-content[data-starting-style],
@@ -91,12 +91,10 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-accordion-trigger-icon {
-      transition: transform var(--sprout-motion-fast, 120ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: transform var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-accordion-content {
-      transition: height var(--sprout-motion-normal, 180ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: height var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
     }
   }
 }

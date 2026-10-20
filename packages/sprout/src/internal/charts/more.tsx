@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useMemo, type CSSProperties } from "react";
+import { useMemo, type CSSProperties } from 'react';
 import {
   CartesianGrid,
   PolarAngleAxis,
@@ -15,8 +15,8 @@ import {
   ZAxis,
   type SankeyLinkProps,
   type SankeyNodeProps,
-} from "recharts";
-import { cn } from "../classes.js";
+} from 'recharts';
+import { cn } from '../classes.js';
 import {
   ChartContainer,
   ChartLegend,
@@ -34,7 +34,7 @@ import {
   type ChartSeries,
   type ReadyChartProps,
   type ValueFormatter,
-} from "../chart-kit.js";
+} from '../chart-kit.js';
 
 const HEAT_STEPS = 5;
 
@@ -63,48 +63,33 @@ export function HeatmapChart({
   x,
   y,
   value,
-  color = "var(--sprout-chart-1)",
-  scaleLabels = ["Less", "More"],
+  color = 'var(--sprout-chart-1)',
+  scaleLabels = ['Less', 'More'],
   title = `${value} by ${y} and ${x}`,
   valueFormatter = formatNumber,
   className,
 }: HeatmapChartProps) {
   const grid = useMemo(() => {
-    const columns = [...new Set(rows.map((row) => String(row[x])))];
-    const lines = [...new Set(rows.map((row) => String(row[y])))];
-    const cells = new Map(
-      rows.map((row) => [
-        `${String(row[y])}\u0000${String(row[x])}`,
-        Number(row[value]) || 0,
-      ]),
-    );
+    const columns = [...new Set(rows.map(row => String(row[x])))];
+    const lines = [...new Set(rows.map(row => String(row[y])))];
+    const cells = new Map(rows.map(row => [`${String(row[y])}\u0000${String(row[x])}`, Number(row[value]) || 0]));
     const max = Math.max(0, ...cells.values());
     return { columns, lines, cells, max };
   }, [rows, x, y, value]);
-  const shade = (step: number) =>
-    step === 0 ? "var(--sprout-secondary)" : chartShade(color, step);
-  const step = (amount: number) =>
-    grid.max > 0 && amount > 0
-      ? Math.ceil((amount / grid.max) * HEAT_STEPS)
-      : 0;
+  const shade = (step: number) => (step === 0 ? 'var(--sprout-secondary)' : chartShade(color, step));
+  const step = (amount: number) => (grid.max > 0 && amount > 0 ? Math.ceil((amount / grid.max) * HEAT_STEPS) : 0);
   return (
-    <div
-      data-slot="chart"
-      data-variant="heatmap"
-      className={cn("sprout-chart-heatmap", className)}
-    >
+    <div data-slot="chart" data-variant="heatmap" className={cn('sprout-chart-heatmap', className)}>
       <div className="sprout-chart-heatmap-scroll">
         <table
           className="sprout-chart-heatmap-table"
-          style={
-            { "--sprout-heat-columns": grid.columns.length } as CSSProperties
-          }
+          style={{ '--sprout-heat-columns': grid.columns.length } as CSSProperties}
         >
           <caption className="sprout-chart-sr-only">{title}</caption>
           <thead>
             <tr>
               <td />
-              {grid.columns.map((column) => (
+              {grid.columns.map(column => (
                 <th key={column} scope="col">
                   {column}
                 </th>
@@ -112,10 +97,10 @@ export function HeatmapChart({
             </tr>
           </thead>
           <tbody>
-            {grid.lines.map((line) => (
+            {grid.lines.map(line => (
               <tr key={line}>
                 <th scope="row">{line}</th>
-                {grid.columns.map((column) => {
+                {grid.columns.map(column => {
                   const amount = grid.cells.get(`${line}\u0000${column}`) ?? 0;
                   const text = valueFormatter(amount);
                   return (
@@ -178,24 +163,14 @@ export function ScatterPlotChart({
 }: ScatterPlotChartProps) {
   const config = useMemo(() => seriesConfig(series), [series]);
   return (
-    <ChartContainer
-      data-variant="scatter"
-      className={cn("sprout-chart-scatter", className)}
-      config={config}
-    >
+    <ChartContainer data-variant="scatter" className={cn('sprout-chart-scatter', className)} config={config}>
       <ScatterChart
         accessibilityLayer
         title={title ?? `${labels?.y ?? y} by ${labels?.x ?? x}`}
         margin={{ top: 8, right: 12, bottom: 0, left: 0 }}
       >
         <CartesianGrid />
-        <XAxis
-          type="number"
-          dataKey={x}
-          name={labels?.x ?? x}
-          tickFormatter={xValueFormatter}
-          {...quietAxis}
-        />
+        <XAxis type="number" dataKey={x} name={labels?.x ?? x} tickFormatter={xValueFormatter} {...quietAxis} />
         <YAxis
           type="number"
           dataKey={y}
@@ -205,37 +180,28 @@ export function ScatterPlotChart({
           {...quietAxis}
         />
         {size ? (
-          <ZAxis
-            type="number"
-            dataKey={size}
-            name={labels?.size ?? size}
-            range={[40, 480]}
-          />
+          <ZAxis type="number" dataKey={size} name={labels?.size ?? size} range={[40, 480]} />
         ) : (
           <ZAxis range={[48, 48]} />
         )}
         <ChartTooltip
-          cursor={{ strokeDasharray: "3 3" }}
-          content={(props) => (
+          cursor={{ strokeDasharray: '3 3' }}
+          content={props => (
             <ChartTooltipContent
               active={props.active}
               hideLabel
-              payload={props.payload?.map((item) => ({
+              payload={props.payload?.map(item => ({
                 ...item,
                 value:
-                  typeof item.value === "number"
-                    ? (item.dataKey === x ? xValueFormatter : valueFormatter)(
-                        item.value,
-                      )
+                  typeof item.value === 'number'
+                    ? (item.dataKey === x ? xValueFormatter : valueFormatter)(item.value)
                     : item.value,
               }))}
             />
           )}
         />
-        {series.length > 1 ? (
-          <ChartLegend content={configLegend(config)} />
-        ) : null}
-        {series.map((item) => (
+        {series.length > 1 ? <ChartLegend content={configLegend(config)} /> : null}
+        {series.map(item => (
           <Scatter
             key={item.key}
             name={item.label}
@@ -265,19 +231,13 @@ export interface SankeyChartProps extends ReadyChartProps {
 export function SankeyChart({
   nodes,
   links,
-  title = "Flow between stages",
+  title = 'Flow between stages',
   valueFormatter = formatNumber,
   className,
 }: SankeyChartProps) {
   const data = useMemo(() => ({ nodes, links }), [nodes, links]);
   const config = useMemo(
-    () =>
-      Object.fromEntries(
-        nodes.map((node, index) => [
-          node.name,
-          { label: node.name, color: partColor(index) },
-        ]),
-      ),
+    () => Object.fromEntries(nodes.map((node, index) => [node.name, { label: node.name, color: partColor(index) }])),
     [nodes],
   );
   const node = ({ x, y, width, height, index, payload }: SankeyNodeProps) => {
@@ -285,18 +245,11 @@ export function SankeyChart({
     const last = !(payload as { targetLinks?: unknown[] }).targetLinks?.length;
     return (
       <g>
-        <rect
-          x={x}
-          y={y}
-          width={width}
-          height={height}
-          rx={2}
-          fill={partColor(index)}
-        />
+        <rect x={x} y={y} width={width} height={height} rx={2} fill={partColor(index)} />
         <text
           x={last ? x - 8 : x + width + 8}
           y={y + height / 2}
-          textAnchor={last ? "end" : "start"}
+          textAnchor={last ? 'end' : 'start'}
           dominantBaseline="middle"
           className="sprout-chart-sankey-label"
         >
@@ -318,9 +271,7 @@ export function SankeyChart({
     linkWidth,
     payload,
   }: SankeyLinkProps) => {
-    const source = nodes.findIndex(
-      (item) => item.name === (payload.source as { name?: string }).name,
-    );
+    const source = nodes.findIndex(item => item.name === (payload.source as { name?: string }).name);
     return (
       <path
         d={`M${sourceX},${sourceY}C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${targetX},${targetY}`}
@@ -335,7 +286,7 @@ export function SankeyChart({
   return (
     <ChartContainer
       data-variant="sankey"
-      className={cn("sprout-chart-sankey", className)}
+      className={cn('sprout-chart-sankey', className)}
       config={config}
       role="img"
       aria-label={title}
@@ -348,11 +299,7 @@ export function SankeyChart({
         node={node}
         link={link}
       >
-        <ChartTooltip
-          content={
-            <ChartTooltipContent hideLabel valueFormatter={valueFormatter} />
-          }
-        />
+        <ChartTooltip content={<ChartTooltipContent hideLabel valueFormatter={valueFormatter} />} />
       </Sankey>
     </ChartContainer>
   );
@@ -380,34 +327,18 @@ export function RadarScoreChart({
 }: RadarScoreChartProps) {
   const config = useMemo(() => seriesConfig(series), [series]);
   return (
-    <ChartContainer
-      data-variant="radar"
-      className={cn("sprout-chart-radar", className)}
-      config={config}
-    >
+    <ChartContainer data-variant="radar" className={cn('sprout-chart-radar', className)} config={config}>
       <RadarChart
         data={rows}
         accessibilityLayer
-        title={
-          title ??
-          `${series.map((item) => item.label).join(", ")} by ${category}`
-        }
+        title={title ?? `${series.map(item => item.label).join(', ')} by ${category}`}
         outerRadius="72%"
       >
         <PolarGrid />
         <PolarAngleAxis dataKey={category} />
-        <ChartTooltip
-          content={
-            <ChartTooltipContent
-              indicator="line"
-              valueFormatter={valueFormatter}
-            />
-          }
-        />
-        {series.length > 1 ? (
-          <ChartLegend itemSorter={null} content={<ChartLegendContent />} />
-        ) : null}
-        {series.map((item) => (
+        <ChartTooltip content={<ChartTooltipContent indicator="line" valueFormatter={valueFormatter} />} />
+        {series.length > 1 ? <ChartLegend itemSorter={null} content={<ChartLegendContent />} /> : null}
+        {series.map(item => (
           <Radar
             key={item.key}
             dataKey={item.key}

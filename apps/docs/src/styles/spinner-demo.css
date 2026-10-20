@@ -187,10 +187,10 @@
   color: var(--sprout-muted);
   transition: color var(--sprout-motion-fast, 120ms) ease-out;
 }
-.spinner-demo-slot[data-phase="done"] {
+.spinner-demo-slot[data-phase='done'] {
   color: var(--sprout-success);
 }
-.spinner-demo-slot[data-phase="failed"] {
+.spinner-demo-slot[data-phase='failed'] {
   color: var(--sprout-danger);
 }
 .spinner-demo-step {
@@ -207,13 +207,13 @@
   color: var(--sprout-muted);
   transition: color var(--sprout-motion-fast, 120ms) ease-out;
 }
-.spinner-demo-step[data-phase="running"] .spinner-demo-step-icon {
+.spinner-demo-step[data-phase='running'] .spinner-demo-step-icon {
   color: var(--sprout-info);
 }
-.spinner-demo-step[data-phase="done"] .spinner-demo-step-icon {
+.spinner-demo-step[data-phase='done'] .spinner-demo-step-icon {
   color: var(--sprout-success);
 }
-.spinner-demo-step[data-phase="failed"] .spinner-demo-step-icon {
+.spinner-demo-step[data-phase='failed'] .spinner-demo-step-icon {
   color: var(--sprout-danger);
 }
 .spinner-demo-tool {
@@ -244,12 +244,11 @@
   outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   outline-offset: -1px;
 }
-.spinner-demo-tool-trigger [data-slot="collapsible-indicator"] {
+.spinner-demo-tool-trigger [data-slot='collapsible-indicator'] {
   flex-shrink: 0;
   transition: transform var(--sprout-motion-fast, 120ms) ease-out;
 }
-.spinner-demo-tool-trigger[data-panel-open]
-  [data-slot="collapsible-indicator"] {
+.spinner-demo-tool-trigger[data-panel-open] [data-slot='collapsible-indicator'] {
   transform: rotate(180deg);
 }
 .spinner-demo-tool-name {
@@ -274,10 +273,10 @@
   font-size: var(--sprout-text-sm);
   color: var(--sprout-muted);
 }
-.spinner-demo-result[data-phase="done"] {
+.spinner-demo-result[data-phase='done'] {
   color: var(--sprout-success);
 }
-.spinner-demo-result[data-phase="failed"] {
+.spinner-demo-result[data-phase='failed'] {
   color: var(--sprout-danger);
 }
 
@@ -319,7 +318,7 @@
   .spinner-demo-slot,
   .spinner-demo-step-icon,
   .spinner-demo-tool-trigger,
-  .spinner-demo-tool-trigger [data-slot="collapsible-indicator"] {
+  .spinner-demo-tool-trigger [data-slot='collapsible-indicator'] {
     transition: none;
   }
 }

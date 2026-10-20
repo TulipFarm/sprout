@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import FileViewerDemo from "../../components/FileViewerDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import FileViewerDemo from '../../components/FileViewerDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,14 +10,14 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">File Viewer</h1>
   <p class="docs-lead">
-    Shows a file without leaving the page: images, PDF, text, JSON, Markdown,
-    source code in any language, Google Docs links and shortcuts, plus
-    spreadsheets and Office files through renderers you register. Use <code
-      >FileViewer</code
-    > for a full-screen dialog, <code>ViewableFileContent</code> inline, and
+    Shows a file without leaving the page: images, PDF, text, JSON, Markdown, source code in any language, Google Docs
+    links and shortcuts, plus spreadsheets and Office files through renderers you register. Use <code>FileViewer</code>{' '}
+    for a full-screen dialog, <code>ViewableFileContent</code> inline, and
     <code>FileContent</code> when you load the bytes yourself.
   </p>
-  <div class="mt-8"><FileViewerDemo client:load /></div>
+  <div class="mt-8">
+    <FileViewerDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Dialog</h2>
     <CodeBlock
@@ -35,15 +35,11 @@ import { FileViewer } from "@tulipfarm/sprout/file-viewer";
 />`}
     />
     <p>
-      <code>file.source</code> is <code>{'{ kind: "local", file }'}</code> for a
-      <code>File</code> in browser memory or <code
-        >{'{ kind: "remote", url }'}</code
-      >
-      for a link. The header shows the name and “Local file · Not uploaded”, “Linked
-      file”, or “Google document”. Docs, Sheets, and Slides links on docs.google.com
-      embed Google’s viewer and add Open in Google. Other files load up to 50 MB,
-      time out after 15 seconds, and get Download in the header. Reload sits in the
-      More actions menu.
+      <code>file.source</code> is <code>{'{ kind: "local", file }'}</code> for a<code>File</code> in browser memory or{' '}
+      <code>{'{ kind: "remote", url }'}</code>
+      for a link. The header shows the name and “Local file · Not uploaded”, “Linked file”, or “Google document”. Docs,
+      Sheets, and Slides links on docs.google.com embed Google’s viewer and add Open in Google. Other files load up to
+      50 MB, time out after 15 seconds, and get Download in the header. Reload sits in the More actions menu.
     </p>
   </section>
   <section class="prose-section">
@@ -64,13 +60,12 @@ import { FileViewer } from "@tulipfarm/sprout/file-viewer";
     />
     <p>
       Pass <code>files</code>, <code>index</code>, and
-      <code>onIndexChange</code> instead of <code>file</code>. With more than
-      one file the header adds Previous file and Next file buttons and an “N of
-      M” count. Left and Right arrows step too. The arrows stop at the first and
-      last file. They are ignored while focus is in a text field, an embed, or a
-      scrollable region, and when a modifier key is held.
-      <code>finalFocus</code> picks where focus lands on close, usually the button
-      for the file that was last on screen. <code>AttachmentGroup</code>
+      <code>onIndexChange</code> instead of <code>file</code>. With more than one file the header adds Previous file and
+      Next file buttons and an “N of M” count. Left and Right arrows step too. The arrows stop at the first and last
+      file. They are ignored while focus is in a text field, an embed, or a scrollable region, and when a modifier key
+      is held.
+      <code>finalFocus</code> picks where focus lands on close, usually the button for the file that was last on screen.{' '}
+      <code>AttachmentGroup</code>
       wires this up for you.
     </p>
   </section>
@@ -91,41 +86,30 @@ const url = URL.createObjectURL(new Blob([bytes], { type: renderableType(name, m
     />
     <p>
       All three fill a flex column, so give the parent a height.
-      <code>renderableType</code> picks a safe type for the blob URL: PDF and raster
-      images keep theirs, and anything a browser could run, including SVG, becomes
+      <code>renderableType</code> picks a safe type for the blob URL: PDF and raster images keep theirs, and anything a
+      browser could run, including SVG, becomes
       <code>application/octet-stream</code>.
     </p>
     <ul>
-      <li>
-        Images fit the frame; Actual size scrolls them at full resolution.
-      </li>
+      <li>Images fit the frame; Actual size scrolls them at full resolution.</li>
       <li>
         Text, code, JSON, and Markdown source show in a <code>CodeBlock</code>
         with syntax colors and Copy. The language comes from the file name, such as
-        <code>.py</code>, <code>.rs</code>, or <code>Dockerfile</code>. Code
-        keeps line numbers; notes and Markdown wrap.
+        <code>.py</code>, <code>.rs</code>, or <code>Dockerfile</code>. Code keeps line numbers; notes and Markdown
+        wrap.
       </li>
+      <li>JSON is pretty-printed. Invalid JSON shows its original text with a warning.</li>
+      <li>Markdown is formatted, with a Show source toggle, when a Markdown renderer is registered.</li>
       <li>
-        JSON is pretty-printed. Invalid JSON shows its original text with a
-        warning.
-      </li>
-      <li>
-        Markdown is formatted, with a Show source toggle, when a Markdown
-        renderer is registered.
-      </li>
-      <li>
-        <code>FilePreview</code> shows a small, non-interactive peek: the image, or
-        the first 24 lines of text and code. <code>isPreviewableFile</code>
+        <code>FilePreview</code> shows a small, non-interactive peek: the image, or the first 24 lines of text and code.{' '}
+        <code>isPreviewableFile</code>
         says whether a file has one.
       </li>
       <li>
-        Empty files, text that isn’t UTF-8, legacy <code>.ppt</code>, and other
-        formats show a state that says what to do next.
+        Empty files, text that isn’t UTF-8, legacy <code>.ppt</code>, and other formats show a state that says what to
+        do next.
       </li>
-      <li>
-        An embed that hasn’t loaded after 12 seconds offers Reload viewer. It is
-        also in the More actions menu.
-      </li>
+      <li>An embed that hasn’t loaded after 12 seconds offers Reload viewer. It is also in the More actions menu.</li>
     </ul>
   </section>
   <section class="prose-section">
@@ -149,12 +133,10 @@ const OfficeFile = lazy(() => import("./office-file"));
 </FileRenderersProvider>`}
     />
     <p>
-      Spreadsheet and Office parsers are large, so Sprõut doesn’t bundle them.
-      Each renderer runs inside Suspense with <code>LoadingFile</code> as the fallback,
-      so lazy components work as they are. Renderers can use
-      <code>LoadingFile</code> and <code>FileError</code> for their own states. Any
-      viewer also takes a <code>renderers</code> prop that overrides the provider.
-      The demo above uses small sample renderers.
+      Spreadsheet and Office parsers are large, so Sprõut doesn’t bundle them. Each renderer runs inside Suspense with{' '}
+      <code>LoadingFile</code> as the fallback, so lazy components work as they are. Renderers can use
+      <code>LoadingFile</code> and <code>FileError</code> for their own states. Any viewer also takes a{' '}
+      <code>renderers</code> prop that overrides the provider. The demo above uses small sample renderers.
     </p>
   </section>
   <section class="prose-section">
@@ -178,42 +160,37 @@ const OfficeFile = lazy(() => import("./office-file"));
 />`}
     />
     <p>
-      <code>actions</code> sits in the header before Download. Put who is viewing
-      and a Share button there. <code>menu</code> adds
+      <code>actions</code> sits in the header before Download. Put who is viewing and a Share button there.{' '}
+      <code>menu</code> adds
       <code>DropdownMenuItem</code>s to More actions after Reload.
       <code>panel</code> adds a side panel and a header toggle named by
-      <code>panelLabel</code>. The panel starts open on screens 1024px and
-      wider. Set <code>defaultPanelOpen</code>, or control it with
-      <code>panelOpen</code> and <code>onPanelOpenChange</code>. The panel stays
-      mounted while hidden and across file steps, so tabs and drafts inside it
-      survive. On small screens it covers the file.
+      <code>panelLabel</code>. The panel starts open on screens 1024px and wider. Set <code>defaultPanelOpen</code>, or
+      control it with
+      <code>panelOpen</code> and <code>onPanelOpenChange</code>. The panel stays mounted while hidden and across file
+      steps, so tabs and drafts inside it survive. On small screens it covers the file.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The dialog is titled by the file name and traps focus; Escape or “Close
-      file viewer” closes it and returns focus to the button that opened it.
-      Loading is announced as a status and errors as an alert, each with a Try
-      again button. Actual size is a toggle button with
-      <code>aria-pressed</code>, and the zoomed image is a scrollable, focusable
-      region. Text and code scroll in a focusable region named after the
-      language, such as “Python code”, and formatted Markdown in one named after
-      the file. Show source is a toggle button with
-      <code>aria-pressed</code>. When stepping, the new file’s name and
-      position, such as “README.md, file 2 of 6”, are announced politely.
-      Embedded frames are named after the file. Images fade in over 180ms and
-      the slow-viewer notice over 120ms; with reduced motion both appear at
-      once.
+      The dialog is titled by the file name and traps focus; Escape or “Close file viewer” closes it and returns focus
+      to the button that opened it. Loading is announced as a status and errors as an alert, each with a Try again
+      button. Actual size is a toggle button with
+      <code>aria-pressed</code>, and the zoomed image is a scrollable, focusable region. Text and code scroll in a
+      focusable region named after the language, such as “Python code”, and formatted Markdown in one named after the
+      file. Show source is a toggle button with
+      <code>aria-pressed</code>. When stepping, the new file’s name and position, such as “README.md, file 2 of 6”, are
+      announced politely. Embedded frames are named after the file. Images fade in over 180ms and the slow-viewer notice
+      over 120ms; with reduced motion both appear at once.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      The content area uses <code>--sprout-canvas</code>; pages, the header, and
-      toolbars use <code>--sprout-surface</code> and
-      <code>--sprout-line</code>. Warnings use <code>--sprout-danger</code>,
-      links <code>--sprout-primary</code>, and focus rings
+      The content area uses <code>--sprout-canvas</code>; pages, the header, and toolbars use{' '}
+      <code>--sprout-surface</code> and
+      <code>--sprout-line</code>. Warnings use <code>--sprout-danger</code>, links <code>--sprout-primary</code>, and
+      focus rings
       <code>--sprout-focus</code>.
     </p>
   </section>

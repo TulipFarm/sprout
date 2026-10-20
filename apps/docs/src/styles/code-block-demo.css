@@ -55,7 +55,7 @@
   grid-template-columns: minmax(0, 1fr);
   min-width: 0;
 }
-.code-demo-stage[data-variant="file"],
+.code-demo-stage[data-variant='file'],
 .code-demo-file-host {
   height: 15rem;
   overflow: hidden;
@@ -136,7 +136,7 @@
   border-right: 1px solid var(--sprout-line);
   list-style: none;
 }
-.code-demo-files [aria-current="true"] {
+.code-demo-files [aria-current='true'] {
   background: var(--sprout-hover);
   color: var(--sprout-text);
 }

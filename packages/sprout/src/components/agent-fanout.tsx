@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   BaseEdge,
@@ -10,37 +10,21 @@ import {
   type EdgeProps,
   type Node,
   type NodeProps,
-} from "@xyflow/react";
-import {
-  useLayoutEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Danger } from "reicon-react/icons/Danger";
-import { MinusCircle } from "reicon-react/icons/MinusCircle";
-import { RotateLeft } from "reicon-react/icons/RotateLeft";
-import { Sparkle } from "reicon-react/icons/Sparkle";
-import { cn } from "../internal/classes.js";
-import { Button } from "./button.js";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "./collapsible.js";
+} from '@xyflow/react';
+import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { Danger } from 'reicon-react/icons/Danger';
+import { MinusCircle } from 'reicon-react/icons/MinusCircle';
+import { RotateLeft } from 'reicon-react/icons/RotateLeft';
+import { Sparkle } from 'reicon-react/icons/Sparkle';
+import { cn } from '../internal/classes.js';
+import { Button } from './button.js';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
 
-export const agentFanoutStatusNames = [
-  "queued",
-  "working",
-  "done",
-  "failed",
-  "stopped",
-] as const;
+export const agentFanoutStatusNames = ['queued', 'working', 'done', 'failed', 'stopped'] as const;
 
-export const agentFanoutStateNames = ["running", "done", "stopped"] as const;
+export const agentFanoutStateNames = ['running', 'done', 'stopped'] as const;
 
 export type AgentFanoutStatus = (typeof agentFanoutStatusNames)[number];
 export type AgentFanoutState = (typeof agentFanoutStateNames)[number];
@@ -91,40 +75,33 @@ const bottomGap = 36;
 const colorCount = 10;
 
 const statusText: Record<AgentFanoutStatus, string> = {
-  queued: "Queued",
-  working: "Working",
-  done: "Done",
-  failed: "Failed",
-  stopped: "Stopped",
+  queued: 'Queued',
+  working: 'Working',
+  done: 'Done',
+  failed: 'Failed',
+  stopped: 'Stopped',
 };
 
 const seconds = (ms: number) => `${(ms / 1000).toFixed(1)}s`;
 
-function phaseText(
-  agents: AgentFanoutAgent[],
-  state: AgentFanoutState,
-  elapsed: number | undefined,
-) {
-  const time = elapsed === undefined ? "" : seconds(elapsed);
-  if (state === "done") {
-    const merged = agents.filter((agent) => agent.status === "done").length;
+function phaseText(agents: AgentFanoutAgent[], state: AgentFanoutState, elapsed: number | undefined) {
+  const time = elapsed === undefined ? '' : seconds(elapsed);
+  if (state === 'done') {
+    const merged = agents.filter(agent => agent.status === 'done').length;
     return {
-      text: `Merged ${merged} ${merged === 1 ? "result" : "results"}${time && ` in ${time}`}`,
-      time: "",
+      text: `Merged ${merged} ${merged === 1 ? 'result' : 'results'}${time && ` in ${time}`}`,
+      time: '',
     };
   }
-  if (state === "stopped")
-    return { text: time ? `Stopped after ${time}` : "Stopped", time: "" };
-  const settled = agents.filter(
-    (agent) => agent.status === "done" || agent.status === "failed",
-  ).length;
-  const text = agents.every((agent) => agent.status === "queued")
-    ? "Delegating work"
+  if (state === 'stopped') return { text: time ? `Stopped after ${time}` : 'Stopped', time: '' };
+  const settled = agents.filter(agent => agent.status === 'done' || agent.status === 'failed').length;
+  const text = agents.every(agent => agent.status === 'queued')
+    ? 'Delegating work'
     : settled === agents.length
-      ? "Composing answer"
+      ? 'Composing answer'
       : settled > 0
-        ? "Merging results"
-        : "Specialists working";
+        ? 'Merging results'
+        : 'Specialists working';
   return { text, time };
 }
 
@@ -142,7 +119,7 @@ function useWidth() {
   return [ref, width] as const;
 }
 
-type Trip = "out" | "back" | null;
+type Trip = 'out' | 'back' | null;
 
 type Line = {
   agent: AgentFanoutAgent;
@@ -162,48 +139,35 @@ function flatten(
   color?: string,
 ): Line[] {
   return agents.flatMap((agent, index) => {
-    const own =
-      agent.color ?? color ?? `var(--sprout-chart-${(index % colorCount) + 1})`;
+    const own = agent.color ?? color ?? `var(--sprout-chart-${(index % colorCount) + 1})`;
     const changed = initial.get(agent.id) !== agent.status;
     const line: Line = {
       agent,
       parent,
       depth,
       changed: changed || undefined,
-      trip: !changed
-        ? null
-        : agent.status === "working"
-          ? "out"
-          : agent.status === "done"
-            ? "back"
-            : null,
+      trip: !changed ? null : agent.status === 'working' ? 'out' : agent.status === 'done' ? 'back' : null,
       style: {
-        "--sprout-agent-fanout-color": own,
-        "--sprout-agent-fanout-index": index,
-        "--sprout-agent-fanout-depth": depth - 1,
+        '--sprout-agent-fanout-color': own,
+        '--sprout-agent-fanout-index': index,
+        '--sprout-agent-fanout-depth': depth - 1,
       } as CSSProperties,
     };
-    return [
-      line,
-      ...flatten(agent.agents ?? [], initial, agent.id, depth + 1, own),
-    ];
+    return [line, ...flatten(agent.agents ?? [], initial, agent.id, depth + 1, own)];
   });
 }
 
-const rootId = "agent-fanout-root";
+const rootId = 'agent-fanout-root';
 
-type RootNode = Node<
-  { state: AgentFanoutState; changed: true | undefined },
-  "root"
->;
-type AgentNode = Node<Line, "agent">;
-type TripEdge = Edge<{ trip: Trip; style: CSSProperties }, "trip">;
+type RootNode = Node<{ state: AgentFanoutState; changed: true | undefined }, 'root'>;
+type AgentNode = Node<Line, 'agent'>;
+type TripEdge = Edge<{ trip: Trip; style: CSSProperties }, 'trip'>;
 
 // Fresh node objects every render drop React Flow's measured handles, which
 // unmounts the edges and restarts their pulses. Declared handles survive.
-const handle = (type: "source" | "target", x: number, y: number) => ({
+const handle = (type: 'source' | 'target', x: number, y: number) => ({
   type,
-  position: type === "source" ? Position.Bottom : Position.Top,
+  position: type === 'source' ? Position.Bottom : Position.Top,
   x,
   y,
   width: 0,
@@ -211,58 +175,49 @@ const handle = (type: "source" | "target", x: number, y: number) => ({
 });
 
 /** Leaves share the width; each parent sits over the middle of its children. */
-function layout(
-  lines: Line[],
-  width: number,
-  state: AgentFanoutState,
-  rootChanged: true | undefined,
-) {
+function layout(lines: Line[], width: number, state: AgentFanoutState, rootChanged: true | undefined) {
   const children = new Map<string, Line[]>();
-  for (const line of lines)
-    children.set(line.parent, [...(children.get(line.parent) ?? []), line]);
-  const leaves = lines.filter((line) => !children.has(line.agent.id)).length;
+  for (const line of lines) children.set(line.parent, [...(children.get(line.parent) ?? []), line]);
+  const leaves = lines.filter(line => !children.has(line.agent.id)).length;
   const column = width / Math.max(leaves, 1);
   const centers = new Map<string, number>();
   let leaf = 0;
   const place = (id: string): number => {
     const kids = children.get(id);
-    const xs = kids?.map((kid) => place(kid.agent.id));
+    const xs = kids?.map(kid => place(kid.agent.id));
     const x = xs ? (xs[0]! + xs.at(-1)!) / 2 : (leaf++ + 0.5) * column;
     centers.set(id, x);
     return x;
   };
   place(rootId);
-  const depth = Math.max(0, ...lines.map((line) => line.depth));
+  const depth = Math.max(0, ...lines.map(line => line.depth));
   const dot = width ? Math.min(40, Math.max(28, column - 12)) : 40;
   const nodes: (RootNode | AgentNode)[] = [
     {
       id: rootId,
-      type: "root",
+      type: 'root',
       position: { x: width / 2 - rootSize / 2, y: rootTop },
       width: rootSize,
       height: rootSize,
-      handles: [handle("source", rootSize / 2, rootSize)],
+      handles: [handle('source', rootSize / 2, rootSize)],
       data: { state, changed: rootChanged },
     },
     ...lines.map((line): AgentNode => ({
       id: line.agent.id,
-      type: "agent",
+      type: 'agent',
       position: {
         x: centers.get(line.agent.id)! - column / 2,
         y: levelTop + (line.depth - 1) * levelGap,
       },
       width: column,
       height: dot + nodeLabel,
-      handles: [
-        handle("target", column / 2, 0),
-        handle("source", column / 2, dot),
-      ],
+      handles: [handle('target', column / 2, 0), handle('source', column / 2, dot)],
       data: line,
     })),
   ];
-  const edges: TripEdge[] = lines.map((line) => ({
+  const edges: TripEdge[] = lines.map(line => ({
     id: `${line.parent}-${line.agent.id}`,
-    type: "trip",
+    type: 'trip',
     source: line.parent,
     target: line.agent.id,
     data: { trip: line.trip, style: line.style },
@@ -271,36 +226,15 @@ function layout(
     nodes,
     edges,
     dot,
-    height:
-      levelTop +
-      Math.max(depth - 1, 0) * levelGap +
-      dot +
-      nodeLabel +
-      bottomGap,
+    height: levelTop + Math.max(depth - 1, 0) * levelGap + dot + nodeLabel + bottomGap,
   };
 }
 
 function RootMark({ data: { state, changed } }: NodeProps<RootNode>) {
   return (
-    <span
-      data-slot="agent-fanout-root"
-      data-state={state}
-      data-changed={changed}
-      className="sprout-agent-fanout-root"
-    >
-      {state === "done" ? (
-        <Check size={18} />
-      ) : state === "stopped" ? (
-        <MinusCircle size={18} />
-      ) : (
-        <Sparkle size={18} />
-      )}
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        isConnectable={false}
-        className="sprout-agent-fanout-handle"
-      />
+    <span data-slot="agent-fanout-root" data-state={state} data-changed={changed} className="sprout-agent-fanout-root">
+      {state === 'done' ? <Check size={18} /> : state === 'stopped' ? <MinusCircle size={18} /> : <Sparkle size={18} />}
+      <Handle type="source" position={Position.Bottom} isConnectable={false} className="sprout-agent-fanout-handle" />
     </span>
   );
 }
@@ -316,12 +250,7 @@ function AgentMark({ data: { agent, changed, style } }: NodeProps<AgentNode>) {
     >
       <span className="sprout-agent-fanout-dot">
         <NodeMark agent={agent} />
-        <Handle
-          type="target"
-          position={Position.Top}
-          isConnectable={false}
-          className="sprout-agent-fanout-handle"
-        />
+        <Handle type="target" position={Position.Top} isConnectable={false} className="sprout-agent-fanout-handle" />
         {agent.agents && agent.agents.length > 0 && (
           <Handle
             type="source"
@@ -336,14 +265,7 @@ function AgentMark({ data: { agent, changed, style } }: NodeProps<AgentNode>) {
   );
 }
 
-function TripLine({
-  id,
-  sourceX,
-  sourceY,
-  targetX,
-  targetY,
-  data,
-}: EdgeProps<TripEdge>) {
+function TripLine({ id, sourceX, sourceY, targetX, targetY, data }: EdgeProps<TripEdge>) {
   const drop = targetY - sourceY;
   const d = `M ${sourceX} ${sourceY} C ${sourceX} ${sourceY + drop * 0.5}, ${targetX} ${sourceY + drop * 0.2}, ${targetX} ${targetY}`;
   const trip = data?.trip;
@@ -352,13 +274,7 @@ function TripLine({
       <BaseEdge id={id} path={d} className="sprout-agent-fanout-edge" />
       {trip && (
         <>
-          <path
-            key={trip}
-            d={d}
-            pathLength={1}
-            data-trip={trip}
-            className="sprout-agent-fanout-trail"
-          />
+          <path key={trip} d={d} pathLength={1} data-trip={trip} className="sprout-agent-fanout-trail" />
           <EdgeLabelRenderer>
             <span
               key={trip}
@@ -378,21 +294,20 @@ const edgeTypes = { trip: TripLine };
 const viewport = { x: 0, y: 0, zoom: 1 };
 
 function NodeMark({ agent }: { agent: AgentFanoutAgent }) {
-  if (agent.status === "done")
-    return <Check size={16} strokeWidth={2.5} aria-hidden="true" />;
-  if (agent.status === "failed") return <Danger size={16} aria-hidden="true" />;
+  if (agent.status === 'done') return <Check size={16} strokeWidth={2.5} aria-hidden="true" />;
+  if (agent.status === 'failed') return <Danger size={16} aria-hidden="true" />;
   return <span aria-hidden="true">{agent.icon}</span>;
 }
 
 function StatusMark({ agent }: { agent: AgentFanoutAgent }) {
-  if (agent.status === "done")
+  if (agent.status === 'done')
     return (
       <>
         <Check size={12} aria-hidden="true" />
-        {agent.duration === undefined ? "Done" : seconds(agent.duration)}
+        {agent.duration === undefined ? 'Done' : seconds(agent.duration)}
       </>
     );
-  if (agent.status === "working")
+  if (agent.status === 'working')
     return (
       <>
         <span aria-hidden="true" className="sprout-agent-fanout-pulse" />
@@ -410,7 +325,7 @@ function StatusMark({ agent }: { agent: AgentFanoutAgent }) {
 export function AgentFanout({
   task,
   agents,
-  state = "running",
+  state = 'running',
   elapsed,
   label,
   defaultOpen = false,
@@ -423,28 +338,19 @@ export function AgentFanout({
   // renders still instead of replaying every pulse.
   const [initial] = useState(() => ({
     state,
-    statuses: new Map(
-      flatten(agents, new Map()).map(({ agent }) => [agent.id, agent.status]),
-    ),
+    statuses: new Map(flatten(agents, new Map()).map(({ agent }) => [agent.id, agent.status])),
   }));
   const phase = phaseText(agents, state, elapsed);
   const lines = flatten(agents, initial.statuses);
-  const graph = layout(
-    lines,
-    width,
-    state,
-    initial.state !== state || undefined,
-  );
-  const finished = lines.filter(
-    ({ agent }) => agent.status === "done" || agent.status === "failed",
-  ).length;
+  const graph = layout(lines, width, state, initial.state !== state || undefined);
+  const finished = lines.filter(({ agent }) => agent.status === 'done' || agent.status === 'failed').length;
 
   return (
     <section
       data-slot="agent-fanout"
       data-state={state}
       aria-label="Subagents"
-      className={cn("sprout-agent-fanout", className)}
+      className={cn('sprout-agent-fanout', className)}
     >
       <div className="sprout-agent-fanout-panel">
         <div className="sprout-agent-fanout-task">
@@ -458,7 +364,7 @@ export function AgentFanout({
           style={
             {
               height: graph.height,
-              "--sprout-agent-fanout-dot": `${graph.dot}px`,
+              '--sprout-agent-fanout-dot': `${graph.dot}px`,
             } as CSSProperties
           }
         >
@@ -487,29 +393,16 @@ export function AgentFanout({
             />
           )}
         </div>
-        <Collapsible
-          defaultOpen={defaultOpen}
-          className="sprout-agent-fanout-details"
-        >
+        <Collapsible defaultOpen={defaultOpen} className="sprout-agent-fanout-details">
           <CollapsibleTrigger className="sprout-agent-fanout-trigger">
             <span className="sprout-agent-fanout-trigger-label">Details</span>
-            <span className="sprout-agent-fanout-trigger-count">
-              {`${finished} of ${lines.length} finished`}
-            </span>
-            <ChevronDown
-              size={14}
-              aria-hidden="true"
-              data-slot="collapsible-indicator"
-            />
+            <span className="sprout-agent-fanout-trigger-count">{`${finished} of ${lines.length} finished`}</span>
+            <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
           </CollapsibleTrigger>
           <CollapsibleContent keepMounted>
-            <ul
-              aria-label="Subagent status"
-              className="sprout-agent-fanout-rows"
-            >
+            <ul aria-label="Subagent status" className="sprout-agent-fanout-rows">
               {lines.map(({ agent, changed, style }) => {
-                const settled =
-                  agent.status === "done" || agent.status === "failed";
+                const settled = agent.status === 'done' || agent.status === 'failed';
                 return (
                   <li
                     key={agent.id}
@@ -518,21 +411,15 @@ export function AgentFanout({
                     className="sprout-agent-fanout-row"
                     style={style}
                   >
-                    <span className="sprout-agent-fanout-row-name">
-                      {agent.name}
-                    </span>
+                    <span className="sprout-agent-fanout-row-name">{agent.name}</span>
                     <span
-                      key={settled && agent.result ? "result" : "task"}
+                      key={settled && agent.result ? 'result' : 'task'}
                       data-changed={changed}
                       className="sprout-agent-fanout-row-detail"
                     >
                       {settled && agent.result ? agent.result : agent.task}
                     </span>
-                    <span
-                      key={agent.status}
-                      data-changed={changed}
-                      className="sprout-agent-fanout-row-status"
-                    >
+                    <span key={agent.status} data-changed={changed} className="sprout-agent-fanout-row-status">
                       <StatusMark agent={agent} />
                     </span>
                   </li>
@@ -545,28 +432,16 @@ export function AgentFanout({
       <div className="sprout-agent-fanout-footer">
         <p className="sprout-agent-fanout-phase">
           <span role="status">{label ?? phase.text}</span>
-          {!label && phase.time && (
-            <span className="sprout-agent-fanout-time">{phase.time}</span>
-          )}
+          {!label && phase.time && <span className="sprout-agent-fanout-time">{phase.time}</span>}
         </p>
-        {state === "running" && onStop && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onStop}
-            className="sprout-agent-fanout-action"
-          >
+        {state === 'running' && onStop && (
+          <Button variant="outline" size="sm" onClick={onStop} className="sprout-agent-fanout-action">
             <MinusCircle size={14} aria-hidden="true" />
             Stop
           </Button>
         )}
-        {state !== "running" && onRestart && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onRestart}
-            className="sprout-agent-fanout-action"
-          >
+        {state !== 'running' && onRestart && (
+          <Button variant="outline" size="sm" onClick={onRestart} className="sprout-agent-fanout-action">
             <RotateLeft size={14} aria-hidden="true" />
             Run again
           </Button>

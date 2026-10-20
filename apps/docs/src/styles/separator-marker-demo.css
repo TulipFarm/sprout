@@ -85,7 +85,7 @@
   line-height: 1.55;
   color: var(--sprout-text);
 }
-.separator-marker-demo-message[data-role="user"] {
+.separator-marker-demo-message[data-role='user'] {
   justify-self: end;
   padding: 8px 12px;
   border-radius: var(--sprout-radius-panel);

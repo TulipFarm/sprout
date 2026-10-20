@@ -1,12 +1,12 @@
-import { useState, type MouseEvent, type ReactNode } from "react";
-import { BookOpen } from "reicon-react/icons/BookOpen";
-import { CalendarDays } from "reicon-react/icons/CalendarDays";
-import { ChartBar } from "reicon-react/icons/ChartBar";
-import { FileText } from "reicon-react/icons/FileText";
-import { FolderOpen } from "reicon-react/icons/FolderOpen";
-import { HelpCircle } from "reicon-react/icons/HelpCircle";
-import { Leaf } from "reicon-react/icons/Leaf";
-import { Users } from "reicon-react/icons/Users";
+import { useState, type MouseEvent, type ReactNode } from 'react';
+import { BookOpen } from 'reicon-react/icons/BookOpen';
+import { CalendarDays } from 'reicon-react/icons/CalendarDays';
+import { ChartBar } from 'reicon-react/icons/ChartBar';
+import { FileText } from 'reicon-react/icons/FileText';
+import { FolderOpen } from 'reicon-react/icons/FolderOpen';
+import { HelpCircle } from 'reicon-react/icons/HelpCircle';
+import { Leaf } from 'reicon-react/icons/Leaf';
+import { Users } from 'reicon-react/icons/Users';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,16 +17,16 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
   type NavigationMenuProps,
-} from "@tulipfarm/sprout/navigation-menu";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import "../styles/navigation-menu-demo.css";
+} from '@tulipfarm/sprout/navigation-menu';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import '../styles/navigation-menu-demo.css';
 
 /* ------------------------------------------------------------------ */
 /* Sample data                                                         */
 /* ------------------------------------------------------------------ */
 
-type Align = NonNullable<NavigationMenuProps["align"]>;
-const aligns = ["start", "center", "end"] as const;
+type Align = NonNullable<NavigationMenuProps['align']>;
+const aligns = ['start', 'center', 'end'] as const;
 
 interface Destination {
   href: string;
@@ -37,53 +37,53 @@ interface Destination {
 
 const projects: Destination[] = [
   {
-    href: "#meadow",
-    title: "Meadow project",
-    description: "Spring planting plan and plot assignments.",
+    href: '#meadow',
+    title: 'Meadow project',
+    description: 'Spring planting plan and plot assignments.',
     icon: <Leaf />,
   },
   {
-    href: "#garden",
-    title: "Garden notes",
-    description: "Shared notes from the weekly walk-through.",
+    href: '#garden',
+    title: 'Garden notes',
+    description: 'Shared notes from the weekly walk-through.',
     icon: <FileText />,
   },
   {
-    href: "#greenhouse",
-    title: "Greenhouse irrigation retrofit — north wing",
-    description: "Long names wrap inside the panel instead of spilling out.",
+    href: '#greenhouse',
+    title: 'Greenhouse irrigation retrofit — north wing',
+    description: 'Long names wrap inside the panel instead of spilling out.',
     icon: <FolderOpen />,
   },
 ];
 
 const resources: Destination[] = [
   {
-    href: "#guides",
-    title: "Planting guides",
-    description: "Step-by-step guides for each season.",
+    href: '#guides',
+    title: 'Planting guides',
+    description: 'Step-by-step guides for each season.',
     icon: <BookOpen />,
   },
   {
-    href: "#calendar",
-    title: "Harvest calendar",
-    description: "When each crop is ready to pick.",
+    href: '#calendar',
+    title: 'Harvest calendar',
+    description: 'When each crop is ready to pick.',
     icon: <CalendarDays />,
   },
   {
-    href: "#reports",
-    title: "Yield reports",
-    description: "Monthly totals by plot and crop.",
+    href: '#reports',
+    title: 'Yield reports',
+    description: 'Monthly totals by plot and crop.',
     icon: <ChartBar />,
   },
   {
-    href: "#team",
-    title: "Team directory",
-    description: "Who looks after which beds.",
+    href: '#team',
+    title: 'Team directory',
+    description: 'Who looks after which beds.',
     icon: <Users />,
   },
 ];
 
-function useDestination(initial = "Nothing selected.") {
+function useDestination(initial = 'Nothing selected.') {
   const [selected, setSelected] = useState(initial);
   /** Sample links stay on this page and report where they would go. */
   const go = (label: string) => (event: MouseEvent) => {
@@ -103,13 +103,7 @@ function RichLink({
   active?: boolean;
 }) {
   return (
-    <NavigationMenuLink
-      href={item.href}
-      onClick={onClick}
-      active={active}
-      closeOnClick
-      className="nav-demo-rich-link"
-    >
+    <NavigationMenuLink href={item.href} onClick={onClick} active={active} closeOnClick className="nav-demo-rich-link">
       {item.icon}
       <span className="nav-demo-rich-text">
         <span className="nav-demo-rich-title">{item.title}</span>
@@ -124,13 +118,10 @@ function RichLink({
 /* ------------------------------------------------------------------ */
 
 export function NavigationMenuPlayground() {
-  const [align, setAlign] = useState<Align>("start");
+  const [align, setAlign] = useState<Align>('start');
   const [selected, go] = useDestination();
   return (
-    <section
-      className="nav-demo-playground"
-      aria-label="Navigation menu playground"
-    >
+    <section className="nav-demo-playground" aria-label="Navigation menu playground">
       <div className="nav-demo-toolbar">
         <span className="nav-demo-caption" id="nav-demo-align-label">
           Panel align
@@ -141,9 +132,9 @@ export function NavigationMenuPlayground() {
           size="sm"
           spacing={0}
           value={[align]}
-          onValueChange={(value) => value[0] && setAlign(value[0] as Align)}
+          onValueChange={value => value[0] && setAlign(value[0] as Align)}
         >
-          {aligns.map((value) => (
+          {aligns.map(value => (
             <ToggleGroupItem key={value} value={value}>
               {value}
             </ToggleGroupItem>
@@ -157,23 +148,17 @@ export function NavigationMenuPlayground() {
               <NavigationMenuTrigger>Projects</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="nav-demo-simple-panel">
-                  <NavigationMenuLink
-                    href="#meadow"
-                    onClick={go("Meadow project")}
-                  >
+                  <NavigationMenuLink href="#meadow" onClick={go('Meadow project')}>
                     Meadow project
                   </NavigationMenuLink>
-                  <NavigationMenuLink
-                    href="#garden"
-                    onClick={go("Garden notes")}
-                  >
+                  <NavigationMenuLink href="#garden" onClick={go('Garden notes')}>
                     Garden notes
                   </NavigationMenuLink>
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink href="#help" onClick={go("Help")}>
+              <NavigationMenuLink href="#help" onClick={go('Help')}>
                 Help
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -192,8 +177,8 @@ export function NavigationMenuPlayground() {
 /* ------------------------------------------------------------------ */
 
 export function NavigationMenuSiteHeader() {
-  const [selected, go] = useDestination("Current page: Overview.");
-  const [current, setCurrent] = useState("Overview");
+  const [selected, go] = useDestination('Current page: Overview.');
+  const [current, setCurrent] = useState('Overview');
   const visit = (label: string) => (event: MouseEvent) => {
     go(label)(event);
     setCurrent(label);
@@ -210,8 +195,8 @@ export function NavigationMenuSiteHeader() {
             <NavigationMenuItem>
               <NavigationMenuLink
                 href="#overview"
-                active={current === "Overview"}
-                onClick={visit("Overview")}
+                active={current === 'Overview'}
+                onClick={visit('Overview')}
                 className={navigationMenuTriggerStyle()}
               >
                 Overview
@@ -221,13 +206,9 @@ export function NavigationMenuSiteHeader() {
               <NavigationMenuTrigger>Projects</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="nav-demo-list">
-                  {projects.map((item) => (
+                  {projects.map(item => (
                     <li key={item.href}>
-                      <RichLink
-                        item={item}
-                        active={current === item.title}
-                        onClick={visit(item.title)}
-                      />
+                      <RichLink item={item} active={current === item.title} onClick={visit(item.title)} />
                     </li>
                   ))}
                 </ul>
@@ -238,13 +219,9 @@ export function NavigationMenuSiteHeader() {
               <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="nav-demo-list nav-demo-grid">
-                  {resources.map((item) => (
+                  {resources.map(item => (
                     <li key={item.href}>
-                      <RichLink
-                        item={item}
-                        active={current === item.title}
-                        onClick={visit(item.title)}
-                      />
+                      <RichLink item={item} active={current === item.title} onClick={visit(item.title)} />
                     </li>
                   ))}
                 </ul>
@@ -257,8 +234,8 @@ export function NavigationMenuSiteHeader() {
             <NavigationMenuItem>
               <NavigationMenuLink
                 href="#help"
-                active={current === "Help"}
-                onClick={visit("Help")}
+                active={current === 'Help'}
+                onClick={visit('Help')}
                 className={navigationMenuTriggerStyle()}
               >
                 <HelpCircle />

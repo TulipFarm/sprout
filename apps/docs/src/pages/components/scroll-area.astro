@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import ScrollAreaDemo from "../../components/ScrollAreaDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import ScrollAreaDemo from '../../components/ScrollAreaDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,11 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Scroll Area</h1>
   <p class="docs-lead">
-    A scrolling region with thin scrollbars that follow the theme. Fixed or
-    content heights, vertical, horizontal, or both bars, and a bordered table
-    frame for wide data grids.
+    A scrolling region with thin scrollbars that follow the theme. Fixed or content heights, vertical, horizontal, or
+    both bars, and a bordered table frame for wide data grids.
   </p>
-  <div class="mt-8"><ScrollAreaDemo client:load /></div>
+  <div class="mt-8">
+    <ScrollAreaDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -41,22 +42,17 @@ import CodeBlock from "../../components/CodeBlock.astro";
     />
     <p>
       <code>size</code> is <code>"auto"</code> (default, follows content or your
-      <code>className</code>), <code>"sm"</code> (10rem tall), or <code
-        >"md"</code
-      >
+      <code>className</code>), <code>"sm"</code> (10rem tall), or <code>"md"</code>
       (16rem tall). <code>orientation</code> is <code>"vertical"</code> (default),
-      <code>"horizontal"</code>, or <code>"both"</code>. Each bar appears only
-      while its axis overflows, and the corner fills the gap when both show.
+      <code>"horizontal"</code>, or <code>"both"</code>. Each bar appears only while its axis overflows, and the corner
+      fills the gap when both show.
     </p>
     <p>
-      <code>variant="table"</code> adds a 1px input-tone border, rounded corners,
-      and the surface color. It caps the viewport at <code>60dvh</code>
-      and gives it <code>role="region"</code>, named by <code
-        >viewportLabel</code
-      >. A sticky <code>thead</code> inside it stays pinned while rows scroll. Pass
-      the table's own <code>aria-label</code> as <code>viewportLabel</code>.
-      Other root props, such as <code>data-slot</code>, pass through to the
-      root.
+      <code>variant="table"</code> adds a 1px input-tone border, rounded corners, and the surface color. It caps the
+      viewport at <code>60dvh</code>
+      and gives it <code>role="region"</code>, named by <code>viewportLabel</code>. A sticky <code>thead</code> inside
+      it stays pinned while rows scroll. Pass the table's own <code>aria-label</code> as <code>viewportLabel</code>.
+      Other root props, such as <code>data-slot</code>, pass through to the root.
     </p>
   </section>
   <section class="prose-section">
@@ -69,30 +65,25 @@ import CodeBlock from "../../components/CodeBlock.astro";
 <ScrollBar orientation="horizontal" className="my-bar" />`}
     />
     <p>
-      <code>ScrollArea</code> draws its bars for you. <code>ScrollBar</code> is the
-      same 10px track and pill thumb, exported for custom Base UI scroll area compositions.
-      It takes Base UI scrollbar props, and <code>className</code>
+      <code>ScrollArea</code> draws its bars for you. <code>ScrollBar</code> is the same 10px track and pill thumb,
+      exported for custom Base UI scroll area compositions. It takes Base UI scrollbar props, and <code>className</code>
       may be a state function.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Scrolling stays native, so wheel, trackpad, touch, and keyboard all work.
-      When content overflows, the viewport joins the Tab order and shows a focus
-      ring; arrow keys, Page Up, Page Down, Home, and End then scroll it. When
-      nothing overflows it leaves the Tab order. The bars are hidden from screen
-      readers. Thumb color changes take 120ms and stop when reduced motion is
-      requested.
+      Scrolling stays native, so wheel, trackpad, touch, and keyboard all work. When content overflows, the viewport
+      joins the Tab order and shows a focus ring; arrow keys, Page Up, Page Down, Home, and End then scroll it. When
+      nothing overflows it leaves the Tab order. The bars are hidden from screen readers. Thumb color changes take 120ms
+      and stop when reduced motion is requested.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Thumbs use <code>--sprout-muted</code> at 40%, and 60% on hover or while scrolling.
-      The table frame uses <code>--sprout-input</code> and <code
-        >--sprout-surface</code
-      >. Focus uses <code>--sprout-focus</code>.
+      Thumbs use <code>--sprout-muted</code> at 40%, and 60% on hover or while scrolling. The table frame uses{' '}
+      <code>--sprout-input</code> and <code>--sprout-surface</code>. Focus uses <code>--sprout-focus</code>.
     </p>
   </section>
 </Docs>

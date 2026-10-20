@@ -90,7 +90,7 @@
 .state-demo-frame-body > .state-demo-segments {
   padding-top: 12px;
 }
-.state-demo-frame-body > [data-layout="sample"] {
+.state-demo-frame-body > [data-layout='sample'] {
   margin-bottom: 12px;
 }
 .state-demo-foot-inline {

@@ -27,7 +27,7 @@
   }
   /* A 56 x 34px hit area around the default track. */
   .sprout-switch::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: -8px -12px;
   }
@@ -45,12 +45,11 @@
   .sprout-switch[data-checked] {
     background-color: var(--sprout-primary);
   }
-  .sprout-switch[aria-invalid="true"] {
+  .sprout-switch[aria-invalid='true'] {
     border-color: var(--sprout-danger);
-    box-shadow: 0 0 0 3px
-      color-mix(in oklab, var(--sprout-danger) 20%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--sprout-danger) 20%, transparent);
   }
-  .sprout-switch[aria-invalid="true"]:focus-visible {
+  .sprout-switch[aria-invalid='true']:focus-visible {
     outline-color: var(--sprout-danger);
   }
   .sprout-switch[data-readonly] {
@@ -60,7 +59,7 @@
     cursor: not-allowed;
     opacity: 0.5;
   }
-  .sprout-switch[aria-busy="true"] {
+  .sprout-switch[aria-busy='true'] {
     cursor: progress;
   }
 
@@ -88,21 +87,15 @@
   @media (prefers-reduced-motion: no-preference) {
     .sprout-switch {
       transition:
-        background-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        border-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        box-shadow var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        opacity var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        box-shadow var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-switch-thumb {
       transition:
-        transform var(--sprout-motion-normal, 180ms)
-          var(--sprout-motion-ease, ease-out),
-        background-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        transform var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out),
+        background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
   }
 

@@ -5,9 +5,9 @@ import {
   type InputHTMLAttributes,
   type ReactNode,
   type TextareaHTMLAttributes,
-} from "react";
-import { Loader } from "reicon-react/icons/Loader";
-import "../styles/dialog-demo.css";
+} from 'react';
+import { Loader } from 'reicon-react/icons/Loader';
+import '../styles/dialog-demo.css';
 
 export function Example({
   id,
@@ -32,15 +32,7 @@ export function Example({
 }
 
 /** One row per dialog: what it is, the source pattern, and its trigger. */
-export function Row({
-  label,
-  note,
-  children,
-}: {
-  label: string;
-  note: string;
-  children: ReactNode;
-}) {
+export function Row({ label, note, children }: { label: string; note: string; children: ReactNode }) {
   return (
     <div className="dialog-demo-row" role="group" aria-label={label}>
       <div className="dialog-demo-row-text">
@@ -82,12 +74,7 @@ export function TextField({
     <div className="dialog-demo-field">
       <label htmlFor={id}>{label}</label>
       {hint && <p className="dialog-demo-muted">{hint}</p>}
-      <input
-        id={id}
-        className="dialog-demo-input"
-        autoComplete="off"
-        {...input}
-      />
+      <input id={id} className="dialog-demo-input" autoComplete="off" {...input} />
     </div>
   );
 }
@@ -103,11 +90,7 @@ export function TextAreaField({
   return (
     <div className="dialog-demo-field">
       <label htmlFor={id}>{label}</label>
-      <textarea
-        id={id}
-        className="dialog-demo-input dialog-demo-textarea"
-        {...input}
-      />
+      <textarea id={id} className="dialog-demo-input dialog-demo-textarea" {...input} />
     </div>
   );
 }
@@ -132,7 +115,7 @@ export function CheckField({
         type="checkbox"
         checked={checked}
         disabled={disabled}
-        onChange={(event) => onChange(event.target.checked)}
+        onChange={event => onChange(event.target.checked)}
       />
       <label htmlFor={id}>{children}</label>
     </div>
@@ -144,9 +127,7 @@ export function Skeleton() {
 }
 
 export function Spinner() {
-  return (
-    <Loader size={16} aria-hidden="true" className="dialog-demo-spinner" />
-  );
+  return <Loader size={16} aria-hidden="true" className="dialog-demo-spinner" />;
 }
 
 /** Cloud's inline action row for dialogs without a footer bar. */
@@ -155,5 +136,5 @@ export function Actions({ children }: { children: ReactNode }) {
 }
 
 export function plural(count: number, word: string) {
-  return `${count} ${word}${count === 1 ? "" : "s"}`;
+  return `${count} ${word}${count === 1 ? '' : 's'}`;
 }

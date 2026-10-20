@@ -1,5 +1,5 @@
 ---
-import Docs from "../../layouts/Docs.astro";
+import Docs from '../../layouts/Docs.astro';
 import {
   ChatSourcesCitationStates,
   ChatSourcesEmpty,
@@ -7,8 +7,8 @@ import {
   ChatSourcesPlayground,
   ChatSourcesSingle,
   ChatSourcesWithCitations,
-} from "../../components/ChatSourcesDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+} from '../../components/ChatSourcesDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -17,11 +17,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Chat Sources</h1>
   <p class="docs-lead">
-    Shows where a reply came from. Hovering or clicking a citation previews the
-    cited passage and its source. Checked citations recheck access each time
-    they open, and a count opens the list of every source the reply used.
+    Shows where a reply came from. Hovering or clicking a citation previews the cited passage and its source. Checked
+    citations recheck access each time they open, and a count opens the list of every source the reply used.
   </p>
-  <div class="mt-8"><ChatSourcesPlayground client:load /></div>
+  <div class="mt-8">
+    <ChatSourcesPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -46,10 +47,8 @@ const sources: ChatSource[] = [
     />
     <ul>
       <li>
-        <code>ChatSource</code>: <code
-          >{"{ id, title, location, excerpt, href }"}</code
-        >.
-        <code>href</code> opens in a new tab.
+        <code>ChatSource</code>: <code>{'{ id, title, location, excerpt, href }'}</code>.<code>href</code> opens in a
+        new tab.
       </li>
       <li>
         <code>InlineCitation</code>: <code>source</code> and its
@@ -60,8 +59,8 @@ const sources: ChatSource[] = [
         <code>defaultOpen</code> to start with the list open.
       </li>
       <li>
-        <code>CheckedCitation</code>: the linked <code>label</code>, a
-        <code>state</code>, <code>onOpen</code> (called on every open), and
+        <code>CheckedCitation</code>: the linked <code>label</code>, a<code>state</code>, <code>onOpen</code> (called on
+        every open), and
         <code>onRetry</code>. It is a link button that wraps with the text.
       </li>
     </ul>
@@ -69,30 +68,33 @@ const sources: ChatSource[] = [
   <section class="prose-section">
     <h2 class="section-title">Inline citations and sources</h2>
     <p>
-      Numbers in the reply match the numbered list. Each citation and each list
-      item shows the title, where it lives, the passage, and an “Open source”
-      link.
+      Numbers in the reply match the numbered list. Each citation and each list item shows the title, where it lives,
+      the passage, and an “Open source” link.
     </p>
-    <div class="mt-4"><ChatSourcesWithCitations client:load /></div>
+    <div class="mt-4">
+      <ChatSourcesWithCitations client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">One source</h2>
     <p>The count reads “1 source”. The list starts closed.</p>
-    <div class="mt-4"><ChatSourcesSingle client:load /></div>
+    <div class="mt-4">
+      <ChatSourcesSingle client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Empty sources</h2>
     <p>With no sources, it says none were used.</p>
-    <div class="mt-4"><ChatSourcesEmpty client:load /></div>
+    <div class="mt-4">
+      <ChatSourcesEmpty client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Checked citations</h2>
     <p>
-      Use <code>CheckedCitation</code> when a source can change or access can end.
-      Your app checks access in <code>onOpen</code> and passes the result as <code
-        >state</code
-      >. A removed source shows why, never its old passage. A failed check
-      offers “Load source again”.
+      Use <code>CheckedCitation</code> when a source can change or access can end. Your app checks access in{' '}
+      <code>onOpen</code> and passes the result as <code>state</code>. A removed source shows why, never its old
+      passage. A failed check offers “Load source again”.
     </p>
     <CodeBlock
       lang="tsx"
@@ -111,36 +113,36 @@ const sources: ChatSource[] = [
   {reply}
 </MessageResponse>`}
     />
-    <div class="mt-4"><ChatSourcesCitationStates client:load /></div>
+    <div class="mt-4">
+      <ChatSourcesCitationStates client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Long content</h2>
     <p>Long file names, paths, and links wrap inside a narrow chat.</p>
-    <div class="mt-4"><ChatSourcesLongContent client:load /></div>
+    <div class="mt-4">
+      <ChatSourcesLongContent client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Inline citations are named “Source 1: title”; checked citations “Source:
-      label”. Both open a popover after a 300ms hover, on click or tap, or with
-      Enter or Space. The pointer can move into the popover to reach “Open
-      source”. Escape closes it and returns focus. The sources count is a
-      disclosure button with
-      <code>aria-expanded</code>, and the list is ordered. “Open source” tells
-      screen readers it opens a new tab.
+      Inline citations are named “Source 1: title”; checked citations “Source: label”. Both open a popover after a 300ms
+      hover, on click or tap, or with Enter or Space. The pointer can move into the popover to reach “Open source”.
+      Escape closes it and returns focus. The sources count is a disclosure button with
+      <code>aria-expanded</code>, and the list is ordered. “Open source” tells screen readers it opens a new tab.
     </p>
     <p>
-      Checking access is announced as a status; unavailable and error messages
-      as alerts. After “Load source again”, focus stays in the popover. Colors
-      change over 120ms and the list grows over 180ms; with reduced motion both
+      Checking access is announced as a status; unavailable and error messages as alerts. After “Load source again”,
+      focus stays in the popover. Colors change over 120ms and the list grows over 180ms; with reduced motion both
       change at once.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Cards use <code>--sprout-line</code> and <code>--sprout-surface</code>,
-      secondary text <code>--sprout-muted</code>, and links
+      Cards use <code>--sprout-line</code> and <code>--sprout-surface</code>, secondary text <code>--sprout-muted</code>
+      , and links
       <code>--sprout-primary</code>.
     </p>
   </section>

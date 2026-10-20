@@ -1,19 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import BadgeDemo from "../../components/BadgeDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import BadgeDemo from '../../components/BadgeDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Badge"
-  description="Small labels for status, counts, and metadata."
->
+<Docs title="Badge" description="Small labels for status, counts, and metadata.">
   <h1 class="docs-title">Badge</h1>
   <p class="docs-lead">
-    A small label for status, counts, and metadata. Nine tones, a wrapping chip
-    size, and a render prop for links and buttons.
+    A small label for status, counts, and metadata. Nine tones, a wrapping chip size, and a render prop for links and
+    buttons.
   </p>
-  <div class="mt-8"><BadgeDemo client:load /></div>
+  <div class="mt-8">
+    <BadgeDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -32,20 +31,15 @@ import { Check } from "reicon-react/icons/Check";
 </Badge>`}
     />
     <p>
-      <code>variant</code> is <code>"default"</code>, <code>"success"</code>, <code
-        >"warning"</code
-      >, <code>"info"</code>, <code>"secondary"</code>, <code
-        >"destructive"</code
-      >, <code>"outline"</code>, <code>"ghost"</code>, or <code>"link"</code>.
-      The default tone follows <code>--sprout-primary</code>, so it turns green
-      with the TulipFarm preset.
+      <code>variant</code> is <code>"default"</code>, <code>"success"</code>, <code>"warning"</code>,{' '}
+      <code>"info"</code>, <code>"secondary"</code>, <code>"destructive"</code>, <code>"outline"</code>,{' '}
+      <code>"ghost"</code>, or <code>"link"</code>. The default tone follows <code>--sprout-primary</code>, so it turns
+      green with the TulipFarm preset.
     </p>
     <p>
-      <code>size="default"</code> is a single-line pill. <code>size="chip"</code
-      > grows in height and wraps long values such as email addresses or IDs. Direct
-      child icons are sized to 12px. Mark an icon with <code
-        >data-icon="inline-start"</code
-      > or <code>"inline-end"</code> to tighten the padding on that side.
+      <code>size="default"</code> is a single-line pill. <code>size="chip"</code> grows in height and wraps long values
+      such as email addresses or IDs. Direct child icons are sized to 12px. Mark an icon with{' '}
+      <code>data-icon="inline-start"</code> or <code>"inline-end"</code> to tighten the padding on that side.
     </p>
   </section>
   <section class="prose-section" id="badge-api">
@@ -65,59 +59,47 @@ import { Check } from "reicon-react/icons/Check";
 </a>`}
     />
     <p>
-      Badge renders a <code>span</code>. The Base UI <code>render</code> prop swaps
-      the element for a link, a button, or your router's link. Links and buttons get
-      hover tones, a focus ring, and pointer cursors. Plain spans stay static. <code
-        >badgeVariants()</code
-      > returns the same classes for elements you render yourself.
+      Badge renders a <code>span</code>. The Base UI <code>render</code> prop swaps the element for a link, a button, or
+      your router's link. Links and buttons get hover tones, a focus ring, and pointer cursors. Plain spans stay static.{' '}
+      <code>badgeVariants()</code> returns the same classes for elements you render yourself.
     </p>
     <p>
-      The element gets <code>data-slot="badge"</code>, <code>data-variant</code
-      >, and <code>data-size</code> for styling hooks. <code>className</code>, <code
-        >title</code
-      >, <code>role</code>, ARIA attributes, and <code>ref</code> pass through.
+      The element gets <code>data-slot="badge"</code>, <code>data-variant</code>, and <code>data-size</code> for styling
+      hooks. <code>className</code>, <code>title</code>, <code>role</code>, ARIA attributes, and <code>ref</code> pass
+      through.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Content and overflow</h2>
     <p>
-      A badge never grows wider than its container. In tight cells, wrap the
-      text in a span with <code>min-w-0 truncate</code> and give the badge a <code
-        >min-w-0</code
-      > flex parent. Show the full value in a <code>title</code> on the cell, and
-      summarize hidden values with an outline count such as <code>+2</code>.
+      A badge never grows wider than its container. In tight cells, wrap the text in a span with{' '}
+      <code>min-w-0 truncate</code> and give the badge a <code>min-w-0</code> flex parent. Show the full value in a{' '}
+      <code>title</code> on the cell, and summarize hidden values with an outline count such as <code>+2</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      A badge is plain text. Its words must carry the meaning; color only adds
-      emphasis. Mark decorative icons <code>aria-hidden</code>. For changes that
-      color or strikethrough implies, add visually hidden text such as "Adds" or
-      "Removes".
+      A badge is plain text. Its words must carry the meaning; color only adds emphasis. Mark decorative icons{' '}
+      <code>aria-hidden</code>. For changes that color or strikethrough implies, add visually hidden text such as "Adds"
+      or "Removes".
     </p>
     <p>
-      To announce status changes, put the badge in your own <code
-        >role="status"</code
-      > region. For a compact chip that needs a fuller name, use <code
-        >role="img"</code
-      > with an <code>aria-label</code>. Set <code>aria-invalid</code> to show an
-      invalid value. Transitions last 120–180ms and stop when reduced motion is requested.
+      To announce status changes, put the badge in your own <code>role="status"</code> region. For a compact chip that
+      needs a fuller name, use <code>role="img"</code> with an <code>aria-label</code>. Set <code>aria-invalid</code> to
+      show an invalid value. Transitions last 120–180ms and stop when reduced motion is requested.
     </p>
     <p>
-      Loading spinners, empty messages, retry actions, and status mapping belong
-      to your application. Sprõut supplies only the label.
+      Loading spinners, empty messages, retry actions, and status mapping belong to your application. Sprõut supplies
+      only the label.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Badges use <code>--sprout-primary-subtle</code>, <code
-        >--sprout-secondary</code
-      >, <code>--sprout-success</code>, <code>--sprout-warning</code>, <code
-        >--sprout-info</code
-      >, <code>--sprout-danger</code>, and their <code>-subtle</code> pairs. Override
-      them in light and dark modes like any other Sprõut token.
+      Badges use <code>--sprout-primary-subtle</code>, <code>--sprout-secondary</code>, <code>--sprout-success</code>,{' '}
+      <code>--sprout-warning</code>, <code>--sprout-info</code>, <code>--sprout-danger</code>, and their{' '}
+      <code>-subtle</code> pairs. Override them in light and dark modes like any other Sprõut token.
     </p>
   </section>
 </Docs>

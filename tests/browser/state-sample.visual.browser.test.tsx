@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   SampleBar,
   SampleIconTile,
@@ -8,8 +8,8 @@ import {
   SampleTable,
   SampleText,
   SampleWindow,
-} from "../../packages/sprout/src/components/state-sample.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/state-sample.js';
+import { setTheme, settle, themes } from './support.js';
 
 const Glyph = ({ size = 14 }: { size?: number }) => (
   <svg viewBox="0 0 16 16" width={size} height={size}>
@@ -17,30 +17,22 @@ const Glyph = ({ size = 14 }: { size?: number }) => (
   </svg>
 );
 
-it.each(themes)("state-sample %s %s", async (theme, mode) => {
+it.each(themes)('state-sample %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
+        display: 'grid',
         gap: 16,
         padding: 16,
         width: 520,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
-      <SampleWindow
-        icon={Glyph}
-        trail={["Workspace", "Workflows"]}
-        tabs={["All", "Active"]}
-      >
+      <SampleWindow icon={Glyph} trail={['Workspace', 'Workflows']} tabs={['All', 'Active']}>
         <SampleTable
-          columns={[
-            { label: "Workflow", size: "wide" },
-            { label: "Trigger" },
-            { label: "Status", size: "narrow" },
-          ]}
+          columns={[{ label: 'Workflow', size: 'wide' }, { label: 'Trigger' }, { label: 'Status', size: 'narrow' }]}
           rows={[
             [<SampleBar width="lg" />, <SampleBar />, <SampleBar width="sm" />],
             [
@@ -51,23 +43,21 @@ it.each(themes)("state-sample %s %s", async (theme, mode) => {
           ]}
         />
       </SampleWindow>
-      <SampleWindow icon={Glyph} trail={["Chats"]}>
+      <SampleWindow icon={Glyph} trail={['Chats']}>
         <SampleList
           items={[
             {
               leading: <SampleIconTile icon={Glyph} />,
-              title: "Spring planting plan",
-              detail: "Updated 2 hours ago",
+              title: 'Spring planting plan',
+              detail: 'Updated 2 hours ago',
               trailing: <SampleMark tone="teal" size="md" />,
             },
-            { leading: <SampleMark tone="violet" />, title: "Supplier sync" },
+            { leading: <SampleMark tone="violet" />, title: 'Supplier sync' },
           ]}
         />
       </SampleWindow>
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`state-sample-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`state-sample-${theme}-${mode}`);
 });

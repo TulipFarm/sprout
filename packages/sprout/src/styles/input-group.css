@@ -14,24 +14,22 @@
     outline: 0 solid transparent;
     outline-offset: 0;
   }
-  .sprout-input-group:has([data-slot="input-group-control"]:focus-visible) {
+  .sprout-input-group:has([data-slot='input-group-control']:focus-visible) {
     border-color: var(--sprout-border);
     outline: var(--sprout-focus-width) solid transparent;
   }
-  .sprout-input-group:has(
-    [data-slot="input-group-control"][aria-invalid="true"]
-  ),
-  .sprout-input-group:has([data-slot="input-group-control"][data-invalid]) {
+  .sprout-input-group:has([data-slot='input-group-control'][aria-invalid='true']),
+  .sprout-input-group:has([data-slot='input-group-control'][data-invalid]) {
     border-color: var(--sprout-danger);
     outline-color: var(--sprout-danger);
   }
-  .sprout-input-group:has([data-slot="input-group-control"]:disabled) {
+  .sprout-input-group:has([data-slot='input-group-control']:disabled) {
     cursor: not-allowed;
     background-color: var(--sprout-hover);
     opacity: 0.5;
   }
-  .sprout-input-group:has(> [data-align="block-start"]),
-  .sprout-input-group:has(> [data-align="block-end"]) {
+  .sprout-input-group:has(> [data-align='block-start']),
+  .sprout-input-group:has(> [data-align='block-end']) {
     flex-direction: column;
     height: auto;
   }
@@ -40,8 +38,7 @@
   }
 
   /* Popups such as a combobox list draw their own focus, so the search row stays quiet. */
-  :where([data-slot="combobox-content"])
-    .sprout-input-group:has([data-slot="input-group-control"]:focus-visible) {
+  :where([data-slot='combobox-content']) .sprout-input-group:has([data-slot='input-group-control']:focus-visible) {
     border-color: var(--sprout-input);
     outline-color: transparent;
   }
@@ -58,26 +55,18 @@
     border-color: var(--sprout-input);
     border-radius: var(--sprout-radius-panel);
   }
-  .sprout-input-group-variant-composer:has(
-    [data-slot="input-group-control"]:focus-visible
-  ),
-  .sprout-input-group-variant-question-composer:has(
-    [data-slot="input-group-control"]:focus-visible
-  ) {
+  .sprout-input-group-variant-composer:has([data-slot='input-group-control']:focus-visible),
+  .sprout-input-group-variant-question-composer:has([data-slot='input-group-control']:focus-visible) {
     border-color: var(--sprout-border);
     outline: var(--sprout-focus-width) solid transparent;
   }
-  .sprout-input-group-variant-composer:has(
-    [data-slot="input-group-control"][aria-invalid="true"]
-  ),
-  .sprout-input-group-variant-question-composer:has(
-    [data-slot="input-group-control"][aria-invalid="true"]
-  ) {
+  .sprout-input-group-variant-composer:has([data-slot='input-group-control'][aria-invalid='true']),
+  .sprout-input-group-variant-question-composer:has([data-slot='input-group-control'][aria-invalid='true']) {
     border-color: var(--sprout-danger);
     box-shadow: none;
   }
-  .sprout-input-group-variant-composer > [data-align="block-end"],
-  .sprout-input-group-variant-question-composer > [data-align="block-end"] {
+  .sprout-input-group-variant-composer > [data-align='block-end'],
+  .sprout-input-group-variant-question-composer > [data-align='block-end'] {
     flex-wrap: wrap;
     gap: 4px;
     padding-inline: 8px;
@@ -101,7 +90,7 @@
     cursor: text;
     user-select: none;
   }
-  .sprout-input-group-addon > svg:not([class*="size-"]) {
+  .sprout-input-group-addon > svg:not([class*='size-']) {
     flex-shrink: 0;
     width: 16px;
     height: 16px;
@@ -165,7 +154,7 @@
     flex-shrink: 0;
     pointer-events: none;
   }
-  .sprout-input-group-text svg:not([class*="size-"]) {
+  .sprout-input-group-text svg:not([class*='size-']) {
     width: 16px;
     height: 16px;
   }
@@ -204,8 +193,7 @@
     border-radius: var(--sprout-radius-control);
   }
   @media (pointer: coarse) {
-    .sprout-input-group-variant-composer
-      .sprout-button.sprout-input-group-button {
+    .sprout-input-group-variant-composer .sprout-button.sprout-input-group-button {
       min-width: 44px;
       min-height: 44px;
     }
@@ -214,7 +202,7 @@
   .sprout-input.sprout-input-group-input,
   .sprout-input.sprout-input-group-input:focus-visible,
   .sprout-input.sprout-input-group-input:disabled,
-  .sprout-input.sprout-input-group-input[aria-invalid="true"],
+  .sprout-input.sprout-input-group-input[aria-invalid='true'],
   .sprout-input.sprout-input-group-input[data-invalid] {
     border-color: transparent;
     background-color: transparent;
@@ -228,32 +216,28 @@
     border-radius: 0;
     text-overflow: ellipsis;
   }
-  .sprout-input-group:has(> [data-align="inline-start"])
-    > .sprout-input-group-input {
+  .sprout-input-group:has(> [data-align='inline-start']) > .sprout-input-group-input {
     padding-left: 6px;
   }
-  .sprout-input-group:has(> [data-align="inline-end"])
-    > .sprout-input-group-input {
+  .sprout-input-group:has(> [data-align='inline-end']) > .sprout-input-group-input {
     padding-right: 6px;
   }
-  .sprout-input-group:has(> [data-align^="block"]) > .sprout-input-group-input {
+  .sprout-input-group:has(> [data-align^='block']) > .sprout-input-group-input {
     width: 100%;
     height: 30px;
   }
-  .sprout-input-group:has(> [data-align="block-end"])
-    > .sprout-input-group-input {
+  .sprout-input-group:has(> [data-align='block-end']) > .sprout-input-group-input {
     padding-top: 8px;
   }
-  .sprout-input-group:has(> [data-align="block-start"])
-    > .sprout-input-group-input {
+  .sprout-input-group:has(> [data-align='block-start']) > .sprout-input-group-input {
     padding-bottom: 8px;
   }
   .sprout-input-group-size-lg > .sprout-input-group-input {
     font-size: var(--sprout-text-base);
     line-height: 24px;
   }
-  .sprout-input-group-input[type="search"]::-webkit-search-cancel-button,
-  .sprout-input-group-input[type="search"]::-webkit-search-decoration {
+  .sprout-input-group-input[type='search']::-webkit-search-cancel-button,
+  .sprout-input-group-input[type='search']::-webkit-search-decoration {
     appearance: none;
   }
 
@@ -278,7 +262,7 @@
     .sprout-input-group {
       border-color: FieldText;
     }
-    .sprout-input-group:has([data-slot="input-group-control"]:focus-visible) {
+    .sprout-input-group:has([data-slot='input-group-control']:focus-visible) {
       outline-color: Highlight;
     }
   }

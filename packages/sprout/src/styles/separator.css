@@ -4,16 +4,16 @@
     border: 0;
     background: var(--sprout-line);
   }
-  .sprout-separator[data-orientation="horizontal"] {
+  .sprout-separator[data-orientation='horizontal'] {
     width: 100%;
     height: 1px;
   }
-  .sprout-separator[data-orientation="vertical"] {
+  .sprout-separator[data-orientation='vertical'] {
     width: 1px;
     min-height: 1rem;
     align-self: stretch;
   }
-  .sprout-separator[data-tone="input"] {
+  .sprout-separator[data-tone='input'] {
     background: var(--sprout-input);
   }
 
@@ -44,8 +44,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-separator {
-      transition: background-color var(--sprout-motion-fast)
-        var(--sprout-motion-ease);
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
   }
 
@@ -67,7 +66,7 @@
   .sprout-separator-fade::after,
   .sprout-separator-fade-shine::before,
   .sprout-separator-fade-shine::after {
-    content: "";
+    content: '';
     flex: 1 1 0;
     min-width: 12px;
     height: 1px;
@@ -138,7 +137,7 @@
     line-height: 1.25rem;
     text-align: left;
   }
-  .sprout-separator-marker :where(svg:not([class*="size-"])) {
+  .sprout-separator-marker :where(svg:not([class*='size-'])) {
     width: 16px;
     height: 16px;
   }
@@ -156,7 +155,7 @@
     width: 16px;
     height: 16px;
   }
-  .sprout-separator-icon :where(svg:not([class*="size-"])) {
+  .sprout-separator-icon :where(svg:not([class*='size-'])) {
     width: 16px;
     height: 16px;
   }

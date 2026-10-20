@@ -1,33 +1,23 @@
-import { lazy, Suspense, useState, type ReactNode } from "react";
-import { Bold } from "reicon-react/icons/Bold";
-import { Check } from "reicon-react/icons/Check";
-import { ChatRound } from "reicon-react/icons/ChatRound";
-import { Database } from "reicon-react/icons/Database";
-import { DocumentText } from "reicon-react/icons/DocumentText";
-import { Folder } from "reicon-react/icons/Folder";
-import { Home } from "reicon-react/icons/Home";
-import { InfoCircle } from "reicon-react/icons/InfoCircle";
-import { Italic } from "reicon-react/icons/Italic";
-import { MoreH } from "reicon-react/icons/MoreH";
-import { Paperclip } from "reicon-react/icons/Paperclip";
-import { Plus } from "reicon-react/icons/Plus";
-import { Search } from "reicon-react/icons/Search";
-import { Settings } from "reicon-react/icons/Settings";
-import { Star } from "reicon-react/icons/Star";
-import { Underline } from "reicon-react/icons/Underline";
-import { Upload } from "reicon-react/icons/Upload";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@tulipfarm/sprout/accordion";
-import {
-  Alert,
-  AlertAction,
-  AlertDescription,
-  AlertTitle,
-} from "@tulipfarm/sprout/alert";
+import { lazy, Suspense, useState, type ReactNode } from 'react';
+import { Bold } from 'reicon-react/icons/Bold';
+import { Check } from 'reicon-react/icons/Check';
+import { ChatRound } from 'reicon-react/icons/ChatRound';
+import { Database } from 'reicon-react/icons/Database';
+import { DocumentText } from 'reicon-react/icons/DocumentText';
+import { Folder } from 'reicon-react/icons/Folder';
+import { Home } from 'reicon-react/icons/Home';
+import { InfoCircle } from 'reicon-react/icons/InfoCircle';
+import { Italic } from 'reicon-react/icons/Italic';
+import { MoreH } from 'reicon-react/icons/MoreH';
+import { Paperclip } from 'reicon-react/icons/Paperclip';
+import { Plus } from 'reicon-react/icons/Plus';
+import { Search } from 'reicon-react/icons/Search';
+import { Settings } from 'reicon-react/icons/Settings';
+import { Star } from 'reicon-react/icons/Star';
+import { Underline } from 'reicon-react/icons/Underline';
+import { Upload } from 'reicon-react/icons/Upload';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@tulipfarm/sprout/accordion';
+import { Alert, AlertAction, AlertDescription, AlertTitle } from '@tulipfarm/sprout/alert';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,16 +27,12 @@ import {
   AlertDialogFooter,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@tulipfarm/sprout/alert-dialog";
-import { AspectRatio } from "@tulipfarm/sprout/aspect-ratio";
-import { AttachmentGroup, FileAttachment } from "@tulipfarm/sprout/attachment";
-import { Avatar, AvatarBadge, AvatarFallback } from "@tulipfarm/sprout/avatar";
-import { Badge } from "@tulipfarm/sprout/badge";
-import {
-  BrandIcon,
-  BrandStack,
-  brandNames,
-} from "@tulipfarm/sprout/brand-icon";
+} from '@tulipfarm/sprout/alert-dialog';
+import { AspectRatio } from '@tulipfarm/sprout/aspect-ratio';
+import { AttachmentGroup, FileAttachment } from '@tulipfarm/sprout/attachment';
+import { Avatar, AvatarBadge, AvatarFallback } from '@tulipfarm/sprout/avatar';
+import { Badge } from '@tulipfarm/sprout/badge';
+import { BrandIcon, BrandStack, brandNames } from '@tulipfarm/sprout/brand-icon';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -54,34 +40,15 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@tulipfarm/sprout/breadcrumb";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-} from "@tulipfarm/sprout/button-group";
-import { Calendar } from "@tulipfarm/sprout/calendar";
-import {
-  CanvasPanel,
-  CanvasSection,
-  CanvasToggle,
-} from "@tulipfarm/sprout/canvas";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@tulipfarm/sprout/card";
-import { Checkbox } from "@tulipfarm/sprout/checkbox";
-import { ChoiceList } from "@tulipfarm/sprout/choice-list";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@tulipfarm/sprout/collapsible";
+} from '@tulipfarm/sprout/breadcrumb';
+import { Button } from '@tulipfarm/sprout/button';
+import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@tulipfarm/sprout/button-group';
+import { Calendar } from '@tulipfarm/sprout/calendar';
+import { CanvasPanel, CanvasSection, CanvasToggle } from '@tulipfarm/sprout/canvas';
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@tulipfarm/sprout/card';
+import { Checkbox } from '@tulipfarm/sprout/checkbox';
+import { ChoiceList } from '@tulipfarm/sprout/choice-list';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@tulipfarm/sprout/collapsible';
 import {
   Combobox,
   ComboboxContent,
@@ -89,7 +56,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@tulipfarm/sprout/combobox";
+} from '@tulipfarm/sprout/combobox';
 import {
   Command,
   CommandEmpty,
@@ -98,7 +65,7 @@ import {
   CommandItem,
   CommandList,
   CommandShortcut,
-} from "@tulipfarm/sprout/command";
+} from '@tulipfarm/sprout/command';
 import {
   ContextMenu,
   ContextMenuContent,
@@ -106,7 +73,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "@tulipfarm/sprout/context-menu";
+} from '@tulipfarm/sprout/context-menu';
 import {
   Dialog,
   DialogBody,
@@ -116,8 +83,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@tulipfarm/sprout/dialog";
-import { DirectionProvider } from "@tulipfarm/sprout/direction";
+} from '@tulipfarm/sprout/dialog';
+import { DirectionProvider } from '@tulipfarm/sprout/direction';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -125,33 +92,16 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@tulipfarm/sprout/dropdown-menu";
-import { Field } from "@tulipfarm/sprout/field";
-import { Form, FormFooter, FormSection } from "@tulipfarm/sprout/form";
-import {
-  GradientBanner,
-  GradientBannerBadge,
-  GradientBannerPanel,
-} from "@tulipfarm/sprout/gradient-banner";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@tulipfarm/sprout/hover-card";
-import { Input } from "@tulipfarm/sprout/input";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@tulipfarm/sprout/input-group";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@tulipfarm/sprout/input-otp";
-import { Kbd, KbdGroup } from "@tulipfarm/sprout/kbd";
-import { Label } from "@tulipfarm/sprout/label";
+} from '@tulipfarm/sprout/dropdown-menu';
+import { Field } from '@tulipfarm/sprout/field';
+import { Form, FormFooter, FormSection } from '@tulipfarm/sprout/form';
+import { GradientBanner, GradientBannerBadge, GradientBannerPanel } from '@tulipfarm/sprout/gradient-banner';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@tulipfarm/sprout/hover-card';
+import { Input } from '@tulipfarm/sprout/input';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@tulipfarm/sprout/input-group';
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@tulipfarm/sprout/input-otp';
+import { Kbd, KbdGroup } from '@tulipfarm/sprout/kbd';
+import { Label } from '@tulipfarm/sprout/label';
 import {
   Menubar,
   MenubarContent,
@@ -160,7 +110,7 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@tulipfarm/sprout/menubar";
+} from '@tulipfarm/sprout/menubar';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -168,10 +118,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@tulipfarm/sprout/navigation-menu";
-import { NoticeBanner } from "@tulipfarm/sprout/notice-banner";
-import { PageContent } from "@tulipfarm/sprout/page-content";
-import { PageHeader } from "@tulipfarm/sprout/page-header";
+} from '@tulipfarm/sprout/navigation-menu';
+import { NoticeBanner } from '@tulipfarm/sprout/notice-banner';
+import { PageContent } from '@tulipfarm/sprout/page-content';
+import { PageHeader } from '@tulipfarm/sprout/page-header';
 import {
   Pagination,
   PaginationContent,
@@ -179,7 +129,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@tulipfarm/sprout/pagination";
+} from '@tulipfarm/sprout/pagination';
 import {
   Popover,
   PopoverContent,
@@ -187,22 +137,14 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
-import { PresenceCursor } from "@tulipfarm/sprout/presence-cursor";
-import {
-  Progress,
-  ProgressLabel,
-  ProgressValue,
-} from "@tulipfarm/sprout/progress";
-import { RadioGroup, RadioGroupItem } from "@tulipfarm/sprout/radio-group";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@tulipfarm/sprout/resizable";
-import { ResultCard } from "@tulipfarm/sprout/result-card";
-import type { RichTextValue } from "@tulipfarm/sprout/rich-text-editor";
-import { ScrollArea } from "@tulipfarm/sprout/scroll-area";
+} from '@tulipfarm/sprout/popover';
+import { PresenceCursor } from '@tulipfarm/sprout/presence-cursor';
+import { Progress, ProgressLabel, ProgressValue } from '@tulipfarm/sprout/progress';
+import { RadioGroup, RadioGroupItem } from '@tulipfarm/sprout/radio-group';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@tulipfarm/sprout/resizable';
+import { ResultCard } from '@tulipfarm/sprout/result-card';
+import type { RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
+import { ScrollArea } from '@tulipfarm/sprout/scroll-area';
 import {
   SearchDialog,
   SearchEmpty,
@@ -211,18 +153,12 @@ import {
   SearchItem,
   SearchItemIcon,
   SearchList,
-} from "@tulipfarm/sprout/search-dialog";
-import { SearchField } from "@tulipfarm/sprout/search-field";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@tulipfarm/sprout/select";
-import { SelectionSlot } from "@tulipfarm/sprout/selection-slot";
-import { Separator } from "@tulipfarm/sprout/separator";
-import { SettingsGroup, SettingsRow } from "@tulipfarm/sprout/settings-list";
+} from '@tulipfarm/sprout/search-dialog';
+import { SearchField } from '@tulipfarm/sprout/search-field';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@tulipfarm/sprout/select';
+import { SelectionSlot } from '@tulipfarm/sprout/selection-slot';
+import { Separator } from '@tulipfarm/sprout/separator';
+import { SettingsGroup, SettingsRow } from '@tulipfarm/sprout/settings-list';
 import {
   Sheet,
   SheetBody,
@@ -232,7 +168,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@tulipfarm/sprout/sheet";
+} from '@tulipfarm/sprout/sheet';
 import {
   Sidebar,
   SidebarContent,
@@ -241,72 +177,48 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@tulipfarm/sprout/sidebar";
-import { Skeleton, SkeletonGroup } from "@tulipfarm/sprout/skeleton";
-import { Slider } from "@tulipfarm/sprout/slider";
-import { Spinner } from "@tulipfarm/sprout/spinner";
-import { StatePanel } from "@tulipfarm/sprout/state-panel";
-import {
-  SampleIconTile,
-  SampleList,
-  SampleText,
-  SampleWindow,
-} from "@tulipfarm/sprout/state-sample";
-import { Switch } from "@tulipfarm/sprout/switch";
-import { Table } from "@tulipfarm/sprout/table";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@tulipfarm/sprout/tabs";
-import { Textarea } from "@tulipfarm/sprout/textarea";
-import { Toggle } from "@tulipfarm/sprout/toggle";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import { ToolbarStatus } from "@tulipfarm/sprout/toolbar-status";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@tulipfarm/sprout/tooltip";
-import {
-  Message,
-  MessageBubble,
-  MessageContent,
-  MessageReactions,
-} from "@tulipfarm/sprout/message";
-import { MentionList, MentionOption } from "@tulipfarm/sprout/mention-list";
-import { BookOpen } from "reicon-react/icons/BookOpen";
+} from '@tulipfarm/sprout/sidebar';
+import { Skeleton, SkeletonGroup } from '@tulipfarm/sprout/skeleton';
+import { Slider } from '@tulipfarm/sprout/slider';
+import { Spinner } from '@tulipfarm/sprout/spinner';
+import { StatePanel } from '@tulipfarm/sprout/state-panel';
+import { SampleIconTile, SampleList, SampleText, SampleWindow } from '@tulipfarm/sprout/state-sample';
+import { Switch } from '@tulipfarm/sprout/switch';
+import { Table } from '@tulipfarm/sprout/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tulipfarm/sprout/tabs';
+import { Textarea } from '@tulipfarm/sprout/textarea';
+import { Toggle } from '@tulipfarm/sprout/toggle';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import { ToolbarStatus } from '@tulipfarm/sprout/toolbar-status';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
+import { Message, MessageBubble, MessageContent, MessageReactions } from '@tulipfarm/sprout/message';
+import { MentionList, MentionOption } from '@tulipfarm/sprout/mention-list';
+import { BookOpen } from 'reicon-react/icons/BookOpen';
 
 const RichTextEditor = lazy(() =>
-  import("@tulipfarm/sprout/rich-text-editor").then((m) => ({
+  import('@tulipfarm/sprout/rich-text-editor').then(m => ({
     default: m.RichTextEditor,
   })),
 );
 const FileViewer = lazy(() =>
-  import("@tulipfarm/sprout/file-viewer").then((m) => ({
+  import('@tulipfarm/sprout/file-viewer').then(m => ({
     default: m.FileViewer,
   })),
 );
 const GlassBanner = lazy(() =>
-  import("@tulipfarm/sprout/glass-banner").then((m) => ({
+  import('@tulipfarm/sprout/glass-banner').then(m => ({
     default: m.GlassBanner,
   })),
 );
 const GlassChip = lazy(() =>
-  import("@tulipfarm/sprout/glass-banner").then((m) => ({
+  import('@tulipfarm/sprout/glass-banner').then(m => ({
     default: m.GlassChip,
   })),
 );
 
-const Stack = ({
-  children,
-  row = false,
-}: {
-  children: ReactNode;
-  row?: boolean;
-}) => <div className={row ? "home-p-row" : "home-p-stack"}>{children}</div>;
+const Stack = ({ children, row = false }: { children: ReactNode; row?: boolean }) => (
+  <div className={row ? 'home-p-row' : 'home-p-stack'}>{children}</div>
+);
 
 function ButtonPreview() {
   const [count, setCount] = useState(0);
@@ -325,20 +237,12 @@ function ButtonGroupPreview() {
   const [page, setPage] = useState(1);
   return (
     <ButtonGroup aria-label="Pages">
-      <Button
-        variant="outline"
-        disabled={page === 1}
-        onClick={() => setPage(page - 1)}
-      >
+      <Button variant="outline" disabled={page === 1} onClick={() => setPage(page - 1)}>
         Previous
       </Button>
       <ButtonGroupText>Page {page} of 3</ButtonGroupText>
       <ButtonGroupSeparator />
-      <Button
-        variant="outline"
-        disabled={page === 3}
-        onClick={() => setPage(page + 1)}
-      >
+      <Button variant="outline" disabled={page === 3} onClick={() => setPage(page + 1)}>
         Next
       </Button>
     </ButtonGroup>
@@ -350,18 +254,12 @@ function ToolbarStatusPreview() {
   const failed = runs % 2 === 1;
   return (
     <ToolbarStatus
-      label={failed ? "Export failed" : "Export result"}
-      message={
-        runs === 0
-          ? "Ready to export."
-          : failed
-            ? "Export failed. Try again."
-            : "Exported 128 rows."
-      }
+      label={failed ? 'Export failed' : 'Export result'}
+      message={runs === 0 ? 'Ready to export.' : failed ? 'Export failed. Try again.' : 'Exported 128 rows.'}
       error={failed}
     >
       <Button variant="outline" size="sm" onClick={() => setRuns(runs + 1)}>
-        {failed ? "Retry export" : "Export"}
+        {failed ? 'Retry export' : 'Export'}
       </Button>
     </ToolbarStatus>
   );
@@ -371,12 +269,7 @@ function CalendarPreview() {
   const [date, setDate] = useState<Date | undefined>(new Date(2026, 9, 12));
   return (
     <div className="home-p-zoom">
-      <Calendar
-        mode="single"
-        selected={date}
-        onSelect={setDate}
-        defaultMonth={new Date(2026, 9, 1)}
-      />
+      <Calendar mode="single" selected={date} onSelect={setDate} defaultMonth={new Date(2026, 9, 1)} />
     </div>
   );
 }
@@ -388,20 +281,14 @@ function CheckboxPreview() {
   return (
     <Stack>
       <Label>
-        <Checkbox
-          checked={all}
-          indeterminate={some}
-          onCheckedChange={(next) => setRows(rows.map(() => next))}
-        />
+        <Checkbox checked={all} indeterminate={some} onCheckedChange={next => setRows(rows.map(() => next))} />
         Select all
       </Label>
-      {["Share with members", "Email a summary"].map((label, index) => (
+      {['Share with members', 'Email a summary'].map((label, index) => (
         <Label key={label}>
           <Checkbox
             checked={rows[index]}
-            onCheckedChange={(next) =>
-              setRows(rows.map((value, i) => (i === index ? next : value)))
-            }
+            onCheckedChange={next => setRows(rows.map((value, i) => (i === index ? next : value)))}
           />
           {label}
         </Label>
@@ -411,14 +298,14 @@ function CheckboxPreview() {
 }
 
 function ChoiceListPreview() {
-  const [style, setStyle] = useState<string[]>(["short"]);
+  const [style, setStyle] = useState<string[]>(['short']);
   return (
     <ChoiceList
       layout="compact"
       legend="Reply style"
       options={[
-        { id: "short", label: "Short answers" },
-        { id: "detailed", label: "Detailed answers" },
+        { id: 'short', label: 'Short answers' },
+        { id: 'detailed', label: 'Detailed answers' },
       ]}
       value={style}
       onChange={setStyle}
@@ -426,16 +313,12 @@ function ChoiceListPreview() {
   );
 }
 
-const fruits = ["Apple", "Apricot", "Blueberry", "Cherry", "Pear"];
+const fruits = ['Apple', 'Apricot', 'Blueberry', 'Cherry', 'Pear'];
 
 function ComboboxPreview() {
   return (
     <Combobox items={fruits}>
-      <ComboboxInput
-        aria-label="Choose a fruit"
-        placeholder="Choose a fruit"
-        showClear
-      />
+      <ComboboxInput aria-label="Choose a fruit" placeholder="Choose a fruit" showClear />
       <ComboboxContent>
         <ComboboxEmpty>No fruit found.</ComboboxEmpty>
         <ComboboxList>
@@ -451,47 +334,35 @@ function ComboboxPreview() {
 }
 
 function FieldPreview() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   return (
-    <Field
-      label="Agent name"
-      required
-      error={name.length > 20 ? "Use 20 characters or fewer." : undefined}
-    >
-      <Input
-        value={name}
-        placeholder="People Ops helper"
-        onChange={(event) => setName(event.target.value)}
-      />
+    <Field label="Agent name" required error={name.length > 20 ? 'Use 20 characters or fewer.' : undefined}>
+      <Input value={name} placeholder="People Ops helper" onChange={event => setName(event.target.value)} />
     </Field>
   );
 }
 
 function FormPreview() {
-  const [minutes, setMinutes] = useState("30");
-  const [saved, setSaved] = useState("30");
+  const [minutes, setMinutes] = useState('30');
+  const [saved, setSaved] = useState('30');
   return (
     <div className="home-p-zoom">
       <Form label="Change interval" onSubmit={() => setSaved(minutes)}>
         <FormSection title="Scheduled trigger">
           <Field label="Run every (minutes)" required>
-            <Input
-              type="number"
-              value={minutes}
-              onChange={(event) => setMinutes(event.target.value)}
-            />
+            <Input type="number" value={minutes} onChange={event => setMinutes(event.target.value)} />
           </Field>
         </FormSection>
         <FormFooter
           dirty={minutes !== saved}
           submit={{
-            label: "Save",
-            pendingLabel: "Saving…",
-            state: { kind: "ready" },
+            label: 'Save',
+            pendingLabel: 'Saving…',
+            state: { kind: 'ready' },
           }}
           cancel={{
-            kind: "reset",
-            label: "Discard",
+            kind: 'reset',
+            label: 'Discard',
             onReset: () => setMinutes(saved),
           }}
         />
@@ -501,7 +372,7 @@ function FormPreview() {
 }
 
 function InputPreview() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   return (
     <Stack>
       <Label htmlFor="home-input">Email</Label>
@@ -510,7 +381,7 @@ function InputPreview() {
         type="email"
         placeholder="you@company.com"
         value={value}
-        onChange={(event) => setValue(event.target.value)}
+        onChange={event => setValue(event.target.value)}
       />
     </Stack>
   );
@@ -528,14 +399,9 @@ function InputGroupPreview() {
 }
 
 function InputOTPPreview() {
-  const [code, setCode] = useState("194");
+  const [code, setCode] = useState('194');
   return (
-    <InputOTP
-      maxLength={6}
-      value={code}
-      onChange={setCode}
-      aria-label="Verification code"
-    >
+    <InputOTP maxLength={6} value={code} onChange={setCode} aria-label="Verification code">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -553,8 +419,8 @@ function InputOTPPreview() {
 
 function RichTextPreview() {
   const [value, setValue] = useState<RichTextValue>({
-    type: "doc",
-    content: [{ type: "paragraph" }],
+    type: 'doc',
+    content: [{ type: 'paragraph' }],
   });
   return (
     <div className="home-p-wide">
@@ -572,36 +438,25 @@ function RichTextPreview() {
 }
 
 function SearchFieldPreview() {
-  const [search, setSearch] = useState("");
-  return (
-    <SearchField
-      label="Find agents"
-      placeholder="Search agents"
-      value={search}
-      onChange={setSearch}
-    />
-  );
+  const [search, setSearch] = useState('');
+  return <SearchField label="Find agents" placeholder="Search agents" value={search} onChange={setSearch} />;
 }
 
 const durations = [
-  { value: "30", label: "30 minutes" },
-  { value: "60", label: "1 hour" },
-  { value: "90", label: "90 minutes" },
+  { value: '30', label: '30 minutes' },
+  { value: '60', label: '1 hour' },
+  { value: '90', label: '90 minutes' },
 ];
 
 function SelectPreview() {
-  const [duration, setDuration] = useState("60");
+  const [duration, setDuration] = useState('60');
   return (
-    <Select
-      items={durations}
-      value={duration}
-      onValueChange={(value) => value && setDuration(value)}
-    >
+    <Select items={durations} value={duration} onValueChange={value => value && setDuration(value)}>
       <SelectTrigger aria-label="Duration">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {durations.map((item) => (
+        {durations.map(item => (
           <SelectItem key={item.value} value={item.value}>
             {item.label}
           </SelectItem>
@@ -618,9 +473,7 @@ function SliderPreview() {
       <Slider
         aria-label="Volume"
         value={volume}
-        onValueChange={(next) =>
-          setVolume(typeof next === "number" ? next : next[0]!)
-        }
+        onValueChange={next => setVolume(typeof next === 'number' ? next : next[0]!)}
       />
     </div>
   );
@@ -631,22 +484,17 @@ function SwitchPreview() {
   return (
     <Label>
       <Switch checked={on} onCheckedChange={setOn} />
-      Email summaries {on ? "on" : "off"}
+      Email summaries {on ? 'on' : 'off'}
     </Label>
   );
 }
 
 function TextareaPreview() {
-  const [prompt, setPrompt] = useState("");
+  const [prompt, setPrompt] = useState('');
   return (
     <div className="home-p-wide">
       <Field label="Task prompt" optional counter={`${prompt.length} / 200`}>
-        <Textarea
-          rows={2}
-          maxLength={200}
-          value={prompt}
-          onChange={(event) => setPrompt(event.target.value)}
-        />
+        <Textarea rows={2} maxLength={200} value={prompt} onChange={event => setPrompt(event.target.value)} />
       </Field>
     </div>
   );
@@ -655,14 +503,10 @@ function TextareaPreview() {
 function AlertDialogPreview() {
   return (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="destructive" />}>
-        Stop plan
-      </AlertDialogTrigger>
+      <AlertDialogTrigger render={<Button variant="destructive" />}>Stop plan</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogTitle>Stop this plan?</AlertDialogTitle>
-        <AlertDialogDescription>
-          Unfinished tasks are cancelled. Finished work is kept.
-        </AlertDialogDescription>
+        <AlertDialogDescription>Unfinished tasks are cancelled. Finished work is kept.</AlertDialogDescription>
         <AlertDialogFooter>
           <AlertDialogCancel>Keep running</AlertDialogCancel>
           <AlertDialogAction variant="destructive">Stop plan</AlertDialogAction>
@@ -703,12 +547,7 @@ function CommandPreview() {
 function ContextMenuPreview() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger
-        tabIndex={0}
-        role="group"
-        aria-label="Sample card actions"
-        className="home-p-target"
-      >
+      <ContextMenuTrigger tabIndex={0} role="group" aria-label="Sample card actions" className="home-p-target">
         Right-click here
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -727,15 +566,11 @@ function DialogPreview() {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button variant="outline" />}>
-        Edit profile
-      </DialogTrigger>
+      <DialogTrigger render={<Button variant="outline" />}>Edit profile</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Changes show to your workspace right away.
-          </DialogDescription>
+          <DialogDescription>Changes show to your workspace right away.</DialogDescription>
         </DialogHeader>
         <DialogBody>
           <Field label="Name" required>
@@ -756,11 +591,7 @@ function DialogPreview() {
 function DropdownMenuPreview() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        render={
-          <Button variant="outline" size="icon" aria-label="Row actions" />
-        }
-      >
+      <DropdownMenuTrigger render={<Button variant="outline" size="icon" aria-label="Row actions" />}>
         <MoreH size={16} aria-hidden="true" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -778,9 +609,7 @@ function DropdownMenuPreview() {
 function HoverCardPreview() {
   return (
     <HoverCard>
-      <HoverCardTrigger
-        render={<a href="/components/hover-card/" className="home-p-link" />}
-      >
+      <HoverCardTrigger render={<a href="/components/hover-card/" className="home-p-link" />}>
         @alexmeadow
       </HoverCardTrigger>
       <HoverCardContent side="top">
@@ -794,7 +623,7 @@ function HoverCardPreview() {
 function MenubarPreview() {
   return (
     <Menubar aria-label="Application menu">
-      {["File", "Edit", "View"].map((menu) => (
+      {['File', 'Edit', 'View'].map(menu => (
         <MenubarMenu key={menu}>
           <MenubarTrigger>{menu}</MenubarTrigger>
           <MenubarContent>
@@ -814,9 +643,7 @@ function MenubarPreview() {
 function PopoverPreview() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button variant="outline" />}>
-        Sync status
-      </PopoverTrigger>
+      <PopoverTrigger render={<Button variant="outline" />}>Sync status</PopoverTrigger>
       <PopoverContent>
         <PopoverHeader>
           <PopoverTitle>Synced 2 minutes ago</PopoverTitle>
@@ -828,45 +655,28 @@ function PopoverPreview() {
 }
 
 const pages = [
-  { title: "Overview", meta: "Workspace" },
-  { title: "Agents", meta: "Workspace" },
-  { title: "Billing", meta: "Settings" },
-  { title: "Members", meta: "Settings" },
+  { title: 'Overview', meta: 'Workspace' },
+  { title: 'Agents', meta: 'Workspace' },
+  { title: 'Billing', meta: 'Settings' },
+  { title: 'Members', meta: 'Settings' },
 ];
 
 function SearchDialogPreview() {
   const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const results = pages.filter((page) =>
-    page.title.toLowerCase().includes(query.toLowerCase()),
-  );
+  const [query, setQuery] = useState('');
+  const results = pages.filter(page => page.title.toLowerCase().includes(query.toLowerCase()));
   return (
     <>
       <Button variant="outline" onClick={() => setOpen(true)}>
         <Search data-icon="inline-start" aria-hidden="true" />
         Jump to…
       </Button>
-      <SearchDialog
-        open={open}
-        onOpenChange={setOpen}
-        title="Jump to…"
-        description="Find workspace pages."
-      >
-        <SearchInput
-          value={query}
-          onValueChange={setQuery}
-          placeholder="Find a page…"
-          label="Find a page"
-        />
+      <SearchDialog open={open} onOpenChange={setOpen} title="Jump to…" description="Find workspace pages.">
+        <SearchInput value={query} onValueChange={setQuery} placeholder="Find a page…" label="Find a page" />
         <SearchList label="Pages">
-          {results.length === 0 && (
-            <SearchEmpty
-              title="No pages match"
-              description="Try another word."
-            />
-          )}
+          {results.length === 0 && <SearchEmpty title="No pages match" description="Try another word." />}
           <SearchGroup heading="Pages" count={results.length}>
-            {results.map((page) => (
+            {results.map(page => (
               <SearchItem
                 key={page.title}
                 value={page.title}
@@ -891,9 +701,7 @@ function SheetPreview() {
   const [open, setOpen] = useState(false);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger render={<Button variant="outline" />}>
-        Filters (2)
-      </SheetTrigger>
+      <SheetTrigger render={<Button variant="outline" />}>Filters (2)</SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Filter and sort</SheetTitle>
@@ -918,16 +726,12 @@ function TooltipPreview() {
     <TooltipProvider>
       <Stack row>
         {[
-          { label: "Attach files", icon: Paperclip },
-          { label: "Bold", icon: Bold },
-          { label: "Add to favorites", icon: Star },
+          { label: 'Attach files', icon: Paperclip },
+          { label: 'Bold', icon: Bold },
+          { label: 'Add to favorites', icon: Star },
         ].map(({ label, icon: Icon }) => (
           <Tooltip key={label}>
-            <TooltipTrigger
-              render={
-                <Button size="icon" variant="outline" aria-label={label} />
-              }
-            >
+            <TooltipTrigger render={<Button size="icon" variant="outline" aria-label={label} />}>
               <Icon size={16} aria-hidden="true" />
             </TooltipTrigger>
             <TooltipContent>{label}</TooltipContent>
@@ -966,12 +770,8 @@ function NavigationMenuPreview() {
           <NavigationMenuTrigger>Projects</NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="home-p-navpanel">
-              <NavigationMenuLink href="#components">
-                Meadow project
-              </NavigationMenuLink>
-              <NavigationMenuLink href="#components">
-                Garden notes
-              </NavigationMenuLink>
+              <NavigationMenuLink href="#components">Meadow project</NavigationMenuLink>
+              <NavigationMenuLink href="#components">Garden notes</NavigationMenuLink>
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -995,7 +795,7 @@ function PaginationPreview() {
         <PaginationItem>
           <PaginationPrevious href="#" onClick={go(page - 1)} />
         </PaginationItem>
-        {[1, 2, 3].map((n) => (
+        {[1, 2, 3].map(n => (
           <PaginationItem key={n}>
             <PaginationLink href="#" isActive={n === page} onClick={go(n)}>
               {n}
@@ -1011,7 +811,7 @@ function PaginationPreview() {
 }
 
 function SidebarPreview() {
-  const [active, setActive] = useState("Overview");
+  const [active, setActive] = useState('Overview');
   return (
     <div className="home-p-frame">
       <SidebarProvider keyboardShortcut={false} className="home-p-sidebar">
@@ -1020,10 +820,10 @@ function SidebarPreview() {
             <SidebarGroup>
               <SidebarMenu>
                 {[
-                  { label: "Overview", icon: <Home /> },
-                  { label: "Chats", icon: <ChatRound /> },
-                  { label: "Settings", icon: <Settings /> },
-                ].map((item) => (
+                  { label: 'Overview', icon: <Home /> },
+                  { label: 'Chats', icon: <ChatRound /> },
+                  { label: 'Settings', icon: <Settings /> },
+                ].map(item => (
                   <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton
                       icon={item.icon}
@@ -1062,12 +862,10 @@ function TabsPreview() {
 
 function AccordionPreview() {
   return (
-    <Accordion defaultValue={["one"]} className="home-p-wide">
+    <Accordion defaultValue={['one']} className="home-p-wide">
       <AccordionItem value="one">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It follows the WAI-ARIA pattern.
-        </AccordionContent>
+        <AccordionContent>Yes. It follows the WAI-ARIA pattern.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="two">
         <AccordionTrigger>Can I style it?</AccordionTrigger>
@@ -1080,22 +878,11 @@ function AccordionPreview() {
 function AspectRatioPreview() {
   const [wide, setWide] = useState(true);
   return (
-    <button
-      type="button"
-      className="home-p-ratio"
-      onClick={() => setWide(!wide)}
-      aria-label="Switch ratio"
-    >
+    <button type="button" className="home-p-ratio" onClick={() => setWide(!wide)} aria-label="Switch ratio">
       <AspectRatio ratio={wide ? 16 / 9 : 1}>
-        <img
-          src="/aspect-ratio-samples/landscape.svg"
-          alt=""
-          className="home-p-img"
-        />
+        <img src="/aspect-ratio-samples/landscape.svg" alt="" className="home-p-img" />
       </AspectRatio>
-      <span className="home-p-note">
-        {wide ? "16:9" : "1:1"}, click to switch
-      </span>
+      <span className="home-p-note">{wide ? '16:9' : '1:1'}, click to switch</span>
     </button>
   );
 }
@@ -1109,14 +896,12 @@ function CardPreview() {
           <CardTitle render={<h3 />}>Meadow project</CardTitle>
           <CardDescription>Spring plan · 12 beds</CardDescription>
           <CardAction>
-            <Badge variant={done ? "success" : "secondary"}>
-              {done ? "Reviewed" : "Active"}
-            </Badge>
+            <Badge variant={done ? 'success' : 'secondary'}>{done ? 'Reviewed' : 'Active'}</Badge>
           </CardAction>
         </CardHeader>
         <CardContent>
           <Button size="sm" variant="outline" onClick={() => setDone(!done)}>
-            {done ? "Undo review" : "Review tasks"}
+            {done ? 'Undo review' : 'Review tasks'}
           </Button>
         </CardContent>
       </Card>
@@ -1127,9 +912,7 @@ function CardPreview() {
 function CollapsiblePreview() {
   return (
     <Collapsible className="home-p-wide">
-      <CollapsibleTrigger render={<Button variant="outline" size="sm" />}>
-        Approval details
-      </CollapsibleTrigger>
+      <CollapsibleTrigger render={<Button variant="outline" size="sm" />}>Approval details</CollapsibleTrigger>
       <CollapsibleContent>
         <p className="home-p-note">Only the listed changes are approved.</p>
       </CollapsibleContent>
@@ -1141,25 +924,23 @@ function DirectionPreview() {
   const [rtl, setRtl] = useState(true);
   return (
     <Stack>
-      <DirectionProvider direction={rtl ? "rtl" : "ltr"}>
-        <div dir={rtl ? "rtl" : "ltr"}>
+      <DirectionProvider direction={rtl ? 'rtl' : 'ltr'}>
+        <div dir={rtl ? 'rtl' : 'ltr'}>
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="#components">
-                  {rtl ? "المشاريع" : "Projects"}
-                </BreadcrumbLink>
+                <BreadcrumbLink href="#components">{rtl ? 'المشاريع' : 'Projects'}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>{rtl ? "الحديقة" : "Garden"}</BreadcrumbPage>
+                <BreadcrumbPage>{rtl ? 'الحديقة' : 'Garden'}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </div>
       </DirectionProvider>
       <Button size="sm" variant="ghost" onClick={() => setRtl(!rtl)}>
-        Switch to {rtl ? "LTR" : "RTL"}
+        Switch to {rtl ? 'LTR' : 'RTL'}
       </Button>
     </Stack>
   );
@@ -1234,17 +1015,9 @@ function SelectionSlotPreview() {
         <SelectionSlot
           active={selected}
           selection={
-            <div
-              role="toolbar"
-              aria-label="Selected items"
-              className="home-p-row"
-            >
+            <div role="toolbar" aria-label="Selected items" className="home-p-row">
               <span role="status">2 selected</span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSelected(false)}
-              >
+              <Button variant="ghost" size="sm" onClick={() => setSelected(false)}>
                 Clear
               </Button>
             </div>
@@ -1252,11 +1025,7 @@ function SelectionSlotPreview() {
         >
           <div className="home-p-row">
             <span className="home-p-note">All files</span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setSelected(true)}
-            >
+            <Button variant="outline" size="sm" onClick={() => setSelected(true)}>
               Select 2
             </Button>
           </div>
@@ -1302,19 +1071,11 @@ function AlertPreview() {
     <div className="home-p-wide">
       <Alert role="status">
         <InfoCircle aria-hidden="true" />
-        <AlertTitle>{archived ? "Chat archived" : "Chat restored"}</AlertTitle>
-        <AlertDescription>
-          {archived
-            ? "It moved to Archived chats."
-            : "It is back in your list."}
-        </AlertDescription>
+        <AlertTitle>{archived ? 'Chat archived' : 'Chat restored'}</AlertTitle>
+        <AlertDescription>{archived ? 'It moved to Archived chats.' : 'It is back in your list.'}</AlertDescription>
         <AlertAction>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setArchived(!archived)}
-          >
-            {archived ? "Undo" : "Archive"}
+          <Button variant="ghost" size="sm" onClick={() => setArchived(!archived)}>
+            {archived ? 'Undo' : 'Archive'}
           </Button>
         </AlertAction>
       </Alert>
@@ -1330,15 +1091,11 @@ function NoticeBannerPreview() {
         aria-label="Integration authorization"
         actions={
           <Button variant="outline" size="sm" onClick={() => setFixed(!fixed)}>
-            {fixed ? "Reset" : "Approve"}
+            {fixed ? 'Reset' : 'Approve'}
           </Button>
         }
       >
-        <p role="status">
-          {fixed
-            ? "Google Calendar is connected."
-            : "Google Calendar needs authorization."}
-        </p>
+        <p role="status">{fixed ? 'Google Calendar is connected.' : 'Google Calendar needs authorization.'}</p>
       </NoticeBanner>
     </div>
   );
@@ -1354,12 +1111,8 @@ function ProgressPreview() {
           <ProgressValue />
         </Progress>
       </div>
-      <Button
-        size="sm"
-        variant="outline"
-        onClick={() => setValue(value >= 100 ? 0 : value + 20)}
-      >
-        {value >= 100 ? "Restart" : "Add 20%"}
+      <Button size="sm" variant="outline" onClick={() => setValue(value >= 100 ? 0 : value + 20)}>
+        {value >= 100 ? 'Restart' : 'Add 20%'}
       </Button>
     </Stack>
   );
@@ -1392,24 +1145,15 @@ function SpinnerPreview() {
   );
 }
 
-const panelKinds = ["empty", "loading", "success", "error"] as const;
+const panelKinds = ['empty', 'loading', 'success', 'error'] as const;
 
 function StatePanelPreview() {
   const [index, setIndex] = useState(0);
   const kind = panelKinds[index]!;
   return (
     <div className="home-p-zoom home-p-wide">
-      <StatePanel
-        kind={kind}
-        heading="h3"
-        title={`State: ${kind}`}
-        description="Click to see the next state."
-      >
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setIndex((index + 1) % panelKinds.length)}
-        >
+      <StatePanel kind={kind} heading="h3" title={`State: ${kind}`} description="Click to see the next state.">
+        <Button variant="outline" size="sm" onClick={() => setIndex((index + 1) % panelKinds.length)}>
           Next state
         </Button>
       </StatePanel>
@@ -1420,17 +1164,13 @@ function StatePanelPreview() {
 function StateSamplePreview() {
   return (
     <div className="home-p-zoom home-p-wide">
-      <SampleWindow
-        icon={ChatRound}
-        trail={["Chats"]}
-        tabs={["Active", "Archived"]}
-      >
+      <SampleWindow icon={ChatRound} trail={['Chats']} tabs={['Active', 'Archived']}>
         <SampleList
           items={[
             {
               leading: <SampleIconTile icon={ChatRound} />,
-              title: "Follow up with Northwind",
-              detail: "Draft ready for review",
+              title: 'Follow up with Northwind',
+              detail: 'Draft ready for review',
               trailing: <SampleText tone="muted">1h ago</SampleText>,
             },
           ]}
@@ -1443,31 +1183,29 @@ function StateSamplePreview() {
 function AttachmentPreview() {
   const [files, setFiles] = useState([
     {
-      id: "a",
-      name: "Plan.pdf",
-      mediaType: "application/pdf",
-      size: "48 KB",
-      state: "ready" as const,
+      id: 'a',
+      name: 'Plan.pdf',
+      mediaType: 'application/pdf',
+      size: '48 KB',
+      state: 'ready' as const,
     },
     {
-      id: "b",
-      name: "Notes.docx",
-      mediaType: "application/msword",
-      size: "12 KB",
-      state: "uploading" as const,
+      id: 'b',
+      name: 'Notes.docx',
+      mediaType: 'application/msword',
+      size: '12 KB',
+      state: 'uploading' as const,
     },
   ]);
   return (
     <Stack>
       <AttachmentGroup variant="carousel" aria-label="Attached files">
-        {files.map((file) => (
+        {files.map(file => (
           <FileAttachment
             key={file.id}
             variant="chip"
             file={file}
-            onRemove={() =>
-              setFiles(files.filter((item) => item.id !== file.id))
-            }
+            onRemove={() => setFiles(files.filter(item => item.id !== file.id))}
           />
         ))}
       </AttachmentGroup>
@@ -1478,18 +1216,18 @@ function AttachmentPreview() {
           onClick={() =>
             setFiles([
               {
-                id: "a",
-                name: "Plan.pdf",
-                mediaType: "application/pdf",
-                size: "48 KB",
-                state: "ready",
+                id: 'a',
+                name: 'Plan.pdf',
+                mediaType: 'application/pdf',
+                size: '48 KB',
+                state: 'ready',
               },
               {
-                id: "b",
-                name: "Notes.docx",
-                mediaType: "application/msword",
-                size: "12 KB",
-                state: "uploading",
+                id: 'b',
+                name: 'Notes.docx',
+                mediaType: 'application/msword',
+                size: '12 KB',
+                state: 'uploading',
               },
             ])
           }
@@ -1541,19 +1279,15 @@ function BrandIconPreview() {
       <BrandIcon brand="google-calendar" size="sm" />
       <BrandStack
         brands={[
-          { brand: "jira", name: brandNames.jira },
-          { brand: "gmail", name: brandNames.gmail },
+          { brand: 'jira', name: brandNames.jira },
+          { brand: 'gmail', name: brandNames.gmail },
         ]}
       />
     </Stack>
   );
 }
 
-const sampleText = new File(
-  ["Returns are accepted within 30 days."],
-  "Returns policy.txt",
-  { type: "text/plain" },
-);
+const sampleText = new File(['Returns are accepted within 30 days.'], 'Returns policy.txt', { type: 'text/plain' });
 
 function FileViewerPreview() {
   const [open, setOpen] = useState(false);
@@ -1569,7 +1303,7 @@ function FileViewerPreview() {
             file={{
               name: sampleText.name,
               mediaType: sampleText.type,
-              source: { kind: "local", file: sampleText },
+              source: { kind: 'local', file: sampleText },
             }}
             open={open}
             onOpenChange={setOpen}
@@ -1585,28 +1319,20 @@ function GlassBannerPreview() {
     <div className="home-p-zoom home-p-wide">
       <Suspense fallback={<Skeleton shape="panel" />}>
         <GlassBanner title="Connect once." caption="Drag the chips">
-          <GlassChip icon={<BrandIcon brand="gmail" size="glyph" />}>
-            Drafted 3 follow-ups
-          </GlassChip>
-          <GlassChip icon={<BrandIcon brand="slack" size="glyph" />}>
-            Answered in #support
-          </GlassChip>
+          <GlassChip icon={<BrandIcon brand="gmail" size="glyph" />}>Drafted 3 follow-ups</GlassChip>
+          <GlassChip icon={<BrandIcon brand="slack" size="glyph" />}>Answered in #support</GlassChip>
         </GlassBanner>
       </Suspense>
     </div>
   );
 }
 
-const gradients = ["iris", "aurora", "citrus", "lagoon"] as const;
+const gradients = ['iris', 'aurora', 'citrus', 'lagoon'] as const;
 
 function GradientBannerPreview() {
   const [index, setIndex] = useState(0);
   return (
-    <button
-      type="button"
-      className="home-p-wide home-p-plain"
-      onClick={() => setIndex((index + 1) % gradients.length)}
-    >
+    <button type="button" className="home-p-wide home-p-plain" onClick={() => setIndex((index + 1) % gradients.length)}>
       <GradientBanner variant={gradients[index]!} size="sm">
         <GradientBannerPanel tone="dark">
           <GradientBannerBadge>{gradients[index]}</GradientBannerBadge>
@@ -1643,16 +1369,16 @@ function ResultCardPreview() {
       <ResultCard
         title="Investor pitch"
         kind="File"
-        status={opened ? "Opened in canvas" : "Saved in Google Slides"}
+        status={opened ? 'Opened in canvas' : 'Saved in Google Slides'}
         state="success"
         apps={[
           {
-            brand: "google-slides",
-            name: "Google Slides",
-            actions: [{ label: "Created the pitch deck", state: "completed" }],
+            brand: 'google-slides',
+            name: 'Google Slides',
+            actions: [{ label: 'Created the pitch deck', state: 'completed' }],
           },
         ]}
-        action={{ label: "View slides", onClick: () => setOpened(true) }}
+        action={{ label: 'View slides', onClick: () => setOpened(true) }}
       />
     </div>
   );
@@ -1660,23 +1386,23 @@ function ResultCardPreview() {
 
 function TablePreview() {
   const rows = [
-    { name: "Customers", records: 1284 },
-    { name: "Invoices", records: 9407 },
-    { name: "Suppliers", records: 38 },
+    { name: 'Customers', records: 1284 },
+    { name: 'Invoices', records: 9407 },
+    { name: 'Suppliers', records: 38 },
   ];
   return (
     <div className="home-p-zoom home-p-wide">
       <Table
         aria-label="Tables"
         data={rows}
-        getRowId={(row) => row.name}
+        getRowId={row => row.name}
         columns={[
-          { key: "name", header: "Table" },
+          { key: 'name', header: 'Table' },
           {
-            key: "records",
-            header: "Records",
-            align: "right",
-            cell: (row) => row.records.toLocaleString("en-US"),
+            key: 'records',
+            header: 'Records',
+            align: 'right',
+            cell: row => row.records.toLocaleString('en-US'),
           },
         ]}
       />
@@ -1685,20 +1411,16 @@ function TablePreview() {
 }
 
 const canvasTabs = [
-  { id: "rows", title: "Customers", icon: Database },
-  { id: "doc", title: "Launch notes", icon: DocumentText },
+  { id: 'rows', title: 'Customers', icon: Database },
+  { id: 'doc', title: 'Launch notes', icon: DocumentText },
 ];
 
 function CanvasPreview() {
   const [open, setOpen] = useState(true);
-  const [active, setActive] = useState("rows");
+  const [active, setActive] = useState('rows');
   return (
     <Stack>
-      <CanvasToggle
-        open={open}
-        count={canvasTabs.length}
-        onToggle={() => setOpen(!open)}
-      />
+      <CanvasToggle open={open} count={canvasTabs.length} onToggle={() => setOpen(!open)} />
       {open && (
         <div className="home-p-frame home-p-canvas">
           <CanvasPanel
@@ -1708,10 +1430,7 @@ function CanvasPreview() {
             onCloseTab={() => setOpen(false)}
             onClose={() => setOpen(false)}
           >
-            <CanvasSection
-              title={canvasTabs.find((tab) => tab.id === active)!.title}
-              meta="Sample result"
-            >
+            <CanvasSection title={canvasTabs.find(tab => tab.id === active)!.title} meta="Sample result">
               <p className="home-p-note">Results open here beside the chat.</p>
             </CanvasSection>
           </CanvasPanel>
@@ -1723,7 +1442,7 @@ function CanvasPreview() {
 
 const previews: Record<string, () => ReactNode> = {
   button: ButtonPreview,
-  "button-group": ButtonGroupPreview,
+  'button-group': ButtonGroupPreview,
   toggle: () => (
     <Stack row>
       <Toggle aria-label="Bold" defaultPressed>
@@ -1735,8 +1454,8 @@ const previews: Record<string, () => ReactNode> = {
       </Toggle>
     </Stack>
   ),
-  "toggle-group": () => (
-    <ToggleGroup aria-label="Text style" multiple defaultValue={["bold"]}>
+  'toggle-group': () => (
+    <ToggleGroup aria-label="Text style" multiple defaultValue={['bold']}>
       <ToggleGroupItem value="bold" aria-label="Bold">
         <Bold />
       </ToggleGroupItem>
@@ -1748,7 +1467,7 @@ const previews: Record<string, () => ReactNode> = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-  "toolbar-status": ToolbarStatusPreview,
+  'toolbar-status': ToolbarStatusPreview,
   kbd: () => (
     <Stack row>
       <KbdGroup>
@@ -1763,22 +1482,22 @@ const previews: Record<string, () => ReactNode> = {
   ),
   calendar: CalendarPreview,
   checkbox: CheckboxPreview,
-  "choice-list": ChoiceListPreview,
+  'choice-list': ChoiceListPreview,
   combobox: ComboboxPreview,
   field: FieldPreview,
   form: FormPreview,
   input: InputPreview,
-  "input-group": InputGroupPreview,
-  "input-otp": InputOTPPreview,
+  'input-group': InputGroupPreview,
+  'input-otp': InputOTPPreview,
   label: () => (
     <Label>
       <Checkbox defaultChecked />
       Shared business account
     </Label>
   ),
-  "radio-group": () => (
+  'radio-group': () => (
     <RadioGroup defaultValue="weekly" aria-label="Digest frequency">
-      {["Daily", "Weekly", "Never"].map((label) => (
+      {['Daily', 'Weekly', 'Never'].map(label => (
         <Label key={label}>
           <RadioGroupItem value={label.toLowerCase()} />
           {label}
@@ -1786,77 +1505,69 @@ const previews: Record<string, () => ReactNode> = {
       ))}
     </RadioGroup>
   ),
-  "rich-text-editor": RichTextPreview,
-  "search-field": SearchFieldPreview,
+  'rich-text-editor': RichTextPreview,
+  'search-field': SearchFieldPreview,
   select: SelectPreview,
   slider: SliderPreview,
   switch: SwitchPreview,
   textarea: TextareaPreview,
-  "alert-dialog": AlertDialogPreview,
+  'alert-dialog': AlertDialogPreview,
   command: CommandPreview,
-  "context-menu": ContextMenuPreview,
+  'context-menu': ContextMenuPreview,
   dialog: DialogPreview,
-  "dropdown-menu": DropdownMenuPreview,
-  "hover-card": HoverCardPreview,
+  'dropdown-menu': DropdownMenuPreview,
+  'hover-card': HoverCardPreview,
   menubar: MenubarPreview,
   popover: PopoverPreview,
-  "search-dialog": SearchDialogPreview,
+  'search-dialog': SearchDialogPreview,
   sheet: SheetPreview,
   tooltip: TooltipPreview,
   breadcrumb: BreadcrumbPreview,
-  "navigation-menu": NavigationMenuPreview,
+  'navigation-menu': NavigationMenuPreview,
   pagination: PaginationPreview,
   sidebar: SidebarPreview,
   tabs: TabsPreview,
   accordion: AccordionPreview,
-  "aspect-ratio": AspectRatioPreview,
+  'aspect-ratio': AspectRatioPreview,
   card: CardPreview,
   collapsible: CollapsiblePreview,
   direction: DirectionPreview,
-  "page-content": PageContentPreview,
-  "page-header": PageHeaderPreview,
+  'page-content': PageContentPreview,
+  'page-header': PageHeaderPreview,
   resizable: ResizablePreview,
-  "scroll-area": ScrollAreaPreview,
-  "selection-slot": SelectionSlotPreview,
+  'scroll-area': ScrollAreaPreview,
+  'selection-slot': SelectionSlotPreview,
   separator: SeparatorPreview,
-  "settings-list": SettingsListPreview,
+  'settings-list': SettingsListPreview,
   alert: AlertPreview,
-  "notice-banner": NoticeBannerPreview,
+  'notice-banner': NoticeBannerPreview,
   progress: ProgressPreview,
   skeleton: SkeletonPreview,
   spinner: SpinnerPreview,
-  "state-panel": StatePanelPreview,
-  "state-sample": StateSamplePreview,
+  'state-panel': StatePanelPreview,
+  'state-sample': StateSamplePreview,
   attachment: AttachmentPreview,
   avatar: AvatarPreview,
   badge: BadgePreview,
-  "brand-icon": BrandIconPreview,
-  "file-viewer": FileViewerPreview,
-  "glass-banner": GlassBannerPreview,
-  "gradient-banner": GradientBannerPreview,
-  "presence-cursor": PresenceCursorPreview,
-  "result-card": ResultCardPreview,
+  'brand-icon': BrandIconPreview,
+  'file-viewer': FileViewerPreview,
+  'glass-banner': GlassBannerPreview,
+  'gradient-banner': GradientBannerPreview,
+  'presence-cursor': PresenceCursorPreview,
+  'result-card': ResultCardPreview,
   table: TablePreview,
   canvas: CanvasPreview,
   message: () => (
     <Stack>
-      <div
-        className="home-p-wide"
-        style={{ display: "flex", flexDirection: "column", gap: 16 }}
-      >
+      <div className="home-p-wide" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Message align="end">
           <MessageContent>
-            <MessageBubble variant="secondary">
-              Create a Customers table.
-            </MessageBubble>
+            <MessageBubble variant="secondary">Create a Customers table.</MessageBubble>
           </MessageContent>
         </Message>
         <Message>
           <MessageContent>
-            <MessageBubble
-              variant="tinted"
-              reactions={<MessageReactions align="start">✓ 1</MessageReactions>}
-            >
+            <MessageBubble variant="tinted" reactions={<MessageReactions align="start">✓ 1</MessageReactions>}>
               Done. Review the changes.
             </MessageBubble>
           </MessageContent>
@@ -1864,10 +1575,10 @@ const previews: Record<string, () => ReactNode> = {
       </div>
     </Stack>
   ),
-  "mention-list": MentionListPreview,
+  'mention-list': MentionListPreview,
 };
 
-const previewSkills = ["Brand voice review", "Release notes writer"];
+const previewSkills = ['Brand voice review', 'Release notes writer'];
 
 function MentionListPreview() {
   const [active, setActive] = useState(0);

@@ -62,21 +62,21 @@ The package is also on GitHub Packages. It needs a GitHub token with
 Add the styles to your CSS entry:
 
 ```css
-@import "tailwindcss";
-@import "@tulipfarm/sprout/styles.css";
+@import 'tailwindcss';
+@import '@tulipfarm/sprout/styles.css';
 ```
 
 Use a component:
 
 ```tsx
-import { Button } from "@tulipfarm/sprout/button";
-import { Badge } from "@tulipfarm/sprout/badge";
+import { Button } from '@tulipfarm/sprout/button';
+import { Badge } from '@tulipfarm/sprout/badge';
 
 export function Status() {
   return (
     <>
       <Badge variant="success">Connected</Badge>
-      <Button state={{ kind: "busy" }} pendingLabel="Saving…">
+      <Button state={{ kind: 'busy' }} pendingLabel="Saving…">
         Save
       </Button>
     </>
@@ -230,7 +230,7 @@ Presets live in `@tulipfarm/sprout/themes/*`: `neutral`, `tulipfarm`, `github`,
 `linear`, `vercel`, `stripe`, `notion`, and more.
 
 ```css
-@import "@tulipfarm/sprout/themes/tulipfarm.css";
+@import '@tulipfarm/sprout/themes/tulipfarm.css';
 ```
 
 ### shadcn

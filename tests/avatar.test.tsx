@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { renderToString } from "react-dom/server";
+import { describe, expect, it } from 'vitest';
+import { renderToString } from 'react-dom/server';
 import {
   AgentAvatar,
   Avatar,
@@ -10,11 +10,11 @@ import {
   AvatarImage,
   EntityAvatar,
   agentAvatarSrc,
-} from "../packages/sprout/src/components/avatar.js";
+} from '../packages/sprout/src/components/avatar.js';
 
-describe("Avatar", () => {
-  it("renders sizes, fallbacks, badges, and groups on the server", () => {
-    for (const size of ["xs", "sm", "default", "lg"] as const) {
+describe('Avatar', () => {
+  it('renders sizes, fallbacks, badges, and groups on the server', () => {
+    for (const size of ['xs', 'sm', 'default', 'lg'] as const) {
       const html = renderToString(
         <Avatar size={size}>
           <AvatarImage src="/a.png" alt="Alex" />
@@ -24,7 +24,7 @@ describe("Avatar", () => {
       );
       expect(html).toContain(`data-size="${size}"`);
       expect(html).toContain('data-slot="avatar"');
-      expect(html).toContain(">AM<");
+      expect(html).toContain('>AM<');
       expect(html).toContain('data-slot="avatar-badge"');
     }
     expect(renderToString(<Avatar />)).toContain('data-size="default"');
@@ -38,48 +38,34 @@ describe("Avatar", () => {
     );
     expect(group).toContain('data-slot="avatar-group"');
     expect(group).toContain('data-slot="avatar-group-count"');
-    expect(group).toContain(">+4<");
+    expect(group).toContain('>+4<');
   });
 
-  it("merges class names", () => {
-    expect(renderToString(<Avatar className="custom" size="lg" />)).toMatch(
-      /class="sprout-avatar custom"/,
-    );
-    expect(renderToString(<AvatarBadge className="b" />)).toContain(
-      'class="sprout-avatar-badge b"',
-    );
+  it('merges class names', () => {
+    expect(renderToString(<Avatar className="custom" size="lg" />)).toMatch(/class="sprout-avatar custom"/);
+    expect(renderToString(<AvatarBadge className="b" />)).toContain('class="sprout-avatar-badge b"');
   });
 
-  it("derives stable agent artwork and an initial fallback", () => {
-    expect(agentAvatarSrc("sample-collections")).toBe(
-      agentAvatarSrc("sample-collections"),
-    );
-    expect(agentAvatarSrc("a")).toMatch(
-      /^https:\/\/avatars\.tulipfarm\.ai\/avatar\/[a-z-]+\/[a-z]+\.svg$/,
-    );
-    expect(agentAvatarSrc("a", "/art")).toMatch(/^\/art\//);
-    const html = renderToString(
-      <AgentAvatar agentId="x" name=" garden assistant" size="sm" />,
-    );
+  it('derives stable agent artwork and an initial fallback', () => {
+    expect(agentAvatarSrc('sample-collections')).toBe(agentAvatarSrc('sample-collections'));
+    expect(agentAvatarSrc('a')).toMatch(/^https:\/\/avatars\.tulipfarm\.ai\/avatar\/[a-z-]+\/[a-z]+\.svg$/);
+    expect(agentAvatarSrc('a', '/art')).toMatch(/^\/art\//);
+    const html = renderToString(<AgentAvatar agentId="x" name=" garden assistant" size="sm" />);
     expect(html).toContain('data-size="sm"');
-    expect(html).toContain(">G<");
+    expect(html).toContain('>G<');
   });
 
-  it("draws seeded entity avatars in every size and shape", () => {
+  it('draws seeded entity avatars in every size and shape', () => {
     const a = renderToString(<EntityAvatar seed="s" name="Meadow" />);
     expect(a).toBe(renderToString(<EntityAvatar seed="s" name="Meadow" />));
-    expect(a).toContain("linear-gradient(135deg, oklch(0.62 0.15");
+    expect(a).toContain('linear-gradient(135deg, oklch(0.62 0.15');
     expect(a).toContain('data-shape="circle"');
-    expect(a).toContain(">M<");
+    expect(a).toContain('>M<');
     expect(a).not.toBe(renderToString(<EntityAvatar seed="t" name="Meadow" />));
-    for (const size of ["xs", "sm", "default", "lg", "xl"] as const)
-      expect(
-        renderToString(
-          <EntityAvatar seed="s" name="M" size={size} shape="square" />,
-        ),
-      ).toContain(`data-size="${size}"`);
-    expect(renderToString(<EntityAvatar seed="s" name="  " />)).toContain(
-      ">?<",
-    );
+    for (const size of ['xs', 'sm', 'default', 'lg', 'xl'] as const)
+      expect(renderToString(<EntityAvatar seed="s" name="M" size={size} shape="square" />)).toContain(
+        `data-size="${size}"`,
+      );
+    expect(renderToString(<EntityAvatar seed="s" name="  " />)).toContain('>?<');
   });
 });

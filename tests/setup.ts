@@ -1,7 +1,7 @@
-import { afterEach } from "vitest";
+import { afterEach } from 'vitest';
 
-if (typeof window !== "undefined") {
-  const { cleanup } = await import("@testing-library/react");
+if (typeof window !== 'undefined') {
+  const { cleanup } = await import('@testing-library/react');
   afterEach(cleanup);
 
   window.matchMedia ??= (query: string) =>

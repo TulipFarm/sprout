@@ -1,19 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import RadioGroupDemo from "../../components/RadioGroupDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import RadioGroupDemo from '../../components/RadioGroupDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Radio Group"
-  description="A set of radios where one value is chosen."
->
+<Docs title="Radio Group" description="A set of radios where one value is chosen.">
   <h1 class="docs-title">Radio Group</h1>
   <p class="docs-lead">
-    A set of round buttons where only one can be on. Use it for a short list of
-    choices, such as how often to send a digest or when an agent replies.
+    A set of round buttons where only one can be on. Use it for a short list of choices, such as how often to send a
+    digest or when an agent replies.
   </p>
-  <div class="mt-8"><RadioGroupDemo client:load /></div>
+  <div class="mt-8">
+    <RadioGroupDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -56,37 +55,32 @@ const [rule, setRule] = useState<"tag" | "every-message">("tag");
 </RadioGroup>`}
     />
     <p>
-      Pass <code>value</code> and <code>onValueChange</code> to control the group,
-      or <code>defaultValue</code> to let it keep its own state. The group may hold
-      a legend, helper, error, and other text beside its radios.
+      Pass <code>value</code> and <code>onValueChange</code> to control the group, or <code>defaultValue</code> to let
+      it keep its own state. The group may hold a legend, helper, error, and other text beside its radios.
     </p>
     <p>
-      For a labeled set of bordered rows with descriptions, a requirement
-      marker, and an error, use <code>ChoiceGroup type="radio"</code> from
+      For a labeled set of bordered rows with descriptions, a requirement marker, and an error, use{' '}
+      <code>ChoiceGroup type="radio"</code> from
       <a href="/components/field/">Field</a>. It is built from these parts.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Props</h2>
     <p>
-      There is one look and one size: a 16px circle with a 40 × 32px hit area. A
-      checked radio fills with the primary color and shows a dot.
+      There is one look and one size: a 16px circle with a 40 × 32px hit area. A checked radio fills with the primary
+      color and shows a dot.
     </p>
     <p>
-      <code>RadioGroup</code> takes <code>value</code>,
-      <code>defaultValue</code>, <code>onValueChange</code>,
-      <code>disabled</code>, <code>readOnly</code>, <code>required</code>,
-      <code>name</code>, and ARIA props such as <code>aria-label</code>,
-      <code>aria-labelledby</code>, <code>aria-describedby</code>,
-      <code>aria-required</code>, and <code>aria-invalid</code>. It lays out its
-      children in a grid with an 8px gap; pass <code>className</code> to change that.
+      <code>RadioGroup</code> takes <code>value</code>,<code>defaultValue</code>, <code>onValueChange</code>,
+      <code>disabled</code>, <code>readOnly</code>, <code>required</code>,<code>name</code>, and ARIA props such as{' '}
+      <code>aria-label</code>,<code>aria-labelledby</code>, <code>aria-describedby</code>,<code>aria-required</code>,
+      and <code>aria-invalid</code>. It lays out its children in a grid with an 8px gap; pass <code>className</code> to
+      change that.
     </p>
     <p>
-      <code>RadioGroupItem</code> takes a <code>value</code>,
-      <code>disabled</code>, <code>id</code>, and
-      <code>aria-describedby</code>. Set <code>aria-invalid</code> to draw a danger
-      ring; an unchecked invalid radio also gets a danger border. Both parts accept
-      Base UI props and state functions for
+      <code>RadioGroupItem</code> takes a <code>value</code>,<code>disabled</code>, <code>id</code>, and
+      <code>aria-describedby</code>. Set <code>aria-invalid</code> to draw a danger ring; an unchecked invalid radio
+      also gets a danger border. Both parts accept Base UI props and state functions for
       <code>className</code>.
     </p>
   </section>
@@ -94,25 +88,23 @@ const [rule, setRule] = useState<"tag" | "every-message">("tag");
     <h2 class="section-title">Accessibility</h2>
     <p>
       The group has <code>role="radiogroup"</code> and each item has
-      <code>role="radio"</code> with <code>aria-checked</code>, plus a hidden
-      input for forms. Tab moves focus to the checked radio. Arrow keys move to
-      the next radio and select it, skipping disabled ones. Space selects the
-      focused radio. A focused radio shows a 2px focus ring.
+      <code>role="radio"</code> with <code>aria-checked</code>, plus a hidden input for forms. Tab moves focus to the
+      checked radio. Arrow keys move to the next radio and select it, skipping disabled ones. Space selects the focused
+      radio. A focused radio shows a 2px focus ring.
     </p>
     <p>
       Name the group with <code>aria-label</code> or
       <code>aria-labelledby</code>, and name each radio with a wrapping
       <code>Label</code>, a <code>Label htmlFor</code>, or
-      <code>aria-label</code>. Color changes take 120ms and the dot scales in
-      over 180ms; both stop when reduced motion is requested. In forced colors
-      mode a checked radio is highlighted.
+      <code>aria-label</code>. Color changes take 120ms and the dot scales in over 180ms; both stop when reduced motion
+      is requested. In forced colors mode a checked radio is highlighted.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Off uses <code>--sprout-border</code> on <code>--sprout-surface</code>,
-      and hover uses <code>--sprout-border-strong</code>. On uses
+      Off uses <code>--sprout-border</code> on <code>--sprout-surface</code>, and hover uses{' '}
+      <code>--sprout-border-strong</code>. On uses
       <code>--sprout-primary</code> with a <code>--sprout-on-primary</code>
       dot, so the opt-in TulipFarm theme tints it green. Invalid uses
       <code>--sprout-danger</code>, and focus uses <code>--sprout-focus</code>.
