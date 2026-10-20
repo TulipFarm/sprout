@@ -27,6 +27,8 @@ const badgeExports = [
   "badgeSizeNames",
 ];
 
+const boardExports = ["Board"];
+
 const statePanelExports = ["StatePanel", "statePanelKindNames"];
 
 const tableExports = [
@@ -762,7 +764,7 @@ const typedTextExports = [
 ];
 
 describe("Sidebar public surface", () => {
-  it("exports only Accordion, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Label, Menubar, Message, Message Actions, Message Response, Message Scroller, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Switch, Table, Tables Feedback, Tabs, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, and Typed Text parts", () => {
+  it("exports only Accordion, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Label, Menubar, Message, Message Actions, Message Response, Message Scroller, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Switch, Table, Tables Feedback, Tabs, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, and Typed Text parts", () => {
     const names = Object.keys(sprout);
     const buttonExports = [
       "Button",
@@ -794,6 +796,7 @@ describe("Sidebar public surface", () => {
           alertDialogExports.includes(name) ||
           avatarExports.includes(name) ||
           badgeExports.includes(name) ||
+          boardExports.includes(name) ||
           brandIconExports.includes(name) ||
           breadcrumbExports.includes(name) ||
           statePanelExports.includes(name) ||

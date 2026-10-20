@@ -6,6 +6,7 @@ export * from "./components/aspect-ratio.js";
 export * from "./components/attachment.js";
 export * from "./components/avatar.js";
 export * from "./components/badge.js";
+export * from "./components/board.js";
 export * from "./components/brand-icon.js";
 export * from "./components/breadcrumb.js";
 export * from "./components/button.js";

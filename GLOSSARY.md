@@ -39,3 +39,21 @@ _Avoid_: Query state, table state
 **Layout**:
 The parts of a Table a user can save on their own device: column widths, order, pinning, and hidden columns.
 _Avoid_: Preferences, settings
+
+## Board
+
+**Board**:
+A Kanban view: columns across, lanes down, and cards in the cells where they meet. Use it when the column is the status of the work.
+_Avoid_: Kanban, task board
+
+**Lane**:
+One row across every column of a Board, such as one person or one priority.
+_Avoid_: Swimlane, row, group
+
+**Cell**:
+The place where one Board column and one lane meet. It holds a list of cards.
+_Avoid_: Bucket, slot
+
+**Limit**:
+The most cards a Board column should hold. Over it, the header says "Over limit".
+_Avoid_: WIP limit, cap
