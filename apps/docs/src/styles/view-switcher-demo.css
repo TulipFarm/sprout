@@ -1,0 +1,191 @@
+.view-switcher-demo {
+  display: grid;
+  gap: 20px;
+}
+.view-switcher-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.view-switcher-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.view-switcher-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.view-switcher-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.view-switcher-demo-card-body {
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.view-switcher-demo-frame {
+  min-width: 0;
+  padding: 0 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.view-switcher-demo-narrow {
+  max-width: 320px;
+}
+
+.view-switcher-demo-panel {
+  min-height: 196px;
+  padding: 16px 0;
+  font-size: 13px;
+  color: var(--sprout-text);
+  border-radius: var(--sprout-radius-control);
+  outline: none;
+}
+.view-switcher-demo-panel:focus-visible {
+  outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+  outline-offset: 2px;
+}
+
+.view-switcher-demo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.view-switcher-demo-table th {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: start;
+}
+.view-switcher-demo-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.view-switcher-demo-table :is(th, td):last-child {
+  text-align: end;
+}
+
+.view-switcher-demo-list {
+  display: grid;
+  gap: 4px;
+}
+.view-switcher-demo-list li {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: var(--sprout-radius-control);
+}
+.view-switcher-demo-list li:nth-child(odd) {
+  background: var(--sprout-hover);
+}
+.view-switcher-demo-list strong {
+  font-weight: 500;
+}
+.view-switcher-demo-list span {
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+
+.view-switcher-demo-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 8px;
+  overflow-x: auto;
+}
+.view-switcher-demo-board section {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 8px;
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-hover);
+}
+.view-switcher-demo-board h4 {
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.view-switcher-demo-board ul {
+  display: grid;
+  gap: 6px;
+}
+.view-switcher-demo-board li {
+  padding: 6px 8px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+}
+
+.view-switcher-demo-chart,
+.view-switcher-demo-timeline {
+  display: grid;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.view-switcher-demo-chart li {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 10px;
+}
+.view-switcher-demo-chart li > span:last-child {
+  text-align: end;
+}
+.view-switcher-demo-chart-track,
+.view-switcher-demo-timeline-track {
+  position: relative;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--sprout-hover);
+}
+.view-switcher-demo-chart-bar {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+.view-switcher-demo-timeline li {
+  display: grid;
+  grid-template-columns: minmax(0, 160px) minmax(0, 1fr) 84px;
+  align-items: center;
+  gap: 10px;
+}
+.view-switcher-demo-timeline li > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.view-switcher-demo-timeline li > span:last-child {
+  color: var(--sprout-muted);
+  font-size: 12px;
+  text-align: end;
+}
+.view-switcher-demo-timeline-bar {
+  position: absolute;
+  inset-block: 0;
+  border-radius: 3px;
+  background: var(--sprout-chart-1);
+}
+
+@media (max-width: 640px) {
+  .view-switcher-demo-card-body {
+    padding: 12px;
+  }
+  .view-switcher-demo-frame {
+    padding: 0 8px;
+  }
+  .view-switcher-demo-timeline li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .view-switcher-demo-timeline li > span:last-child {
+    text-align: start;
+  }
+}

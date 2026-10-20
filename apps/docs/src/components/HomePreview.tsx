@@ -189,6 +189,11 @@ import { SampleIconTile, SampleList, SampleText, SampleWindow } from '@tulipfarm
 import { Switch } from '@tulipfarm/sprout/switch';
 import { Table } from '@tulipfarm/sprout/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tulipfarm/sprout/tabs';
+import { ViewSwitcher } from '@tulipfarm/sprout/view-switcher';
+import { ChartBar } from 'reicon-react/icons/ChartBar';
+import { Grid } from 'reicon-react/icons/Grid';
+import { Kanban } from 'reicon-react/icons/Kanban';
+import { List } from 'reicon-react/icons/List';
 import { Textarea } from '@tulipfarm/sprout/textarea';
 import { Toggle } from '@tulipfarm/sprout/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
@@ -860,6 +865,29 @@ function TabsPreview() {
         <p className="home-p-note">2 invitations are waiting.</p>
       </TabsContent>
     </Tabs>
+  );
+}
+
+const previewViews = [
+  { id: 'table', label: 'Table', icon: Grid, description: 'Rows and columns.' },
+  { id: 'list', label: 'List', icon: List, description: 'One item per row.' },
+  { id: 'board', label: 'Board', icon: Kanban, description: 'Cards in lanes.' },
+  { id: 'chart', label: 'Chart', icon: ChartBar, description: 'Totals by group.' },
+];
+
+function ViewSwitcherPreview() {
+  const [value, setValue] = useState('table');
+  return (
+    <div className="home-p-wide">
+      <ViewSwitcher
+        views={previewViews}
+        value={value}
+        onValueChange={setValue}
+        options={previewViews}
+        onAdd={setValue}
+        label="Seed order views"
+      />
+    </div>
   );
 }
 
@@ -1597,6 +1625,7 @@ const previews: Record<string, () => ReactNode> = {
   pagination: PaginationPreview,
   sidebar: SidebarPreview,
   tabs: TabsPreview,
+  'view-switcher': ViewSwitcherPreview,
   accordion: AccordionPreview,
   'aspect-ratio': AspectRatioPreview,
   card: CardPreview,

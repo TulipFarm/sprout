@@ -40,6 +40,14 @@ _Avoid_: Inline edit, cell edit
 The parts of a Table a user can share by URL: sort, filters, search, grouping, and page.
 _Avoid_: Query state, table state
 
+**View**:
+One layout of the same records: table, list, board, chart, or timeline. Every view shows the same applied filter and search.
+_Avoid_: Mode, display, tab
+
+**View switcher**:
+The bar of a table's open views, with an "Add view" menu. The app decides which views exist, are open, or can close.
+_Avoid_: Layout toggle, view tabs
+
 **Layout**:
 The parts of a Table a user can save on their own device: column widths, order, pinning, and hidden columns.
 _Avoid_: Preferences, settings

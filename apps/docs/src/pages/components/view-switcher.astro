@@ -1,0 +1,130 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import { ViewSwitcherNarrow, ViewSwitcherPlayground, ViewSwitcherUnavailable } from '../../components/ViewSwitcherDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="View Switcher" description="The bar of a table's open views, with an Add view menu.">
+  <h1 class="docs-title">View Switcher</h1>
+  <p class="docs-lead">
+    The bar of a table's open views, such as Table, List, Board, Chart and Timeline. An “Add view” menu explains each
+    view. Your app decides which views exist, which are open and which can close. The switcher shows exactly what you
+    pass and calls you back.
+  </p>
+  <div class="mt-8">
+    <ViewSwitcherPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Views of a table"
+      code={`import { Grid } from "reicon-react/icons/Grid";
+import { Kanban } from "reicon-react/icons/Kanban";
+import { List } from "reicon-react/icons/List";
+import { ViewSwitcher, viewSwitcherTabId } from "@tulipfarm/sprout/view-switcher";
+
+const options = [
+  { id: "table", label: "Table", icon: Grid, description: "Rows and columns. Edit, group and sum." },
+  { id: "list", label: "List", icon: List, description: "One item per row for quick reading." },
+  { id: "board", label: "Board", icon: Kanban, description: "Cards in lanes, one lane per stage.",
+    unavailable: hasSingleSelect ? undefined : "Needs a single-select field." },
+];
+
+<ViewSwitcher
+  views={open.map(id => ({ ...byId[id], closable: id !== "table" }))}
+  value={layout}
+  onValueChange={setLayout}
+  options={options}
+  onAdd={id => { if (!open.includes(id)) openView(id); setLayout(id); }}
+  onClose={closeView}
+  panelId="records"
+  actions={<Button variant="ghost" size="icon-sm" aria-label="View settings">…</Button>}
+/>
+<div role="tabpanel" id="records" aria-labelledby={viewSwitcherTabId("records", layout)} tabIndex={0}>
+  {layout === "board" ? <Board … /> : <Table … />}
+</div>`}
+    />
+    <ul>
+      <li>
+        <code>views</code>: <code>{'{ id, label, icon, closable? }[]'}</code>. The tabs, in order. <code>icon</code> is
+        an icon component that takes <code>size</code>, such as one from <code>reicon-react</code>.
+      </li>
+      <li>
+        <code>value</code> and <code>onValueChange</code>: the active view's <code>id</code>. Click and arrow keys call
+        <code>onValueChange</code>.
+      </li>
+      <li>
+        <code>options</code>: <code>{'{ id, label, icon, description, unavailable? }[]'}</code>. The views in the “Add
+        view” menu. Leave it out to hide the menu.
+      </li>
+      <li>
+        <code>onAdd</code>: called with the chosen option. Options that are already in <code>views</code> show a check.
+        Choosing one still calls <code>onAdd</code>; switch to that view there, as the example does.
+      </li>
+      <li>
+        <code>onClose</code>: called by a tab's close control or the Delete key. Only views marked
+        <code>closable</code> can close, and only when you pass <code>onClose</code>. Remove the view from
+        <code>views</code>, and pick a new <code>value</code> if the active view closed.
+      </li>
+      <li>
+        <code>actions</code>: controls at the end of the bar, such as a settings button.
+      </li>
+      <li>
+        <code>panelId</code>: the <code>id</code> of your panel. Every tab points to it with <code>aria-controls</code>.
+        Label the panel with <code>viewSwitcherTabId(panelId, value)</code>.
+      </li>
+      <li>
+        <code>label</code> and <code>addLabel</code>: the tab list's name, “Views” by default, and the menu button's
+        text, “Add view” by default.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Views that cannot be added</h2>
+    <p>
+      Set <code>unavailable</code> to say why an option cannot be added. The menu shows the reason in place of the
+      description, dims the icon and does not let anyone choose it.
+    </p>
+    <div class="mt-4">
+      <ViewSwitcherUnavailable client:load />
+    </div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Narrow screens</h2>
+    <p>
+      When the tabs do not fit, they scroll sideways and fade at each edge that hides more tabs. The active tab scrolls
+      into view. “Add view” and <code>actions</code> stay at the end. Under 480px the button shows only its plus icon,
+      and the menu uses one column.
+    </p>
+    <div class="mt-4">
+      <ViewSwitcherNarrow client:load />
+    </div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The bar is a <code>tablist</code> named by <code>label</code>. It is one tab stop. Left and Right move between
+      tabs and choose them at once; Home and End go to the first and last tab. On a closable tab, Delete (or Backspace)
+      calls <code>onClose</code>. When the tab closes, focus moves to the view your app chose, or else to a neighbour.
+      The close control is for the pointer only, so it is hidden from screen readers; the tab announces the Delete
+      shortcut.
+    </p>
+    <p>
+      The menu lists options in reading order, and the arrow keys move through them one by one. An unavailable option
+      has <code>aria-disabled</code> and its reason as the description. An open option is described as “Already open”.
+      Escape closes the menu and returns focus to “Add view”.
+    </p>
+    <p>The underline slides to the active tab over 180ms. It does not move when reduced motion is requested.</p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Tabs use <code>--sprout-muted</code> and, when active, <code>--sprout-text</code> with a<code>--sprout-text</code>{' '}
+      underline over a <code>--sprout-line</code> rule. Hover uses <code>--sprout-hover</code>. The menu uses the
+      Dropdown Menu surface; icon tiles use <code>--sprout-hover</code> and
+      <code>--sprout-radius-control</code>. Motion uses <code>--sprout-motion-normal</code>,
+      <code>--sprout-motion-fast</code> and <code>--sprout-motion-ease</code>.
+    </p>
+  </section>
+</Docs>

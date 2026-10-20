@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **835.2 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -110,10 +110,10 @@ Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `alert`             |  35.2 kB |  11.5 kB |  10.1 kB |
 | `alert-dialog`      | 169.1 kB |  57.0 kB |  49.8 kB |
 | `aspect-ratio`      |  30.2 kB |   9.7 kB |   8.5 kB |
-| `attachment`        | 459.9 kB | 155.8 kB | 128.4 kB |
+| `attachment`        | 459.9 kB | 155.8 kB | 128.5 kB |
 | `avatar`            |  45.5 kB |  15.4 kB |  13.6 kB |
 | `badge`             |  34.9 kB |  11.4 kB |  10.0 kB |
-| `board`             | 448.8 kB | 147.4 kB | 124.2 kB |
+| `board`             | 452.5 kB | 148.2 kB | 125.3 kB |
 | `brand-icon`        | 195.1 kB |  70.2 kB |  61.2 kB |
 | `breadcrumb`        |  40.5 kB |  13.4 kB |  11.7 kB |
 | `button`            |  50.5 kB |  16.7 kB |  14.6 kB |
@@ -122,11 +122,11 @@ Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `canvas`            | 235.1 kB |  80.8 kB |  69.2 kB |
 | `card`              |  35.4 kB |  11.6 kB |  10.1 kB |
 | `carousel`          |  60.4 kB |  19.9 kB |  17.6 kB |
-| `chart`             | 537.6 kB | 154.7 kB | 129.5 kB |
+| `chart`             | 537.6 kB | 154.7 kB | 129.3 kB |
 | `chat-confirmation` |  76.7 kB |  25.8 kB |  22.4 kB |
 | `chat-plan`         |  42.3 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      | 206.2 kB |  70.5 kB |  60.3 kB |
-| `chat-input`        | 962.5 kB | 317.0 kB | 261.3 kB |
+| `chat-input`        | 962.5 kB | 317.0 kB | 261.2 kB |
 | `checkbox`          |  60.0 kB |  21.0 kB |  18.5 kB |
 | `choice-list`       |  43.0 kB |  14.5 kB |  12.6 kB |
 | `code-block`        |  74.4 kB |  25.9 kB |  22.3 kB |
@@ -138,8 +138,8 @@ Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `direction`         |   1.4 kB |   0.7 kB |   0.7 kB |
 | `dropdown-menu`     | 239.6 kB |  80.0 kB |  69.2 kB |
 | `field`             |  97.9 kB |  34.2 kB |  29.5 kB |
-| `file-explorer`     | 527.9 kB | 180.4 kB | 147.7 kB |
-| `file-viewer`       | 459.5 kB | 155.7 kB | 128.5 kB |
+| `file-explorer`     | 527.9 kB | 180.4 kB | 147.5 kB |
+| `file-viewer`       | 459.5 kB | 155.7 kB | 128.4 kB |
 | `form`              | 109.7 kB |  37.3 kB |  32.2 kB |
 | `glass-banner`      |  33.0 kB |  10.6 kB |   9.4 kB |
 | `gradient-banner`   |  32.2 kB |  10.3 kB |   9.1 kB |
@@ -153,7 +153,7 @@ Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `menubar`           | 244.9 kB |  82.2 kB |  70.7 kB |
 | `message`           |  36.2 kB |  11.7 kB |  10.3 kB |
 | `message-actions`   |  71.4 kB |  24.9 kB |  20.8 kB |
-| `message-response`  | 232.7 kB |  74.2 kB |  64.2 kB |
+| `message-response`  | 232.7 kB |  74.3 kB |  64.2 kB |
 | `message-scroller`  |  69.0 kB |  22.1 kB |  19.6 kB |
 | `navigation-menu`   | 182.3 kB |  63.0 kB |  54.7 kB |
 | `notice-banner`     |  30.4 kB |   9.7 kB |   8.5 kB |
@@ -168,7 +168,7 @@ Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `questionnaire`     |  69.5 kB |  23.3 kB |  20.4 kB |
 | `radio-group`       |  80.8 kB |  27.9 kB |  24.7 kB |
 | `reasoning-effort`  |  35.5 kB |  12.0 kB |  10.5 kB |
-| `record-list`       | 465.4 kB | 158.3 kB | 129.9 kB |
+| `record-list`       | 465.4 kB | 158.3 kB | 130.1 kB |
 | `resizable`         |  39.4 kB |  13.4 kB |  11.8 kB |
 | `result-card`       | 240.3 kB |  85.1 kB |  72.1 kB |
 | `result-notice`     |  34.3 kB |  11.3 kB |   9.9 kB |
@@ -193,7 +193,7 @@ Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `switch`            |  50.3 kB |  17.3 kB |  15.3 kB |
 | `table`             | 541.3 kB | 173.7 kB | 145.9 kB |
 | `table-nuqs`        |   2.1 kB |   1.1 kB |   1.0 kB |
-| `tabs`              |  80.2 kB |  27.6 kB |  24.4 kB |
+| `tabs`              |  80.3 kB |  27.6 kB |  24.5 kB |
 | `textarea`          |  98.2 kB |  34.2 kB |  29.5 kB |
 | `toast`             | 189.5 kB |  65.2 kB |  56.7 kB |
 | `toggle`            |  46.1 kB |  15.7 kB |  13.8 kB |
@@ -202,6 +202,7 @@ Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `toolbar-status`    | 189.3 kB |  64.3 kB |  55.6 kB |
 | `tooltip`           | 164.7 kB |  56.7 kB |  49.4 kB |
 | `typed-text`        |  31.2 kB |  10.1 kB |   8.8 kB |
+| `view-switcher`     | 270.2 kB |  90.7 kB |  77.2 kB |
 
 </details>
 <!-- bundle-size:end -->
@@ -213,7 +214,7 @@ CI compares sizes on each pull request. Run `pnpm size` to see them locally.
 | **Actions**             | Button · Button Group · Toggle · Toggle Group · Toolbar Status · Kbd                                                                                                                                                                                           |
 | **Forms**               | Field · Form · Label · Input · Input Group · Input OTP · Textarea · Checkbox · Radio Group · Switch · Slider · Select · Combobox · Choice List · Calendar · Search Field · Rich Text Editor · Mention List · Questionnaire · Selection Slot · Reasoning Effort |
 | **Overlays**            | Dialog · Alert Dialog · Sheet · Popover · Hover Card · Tooltip · Dropdown Menu · Context Menu · Menubar · Command · Search Dialog · Toast                                                                                                                      |
-| **Layout & navigation** | Sidebar · Navigation Menu · Breadcrumb · Pagination · Tabs · Accordion · Collapsible · Page Header · Page Content · Settings List · Card · Carousel · Resizable · Scroll Area · Separator · Aspect Ratio · Direction · Canvas                                  |
+| **Layout & navigation** | Sidebar · Navigation Menu · Breadcrumb · Pagination · Tabs · View Switcher · Accordion · Collapsible · Page Header · Page Content · Settings List · Card · Carousel · Resizable · Scroll Area · Separator · Aspect Ratio · Direction · Canvas                  |
 | **Feedback**            | Alert · Notice Banner · Badge · Progress · Spinner · Skeleton · State Panel · State Sample                                                                                                                                                                     |
 | **Data display**        | Table · Chart · Code Block · File Viewer · Schema Diagram · Avatar · Brand Icon · Attachment · Typed Text · Gradient Banner · Glass Banner                                                                                                                     |
 | **Agents & chat**       | Message · Message Actions · Message Response · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity                                                                        |

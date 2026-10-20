@@ -101,6 +101,7 @@ export const componentGroups: NavGroup[] = [
       component('Pagination', 'Previous, next, and numbered pages for long lists.'),
       component('Sidebar', 'Collapsible groups, an icon rail, and a mobile drawer.'),
       component('Tabs', 'Switch between related panels of one page.'),
+      component('View Switcher', "The bar of a table's open views, with an Add view menu."),
     ],
   },
   {
