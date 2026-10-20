@@ -126,6 +126,7 @@ export const componentGroups: NavGroup[] = [
       component('Alert', 'Inline messages for errors, warnings, and status.'),
       component('Notice Banner', 'A full-width strip for something that needs action.'),
       component('Progress', 'A thin bar that shows how far a task has come.'),
+      component('Result Notice', 'Says a chart or timeline shows only part of the result.'),
       component('Skeleton', 'Pulsing placeholders that hold the shape of content.'),
       component('Spinner', 'A spinning loader and a thought orb for AI work.'),
       component('State Panel', 'Empty, loading, success, and error states in one place.'),

@@ -60,7 +60,7 @@ const content = new Set(
   ),
 );
 const feedback = new Set(
-  'alert alert-dialog glass-banner gradient-banner notice-banner progress skeleton spinner state-panel state-sample toast toolbar-status'.split(
+  'alert alert-dialog glass-banner gradient-banner notice-banner progress result-notice skeleton spinner state-panel state-sample toast toolbar-status'.split(
     ' ',
   ),
 );

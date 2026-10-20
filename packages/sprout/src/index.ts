@@ -63,6 +63,7 @@ export * from './components/radio-group.js';
 export * from './components/reasoning-effort.js';
 export * from './components/resizable.js';
 export * from './components/result-card.js';
+export * from './components/result-notice.js';
 export * from './components/review-card.js';
 export * from './components/rich-text-editor.js';
 export * from './components/schema-diagram.js';

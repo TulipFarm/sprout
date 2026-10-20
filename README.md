@@ -170,6 +170,7 @@ Full library: **830.7 kB** gzip. Each component path is smaller. Sizes are minif
 | `reasoning-effort`  |  35.5 kB |  12.0 kB |  10.5 kB |
 | `resizable`         |  39.4 kB |  13.4 kB |  11.8 kB |
 | `result-card`       | 240.3 kB |  85.1 kB |  72.1 kB |
+| `result-notice`     |  34.3 kB |  11.3 kB |   9.9 kB |
 | `review-card`       |  61.6 kB |  21.0 kB |  18.4 kB |
 | `rich-text-editor`  | 442.5 kB | 140.2 kB | 119.8 kB |
 | `schema-diagram`    | 247.9 kB |  82.9 kB |  71.2 kB |

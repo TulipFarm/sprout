@@ -143,6 +143,7 @@ import { Progress, ProgressLabel, ProgressValue } from '@tulipfarm/sprout/progre
 import { RadioGroup, RadioGroupItem } from '@tulipfarm/sprout/radio-group';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@tulipfarm/sprout/resizable';
 import { ResultCard } from '@tulipfarm/sprout/result-card';
+import { ResultNotice } from '@tulipfarm/sprout/result-notice';
 import type { RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
 import { ScrollArea } from '@tulipfarm/sprout/scroll-area';
 import {
@@ -1101,6 +1102,23 @@ function NoticeBannerPreview() {
   );
 }
 
+function ResultNoticePreview() {
+  return (
+    <div className="home-p-wide">
+      <ResultNotice
+        shown={100}
+        total={2431}
+        noun="rows"
+        action={
+          <Button size="sm" variant="ghost">
+            Open in Table
+          </Button>
+        }
+      />
+    </div>
+  );
+}
+
 function ProgressPreview() {
   const [value, setValue] = useState(40);
   return (
@@ -1542,6 +1560,7 @@ const previews: Record<string, () => ReactNode> = {
   alert: AlertPreview,
   'notice-banner': NoticeBannerPreview,
   progress: ProgressPreview,
+  'result-notice': ResultNoticePreview,
   skeleton: SkeletonPreview,
   spinner: SpinnerPreview,
   'state-panel': StatePanelPreview,

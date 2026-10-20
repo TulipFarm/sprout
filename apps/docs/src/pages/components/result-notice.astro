@@ -1,0 +1,96 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import ResultNoticeDemo from '../../components/ResultNoticeDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs
+  title="Result Notice"
+  description="A strip inside a chart or timeline that says it shows only part of the result."
+>
+  <h1 class="docs-title">Result Notice</h1>
+  <p class="docs-lead">
+    A quiet strip inside a view that says the view shows only the first part of the result, such as "Showing the first
+    100 of 2,431 rows." Use it so a chart or timeline never passes off part of a table as the whole.
+  </p>
+  <div class="mt-8">
+    <ResultNoticeDemo client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Result Notice usage"
+      code={`import { Button } from "@tulipfarm/sprout/button";
+import { ResultNotice } from "@tulipfarm/sprout/result-notice";
+
+<ResultNotice
+  shown={100}
+  total={2431}
+  noun="rows"
+  action={<Button size="sm" variant="ghost" onClick={openTable}>Open in Table</Button>}
+/>`}
+    />
+    <p>
+      <code>shown</code> is how many items the view shows. <code>total</code> is how many exist, as a number or as the
+      capped string the server reports, such as <code>"10000+"</code>. <code>noun</code> is the plural name of the
+      items, such as <code>"rows"</code> or <code>"groups"</code>. <code>action</code> sits at the end of the strip.
+      Other props, like <code>className</code>, go to the outer <code>div</code>.
+    </p>
+    <p>
+      Numbers get thousands separators: 2431 reads 2,431 and <code>"10000+"</code> reads 10,000+. Other strings show as
+      they are. When <code>shown</code> is 1 the message reads "Showing the first of 2,431 rows.", so the plural noun
+      always fits. When <code>total</code> is an exact count, like 100 or <code>"100"</code>, that is not above
+      <code>shown</code>, the notice renders nothing, so it never claims more exist. A capped count like
+      <code>"10000+"</code> always shows.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">With charts and the timeline</h2>
+    <p>
+      A chart reads one summary page of at most 100 groups, and the timeline reads one page of at most 100 rows. When
+      the reported count is higher, mount a <code>ResultNotice</code> in the same view: above the chart, or at the top
+      of the timeline, so it is read before the data. Pass the reported count as is, even when it is capped, and offer
+      Open in Table as the action, since Table can page through every row.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Above a chart"
+      code={`<ResultNotice
+  shown={groups.length}
+  total={summary.count}  // 2431 or "10000+"
+  noun="groups"
+  action={<Button size="sm" variant="ghost" onClick={openTable}>Open in Table</Button>}
+/>
+<CategoryChart rows={groups} category="status" series={series} title="Rows by status" />`}
+    />
+    <p>
+      This is not a page-top notice. For something on the page that needs action, use Notice Banner. For the most cards
+      a Board column should hold, see Board's limit.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Layout</h2>
+    <p>
+      The strip is at least 36px tall, with a 1px line, a small radius, and 14px muted text. The counts use the text
+      color and tabular figures. A 16px info icon leads the message. When the view is narrow, the action wraps under the
+      message. Use a <code>size="sm"</code> ghost <code>Button</code> for the action.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The message has <code>role="status"</code>, so screen readers announce it when it appears or its counts change.
+      The icon is hidden from them. The action is a normal control in tab order. The strip fades in over 180ms and does
+      not animate when reduced motion is requested. In forced colors mode the line uses the system text color.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The background uses <code>--sprout-surface</code>, the line uses <code>--sprout-line</code>, the message uses{' '}
+      <code>--sprout-muted</code>, and the counts use <code>--sprout-text</code>. Motion uses{' '}
+      <code>--sprout-motion-normal</code> and <code>--sprout-motion-ease</code>.
+    </p>
+  </section>
+</Docs>
