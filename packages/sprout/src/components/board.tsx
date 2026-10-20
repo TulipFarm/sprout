@@ -492,6 +492,7 @@ export function Board<T extends BoardItem>({
       }
     }
     if (extras.length) {
+      list = [...list, ...items.filter((i) => extras.includes(i.id))];
       const after = list.indexOf(list.find((i) => i.id === data.id)!) + 1;
       list = place(
         list,
