@@ -19,7 +19,6 @@ import {
   ScatterPlotChart,
   Sparkline,
   StepFunnelChart,
-  TimelineChart,
   TreemapChart,
   TrendChart,
   UsageChart,
@@ -30,6 +29,7 @@ import {
   type ChartConfig,
   type UsageSeries,
 } from '../packages/sprout/src/components/chart.js';
+import { TimelineChart } from '../packages/sprout/src/components/timeline.js';
 import { dayLabel, foldParts } from '../packages/sprout/src/internal/chart-kit.js';
 import * as sprout from '../packages/sprout/src/index.js';
 
@@ -92,7 +92,6 @@ describe('Chart', () => {
       'StepFunnelChart',
       'WaterfallChart',
       'HeatmapChart',
-      'TimelineChart',
       'ScatterPlotChart',
       'TreemapChart',
       'SankeyChart',

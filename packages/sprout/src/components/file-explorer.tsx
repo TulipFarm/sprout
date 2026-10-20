@@ -23,7 +23,7 @@ import { tokenClass, useCodeTokens } from '../internal/code-tokens.js';
 import { codeLanguageNames, type CodeLanguage } from '../internal/languages.js';
 import { languageForFilename } from '../internal/syntax.js';
 import { SearchField } from './search-field.js';
-import { StatePanel } from './state-panel.js';
+import { StatePanel } from '../internal/state-panel.js';
 
 export interface FileExplorerTextFile {
   /** A slash-separated path, such as `agents/scout/persona.md`. Folders come from the paths. */

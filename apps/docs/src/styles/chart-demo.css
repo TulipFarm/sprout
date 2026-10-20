@@ -245,3 +245,17 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
+
+.chart-demo-timeline-notice {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sprout-muted);
+}
+.chart-demo-timeline-notice strong {
+  font-weight: 500;
+  color: var(--sprout-text);
+}
+.chart-demo-timeline-said {
+  font-size: 13px;
+  line-height: 20px;
+}

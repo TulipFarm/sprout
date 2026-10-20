@@ -1,0 +1,276 @@
+@layer components {
+  /* Record timeline: an HTML list of rows beside the chart. Rows and chart
+     bands share one height, so they line up. The axis band is 40px in the
+     chart code too. */
+  .sprout-timeline {
+    --sprout-timeline-row: 2.75rem;
+    --sprout-timeline-label: 15rem;
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+    container-type: inline-size;
+    font-family: var(--sprout-font);
+    color: var(--sprout-text);
+  }
+  .sprout-timeline[aria-busy='true'] .sprout-timeline-grid:not([data-skeleton]) {
+    opacity: 0.6;
+  }
+  .sprout-timeline-notice:empty {
+    display: none;
+  }
+  .sprout-timeline-grid {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    min-width: 0;
+  }
+  .sprout-timeline-labels {
+    display: grid;
+    grid-auto-rows: var(--sprout-timeline-row);
+    align-content: start;
+    min-width: 0;
+    margin: 0;
+    padding: 40px 0 0;
+    border-right: 1px solid var(--sprout-line);
+    list-style: none;
+  }
+  .sprout-timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    min-width: 0;
+    height: var(--sprout-timeline-row);
+    padding: 0 8px;
+    border-radius: var(--sprout-radius-control);
+    outline: none;
+  }
+  .sprout-timeline-row[data-hot] {
+    background: var(--sprout-hover);
+  }
+  .sprout-timeline-row[data-openable] {
+    cursor: pointer;
+  }
+  .sprout-timeline-row:focus-visible {
+    outline: 2px solid var(--sprout-focus-ring);
+    outline-offset: -2px;
+  }
+  .sprout-timeline-label {
+    display: grid;
+    gap: 2px;
+    flex: none;
+    width: var(--sprout-timeline-label);
+    min-width: 0;
+  }
+  .sprout-timeline-label-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  .sprout-timeline-label-title,
+  .sprout-timeline-label-dates {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-timeline-label-title {
+    min-width: 0;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  .sprout-timeline-label-dates {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-timeline-label-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sprout-timeline-label-clip {
+    flex: none;
+    color: var(--sprout-text);
+  }
+  .sprout-timeline-label-clip::before {
+    content: '· ';
+    color: var(--sprout-muted);
+  }
+  .sprout-timeline-label-marker {
+    flex: none;
+  }
+  .sprout-timeline-label-warning {
+    display: none;
+    flex: none;
+    color: var(--sprout-warning);
+    font-weight: 500;
+  }
+  .sprout-timeline-label-warning::after {
+    content: ' ·';
+    color: var(--sprout-muted);
+    font-weight: 400;
+  }
+  .sprout-timeline-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+  }
+  .sprout-timeline-plot {
+    position: relative;
+    min-width: 0;
+  }
+  .sprout-timeline-band {
+    position: absolute;
+    inset-inline: 0;
+    top: calc(40px + var(--sprout-timeline-index) * var(--sprout-timeline-row));
+    height: var(--sprout-timeline-row);
+    background: var(--sprout-hover);
+    pointer-events: none;
+  }
+  .sprout-chart.sprout-timeline-chart {
+    position: relative;
+    height: calc(var(--sprout-timeline-count) * var(--sprout-timeline-row) + 40px);
+  }
+  .sprout-timeline-chart .recharts-cartesian-axis-tick-value {
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-timeline-chart .recharts-bar-rectangle,
+  .sprout-timeline-point {
+    cursor: inherit;
+  }
+  .sprout-timeline-chevron {
+    fill: none;
+    stroke: var(--sprout-surface);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .sprout-timeline-today rect {
+    fill: var(--sprout-chart-1);
+  }
+  .sprout-timeline-today text {
+    fill: var(--sprout-surface);
+    font-size: 0.6875rem;
+    font-weight: 500;
+  }
+  .sprout-timeline-grid[data-skeleton] .sprout-timeline-label {
+    gap: 6px;
+  }
+  .sprout-timeline-skeleton-band {
+    display: flex;
+    align-items: center;
+    height: var(--sprout-timeline-row);
+    padding-inline: 16px;
+  }
+  .sprout-timeline-grid[data-skeleton] .sprout-timeline-plot {
+    padding-top: 40px;
+  }
+  .sprout-timeline-legend {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+  .sprout-timeline-undated {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+  .sprout-timeline-state {
+    min-height: 12rem;
+  }
+  @container (max-width: 40rem) {
+    .sprout-timeline-grid {
+      --sprout-timeline-label: 8rem;
+    }
+    .sprout-timeline-row {
+      gap: 4px;
+      padding: 0 4px;
+    }
+    .sprout-timeline-label-clip,
+    .sprout-timeline-label-marker {
+      display: none;
+    }
+    .sprout-timeline-label-warning {
+      display: inline;
+    }
+  }
+
+  .sprout-timeline-window-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    min-width: 0;
+    font-family: var(--sprout-font);
+  }
+  .sprout-timeline-window-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .sprout-timeline-window-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-base);
+    font-weight: 600;
+    line-height: 1.5rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .sprout-timeline-window-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  @media (max-width: 40rem) {
+    .sprout-timeline-window-zoom {
+      flex-basis: 100%;
+      width: 100%;
+    }
+    .sprout-timeline-window-zoom > * {
+      flex: 1 1 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-timeline-row {
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-timeline-grid,
+    .sprout-timeline .sprout-timeline-state {
+      animation: sprout-timeline-in var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-timeline-grid:not([data-skeleton]) {
+      transition: opacity var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+  }
+  @keyframes sprout-timeline-in {
+    from {
+      opacity: 0.4;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-timeline-row:focus-visible {
+      outline-color: Highlight;
+    }
+    .sprout-timeline-row[data-hot],
+    .sprout-timeline-band {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+  }
+}

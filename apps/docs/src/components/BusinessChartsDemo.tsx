@@ -11,12 +11,12 @@ import {
   ScatterPlotChart,
   Sparkline,
   StepFunnelChart,
-  TimelineChart,
   TreemapChart,
   TrendChart,
   WaterfallChart,
   type ChartSeries,
 } from '@tulipfarm/sprout/chart';
+import { TimelineChart } from '@tulipfarm/sprout/timeline';
 import '../styles/chart-demo.css';
 
 const usd = (value: number) =>

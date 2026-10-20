@@ -43,6 +43,7 @@ import {
 } from '@tulipfarm/sprout/breadcrumb';
 import { Board } from '@tulipfarm/sprout/board';
 import { Button } from '@tulipfarm/sprout/button';
+import { TimelineChart, timelineRange } from '@tulipfarm/sprout/timeline';
 import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@tulipfarm/sprout/button-group';
 import { Calendar } from '@tulipfarm/sprout/calendar';
 import { CanvasPanel, CanvasSection, CanvasToggle } from '@tulipfarm/sprout/canvas';
@@ -1482,6 +1483,36 @@ function BoardPreview() {
   );
 }
 
+const previewTimelineRows = [
+  { id: 'p1', title: 'Research', team: 'design', start: '2026-10-02', end: '2026-10-09' },
+  { id: 'p2', title: 'Pricing page', team: 'build', start: '2026-10-06', end: '2026-10-20' },
+  { id: 'p3', title: 'Launch day', team: 'launch', start: '2026-10-23', end: '' },
+];
+
+function TimelinePreview() {
+  return (
+    <div className="home-p-zoom home-p-wide home-p-clip">
+      <TimelineChart
+        rows={previewTimelineRows}
+        rowKey="id"
+        category="title"
+        start="start"
+        end="end"
+        seriesKey="team"
+        series={[
+          { key: 'design', label: 'Design', color: 'var(--sprout-chart-1)' },
+          { key: 'build', label: 'Build', color: 'var(--sprout-chart-2)' },
+          { key: 'launch', label: 'Launch', color: 'var(--sprout-chart-3)' },
+        ]}
+        title="Launch plan"
+        locale="en-US"
+        window={timelineRange('month', '2026-10-14')}
+        today="2026-10-14"
+      />
+    </div>
+  );
+}
+
 function TablePreview() {
   const rows = [
     { name: 'Customers', records: 1284 },
@@ -1657,6 +1688,7 @@ const previews: Record<string, () => ReactNode> = {
   'record-list': RecordListPreview,
   'result-card': ResultCardPreview,
   board: BoardPreview,
+  timeline: TimelinePreview,
   table: TablePreview,
   canvas: CanvasPreview,
   message: () => (

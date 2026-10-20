@@ -104,6 +104,10 @@
       "types": "./dist/components/chart.d.ts",
       "import": "./dist/components/chart.js"
     },
+    "./timeline": {
+      "types": "./dist/components/timeline.d.ts",
+      "import": "./dist/components/timeline.js"
+    },
     "./chat-confirmation": {
       "types": "./dist/components/chat-confirmation.d.ts",
       "import": "./dist/components/chat-confirmation.js"

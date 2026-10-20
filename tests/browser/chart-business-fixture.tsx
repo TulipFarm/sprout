@@ -8,12 +8,12 @@ import {
   ScatterPlotChart,
   Sparkline,
   StepFunnelChart,
-  TimelineChart,
   TreemapChart,
   TrendChart,
   WaterfallChart,
   type ChartSeries,
 } from '../../packages/sprout/src/components/chart.js';
+import { TimelineChart } from '../../packages/sprout/src/components/timeline.js';
 
 const series: ChartSeries[] = [
   { key: 'new', label: 'New', color: 'var(--sprout-chart-1)' },

@@ -1213,7 +1213,7 @@ Ready charts, all from `@tulipfarm/sprout/chart`. Most take `rows`, a
 | Conversion steps         | `StepFunnelChart`                                 |
 | Bridge from start to end | `WaterfallChart` (`totals`)                       |
 | Activity by day and hour | `HeatmapChart` (`x`, `y`, `value`)                |
-| Project plan             | `TimelineChart` (`start`, `end`, `seriesKey`)     |
+| Project plan             | `TimelineChart` (`/timeline` entry, see Timeline) |
 | Two numbers, or bubbles  | `ScatterPlotChart` (`size`)                       |
 | Flows between stages     | `SankeyChart` (`nodes`, `links`)                  |
 | Scores on many axes      | `RadarScoreChart`                                 |
@@ -1441,6 +1441,39 @@ const columns: TableColumn<Order>[] = [
 
 `narrow="stack"` turns rows into cards on phones. Share view state by URL with
 `state` / `onStateChange` and `@tulipfarm/sprout/table-nuqs`.
+
+### Timeline
+
+`TimelineChart` draws `start`–`end` bars per `category` row, colored by
+`seriesKey`. Give it a `window` and it is the Timeline view of a table: rows in
+one week, month, or quarter, with an HTML list of labels in start order.
+
+```tsx
+import {
+  TimelineChart,
+  TimelineWindowBar,
+  timelineRange,
+  timelineToday,
+  type TimelineZoom,
+} from '@tulipfarm/sprout/timeline';
+```
+
+```tsx
+const window = timelineRange(view.zoom, view.from); // { start, end }, inclusive YYYY-MM-DD
+
+<TimelineWindowBar {...view} today={timelineToday()} onChange={setView} />
+<TimelineChart
+  rows={rows} rowKey="id" category="title" start="start" end="due" title="Tasks"
+  window={window} today={timelineToday()} status="ready" onRetry={refetch}
+  undated={{ count: 3, field: 'Start date' }} notice={notice}
+  onRowOpen={open} renderActions={row => <RowActions row={row} />}
+/>;
+```
+
+No end, or an empty end: a diamond. End before start: a hollow diamond and an
+"End before start" chip. Bars past the window are cut with a chevron. Dates are
+`YYYY-MM-DD`; timestamps are epoch ms in the reader's zone or `timeZone`.
+`shiftTimeline(zoom, from, step)` moves a window. Read only.
 
 ## AI and chat
 

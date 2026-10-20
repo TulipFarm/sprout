@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { Button } from '@tulipfarm/sprout/button';
-import { CategoryChart, TimelineChart, type ChartSeries } from '@tulipfarm/sprout/chart';
+import { CategoryChart, type ChartSeries } from '@tulipfarm/sprout/chart';
+import { TimelineChart } from '@tulipfarm/sprout/timeline';
 import { ResultNotice } from '@tulipfarm/sprout/result-notice';
 import '../styles/result-notice-demo.css';
 

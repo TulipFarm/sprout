@@ -210,6 +210,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Schema Diagram  | `schema-diagram`  | Tables, fields, and links with proposed changes marked.                          |
 | SQL Viewer      | `sql-viewer`      | Explore TulipFarm tables, columns, keys, and joins. Shows 4, collapses the rest. |
 | Table           | `table`           | Any rows of records: sort, filter, group, edit, select, card layout on phones.   |
+| Timeline        | `timeline`        | Records by week, month, or quarter: bars, dates, row actions, a text list.       |
 
 ### AI and chat
 

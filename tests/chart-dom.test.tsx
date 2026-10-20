@@ -12,12 +12,12 @@ import {
   SankeyChart,
   ScatterPlotChart,
   StepFunnelChart,
-  TimelineChart,
   TreemapChart,
   TrendChart,
   WaterfallChart,
   type ChartSeries,
 } from '../packages/sprout/src/components/chart.js';
+import { TimelineChart } from '../packages/sprout/src/components/timeline.js';
 import { BusinessFixture } from './browser/chart-business-fixture.js';
 
 // Recharts draws nothing until its box is measured, and jsdom measures 0.

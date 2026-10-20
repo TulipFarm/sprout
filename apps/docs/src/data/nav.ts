@@ -156,6 +156,7 @@ export const componentGroups: NavGroup[] = [
       component('Schema Diagram', 'Tables, fields, and links with proposed changes marked.'),
       component('SQL Viewer', 'Explore tables, keys, and the joins between them.'),
       component('Table', 'Rows of records with sorting, filters, grouping, editing, and a card layout on phones.'),
+      component('Timeline', 'Records on a week, month, or quarter timeline, with bars, dates, and row actions.'),
     ],
   },
   {
