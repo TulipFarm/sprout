@@ -427,6 +427,8 @@ const canvasExports = [
 const noticeBannerExports = ['NoticeBanner'];
 const resultNoticeExports = ['ResultNotice'];
 
+const recordListExports = ['RecordList', 'recordListDensityNames', 'recordListMaxValues', 'recordListStatusNames'];
+
 const presenceCursorExports = ['PresenceCursor'];
 
 const menubarExports = [
@@ -761,6 +763,7 @@ describe('Sidebar public surface', () => {
           canvasExports.includes(name) ||
           noticeBannerExports.includes(name) ||
           resultNoticeExports.includes(name) ||
+          recordListExports.includes(name) ||
           presenceCursorExports.includes(name) ||
           menubarExports.includes(name) ||
           navigationMenuExports.includes(name) ||
@@ -863,6 +866,7 @@ describe('Sidebar public surface', () => {
         ...canvasExports,
         ...noticeBannerExports,
         ...resultNoticeExports,
+        ...recordListExports,
         ...presenceCursorExports,
         ...menubarExports,
         ...navigationMenuExports,

@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **830.7 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **833.2 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -168,6 +168,7 @@ Full library: **830.7 kB** gzip. Each component path is smaller. Sizes are minif
 | `questionnaire`     |  69.5 kB |  23.3 kB |  20.4 kB |
 | `radio-group`       |  80.8 kB |  27.9 kB |  24.7 kB |
 | `reasoning-effort`  |  35.5 kB |  12.0 kB |  10.5 kB |
+| `record-list`       | 465.4 kB | 158.3 kB | 129.9 kB |
 | `resizable`         |  39.4 kB |  13.4 kB |  11.8 kB |
 | `result-card`       | 240.3 kB |  85.1 kB |  72.1 kB |
 | `result-notice`     |  34.3 kB |  11.3 kB |   9.9 kB |

@@ -1,0 +1,243 @@
+@layer components {
+  .sprout-record-list {
+    --sprout-record-list-pad-y: 0.75rem;
+    --sprout-record-list-pad-x: 1rem;
+    container-type: inline-size;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    overflow: hidden;
+  }
+  .sprout-record-list[data-density='compact'] {
+    --sprout-record-list-pad-y: 0.5rem;
+    --sprout-record-list-pad-x: 0.75rem;
+  }
+
+  .sprout-record-list-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sprout-record-list-items[aria-busy='true'] {
+    opacity: 0.55;
+  }
+
+  .sprout-record-list-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      'title badges actions'
+      'values badges actions';
+    align-items: center;
+    column-gap: 0.75rem;
+    min-height: 2.75rem;
+    padding: var(--sprout-record-list-pad-y) var(--sprout-record-list-pad-x);
+    border-bottom: 1px solid var(--sprout-line);
+    outline: none;
+  }
+  .sprout-record-list-item:last-child {
+    border-bottom: 0;
+  }
+  .sprout-record-list-item[data-openable] {
+    cursor: pointer;
+  }
+  @media (hover: hover) {
+    .sprout-record-list-item:hover {
+      background-color: var(--sprout-hover);
+    }
+  }
+  .sprout-record-list-item:has([aria-expanded='true']),
+  .sprout-record-list-item:has(:focus-visible) {
+    background-color: var(--sprout-hover);
+  }
+  .sprout-record-list-item:focus-visible {
+    background-color: var(--sprout-hover);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: calc(var(--sprout-focus-width) * -1);
+    border-radius: 2px;
+  }
+
+  .sprout-record-list-title {
+    grid-area: title;
+    min-width: 0;
+    overflow: hidden;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sprout-record-list-values {
+    grid-area: values;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    min-width: 0;
+    margin: 0.25rem 0 0;
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .sprout-record-list-value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    min-width: 0;
+    max-width: 16rem;
+  }
+  .sprout-record-list-value > dt {
+    flex-shrink: 0;
+    color: var(--sprout-muted);
+  }
+  .sprout-record-list-value > dd {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--sprout-text);
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sprout-record-list-badges {
+    grid-area: badges;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+    max-width: 18rem;
+  }
+
+  .sprout-record-list-actions {
+    grid-area: actions;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-inline-end: -0.25rem;
+  }
+
+  @container (max-width: 40rem) {
+    .sprout-record-list-item {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        'title actions'
+        'values values'
+        'badges badges';
+      align-items: start;
+    }
+    .sprout-record-list-title {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      align-self: center;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .sprout-record-list-badges {
+      justify-content: flex-start;
+      max-width: none;
+      margin-top: 0.5rem;
+    }
+    .sprout-record-list-value {
+      max-width: 100%;
+    }
+  }
+
+  .sprout-record-list-state {
+    min-width: 0;
+    outline: none;
+  }
+  .sprout-record-list-empty-text {
+    margin: 0;
+    padding: 1.5rem var(--sprout-record-list-pad-x);
+    color: var(--sprout-muted);
+    text-align: center;
+  }
+
+  .sprout-record-list-skeleton {
+    gap: 0;
+  }
+  .sprout-record-list-skeleton-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: var(--sprout-record-list-pad-y) var(--sprout-record-list-pad-x);
+    border-bottom: 1px solid var(--sprout-line);
+  }
+  .sprout-record-list-skeleton-row:last-of-type {
+    border-bottom: 0;
+  }
+  .sprout-record-list-skeleton-main {
+    display: grid;
+    flex: 1;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .sprout-record-list .sprout-record-list-skeleton-title {
+    width: min(40%, 16rem);
+    height: 14px;
+  }
+  .sprout-record-list .sprout-record-list-skeleton-values {
+    width: min(70%, 28rem);
+    height: 10px;
+  }
+
+  .sprout-record-list-footer {
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+    padding: 0.5rem var(--sprout-record-list-pad-x);
+    border-top: 1px solid var(--sprout-line);
+  }
+  .sprout-record-list-footer > * {
+    margin-inline: 0;
+  }
+
+  .sprout-record-list-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-record-list-item {
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-record-list-items {
+      transition: opacity var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-record-list-state,
+    .sprout-record-list-item {
+      animation: sprout-record-list-in var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+  }
+
+  @keyframes sprout-record-list-in {
+    from {
+      opacity: 0.4;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-record-list,
+    .sprout-record-list-item,
+    .sprout-record-list-footer {
+      border-color: CanvasText;
+    }
+    .sprout-record-list-item:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

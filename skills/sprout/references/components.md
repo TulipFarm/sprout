@@ -1300,6 +1300,29 @@ import { PresenceCursor } from '@tulipfarm/sprout/presence-cursor';
 
 `x`/`y` are px from the positioned parent. `color` needs 4.5:1 contrast with white.
 
+### Record List
+
+```tsx
+import { RecordList, type RecordListHandle } from '@tulipfarm/sprout/record-list';
+
+const list = useRef<RecordListHandle>(null);
+
+<RecordList
+  ref={list}
+  label="Tickets"
+  items={rows}
+  status={loading ? 'loading' : failed ? 'error' : 'ready'}
+  onRetry={retry}
+  values={row => [{ label: 'Assignee', value: row.assignee }]}
+  badges={row => <Badge variant="info">{row.status}</Badge>}
+  renderActions={row => <RowActions row={row} />}
+  onItemOpen={row => openSheet(row)}
+  footer={<Pagination aria-label="Ticket pages">…</Pagination>}
+/>;
+```
+
+The List view of a table: one row per record on the current page, in one bordered panel. Items are `{ id, title }` plus your fields; `title` is the plain-text name screen readers use. `values` returns `{ label, value, text? }[]` and only the first four show. `badges` holds choice Badges and `renderActions` is a free slot (Edit button plus a `DropdownMenu`). Click or Enter calls `onItemOpen`; clicks in actions do not. One tab stop: Up/Down/Home/End move between rows and Tab reaches the focused row's actions. `status="loading"` dims current rows with `aria-busy`, or shows five skeleton rows; `"error"` shows a StatePanel with Try again. `empty` replaces the default empty state, and `footer` holds Pagination. Call `list.current.focusFirst()` after a page change; while loading it waits for the new rows. Use Table for columns, editing, and bulk actions.
+
 ### Result Card
 
 ```tsx

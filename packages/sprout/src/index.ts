@@ -61,6 +61,7 @@ export * from './components/prompt-list.js';
 export * from './components/questionnaire.js';
 export * from './components/radio-group.js';
 export * from './components/reasoning-effort.js';
+export * from './components/record-list.js';
 export * from './components/resizable.js';
 export * from './components/result-card.js';
 export * from './components/result-notice.js';
