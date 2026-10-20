@@ -36,7 +36,7 @@
 .page-demo-toggle:hover {
   background: var(--sprout-hover);
 }
-.page-demo-toggle[aria-pressed="true"] {
+.page-demo-toggle[aria-pressed='true'] {
   border-color: var(--sprout-border-strong);
   background: var(--sprout-hover);
 }

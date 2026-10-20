@@ -6,7 +6,7 @@
 .textarea-demo .sprout-textarea:focus-visible {
   outline-offset: 0;
 }
-.textarea-demo .sprout-textarea[aria-invalid="true"]:focus-visible {
+.textarea-demo .sprout-textarea[aria-invalid='true']:focus-visible {
   outline-color: var(--sprout-danger);
 }
 .textarea-demo .sprout-textarea-variant-embedded:focus-visible {

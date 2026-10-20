@@ -1,20 +1,20 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import { Field } from "../../packages/sprout/src/components/field.js";
-import { Textarea } from "../../packages/sprout/src/components/textarea.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Field } from '../../packages/sprout/src/components/field.js';
+import { Textarea } from '../../packages/sprout/src/components/textarea.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("textarea %s %s", async (theme, mode) => {
+it.each(themes)('textarea %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 240px)",
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 240px)',
         gap: 16,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <Field label="Instructions" required helper="Describe its role.">
@@ -32,7 +32,5 @@ it.each(themes)("textarea %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`textarea-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`textarea-${theme}-${mode}`);
 });

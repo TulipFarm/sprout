@@ -1,50 +1,38 @@
-"use client";
+'use client';
 
-import type { ComponentProps, ReactNode } from "react";
-import { Check } from "reicon-react/icons/Check";
-import { Danger } from "reicon-react/icons/Danger";
-import { Plug } from "reicon-react/icons/Plug";
-import { cn } from "../internal/classes.js";
-import { BrandIcon, BrandTile, type Brand } from "./brand-icon.js";
-import { Button } from "./button.js";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTitle,
-  PopoverTrigger,
-} from "./popover.js";
-import { Spinner } from "./spinner.js";
+import type { ComponentProps, ReactNode } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { Danger } from 'reicon-react/icons/Danger';
+import { Plug } from 'reicon-react/icons/Plug';
+import { cn } from '../internal/classes.js';
+import { BrandIcon, BrandTile, type Brand } from './brand-icon.js';
+import { Button } from './button.js';
+import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from './popover.js';
+import { Spinner } from './spinner.js';
 
 export const resultCardKindNames = [
-  "File",
-  "Plan",
-  "Workflow",
-  "Action",
-  "Calendar",
-  "Table",
-  "Activity",
-  "Agent",
-  "Skill",
+  'File',
+  'Plan',
+  'Workflow',
+  'Action',
+  'Calendar',
+  'Table',
+  'Activity',
+  'Agent',
+  'Skill',
 ] as const;
 
-export const resultCardStateNames = [
-  "default",
-  "loading",
-  "running",
-  "disabled",
-  "error",
-  "success",
-] as const;
+export const resultCardStateNames = ['default', 'loading', 'running', 'disabled', 'error', 'success'] as const;
 
 export const resultAppActionStateNames = [
-  "completed",
-  "pending",
-  "running",
-  "failed",
-  "unknown",
-  "blocked",
-  "cancelled",
-  "skipped",
+  'completed',
+  'pending',
+  'running',
+  'failed',
+  'unknown',
+  'blocked',
+  'cancelled',
+  'skipped',
 ] as const;
 
 export type ResultCardKind = (typeof resultCardKindNames)[number];
@@ -71,10 +59,7 @@ export type ResultCardAction = {
   disabled?: boolean | undefined;
 };
 
-export interface ResultCardProps extends Omit<
-  ComponentProps<"section">,
-  "title" | "children"
-> {
+export interface ResultCardProps extends Omit<ComponentProps<'section'>, 'title' | 'children'> {
   title: string;
   kind: ResultCardKind;
   /** Apps used. Repeated brands merge; two tiles show, the rest fold into “+N”. */
@@ -94,17 +79,14 @@ export interface ResultCardProps extends Omit<
   children?: ReactNode;
 }
 
-const actionPrefixes: Record<
-  Exclude<ResultAppActionState, "completed">,
-  string
-> = {
-  failed: "Failed:",
-  unknown: "Unconfirmed:",
-  pending: "Pending:",
-  running: "In progress:",
-  blocked: "Blocked:",
-  cancelled: "Cancelled:",
-  skipped: "Skipped:",
+const actionPrefixes: Record<Exclude<ResultAppActionState, 'completed'>, string> = {
+  failed: 'Failed:',
+  unknown: 'Unconfirmed:',
+  pending: 'Pending:',
+  running: 'In progress:',
+  blocked: 'Blocked:',
+  cancelled: 'Cancelled:',
+  skipped: 'Skipped:',
 };
 
 function mergeApps(apps: readonly ResultApp[]) {
@@ -112,12 +94,7 @@ function mergeApps(apps: readonly ResultApp[]) {
   for (const app of apps) {
     const key = app.brand ?? app.name;
     const existing = byKey.get(key);
-    byKey.set(
-      key,
-      existing
-        ? { ...existing, actions: [...existing.actions, ...app.actions] }
-        : app,
-    );
+    byKey.set(key, existing ? { ...existing, actions: [...existing.actions, ...app.actions] } : app);
   }
   return [...byKey.values()];
 }
@@ -132,7 +109,7 @@ export function ResultCard({
   kind,
   apps,
   status,
-  state = "default",
+  state = 'default',
   action,
   icon,
   children,
@@ -142,8 +119,8 @@ export function ResultCard({
   const unique = mergeApps(apps);
   const visible = unique.slice(0, 2);
   const hidden = unique.slice(2);
-  const busy = state === "loading" || state === "running";
-  const disabled = state === "disabled";
+  const busy = state === 'loading' || state === 'running';
+  const disabled = state === 'disabled';
   return (
     <section
       data-slot="result-card"
@@ -152,29 +129,22 @@ export function ResultCard({
       aria-label={`${kind}: ${title}`}
       aria-busy={busy}
       {...props}
-      className={cn("sprout-result-card", className)}
+      className={cn('sprout-result-card', className)}
     >
       <div className="sprout-result-card-header">
         {visible.length > 0 ? (
-          <div
-            role="group"
-            aria-label="Apps used"
-            className="sprout-result-card-apps"
-          >
-            {visible.map((app) => (
+          <div role="group" aria-label="Apps used" className="sprout-result-card-apps">
+            {visible.map(app => (
               <span
                 key={app.brand ?? app.name}
-                data-result-app={app.brand ?? "connected-app"}
+                data-result-app={app.brand ?? 'connected-app'}
                 className="sprout-result-card-app"
               >
                 <AppActionsPopover apps={[app]} disabled={disabled} />
               </span>
             ))}
             {hidden.length > 0 && (
-              <span
-                data-result-overflow={hidden.length}
-                className="sprout-result-card-app"
-              >
+              <span data-result-overflow={hidden.length} className="sprout-result-card-app">
                 <AppActionsPopover apps={hidden} overflow disabled={disabled} />
               </span>
             )}
@@ -194,16 +164,14 @@ export function ResultCard({
               <span aria-hidden="true">·</span>
               <span
                 role="status"
-                data-tone={
-                  state === "success" || state === "error" ? state : undefined
-                }
+                data-tone={state === 'success' || state === 'error' ? state : undefined}
                 className="sprout-result-card-status"
               >
                 {busy ? (
                   <Spinner aria-hidden="true" />
-                ) : state === "success" ? (
+                ) : state === 'success' ? (
                   <Check size={14} aria-hidden="true" />
-                ) : state === "error" ? (
+                ) : state === 'error' ? (
                   <Danger size={14} aria-hidden="true" />
                 ) : null}
                 {status}
@@ -215,9 +183,7 @@ export function ResultCard({
               <Button
                 variant="outline"
                 size="result-card"
-                disabled={
-                  state === "loading" || disabled || action.disabled === true
-                }
+                disabled={state === 'loading' || disabled || action.disabled === true}
                 onClick={action.onClick}
               >
                 {action.label}
@@ -242,21 +208,14 @@ function AppActionsPopover({
 }) {
   const first = apps[0];
   if (!first) return null;
-  const title = overflow
-    ? `${apps.length} more ${apps.length === 1 ? "app" : "apps"}`
-    : `${first.name} actions`;
+  const title = overflow ? `${apps.length} more ${apps.length === 1 ? 'app' : 'apps'}` : `${first.name} actions`;
   return (
     <Popover>
       <PopoverTrigger
         openOnHover
         delay={800}
         closeDelay={200}
-        render={
-          <BrandTile
-            size="action"
-            render={<Button variant="ghost" size="icon" disabled={disabled} />}
-          />
-        }
+        render={<BrandTile size="action" render={<Button variant="ghost" size="icon" disabled={disabled} />} />}
         aria-label={title}
       >
         {overflow ? (
@@ -275,7 +234,7 @@ function AppActionsPopover({
         size="app-actions"
         align="start"
         sideOffset={8}
-        initialFocus={(interaction) => interaction !== "mouse"}
+        initialFocus={interaction => interaction !== 'mouse'}
       >
         <PopoverTitle>{title}</PopoverTitle>
         <ResultAppActions apps={apps} showAppNames={overflow} />
@@ -284,10 +243,7 @@ function AppActionsPopover({
   );
 }
 
-export interface ResultAppActionsProps extends Omit<
-  ComponentProps<"div">,
-  "children"
-> {
+export interface ResultAppActionsProps extends Omit<ComponentProps<'div'>, 'children'> {
   apps: readonly ResultApp[];
   /** Show each app’s icon and name above its actions. Defaults to `true`. */
   showAppNames?: boolean | undefined;
@@ -297,24 +253,11 @@ export interface ResultAppActionsProps extends Omit<
  * The actions each app took, grouped by app. A check marks completed
  * actions; every other state is spelled out, such as “Unconfirmed:”.
  */
-export function ResultAppActions({
-  apps,
-  showAppNames = true,
-  className,
-  ...props
-}: ResultAppActionsProps) {
+export function ResultAppActions({ apps, showAppNames = true, className, ...props }: ResultAppActionsProps) {
   return (
-    <div
-      data-slot="result-app-actions"
-      {...props}
-      className={cn("sprout-result-app-actions", className)}
-    >
-      {apps.map((app) => (
-        <section
-          key={app.brand ?? app.name}
-          aria-label={app.name}
-          className="sprout-result-app"
-        >
+    <div data-slot="result-app-actions" {...props} className={cn('sprout-result-app-actions', className)}>
+      {apps.map(app => (
+        <section key={app.brand ?? app.name} aria-label={app.name} className="sprout-result-app">
           {showAppNames && (
             <div className="sprout-result-app-name">
               {app.brand ? (
@@ -330,30 +273,20 @@ export function ResultAppActions({
             </div>
           )}
           {app.actions.length === 0 ? (
-            <p className="sprout-result-app-empty">
-              No action details were recorded.
-            </p>
+            <p className="sprout-result-app-empty">No action details were recorded.</p>
           ) : (
             <ul className="sprout-result-app-list">
               {app.actions.map((action, index) => (
-                <li
-                  key={`${action.label}:${index}`}
-                  data-state={action.state}
-                  className="sprout-result-app-action"
-                >
-                  {action.state === "completed" ? (
+                <li key={`${action.label}:${index}`} data-state={action.state} className="sprout-result-app-action">
+                  {action.state === 'completed' ? (
                     <span className="sprout-result-app-check">
                       <Check size={16} aria-hidden="true" />
                       <span className="sprout-result-sr-only">Completed:</span>
                     </span>
                   ) : (
-                    <span className="sprout-result-app-prefix">
-                      {actionPrefixes[action.state]}
-                    </span>
+                    <span className="sprout-result-app-prefix">{actionPrefixes[action.state]}</span>
                   )}
-                  <span className="sprout-result-app-label">
-                    {action.label}
-                  </span>
+                  <span className="sprout-result-app-label">{action.label}</span>
                 </li>
               ))}
             </ul>

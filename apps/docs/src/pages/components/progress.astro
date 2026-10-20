@@ -1,20 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import ProgressDemo from "../../components/ProgressDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import ProgressDemo from '../../components/ProgressDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Progress"
-  description="A thin bar that shows how far a task has come, or that it is still waiting."
->
+<Docs title="Progress" description="A thin bar that shows how far a task has come, or that it is still waiting.">
   <h1 class="docs-title">Progress</h1>
   <p class="docs-lead">
-    Shows how much of a task is done, such as an upload or storage that fills
-    up. When the amount is not known yet, pass <code>null</code> and the bar slides.
-    For a short wait with no amount, use Spinner.
+    Shows how much of a task is done, such as an upload or storage that fills up. When the amount is not known yet, pass{' '}
+    <code>null</code> and the bar slides. For a short wait with no amount, use Spinner.
   </p>
-  <div class="mt-8"><ProgressDemo client:load /></div>
+  <div class="mt-8">
+    <ProgressDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -37,16 +35,14 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </Progress>`}
     />
     <p>
-      <code>Progress</code> renders the track and indicator for you. Its children
-      sit on one row above the track: <code>ProgressLabel</code> at the start and
-      <code>ProgressValue</code> at the end. The row gap is 8px and the track is 4px
-      tall.
+      <code>Progress</code> renders the track and indicator for you. Its children sit on one row above the track:{' '}
+      <code>ProgressLabel</code> at the start and
+      <code>ProgressValue</code> at the end. The row gap is 8px and the track is 4px tall.
     </p>
     <ul>
       <li>
         <code>value</code>: a number from <code>min</code> to
-        <code>max</code> (0–100 by default), or <code>null</code> when the amount
-        is unknown.
+        <code>max</code> (0–100 by default), or <code>null</code> when the amount is unknown.
       </li>
       <li>
         <code>format</code> and <code>locale</code> change how the value is written.
@@ -58,10 +54,9 @@ import CodeBlock from "../../components/CodeBlock.astro";
       </li>
     </ul>
     <p>
-      Every part takes <code>className</code> (a string or a function of the state)
-      and a Base UI <code>render</code> prop. The root, track, indicator, label, and
-      value get <code>data-progressing</code>,
-      <code>data-complete</code>, or <code>data-indeterminate</code>.
+      Every part takes <code>className</code> (a string or a function of the state) and a Base UI <code>render</code>{' '}
+      prop. The root, track, indicator, label, and value get <code>data-progressing</code>,<code>data-complete</code>,
+      or <code>data-indeterminate</code>.
     </p>
   </section>
   <section class="prose-section">
@@ -78,33 +73,30 @@ import CodeBlock from "../../components/CodeBlock.astro";
 />`}
     />
     <p>
-      With no children, the bar stands alone. Keep the real numbers in text next
-      to it, and name it with <code>aria-label</code>.
+      With no children, the bar stands alone. Keep the real numbers in text next to it, and name it with{' '}
+      <code>aria-label</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The root is a <code>progressbar</code> with <code>aria-valuemin</code>,
-      <code>aria-valuemax</code>, and <code>aria-valuenow</code>. A
-      <code>ProgressLabel</code> names it; otherwise pass
-      <code>aria-label</code>. <code>getAriaValueText</code> replaces the percent
-      that a screen reader reads, for example with “Uploading 3.1 MB of 8.4 MB”. <code
-        >ProgressValue</code
-      > is hidden from screen readers, because the bar already reads the value.
+      The root is a <code>progressbar</code> with <code>aria-valuemin</code>,<code>aria-valuemax</code>, and{' '}
+      <code>aria-valuenow</code>. A<code>ProgressLabel</code> names it; otherwise pass
+      <code>aria-label</code>. <code>getAriaValueText</code> replaces the percent that a screen reader reads, for
+      example with “Uploading 3.1 MB of 8.4 MB”. <code>ProgressValue</code> is hidden from screen readers, because the
+      bar already reads the value.
     </p>
     <p>
-      While the value is <code>null</code>, <code>aria-valuenow</code> is left out.
-      The width changes in 180ms. With reduced motion, the width jumps and the sliding
-      bar becomes a faint full track.
+      While the value is <code>null</code>, <code>aria-valuenow</code> is left out. The width changes in 180ms. With
+      reduced motion, the width jumps and the sliding bar becomes a faint full track.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
       The track uses <code>--sprout-secondary</code> and the indicator
-      <code>--sprout-primary</code>, so the bar takes the brand color in the
-      TulipFarm theme. The label uses <code>--sprout-text</code> and the value
+      <code>--sprout-primary</code>, so the bar takes the brand color in the TulipFarm theme. The label uses{' '}
+      <code>--sprout-text</code> and the value
       <code>--sprout-muted</code>. In forced colors, the indicator is
       <code>Highlight</code> on an outlined track.
     </p>

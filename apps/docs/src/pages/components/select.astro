@@ -1,6 +1,6 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   SelectCompositions,
   SelectGroups,
@@ -9,21 +9,19 @@ import {
   SelectSizes,
   SelectStates,
   SelectValues,
-} from "../../components/SelectDemo";
+} from '../../components/SelectDemo';
 ---
 
-<Docs
-  title="Select"
-  description="Pick one value from a short list, in forms, filters, and toolbars."
->
+<Docs title="Select" description="Pick one value from a short list, in forms, filters, and toolbars.">
   <h1 class="docs-title">Select</h1>
   <p class="docs-lead">
-    A button that opens a list of choices and shows the one you picked. Use it
-    for forms, filters, pagination, and compact toolbars. The chosen item lines
-    up over the trigger, arrow keys move through the list, and typing jumps to a
+    A button that opens a list of choices and shows the one you picked. Use it for forms, filters, pagination, and
+    compact toolbars. The chosen item lines up over the trigger, arrow keys move through the list, and typing jumps to a
     match.
   </p>
-  <div class="mt-8" id="select-demo"><SelectPlayground client:load /></div>
+  <div class="mt-8" id="select-demo">
+    <SelectPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -58,76 +56,62 @@ const durations = [
 </Select>`}
     />
     <p>
-      Pass <code>items</code> (an array of <code>{"{ value, label }"}</code> or a
-      record) so <code>SelectValue</code> can show the label for the stored value.
-      Name the trigger with a <code>label htmlFor</code> or with <code
-        >aria-label</code
-      >.
+      Pass <code>items</code> (an array of <code>{'{ value, label }'}</code> or a record) so <code>SelectValue</code>{' '}
+      can show the label for the stored value. Name the trigger with a <code>label htmlFor</code> or with{' '}
+      <code>aria-label</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Sizes and widths</h2>
     <p>
-      <code>size="default"</code> (32px) is for forms and access rows. <code
-        >size="sm"</code
-      > (28px, small text) is for pagination, filters, and docks. <code
-        >size="calendar"</code
-      > is 32px with small text for calendar headers. <code>width="full"</code>
-      fills the field; <code>width="fit"</code> (the default) sizes to the value.
-      On touch screens every trigger and item is at least 44px tall.
+      <code>size="default"</code> (32px) is for forms and access rows. <code>size="sm"</code> (28px, small text) is for
+      pagination, filters, and docks. <code>size="calendar"</code> is 32px with small text for calendar headers.{' '}
+      <code>width="full"</code>
+      fills the field; <code>width="fit"</code> (the default) sizes to the value. On touch screens every trigger and
+      item is at least 44px tall.
     </p>
     <SelectSizes client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Values and placeholders</h2>
     <p>
-      An empty string is a real value, so “Any type” or “Workspace default” can
-      be chosen. Use <code>placeholder</code> when the value is <code>null</code
-      >. Children on <code>SelectValue</code> replace the label, for example a name
-      looked up from an id. Values can be numbers too, as in the rows-per-page control
-      above.
+      An empty string is a real value, so “Any type” or “Workspace default” can be chosen. Use <code>placeholder</code>{' '}
+      when the value is <code>null</code>. Children on <code>SelectValue</code> replace the label, for example a name
+      looked up from an id. Values can be numbers too, as in the rows-per-page control above.
     </p>
     <SelectValues client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Groups and separators</h2>
     <p>
-      Wrap related items in <code>SelectGroup</code> with a <code
-        >SelectLabel</code
-      >. Use <code>SelectSeparator</code> to set apart an item, like one that is not
-      available on this plan.
+      Wrap related items in <code>SelectGroup</code> with a <code>SelectLabel</code>. Use <code>SelectSeparator</code>{' '}
+      to set apart an item, like one that is not available on this plan.
     </p>
     <SelectGroups client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Icons and rich items</h2>
     <p>
-      Items can hold an icon or two lines of text. Long text wraps in the list
-      and is cut off with an ellipsis in the trigger. Disabled items can be
-      reached with arrow keys but can’t be chosen.
+      Items can hold an icon or two lines of text. Long text wraps in the list and is cut off with an ellipsis in the
+      trigger. Disabled items can be reached with arrow keys but can’t be chosen.
     </p>
     <SelectRichItems client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">States</h2>
     <p>
-      Set <code>disabled</code> on <code>Select</code> while a list loads, while work
-      runs, or when it is empty, and add <code>aria-busy</code> to the trigger while
-      loading. Set <code>aria-invalid</code> and point <code
-        >aria-describedby</code
-      > at the error. With <code>required</code> and <code>name</code>, the
-      value is sent with the form, the form won’t submit without it, and a
-      disabled <code>fieldset</code> disables the select.
+      Set <code>disabled</code> on <code>Select</code> while a list loads, while work runs, or when it is empty, and add{' '}
+      <code>aria-busy</code> to the trigger while loading. Set <code>aria-invalid</code> and point{' '}
+      <code>aria-describedby</code> at the error. With <code>required</code> and <code>name</code>, the value is sent
+      with the form, the form won’t submit without it, and a disabled <code>fieldset</code> disables the select.
     </p>
     <SelectStates client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">In toolbars and overlays</h2>
     <p>
-      Small selects sit in filter bars and inline in a sentence. Lists open
-      above popovers and sheets. A trigger can be passed to <code
-        >TooltipTrigger</code
-      > through <code>render</code>.
+      Small selects sit in filter bars and inline in a sentence. Lists open above popovers and sheets. A trigger can be
+      passed to <code>TooltipTrigger</code> through <code>render</code>.
     </p>
     <SelectCompositions client:load />
     <CodeBlock
@@ -152,65 +136,49 @@ const durations = [
   <section class="prose-section" id="select-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>Select</code> is the Base UI select root. It takes <code>value</code
-      >, <code>defaultValue</code>, <code>onValueChange</code>, <code
-        >items</code
-      >, <code>disabled</code>, <code>required</code>, <code>name</code>, and
-      every other root prop.
+      <code>Select</code> is the Base UI select root. It takes <code>value</code>, <code>defaultValue</code>,{' '}
+      <code>onValueChange</code>, <code>items</code>, <code>disabled</code>, <code>required</code>, <code>name</code>,
+      and every other root prop.
     </p>
     <p>
-      <code>SelectTrigger</code> takes <code>size</code> (<code>"default"</code
-      >,
-      <code>"sm"</code>, or <code>"calendar"</code>) and <code>width</code> (<code
-        >"fit"</code
-      > or <code>"full"</code>), plus <code>id</code>, <code>aria-*</code>, and
-      <code>render</code>. It passes through field props such as <code
-        >aria-invalid</code
-      >, <code>aria-required</code>, and <code>aria-describedby</code>.
+      <code>SelectTrigger</code> takes <code>size</code> (<code>"default"</code>,<code>"sm"</code>, or{' '}
+      <code>"calendar"</code>) and <code>width</code> (<code>"fit"</code> or <code>"full"</code>), plus <code>id</code>,{' '}
+      <code>aria-*</code>, and
+      <code>render</code>. It passes through field props such as <code>aria-invalid</code>, <code>aria-required</code>,
+      and <code>aria-describedby</code>.
     </p>
     <p>
-      <code>SelectContent</code> renders its own portal, positioner, list, and scroll
-      arrows. It takes <code>side</code> (bottom), <code>align</code>
-      (center), <code>sideOffset</code> (4), <code>alignOffset</code> (0), <code
-        >alignItemWithTrigger</code
-      > (true), <code>collisionPadding</code> (8), and <code>container</code>.
+      <code>SelectContent</code> renders its own portal, positioner, list, and scroll arrows. It takes <code>side</code>{' '}
+      (bottom), <code>align</code>
+      (center), <code>sideOffset</code> (4), <code>alignOffset</code> (0), <code>alignItemWithTrigger</code> (true),{' '}
+      <code>collisionPadding</code> (8), and <code>container</code>.
     </p>
     <p>
-      <code>SelectValue</code>, <code>SelectItem</code>, <code>SelectGroup</code
-      >, <code>SelectLabel</code>, <code>SelectSeparator</code>, <code
-        >SelectScrollUpButton</code
-      >, and <code>SelectScrollDownButton</code> wrap the Base UI parts and take their
-      props. Every part sets a <code>data-slot</code>.
+      <code>SelectValue</code>, <code>SelectItem</code>, <code>SelectGroup</code>, <code>SelectLabel</code>,{' '}
+      <code>SelectSeparator</code>, <code>SelectScrollUpButton</code>, and <code>SelectScrollDownButton</code> wrap the
+      Base UI parts and take their props. Every part sets a <code>data-slot</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The trigger is a combobox with <code>aria-expanded</code>. Enter, Space,
-      and the arrow keys open the list. Arrow keys move, Home and End jump,
-      typing finds a match, Enter picks, and Escape closes and returns focus to
-      the trigger. The chosen item shows a check mark.
+      The trigger is a combobox with <code>aria-expanded</code>. Enter, Space, and the arrow keys open the list. Arrow
+      keys move, Home and End jump, typing finds a match, Enter picks, and Escape closes and returns focus to the
+      trigger. The chosen item shows a check mark.
     </p>
     <p>
-      The list fades and scales in over 120ms, and only fades when it lines up
-      over the trigger. Motion turns off when reduced motion is requested. In
-      forced-colors mode the highlighted item gets an outline.
+      The list fades and scales in over 120ms, and only fades when it lines up over the trigger. Motion turns off when
+      reduced motion is requested. In forced-colors mode the highlighted item gets an outline.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Selects use <code>--sprout-surface</code>, <code>--sprout-input</code>, <code
-        >--sprout-border</code
-      >, <code>--sprout-line</code>, <code>--sprout-hover</code>, <code
-        >--sprout-text</code
-      >, <code>--sprout-muted</code>, <code>--sprout-focus</code>, <code
-        >--sprout-danger</code
-      >, <code>--sprout-shadow-control</code>, <code
-        >--sprout-shadow-overlay</code
-      >, and the control and panel radii. Only the focus ring follows the brand,
-      so they look right with the neutral and TulipFarm themes in light and dark
-      mode.
+      Selects use <code>--sprout-surface</code>, <code>--sprout-input</code>, <code>--sprout-border</code>,{' '}
+      <code>--sprout-line</code>, <code>--sprout-hover</code>, <code>--sprout-text</code>, <code>--sprout-muted</code>,{' '}
+      <code>--sprout-focus</code>, <code>--sprout-danger</code>, <code>--sprout-shadow-control</code>,{' '}
+      <code>--sprout-shadow-overlay</code>, and the control and panel radii. Only the focus ring follows the brand, so
+      they look right with the neutral and TulipFarm themes in light and dark mode.
     </p>
   </section>
 </Docs>

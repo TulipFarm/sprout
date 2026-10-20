@@ -87,7 +87,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   .sprout-prompt-list-button::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
@@ -113,21 +113,16 @@
     transform: scaleX(-1);
   }
 
-  .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(
-      :hover,
-      :focus-within
-    )
+  .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(:hover, :focus-within)
     :is(.sprout-prompt-list-icon, .sprout-prompt-list-arrow) {
     color: var(--sprout-text);
   }
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-prompt-list-item {
-      animation: sprout-prompt-rise var(--sprout-motion-normal)
-        var(--sprout-motion-ease) both;
+      animation: sprout-prompt-rise var(--sprout-motion-normal) var(--sprout-motion-ease) both;
       animation-delay: calc(var(--sprout-prompt-index, 0) * 40ms);
-      transition: background-color var(--sprout-motion-fast)
-        var(--sprout-motion-ease);
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
     .sprout-prompt-list-icon,
     .sprout-prompt-list-arrow {
@@ -135,17 +130,11 @@
         transform var(--sprout-motion-fast) var(--sprout-motion-ease),
         color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
-    .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(
-        :hover,
-        :focus-within
-      )
+    .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(:hover, :focus-within)
       .sprout-prompt-list-icon {
       transform: scale(1.08);
     }
-    .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(
-        :hover,
-        :focus-within
-      )
+    .sprout-prompt-list-item:has(.sprout-prompt-list-button:enabled):is(:hover, :focus-within)
       .sprout-prompt-list-arrow:not(:dir(rtl)) {
       transform: translateX(2px);
     }

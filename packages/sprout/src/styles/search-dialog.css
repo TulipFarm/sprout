@@ -253,11 +253,7 @@
     height: 44px;
     padding-inline: 16px;
     border-top: 1px solid var(--sprout-line);
-    background: color-mix(
-      in oklab,
-      var(--sprout-canvas) 70%,
-      var(--sprout-surface)
-    );
+    background: color-mix(in oklab, var(--sprout-canvas) 70%, var(--sprout-surface));
     color: var(--sprout-muted);
     font-size: var(--sprout-text-xs);
     line-height: 1rem;

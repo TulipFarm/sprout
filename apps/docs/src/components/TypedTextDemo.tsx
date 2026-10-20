@@ -1,20 +1,12 @@
-import { useState, type ReactNode } from "react";
-import { Edit } from "reicon-react/icons/Edit";
-import { MagicStar } from "reicon-react/icons/MagicStar";
-import { Refresh } from "reicon-react/icons/Refresh";
-import { Button } from "@tulipfarm/sprout/button";
-import { TypedText } from "@tulipfarm/sprout/typed-text";
-import "../styles/typed-text-demo.css";
+import { useState, type ReactNode } from 'react';
+import { Edit } from 'reicon-react/icons/Edit';
+import { MagicStar } from 'reicon-react/icons/MagicStar';
+import { Refresh } from 'reicon-react/icons/Refresh';
+import { Button } from '@tulipfarm/sprout/button';
+import { TypedText } from '@tulipfarm/sprout/typed-text';
+import '../styles/typed-text-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="typed-text-demo-card" aria-label={title}>
       <header>
@@ -33,15 +25,15 @@ interface SampleChat {
 }
 
 const agentTitles = [
-  "Prepare our investor pitch",
-  "Compare Q3 vendor contracts for the Lisbon and Porto warehouse expansion",
-  "Connected app results",
+  'Prepare our investor pitch',
+  'Compare Q3 vendor contracts for the Lisbon and Porto warehouse expansion',
+  'Connected app results',
 ];
 
-const manualTitle = "Board deck — final review";
+const manualTitle = 'Board deck — final review';
 
 const newChat: SampleChat = {
-  title: "New chat",
+  title: 'New chat',
   titleRevision: 0,
   titleManual: false,
 };
@@ -56,11 +48,7 @@ function ChatTitle() {
       description="An agent names the chat. Its first title appears at once; later agent renames type in. A title someone typed by hand never animates."
     >
       <div className="typed-text-demo-chat" data-testid="chat-header">
-        <h4
-          tabIndex={-1}
-          title={chat.title}
-          className="typed-text-demo-chat-title"
-        >
+        <h4 tabIndex={-1} title={chat.title} className="typed-text-demo-chat-title">
           <TypedText text={chat.title} animate={animate} />
         </h4>
       </div>
@@ -71,17 +59,11 @@ function ChatTitle() {
         </div>
         <div>
           <dt>Named by</dt>
-          <dd>
-            {chat.titleRevision === 0
-              ? "Nobody yet"
-              : chat.titleManual
-                ? "Person"
-                : "Agent"}
-          </dd>
+          <dd>{chat.titleRevision === 0 ? 'Nobody yet' : chat.titleManual ? 'Person' : 'Agent'}</dd>
         </div>
         <div>
           <dt>Animated</dt>
-          <dd>{animate ? "Yes" : "No"}</dd>
+          <dd>{animate ? 'Yes' : 'No'}</dd>
         </div>
       </dl>
       <div className="typed-text-demo-row">
@@ -89,7 +71,7 @@ function ChatTitle() {
           variant="outline"
           size="sm"
           onClick={() => {
-            setChat((current) => ({
+            setChat(current => ({
               title: agentTitles[next % agentTitles.length]!,
               titleRevision: current.titleRevision + 1,
               titleManual: false,
@@ -104,7 +86,7 @@ function ChatTitle() {
           variant="outline"
           size="sm"
           onClick={() =>
-            setChat((current) => ({
+            setChat(current => ({
               title: manualTitle,
               titleRevision: current.titleRevision + 1,
               titleManual: true,
@@ -138,13 +120,7 @@ function Sentence() {
       description="Each change types the new sentence in, 25ms a character and never longer than 800ms."
     >
       <p className="typed-text-demo-sentence" data-testid="sentence">
-        <TypedText
-          text={
-            alternate
-              ? "Your fictional garden plan is ready."
-              : "Let’s make a garden plan."
-          }
-        />
+        <TypedText text={alternate ? 'Your fictional garden plan is ready.' : 'Let’s make a garden plan.'} />
       </p>
       <div className="typed-text-demo-row">
         <Button variant="outline" onClick={() => setAlternate(!alternate)}>
@@ -163,20 +139,10 @@ function Graphemes() {
       description="Typing steps by what a reader sees as one character, so emoji families and accented letters never split."
     >
       <p className="typed-text-demo-sentence" data-testid="graphemes">
-        <TypedText
-          text={
-            alternate
-              ? "👩‍🌾 Crew booked for Café Søndergård 🌷"
-              : "🌱 Seed order sent to Jürgen"
-          }
-        />
+        <TypedText text={alternate ? '👩‍🌾 Crew booked for Café Søndergård 🌷' : '🌱 Seed order sent to Jürgen'} />
       </p>
       <div className="typed-text-demo-row">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setAlternate(!alternate)}
-        >
+        <Button variant="outline" size="sm" onClick={() => setAlternate(!alternate)}>
           Change status
         </Button>
       </div>
@@ -186,10 +152,7 @@ function Graphemes() {
 
 function Static() {
   return (
-    <Example
-      title="Without animation"
-      description={"animate={false} shows every change at once."}
-    >
+    <Example title="Without animation" description={'animate={false} shows every change at once.'}>
       <p className="typed-text-demo-sentence" data-testid="static">
         <TypedText text="This sentence appears immediately." animate={false} />
       </p>

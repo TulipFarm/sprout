@@ -28,16 +28,12 @@
   }
   /* A 40 x 32px hit area around the 16px dot. */
   .sprout-radio-group-item::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: -8px -12px;
   }
   @media (hover: hover) {
-    .sprout-radio-group-item:not(
-        [data-disabled],
-        [data-readonly],
-        [data-checked]
-      ):hover {
+    .sprout-radio-group-item:not([data-disabled], [data-readonly], [data-checked]):hover {
       border-color: var(--sprout-border-strong);
     }
   }
@@ -48,14 +44,13 @@
     border-color: var(--sprout-primary);
     background-color: var(--sprout-primary);
   }
-  .sprout-radio-group-item[aria-invalid="true"] {
-    box-shadow: 0 0 0 3px
-      color-mix(in oklab, var(--sprout-danger) 20%, transparent);
+  .sprout-radio-group-item[aria-invalid='true'] {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--sprout-danger) 20%, transparent);
   }
-  .sprout-radio-group-item[aria-invalid="true"]:not([data-checked]) {
+  .sprout-radio-group-item[aria-invalid='true']:not([data-checked]) {
     border-color: var(--sprout-danger);
   }
-  .sprout-radio-group-item[aria-invalid="true"]:focus-visible {
+  .sprout-radio-group-item[aria-invalid='true']:focus-visible {
     outline-color: var(--sprout-danger);
   }
   .sprout-radio-group-item[data-readonly] {
@@ -77,21 +72,15 @@
   @media (prefers-reduced-motion: no-preference) {
     .sprout-radio-group-item {
       transition:
-        background-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        border-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        box-shadow var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        opacity var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        box-shadow var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-radio-group-indicator {
       transition:
-        opacity var(--sprout-motion-normal, 180ms)
-          var(--sprout-motion-ease, ease-out),
-        transform var(--sprout-motion-normal, 180ms)
-          var(--sprout-motion-ease, ease-out);
+        opacity var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out),
+        transform var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-radio-group-indicator[data-starting-style],
     .sprout-radio-group-indicator[data-ending-style] {

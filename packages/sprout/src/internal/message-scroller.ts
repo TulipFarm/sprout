@@ -2,9 +2,8 @@
 // turn under the top edge, keeps the reader's place when older messages are
 // prepended, and reports which edges can still be scrolled to.
 
-export type MessageScrollerDefaultScrollPosition =
-  "start" | "end" | "last-anchor";
-export type MessageScrollerScrollAlign = "start" | "center" | "end" | "nearest";
+export type MessageScrollerDefaultScrollPosition = 'start' | 'end' | 'last-anchor';
+export type MessageScrollerScrollAlign = 'start' | 'center' | 'end' | 'nearest';
 
 export interface MessageScrollerScrollOptions {
   align?: MessageScrollerScrollAlign | undefined;
@@ -30,24 +29,12 @@ export interface MessageScrollerOptions {
   scrollMargin: number;
 }
 
-type Mode =
-  | "following-bottom"
-  | "free-scrolling"
-  | "anchored-to-message"
-  | "settling-jump";
+type Mode = 'following-bottom' | 'free-scrolling' | 'anchored-to-message' | 'settling-jump';
 
 const epsilon = 0.5;
 const autoscrollMs = 180;
 
-export const scrollIntentKeys = new Set([
-  "ArrowDown",
-  "ArrowUp",
-  "End",
-  "Home",
-  "PageDown",
-  "PageUp",
-  " ",
-]);
+export const scrollIntentKeys = new Set(['ArrowDown', 'ArrowUp', 'End', 'Home', 'PageDown', 'PageUp', ' ']);
 
 const noEdges: MessageScrollerScrollable = { start: false, end: false };
 const noVisibility: MessageScrollerVisibilityState = {
@@ -59,11 +46,7 @@ export interface Store<T> {
   getSnapshot: () => T;
   hasListeners: () => boolean;
   setSnapshot: (next: T) => void;
-  subscribe: (
-    listener: () => void,
-    onFirst?: () => void,
-    onLast?: () => void,
-  ) => () => void;
+  subscribe: (listener: () => void, onFirst?: () => void, onLast?: () => void) => () => void;
 }
 
 function createStore<T>(initial: T, equal: (a: T, b: T) => boolean): Store<T> {
@@ -72,10 +55,10 @@ function createStore<T>(initial: T, equal: (a: T, b: T) => boolean): Store<T> {
   return {
     getSnapshot: () => value,
     hasListeners: () => listeners.size > 0,
-    setSnapshot: (next) => {
+    setSnapshot: next => {
       if (equal(value, next)) return;
       value = next;
-      listeners.forEach((listener) => listener());
+      listeners.forEach(listener => listener());
     },
     subscribe: (listener, onFirst, onLast) => {
       const first = listeners.size === 0;
@@ -89,21 +72,16 @@ function createStore<T>(initial: T, equal: (a: T, b: T) => boolean): Store<T> {
   };
 }
 
-const sameEdges = (
-  a: MessageScrollerScrollable,
-  b: MessageScrollerScrollable,
-) => a.start === b.start && a.end === b.end;
+const sameEdges = (a: MessageScrollerScrollable, b: MessageScrollerScrollable) =>
+  a.start === b.start && a.end === b.end;
 
-const sameVisibility = (
-  a: MessageScrollerVisibilityState,
-  b: MessageScrollerVisibilityState,
-) =>
+const sameVisibility = (a: MessageScrollerVisibilityState, b: MessageScrollerVisibilityState) =>
   a.currentAnchorId === b.currentAnchorId &&
   a.visibleMessageIds.length === b.visibleMessageIds.length &&
   a.visibleMessageIds.every((id, index) => id === b.visibleMessageIds[index]);
 
 const pixels = (value: string | undefined) => {
-  const number = Number.parseFloat(value ?? "");
+  const number = Number.parseFloat(value ?? '');
   return Number.isFinite(number) ? number : 0;
 };
 
@@ -119,59 +97,38 @@ function blockPadding(element: Element | null | undefined) {
 function rowGap(element: Element | null) {
   if (!element) return 0;
   const style = getComputedStyle(element);
-  return pixels(style.rowGap === "normal" ? style.gap : style.rowGap);
+  return pixels(style.rowGap === 'normal' ? style.gap : style.rowGap);
 }
 
-const isAnchor = (element: HTMLElement | undefined) =>
-  element?.dataset.scrollAnchor === "true";
+const isAnchor = (element: HTMLElement | undefined) => element?.dataset.scrollAnchor === 'true';
 
 function itemsOf(content: HTMLElement, spacer: HTMLElement | null) {
   return Array.from(content.children).filter(
-    (child): child is HTMLElement =>
-      child instanceof HTMLElement && child !== spacer,
+    (child): child is HTMLElement => child instanceof HTMLElement && child !== spacer,
   );
 }
 
 const offsetIn = (element: HTMLElement, viewport: HTMLElement) =>
-  element.getBoundingClientRect().top -
-  viewport.getBoundingClientRect().top +
-  viewport.scrollTop;
+  element.getBoundingClientRect().top - viewport.getBoundingClientRect().top + viewport.scrollTop;
 
 const topIn = (element: HTMLElement, viewport: HTMLElement) =>
   element.getBoundingClientRect().top - viewport.getBoundingClientRect().top;
 
-const maxScroll = (viewport: HTMLElement) =>
-  Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+const maxScroll = (viewport: HTMLElement) => Math.max(0, viewport.scrollHeight - viewport.clientHeight);
 
-function contentHeight(
-  content: HTMLElement,
-  spacer: HTMLElement | null,
-  viewport: HTMLElement,
-) {
+function contentHeight(content: HTMLElement, spacer: HTMLElement | null, viewport: HTMLElement) {
   const padding = blockPadding(content);
   const viewportTop = viewport.getBoundingClientRect().top;
   let height = padding.start + padding.end;
   for (const item of itemsOf(content, spacer))
-    height = Math.max(
-      height,
-      item.getBoundingClientRect().bottom -
-        viewportTop +
-        viewport.scrollTop +
-        padding.end,
-    );
+    height = Math.max(height, item.getBoundingClientRect().bottom - viewportTop + viewport.scrollTop + padding.end);
   return height;
 }
 
 export class MessageScrollerController {
   options: MessageScrollerOptions;
-  readonly stateStore = createStore<MessageScrollerScrollable>(
-    noEdges,
-    sameEdges,
-  );
-  readonly visibilityStore = createStore<MessageScrollerVisibilityState>(
-    noVisibility,
-    sameVisibility,
-  );
+  readonly stateStore = createStore<MessageScrollerScrollable>(noEdges, sameEdges);
+  readonly visibilityStore = createStore<MessageScrollerVisibilityState>(noVisibility, sameVisibility);
   readonly pendingDefaultStore: Store<boolean>;
   preserveScrollOnPrepend = true;
 
@@ -192,8 +149,7 @@ export class MessageScrollerController {
     messageId: string;
     options?: MessageScrollerScrollOptions | undefined;
   } | null = null;
-  private prependRestore: { element: HTMLElement; viewportTop: number } | null =
-    null;
+  private prependRestore: { element: HTMLElement; viewportTop: number } | null = null;
   private defaultApplied = false;
   private messages = new Map<string, HTMLElement>();
   private visibleIds = new Set<string>();
@@ -205,17 +161,15 @@ export class MessageScrollerController {
 
   constructor(options: MessageScrollerOptions) {
     this.options = options;
-    this.mode = options.autoScroll ? "following-bottom" : "free-scrolling";
+    this.mode = options.autoScroll ? 'following-bottom' : 'free-scrolling';
     this.pendingDefaultStore = createStore(
-      options.defaultScrollPosition === "end" ||
-        options.defaultScrollPosition === "last-anchor",
+      options.defaultScrollPosition === 'end' || options.defaultScrollPosition === 'last-anchor',
       Object.is,
     );
   }
 
   setOptions(next: MessageScrollerOptions) {
-    if (next.defaultScrollPosition !== this.options.defaultScrollPosition)
-      this.defaultApplied = false;
+    if (next.defaultScrollPosition !== this.options.defaultScrollPosition) this.defaultApplied = false;
     this.options = next;
   }
 
@@ -242,17 +196,12 @@ export class MessageScrollerController {
     this.spacerGap = rowGap(element?.parentElement ?? null);
   };
 
-  registerMessage = (
-    messageId: string,
-    element: HTMLElement | null,
-    previous: HTMLElement | null,
-  ) => {
+  registerMessage = (messageId: string, element: HTMLElement | null, previous: HTMLElement | null) => {
     if (element) {
       this.messages.set(messageId, element);
       this.observer?.observe(element);
       this.scheduleVisibility();
-      if (this.pendingMessage?.messageId === messageId)
-        this.schedulePendingFlush();
+      if (this.pendingMessage?.messageId === messageId) this.schedulePendingFlush();
       return;
     }
     if (previous && this.messages.get(messageId) === previous) {
@@ -265,24 +214,22 @@ export class MessageScrollerController {
 
   // Public scrolling
 
-  scrollToStart = ({
-    behavior = "auto",
-  }: MessageScrollerScrollOptions = {}) => {
+  scrollToStart = ({ behavior = 'auto' }: MessageScrollerScrollOptions = {}) => {
     if (!this.viewport) return false;
     this.setSpacerHeight(0);
     this.streamingTurn = null;
-    this.mode = "free-scrolling";
+    this.mode = 'free-scrolling';
     this.scrollViewportTo(0, { behavior });
     this.scheduleVisibility();
     return true;
   };
 
-  scrollToEnd = ({ behavior = "auto" }: MessageScrollerScrollOptions = {}) => {
+  scrollToEnd = ({ behavior = 'auto' }: MessageScrollerScrollOptions = {}) => {
     const viewport = this.viewport;
     if (!viewport) return false;
     this.setSpacerHeight(0);
     this.streamingTurn = null;
-    this.mode = this.options.autoScroll ? "following-bottom" : "free-scrolling";
+    this.mode = this.options.autoScroll ? 'following-bottom' : 'free-scrolling';
     this.scrollViewportTo(maxScroll(viewport), {
       autoscrolling: true,
       behavior,
@@ -291,16 +238,11 @@ export class MessageScrollerController {
     return true;
   };
 
-  scrollToMessage = (
-    messageId: string,
-    options?: MessageScrollerScrollOptions,
-  ) => {
+  scrollToMessage = (messageId: string, options?: MessageScrollerScrollOptions) => {
     const element = this.messages.get(messageId);
     if (element) {
       this.markDefaultApplied();
-      this.pendingMessage = this.scrollToElement(element, options)
-        ? null
-        : { messageId, options };
+      this.pendingMessage = this.scrollToElement(element, options) ? null : { messageId, options };
       return true;
     }
     if (this.itemCount === 0) {
@@ -314,9 +256,9 @@ export class MessageScrollerController {
   // Events from the parts
 
   userScrollIntent = () => {
-    if (this.mode !== "free-scrolling") {
+    if (this.mode !== 'free-scrolling') {
       this.streamingTurn = null;
-      this.mode = "free-scrolling";
+      this.mode = 'free-scrolling';
     }
   };
 
@@ -327,18 +269,13 @@ export class MessageScrollerController {
   };
 
   handleResize = () => {
-    if (this.mode === "following-bottom" && this.options.autoScroll) {
+    if (this.mode === 'following-bottom' && this.options.autoScroll) {
       this.scrollToEnd();
       return;
     }
     const previousSpacer = this.spacerHeight;
     if (this.reanchor()) {
-      if (
-        this.options.autoScroll &&
-        previousSpacer > 0 &&
-        this.spacerHeight === 0
-      )
-        this.scrollToEnd();
+      if (this.options.autoScroll && previousSpacer > 0 && this.spacerHeight === 0) this.scrollToEnd();
       return;
     }
     this.scheduleCommit();
@@ -360,16 +297,11 @@ export class MessageScrollerController {
   // Mount and option changes
 
   applyDefaultOrSettle = () => {
-    if (!this.applyDefault() && this.itemCount === 0)
-      this.pendingDefaultStore.setSnapshot(false);
+    if (!this.applyDefault() && this.itemCount === 0) this.pendingDefaultStore.setSnapshot(false);
   };
 
   followOnAutoScroll = () => {
-    if (
-      this.options.autoScroll &&
-      this.mode === "following-bottom" &&
-      this.itemCount > 0
-    ) {
+    if (this.options.autoScroll && this.mode === 'following-bottom' && this.itemCount > 0) {
       this.scrollToEnd();
       return;
     }
@@ -378,15 +310,14 @@ export class MessageScrollerController {
 
   observeVisibility = () => {
     if (!this.viewport || !this.visibilityStore.hasListeners()) return;
-    if (typeof IntersectionObserver === "undefined") {
+    if (typeof IntersectionObserver === 'undefined') {
       this.scheduleVisibility();
       return;
     }
     if (!this.observer) {
-      const inset =
-        this.options.scrollMargin + this.options.scrollPreviousItemPeek;
+      const inset = this.options.scrollMargin + this.options.scrollPreviousItemPeek;
       this.observer = new IntersectionObserver(
-        (entries) => {
+        entries => {
           for (const entry of entries) {
             const id = (entry.target as HTMLElement).dataset.messageId;
             if (!id) continue;
@@ -402,13 +333,12 @@ export class MessageScrollerController {
         },
       );
     }
-    this.messages.forEach((element) => this.observer?.observe(element));
+    this.messages.forEach(element => this.observer?.observe(element));
     this.scheduleVisibility();
   };
 
   unobserveVisibility = () => {
-    if (this.visibilityFrame !== null)
-      cancelAnimationFrame(this.visibilityFrame);
+    if (this.visibilityFrame !== null) cancelAnimationFrame(this.visibilityFrame);
     this.visibilityFrame = null;
     this.observer?.disconnect();
     this.observer = null;
@@ -417,11 +347,7 @@ export class MessageScrollerController {
   };
 
   dispose = () => {
-    for (const frame of [
-      this.stateFrame,
-      this.visibilityFrame,
-      this.pendingFrame,
-    ])
+    for (const frame of [this.stateFrame, this.visibilityFrame, this.pendingFrame])
       if (frame !== null) cancelAnimationFrame(frame);
     this.stateFrame = this.visibilityFrame = this.pendingFrame = null;
     if (this.autoscrollTimer !== null) clearTimeout(this.autoscrollTimer);
@@ -437,18 +363,10 @@ export class MessageScrollerController {
     this.pendingDefaultStore.setSnapshot(false);
   }
 
-  private applyContentChange(
-    items: HTMLElement[],
-    previousCount: number,
-    previousFirst: HTMLElement | null,
-  ) {
+  private applyContentChange(items: HTMLElement[], previousCount: number, previousFirst: HTMLElement | null) {
     if (this.flushPendingMessage()) return;
     if (previousCount === 0) {
-      if (
-        this.applyDefault() ||
-        (items.length > 0 && this.options.autoScroll && this.scrollToEnd())
-      )
-        return;
+      if (this.applyDefault() || (items.length > 0 && this.options.autoScroll && this.scrollToEnd())) return;
       this.commit();
       this.scheduleVisibility();
       return;
@@ -459,14 +377,10 @@ export class MessageScrollerController {
       return;
     }
     if (items.length > previousCount) {
-      const anchor = items.slice(previousCount).find((item) => isAnchor(item));
+      const anchor = items.slice(previousCount).find(item => isAnchor(item));
       if (anchor) {
-        const following =
-          this.options.autoScroll && this.mode === "following-bottom";
-        if (
-          following &&
-          items.slice(previousCount).filter((item) => isAnchor(item)).length > 1
-        ) {
+        const following = this.options.autoScroll && this.mode === 'following-bottom';
+        if (following && items.slice(previousCount).filter(item => isAnchor(item)).length > 1) {
           this.scrollToEnd();
           return;
         }
@@ -475,16 +389,13 @@ export class MessageScrollerController {
       }
     }
     if (items.length === previousCount) {
-      const anchor = items.find(
-        (item) => isAnchor(item) && !this.handledAnchors.has(item),
-      );
+      const anchor = items.find(item => isAnchor(item) && !this.handledAnchors.has(item));
       if (anchor) {
         this.pinAnchor(anchor);
         return;
       }
     }
-    if (this.mode === "following-bottom" && this.options.autoScroll)
-      this.scrollToEnd();
+    if (this.mode === 'following-bottom' && this.options.autoScroll) this.scrollToEnd();
     else {
       this.commit();
       this.scheduleVisibility();
@@ -492,7 +403,7 @@ export class MessageScrollerController {
   }
 
   private pinAnchor(anchor: HTMLElement) {
-    this.scrollToElement(anchor, { align: "start" }, true);
+    this.scrollToElement(anchor, { align: 'start' }, true);
     this.handledAnchors.add(anchor);
   }
 
@@ -500,57 +411,37 @@ export class MessageScrollerController {
     const position = this.options.defaultScrollPosition;
     if (this.defaultApplied || this.itemCount === 0) return false;
     let done = false;
-    if (position === "last-anchor") {
+    if (position === 'last-anchor') {
       const content = this.content;
       const viewport = this.viewport;
-      const anchor =
-        content && viewport
-          ? itemsOf(content, this.spacer).filter(isAnchor).pop()
-          : undefined;
+      const anchor = content && viewport ? itemsOf(content, this.spacer).filter(isAnchor).pop() : undefined;
       if (!content || !viewport || !anchor) done = this.scrollToEnd();
       else
         done = this.measuringFrom(anchor, () =>
-          contentHeight(content, this.spacer, viewport) -
-            offsetIn(anchor, viewport) <=
-          viewport.clientHeight
+          contentHeight(content, this.spacer, viewport) - offsetIn(anchor, viewport) <= viewport.clientHeight
             ? this.scrollToEnd()
-            : this.scrollToElement(anchor, { align: "start" }, true),
+            : this.scrollToElement(anchor, { align: 'start' }, true),
         );
-    } else
-      done = position === "end" ? this.scrollToEnd() : this.scrollToStart();
+    } else done = position === 'end' ? this.scrollToEnd() : this.scrollToStart();
     if (done) this.markDefaultApplied();
     return done;
   }
 
-  private scrollToElement(
-    element: HTMLElement,
-    options: MessageScrollerScrollOptions = {},
-    keepPreviousPeek = false,
-  ) {
+  private scrollToElement(element: HTMLElement, options: MessageScrollerScrollOptions = {}, keepPreviousPeek = false) {
     const content = this.content;
     const viewport = this.viewport;
     if (!content || !viewport || !content.contains(element)) return false;
-    const {
-      align = "start",
-      behavior = "auto",
-      scrollMargin = this.options.scrollMargin,
-    } = options;
+    const { align = 'start', behavior = 'auto', scrollMargin = this.options.scrollMargin } = options;
     const top = this.targetTop(
       element,
       align,
-      keepPreviousPeek
-        ? scrollMargin + this.options.scrollPreviousItemPeek
-        : scrollMargin,
+      keepPreviousPeek ? scrollMargin + this.options.scrollPreviousItemPeek : scrollMargin,
     );
     this.setSpacerHeight(
-      top +
-        viewport.clientHeight -
-        this.measuringFrom(element, () =>
-          contentHeight(content, this.spacer, viewport),
-        ),
+      top + viewport.clientHeight - this.measuringFrom(element, () => contentHeight(content, this.spacer, viewport)),
     );
     this.prependRestore = { element, viewportTop: topIn(element, viewport) };
-    this.mode = keepPreviousPeek ? "anchored-to-message" : "settling-jump";
+    this.mode = keepPreviousPeek ? 'anchored-to-message' : 'settling-jump';
     this.streamingTurn = keepPreviousPeek ? element : null;
     this.scrollViewportTo(top, { behavior });
     this.scheduleVisibility();
@@ -561,36 +452,26 @@ export class MessageScrollerController {
   private measuringFrom<T>(from: HTMLElement, measure: () => T): T {
     const items = this.content ? itemsOf(this.content, this.spacer) : [];
     const later = items.slice(Math.max(0, items.indexOf(from)));
-    const previous = later.map((item) => item.style.contentVisibility);
-    for (const item of later) item.style.contentVisibility = "visible";
+    const previous = later.map(item => item.style.contentVisibility);
+    for (const item of later) item.style.contentVisibility = 'visible';
     try {
       return measure();
     } finally {
-      later.forEach(
-        (item, index) => (item.style.contentVisibility = previous[index] ?? ""),
-      );
+      later.forEach((item, index) => (item.style.contentVisibility = previous[index] ?? ''));
     }
   }
 
-  private targetTop(
-    element: HTMLElement,
-    align: MessageScrollerScrollAlign,
-    margin: number,
-  ) {
+  private targetTop(element: HTMLElement, align: MessageScrollerScrollAlign, margin: number) {
     const viewport = this.viewport!;
     const offset = offsetIn(element, viewport);
     const height = element.getBoundingClientRect().height;
     const padding = blockPadding(this.spacer?.parentElement);
-    if (align === "center") {
-      const room = Math.max(
-        0,
-        viewport.clientHeight - padding.start - padding.end,
-      );
+    if (align === 'center') {
+      const room = Math.max(0, viewport.clientHeight - padding.start - padding.end);
       return offset - padding.start - (room - height) / 2 - margin;
     }
-    if (align === "end")
-      return offset - viewport.clientHeight + height + padding.end + margin;
-    if (align === "nearest") {
+    if (align === 'end') return offset - viewport.clientHeight + height + padding.end + margin;
+    if (align === 'nearest') {
       const top = viewport.scrollTop + padding.start;
       const bottom = viewport.scrollTop + viewport.clientHeight - padding.end;
       if (offset >= top && offset + height <= bottom) return viewport.scrollTop;
@@ -603,17 +484,15 @@ export class MessageScrollerController {
 
   private reanchor() {
     const element = this.streamingTurn;
-    if (!element || !element.isConnected || this.mode !== "anchored-to-message")
-      return false;
-    return this.scrollToElement(element, { align: "start" }, true);
+    if (!element || !element.isConnected || this.mode !== 'anchored-to-message') return false;
+    return this.scrollToElement(element, { align: 'start' }, true);
   }
 
   private flushPendingMessage() {
     const pending = this.pendingMessage;
     if (!pending) return false;
     const element = this.messages.get(pending.messageId);
-    if (!element || !this.scrollToElement(element, pending.options))
-      return false;
+    if (!element || !this.scrollToElement(element, pending.options)) return false;
     this.pendingMessage = null;
     this.markDefaultApplied();
     return true;
@@ -635,7 +514,7 @@ export class MessageScrollerController {
     this.spacerHeight = height;
     spacer.hidden = height === 0;
     spacer.style.height = `${height}px`;
-    spacer.style.marginTop = height > 0 ? `${-this.spacerGap}px` : "";
+    spacer.style.marginTop = height > 0 ? `${-this.spacerGap}px` : '';
   }
 
   private setAutoscrolling(on: boolean) {
@@ -655,10 +534,7 @@ export class MessageScrollerController {
 
   private scrollViewportTo(
     value: number,
-    {
-      behavior = "auto",
-      autoscrolling = false,
-    }: { behavior?: ScrollBehavior; autoscrolling?: boolean } = {},
+    { behavior = 'auto', autoscrolling = false }: { behavior?: ScrollBehavior; autoscrolling?: boolean } = {},
   ) {
     const viewport = this.viewport;
     if (!viewport) return;
@@ -694,14 +570,12 @@ export class MessageScrollerController {
       return;
     }
     const bounds = viewport.getBoundingClientRect();
-    const first = itemsOf(content, this.spacer).find((item) => {
+    const first = itemsOf(content, this.spacer).find(item => {
       if (!item.dataset.messageId) return false;
       const rect = item.getBoundingClientRect();
       return rect.bottom > bounds.top && rect.top < bounds.bottom;
     });
-    this.prependRestore = first
-      ? { element: first, viewportTop: topIn(first, viewport) }
-      : null;
+    this.prependRestore = first ? { element: first, viewportTop: topIn(first, viewport) } : null;
   }
 
   private readEdges(): MessageScrollerScrollable {
@@ -719,39 +593,26 @@ export class MessageScrollerController {
     const top = this.viewport?.scrollTop ?? 0;
     const scrolledUp = top < this.lastScrollTop - epsilon;
     this.lastScrollTop = top;
-    if (
-      this.options.autoScroll &&
-      !edges.end &&
-      this.mode !== "settling-jump" &&
-      this.mode !== "anchored-to-message"
-    )
-      this.mode = "following-bottom";
-    else if (
-      this.mode === "following-bottom" &&
-      edges.end &&
-      scrolledUp &&
-      !this.autoscrolling
-    )
-      this.mode = "free-scrolling";
+    if (this.options.autoScroll && !edges.end && this.mode !== 'settling-jump' && this.mode !== 'anchored-to-message')
+      this.mode = 'following-bottom';
+    else if (this.mode === 'following-bottom' && edges.end && scrolledUp && !this.autoscrolling)
+      this.mode = 'free-scrolling';
   }
 
   private applyAttributes(edges: MessageScrollerScrollable) {
-    const value = [edges.start && "start", edges.end && "end"]
-      .filter(Boolean)
-      .join(" ");
+    const value = [edges.start && 'start', edges.end && 'end'].filter(Boolean).join(' ');
     for (const element of [this.root, this.viewport]) {
       if (!element) continue;
-      if (value) element.setAttribute("data-scrollable", value);
-      else element.removeAttribute("data-scrollable");
-      element.toggleAttribute("data-autoscrolling", this.autoscrolling);
+      if (value) element.setAttribute('data-scrollable', value);
+      else element.removeAttribute('data-scrollable');
+      element.toggleAttribute('data-autoscrolling', this.autoscrolling);
     }
   }
 
   private commit() {
     const edges = this.readEdges();
     this.updateMode(edges);
-    const shown =
-      this.mode === "following-bottom" ? { ...edges, end: false } : edges;
+    const shown = this.mode === 'following-bottom' ? { ...edges, end: false } : edges;
     this.applyAttributes(shown);
     this.stateStore.setSnapshot(shown);
   }
@@ -765,12 +626,10 @@ export class MessageScrollerController {
   }
 
   private scheduleVisibility() {
-    if (!this.visibilityStore.hasListeners() || this.visibilityFrame !== null)
-      return;
+    if (!this.visibilityStore.hasListeners() || this.visibilityFrame !== null) return;
     this.visibilityFrame = requestAnimationFrame(() => {
       this.visibilityFrame = null;
-      if (this.visibilityStore.hasListeners())
-        this.visibilityStore.setSnapshot(this.readVisibility());
+      if (this.visibilityStore.hasListeners()) this.visibilityStore.setSnapshot(this.readVisibility());
     });
   }
 
@@ -778,11 +637,8 @@ export class MessageScrollerController {
     const { content, viewport } = this;
     if (!content || !viewport) return noVisibility;
     const bounds = viewport.getBoundingClientRect();
-    const line =
-      bounds.top +
-      this.options.scrollMargin +
-      this.options.scrollPreviousItemPeek;
-    const measure = typeof IntersectionObserver === "undefined";
+    const line = bounds.top + this.options.scrollMargin + this.options.scrollPreviousItemPeek;
+    const measure = typeof IntersectionObserver === 'undefined';
     const visibleMessageIds: string[] = [];
     let currentAnchorId: string | null = null;
     for (const item of itemsOf(content, this.spacer)) {
@@ -790,10 +646,7 @@ export class MessageScrollerController {
       if (!id) continue;
       const anchor = isAnchor(item);
       const rect = anchor || measure ? item.getBoundingClientRect() : null;
-      const visible =
-        measure && rect
-          ? rect.bottom > line && rect.top < bounds.bottom
-          : this.visibleIds.has(id);
+      const visible = measure && rect ? rect.bottom > line && rect.top < bounds.bottom : this.visibleIds.has(id);
       if (visible) visibleMessageIds.push(id);
       if (anchor && rect && rect.top <= line + epsilon) currentAnchorId = id;
     }

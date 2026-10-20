@@ -28,9 +28,8 @@
     align-items: center;
     border-radius: var(--sprout-radius-control);
   }
-  .sprout-input-otp-group:has(.sprout-input-otp-slot[aria-invalid="true"]) {
-    box-shadow: 0 0 0 3px
-      color-mix(in oklab, var(--sprout-danger) 20%, transparent);
+  .sprout-input-otp-group:has(.sprout-input-otp-slot[aria-invalid='true']) {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--sprout-danger) 20%, transparent);
   }
 
   .sprout-input-otp-slot {
@@ -74,10 +73,10 @@
     outline: var(--sprout-focus-width) solid transparent;
     outline-offset: 0;
   }
-  .sprout-input-otp-slot[aria-invalid="true"] {
+  .sprout-input-otp-slot[aria-invalid='true'] {
     border-color: var(--sprout-danger);
   }
-  .sprout-input-otp-slot[aria-invalid="true"]:focus {
+  .sprout-input-otp-slot[aria-invalid='true']:focus {
     outline-color: color-mix(in oklab, var(--sprout-danger) 40%, transparent);
   }
   .sprout-input-otp-slot:disabled {
@@ -131,7 +130,7 @@
     .sprout-input-otp-slot:focus {
       outline: 2px solid Highlight;
     }
-    .sprout-input-otp-slot[aria-invalid="true"] {
+    .sprout-input-otp-slot[aria-invalid='true'] {
       border-color: Mark;
     }
   }

@@ -1,6 +1,6 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   GradientBannerPlayground,
   GradientBannerVariants,
@@ -11,19 +11,18 @@ import {
   GradientBannerPrompts,
   GradientBannerAgentActivity,
   GradientBannerArtOnly,
-} from "../../components/GradientBannerDemo";
+} from '../../components/GradientBannerDemo';
 ---
 
-<Docs
-  title="Gradient Banner"
-  description="Decorative gradient art with readable panels, badges, and progress on top."
->
+<Docs title="Gradient Banner" description="Decorative gradient art with readable panels, badges, and progress on top.">
   <h1 class="docs-title">Gradient Banner</h1>
   <p class="docs-lead">
-    Soft gradient art for prompt cards, onboarding, and showcase panels. Put
-    text on a panel so it stays readable on every color.
+    Soft gradient art for prompt cards, onboarding, and showcase panels. Put text on a panel so it stays readable on
+    every color.
   </p>
-  <div class="mt-8"><GradientBannerPlayground client:load /></div>
+  <div class="mt-8">
+    <GradientBannerPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -43,29 +42,24 @@ import {
 </GradientBanner>`}
     />
     <p>
-      <code>variant</code> picks the colors and defaults to <code>"aurora"</code
-      >. <code>size</code> sets the minimum height, padding, and corner radius: <code
-        >sm</code
-      > 96px, <code>md</code> 160px, <code>lg</code> 240px (default), and <code
-        >xl</code
-      > 360px. Children sit centered on the art; a banner without children draws only
-      the art.
+      <code>variant</code> picks the colors and defaults to <code>"aurora"</code>. <code>size</code> sets the minimum
+      height, padding, and corner radius: <code>sm</code> 96px, <code>md</code> 160px, <code>lg</code> 240px (default),
+      and <code>xl</code> 360px. Children sit centered on the art; a banner without children draws only the art.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Variants</h2>
     <p>
-      Six color stories. Text placed straight on <code>cobalt</code> turns pearl so
-      it stays readable on deep blue; the other variants use dark ink.
+      Six color stories. Text placed straight on <code>cobalt</code> turns pearl so it stays readable on deep blue; the
+      other variants use dark ink.
     </p>
     <GradientBannerVariants client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Sizes and texture</h2>
     <p>
-      A film grain sits over the art by default. Set <code
-        >texture=&#123;false&#125;</code
-      > for flat color, for example when many banners share a screen.
+      A film grain sits over the art by default. Set <code>texture=&#123;false&#125;</code> for flat color, for example
+      when many banners share a screen.
     </p>
     <GradientBannerSizes client:load />
     <p>Each size with the content it is made for:</p>
@@ -86,8 +80,8 @@ import {
     />
     <p>
       <code>GradientBannerPanel</code> is a solid <code>"light"</code> (default) or
-      <code>"dark"</code> surface. Badges and progress inside a dark panel switch
-      to dark fills on their own. Long words wrap instead of overflowing.
+      <code>"dark"</code> surface. Badges and progress inside a dark panel switch to dark fills on their own. Long words
+      wrap instead of overflowing.
     </p>
     <GradientBannerPanels client:load />
   </section>
@@ -99,46 +93,38 @@ import {
       code={`<GradientBannerProgress value={percent} aria-label="Spring launch email progress" />`}
     />
     <p>
-      A 4px <code>progressbar</code> in the current text color. <code
-        >value</code
-      > is a percent; values outside 0–100 are clamped. Give it a name with <code
-        >aria-label</code
-      >.
+      A 4px <code>progressbar</code> in the current text color. <code>value</code> is a percent; values outside 0–100
+      are clamped. Give it a name with <code>aria-label</code>.
     </p>
     <GradientBannerProgressStates client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Prompt carousel</h2>
     <p>
-      An integration sheet suggests things to ask. Each card rotates through the
-      variants from a stable start per app, so the same app always gets the same
-      colors. The row scrolls sideways and snaps; focus it and use the arrow
-      keys.
+      An integration sheet suggests things to ask. Each card rotates through the variants from a stable start per app,
+      so the same app always gets the same colors. The row scrolls sideways and snaps; focus it and use the arrow keys.
     </p>
     <GradientBannerPrompts client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Showcase</h2>
     <p>
-      The sign-in page fills half the screen with an <code>xl</code> banner that plays
-      scripted agent runs: a dark example label, a panel with avatar, badge, progress,
-      and steps, then a result badge. It starts paused when reduced motion is on;
-      Pause stops it at any time.
+      The sign-in page fills half the screen with an <code>xl</code> banner that plays scripted agent runs: a dark
+      example label, a panel with avatar, badge, progress, and steps, then a result badge. It starts paused when reduced
+      motion is on; Pause stops it at any time.
     </p>
     <GradientBannerAgentActivity client:load />
     <p>
-      Agent runs, app prompts, and timing in these examples are sample code. The
-      package only draws the banner, panels, badges, and progress.
+      Agent runs, app prompts, and timing in these examples are sample code. The package only draws the banner, panels,
+      badges, and progress.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The art and its texture are <code>aria-hidden</code>; only children are
-      announced. Banners are not interactive, so focus goes to the controls you
-      put inside. Progress has <code>role="progressbar"</code> with rounded <code
-        >aria-valuenow</code
-      >. Its fill eases over 180ms; reduced motion turns that off.
+      The art and its texture are <code>aria-hidden</code>; only children are announced. Banners are not interactive, so
+      focus goes to the controls you put inside. Progress has <code>role="progressbar"</code> with rounded{' '}
+      <code>aria-valuenow</code>. Its fill eases over 180ms; reduced motion turns that off.
     </p>
   </section>
 </Docs>

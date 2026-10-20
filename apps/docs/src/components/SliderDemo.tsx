@@ -1,16 +1,8 @@
-import { useState, type ReactNode } from "react";
-import { Slider } from "@tulipfarm/sprout/slider";
-import "../styles/slider-demo.css";
+import { useState, type ReactNode } from 'react';
+import { Slider } from '@tulipfarm/sprout/slider';
+import '../styles/slider-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="slider-demo-card" aria-label={title}>
       <header>
@@ -22,15 +14,7 @@ function Example({
   );
 }
 
-function Row({
-  testId,
-  label,
-  children,
-}: {
-  testId: string;
-  label: string;
-  children: ReactNode;
-}) {
+function Row({ testId, label, children }: { testId: string; label: string; children: ReactNode }) {
   return (
     <div className="slider-demo-row" data-testid={testId}>
       <p className="slider-demo-label">{label}</p>
@@ -40,8 +24,7 @@ function Row({
 }
 
 /* Number values arrive as a number, ranges as an array. */
-const first = (next: number | readonly number[]) =>
-  typeof next === "number" ? next : (next[0] ?? 0);
+const first = (next: number | readonly number[]) => (typeof next === 'number' ? next : (next[0] ?? 0));
 
 export function SliderStates() {
   const [value, setValue] = useState(40);
@@ -53,18 +36,14 @@ export function SliderStates() {
     >
       <div className="slider-demo-stack">
         <Row testId="slider-single" label={`Volume: ${value}`}>
-          <Slider
-            aria-label="Volume"
-            value={value}
-            onValueChange={(next) => setValue(first(next))}
-          />
+          <Slider aria-label="Volume" value={value} onValueChange={next => setValue(first(next))} />
         </Row>
         <Row testId="slider-range" label={`Range: ${range[0]}–${range[1]}`}>
           <Slider
             aria-label="Range"
             value={range}
-            onValueChange={(next) => {
-              if (typeof next !== "number") setRange([...next]);
+            onValueChange={next => {
+              if (typeof next !== 'number') setRange([...next]);
             }}
           />
         </Row>
@@ -89,7 +68,7 @@ export function SliderVertical() {
           aria-label="Vertical volume"
           orientation="vertical"
           value={value}
-          onValueChange={(next) => setValue(first(next))}
+          onValueChange={next => setValue(first(next))}
         />
       </div>
     </Example>

@@ -71,28 +71,10 @@
     font-family: var(--sprout-font);
     color: var(--sprout-glass-banner-ink);
     background:
-      radial-gradient(
-        ellipse 22% 85% at 64% 50%,
-        var(--sprout-glass-banner-glow),
-        transparent 70%
-      ),
-      radial-gradient(
-        circle at 64% 50%,
-        transparent 0 38%,
-        var(--sprout-glass-banner-ring) 38.2%,
-        transparent 38.8%
-      ),
-      radial-gradient(
-        circle at 64% 50%,
-        transparent 0 52%,
-        var(--sprout-glass-banner-ring) 52.2%,
-        transparent 52.8%
-      ),
-      linear-gradient(
-        115deg,
-        var(--sprout-glass-banner-base-a),
-        var(--sprout-glass-banner-base-b)
-      );
+      radial-gradient(ellipse 22% 85% at 64% 50%, var(--sprout-glass-banner-glow), transparent 70%),
+      radial-gradient(circle at 64% 50%, transparent 0 38%, var(--sprout-glass-banner-ring) 38.2%, transparent 38.8%),
+      radial-gradient(circle at 64% 50%, transparent 0 52%, var(--sprout-glass-banner-ring) 52.2%, transparent 52.8%),
+      linear-gradient(115deg, var(--sprout-glass-banner-base-a), var(--sprout-glass-banner-base-b));
     box-shadow: inset 0 0 0 1px var(--sprout-glass-banner-edge);
   }
 
@@ -108,11 +90,7 @@
     position: absolute;
     border: 1px solid var(--sprout-glass-banner-ring);
     border-radius: 9999px;
-    background: radial-gradient(
-      circle at 30% 28%,
-      var(--sprout-glass-banner-glow),
-      var(--sprout-glass-bubble) 75%
-    );
+    background: radial-gradient(circle at 30% 28%, var(--sprout-glass-banner-glow), var(--sprout-glass-bubble) 75%);
   }
   .sprout-glass-bubble:nth-child(1) {
     left: 6%;
@@ -200,11 +178,7 @@
     padding: 0.25rem 0.875rem 0.25rem 0.25rem;
     border: 1px solid var(--sprout-glass-chip-edge);
     border-radius: 9999px;
-    background: linear-gradient(
-      180deg,
-      var(--sprout-glass-chip-top),
-      var(--sprout-glass-chip-bottom)
-    );
+    background: linear-gradient(180deg, var(--sprout-glass-chip-top), var(--sprout-glass-chip-bottom));
     box-shadow:
       inset 0 1px 0 var(--sprout-glass-chip-edge),
       inset 0 -2px 6px var(--sprout-glass-chip-inner),
@@ -261,34 +235,25 @@
     .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip {
       position: absolute;
     }
-    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
-      > .sprout-glass-chip:nth-child(1) {
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip:nth-child(1) {
       right: 9%;
       top: 15%;
     }
-    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
-      > .sprout-glass-chip:nth-child(1)
-      .sprout-glass-chip-surface {
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip:nth-child(1) .sprout-glass-chip-surface {
       rotate: 3deg;
     }
-    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
-      > .sprout-glass-chip:nth-child(2) {
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip:nth-child(2) {
       left: 7%;
       top: 58%;
     }
-    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
-      > .sprout-glass-chip:nth-child(2)
-      .sprout-glass-chip-surface {
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip:nth-child(2) .sprout-glass-chip-surface {
       rotate: -4deg;
     }
-    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
-      > .sprout-glass-chip:nth-child(3) {
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip:nth-child(3) {
       left: 47%;
       top: 72%;
     }
-    .sprout-glass-banner-chips:not(:has(> :nth-child(4)))
-      > .sprout-glass-chip:nth-child(3)
-      .sprout-glass-chip-surface {
+    .sprout-glass-banner-chips:not(:has(> :nth-child(4))) > .sprout-glass-chip:nth-child(3) .sprout-glass-chip-surface {
       rotate: 1.5deg;
     }
   }

@@ -14,12 +14,8 @@
     "publish": true
   },
   "hooks": {
-    "before:init": [
-      "pnpm -C ../.. build",
-      "pnpm -C ../.. typecheck",
-      "pnpm -C ../.. test"
-    ],
-    "before:release": "pnpm -C ../.. size:readme && pnpm -C ../.. exec prettier --write CHANGELOG.md && git add ../../CHANGELOG.md ../../README.md",
+    "before:init": ["pnpm -C ../.. build", "pnpm -C ../.. typecheck", "pnpm -C ../.. test"],
+    "before:release": "pnpm -C ../.. size:readme && git add ../../CHANGELOG.md ../../README.md",
     "after:bump": "rm -rf .release && pnpm pack --pack-destination .release",
     "after:release": "npm publish .release/*.tgz --registry=https://npm.pkg.github.com --//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN"
   },

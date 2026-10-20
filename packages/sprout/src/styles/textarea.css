@@ -36,16 +36,16 @@
     background-color: var(--sprout-hover);
     opacity: 0.5;
   }
-  .sprout-textarea[aria-invalid="true"] {
+  .sprout-textarea[aria-invalid='true'] {
     border-color: var(--sprout-danger);
   }
-  .sprout-textarea[aria-invalid="true"]:focus-visible {
+  .sprout-textarea[aria-invalid='true']:focus-visible {
     outline-color: var(--sprout-danger);
   }
 
   .sprout-textarea-variant-embedded,
   .sprout-textarea-variant-embedded:focus-visible,
-  .sprout-textarea-variant-embedded[aria-invalid="true"] {
+  .sprout-textarea-variant-embedded[aria-invalid='true'] {
     border-color: transparent;
     border-radius: 0;
     background-color: transparent;

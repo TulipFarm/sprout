@@ -30,11 +30,7 @@ Variants: `default`, `outline`, `secondary`, `ghost`, `destructive`, `link`,
 ### Button Group
 
 ```tsx
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-} from "@tulipfarm/sprout/button-group";
+import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@tulipfarm/sprout/button-group';
 
 <ButtonGroup aria-label="Pages">
   <Button variant="outline" disabled={page === 1}>
@@ -48,14 +44,9 @@ import {
 ### Toggle
 
 ```tsx
-import { Toggle } from "@tulipfarm/sprout/toggle";
+import { Toggle } from '@tulipfarm/sprout/toggle';
 
-<Toggle
-  variant="outline"
-  size="sm"
-  pressed={starred}
-  onPressedChange={setStarred}
->
+<Toggle variant="outline" size="sm" pressed={starred} onPressedChange={setStarred}>
   <Star data-icon="inline-start" />
   Starred
 </Toggle>;
@@ -64,14 +55,14 @@ import { Toggle } from "@tulipfarm/sprout/toggle";
 ### Toggle Group
 
 ```tsx
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
 
 <ToggleGroup
   aria-label="Time range"
   variant="outline"
   spacing={0}
   value={[range]}
-  onValueChange={(value) => value[0] && setRange(value[0])}
+  onValueChange={value => value[0] && setRange(value[0])}
 >
   <ToggleGroupItem value="7">7d</ToggleGroupItem>
   <ToggleGroupItem value="30">30d</ToggleGroupItem>
@@ -83,13 +74,9 @@ Value is always an array. Add `multiple` for several on at once.
 ### Toolbar Status
 
 ```tsx
-import { ToolbarStatus } from "@tulipfarm/sprout/toolbar-status";
+import { ToolbarStatus } from '@tulipfarm/sprout/toolbar-status';
 
-<ToolbarStatus
-  label={failed ? "Export failed" : "Export result"}
-  message={note}
-  error={failed}
->
+<ToolbarStatus label={failed ? 'Export failed' : 'Export result'} message={note} error={failed}>
   <Button variant="outline" size="sm" onClick={run}>
     Export again
   </Button>
@@ -99,7 +86,7 @@ import { ToolbarStatus } from "@tulipfarm/sprout/toolbar-status";
 ### Kbd
 
 ```tsx
-import { Kbd, KbdGroup } from "@tulipfarm/sprout/kbd";
+import { Kbd, KbdGroup } from '@tulipfarm/sprout/kbd';
 
 <KbdGroup>
   <Kbd>⌘</Kbd>
@@ -112,7 +99,7 @@ import { Kbd, KbdGroup } from "@tulipfarm/sprout/kbd";
 ### Calendar
 
 ```tsx
-import { Calendar } from "@tulipfarm/sprout/calendar";
+import { Calendar } from '@tulipfarm/sprout/calendar';
 
 <Calendar mode="single" selected={date} onSelect={setDate} />;
 ```
@@ -157,18 +144,14 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@tulipfarm/sprout/combobox";
+} from '@tulipfarm/sprout/combobox';
 
 <Combobox items={fruits}>
-  <ComboboxInput
-    aria-label="Choose a fruit"
-    placeholder="Choose a fruit"
-    showClear
-  />
+  <ComboboxInput aria-label="Choose a fruit" placeholder="Choose a fruit" showClear />
   <ComboboxContent>
     <ComboboxEmpty>No fruit found.</ComboboxEmpty>
     <ComboboxList>
-      {(item) => (
+      {item => (
         <ComboboxItem key={item} value={item}>
           {item}
         </ComboboxItem>
@@ -181,32 +164,23 @@ import {
 ### Field
 
 ```tsx
-import {
-  CheckboxField,
-  ChoiceGroup,
-  Field,
-  FieldsDisabled,
-} from "@tulipfarm/sprout/field";
+import { CheckboxField, ChoiceGroup, Field, FieldsDisabled } from '@tulipfarm/sprout/field';
 
 <FieldsDisabled value={saving}>
   <Field label="Name" required error={errors.name}>
-    <Input value={name} onChange={(e) => setName(e.target.value)} />
+    <Input value={name} onChange={e => setName(e.target.value)} />
   </Field>
   <ChoiceGroup
     type="radio"
     legend="Repeat"
     options={[
-      { value: "daily", label: "Every day" },
-      { value: "weekly", label: "Every week" },
+      { value: 'daily', label: 'Every day' },
+      { value: 'weekly', label: 'Every week' },
     ]}
     value={repeat}
     onValueChange={setRepeat}
   />
-  <CheckboxField
-    label="Notify me"
-    checked={notify}
-    onCheckedChange={setNotify}
-  />
+  <CheckboxField label="Notify me" checked={notify} onCheckedChange={setNotify} />
 </FieldsDisabled>;
 ```
 
@@ -271,19 +245,9 @@ Chat composer: `variant="composer"` with `InputGroupTextarea` or
 ### Input OTP
 
 ```tsx
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@tulipfarm/sprout/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@tulipfarm/sprout/input-otp';
 
-<InputOTP
-  maxLength={6}
-  value={code}
-  onChange={setCode}
-  aria-label="Verification code"
->
+<InputOTP maxLength={6} value={code} onChange={setCode} aria-label="Verification code">
   <InputOTPGroup>
     <InputOTPSlot index={0} />
     <InputOTPSlot index={1} />
@@ -310,7 +274,7 @@ import { Label } from "@tulipfarm/sprout/label";
 ### Radio Group
 
 ```tsx
-import { RadioGroup, RadioGroupItem } from "@tulipfarm/sprout/radio-group";
+import { RadioGroup, RadioGroupItem } from '@tulipfarm/sprout/radio-group';
 
 <RadioGroup value={freq} onValueChange={setFreq} aria-label="Digest frequency">
   <Label>
@@ -327,14 +291,11 @@ import { RadioGroup, RadioGroupItem } from "@tulipfarm/sprout/radio-group";
 ### Rich Text Editor
 
 ```tsx
-import {
-  RichTextEditor,
-  type RichTextValue,
-} from "@tulipfarm/sprout/rich-text-editor";
+import { RichTextEditor, type RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
 
 const [value, setValue] = useState<RichTextValue>({
-  type: "doc",
-  content: [{ type: "paragraph" }],
+  type: 'doc',
+  content: [{ type: 'paragraph' }],
 });
 
 <InputGroup variant="composer">
@@ -355,7 +316,7 @@ const [value, setValue] = useState<RichTextValue>({
 ### Search Field
 
 ```tsx
-import { SearchField } from "@tulipfarm/sprout/search-field";
+import { SearchField } from '@tulipfarm/sprout/search-field';
 
 <SearchField label="Find agents" value={search} onChange={setSearch} />;
 ```
@@ -363,20 +324,14 @@ import { SearchField } from "@tulipfarm/sprout/search-field";
 ### Select
 
 ```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@tulipfarm/sprout/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@tulipfarm/sprout/select';
 
 <Select items={durations} value={duration} onValueChange={setDuration}>
   <SelectTrigger id="duration" width="full">
     <SelectValue />
   </SelectTrigger>
   <SelectContent>
-    {durations.map((d) => (
+    {durations.map(d => (
       <SelectItem key={d.value} value={d.value}>
         {d.label}
       </SelectItem>
@@ -397,7 +352,7 @@ import { Slider } from "@tulipfarm/sprout/slider";
 ### Switch
 
 ```tsx
-import { Switch } from "@tulipfarm/sprout/switch";
+import { Switch } from '@tulipfarm/sprout/switch';
 
 <SettingsRow label="Email summaries" htmlFor="summary">
   <Switch id="summary" checked={on} onCheckedChange={setOn} />
@@ -407,14 +362,10 @@ import { Switch } from "@tulipfarm/sprout/switch";
 ### Textarea
 
 ```tsx
-import { Textarea } from "@tulipfarm/sprout/textarea";
+import { Textarea } from '@tulipfarm/sprout/textarea';
 
 <Field label="Task prompt" counter={`${prompt.length} / 8,000`}>
-  <Textarea
-    maxLength={8000}
-    value={prompt}
-    onChange={(e) => setPrompt(e.target.value)}
-  />
+  <Textarea maxLength={8000} value={prompt} onChange={e => setPrompt(e.target.value)} />
 </Field>;
 ```
 
@@ -431,14 +382,12 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogTitle,
-} from "@tulipfarm/sprout/alert-dialog";
+} from '@tulipfarm/sprout/alert-dialog';
 
-<AlertDialog open={open} onOpenChange={(v) => !busy && setOpen(v)}>
+<AlertDialog open={open} onOpenChange={v => !busy && setOpen(v)}>
   <AlertDialogContent>
     <AlertDialogTitle>Stop this plan?</AlertDialogTitle>
-    <AlertDialogDescription>
-      Unfinished tasks are cancelled.
-    </AlertDialogDescription>
+    <AlertDialogDescription>Unfinished tasks are cancelled.</AlertDialogDescription>
     <AlertDialogFooter>
       <AlertDialogCancel disabled={busy}>Keep running</AlertDialogCancel>
       <AlertDialogAction variant="destructive" disabled={busy} onClick={stop}>
@@ -462,7 +411,7 @@ import {
   CommandItem,
   CommandList,
   CommandShortcut,
-} from "@tulipfarm/sprout/command";
+} from '@tulipfarm/sprout/command';
 
 <Command>
   <CommandInput aria-label="Search commands" placeholder="Search commands…" />
@@ -480,12 +429,7 @@ import {
 ### Context Menu
 
 ```tsx
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@tulipfarm/sprout/context-menu";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '@tulipfarm/sprout/context-menu';
 
 <ContextMenu>
   <ContextMenuTrigger tabIndex={0} role="group" aria-label="Card actions">
@@ -512,16 +456,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@tulipfarm/sprout/dialog";
+} from '@tulipfarm/sprout/dialog';
 
-<Dialog open={open} onOpenChange={(v) => !pending && setOpen(v)}>
+<Dialog open={open} onOpenChange={v => !pending && setOpen(v)}>
   <DialogTrigger render={<Button variant="outline" />}>Rename</DialogTrigger>
   <DialogContent size="form">
     <DialogHeader>
       <DialogTitle>Rename project</DialogTitle>
-      <DialogDescription>
-        Everyone in the workspace sees the new name.
-      </DialogDescription>
+      <DialogDescription>Everyone in the workspace sees the new name.</DialogDescription>
     </DialogHeader>
     <DialogBody>…</DialogBody>
     <DialogFooter>
@@ -546,12 +488,10 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@tulipfarm/sprout/dropdown-menu";
+} from '@tulipfarm/sprout/dropdown-menu';
 
 <DropdownMenu>
-  <DropdownMenuTrigger
-    render={<Button variant="ghost" size="icon-sm" aria-label="Row actions" />}
-  >
+  <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Row actions" />}>
     <MoreH size={16} aria-hidden="true" />
   </DropdownMenuTrigger>
   <DropdownMenuContent align="end">
@@ -567,16 +507,10 @@ import {
 ### Hover Card
 
 ```tsx
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@tulipfarm/sprout/hover-card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@tulipfarm/sprout/hover-card';
 
 <HoverCard>
-  <HoverCardTrigger render={<a href="/people/alex" />}>
-    Alex Meadow
-  </HoverCardTrigger>
+  <HoverCardTrigger render={<a href="/people/alex" />}>Alex Meadow</HoverCardTrigger>
   <HoverCardContent>Project coordinator.</HoverCardContent>
 </HoverCard>;
 ```
@@ -584,13 +518,7 @@ import {
 ### Menubar
 
 ```tsx
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
-} from "@tulipfarm/sprout/menubar";
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@tulipfarm/sprout/menubar';
 
 <Menubar aria-label="Application menu">
   <MenubarMenu>
@@ -615,12 +543,10 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
+} from '@tulipfarm/sprout/popover';
 
 <Popover>
-  <PopoverTrigger render={<Button variant="outline" size="sm" />}>
-    Sync status
-  </PopoverTrigger>
+  <PopoverTrigger render={<Button variant="outline" size="sm" />}>Sync status</PopoverTrigger>
   <PopoverContent align="end">
     <PopoverHeader>
       <PopoverTitle>Synced 2 minutes ago</PopoverTitle>
@@ -640,25 +566,15 @@ import {
   SearchInput,
   SearchItem,
   SearchList,
-} from "@tulipfarm/sprout/search-dialog";
+} from '@tulipfarm/sprout/search-dialog';
 
-<SearchDialog
-  open={open}
-  onOpenChange={setOpen}
-  title="Jump to…"
-  description="Find pages."
->
+<SearchDialog open={open} onOpenChange={setOpen} title="Jump to…" description="Find pages.">
   <SearchInput value={q} onValueChange={setQ} label="Find a page" />
   <SearchList label="Pages">
     {pages.length ? (
       <SearchGroup heading="Pages" count={pages.length}>
-        {pages.map((p) => (
-          <SearchItem
-            key={p.id}
-            value={p.id}
-            title={p.title}
-            onSelect={() => go(p)}
-          />
+        {pages.map(p => (
+          <SearchItem key={p.id} value={p.id} title={p.title} onSelect={() => go(p)} />
         ))}
       </SearchGroup>
     ) : (
@@ -680,12 +596,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@tulipfarm/sprout/sheet";
+} from '@tulipfarm/sprout/sheet';
 
 <Sheet open={open} onOpenChange={setOpen}>
-  <SheetTrigger render={<Button variant="outline" size="sm" />}>
-    Filters
-  </SheetTrigger>
+  <SheetTrigger render={<Button variant="outline" size="sm" />}>Filters</SheetTrigger>
   <SheetContent side="right" size="lg">
     <SheetHeader>
       <SheetTitle>Filter and sort</SheetTitle>
@@ -704,20 +618,11 @@ import {
 ### Tooltip
 
 ```tsx
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@tulipfarm/sprout/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
 
 <TooltipProvider>
   <Tooltip>
-    <TooltipTrigger
-      render={
-        <Button size="icon-sm" variant="ghost" aria-label="Attach files" />
-      }
-    >
+    <TooltipTrigger render={<Button size="icon-sm" variant="ghost" aria-label="Attach files" />}>
       <Paperclip size={16} aria-hidden="true" />
     </TooltipTrigger>
     <TooltipContent>Attach files</TooltipContent>
@@ -737,7 +642,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@tulipfarm/sprout/breadcrumb";
+} from '@tulipfarm/sprout/breadcrumb';
 
 <Breadcrumb aria-label="Folder path">
   <BreadcrumbList>
@@ -762,7 +667,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@tulipfarm/sprout/navigation-menu";
+} from '@tulipfarm/sprout/navigation-menu';
 
 <NavigationMenu>
   <NavigationMenuList>
@@ -790,7 +695,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@tulipfarm/sprout/pagination";
+} from '@tulipfarm/sprout/pagination';
 
 <Pagination>
   <PaginationContent>
@@ -824,7 +729,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@tulipfarm/sprout/sidebar";
+} from '@tulipfarm/sprout/sidebar';
 
 <SidebarProvider className="min-h-dvh">
   <Sidebar label="Main navigation">
@@ -832,12 +737,7 @@ import {
       <SidebarGroup>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              icon={<HomeIcon />}
-              nativeButton={false}
-              render={<a href="/" />}
-              isActive
-            >
+            <SidebarMenuButton icon={<HomeIcon />} nativeButton={false} render={<a href="/" />} isActive>
               Overview
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -855,12 +755,7 @@ import {
 ### Tabs
 
 ```tsx
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@tulipfarm/sprout/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tulipfarm/sprout/tabs';
 
 <Tabs defaultValue="members">
   <TabsList aria-label="Members settings" variant="line">
@@ -879,14 +774,9 @@ List variants: `default`, `line`, `steps`.
 ### Accordion
 
 ```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@tulipfarm/sprout/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@tulipfarm/sprout/accordion';
 
-<Accordion multiple defaultValue={["one"]}>
+<Accordion multiple defaultValue={['one']}>
   <AccordionItem value="one">
     <AccordionTrigger>What is this?</AccordionTrigger>
     <AccordionContent>Details.</AccordionContent>
@@ -897,7 +787,7 @@ import {
 ### Aspect Ratio
 
 ```tsx
-import { AspectRatio } from "@tulipfarm/sprout/aspect-ratio";
+import { AspectRatio } from '@tulipfarm/sprout/aspect-ratio';
 
 <AspectRatio ratio={16 / 9}>
   <img src={src} alt="" className="size-full object-cover" />
@@ -915,7 +805,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@tulipfarm/sprout/card";
+} from '@tulipfarm/sprout/card';
 
 <Card>
   <CardHeader>
@@ -935,16 +825,10 @@ import {
 ### Collapsible
 
 ```tsx
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@tulipfarm/sprout/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@tulipfarm/sprout/collapsible';
 
 <Collapsible>
-  <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
-    Details
-  </CollapsibleTrigger>
+  <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>Details</CollapsibleTrigger>
   <CollapsibleContent>…</CollapsibleContent>
 </Collapsible>;
 ```
@@ -952,7 +836,7 @@ import {
 ### Direction
 
 ```tsx
-import { DirectionProvider } from "@tulipfarm/sprout/direction";
+import { DirectionProvider } from '@tulipfarm/sprout/direction';
 
 <DirectionProvider direction="rtl">
   <div dir="rtl">{app}</div>
@@ -962,8 +846,8 @@ import { DirectionProvider } from "@tulipfarm/sprout/direction";
 ### Page Content and Page Header
 
 ```tsx
-import { PageContent } from "@tulipfarm/sprout/page-content";
-import { PageHeader } from "@tulipfarm/sprout/page-header";
+import { PageContent } from '@tulipfarm/sprout/page-content';
+import { PageHeader } from '@tulipfarm/sprout/page-header';
 
 <div className="min-h-0 flex-1 overflow-auto">
   <PageContent>
@@ -987,11 +871,7 @@ import { PageHeader } from "@tulipfarm/sprout/page-header";
 ### Resizable
 
 ```tsx
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@tulipfarm/sprout/resizable";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@tulipfarm/sprout/resizable';
 
 <ResizablePanelGroup orientation="horizontal">
   <ResizablePanel defaultSize="28%" minSize="220px">
@@ -1007,7 +887,7 @@ import {
 ### Scroll Area
 
 ```tsx
-import { ScrollArea } from "@tulipfarm/sprout/scroll-area";
+import { ScrollArea } from '@tulipfarm/sprout/scroll-area';
 
 <ScrollArea size="sm" viewportLabel="Recent activity">
   {items}
@@ -1017,7 +897,7 @@ import { ScrollArea } from "@tulipfarm/sprout/scroll-area";
 ### Selection Slot
 
 ```tsx
-import { SelectionSlot } from "@tulipfarm/sprout/selection-slot";
+import { SelectionSlot } from '@tulipfarm/sprout/selection-slot';
 
 <SelectionSlot active={selected.length > 0} selection={<SelectionToolbar />}>
   <FilterBar />
@@ -1037,7 +917,7 @@ import { Separator } from "@tulipfarm/sprout/separator";
 ### Settings List
 
 ```tsx
-import { SettingsGroup, SettingsRow } from "@tulipfarm/sprout/settings-list";
+import { SettingsGroup, SettingsRow } from '@tulipfarm/sprout/settings-list';
 
 <SettingsGroup title="Profile">
   <SettingsRow label="Email" description="Used to sign in.">
@@ -1071,12 +951,9 @@ Default `role="alert"`. Use `role="status"` or `"note"` for quiet messages.
 ### Notice Banner
 
 ```tsx
-import { NoticeBanner } from "@tulipfarm/sprout/notice-banner";
+import { NoticeBanner } from '@tulipfarm/sprout/notice-banner';
 
-<NoticeBanner
-  aria-label="Integration authorization"
-  actions={<Button variant="outline">Update permissions</Button>}
->
+<NoticeBanner aria-label="Integration authorization" actions={<Button variant="outline">Update permissions</Button>}>
   <p role="status">Google Calendar needs authorization.</p>
 </NoticeBanner>;
 ```
@@ -1084,11 +961,7 @@ import { NoticeBanner } from "@tulipfarm/sprout/notice-banner";
 ### Progress
 
 ```tsx
-import {
-  Progress,
-  ProgressLabel,
-  ProgressValue,
-} from "@tulipfarm/sprout/progress";
+import { Progress, ProgressLabel, ProgressValue } from '@tulipfarm/sprout/progress';
 
 <Progress value={40}>
   <ProgressLabel>Uploading</ProgressLabel>
@@ -1099,7 +972,7 @@ import {
 ### Skeleton
 
 ```tsx
-import { Skeleton, SkeletonGroup } from "@tulipfarm/sprout/skeleton";
+import { Skeleton, SkeletonGroup } from '@tulipfarm/sprout/skeleton';
 
 <SkeletonGroup label="Loading projects">
   <Skeleton shape="title" />
@@ -1111,7 +984,7 @@ import { Skeleton, SkeletonGroup } from "@tulipfarm/sprout/skeleton";
 ### Spinner
 
 ```tsx
-import { Spinner } from "@tulipfarm/sprout/spinner";
+import { Spinner } from '@tulipfarm/sprout/spinner';
 
 <p role="status">
   <Spinner aria-hidden="true" /> Loading rows…
@@ -1139,15 +1012,15 @@ recovery child.
 ### Toast
 
 ```tsx
-import { Toaster, toast } from "@tulipfarm/sprout/toast";
+import { Toaster, toast } from '@tulipfarm/sprout/toast';
 
 <Toaster>
   <App />
 </Toaster>; // once, near the root
 toast.add({
-  title: "Invite sent",
-  description: "Ana can now join.",
-  type: "success",
+  title: 'Invite sent',
+  description: 'Ana can now join.',
+  type: 'success',
 });
 ```
 
@@ -1156,10 +1029,10 @@ toast.add({
 ### Attachment
 
 ```tsx
-import { AttachmentGroup, FileAttachment } from "@tulipfarm/sprout/attachment";
+import { AttachmentGroup, FileAttachment } from '@tulipfarm/sprout/attachment';
 
 <AttachmentGroup variant="carousel" aria-label="Attached files">
-  {uploads.map((u) => (
+  {uploads.map(u => (
     <FileAttachment
       key={u.id}
       variant="chip"
@@ -1168,7 +1041,7 @@ import { AttachmentGroup, FileAttachment } from "@tulipfarm/sprout/attachment";
         name: u.file.name,
         mediaType: u.file.type,
         state: u.state,
-        source: { kind: "local", file: u.file },
+        source: { kind: 'local', file: u.file },
       }}
       preview
       viewable
@@ -1181,7 +1054,7 @@ import { AttachmentGroup, FileAttachment } from "@tulipfarm/sprout/attachment";
 ### Avatar
 
 ```tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@tulipfarm/sprout/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@tulipfarm/sprout/avatar';
 
 <Avatar size="lg">
   <AvatarImage src={user.image} alt={user.name} />
@@ -1204,33 +1077,25 @@ Tones: `default`, `success`, `warning`, `info`, `secondary`, `destructive`,
 ### Board
 
 ```tsx
-import {
-  Board,
-  type BoardColumn,
-  type BoardItem,
-} from "@tulipfarm/sprout/board";
+import { Board, type BoardColumn, type BoardItem } from '@tulipfarm/sprout/board';
 
 <Board
   label="Product team"
   columns={[
-    { id: "todo", title: "To do" },
-    { id: "doing", title: "In progress", limit: 3 },
+    { id: 'todo', title: 'To do' },
+    { id: 'doing', title: 'In progress', limit: 3 },
   ]}
   lanes={[
-    { id: "ana", title: "Ana" },
-    { id: "ben", title: "Ben" },
+    { id: 'ana', title: 'Ana' },
+    { id: 'ben', title: 'Ben' },
   ]}
   items={items}
   onItemsChange={setItems}
   onColumnsChange={setColumns}
   onItemAdd={({ title, columnId, laneId }) => addCard(title, columnId, laneId)}
-  onItemOpen={(item) => openSheet(item)}
-  renderBody={(item) => <Badge variant="warning">{item.priority}</Badge>}
-  itemActions={(item) => (
-    <DropdownMenuItem onClick={() => remove(item)}>
-      Delete card
-    </DropdownMenuItem>
-  )}
+  onItemOpen={item => openSheet(item)}
+  renderBody={item => <Badge variant="warning">{item.priority}</Badge>}
+  itemActions={item => <DropdownMenuItem onClick={() => remove(item)}>Delete card</DropdownMenuItem>}
   searchable
 />;
 ```
@@ -1249,17 +1114,11 @@ import { BrandIcon, BrandStack, brandNames } from "@tulipfarm/sprout/brand-icon"
 ### Carousel
 
 ```tsx
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@tulipfarm/sprout/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@tulipfarm/sprout/carousel';
 
 <Carousel aria-label="Steps">
   <CarouselContent>
-    {steps.map((s) => (
+    {steps.map(s => (
       <CarouselItem key={s}>{s}</CarouselItem>
     ))}
   </CarouselContent>
@@ -1271,13 +1130,11 @@ import {
 ### Chart
 
 ```tsx
-import { UsageChart, type UsageSeries } from "@tulipfarm/sprout/chart";
+import { UsageChart, type UsageSeries } from '@tulipfarm/sprout/chart';
 
-const series: UsageSeries[] = [
-  { key: "s0", label: "Model A", color: "var(--sprout-chart-1)" },
-];
+const series: UsageSeries[] = [{ key: 's0', label: 'Model A', color: 'var(--sprout-chart-1)' }];
 
-<UsageChart days={[{ date: "2026-10-16", s0: 12.5 }]} series={series} />;
+<UsageChart days={[{ date: '2026-10-16', s0: 12.5 }]} series={series} />;
 ```
 
 Ready charts, all from `@tulipfarm/sprout/chart`. Most take `rows`, a
@@ -1300,12 +1157,7 @@ Ready charts, all from `@tulipfarm/sprout/chart`. Most take `rows`, a
 | Scores on many axes      | `RadarScoreChart`                                 |
 
 ```tsx
-<DonutChart
-  rows={traffic}
-  category="source"
-  value="visitors"
-  totalLabel="Visitors"
-/>
+<DonutChart rows={traffic} category="source" value="visitors" totalLabel="Visitors" />
 ```
 
 Part charts color the top five parts and fold the rest into one muted
@@ -1314,7 +1166,7 @@ Part charts color the top five parts and fold the rest into one muted
 ### Code Block
 
 ```tsx
-import { CodeBlock } from "@tulipfarm/sprout/code-block";
+import { CodeBlock } from '@tulipfarm/sprout/code-block';
 
 <CodeBlock code={source} language="python" filename="score.py" />;
 ```
@@ -1322,17 +1174,17 @@ import { CodeBlock } from "@tulipfarm/sprout/code-block";
 ### File Explorer
 
 ```tsx
-import { FileExplorer } from "@tulipfarm/sprout/file-explorer";
+import { FileExplorer } from '@tulipfarm/sprout/file-explorer';
 
 <div className="h-[36rem]">
   <FileExplorer
     label="Soul"
     files={[
-      { path: "SOUL.md", content: soulMd },
-      { path: "agents/scout/tools.ts", content: toolsTs },
+      { path: 'SOUL.md', content: soulMd },
+      { path: 'agents/scout/tools.ts', content: toolsTs },
       {
-        path: "assets/map.png",
-        unavailable: "Images cannot be displayed here.",
+        path: 'assets/map.png',
+        unavailable: 'Images cannot be displayed here.',
       },
     ]}
     defaultPath="SOUL.md"
@@ -1345,13 +1197,13 @@ Read only. Folders come from `/` in paths. Give the parent a height. Search cove
 ### File Viewer
 
 ```tsx
-import { FileViewer } from "@tulipfarm/sprout/file-viewer";
+import { FileViewer } from '@tulipfarm/sprout/file-viewer';
 
 <FileViewer
   file={{
-    name: "Policy.pdf",
-    mediaType: "application/pdf",
-    source: { kind: "local", file },
+    name: 'Policy.pdf',
+    mediaType: 'application/pdf',
+    source: { kind: 'local', file },
   }}
   open={open}
   onOpenChange={setOpen}
@@ -1381,23 +1233,17 @@ Add sharing, comments, or activity through slots:
 ### Glass Banner
 
 ```tsx
-import { GlassBanner, GlassChip } from "@tulipfarm/sprout/glass-banner";
+import { GlassBanner, GlassChip } from '@tulipfarm/sprout/glass-banner';
 
 <GlassBanner title="Connect once." caption="Example activity">
-  <GlassChip icon={<BrandIcon brand="gmail" size="glyph" />}>
-    Drafted 3 follow-ups
-  </GlassChip>
+  <GlassChip icon={<BrandIcon brand="gmail" size="glyph" />}>Drafted 3 follow-ups</GlassChip>
 </GlassBanner>;
 ```
 
 ### Gradient Banner
 
 ```tsx
-import {
-  GradientBanner,
-  GradientBannerBadge,
-  GradientBannerPanel,
-} from "@tulipfarm/sprout/gradient-banner";
+import { GradientBanner, GradientBannerBadge, GradientBannerPanel } from '@tulipfarm/sprout/gradient-banner';
 
 <GradientBanner variant="iris" size="md">
   <GradientBannerPanel tone="dark">
@@ -1410,7 +1256,7 @@ import {
 ### Presence Cursor
 
 ```tsx
-import { PresenceCursor } from "@tulipfarm/sprout/presence-cursor";
+import { PresenceCursor } from '@tulipfarm/sprout/presence-cursor';
 
 <div className="relative">
   <PresenceCursor name="rico@gmail.com" color="#c92a2a" x={120} y={80} />
@@ -1433,7 +1279,7 @@ import { PresenceCursor } from "@tulipfarm/sprout/presence-cursor";
 ### Result Card
 
 ```tsx
-import { ResultCard } from "@tulipfarm/sprout/result-card";
+import { ResultCard } from '@tulipfarm/sprout/result-card';
 
 <ResultCard
   title="Investor pitch"
@@ -1442,12 +1288,12 @@ import { ResultCard } from "@tulipfarm/sprout/result-card";
   state="success"
   apps={[
     {
-      brand: "google-slides",
-      name: "Google Slides",
-      actions: [{ label: "Created the deck", state: "completed" }],
+      brand: 'google-slides',
+      name: 'Google Slides',
+      actions: [{ label: 'Created the deck', state: 'completed' }],
     },
   ]}
-  action={{ label: "View slides", onClick: openInCanvas }}
+  action={{ label: 'View slides', onClick: openInCanvas }}
 />;
 ```
 
@@ -1466,13 +1312,9 @@ Links: `{ id, source, field, target, label }`.
 ### SQL Viewer
 
 ```tsx
-import { SqlViewer } from "@tulipfarm/sprout/sql-viewer";
+import { SqlViewer } from '@tulipfarm/sprout/sql-viewer';
 
-<SqlViewer
-  tables={tableDocuments}
-  groups={{ [salesTeamId]: "Sales" }}
-  label="Tables in Sales"
-/>;
+<SqlViewer tables={tableDocuments} groups={{ [salesTeamId]: 'Sales' }} label="Tables in Sales" />;
 ```
 
 `tables` takes TulipFarm table definitions or table documents as they are: `{ id, label, owningTeamId?, fields, uniqueKeys? }`. Relationship fields become joins to the table whose `id` is `targetTableId`. Tables of a team named in `groups` sit in one tinted frame. Past `maxVisible` (default 4) tables collapse into a "+N tables" card. Hover or click a table or a foreign key to light its joins.
@@ -1480,24 +1322,24 @@ import { SqlViewer } from "@tulipfarm/sprout/sql-viewer";
 ### Table
 
 ```tsx
-import { Table, type TableColumn } from "@tulipfarm/sprout/table";
+import { Table, type TableColumn } from '@tulipfarm/sprout/table';
 
 const columns: TableColumn<Order>[] = [
-  { key: "customer", header: "Customer", sort: true, filter: "text" },
+  { key: 'customer', header: 'Customer', sort: true, filter: 'text' },
   {
-    key: "crop",
-    header: "Crop",
-    filter: "select",
+    key: 'crop',
+    header: 'Crop',
+    filter: 'select',
     group: true,
     options: crops,
   },
   {
-    key: "boxes",
-    header: "Boxes",
-    align: "right",
+    key: 'boxes',
+    header: 'Boxes',
+    align: 'right',
     sort: true,
-    aggregate: "sum",
-    edit: "number",
+    aggregate: 'sum',
+    edit: 'number',
   },
 ];
 
@@ -1505,7 +1347,7 @@ const columns: TableColumn<Order>[] = [
   aria-label="Orders"
   data={orders}
   columns={columns}
-  getRowId={(row) => row.id}
+  getRowId={row => row.id}
   searchable
   selectable
   onRowSave={(row, changes) => save(row.id, changes)}
@@ -1520,26 +1362,26 @@ const columns: TableColumn<Order>[] = [
 ### Agent Fanout
 
 ```tsx
-import { AgentFanout } from "@tulipfarm/sprout/agent-fanout";
+import { AgentFanout } from '@tulipfarm/sprout/agent-fanout';
 
 <AgentFanout
   task="Choose a vector store for the retrieval stack"
   agents={[
     {
-      id: "research",
-      name: "Researcher",
+      id: 'research',
+      name: 'Researcher',
       icon: <Globe size={16} />,
-      task: "Web search",
-      status: "done",
-      result: "Found 18 sources",
+      task: 'Web search',
+      status: 'done',
+      result: 'Found 18 sources',
       duration: 3000,
     },
     {
-      id: "analyst",
-      name: "Analyst",
+      id: 'analyst',
+      name: 'Analyst',
       icon: <ChartLine size={16} />,
-      task: "Benchmarks",
-      status: "working",
+      task: 'Benchmarks',
+      status: 'working',
     },
   ]}
   elapsed={elapsed}
@@ -1559,17 +1401,14 @@ import { AgentFanout } from "@tulipfarm/sprout/agent-fanout";
 ### Chat Confirmation
 
 ```tsx
-import {
-  ChatConfirmation,
-  type ConfirmationState,
-} from "@tulipfarm/sprout/chat-confirmation";
+import { ChatConfirmation, type ConfirmationState } from '@tulipfarm/sprout/chat-confirmation';
 
 <ChatConfirmation
   title="Remove the Notes field"
-  details={[{ label: "Affected rows", value: "128" }]}
+  details={[{ label: 'Affected rows', value: '128' }]}
   state={state}
-  onDecision={async (decision) => {
-    setState({ kind: "submitting", decision });
+  onDecision={async decision => {
+    setState({ kind: 'submitting', decision });
     setState(await save(decision));
   }}
 />;
@@ -1578,21 +1417,21 @@ import {
 ### Chat Input
 
 ```tsx
-import { ChatInput } from "@tulipfarm/sprout/chat-input";
+import { ChatInput } from '@tulipfarm/sprout/chat-input';
 
 <ChatInput
   value={value}
   onValueChange={setValue}
   onSend={send}
   onStop={stop}
-  status={streaming ? "streaming" : "idle"}
-  agents={(query) => searchAgents(query)}
-  skills={(query) => searchSkills(query)}
-  files={(query) => searchFiles(query)}
-  modes={[{ id: "plan", label: "Plan", color: "#3b9ef5" }]}
+  status={streaming ? 'streaming' : 'idle'}
+  agents={query => searchAgents(query)}
+  skills={query => searchSkills(query)}
+  files={query => searchFiles(query)}
+  modes={[{ id: 'plan', label: 'Plan', color: '#3b9ef5' }]}
   mode={mode}
   onModeChange={setMode}
-  models={[{ id: "opus", label: "Claude Opus 5.5", brand: "claude" }]}
+  models={[{ id: 'opus', label: 'Claude Opus 5.5', brand: 'claude' }]}
   model={model}
   onModelChange={setModel}
 />;
@@ -1608,13 +1447,13 @@ import { ChatInput } from "@tulipfarm/sprout/chat-input";
 ### Chat Plan
 
 ```tsx
-import { ChatPlan } from "@tulipfarm/sprout/chat-plan";
+import { ChatPlan } from '@tulipfarm/sprout/chat-plan';
 
 <ChatPlan
   title="Fill in missing suppliers"
   steps={[
-    { id: "find", title: "Find deliveries", state: "complete" },
-    { id: "match", title: "Match suppliers", state: "running" },
+    { id: 'find', title: 'Find deliveries', state: 'complete' },
+    { id: 'match', title: 'Match suppliers', state: 'running' },
   ]}
 />;
 ```
@@ -1631,15 +1470,9 @@ import { ChatSources, InlineCitation } from "@tulipfarm/sprout/chat-sources";
 ### Plan Outline
 
 ```tsx
-import { PlanOutline } from "@tulipfarm/sprout/plan-outline";
+import { PlanOutline } from '@tulipfarm/sprout/plan-outline';
 
-<PlanOutline
-  title="Launch the catalog"
-  status="Running"
-  tone="active"
-  progress="1 of 2 done"
-  tasks={tasks}
-/>;
+<PlanOutline title="Launch the catalog" status="Running" tone="active" progress="1 of 2 done" tasks={tasks} />;
 ```
 
 Tasks: `{ id, title, mark, label, children?, criteria?, dependencies?, assignee? }`.
@@ -1647,14 +1480,12 @@ Tasks: `{ id, title, mark, label, children?, criteria?, dependencies?, assignee?
 ### Prompt List
 
 ```tsx
-import { PromptList } from "@tulipfarm/sprout/prompt-list";
+import { PromptList } from '@tulipfarm/sprout/prompt-list';
 
 <PromptList
   title="Start with a task"
-  items={[
-    { id: "meetings", label: "Prepare for tomorrow", icon: <CalendarSearch /> },
-  ]}
-  onSelect={(id) => send(promptFor(id))}
+  items={[{ id: 'meetings', label: 'Prepare for tomorrow', icon: <CalendarSearch /> }]}
+  onSelect={id => send(promptFor(id))}
 />;
 ```
 
@@ -1673,17 +1504,17 @@ import {
   QuestionnaireSkip,
   QuestionnaireSubmit,
   QuestionnaireTitle,
-} from "@tulipfarm/sprout/questionnaire";
+} from '@tulipfarm/sprout/questionnaire';
 
 <Questionnaire
   items={[
     {
-      name: "style",
+      name: 'style',
       required: true,
-      choices: [{ value: "short" }, { value: "detailed" }],
+      choices: [{ value: 'short' }, { value: 'detailed' }],
     },
   ]}
-  onSubmit={(e) => {
+  onSubmit={e => {
     e.preventDefault();
     save(new FormData(e.currentTarget));
   }}
@@ -1708,34 +1539,30 @@ import {
 ### Reasoning Effort
 
 ```tsx
-import { ReasoningEffort } from "@tulipfarm/sprout/reasoning-effort";
+import { ReasoningEffort } from '@tulipfarm/sprout/reasoning-effort';
 
-<ReasoningEffort
-  levels={["Low", "Medium", "High", "Max"]}
-  value={value}
-  onValueChange={setValue}
-/>;
+<ReasoningEffort levels={['Low', 'Medium', 'High', 'Max']} value={value} onValueChange={setValue} />;
 ```
 
 ### Tool Activity
 
 ```tsx
-import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
+import { ToolActivity } from '@tulipfarm/sprout/tool-activity';
 
 <ToolActivity
   active={working}
   items={[
     {
-      id: "1",
-      label: "Searched the inbox",
-      status: "completed",
+      id: '1',
+      label: 'Searched the inbox',
+      status: 'completed',
       visual: <BrandIcon brand="gmail" size="inline" />,
     },
     {
-      id: "2",
-      label: "Update the record",
-      status: "failed",
-      detail: "Retry, or check the connection.",
+      id: '2',
+      label: 'Update the record',
+      status: 'failed',
+      detail: 'Retry, or check the connection.',
     },
   ]}
 />;
@@ -1744,7 +1571,7 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
 ### Typed Text
 
 ```tsx
-import { TypedText } from "@tulipfarm/sprout/typed-text";
+import { TypedText } from '@tulipfarm/sprout/typed-text';
 
 <h1>
   <TypedText text={chat.title} animate={!chat.titleManual} />
@@ -1799,7 +1626,7 @@ import {
   MessageFooter,
   MessageGroup,
   MessageHeader,
-} from "@tulipfarm/sprout/message";
+} from '@tulipfarm/sprout/message';
 
 <MessageGroup>
   <Message align="start">
@@ -1825,13 +1652,13 @@ import {
 ### Message Actions
 
 ```tsx
-import { MessageActions } from "@tulipfarm/sprout/message-actions";
+import { MessageActions } from '@tulipfarm/sprout/message-actions';
 
 <MessageActions
   text={m.text}
   createdAt={m.createdAt}
   feedback={m.feedback}
-  onFeedback={(v) => rate(m.id, v)}
+  onFeedback={v => rate(m.id, v)}
   onRetry={() => regenerate(m.id)}
 />;
 ```
@@ -1839,11 +1666,9 @@ import { MessageActions } from "@tulipfarm/sprout/message-actions";
 ### Message Response
 
 ```tsx
-import { MessageResponse } from "@tulipfarm/sprout/message-response";
+import { MessageResponse } from '@tulipfarm/sprout/message-response';
 
-<MessageResponse streaming={m.status === "streaming"}>
-  {m.text}
-</MessageResponse>;
+<MessageResponse streaming={m.status === 'streaming'}>{m.text}</MessageResponse>;
 ```
 
 ### Message Scroller
@@ -1873,17 +1698,13 @@ import {
 ### Review Card
 
 ```tsx
-import {
-  ReviewCard,
-  ReviewRow,
-  ReviewRows,
-} from "@tulipfarm/sprout/review-card";
+import { ReviewCard, ReviewRow, ReviewRows } from '@tulipfarm/sprout/review-card';
 
 <ReviewCard
   label="Review row change"
   title="Update a row in Supplier deliveries"
-  badge={{ label: "Needs approval", variant: "warning" }}
-  settled={status !== "pending"}
+  badge={{ label: 'Needs approval', variant: 'warning' }}
+  settled={status !== 'pending'}
   actions={
     <>
       <Button onClick={approve}>Approve</Button>

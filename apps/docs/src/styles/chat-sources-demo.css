@@ -62,7 +62,7 @@
   line-height: 1.5rem;
   overflow-wrap: anywhere;
 }
-.sources-demo-frame[data-recipe="states"] .sources-demo-reply {
+.sources-demo-frame[data-recipe='states'] .sources-demo-reply {
   width: 100%;
   max-width: 40rem;
   margin: 0 auto;

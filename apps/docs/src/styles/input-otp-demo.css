@@ -7,7 +7,7 @@
   outline: 2px solid color-mix(in oklab, var(--sprout-focus) 50%, transparent);
   outline-offset: 0;
 }
-.input-otp-demo .sprout-input-otp-slot[aria-invalid="true"]:focus-visible {
+.input-otp-demo .sprout-input-otp-slot[aria-invalid='true']:focus-visible {
   outline-color: color-mix(in oklab, var(--sprout-danger) 40%, transparent);
 }
 .input-otp-demo-card {

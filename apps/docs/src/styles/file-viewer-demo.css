@@ -71,13 +71,13 @@
   border-radius: 12px;
   background: var(--sprout-canvas);
 }
-.file-viewer-demo-frame[data-height="sm"] {
+.file-viewer-demo-frame[data-height='sm'] {
   height: 320px;
 }
-.file-viewer-demo-frame[data-height="md"] {
+.file-viewer-demo-frame[data-height='md'] {
   height: 384px;
 }
-.file-viewer-demo-frame[data-height="lg"] {
+.file-viewer-demo-frame[data-height='lg'] {
   height: 480px;
 }
 .file-viewer-demo-toolbar {
@@ -300,7 +300,7 @@
   box-shadow: 0 0 0 2px var(--sprout-surface);
 }
 .file-viewer-demo-person[data-live]::after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 2;
   right: -1px;

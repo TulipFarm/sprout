@@ -1,20 +1,19 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import InputOTPDemo from "../../components/InputOTPDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import InputOTPDemo from '../../components/InputOTPDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Input OTP"
-  description="A one-time code field with one slot per character."
->
+<Docs title="Input OTP" description="A one-time code field with one slot per character.">
   <h1 class="docs-title">Input OTP</h1>
   <p class="docs-lead">
-    A one-time code field for sign-in and verification codes. Each character
-    gets its own slot, and slots can be split into groups such as
+    A one-time code field for sign-in and verification codes. Each character gets its own slot, and slots can be split
+    into groups such as
     <code>123–456</code>.
   </p>
-  <div class="mt-8"><InputOTPDemo client:load /></div>
+  <div class="mt-8">
+    <InputOTPDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -59,34 +58,32 @@ const [showError, setShowError] = useState(true);
   <section class="prose-section">
     <h2 class="section-title">Parts</h2>
     <p>
-      <code>InputOTP</code> is built on Base UI <code>OTPField.Root</code>.
-      <code>maxLength</code> sets the number of slots. Use
+      <code>InputOTP</code> is built on Base UI <code>OTPField.Root</code>.<code>maxLength</code> sets the number of
+      slots. Use
       <code>defaultValue</code> for an uncontrolled code, or
       <code>value</code> with <code>onChange(value)</code> to control it.
-      <code>onValueChange</code>, <code>onValueComplete</code>,
-      <code>disabled</code>, <code>readOnly</code>, <code>required</code>,
-      <code>name</code>, <code>mask</code>, and <code>autoSubmit</code> pass through
-      to Base UI. Codes are numeric by default; set
+      <code>onValueChange</code>, <code>onValueComplete</code>,<code>disabled</code>, <code>readOnly</code>,{' '}
+      <code>required</code>,<code>name</code>, <code>mask</code>, and <code>autoSubmit</code> pass through to Base UI.
+      Codes are numeric by default; set
       <code>validationType="alphanumeric"</code> for letters.
     </p>
     <p>
-      <code>InputOTPGroup</code> joins its slots into one bordered segment with rounded
-      outer corners. <code>InputOTPSlot</code> is a real input; pass its zero-based
+      <code>InputOTPGroup</code> joins its slots into one bordered segment with rounded outer corners.{' '}
+      <code>InputOTPSlot</code> is a real input; pass its zero-based
       <code>index</code> and render slots in order.
       <code>InputOTPSeparator</code> draws a dash between groups.
     </p>
     <p>
-      Slots are 32px square with 14px text. On coarse pointers they grow to 44px
-      with 16px text so each slot is an easy touch target. Groups sit 8px apart.
+      Slots are 32px square with 14px text. On coarse pointers they grow to 44px with 16px text so each slot is an easy
+      touch target. Groups sit 8px apart.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">States</h2>
     <p>
-      The focused slot gets a focus border and a soft 2px ring above its
-      neighbors. <code>aria-invalid</code> on <code>InputOTP</code> marks every slot
-      invalid; you can also set it per slot. Invalid slots draw a danger border, and
-      their group gets a faint danger ring. Point
+      The focused slot gets a focus border and a soft 2px ring above its neighbors. <code>aria-invalid</code> on{' '}
+      <code>InputOTP</code> marks every slot invalid; you can also set it per slot. Invalid slots draw a danger border,
+      and their group gets a faint danger ring. Point
       <code>aria-describedby</code> at the error text.
       <code>disabled</code> dims the field to 50% and blocks edits.
     </p>
@@ -94,28 +91,25 @@ const [showError, setShowError] = useState(true);
   <section class="prose-section">
     <h2 class="section-title">Keyboard and accessibility</h2>
     <p>
-      Typing moves to the next slot. Backspace clears and moves back; Delete
-      clears in place. Arrow keys move between slots, and Home and End jump to
-      the first slot and the last filled one. Paste or one-time-code autofill
-      fills every slot at once. Only the active slot is in the tab order.
+      Typing moves to the next slot. Backspace clears and moves back; Delete clears in place. Arrow keys move between
+      slots, and Home and End jump to the first slot and the last filled one. Paste or one-time-code autofill fills
+      every slot at once. Only the active slot is in the tab order.
     </p>
     <p>
-      <code>aria-label</code> names the field and its first slot; later slots are
-      announced as “Character 2 of 6”. Alternatively, pass
-      <code>id</code> and use a <code>Label htmlFor</code>. Color changes take
-      120ms and stop when reduced motion is requested. In forced colors mode
-      slots keep a system border and a highlight focus ring.
+      <code>aria-label</code> names the field and its first slot; later slots are announced as “Character 2 of 6”.
+      Alternatively, pass
+      <code>id</code> and use a <code>Label htmlFor</code>. Color changes take 120ms and stop when reduced motion is
+      requested. In forced colors mode slots keep a system border and a highlight focus ring.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
       Slot borders use <code>--sprout-input</code>, the fill
-      <code>--sprout-surface</code>, text <code>--sprout-text</code>, and the
-      separator <code>--sprout-muted</code>. Focus uses
-      <code>--sprout-focus</code> and invalid <code>--sprout-danger</code>.
-      Outer corners follow <code>--sprout-radius-control</code>. The opt-in
-      TulipFarm theme tints the focus ring through these tokens.
+      <code>--sprout-surface</code>, text <code>--sprout-text</code>, and the separator <code>--sprout-muted</code>.
+      Focus uses
+      <code>--sprout-focus</code> and invalid <code>--sprout-danger</code>. Outer corners follow{' '}
+      <code>--sprout-radius-control</code>. The opt-in TulipFarm theme tints the focus ring through these tokens.
     </p>
   </section>
 </Docs>

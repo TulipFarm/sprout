@@ -1,16 +1,11 @@
-"use client";
+'use client';
 
-import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
-import { stateClassName } from "../internal/classes.js";
+import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
+import { stateClassName } from '../internal/classes.js';
 
-export const collapsibleContentVariantNames = [
-  "default",
-  "sidebar",
-  "card",
-] as const;
+export const collapsibleContentVariantNames = ['default', 'sidebar', 'card'] as const;
 
-export type CollapsibleContentVariant =
-  (typeof collapsibleContentVariantNames)[number];
+export type CollapsibleContentVariant = (typeof collapsibleContentVariantNames)[number];
 
 export type CollapsibleProps = BaseCollapsible.Root.Props;
 
@@ -23,10 +18,7 @@ export function Collapsible({ className, ...props }: CollapsibleProps) {
     <BaseCollapsible.Root
       data-slot="collapsible"
       {...props}
-      className={stateClassName<BaseCollapsible.Root.State>(
-        "sprout-collapsible",
-        className,
-      )}
+      className={stateClassName<BaseCollapsible.Root.State>('sprout-collapsible', className)}
     />
   );
 }
@@ -38,18 +30,12 @@ export type CollapsibleTriggerProps = BaseCollapsible.Trigger.Props;
  * Sprout `Button` or another control the trigger. Mark a chevron with
  * `data-slot="collapsible-indicator"` and it turns while the content is open.
  */
-export function CollapsibleTrigger({
-  className,
-  ...props
-}: CollapsibleTriggerProps) {
+export function CollapsibleTrigger({ className, ...props }: CollapsibleTriggerProps) {
   return (
     <BaseCollapsible.Trigger
       data-slot="collapsible-trigger"
       {...props}
-      className={stateClassName<BaseCollapsible.Trigger.State>(
-        "sprout-collapsible-trigger",
-        className,
-      )}
+      className={stateClassName<BaseCollapsible.Trigger.State>('sprout-collapsible-trigger', className)}
     />
   );
 }
@@ -62,11 +48,7 @@ export interface CollapsibleContentProps extends BaseCollapsible.Panel.Props {
   variant?: CollapsibleContentVariant;
 }
 
-export function CollapsibleContent({
-  variant = "default",
-  className,
-  ...props
-}: CollapsibleContentProps) {
+export function CollapsibleContent({ variant = 'default', className, ...props }: CollapsibleContentProps) {
   return (
     <BaseCollapsible.Panel
       data-slot="collapsible-content"

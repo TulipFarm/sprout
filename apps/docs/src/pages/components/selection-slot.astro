@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import SelectionSlotDemo from "../../components/SelectionSlotDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import SelectionSlotDemo from '../../components/SelectionSlotDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,11 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Selection Slot</h1>
   <p class="docs-lead">
-    Shows your normal tools until something is selected. Then it shows the
-    selection toolbar in the same place. The row keeps its height, so nothing
-    below it moves.
+    Shows your normal tools until something is selected. Then it shows the selection toolbar in the same place. The row
+    keeps its height, so nothing below it moves.
   </p>
-  <div class="mt-8"><SelectionSlotDemo client:load /></div>
+  <div class="mt-8">
+    <SelectionSlotDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -38,15 +39,15 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </SelectionSlot>`}
     />
     <p>
-      <code>active</code> chooses what shows. <code>children</code> are the tools
-      for no selection, such as search and filters. <code>selection</code>
+      <code>active</code> chooses what shows. <code>children</code> are the tools for no selection, such as search and
+      filters. <code>selection</code>
       is the toolbar for selected items. Other props, such as
       <code>className</code> and <code>ref</code>, go to the outer
       <code>div</code>.
     </p>
     <p>
-      There are no variants or sizes. The slot has no padding, border, or color.
-      Its content sets the look, so it fits any toolbar.
+      There are no variants or sizes. The slot has no padding, border, or color. Its content sets the look, so it fits
+      any toolbar.
     </p>
   </section>
   <section class="prose-section">
@@ -66,11 +67,9 @@ import CodeBlock from "../../components/CodeBlock.astro";
     />
     <p>
       <code>selection</code> can be <code>undefined</code> while
-      <code>active</code> is false. Put the slot in a <code>min-w-0 flex-1</code
-      >
+      <code>active</code> is false. Put the slot in a <code>min-w-0 flex-1</code>
       wrapper when it shares a row with other controls. A disabled
-      <code>fieldset</code> in the tools still works, and so do disabled or busy buttons
-      in the selection.
+      <code>fieldset</code> in the tools still works, and so do disabled or busy buttons in the selection.
     </p>
   </section>
   <section class="prose-section">
@@ -88,40 +87,35 @@ import CodeBlock from "../../components/CodeBlock.astro";
 /* Tailwind: hidden @xl/sprout-selection:flex */`}
     />
     <p>
-      The slot is a size container named <code>sprout-selection</code>. Use it
-      to show buttons when the slot is wide and a "Selected actions" menu when
-      it is narrow. The examples above switch at 36rem for tables and 44rem for
-      files.
+      The slot is a size container named <code>sprout-selection</code>. Use it to show buttons when the slot is wide and
+      a "Selected actions" menu when it is narrow. The examples above switch at 36rem for tables and 44rem for files.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Focus</h2>
     <p>
-      When the selection opens, the slot remembers the focused element. If focus
-      was in the tools, which are now hidden, it moves to the first control in
-      the selection. If focus was somewhere else, such as a row checkbox, it
-      stays there.
+      When the selection opens, the slot remembers the focused element. If focus was in the tools, which are now hidden,
+      it moves to the first control in the selection. If focus was somewhere else, such as a row checkbox, it stays
+      there.
     </p>
     <p>
-      When the selection closes and its focused button goes away, focus goes
-      back to the remembered element, if it is still on the page. Clear returns
-      you to the checkbox or button you started from.
+      When the selection closes and its focused button goes away, focus goes back to the remembered element, if it is
+      still on the page. Clear returns you to the checkbox or button you started from.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
       The hidden tools stay mounted, so their state survives. They are
-      <code>inert</code> and <code>aria-hidden</code>, so Tab, clicks, and
-      screen readers skip them. Give the selection a role and name, such as
-      <code>role="toolbar"</code> with <code>aria-label="Selected items"</code>,
-      and put the count in <code>role="status"</code> so it is announced. Give an
-      icon-only or short button, such as Clear, an
+      <code>inert</code> and <code>aria-hidden</code>, so Tab, clicks, and screen readers skip them. Give the selection
+      a role and name, such as
+      <code>role="toolbar"</code> with <code>aria-label="Selected items"</code>, and put the count in{' '}
+      <code>role="status"</code> so it is announced. Give an icon-only or short button, such as Clear, an
       <code>aria-label</code>.
     </p>
     <p>
-      The selection fades in over 180ms. The tools hide at once, so the two
-      never overlap. The fade stops when reduced motion is requested.
+      The selection fades in over 180ms. The tools hide at once, so the two never overlap. The fade stops when reduced
+      motion is requested.
     </p>
   </section>
   <section class="prose-section">

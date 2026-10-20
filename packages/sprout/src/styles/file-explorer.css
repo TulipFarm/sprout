@@ -4,10 +4,7 @@
     --sprout-file-explorer-indent: 12px;
     --sprout-file-explorer-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
     display: grid;
-    grid-template-columns: var(--sprout-file-explorer-sidebar, 16rem) minmax(
-        0,
-        1fr
-      );
+    grid-template-columns: var(--sprout-file-explorer-sidebar, 16rem) minmax(0, 1fr);
     box-sizing: border-box;
     height: 100%;
     min-height: 0;
@@ -103,7 +100,7 @@
   .sprout-file-explorer-row:hover {
     background: var(--sprout-hover);
   }
-  .sprout-file-explorer-row[aria-selected="true"] {
+  .sprout-file-explorer-row[aria-selected='true'] {
     background: var(--sprout-active);
     font-weight: 500;
   }
@@ -116,8 +113,7 @@
     align-self: stretch;
     width: var(--sprout-file-explorer-indent);
     margin-inline-end: -6px;
-    background: linear-gradient(var(--sprout-line), var(--sprout-line)) 5px 0 /
-      1px 100% no-repeat;
+    background: linear-gradient(var(--sprout-line), var(--sprout-line)) 5px 0 / 1px 100% no-repeat;
   }
   .sprout-file-explorer-tree:hover .sprout-file-explorer-guide {
     background-image: linear-gradient(var(--sprout-input), var(--sprout-input));
@@ -129,15 +125,14 @@
     width: 12px;
     color: var(--sprout-muted);
   }
-  .sprout-file-explorer-row[aria-expanded="true"]
-    .sprout-file-explorer-chevron {
+  .sprout-file-explorer-row[aria-expanded='true'] .sprout-file-explorer-chevron {
     transform: rotate(90deg);
   }
   .sprout-file-explorer-folder {
     flex-shrink: 0;
     color: var(--sprout-file-explorer-folder, var(--sprout-muted));
   }
-  .sprout-file-explorer-row[aria-expanded="true"] .sprout-file-explorer-folder {
+  .sprout-file-explorer-row[aria-expanded='true'] .sprout-file-explorer-folder {
     color: var(--sprout-file-explorer-folder-open, var(--sprout-text));
   }
   .sprout-file-explorer-name {
@@ -154,23 +149,20 @@
     color: var(--sprout-muted);
     --tone: var(--sprout-muted);
   }
-  .sprout-file-explorer-glyph[data-tone="info"] {
+  .sprout-file-explorer-glyph[data-tone='info'] {
     --tone: var(--sprout-syntax-keyword, var(--sprout-info));
   }
-  .sprout-file-explorer-glyph[data-tone="success"] {
+  .sprout-file-explorer-glyph[data-tone='success'] {
     --tone: var(--sprout-syntax-string, var(--sprout-success));
   }
-  .sprout-file-explorer-glyph[data-tone="warning"] {
+  .sprout-file-explorer-glyph[data-tone='warning'] {
     --tone: var(--sprout-syntax-constant, var(--sprout-warning));
   }
-  .sprout-file-explorer-glyph[data-tone="danger"] {
+  .sprout-file-explorer-glyph[data-tone='danger'] {
     --tone: var(--sprout-danger);
   }
-  .sprout-file-explorer-glyph[data-tone="accent"] {
-    --tone: var(
-      --sprout-syntax-function,
-      color-mix(in oklab, var(--sprout-info) 55%, var(--sprout-danger))
-    );
+  .sprout-file-explorer-glyph[data-tone='accent'] {
+    --tone: var(--sprout-syntax-function, color-mix(in oklab, var(--sprout-info) 55%, var(--sprout-danger)));
   }
   .sprout-file-explorer-glyph-tile {
     fill: color-mix(in oklab, var(--tone) 14%, transparent);
@@ -226,8 +218,8 @@
   .sprout-file-explorer-hit:hover {
     background: var(--sprout-hover);
   }
-  .sprout-file-explorer-result[aria-current="true"],
-  .sprout-file-explorer-hit[aria-current="true"] {
+  .sprout-file-explorer-result[aria-current='true'],
+  .sprout-file-explorer-hit[aria-current='true'] {
     background: var(--sprout-active);
   }
   .sprout-file-explorer-result:focus-visible,
@@ -278,8 +270,7 @@
   .sprout-file-explorer-mark {
     border-radius: 2px;
     background: color-mix(in oklab, var(--sprout-warning) 26%, transparent);
-    box-shadow: 0 0 0 1px
-      color-mix(in oklab, var(--sprout-warning) 40%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--sprout-warning) 40%, transparent);
     color: inherit;
   }
 
@@ -315,14 +306,14 @@
     inset: auto 0 -1px;
     height: 1px;
     background: var(--sprout-surface);
-    content: "";
+    content: '';
   }
   .sprout-file-explorer-tab[data-active]::before {
     position: absolute;
     inset: 0 0 auto;
     height: 2px;
     background: var(--sprout-primary);
-    content: "";
+    content: '';
   }
   .sprout-file-explorer-tab-open {
     display: flex;
@@ -351,8 +342,7 @@
     cursor: pointer;
     opacity: 0;
   }
-  .sprout-file-explorer-tab:is([data-active], :hover, :focus-within)
-    .sprout-file-explorer-tab-close {
+  .sprout-file-explorer-tab:is([data-active], :hover, :focus-within) .sprout-file-explorer-tab-close {
     opacity: 1;
   }
   .sprout-file-explorer-tab-close:hover {
@@ -386,7 +376,7 @@
     display: inline-flex;
     align-items: center;
   }
-  .sprout-file-explorer-crumbs li[aria-current="page"] {
+  .sprout-file-explorer-crumbs li[aria-current='page'] {
     color: var(--sprout-text);
   }
   .sprout-file-explorer-crumb-separator {
@@ -446,11 +436,7 @@
     user-select: none;
   }
   .sprout-file-explorer-line[data-current] .sprout-file-explorer-line-number {
-    background: color-mix(
-      in oklab,
-      var(--sprout-warning) 10%,
-      var(--sprout-surface)
-    );
+    background: color-mix(in oklab, var(--sprout-warning) 10%, var(--sprout-surface));
     color: var(--sprout-text);
   }
   .sprout-file-explorer-line-text {

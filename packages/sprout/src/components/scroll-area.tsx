@@ -1,15 +1,11 @@
-"use client";
+'use client';
 
-import { ScrollArea as BaseScrollArea } from "@base-ui/react/scroll-area";
-import { stateClassName } from "../internal/classes.js";
+import { ScrollArea as BaseScrollArea } from '@base-ui/react/scroll-area';
+import { stateClassName } from '../internal/classes.js';
 
-export const scrollAreaSizeNames = ["auto", "sm", "md"] as const;
-export const scrollAreaVariantNames = ["plain", "table"] as const;
-export const scrollAreaOrientationNames = [
-  "vertical",
-  "horizontal",
-  "both",
-] as const;
+export const scrollAreaSizeNames = ['auto', 'sm', 'md'] as const;
+export const scrollAreaVariantNames = ['plain', 'table'] as const;
+export const scrollAreaOrientationNames = ['vertical', 'horizontal', 'both'] as const;
 
 export type ScrollAreaSize = (typeof scrollAreaSizeNames)[number];
 export type ScrollAreaVariant = (typeof scrollAreaVariantNames)[number];
@@ -30,9 +26,9 @@ export interface ScrollAreaProps extends BaseScrollArea.Root.Props {
 export function ScrollArea({
   className,
   children,
-  size = "auto",
-  variant = "plain",
-  orientation = "vertical",
+  size = 'auto',
+  variant = 'plain',
+  orientation = 'vertical',
   viewportLabel,
   ...props
 }: ScrollAreaProps) {
@@ -41,26 +37,20 @@ export function ScrollArea({
       data-slot="scroll-area"
       data-size={size}
       data-variant={variant}
-      className={stateClassName<BaseScrollArea.Root.State>(
-        "sprout-scroll-area",
-        className,
-      )}
+      className={stateClassName<BaseScrollArea.Root.State>('sprout-scroll-area', className)}
       {...props}
     >
       <BaseScrollArea.Viewport
         data-slot="scroll-area-viewport"
-        role={variant === "table" ? "region" : undefined}
+        role={variant === 'table' ? 'region' : undefined}
         aria-label={viewportLabel}
         className="sprout-scroll-area-viewport"
       >
         {children}
       </BaseScrollArea.Viewport>
-      {orientation !== "horizontal" && <ScrollBar />}
-      {orientation !== "vertical" && <ScrollBar orientation="horizontal" />}
-      <BaseScrollArea.Corner
-        data-slot="scroll-area-corner"
-        className="sprout-scroll-area-corner"
-      />
+      {orientation !== 'horizontal' && <ScrollBar />}
+      {orientation !== 'vertical' && <ScrollBar orientation="horizontal" />}
+      <BaseScrollArea.Corner data-slot="scroll-area-corner" className="sprout-scroll-area-corner" />
     </BaseScrollArea.Root>
   );
 }
@@ -68,25 +58,15 @@ export function ScrollArea({
 export type ScrollBarProps = BaseScrollArea.Scrollbar.Props;
 
 /** One scrollbar track and thumb. `ScrollArea` draws these for you from `orientation`. */
-export function ScrollBar({
-  className,
-  orientation = "vertical",
-  ...props
-}: ScrollBarProps) {
+export function ScrollBar({ className, orientation = 'vertical', ...props }: ScrollBarProps) {
   return (
     <BaseScrollArea.Scrollbar
       data-slot="scroll-area-scrollbar"
       orientation={orientation}
-      className={stateClassName<BaseScrollArea.Scrollbar.State>(
-        "sprout-scroll-area-scrollbar",
-        className,
-      )}
+      className={stateClassName<BaseScrollArea.Scrollbar.State>('sprout-scroll-area-scrollbar', className)}
       {...props}
     >
-      <BaseScrollArea.Thumb
-        data-slot="scroll-area-thumb"
-        className="sprout-scroll-area-thumb"
-      />
+      <BaseScrollArea.Thumb data-slot="scroll-area-thumb" className="sprout-scroll-area-thumb" />
     </BaseScrollArea.Scrollbar>
   );
 }

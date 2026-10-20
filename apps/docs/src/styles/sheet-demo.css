@@ -345,7 +345,7 @@
   width: min(var(--sheet-demo-nav-width), calc(100vw - 2rem));
   background: var(--sprout-canvas);
 }
-.sheet-demo-nav > [data-slot="sheet-close"] {
+.sheet-demo-nav > [data-slot='sheet-close'] {
   top: 10px;
   right: 8px;
 }
@@ -379,7 +379,7 @@
   color: var(--sprout-muted);
   text-decoration: none;
 }
-.sheet-demo-nav a[aria-current="page"] {
+.sheet-demo-nav a[aria-current='page'] {
   background: var(--sprout-active);
   color: var(--sprout-text);
   font-weight: 550;

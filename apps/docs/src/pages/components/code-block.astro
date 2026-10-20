@@ -1,5 +1,5 @@
 ---
-import Docs from "../../layouts/Docs.astro";
+import Docs from '../../layouts/Docs.astro';
 import {
   CodeBlockCanvas,
   CodeBlockChatResponse,
@@ -9,8 +9,8 @@ import {
   CodeBlockVariants,
   CodeBlockWebhook,
   CodeBlockWorkflowStep,
-} from "../../components/CodeBlockDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+} from '../../components/CodeBlockDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -19,11 +19,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Code Block</h1>
   <p class="docs-lead">
-    Shows code from a reply, a canvas, a workflow step, or a file. It colors
-    every language Shiki knows, over 240, picks the language from the file name,
-    and copies the exact source with one button.
+    Shows code from a reply, a canvas, a workflow step, or a file. It colors every language Shiki knows, over 240, picks
+    the language from the file name, and copies the exact source with one button.
   </p>
-  <div class="mt-8"><CodeBlockPlayground client:load /></div>
+  <div class="mt-8">
+    <CodeBlockPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -39,24 +40,21 @@ import CodeBlock from "../../components/CodeBlock.astro";
     />
     <p>
       <code>language</code> takes a name, an alias, or an extension, such as
-      <code>typescript</code>, <code>ts</code>, or <code>py</code>, so a
-      Markdown fence name can go straight in. Leave it out and the language
-      comes from <code>filename</code>: <code>main.rs</code>,
-      <code>Dockerfile</code>, and <code>.env.local</code> all work.
-      <code>text</code>, <code>txt</code>, and unknown names show plain text.
-      The header shows <code>filename</code>, or the language’s name.
-      <code>lineNumbers</code> is on by default. <code>wrap</code> wraps long lines
-      for prose such as notes, and hides line numbers.
+      <code>typescript</code>, <code>ts</code>, or <code>py</code>, so a Markdown fence name can go straight in. Leave
+      it out and the language comes from <code>filename</code>: <code>main.rs</code>,<code>Dockerfile</code>, and{' '}
+      <code>.env.local</code> all work.
+      <code>text</code>, <code>txt</code>, and unknown names show plain text. The header shows <code>filename</code>, or
+      the language’s name.
+      <code>lineNumbers</code> is on by default. <code>wrap</code> wraps long lines for prose such as notes, and hides
+      line numbers.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Syntax colors</h2>
     <p>
-      Shiki tokenizes the code with its JavaScript regex engine, so there is no
-      WebAssembly and no inline styles. Each grammar loads the first time a
-      block needs it, and the block shows plain text until then. Markdown also
-      loads the languages of its fences. Code over 200,000 characters stays
-      plain so a huge file can’t freeze the page.
+      Shiki tokenizes the code with its JavaScript regex engine, so there is no WebAssembly and no inline styles. Each
+      grammar loads the first time a block needs it, and the block shows plain text until then. Markdown also loads the
+      languages of its fences. Code over 200,000 characters stays plain so a huge file can’t freeze the page.
     </p>
     <CodeBlock
       lang="css"
@@ -68,13 +66,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 }`}
     />
     <p>
-      Tokens get the classes <code>sprout-syntax-keyword</code>,
-      <code>-string</code>, <code>-constant</code>, <code>-function</code>,
-      <code>-parameter</code>, <code>-comment</code>, <code>-punctuation</code>,
-      <code>-link</code>, and, for Markdown and diffs, <code>-heading</code>,
-      <code>-inserted</code>, and <code>-deleted</code>. Each reads a matching
-      <code>--sprout-syntax-*</code> variable and falls back to the theme’s info,
-      success, warning, danger, and muted colors, so every theme works without setup.
+      Tokens get the classes <code>sprout-syntax-keyword</code>,<code>-string</code>, <code>-constant</code>,{' '}
+      <code>-function</code>,<code>-parameter</code>, <code>-comment</code>, <code>-punctuation</code>,
+      <code>-link</code>, and, for Markdown and diffs, <code>-heading</code>,<code>-inserted</code>, and{' '}
+      <code>-deleted</code>. Each reads a matching
+      <code>--sprout-syntax-*</code> variable and falls back to the theme’s info, success, warning, danger, and muted
+      colors, so every theme works without setup.
     </p>
     <CodeBlock
       lang="tsx"
@@ -84,9 +81,8 @@ import CodeBlock from "../../components/CodeBlock.astro";
 await preloadCodeLanguages("tsx", "python");`}
     />
     <p>
-      Await <code>preloadCodeLanguages</code> before server rendering to send colored
-      HTML. <code>languageForFilename</code>,
-      <code>codeLanguageName</code>, and <code>isHighlightedLanguage</code>
+      Await <code>preloadCodeLanguages</code> before server rendering to send colored HTML.{' '}
+      <code>languageForFilename</code>,<code>codeLanguageName</code>, and <code>isHighlightedLanguage</code>
       expose the same lookup the block uses.
     </p>
   </section>
@@ -95,16 +91,18 @@ await preloadCodeLanguages("tsx", "python");`}
     <p>
       <code>inline</code> is a bordered card that scrolls after 24rem.
       <code>file</code> has no frame and fills its parent, so give the parent a height.
-      <code>preview</code> drops the header and copy button and fades out at its parent’s
-      height, for hover cards and thumbnails.
+      <code>preview</code> drops the header and copy button and fades out at its parent’s height, for hover cards and
+      thumbnails.
     </p>
-    <div class="mt-6"><CodeBlockVariants client:load /></div>
+    <div class="mt-6">
+      <CodeBlockVariants client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">In a chat reply</h2>
     <p>
-      Render fenced code from Markdown with the fence language and no filename.
-      A fence without a language shows as <code>text</code>.
+      Render fenced code from Markdown with the fence language and no filename. A fence without a language shows as{' '}
+      <code>text</code>.
     </p>
     <CodeBlock
       lang="tsx"
@@ -116,7 +114,9 @@ await preloadCodeLanguages("tsx", "python");`}
   return <CodeBlock code={textOf(code).replace(/\\n$/, "")} language={language} />;
 }`}
     />
-    <div class="mt-6"><CodeBlockChatResponse client:load /></div>
+    <div class="mt-6">
+      <CodeBlockChatResponse client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Canvas and workflow steps</h2>
@@ -142,32 +142,29 @@ await preloadCodeLanguages("tsx", "python");`}
 </div>`}
     />
     <p>
-      A new <code>key</code> per file and revision resets the copy state and scroll
-      position. Long paths truncate in the header; the region and the copy button
-      still use the full path.
+      A new <code>key</code> per file and revision resets the copy state and scroll position. Long paths truncate in the
+      header; the region and the copy button still use the full path.
     </p>
-    <div class="mt-6"><CodeBlockFileExplorer client:load /></div>
+    <div class="mt-6">
+      <CodeBlockFileExplorer client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Shell examples</h2>
-    <p>
-      Turn off line numbers for shell commands so a copied command runs as is.
-    </p>
-    <div class="mt-6"><CodeBlockWebhook client:load /></div>
+    <p>Turn off line numbers for shell commands so a copied command runs as is.</p>
+    <div class="mt-6">
+      <CodeBlockWebhook client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The code scrolls in a focusable region named after the file, or “<em
-        >Language</em
-      > code”, such as “TypeScript code”. The preview variant is not focusable. Line
-      numbers are hidden from screen readers. The copy button is named “Copy <em
-        >filename</em
-      >” or “Copy code”, stays focusable while it copies, shows Copied for 2
-      seconds, and announces “Code copied to clipboard.” When the clipboard is
-      blocked an alert says to select the code instead, and Copy tries again. On
-      touch screens the button is 44px tall. The error fades in over 180ms, or
-      appears at once with reduced motion.
+      The code scrolls in a focusable region named after the file, or “<em>Language</em> code”, such as “TypeScript
+      code”. The preview variant is not focusable. Line numbers are hidden from screen readers. The copy button is named
+      “Copy <em>filename</em>” or “Copy code”, stays focusable while it copies, shows Copied for 2 seconds, and
+      announces “Code copied to clipboard.” When the clipboard is blocked an alert says to select the code instead, and
+      Copy tries again. On touch screens the button is 44px tall. The error fades in over 180ms, or appears at once with
+      reduced motion.
     </p>
   </section>
 </Docs>

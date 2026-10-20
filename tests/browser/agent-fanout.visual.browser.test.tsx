@@ -1,14 +1,11 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import {
-  AgentFanout,
-  type AgentFanoutAgent,
-} from "../../packages/sprout/src/components/agent-fanout.js";
-import { emulate, setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { AgentFanout, type AgentFanoutAgent } from '../../packages/sprout/src/components/agent-fanout.js';
+import { emulate, setTheme, settle, themes } from './support.js';
 
 const agent = (
   id: string,
-  status: AgentFanoutAgent["status"],
+  status: AgentFanoutAgent['status'],
   extra: Partial<AgentFanoutAgent> = {},
 ): AgentFanoutAgent => ({
   id,
@@ -19,7 +16,7 @@ const agent = (
   ...extra,
 });
 
-it.each(themes)("agent-fanout %s %s", async (theme, mode) => {
+it.each(themes)('agent-fanout %s %s', async (theme, mode) => {
   await emulate({ reducedMotion: true });
   setTheme(theme, mode);
   const screen = await render(
@@ -28,7 +25,7 @@ it.each(themes)("agent-fanout %s %s", async (theme, mode) => {
       style={{
         width: 480,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <AgentFanout
@@ -36,24 +33,20 @@ it.each(themes)("agent-fanout %s %s", async (theme, mode) => {
         elapsed={4200}
         onStop={() => {}}
         agents={[
-          agent("Research", "done", {
-            result: "Found 18 sources",
+          agent('Research', 'done', {
+            result: 'Found 18 sources',
             duration: 3000,
-            agents: [agent("Papers", "done"), agent("Blogs", "done")],
+            agents: [agent('Papers', 'done'), agent('Blogs', 'done')],
           }),
-          agent("Bench", "working", {
-            agents: [agent("Latency", "working"), agent("Cost", "queued")],
+          agent('Bench', 'working', {
+            agents: [agent('Latency', 'working'), agent('Cost', 'queued')],
           }),
-          agent("Critic", "failed", { result: "Rate limited" }),
+          agent('Critic', 'failed', { result: 'Rate limited' }),
         ]}
       />
     </div>,
   );
-  await expect
-    .poll(() => document.querySelectorAll(".sprout-agent-fanout-edge").length)
-    .toBe(7);
+  await expect.poll(() => document.querySelectorAll('.sprout-agent-fanout-edge').length).toBe(7);
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`agent-fanout-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`agent-fanout-${theme}-${mode}`);
 });

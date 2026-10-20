@@ -1,28 +1,25 @@
-import { expect, it } from "vitest";
-import { page } from "vitest/browser";
-import { render } from "vitest-browser-react";
-import { Button } from "../../packages/sprout/src/components/button.js";
-import {
-  FilesSample,
-  StatePanel,
-} from "../../packages/sprout/src/components/state-panel.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { page } from 'vitest/browser';
+import { render } from 'vitest-browser-react';
+import { Button } from '../../packages/sprout/src/components/button.js';
+import { FilesSample, StatePanel } from '../../packages/sprout/src/components/state-panel.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("state-panel %s %s", async (theme, mode) => {
+it.each(themes)('state-panel %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   await page.viewport(900, 720);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
+        display: 'grid',
         gap: 16,
         width: 820,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
         <StatePanel
           kind="error"
           heading="h3"
@@ -50,7 +47,5 @@ it.each(themes)("state-panel %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`state-panel-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`state-panel-${theme}-${mode}`);
 });

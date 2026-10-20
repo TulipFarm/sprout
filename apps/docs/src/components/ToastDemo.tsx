@@ -1,8 +1,8 @@
-import { useState, type ReactNode } from "react";
-import { Check } from "reicon-react/icons/Check";
-import { FileText } from "reicon-react/icons/FileText";
-import { Upload } from "reicon-react/icons/Upload";
-import { Button } from "@tulipfarm/sprout/button";
+import { useState, type ReactNode } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { FileText } from 'reicon-react/icons/FileText';
+import { Upload } from 'reicon-react/icons/Upload';
+import { Button } from '@tulipfarm/sprout/button';
 import {
   Toast,
   ToastAction,
@@ -17,18 +17,10 @@ import {
   toast,
   useToastManager,
   type ToastType,
-} from "@tulipfarm/sprout/toast";
-import "../styles/toast-demo.css";
+} from '@tulipfarm/sprout/toast';
+import '../styles/toast-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="toast-demo-card" aria-label={title}>
       <header>
@@ -48,50 +40,48 @@ const typeSamples: {
 }[] = [
   {
     type: undefined,
-    label: "Default",
-    title: "Draft saved",
-    description: "Changes are stored on this device.",
+    label: 'Default',
+    title: 'Draft saved',
+    description: 'Changes are stored on this device.',
   },
   {
-    type: "success",
-    label: "Success",
-    title: "Invite sent",
-    description: "Ana Ruiz can now join the Meadow workspace.",
+    type: 'success',
+    label: 'Success',
+    title: 'Invite sent',
+    description: 'Ana Ruiz can now join the Meadow workspace.',
   },
   {
-    type: "error",
-    label: "Error",
-    title: "Couldn’t publish",
-    description: "Harvest log is locked by another editor.",
+    type: 'error',
+    label: 'Error',
+    title: 'Couldn’t publish',
+    description: 'Harvest log is locked by another editor.',
   },
   {
-    type: "warning",
-    label: "Warning",
-    title: "Storage almost full",
-    description: "9.2 of 10 GB used. Older uploads may be archived.",
+    type: 'warning',
+    label: 'Warning',
+    title: 'Storage almost full',
+    description: '9.2 of 10 GB used. Older uploads may be archived.',
   },
   {
-    type: "info",
-    label: "Info",
-    title: "New version available",
-    description: "Reload to get the latest editor.",
+    type: 'info',
+    label: 'Info',
+    title: 'New version available',
+    description: 'Reload to get the latest editor.',
   },
   {
-    type: "loading",
-    label: "Loading",
-    title: "Importing contacts",
-    description: "1,240 rows from contacts.csv…",
+    type: 'loading',
+    label: 'Loading',
+    title: 'Importing contacts',
+    description: '1,240 rows from contacts.csv…',
   },
 ];
 
 function OpenCount() {
   const { toasts } = useToastManager();
-  const open = toasts.filter(
-    (item) => item.transitionStatus !== "ending",
-  ).length;
+  const open = toasts.filter(item => item.transitionStatus !== 'ending').length;
   return (
     <p className="toast-demo-caption" role="status">
-      {open === 0 ? "No notifications open" : `${open} open`}
+      {open === 0 ? 'No notifications open' : `${open} open`}
     </p>
   );
 }
@@ -102,13 +92,11 @@ export function ToastPlayground() {
     <Toaster>
       <section className="toast-demo-stage" aria-label="Toast playground">
         <div className="toast-demo-toolbar">
-          <span className="toast-demo-caption">
-            Each closes after 5 seconds
-          </span>
+          <span className="toast-demo-caption">Each closes after 5 seconds</span>
           <OpenCount />
         </div>
         <div className="toast-demo-buttons">
-          {typeSamples.map((sample) => (
+          {typeSamples.map(sample => (
             <Button
               key={sample.label}
               variant="outline"
@@ -133,22 +121,19 @@ export function ToastPlayground() {
 
 export function ToastWithAction() {
   return (
-    <Example
-      title="With action"
-      description="An Undo button in the toast. Choosing it shows a title-only follow-up."
-    >
+    <Example title="With action" description="An Undo button in the toast. Choosing it shows a title-only follow-up.">
       <div className="toast-demo-row">
         <Button
           variant="outline"
           onClick={() => {
             const id = toast.add({
-              title: "Sample saved",
-              description: "Changes exist only in this example.",
+              title: 'Sample saved',
+              description: 'Changes exist only in this example.',
               actionProps: {
-                children: "Undo",
+                children: 'Undo',
                 onClick: () => {
                   toast.close(id);
-                  toast.add({ title: "Sample undone", type: "info" });
+                  toast.add({ title: 'Sample undone', type: 'info' });
                 },
               },
             });
@@ -166,25 +151,23 @@ function IsolatedControls() {
   const manager = useToastManager();
   return (
     <div className="toast-demo-row">
-      {(["success", "error", "warning", "info", "loading"] as const).map(
-        (type) => (
-          <Button
-            key={type}
-            variant="outline"
-            size="sm"
-            onClick={() =>
-              manager.add({
-                title: `${type[0]!.toUpperCase()}${type.slice(1)} example`,
-                description: "A local notification. No action was sent.",
-                type,
-                timeout: 5000,
-              })
-            }
-          >
-            {type}
-          </Button>
-        ),
-      )}
+      {(['success', 'error', 'warning', 'info', 'loading'] as const).map(type => (
+        <Button
+          key={type}
+          variant="outline"
+          size="sm"
+          onClick={() =>
+            manager.add({
+              title: `${type[0]!.toUpperCase()}${type.slice(1)} example`,
+              description: 'A local notification. No action was sent.',
+              type,
+              timeout: 5000,
+            })
+          }
+        >
+          {type}
+        </Button>
+      ))}
     </div>
   );
 }
@@ -205,11 +188,7 @@ export function ToastIsolated() {
 
 function fakeUpload(fail: boolean) {
   return new Promise<string>((resolve, reject) =>
-    setTimeout(
-      () =>
-        fail ? reject(new Error("Connection lost")) : resolve("report-q3.pdf"),
-      1500,
-    ),
+    setTimeout(() => (fail ? reject(new Error('Connection lost')) : resolve('report-q3.pdf')), 1500),
   );
 }
 
@@ -220,23 +199,23 @@ export function ToastPromise() {
       description="toast.promise shows a loading toast and swaps it for success or error when the work settles."
     >
       <div className="toast-demo-row">
-        {[false, true].map((fail) => (
+        {[false, true].map(fail => (
           <Button
             key={String(fail)}
-            variant={fail ? "outline" : "default"}
+            variant={fail ? 'outline' : 'default'}
             onClick={() =>
               toast
                 .promise(fakeUpload(fail), {
                   loading: {
-                    title: "Uploading report-q3.pdf",
-                    description: "2.4 MB",
+                    title: 'Uploading report-q3.pdf',
+                    description: '2.4 MB',
                   },
-                  success: (name) => ({
-                    title: "Upload complete",
+                  success: name => ({
+                    title: 'Upload complete',
                     description: `${name} is ready to share.`,
                   }),
                   error: (error: Error) => ({
-                    title: "Upload failed",
+                    title: 'Upload failed',
                     description: `${error.message}. Try again when you’re back online.`,
                   }),
                 })
@@ -244,7 +223,7 @@ export function ToastPromise() {
             }
           >
             <Upload />
-            {fail ? "Upload that fails" : "Upload file"}
+            {fail ? 'Upload that fails' : 'Upload file'}
           </Button>
         ))}
       </div>
@@ -254,26 +233,26 @@ export function ToastPromise() {
 
 const queueSeed = [
   {
-    title: "garden-plan.pdf",
-    description: "Uploaded · 1.1 MB",
-    type: "success",
+    title: 'garden-plan.pdf',
+    description: 'Uploaded · 1.1 MB',
+    type: 'success',
   },
   {
-    title: "harvest-photos.zip",
-    description: "Failed · file is over 50 MB",
-    type: "error",
+    title: 'harvest-photos.zip',
+    description: 'Failed · file is over 50 MB',
+    type: 'error',
   },
   {
-    title: "seed-catalog.csv",
-    description: "Uploaded · 84 KB",
-    type: "success",
+    title: 'seed-catalog.csv',
+    description: 'Uploaded · 84 KB',
+    type: 'success',
   },
 ];
 
 function QueueList() {
   const { toasts } = useToastManager();
-  return toasts.map((item) => (
-    <Toast key={item.id} toast={item} swipeDirection={["right", "down"]}>
+  return toasts.map(item => (
+    <Toast key={item.id} toast={item} swipeDirection={['right', 'down']}>
       <ToastContent>
         <span className="toast-demo-file" aria-hidden="true">
           <FileText />
@@ -282,7 +261,7 @@ function QueueList() {
           <ToastTitle />
           <ToastDescription />
         </div>
-        {item.type === "error" ? <ToastAction>Retry</ToastAction> : null}
+        {item.type === 'error' ? <ToastAction>Retry</ToastAction> : null}
         <ToastClose />
       </ToastContent>
     </Toast>
@@ -311,21 +290,21 @@ export function ToastCustomList() {
         ...item,
         timeout: 0,
         actionProps:
-          item.type === "error"
+          item.type === 'error'
             ? {
                 onClick: () => {
                   manager.close(failedId);
                   const id = manager.add({
-                    title: "harvest-photos.zip",
-                    description: "Retrying with a smaller batch…",
-                    type: "loading",
+                    title: 'harvest-photos.zip',
+                    description: 'Retrying with a smaller batch…',
+                    type: 'loading',
                     timeout: 0,
                   });
                   setTimeout(
                     () =>
                       manager.update(id, {
-                        description: "Uploaded · 48 MB",
-                        type: "success",
+                        description: 'Uploaded · 48 MB',
+                        type: 'success',
                       }),
                     1200,
                   );
@@ -343,10 +322,7 @@ export function ToastCustomList() {
       <ToastProvider toastManager={manager}>
         <div className="toast-demo-frame" data-testid="toast-queue-frame">
           <QueueEmpty onRestore={seed} />
-          <ToastViewport
-            aria-label="Upload queue"
-            className="toast-demo-frame-viewport"
-          >
+          <ToastViewport aria-label="Upload queue" className="toast-demo-frame-viewport">
             <QueueList />
           </ToastViewport>
         </div>

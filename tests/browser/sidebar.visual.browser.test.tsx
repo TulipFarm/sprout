@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   Sidebar,
   SidebarContent,
@@ -12,29 +12,19 @@ import {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarSection,
-} from "../../packages/sprout/src/components/sidebar.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/sidebar.js';
+import { setTheme, settle, themes } from './support.js';
 
 const Icon = () => (
   <svg viewBox="0 0 16 16">
-    <rect
-      x="3"
-      y="3"
-      width="10"
-      height="10"
-      fill="none"
-      stroke="currentColor"
-    />
+    <rect x="3" y="3" width="10" height="10" fill="none" stroke="currentColor" />
   </svg>
 );
 
-it.each(themes)("sidebar %s %s", async (theme, mode) => {
+it.each(themes)('sidebar %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
-    <div
-      data-testid="shot"
-      style={{ display: "inline-grid", background: "var(--sprout-canvas)" }}
-    >
+    <div data-testid="shot" style={{ display: 'inline-grid', background: 'var(--sprout-canvas)' }}>
       <SidebarProvider style={{ height: 300 }}>
         <Sidebar label="Workspace navigation">
           <SidebarContent>
@@ -67,7 +57,5 @@ it.each(themes)("sidebar %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`sidebar-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`sidebar-${theme}-${mode}`);
 });

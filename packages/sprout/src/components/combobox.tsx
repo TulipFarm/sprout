@@ -1,23 +1,18 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { X } from "reicon-react/icons/X";
-import { cn, stateClassName } from "../internal/classes.js";
-import { Button } from "./button.js";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "./input-group.js";
+import { useRef } from 'react';
+import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { X } from 'reicon-react/icons/X';
+import { cn, stateClassName } from '../internal/classes.js';
+import { Button } from './button.js';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from './input-group.js';
 
-export type ComboboxProps<
+export type ComboboxProps<Value, Multiple extends boolean | undefined = false> = ComboboxPrimitive.Root.Props<
   Value,
-  Multiple extends boolean | undefined = false,
-> = ComboboxPrimitive.Root.Props<Value, Multiple>;
+  Multiple
+>;
 
 /**
  * Holds the value, the typed query, and the open state. It takes every Base
@@ -46,26 +41,16 @@ export type ComboboxTriggerProps = ComboboxPrimitive.Trigger.Props;
  * the chevron; render it as a `Button` with `render` for a picker that keeps
  * its search field inside the list.
  */
-export function ComboboxTrigger({
-  className,
-  children,
-  ...props
-}: ComboboxTriggerProps) {
+export function ComboboxTrigger({ className, children, ...props }: ComboboxTriggerProps) {
   return (
     <ComboboxPrimitive.Trigger
       data-slot="combobox-trigger"
-      aria-label={children == null ? "Show options" : undefined}
+      aria-label={children == null ? 'Show options' : undefined}
       {...props}
-      className={stateClassName<ComboboxPrimitive.Trigger.State>(
-        "sprout-combobox-trigger",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Trigger.State>('sprout-combobox-trigger', className)}
     >
       {children}
-      <ChevronDown
-        aria-hidden="true"
-        className="sprout-combobox-trigger-icon"
-      />
+      <ChevronDown aria-hidden="true" className="sprout-combobox-trigger-icon" />
     </ComboboxPrimitive.Trigger>
   );
 }
@@ -77,20 +62,14 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
       aria-label="Clear selection"
       render={<InputGroupButton variant="ghost" size="icon-xs" />}
       {...props}
-      className={stateClassName<ComboboxPrimitive.Clear.State>(
-        "sprout-combobox-clear",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Clear.State>('sprout-combobox-clear', className)}
     >
       <X aria-hidden="true" />
     </ComboboxPrimitive.Clear>
   );
 }
 
-export interface ComboboxInputProps extends Omit<
-  ComboboxPrimitive.Input.Props,
-  "className"
-> {
+export interface ComboboxInputProps extends Omit<ComboboxPrimitive.Input.Props, 'className'> {
   /** Classes for the surrounding `InputGroup`. */
   className?: string;
   /** Shows the chevron button that opens the list. On by default. */
@@ -117,12 +96,8 @@ export function ComboboxInput({
   ...props
 }: ComboboxInputProps) {
   return (
-    <InputGroup className={cn("sprout-combobox-input-group", className)}>
-      <ComboboxPrimitive.Input
-        render={<InputGroupInput />}
-        disabled={disabled}
-        {...props}
-      />
+    <InputGroup className={cn('sprout-combobox-input-group', className)}>
+      <ComboboxPrimitive.Input render={<InputGroupInput />} disabled={disabled} {...props} />
       <InputGroupAddon align="inline-end">
         {showTrigger && (
           <InputGroupButton
@@ -143,11 +118,10 @@ export function ComboboxInput({
 
 type PositionerProps = Pick<
   ComboboxPrimitive.Positioner.Props,
-  "side" | "align" | "sideOffset" | "alignOffset" | "anchor"
+  'side' | 'align' | 'sideOffset' | 'alignOffset' | 'anchor'
 >;
 
-export interface ComboboxContentProps
-  extends ComboboxPrimitive.Popup.Props, PositionerProps {}
+export interface ComboboxContentProps extends ComboboxPrimitive.Popup.Props, PositionerProps {}
 
 /**
  * The list surface. It renders its own portal and positioner, opens below
@@ -157,9 +131,9 @@ export interface ComboboxContentProps
  */
 export function ComboboxContent({
   className,
-  side = "bottom",
+  side = 'bottom',
   sideOffset = 6,
-  align = "start",
+  align = 'start',
   alignOffset = 0,
   anchor,
   ...props
@@ -179,10 +153,7 @@ export function ComboboxContent({
           data-slot="combobox-content"
           data-chips={!!anchor}
           {...props}
-          className={stateClassName<ComboboxPrimitive.Popup.State>(
-            "sprout-combobox-content",
-            className,
-          )}
+          className={stateClassName<ComboboxPrimitive.Popup.State>('sprout-combobox-content', className)}
         />
       </ComboboxPrimitive.Positioner>
     </ComboboxPrimitive.Portal>
@@ -197,10 +168,7 @@ export function ComboboxList({ className, ...props }: ComboboxListProps) {
     <ComboboxPrimitive.List
       data-slot="combobox-list"
       {...props}
-      className={stateClassName<ComboboxPrimitive.List.State>(
-        "sprout-combobox-list",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.List.State>('sprout-combobox-list', className)}
     />
   );
 }
@@ -208,25 +176,15 @@ export function ComboboxList({ className, ...props }: ComboboxListProps) {
 export type ComboboxItemProps = ComboboxPrimitive.Item.Props;
 
 /** One choice. Long text wraps. A check mark shows when it is chosen. */
-export function ComboboxItem({
-  className,
-  children,
-  ...props
-}: ComboboxItemProps) {
+export function ComboboxItem({ className, children, ...props }: ComboboxItemProps) {
   return (
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
       {...props}
-      className={stateClassName<ComboboxPrimitive.Item.State>(
-        "sprout-combobox-item",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Item.State>('sprout-combobox-item', className)}
     >
       {children}
-      <ComboboxPrimitive.ItemIndicator
-        className="sprout-combobox-item-indicator"
-        render={<span />}
-      >
+      <ComboboxPrimitive.ItemIndicator className="sprout-combobox-item-indicator" render={<span />}>
         <Check aria-hidden="true" />
       </ComboboxPrimitive.ItemIndicator>
     </ComboboxPrimitive.Item>
@@ -241,10 +199,7 @@ export function ComboboxGroup({ className, ...props }: ComboboxGroupProps) {
     <ComboboxPrimitive.Group
       data-slot="combobox-group"
       {...props}
-      className={stateClassName<ComboboxPrimitive.Group.State>(
-        "sprout-combobox-group",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Group.State>('sprout-combobox-group', className)}
     />
   );
 }
@@ -257,10 +212,7 @@ export function ComboboxLabel({ className, ...props }: ComboboxLabelProps) {
     <ComboboxPrimitive.GroupLabel
       data-slot="combobox-label"
       {...props}
-      className={stateClassName<ComboboxPrimitive.GroupLabel.State>(
-        "sprout-combobox-label",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.GroupLabel.State>('sprout-combobox-label', className)}
     />
   );
 }
@@ -269,9 +221,7 @@ export type ComboboxCollectionProps = ComboboxPrimitive.Collection.Props;
 
 /** Renders the filtered items of the surrounding group with a function child. */
 export function ComboboxCollection(props: ComboboxCollectionProps) {
-  return (
-    <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />
-  );
+  return <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />;
 }
 
 export type ComboboxEmptyProps = ComboboxPrimitive.Empty.Props;
@@ -286,28 +236,19 @@ export function ComboboxEmpty({ className, ...props }: ComboboxEmptyProps) {
     <ComboboxPrimitive.Empty
       data-slot="combobox-empty"
       {...props}
-      className={stateClassName<ComboboxPrimitive.Empty.State>(
-        "sprout-combobox-empty",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Empty.State>('sprout-combobox-empty', className)}
     />
   );
 }
 
 export type ComboboxSeparatorProps = ComboboxPrimitive.Separator.Props;
 
-export function ComboboxSeparator({
-  className,
-  ...props
-}: ComboboxSeparatorProps) {
+export function ComboboxSeparator({ className, ...props }: ComboboxSeparatorProps) {
   return (
     <ComboboxPrimitive.Separator
       data-slot="combobox-separator"
       {...props}
-      className={stateClassName<ComboboxPrimitive.Separator.State>(
-        "sprout-combobox-separator",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Separator.State>('sprout-combobox-separator', className)}
     />
   );
 }
@@ -324,10 +265,7 @@ export function ComboboxChips({ className, ...props }: ComboboxChipsProps) {
     <ComboboxPrimitive.Chips
       data-slot="combobox-chips"
       {...props}
-      className={stateClassName<ComboboxPrimitive.Chips.State>(
-        "sprout-combobox-chips",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Chips.State>('sprout-combobox-chips', className)}
     />
   );
 }
@@ -338,27 +276,17 @@ export interface ComboboxChipProps extends ComboboxPrimitive.Chip.Props {
 }
 
 /** One chosen value inside `ComboboxChips`. */
-export function ComboboxChip({
-  className,
-  children,
-  showRemove = true,
-  ...props
-}: ComboboxChipProps) {
+export function ComboboxChip({ className, children, showRemove = true, ...props }: ComboboxChipProps) {
   return (
     <ComboboxPrimitive.Chip
       data-slot="combobox-chip"
       {...props}
-      className={stateClassName<ComboboxPrimitive.Chip.State>(
-        "sprout-combobox-chip",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Chip.State>('sprout-combobox-chip', className)}
     >
       {children}
       {showRemove && (
         <ComboboxPrimitive.ChipRemove
-          aria-label={
-            typeof children === "string" ? `Remove ${children}` : "Remove item"
-          }
+          aria-label={typeof children === 'string' ? `Remove ${children}` : 'Remove item'}
           render={<Button variant="ghost" size="icon-xs" />}
           className="sprout-combobox-chip-remove"
           data-slot="combobox-chip-remove"
@@ -373,18 +301,12 @@ export function ComboboxChip({
 export type ComboboxChipsInputProps = ComboboxPrimitive.Input.Props;
 
 /** The text input that sits after the chips and fills the rest of the row. */
-export function ComboboxChipsInput({
-  className,
-  ...props
-}: ComboboxChipsInputProps) {
+export function ComboboxChipsInput({ className, ...props }: ComboboxChipsInputProps) {
   return (
     <ComboboxPrimitive.Input
       data-slot="combobox-chip-input"
       {...props}
-      className={stateClassName<ComboboxPrimitive.Input.State>(
-        "sprout-combobox-chips-input",
-        className,
-      )}
+      className={stateClassName<ComboboxPrimitive.Input.State>('sprout-combobox-chips-input', className)}
     />
   );
 }

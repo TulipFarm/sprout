@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { Copy } from "reicon-react/icons/Copy";
-import { ThumbsDown } from "reicon-react/icons/ThumbsDown";
-import { ThumbsUp } from "reicon-react/icons/ThumbsUp";
-import { cn } from "../internal/classes.js";
-import { Button } from "./button.js";
+import { useState } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { Copy } from 'reicon-react/icons/Copy';
+import { ThumbsDown } from 'reicon-react/icons/ThumbsDown';
+import { ThumbsUp } from 'reicon-react/icons/ThumbsUp';
+import { cn } from '../internal/classes.js';
+import { Button } from './button.js';
 
-export const messageActionsAuthorNames = ["assistant", "human"] as const;
+export const messageActionsAuthorNames = ['assistant', 'human'] as const;
 
 export type MessageActionsAuthor = (typeof messageActionsAuthorNames)[number];
 
-export type MessageFeedback = "up" | "down";
+export type MessageFeedback = 'up' | 'down';
 
 export interface MessageActionsProps {
   /** The Markdown the message was written in. Copy turns links into `label (url)` plain text. */
@@ -41,31 +41,26 @@ const markdownLink = /\[([^\]]*)\]\(<?([^)\s>]+)>?(?:\s+"[^"]*")?\)/g;
 
 function plainTextFromMarkdown(markdown: string) {
   return markdown
-    .replace(markdownLink, (_, label: string, url: string) =>
-      !label || label === url ? url : `${label} (${url})`,
-    )
-    .replace(/<(https?:\/\/[^>\s]+)>/g, "$1");
+    .replace(markdownLink, (_, label: string, url: string) => (!label || label === url ? url : `${label} (${url})`))
+    .replace(/<(https?:\/\/[^>\s]+)>/g, '$1');
 }
 
 function formatDate(options: Intl.DateTimeFormatOptions, date: Date) {
-  return Number.isNaN(date.getTime())
-    ? date.toString()
-    : new Intl.DateTimeFormat([], options).format(date);
+  return Number.isNaN(date.getTime()) ? date.toString() : new Intl.DateTimeFormat([], options).format(date);
 }
 
-const startOfDay = (date: Date) =>
-  new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
 
 function messageTime(iso: string, now = new Date()) {
   const date = new Date(iso);
-  const time = formatDate({ hour: "numeric", minute: "2-digit" }, date);
+  const time = formatDate({ hour: 'numeric', minute: '2-digit' }, date);
   const days = Math.round((startOfDay(now) - startOfDay(date)) / 86_400_000);
   if (days === 0) return time;
   if (days === 1) return `Yesterday ${time}`;
   const day = formatDate(
     date.getFullYear() === now.getFullYear()
-      ? { month: "short", day: "numeric" }
-      : { month: "short", day: "numeric", year: "numeric" },
+      ? { month: 'short', day: 'numeric' }
+      : { month: 'short', day: 'numeric', year: 'numeric' },
     date,
   );
   return `${day}, ${time}`;
@@ -74,7 +69,7 @@ function messageTime(iso: string, now = new Date()) {
 /** Copy, send time, feedback, and regenerate for one chat message. */
 export function MessageActions({
   text,
-  author = "assistant",
+  author = 'assistant',
   createdAt,
   html,
   hover = false,
@@ -84,63 +79,51 @@ export function MessageActions({
   disabled = false,
   className,
 }: MessageActionsProps) {
-  const [copy, setCopy] = useState<"idle" | "copied" | "error">("idle");
-  const noun = author === "human" ? "message" : "response";
-  const Noun = author === "human" ? "Message" : "Response";
+  const [copy, setCopy] = useState<'idle' | 'copied' | 'error'>('idle');
+  const noun = author === 'human' ? 'message' : 'response';
+  const Noun = author === 'human' ? 'Message' : 'Response';
   const copyText = async () => {
     const plain = plainTextFromMarkdown(text);
     const rich = html?.();
     try {
-      if (rich && typeof ClipboardItem !== "undefined")
+      if (rich && typeof ClipboardItem !== 'undefined')
         await navigator.clipboard.write([
           new ClipboardItem({
-            "text/html": new Blob([rich], { type: "text/html" }),
-            "text/plain": new Blob([plain], { type: "text/plain" }),
+            'text/html': new Blob([rich], { type: 'text/html' }),
+            'text/plain': new Blob([plain], { type: 'text/plain' }),
           }),
         ]);
       else await navigator.clipboard.writeText(plain);
-      setCopy("copied");
+      setCopy('copied');
     } catch {
-      setCopy("error");
+      setCopy('error');
     }
   };
-  const rate = (value: MessageFeedback) =>
-    onFeedback?.(feedback === value ? null : value);
+  const rate = (value: MessageFeedback) => onFeedback?.(feedback === value ? null : value);
   return (
-    <div
-      data-slot="message-actions"
-      data-author={author}
-      className={cn("sprout-message-actions", className)}
-    >
+    <div data-slot="message-actions" data-author={author} className={cn('sprout-message-actions', className)}>
       <div
         role="group"
         aria-label={`${Noun} actions`}
-        data-hover={hover ? "" : undefined}
+        data-hover={hover ? '' : undefined}
         className="sprout-message-actions-row"
       >
         <Button
           variant="ghost"
           size="icon-sm"
           disabled={disabled}
-          aria-label={copy === "copied" ? `${Noun} copied` : `Copy ${noun}`}
+          aria-label={copy === 'copied' ? `${Noun} copied` : `Copy ${noun}`}
           title={`Copy ${noun}`}
-          data-copied={copy === "copied" ? "" : undefined}
+          data-copied={copy === 'copied' ? '' : undefined}
           onClick={() => void copyText()}
         >
-          {copy === "copied" ? (
-            <Check size={16} aria-hidden="true" />
-          ) : (
-            <Copy size={16} aria-hidden="true" />
-          )}
+          {copy === 'copied' ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
         </Button>
         {createdAt && (
           <time
             className="sprout-message-actions-time"
             dateTime={createdAt}
-            title={formatDate(
-              { dateStyle: "full", timeStyle: "medium" },
-              new Date(createdAt),
-            )}
+            title={formatDate({ dateStyle: 'full', timeStyle: 'medium' }, new Date(createdAt))}
           >
             {messageTime(createdAt)}
           </time>
@@ -148,47 +131,42 @@ export function MessageActions({
         {onFeedback && (
           <>
             <Button
-              variant={feedback === "up" ? "secondary" : "ghost"}
+              variant={feedback === 'up' ? 'secondary' : 'ghost'}
               size="icon-sm"
               disabled={disabled}
               aria-label="Helpful response"
-              aria-pressed={feedback === "up"}
+              aria-pressed={feedback === 'up'}
               title="Helpful"
-              onClick={() => rate("up")}
+              onClick={() => rate('up')}
             >
               <ThumbsUp size={16} aria-hidden="true" />
             </Button>
             <Button
-              variant={feedback === "down" ? "secondary" : "ghost"}
+              variant={feedback === 'down' ? 'secondary' : 'ghost'}
               size="icon-sm"
               disabled={disabled}
               aria-label="Unhelpful response"
-              aria-pressed={feedback === "down"}
+              aria-pressed={feedback === 'down'}
               title="Unhelpful"
-              onClick={() => rate("down")}
+              onClick={() => rate('down')}
             >
               <ThumbsDown size={16} aria-hidden="true" />
             </Button>
           </>
         )}
         {onRetry && (
-          <Button
-            variant="ghost"
-            size="sm"
-            disabled={disabled}
-            onClick={onRetry}
-          >
+          <Button variant="ghost" size="sm" disabled={disabled} onClick={onRetry}>
             Regenerate
           </Button>
         )}
       </div>
-      {copy === "error" && (
+      {copy === 'error' && (
         <p role="alert" className="sprout-message-actions-error">
           Couldn't copy. Select the {noun} text or try again.
         </p>
       )}
       <span role="status" className="sprout-message-actions-sr-only">
-        {copy === "copied" ? `${Noun} copied to clipboard.` : ""}
+        {copy === 'copied' ? `${Noun} copied to clipboard.` : ''}
       </span>
     </div>
   );
@@ -203,18 +181,13 @@ export interface MessageBranchProps {
 }
 
 /** Steps between regenerated versions of one response. */
-export function MessageBranch({
-  index,
-  total,
-  onChange,
-  className,
-}: MessageBranchProps) {
+export function MessageBranch({ index, total, onChange, className }: MessageBranchProps) {
   return (
     <div
       data-slot="message-branch"
       role="group"
       aria-label="Response versions"
-      className={cn("sprout-message-branch", className)}
+      className={cn('sprout-message-branch', className)}
     >
       <Button
         variant="ghost"

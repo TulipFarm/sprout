@@ -7,16 +7,15 @@
  * @fontsource-variable/inter) or the system font is used.
  */
 @layer base {
-  [data-sprout-theme="tulipfarm"] {
-    --sprout-font:
-      "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  [data-sprout-theme='tulipfarm'] {
+    --sprout-font: 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
     --sprout-radius-control: 0.5rem;
     --sprout-radius-panel: 0.75rem;
   }
 
-  [data-sprout-theme="tulipfarm"],
-  .light[data-sprout-theme="tulipfarm"],
-  .light [data-sprout-theme="tulipfarm"] {
+  [data-sprout-theme='tulipfarm'],
+  .light[data-sprout-theme='tulipfarm'],
+  .light [data-sprout-theme='tulipfarm'] {
     --sprout-canvas: #f9f9fa;
     --sprout-surface: #ffffff;
     --sprout-hover: #f5f5f7;
@@ -47,8 +46,8 @@
     --sprout-overlay: rgb(32 33 36 / 0.25);
   }
 
-  .dark[data-sprout-theme="tulipfarm"],
-  .dark [data-sprout-theme="tulipfarm"] {
+  .dark[data-sprout-theme='tulipfarm'],
+  .dark [data-sprout-theme='tulipfarm'] {
     --sprout-canvas: #101113;
     --sprout-surface: #16171a;
     --sprout-hover: #202125;
@@ -80,8 +79,8 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark)[data-sprout-theme="tulipfarm"],
-    :root:not(.light):not(.dark) [data-sprout-theme="tulipfarm"] {
+    :root:not(.light):not(.dark)[data-sprout-theme='tulipfarm'],
+    :root:not(.light):not(.dark) [data-sprout-theme='tulipfarm'] {
       --sprout-canvas: #101113;
       --sprout-surface: #16171a;
       --sprout-hover: #202125;

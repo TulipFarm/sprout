@@ -1,30 +1,23 @@
-"use client";
+'use client';
 
-import {
-  Panel,
-  useNodesInitialized,
-  useReactFlow,
-  useStore,
-  type FitViewOptions,
-  type Node,
-} from "@xyflow/react";
-import { useEffect, useSyncExternalStore, type KeyboardEvent } from "react";
-import { Add } from "reicon-react/icons/Add";
-import { Minus } from "reicon-react/icons/Minus";
-import { Scan } from "reicon-react/icons/Scan";
-import { Button } from "../components/button.js";
+import { Panel, useNodesInitialized, useReactFlow, useStore, type FitViewOptions, type Node } from '@xyflow/react';
+import { useEffect, useSyncExternalStore, type KeyboardEvent } from 'react';
+import { Add } from 'reicon-react/icons/Add';
+import { Minus } from 'reicon-react/icons/Minus';
+import { Scan } from 'reicon-react/icons/Scan';
+import { Button } from '../components/button.js';
 
 export const flowMinZoom = 0.2;
 export const flowMaxZoom = 1.5;
 const panStep = 48;
 
-const mobileQuery = "(max-width: 767px)";
-const motionQuery = "(prefers-reduced-motion: reduce)";
+const mobileQuery = '(max-width: 767px)';
+const motionQuery = '(prefers-reduced-motion: reduce)';
 
 function subscribeMobile(callback: () => void) {
   const media = window.matchMedia(mobileQuery);
-  media.addEventListener("change", callback);
-  return () => media.removeEventListener("change", callback);
+  media.addEventListener('change', callback);
+  return () => media.removeEventListener('change', callback);
 }
 
 export function useViewportMobile() {
@@ -36,24 +29,16 @@ export function useViewportMobile() {
 }
 
 export const motion = (ms: number) =>
-  typeof window !== "undefined" && window.matchMedia(motionQuery).matches
-    ? 0
-    : ms;
+  typeof window !== 'undefined' && window.matchMedia(motionQuery).matches ? 0 : ms;
 
 /**
  * Refits whenever the pane resizes or the nodes change. The canvas panel
  * animates open, so the first fit sees a narrower pane than the final one.
  */
-export function FitOnResize({
-  nodes,
-  fit,
-}: {
-  nodes: readonly Node[];
-  fit: FitViewOptions;
-}) {
+export function FitOnResize({ nodes, fit }: { nodes: readonly Node[]; fit: FitViewOptions }) {
   const { fitView } = useReactFlow();
-  const width = useStore((state) => state.width);
-  const height = useStore((state) => state.height);
+  const width = useStore(state => state.width);
+  const height = useStore(state => state.height);
   const measured = useNodesInitialized();
   useEffect(() => {
     if (!measured) return;
@@ -69,13 +54,13 @@ export function ZoomControls({
   className,
   slot,
 }: {
-  position: "top-right" | "bottom-right";
+  position: 'top-right' | 'bottom-right';
   fit: FitViewOptions;
   className: string;
   slot: string;
 }) {
   const { zoomIn, zoomOut, fitView } = useReactFlow();
-  const zoom = useStore((state) => state.transform[2]);
+  const zoom = useStore(state => state.transform[2]);
   return (
     <Panel
       position={position}
@@ -124,11 +109,7 @@ export function useKeyboardView(fit: FitViewOptions) {
   return (event: KeyboardEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
     if (event.altKey || event.ctrlKey || event.metaKey) return;
-    if (
-      target !== event.currentTarget &&
-      !target.classList.contains("react-flow__node")
-    )
-      return;
+    if (target !== event.currentTarget && !target.classList.contains('react-flow__node')) return;
     const step = panStep * (event.shiftKey ? 4 : 1);
     const pan: Record<string, [number, number]> = {
       ArrowLeft: [step, 0],
@@ -139,15 +120,12 @@ export function useKeyboardView(fit: FitViewOptions) {
     const move = pan[event.key];
     if (move) {
       const { x, y, zoom } = getViewport();
-      void setViewport(
-        { x: x + move[0], y: y + move[1], zoom },
-        { duration: motion(120) },
-      );
-    } else if (event.key === "+" || event.key === "=") {
+      void setViewport({ x: x + move[0], y: y + move[1], zoom }, { duration: motion(120) });
+    } else if (event.key === '+' || event.key === '=') {
       void zoomIn({ duration: motion(160) });
-    } else if (event.key === "-" || event.key === "_") {
+    } else if (event.key === '-' || event.key === '_') {
       void zoomOut({ duration: motion(160) });
-    } else if (event.key === "0") {
+    } else if (event.key === '0') {
       void fitView({ ...fit, duration: motion(180) });
     } else return;
     event.preventDefault();

@@ -6,7 +6,7 @@ body:
     id: component
     attributes:
       label: Component
-      placeholder: "@tulipfarm/sprout/button"
+      placeholder: '@tulipfarm/sprout/button'
     validations:
       required: true
   - type: textarea
@@ -26,4 +26,4 @@ body:
     id: env
     attributes:
       label: Versions
-      placeholder: "sprout 0.1.0, react 19.x, tailwindcss 4.x, browser"
+      placeholder: 'sprout 0.1.0, react 19.x, tailwindcss 4.x, browser'

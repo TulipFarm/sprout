@@ -101,11 +101,10 @@
 }
 .avatar-option {
   cursor: pointer;
-  transition: background-color var(--sprout-motion-fast)
-    var(--sprout-motion-ease);
+  transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
 }
 .avatar-option:hover,
-.avatar-option[aria-selected="true"] {
+.avatar-option[aria-selected='true'] {
   background: var(--sprout-hover);
 }
 .avatar-list-copy {

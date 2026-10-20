@@ -1,13 +1,13 @@
-import { useState, type ReactNode } from "react";
-import { Popover } from "@base-ui/react/popover";
-import { ArrowRight } from "reicon-react/icons/ArrowRight";
-import { Calendar } from "reicon-react/icons/Calendar";
-import { Check } from "reicon-react/icons/Check";
-import { Database } from "reicon-react/icons/Database";
-import { FilePdf } from "reicon-react/icons/FilePdf";
-import { Plug } from "reicon-react/icons/Plug";
-import { Sparkle } from "reicon-react/icons/Sparkle";
-import { Badge, type BadgeVariant } from "@tulipfarm/sprout/badge";
+import { useState, type ReactNode } from 'react';
+import { Popover } from '@base-ui/react/popover';
+import { ArrowRight } from 'reicon-react/icons/ArrowRight';
+import { Calendar } from 'reicon-react/icons/Calendar';
+import { Check } from 'reicon-react/icons/Check';
+import { Database } from 'reicon-react/icons/Database';
+import { FilePdf } from 'reicon-react/icons/FilePdf';
+import { Plug } from 'reicon-react/icons/Plug';
+import { Sparkle } from 'reicon-react/icons/Sparkle';
+import { Badge, type BadgeVariant } from '@tulipfarm/sprout/badge';
 import {
   BrandIcon,
   BrandStack,
@@ -17,22 +17,14 @@ import {
   type Brand,
   type BrandIconSize,
   type BrandStackItem,
-} from "@tulipfarm/sprout/brand-icon";
-import { Button } from "@tulipfarm/sprout/button";
-import DocsSelect from "./DocsSelect";
-import "../styles/brand-icon-demo.css";
+} from '@tulipfarm/sprout/brand-icon';
+import { Button } from '@tulipfarm/sprout/button';
+import DocsSelect from './DocsSelect';
+import '../styles/brand-icon-demo.css';
 
 const brands = Object.keys(brandNames) as Brand[];
 
-function Frame({
-  title,
-  children,
-  label,
-}: {
-  title: string;
-  children: ReactNode;
-  label?: string;
-}) {
+function Frame({ title, children, label }: { title: string; children: ReactNode; label?: string }) {
   return (
     <section className="brand-demo-frame" aria-label={label ?? title}>
       <div className="brand-demo-bar">{title}</div>
@@ -42,8 +34,8 @@ function Frame({
 }
 
 export function BrandIconPlayground() {
-  const [brand, setBrand] = useState<Brand>("google-calendar");
-  const [size, setSize] = useState<BrandIconSize>("md");
+  const [brand, setBrand] = useState<Brand>('google-calendar');
+  const [size, setSize] = useState<BrandIconSize>('md');
   return (
     <section className="brand-demo-frame" aria-label="Brand icon playground">
       <div className="brand-demo-toolbar">
@@ -53,7 +45,7 @@ export function BrandIconPlayground() {
             label="Brand"
             value={brand}
             onValueChange={setBrand}
-            items={brands.map((value) => ({
+            items={brands.map(value => ({
               value,
               label: brandNames[value],
             }))}
@@ -65,12 +57,12 @@ export function BrandIconPlayground() {
             label="Brand icon size"
             value={size}
             onValueChange={setSize}
-            items={brandIconSizeNames.map((value) => ({ value, label: value }))}
+            items={brandIconSizeNames.map(value => ({ value, label: value }))}
           />
         </label>
       </div>
       <div className="brand-demo-stage" data-testid="playground-stage">
-        {size === "fill" ? (
+        {size === 'fill' ? (
           <span className="brand-demo-fill-box">
             <BrandIcon brand={brand} size="fill" />
           </span>
@@ -99,11 +91,7 @@ const sizeSamples: Record<BrandIconSize, ReactNode> = {
     </span>
   ),
   fill: (
-    <BrandTile
-      size="action"
-      render={<Button variant="ghost" size="icon" />}
-      aria-label="Slack actions"
-    >
+    <BrandTile size="action" render={<Button variant="ghost" size="icon" />} aria-label="Slack actions">
       <BrandIcon brand="slack" size="fill" />
     </BrandTile>
   ),
@@ -149,7 +137,7 @@ export function BrandIconSizes() {
   return (
     <Frame title="Sizes">
       <ul className="brand-demo-size-list">
-        {brandIconSizeNames.map((size) => (
+        {brandIconSizeNames.map(size => (
           <li key={size} data-size-sample={size}>
             <code>{size}</code>
             <div>{sizeSamples[size]}</div>
@@ -164,7 +152,7 @@ export function BrandCatalog() {
   return (
     <Frame title={`Brand catalog · ${brands.length} brands`}>
       <ul className="brand-demo-catalog" aria-label="Brand catalog">
-        {brands.map((brand) => (
+        {brands.map(brand => (
           <li key={brand} data-catalog-brand={brand}>
             <BrandIcon brand={brand} />
             <span>{brandNames[brand]}</span>
@@ -176,22 +164,22 @@ export function BrandCatalog() {
 }
 
 const models: { brand: Brand; name: string; detail: string }[] = [
-  { brand: "claude", name: "Claude Sonnet 4.5", detail: "Default" },
-  { brand: "openai", name: "GPT-5", detail: "Analytics team" },
-  { brand: "deepseek", name: "DeepSeek V3", detail: "Off" },
-  { brand: "grok", name: "Grok 4", detail: "Off" },
-  { brand: "kimi", name: "Kimi K2", detail: "Off" },
-  { brand: "google", name: "Gemini 2.5 Pro", detail: "Engineering" },
+  { brand: 'claude', name: 'Claude Sonnet 4.5', detail: 'Default' },
+  { brand: 'openai', name: 'GPT-5', detail: 'Analytics team' },
+  { brand: 'deepseek', name: 'DeepSeek V3', detail: 'Off' },
+  { brand: 'grok', name: 'Grok 4', detail: 'Off' },
+  { brand: 'kimi', name: 'Kimi K2', detail: 'Off' },
+  { brand: 'google', name: 'Gemini 2.5 Pro', detail: 'Engineering' },
 ];
 
 const toolRows: { brand: Brand | null; label: string }[] = [
-  { brand: "google-sheets", label: "Read the Pipeline sheet" },
-  { brand: "gmail", label: "Searched the inbox for invoices" },
-  { brand: "slack", label: "Posted in #support" },
-  { brand: "github", label: "Opened issue #482" },
-  { brand: "confluence", label: "Read the Onboarding page" },
-  { brand: "jira", label: "Searched the Support board" },
-  { brand: null, label: "Updated the Leads table" },
+  { brand: 'google-sheets', label: 'Read the Pipeline sheet' },
+  { brand: 'gmail', label: 'Searched the inbox for invoices' },
+  { brand: 'slack', label: 'Posted in #support' },
+  { brand: 'github', label: 'Opened issue #482' },
+  { brand: 'confluence', label: 'Read the Onboarding page' },
+  { brand: 'jira', label: 'Searched the Support board' },
+  { brand: null, label: 'Updated the Leads table' },
 ];
 
 export function InlineCompositions() {
@@ -214,11 +202,7 @@ export function InlineCompositions() {
               <strong>Quarterly planning with the leadership team</strong>
               <small>13:00 – 15:00 · No call link</small>
             </span>
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label="Open Quarterly planning in Google Calendar"
-            >
+            <Button variant="ghost" size="sm" aria-label="Open Quarterly planning in Google Calendar">
               <BrandIcon brand="google-calendar" size="inline" />
               Open
             </Button>
@@ -234,7 +218,7 @@ export function InlineCompositions() {
       </Frame>
       <Frame title="Model picker">
         <ul className="brand-demo-list" aria-label="Models">
-          {models.map((model) => (
+          {models.map(model => (
             <li key={model.brand} className="brand-demo-option">
               <BrandIcon brand={model.brand} size="inline" />
               <span className="brand-demo-truncate">{model.name}</span>
@@ -245,13 +229,9 @@ export function InlineCompositions() {
       </Frame>
       <Frame title="Tool activity">
         <ul className="brand-demo-list" aria-label="Tool activity">
-          {toolRows.map((row) => (
+          {toolRows.map(row => (
             <li key={row.label} className="brand-demo-option">
-              {row.brand ? (
-                <BrandIcon brand={row.brand} size="inline" />
-              ) : (
-                <Database size={14} aria-hidden="true" />
-              )}
+              {row.brand ? <BrandIcon brand={row.brand} size="inline" /> : <Database size={14} aria-hidden="true" />}
               <span className="brand-demo-truncate">{row.label}</span>
             </li>
           ))}
@@ -260,17 +240,13 @@ export function InlineCompositions() {
       <Frame title="Agent channels and Drive files">
         <p className="brand-demo-note">
           <BrandIcon brand="slack" size="inline" />
-          <span>
-            Linked workspace members can talk to this agent in these channels.
-          </span>
+          <span>Linked workspace members can talk to this agent in these channels.</span>
         </p>
         <p className="brand-demo-note brand-demo-muted">
           <BrandIcon brand="google-drive" size="inline" />
           <span className="brand-demo-truncate">
-            Live from Google Drive ·{" "}
-            <span className="brand-demo-strong">
-              alex.meadow@northwind-landscaping.example
-            </span>
+            Live from Google Drive ·{' '}
+            <span className="brand-demo-strong">alex.meadow@northwind-landscaping.example</span>
           </span>
         </p>
         <p className="brand-demo-note">
@@ -295,17 +271,17 @@ export function InlineCompositions() {
 }
 
 const driveFiles: { brand: Brand | null; name: string }[] = [
-  { brand: "google-docs", name: "Customer onboarding playbook" },
-  { brand: "google-sheets", name: "FY26 pipeline forecast" },
-  { brand: "google-slides", name: "Q3 board deck" },
-  { brand: "google-forms", name: "Event RSVP form" },
-  { brand: null, name: "Signed MSA – Northwind.pdf" },
+  { brand: 'google-docs', name: 'Customer onboarding playbook' },
+  { brand: 'google-sheets', name: 'FY26 pipeline forecast' },
+  { brand: 'google-slides', name: 'Q3 board deck' },
+  { brand: 'google-forms', name: 'Event RSVP form' },
+  { brand: null, name: 'Signed MSA – Northwind.pdf' },
 ];
 
 const workflowSteps: { brand: Brand; title: string }[] = [
-  { brand: "gmail", title: "When a new invoice email arrives" },
-  { brand: "google-sheets", title: "Add a row to Accounts payable" },
-  { brand: "slack", title: "Post a summary in #finance" },
+  { brand: 'gmail', title: 'When a new invoice email arrives' },
+  { brand: 'google-sheets', title: 'Add a row to Accounts payable' },
+  { brand: 'slack', title: 'Post a summary in #finance' },
 ];
 
 export function GlyphCompositions() {
@@ -313,13 +289,9 @@ export function GlyphCompositions() {
     <div className="brand-demo-grid">
       <Frame title="File mentions">
         <ul className="brand-demo-list" aria-label="Google Drive files">
-          {driveFiles.map((file) => (
+          {driveFiles.map(file => (
             <li key={file.name} className="brand-demo-option">
-              {file.brand ? (
-                <BrandIcon brand={file.brand} size="glyph" />
-              ) : (
-                <FilePdf size={20} aria-hidden="true" />
-              )}
+              {file.brand ? <BrandIcon brand={file.brand} size="glyph" /> : <FilePdf size={20} aria-hidden="true" />}
               <span className="brand-demo-truncate">{file.name}</span>
             </li>
           ))}
@@ -327,7 +299,7 @@ export function GlyphCompositions() {
       </Frame>
       <Frame title="Workflow steps">
         <ol className="brand-demo-steps">
-          {workflowSteps.map((step) => (
+          {workflowSteps.map(step => (
             <li key={step.title}>
               <span className="brand-demo-step-identity" aria-hidden="true">
                 <BrandIcon brand={step.brand} size="glyph" />
@@ -368,10 +340,7 @@ export function GlyphCompositions() {
           <BrandIcon brand="google-drive" size="glyph" />
           <span className="brand-demo-text">
             <strong>Google Drive needs to reconnect</strong>
-            <small>
-              Files you mentioned stay in this chat. Reconnect to read them
-              again.
-            </small>
+            <small>Files you mentioned stay in this chat. Reconnect to read them again.</small>
           </span>
           <Button variant="outline" size="sm">
             Reconnect
@@ -389,34 +358,34 @@ const connectedApps: {
   status: [BadgeVariant, string];
 }[] = [
   {
-    brand: "slack",
-    title: "Slack",
-    detail: "Agents reply in #sales and #support",
-    status: ["success", "Connected"],
+    brand: 'slack',
+    title: 'Slack',
+    detail: 'Agents reply in #sales and #support',
+    status: ['success', 'Connected'],
   },
   {
-    brand: "gmail",
-    title: "Gmail",
-    detail: "Reads new mail for heartbeat answers",
-    status: ["success", "Connected"],
+    brand: 'gmail',
+    title: 'Gmail',
+    detail: 'Reads new mail for heartbeat answers',
+    status: ['success', 'Connected'],
   },
   {
-    brand: "google-calendar",
-    title: "Google Calendar",
-    detail: "Books meetings after your approval",
-    status: ["success", "Connected"],
+    brand: 'google-calendar',
+    title: 'Google Calendar',
+    detail: 'Books meetings after your approval',
+    status: ['success', 'Connected'],
   },
   {
-    brand: "jira",
-    title: "Jira",
-    detail: "Searches the Support board",
-    status: ["warning", "Needs attention"],
+    brand: 'jira',
+    title: 'Jira',
+    detail: 'Searches the Support board',
+    status: ['warning', 'Needs attention'],
   },
   {
-    brand: "deepseek",
-    title: "DeepSeek",
-    detail: "Not available to any team",
-    status: ["secondary", "Off"],
+    brand: 'deepseek',
+    title: 'DeepSeek',
+    detail: 'Not available to any team',
+    status: ['secondary', 'Off'],
   },
 ];
 
@@ -427,39 +396,39 @@ const knowledgeSources: {
   status: [BadgeVariant, string];
 }[] = [
   {
-    brand: "github",
-    title: "northwind/storefront-and-checkout-monorepo",
-    detail: "Issues, Pull requests · activity after 2026-01-01 UTC",
-    status: ["secondary", "Synced"],
+    brand: 'github',
+    title: 'northwind/storefront-and-checkout-monorepo',
+    detail: 'Issues, Pull requests · activity after 2026-01-01 UTC',
+    status: ['secondary', 'Synced'],
   },
   {
-    brand: "slack",
-    title: "#customer-escalations",
-    detail: "Messages and threads · 3 selected members",
-    status: ["secondary", "Syncing"],
+    brand: 'slack',
+    title: '#customer-escalations',
+    detail: 'Messages and threads · 3 selected members',
+    status: ['secondary', 'Syncing'],
   },
   {
-    brand: "confluence",
-    title: "Support handbook",
-    detail: "12 pages · 1 failed",
-    status: ["warning", "Needs attention"],
+    brand: 'confluence',
+    title: 'Support handbook',
+    detail: '12 pages · 1 failed',
+    status: ['warning', 'Needs attention'],
   },
   {
-    brand: "gmail",
-    title: "Invoices label",
-    detail: "Mail after 2026-03-01",
-    status: ["secondary", "Synced"],
+    brand: 'gmail',
+    title: 'Invoices label',
+    detail: 'Mail after 2026-03-01',
+    status: ['secondary', 'Synced'],
   },
 ];
 
 const directory: { brand: Brand; blurb: string; action?: string }[] = [
-  { brand: "google", blurb: "Gmail, Calendar, Drive, Docs, and Sheets" },
+  { brand: 'google', blurb: 'Gmail, Calendar, Drive, Docs, and Sheets' },
   {
-    brand: "slack",
-    blurb: "Let agents answer in channels you choose",
-    action: "Settings",
+    brand: 'slack',
+    blurb: 'Let agents answer in channels you choose',
+    action: 'Settings',
   },
-  { brand: "microsoft", blurb: "Outlook, Teams, and OneDrive" },
+  { brand: 'microsoft', blurb: 'Outlook, Teams, and OneDrive' },
 ];
 
 export function TileCompositions() {
@@ -467,7 +436,7 @@ export function TileCompositions() {
     <div className="brand-demo-grid">
       <Frame title="Connected apps · sm">
         <ul className="brand-demo-list brand-demo-rows">
-          {connectedApps.map((app) => (
+          {connectedApps.map(app => (
             <li key={app.brand}>
               <BrandIcon brand={app.brand} size="sm" />
               <span className="brand-demo-text">
@@ -481,7 +450,7 @@ export function TileCompositions() {
       </Frame>
       <Frame title="Knowledge sources · sm">
         <ul className="brand-demo-list brand-demo-rows">
-          {knowledgeSources.map((source) => (
+          {knowledgeSources.map(source => (
             <li key={source.title} aria-label={source.title}>
               <BrandIcon brand={source.brand} size="sm" />
               <span className="brand-demo-text">
@@ -495,19 +464,15 @@ export function TileCompositions() {
       </Frame>
       <Frame title="Integrations directory · md">
         <ul className="brand-demo-list brand-demo-rows">
-          {directory.map((app) => (
+          {directory.map(app => (
             <li key={app.brand}>
               <BrandIcon brand={app.brand} />
               <span className="brand-demo-text">
                 <strong>{brandNames[app.brand]}</strong>
                 <small>{app.blurb}</small>
               </span>
-              <Button
-                variant="outline"
-                size="sm"
-                aria-label={`${app.action ?? "Connect"} ${brandNames[app.brand]}`}
-              >
-                {app.action ?? "Connect"}
+              <Button variant="outline" size="sm" aria-label={`${app.action ?? 'Connect'} ${brandNames[app.brand]}`}>
+                {app.action ?? 'Connect'}
               </Button>
             </li>
           ))}
@@ -522,9 +487,7 @@ export function TileCompositions() {
           <BrandIcon brand="google-drive" size="xl" />
           <span className="brand-demo-text">
             <strong className="brand-demo-title-lg">Google Drive</strong>
-            <small>
-              Connected as alex.meadow@northwind-landscaping.example
-            </small>
+            <small>Connected as alex.meadow@northwind-landscaping.example</small>
           </span>
           <Button>Settings</Button>
         </div>
@@ -533,52 +496,40 @@ export function TileCompositions() {
   );
 }
 
-type ActionState = "completed" | "running" | "failed" | "pending";
+type ActionState = 'completed' | 'running' | 'failed' | 'pending';
 interface ResultApp {
   brand: Brand | null;
   name: string;
   actions: { label: string; state: ActionState }[];
 }
 
-const stateLabels: Record<Exclude<ActionState, "completed">, string> = {
-  failed: "Failed:",
-  running: "In progress:",
-  pending: "Pending:",
+const stateLabels: Record<Exclude<ActionState, 'completed'>, string> = {
+  failed: 'Failed:',
+  running: 'In progress:',
+  pending: 'Pending:',
 };
 
-function AppActions({
-  apps,
-  showNames,
-}: {
-  apps: ResultApp[];
-  showNames: boolean;
-}) {
+function AppActions({ apps, showNames }: { apps: ResultApp[]; showNames: boolean }) {
   return (
     <div className="brand-demo-actions">
-      {apps.map((app) => (
+      {apps.map(app => (
         <section key={app.brand ?? app.name} aria-label={app.name}>
           {showNames && (
             <div className="brand-demo-actions-head">
-              {app.brand ? (
-                <BrandIcon brand={app.brand} size="glyph" />
-              ) : (
-                <Plug size={20} aria-hidden="true" />
-              )}
+              {app.brand ? <BrandIcon brand={app.brand} size="glyph" /> : <Plug size={20} aria-hidden="true" />}
               <h4>{app.name}</h4>
             </div>
           )}
           <ul>
-            {app.actions.map((action) => (
+            {app.actions.map(action => (
               <li key={action.label} data-state={action.state}>
-                {action.state === "completed" ? (
+                {action.state === 'completed' ? (
                   <span className="brand-demo-done">
                     <Check size={16} aria-hidden="true" />
                     <span className="sr-only">Completed:</span>
                   </span>
                 ) : (
-                  <span className="brand-demo-state">
-                    {stateLabels[action.state]}
-                  </span>
+                  <span className="brand-demo-state">{stateLabels[action.state]}</span>
                 )}
                 <span>{action.label}</span>
               </li>
@@ -600,9 +551,7 @@ function AppTile({
   disabled?: boolean;
 }) {
   const first = apps[0]!;
-  const title = overflow
-    ? `${apps.length} more ${apps.length === 1 ? "app" : "apps"}`
-    : `${first.name} actions`;
+  const title = overflow ? `${apps.length} more ${apps.length === 1 ? 'app' : 'apps'}` : `${first.name} actions`;
   return (
     <span className="brand-demo-overlap-item">
       <Popover.Root>
@@ -611,14 +560,7 @@ function AppTile({
           delay={800}
           closeDelay={200}
           aria-label={title}
-          render={
-            <BrandTile
-              size="action"
-              render={
-                <Button variant="ghost" size="icon" disabled={disabled} />
-              }
-            />
-          }
+          render={<BrandTile size="action" render={<Button variant="ghost" size="icon" disabled={disabled} />} />}
         >
           {overflow ? (
             <span className="brand-demo-overflow">+{apps.length}</span>
@@ -629,18 +571,9 @@ function AppTile({
           )}
         </Popover.Trigger>
         <Popover.Portal>
-          <Popover.Positioner
-            align="start"
-            sideOffset={8}
-            className="brand-demo-popover-positioner"
-          >
-            <Popover.Popup
-              className="brand-demo-popover"
-              initialFocus={(type) => type !== "mouse"}
-            >
-              <Popover.Title className="brand-demo-popover-title">
-                {title}
-              </Popover.Title>
+          <Popover.Positioner align="start" sideOffset={8} className="brand-demo-popover-positioner">
+            <Popover.Popup className="brand-demo-popover" initialFocus={type => type !== 'mouse'}>
+              <Popover.Title className="brand-demo-popover-title">{title}</Popover.Title>
               <AppActions apps={apps} showNames={overflow} />
             </Popover.Popup>
           </Popover.Positioner>
@@ -671,16 +604,10 @@ function ResultCard({
     <section className="brand-demo-result" aria-label={`${kind}: ${title}`}>
       {visible.length > 0 && (
         <div role="group" aria-label="Apps used" className="brand-demo-overlap">
-          {visible.map((app) => (
-            <AppTile
-              key={app.brand ?? app.name}
-              apps={[app]}
-              disabled={disabled}
-            />
+          {visible.map(app => (
+            <AppTile key={app.brand ?? app.name} apps={[app]} disabled={disabled} />
           ))}
-          {hidden.length > 0 && (
-            <AppTile apps={hidden} overflow disabled={disabled} />
-          )}
+          {hidden.length > 0 && <AppTile apps={hidden} overflow disabled={disabled} />}
         </div>
       )}
       {!visible.length && icon && <BrandTile>{icon}</BrandTile>}
@@ -696,27 +623,27 @@ function ResultCard({
 
 const workflowApps: ResultApp[] = [
   {
-    brand: "gmail",
-    name: "Gmail",
+    brand: 'gmail',
+    name: 'Gmail',
     actions: [
-      { label: "Found 4 unpaid invoices", state: "completed" },
-      { label: "Drafted reminders", state: "running" },
+      { label: 'Found 4 unpaid invoices', state: 'completed' },
+      { label: 'Drafted reminders', state: 'running' },
     ],
   },
   {
-    brand: "google-sheets",
-    name: "Google Sheets",
-    actions: [{ label: "Updated Accounts payable", state: "completed" }],
+    brand: 'google-sheets',
+    name: 'Google Sheets',
+    actions: [{ label: 'Updated Accounts payable', state: 'completed' }],
   },
   {
-    brand: "slack",
+    brand: 'slack',
     name: brandNames.slack,
-    actions: [{ label: "Post summary in #finance", state: "pending" }],
+    actions: [{ label: 'Post summary in #finance', state: 'pending' }],
   },
   {
     brand: null,
-    name: "Connected apps",
-    actions: [{ label: "Call the billing webhook", state: "failed" }],
+    name: 'Connected apps',
+    actions: [{ label: 'Call the billing webhook', state: 'failed' }],
   },
 ];
 
@@ -724,18 +651,8 @@ export function ResultCardCompositions() {
   return (
     <Frame title="Result cards · action tiles">
       <div className="brand-demo-results">
-        <ResultCard
-          title="Chase unpaid invoices"
-          kind="Workflow"
-          status="Running"
-          apps={workflowApps}
-        />
-        <ResultCard
-          title="Webhook sync"
-          kind="Action"
-          status="Waiting for a connection"
-          apps={[workflowApps[3]!]}
-        />
+        <ResultCard title="Chase unpaid invoices" kind="Workflow" status="Running" apps={workflowApps} />
+        <ResultCard title="Webhook sync" kind="Action" status="Waiting for a connection" apps={[workflowApps[3]!]} />
         <ResultCard
           title="Weekly pipeline report"
           kind="Activity"
@@ -756,29 +673,29 @@ export function ResultCardCompositions() {
 }
 
 const toolBrands: BrandStackItem[] = [
-  { brand: "google", name: "Google Workspace" },
-  { brand: "slack", name: "Slack" },
-  { brand: "github", name: "GitHub" },
-  { brand: "jira", name: "Atlassian" },
+  { brand: 'google', name: 'Google Workspace' },
+  { brand: 'slack', name: 'Slack' },
+  { brand: 'github', name: 'GitHub' },
+  { brand: 'jira', name: 'Atlassian' },
 ];
 
 const prompts: { label: string; brands?: BrandStackItem[] }[] = [
   {
-    label: "Summarize unread email and draft replies",
+    label: 'Summarize unread email and draft replies',
     brands: [
-      { brand: "gmail", name: "Gmail" },
-      { brand: "google-calendar", name: "Google Calendar" },
+      { brand: 'gmail', name: 'Gmail' },
+      { brand: 'google-calendar', name: 'Google Calendar' },
     ],
   },
   {
-    label: "Find open bugs mentioned in #support this week",
+    label: 'Find open bugs mentioned in #support this week',
     brands: [
-      { brand: "slack", name: "Slack" },
-      { brand: "jira", name: "Jira" },
-      { brand: "github", name: "GitHub" },
+      { brand: 'slack', name: 'Slack' },
+      { brand: 'jira', name: 'Jira' },
+      { brand: 'github', name: 'GitHub' },
     ],
   },
-  { label: "Plan my week from the team roadmap" },
+  { label: 'Plan my week from the team roadmap' },
 ];
 
 export function StackCompositions() {
@@ -786,7 +703,7 @@ export function StackCompositions() {
     <div className="brand-demo-grid">
       <Frame title="Prompt list">
         <ul className="brand-demo-prompts" aria-label="Suggested prompts">
-          {prompts.map((prompt) => (
+          {prompts.map(prompt => (
             <li key={prompt.label}>
               <Sparkle size={16} aria-hidden="true" />
               <button type="button" title={prompt.label}>
@@ -831,9 +748,9 @@ export function StackCompositions() {
             <dd>
               <BrandStack
                 brands={[
-                  { brand: "slack", name: "Slack" },
-                  { brand: "notion", name: "Notion" },
-                  { brand: "github", name: "GitHub" },
+                  { brand: 'slack', name: 'Slack' },
+                  { brand: 'notion', name: 'Notion' },
+                  { brand: 'github', name: 'GitHub' },
                 ]}
                 label="Example integrations"
               />
@@ -846,22 +763,22 @@ export function StackCompositions() {
 }
 
 const activity: { tool: string; brand: Brand | null }[] = [
-  { tool: "google.gmail.search", brand: "gmail" },
-  { tool: "github.issues.create", brand: "github" },
-  { tool: "atlassian.jira.search", brand: null },
-  { tool: "web.fetch", brand: null },
+  { tool: 'google.gmail.search', brand: 'gmail' },
+  { tool: 'github.issues.create', brand: 'github' },
+  { tool: 'atlassian.jira.search', brand: null },
+  { tool: 'web.fetch', brand: null },
 ];
 
 export function BrandNameCompositions() {
   return (
     <Frame title="brandNames">
       <ul className="brand-demo-list" aria-label="Activity sources">
-        {activity.map((item) => {
+        {activity.map(item => {
           const name = item.brand
             ? brandNames[item.brand]
-            : item.tool.startsWith("atlassian.")
-              ? "Atlassian"
-              : "Connected apps";
+            : item.tool.startsWith('atlassian.')
+              ? 'Atlassian'
+              : 'Connected apps';
           return (
             <li key={item.tool} className="brand-demo-option">
               <code>{item.tool}</code>

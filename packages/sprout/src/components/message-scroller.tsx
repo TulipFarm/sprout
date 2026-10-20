@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -17,11 +17,11 @@ import {
   type TouchEvent,
   type UIEvent,
   type WheelEvent,
-} from "react";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
-import { ArrowDown } from "reicon-react/icons/ArrowDown";
-import { cn } from "../internal/classes.js";
+} from 'react';
+import { useRender } from '@base-ui/react/use-render';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { ArrowDown } from 'reicon-react/icons/ArrowDown';
+import { cn } from '../internal/classes.js';
 import {
   MessageScrollerController,
   scrollIntentKeys,
@@ -29,8 +29,8 @@ import {
   type MessageScrollerScrollable,
   type MessageScrollerScrollOptions,
   type MessageScrollerVisibilityState,
-} from "../internal/message-scroller.js";
-import { Button, type ButtonSize, type ButtonVariant } from "./button.js";
+} from '../internal/message-scroller.js';
+import { Button, type ButtonSize, type ButtonVariant } from './button.js';
 
 export type {
   MessageScrollerDefaultScrollPosition,
@@ -38,45 +38,30 @@ export type {
   MessageScrollerScrollable,
   MessageScrollerScrollOptions,
   MessageScrollerVisibilityState,
-} from "../internal/message-scroller.js";
+} from '../internal/message-scroller.js';
 
-export const messageScrollerDefaultScrollPositionNames = [
-  "end",
-  "start",
-  "last-anchor",
-] as const;
-export const messageScrollerButtonDirectionNames = ["end", "start"] as const;
-export const messageScrollerScrollAlignNames = [
-  "start",
-  "center",
-  "end",
-  "nearest",
-] as const;
+export const messageScrollerDefaultScrollPositionNames = ['end', 'start', 'last-anchor'] as const;
+export const messageScrollerButtonDirectionNames = ['end', 'start'] as const;
+export const messageScrollerScrollAlignNames = ['start', 'center', 'end', 'nearest'] as const;
 
-export type MessageScrollerButtonDirection =
-  (typeof messageScrollerButtonDirectionNames)[number];
+export type MessageScrollerButtonDirection = (typeof messageScrollerButtonDirectionNames)[number];
 
 const ScrollerContext = createContext<MessageScrollerController | null>(null);
 
 function useController(part: string) {
   const controller = useContext(ScrollerContext);
-  if (!controller)
-    throw new Error(`${part} must be used within a MessageScrollerProvider.`);
+  if (!controller) throw new Error(`${part} must be used within a MessageScrollerProvider.`);
   return controller;
 }
 
 function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
-  if (typeof ref === "function") ref(value);
+  if (typeof ref === 'function') ref(value);
   else if (ref) ref.current = value;
 }
 
 function usePendingDefaultScroll(controller: MessageScrollerController) {
   const store = controller.pendingDefaultStore;
-  return useSyncExternalStore(
-    store.subscribe,
-    store.getSnapshot,
-    store.getSnapshot,
-  );
+  return useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
 }
 
 export interface MessageScrollerProviderProps {
@@ -97,7 +82,7 @@ export interface MessageScrollerProviderProps {
 export function MessageScrollerProvider({
   children,
   autoScroll = false,
-  defaultScrollPosition = "end",
+  defaultScrollPosition = 'end',
   scrollEdgeThreshold = 8,
   scrollPreviousItemPeek = 64,
   scrollMargin = 0,
@@ -111,31 +96,17 @@ export function MessageScrollerProvider({
   };
   const [controller] = useState(() => new MessageScrollerController(options));
   controller.setOptions(options);
-  useLayoutEffect(
-    () => controller.applyDefaultOrSettle(),
-    [controller, defaultScrollPosition],
-  );
-  useLayoutEffect(
-    () => controller.followOnAutoScroll(),
-    [controller, autoScroll],
-  );
+  useLayoutEffect(() => controller.applyDefaultOrSettle(), [controller, defaultScrollPosition]);
+  useLayoutEffect(() => controller.followOnAutoScroll(), [controller, autoScroll]);
   useEffect(() => controller.dispose, [controller]);
-  return (
-    <ScrollerContext.Provider value={controller}>
-      {children}
-    </ScrollerContext.Provider>
-  );
+  return <ScrollerContext.Provider value={controller}>{children}</ScrollerContext.Provider>;
 }
 
-export type MessageScrollerProps = ComponentProps<"div">;
+export type MessageScrollerProps = ComponentProps<'div'>;
 
 /** The positioned frame. Holds the viewport and the jump buttons, and fills its parent. */
-export function MessageScroller({
-  className,
-  ref,
-  ...props
-}: MessageScrollerProps) {
-  const controller = useController("MessageScroller");
+export function MessageScroller({ className, ref, ...props }: MessageScrollerProps) {
+  const controller = useController('MessageScroller');
   const pending = usePendingDefaultScroll(controller);
   const setRef = useCallback(
     (element: HTMLDivElement | null) => {
@@ -148,14 +119,14 @@ export function MessageScroller({
     <div
       data-slot="message-scroller"
       ref={setRef}
-      className={cn("sprout-message-scroller", className)}
+      className={cn('sprout-message-scroller', className)}
       {...props}
-      {...(pending ? { "data-pending-scroll": "" } : null)}
+      {...(pending ? { 'data-pending-scroll': '' } : null)}
     />
   );
 }
 
-export interface MessageScrollerViewportProps extends ComponentProps<"div"> {
+export interface MessageScrollerViewportProps extends ComponentProps<'div'> {
   /** Keep the message you are reading still when older messages load above it. */
   preserveScrollOnPrepend?: boolean | undefined;
 }
@@ -171,10 +142,10 @@ export function MessageScrollerViewport({
   onScroll,
   onTouchMove,
   onWheel,
-  "aria-label": ariaLabel,
+  'aria-label': ariaLabel,
   ...props
 }: MessageScrollerViewportProps) {
-  const controller = useController("MessageScrollerViewport");
+  const controller = useController('MessageScrollerViewport');
   const pending = usePendingDefaultScroll(controller);
   controller.preserveScrollOnPrepend = preserveScrollOnPrepend;
   const setRef = useCallback(
@@ -186,7 +157,7 @@ export function MessageScrollerViewport({
   );
   useEffect(() => {
     const viewport = controller.getViewport();
-    if (!viewport || typeof ResizeObserver === "undefined") return;
+    if (!viewport || typeof ResizeObserver === 'undefined') return;
     let frame = 0;
     const observer = new ResizeObserver(() => {
       cancelAnimationFrame(frame);
@@ -202,10 +173,10 @@ export function MessageScrollerViewport({
     <div
       data-slot="message-scroller-viewport"
       ref={setRef}
-      role={role ?? "region"}
-      aria-label={ariaLabel ?? "Messages"}
+      role={role ?? 'region'}
+      aria-label={ariaLabel ?? 'Messages'}
       tabIndex={tabIndex ?? 0}
-      className={cn("sprout-message-scroller-viewport", className)}
+      className={cn('sprout-message-scroller-viewport', className)}
       onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => {
         if (scrollIntentKeys.has(event.key)) controller.userScrollIntent();
         onKeyDown?.(event);
@@ -223,12 +194,12 @@ export function MessageScrollerViewport({
         onWheel?.(event);
       }}
       {...props}
-      {...(pending ? { "data-pending-scroll": "" } : null)}
+      {...(pending ? { 'data-pending-scroll': '' } : null)}
     />
   );
 }
 
-export interface MessageScrollerContentProps extends ComponentProps<"div"> {
+export interface MessageScrollerContentProps extends ComponentProps<'div'> {
   /** Class for the hidden spacer that lets a pinned turn reach the top edge. */
   spacerClassName?: string | undefined;
 }
@@ -240,10 +211,10 @@ export function MessageScrollerContent({
   ref,
   role,
   spacerClassName,
-  "aria-relevant": ariaRelevant,
+  'aria-relevant': ariaRelevant,
   ...props
 }: MessageScrollerContentProps) {
-  const controller = useController("MessageScrollerContent");
+  const controller = useController('MessageScrollerContent');
   const element = useRef<HTMLDivElement | null>(null);
   const setRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -257,14 +228,14 @@ export function MessageScrollerContent({
     const node = element.current;
     if (!node) return;
     controller.handleContentChange();
-    if (typeof MutationObserver === "undefined") return;
+    if (typeof MutationObserver === 'undefined') return;
     const observer = new MutationObserver(controller.handleContentChange);
     observer.observe(node, { childList: true });
     return () => observer.disconnect();
   }, [controller]);
   useEffect(() => {
     const node = element.current;
-    if (!node || typeof ResizeObserver === "undefined") return;
+    if (!node || typeof ResizeObserver === 'undefined') return;
     let frame = 0;
     const observer = new ResizeObserver(() => {
       cancelAnimationFrame(frame);
@@ -280,9 +251,9 @@ export function MessageScrollerContent({
     <div
       data-slot="message-scroller-content"
       ref={setRef}
-      role={role ?? "log"}
-      aria-relevant={ariaRelevant ?? "additions"}
-      className={cn("sprout-message-scroller-content", className)}
+      role={role ?? 'log'}
+      aria-relevant={ariaRelevant ?? 'additions'}
+      className={cn('sprout-message-scroller-content', className)}
       {...props}
     >
       {children}
@@ -297,7 +268,7 @@ export function MessageScrollerContent({
   );
 }
 
-export interface MessageScrollerItemProps extends ComponentProps<"div"> {
+export interface MessageScrollerItemProps extends ComponentProps<'div'> {
   /** Stable id used by `scrollToMessage` and visibility. */
   messageId?: string | undefined;
   /** Pin this item under the top edge when it is added, such as the newest user turn. */
@@ -312,7 +283,7 @@ export function MessageScrollerItem({
   scrollAnchor = false,
   ...props
 }: MessageScrollerItemProps) {
-  const controller = useController("MessageScrollerItem");
+  const controller = useController('MessageScrollerItem');
   const previous = useRef<HTMLDivElement | null>(null);
   const setRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -328,8 +299,8 @@ export function MessageScrollerItem({
       data-slot="message-scroller-item"
       ref={setRef}
       data-message-id={messageId}
-      data-scroll-anchor={scrollAnchor ? "true" : "false"}
-      className={cn("sprout-message-scroller-item", className)}
+      data-scroll-anchor={scrollAnchor ? 'true' : 'false'}
+      className={cn('sprout-message-scroller-item', className)}
       {...props}
     />
   );
@@ -340,10 +311,7 @@ export interface MessageScrollerButtonState extends Record<string, unknown> {
   direction: MessageScrollerButtonDirection;
 }
 
-export type MessageScrollerButtonProps = useRender.ComponentProps<
-  "button",
-  MessageScrollerButtonState
-> & {
+export type MessageScrollerButtonProps = useRender.ComponentProps<'button', MessageScrollerButtonState> & {
   /** Which edge the button scrolls to. `"start"` sits at the top with the arrow turned up. */
   direction?: MessageScrollerButtonDirection | undefined;
   /** `"smooth"` by default; becomes `"auto"` when reduced motion is set. */
@@ -353,8 +321,7 @@ export type MessageScrollerButtonProps = useRender.ComponentProps<
 };
 
 const prefersReducedMotion = () =>
-  typeof matchMedia === "function" &&
-  matchMedia("(prefers-reduced-motion: reduce)").matches;
+  typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /** A floating jump button that shows only while there is more history in its direction. */
 export function MessageScrollerButton({
@@ -362,62 +329,56 @@ export function MessageScrollerButton({
   children,
   render,
   ref,
-  direction = "end",
-  behavior = "smooth",
-  variant = "secondary",
-  size = "icon-sm",
+  direction = 'end',
+  behavior = 'smooth',
+  variant = 'secondary',
+  size = 'icon-sm',
   tabIndex,
   onClick,
   ...props
 }: MessageScrollerButtonProps) {
-  const controller = useController("MessageScrollerButton");
+  const controller = useController('MessageScrollerButton');
   const store = controller.stateStore;
   const read = useCallback(
-    () =>
-      direction === "start"
-        ? store.getSnapshot().start
-        : store.getSnapshot().end,
+    () => (direction === 'start' ? store.getSnapshot().start : store.getSnapshot().end),
     [direction, store],
   );
   const active = useSyncExternalStore(store.subscribe, read, read);
-  const state = useMemo<MessageScrollerButtonState>(
-    () => ({ active, direction }),
-    [active, direction],
-  );
+  const state = useMemo<MessageScrollerButtonState>(() => ({ active, direction }), [active, direction]);
   return useRender({
-    defaultTagName: "button",
+    defaultTagName: 'button',
     render: render ?? <Button variant={variant} size={size} />,
     ref,
     state,
     stateAttributesMapping: { active: () => null },
-    props: mergeProps<"button">(
+    props: mergeProps<'button'>(
       {
-        type: "button",
-        "data-slot": "message-scroller-button",
-        "data-active": active ? "true" : "false",
-        className: cn("sprout-message-scroller-button", className),
+        type: 'button',
+        'data-slot': 'message-scroller-button',
+        'data-active': active ? 'true' : 'false',
+        className: cn('sprout-message-scroller-button', className),
         inert: !active,
         tabIndex: active ? tabIndex : -1,
-        onClick: (event) => {
+        onClick: event => {
           if (!active) return;
           onClick?.(event);
           if (event.defaultPrevented) return;
           event.currentTarget.blur();
           const scroll = {
-            behavior: prefersReducedMotion() ? "auto" : behavior,
+            behavior: prefersReducedMotion() ? 'auto' : behavior,
           } as const;
-          if (direction === "start") controller.scrollToStart(scroll);
+          if (direction === 'start') controller.scrollToStart(scroll);
           else controller.scrollToEnd(scroll);
         },
         children: children ?? (
           <>
             <ArrowDown aria-hidden="true" />
             <span className="sprout-message-scroller-sr-only">
-              {direction === "end" ? "Scroll to end" : "Scroll to start"}
+              {direction === 'end' ? 'Scroll to end' : 'Scroll to start'}
             </span>
           </>
         ),
-      } as ComponentProps<"button">,
+      } as ComponentProps<'button'>,
       props,
     ),
   });
@@ -425,19 +386,15 @@ export function MessageScrollerButton({
 
 /** Scroll the history from outside it, such as after sending or from a “jump to” link. */
 export function useMessageScroller() {
-  const controller = useController("useMessageScroller");
+  const controller = useController('useMessageScroller');
   return useMemo(
     () => ({
-      scrollToEnd: controller.scrollToEnd as (
-        options?: MessageScrollerScrollOptions,
-      ) => boolean,
+      scrollToEnd: controller.scrollToEnd as (options?: MessageScrollerScrollOptions) => boolean,
       scrollToMessage: controller.scrollToMessage as (
         messageId: string,
         options?: MessageScrollerScrollOptions,
       ) => boolean,
-      scrollToStart: controller.scrollToStart as (
-        options?: MessageScrollerScrollOptions,
-      ) => boolean,
+      scrollToStart: controller.scrollToStart as (options?: MessageScrollerScrollOptions) => boolean,
     }),
     [controller],
   );
@@ -445,25 +402,16 @@ export function useMessageScroller() {
 
 /** Whether there is more history above (`start`) or below (`end`) the current view. */
 export function useMessageScrollerScrollable(): MessageScrollerScrollable {
-  const store = useController("useMessageScrollerScrollable").stateStore;
-  return useSyncExternalStore(
-    store.subscribe,
-    store.getSnapshot,
-    store.getSnapshot,
-  );
+  const store = useController('useMessageScrollerScrollable').stateStore;
+  return useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
 }
 
 /** The ids of items in view and the pinned turn under the top edge. Observes only while used. */
 export function useMessageScrollerVisibility(): MessageScrollerVisibilityState {
-  const controller = useController("useMessageScrollerVisibility");
+  const controller = useController('useMessageScrollerVisibility');
   const store = controller.visibilityStore;
   const subscribe = useCallback(
-    (listener: () => void) =>
-      store.subscribe(
-        listener,
-        controller.observeVisibility,
-        controller.unobserveVisibility,
-      ),
+    (listener: () => void) => store.subscribe(listener, controller.observeVisibility, controller.unobserveVisibility),
     [controller, store],
   );
   return useSyncExternalStore(subscribe, store.getSnapshot, store.getSnapshot);

@@ -1,25 +1,12 @@
-"use client";
+'use client';
 
-import {
-  Children,
-  Fragment,
-  isValidElement,
-  type ReactElement,
-  type ReactNode,
-  type Ref,
-} from "react";
-import { X } from "reicon-react/icons/X";
-import { cn } from "../internal/classes.js";
-import { Button } from "./button.js";
-import { Kbd } from "./kbd.js";
-import { Toggle } from "./toggle.js";
-import {
-  Command,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "./command.js";
+import { Children, Fragment, isValidElement, type ReactElement, type ReactNode, type Ref } from 'react';
+import { X } from 'reicon-react/icons/X';
+import { cn } from '../internal/classes.js';
+import { Button } from './button.js';
+import { Kbd } from './kbd.js';
+import { Toggle } from './toggle.js';
+import { Command, CommandGroup, CommandInput, CommandItem, CommandList } from './command.js';
 import {
   Dialog,
   DialogClose,
@@ -27,7 +14,7 @@ import {
   DialogDescription,
   DialogTitle,
   type DialogContentProps,
-} from "./dialog.js";
+} from './dialog.js';
 
 export interface SearchDialogProps {
   open: boolean;
@@ -38,7 +25,7 @@ export interface SearchDialogProps {
   description: string;
   className?: string;
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: DialogContentProps["container"];
+  container?: DialogContentProps['container'];
   children: ReactNode;
 }
 
@@ -56,24 +43,17 @@ export function SearchDialog({
   children,
 }: SearchDialogProps) {
   return (
-    <Dialog open={open} onOpenChange={(next) => onOpenChange(next)}>
+    <Dialog open={open} onOpenChange={next => onOpenChange(next)}>
       <DialogContent
         data-slot="search-dialog"
         placement="top"
         showCloseButton={false}
         container={container}
-        className={cn("sprout-search-dialog", className)}
+        className={cn('sprout-search-dialog', className)}
       >
         <DialogTitle className="sprout-command-sr-only">{title}</DialogTitle>
-        <DialogDescription className="sprout-command-sr-only">
-          {description}
-        </DialogDescription>
-        <Command
-          shouldFilter={false}
-          loop
-          label={title}
-          className="sprout-search-command"
-        >
+        <DialogDescription className="sprout-command-sr-only">{description}</DialogDescription>
+        <Command shouldFilter={false} loop label={title} className="sprout-search-command">
           {children}
         </Command>
       </DialogContent>
@@ -99,7 +79,7 @@ export function SearchInput({
   onValueChange,
   placeholder,
   label,
-  closeLabel = "Close search",
+  closeLabel = 'Close search',
 }: SearchInputProps) {
   return (
     <div data-slot="search-input" className="sprout-search-input">
@@ -110,11 +90,7 @@ export function SearchInput({
         placeholder={placeholder}
         aria-label={label}
       />
-      <DialogClose
-        render={
-          <Button variant="ghost" size="icon-sm" aria-label={closeLabel} />
-        }
-      >
+      <DialogClose render={<Button variant="ghost" size="icon-sm" aria-label={closeLabel} />}>
         <X size={16} aria-hidden="true" />
       </DialogClose>
     </div>
@@ -130,12 +106,7 @@ export interface SearchFiltersProps {
 /** A row of toggle filters under the input. It scrolls sideways when narrow. */
 export function SearchFilters({ label, children }: SearchFiltersProps) {
   return (
-    <div
-      data-slot="search-filters"
-      role="group"
-      aria-label={label}
-      className="sprout-search-filters"
-    >
+    <div data-slot="search-filters" role="group" aria-label={label} className="sprout-search-filters">
       {children}
     </div>
   );
@@ -149,19 +120,14 @@ export interface SearchFilterProps {
 }
 
 /** A pressable filter chip. */
-export function SearchFilter({
-  pressed,
-  onPressedChange,
-  icon,
-  children,
-}: SearchFilterProps) {
+export function SearchFilter({ pressed, onPressedChange, icon, children }: SearchFilterProps) {
   return (
     <Toggle
       data-slot="search-filter"
       variant="outline"
       size="sm"
       pressed={pressed}
-      onPressedChange={(next) => onPressedChange(next)}
+      onPressedChange={next => onPressedChange(next)}
     >
       {icon}
       {children}
@@ -199,11 +165,8 @@ export function SearchGroup({ heading, count, children }: SearchGroupProps) {
       className="sprout-search-group"
       heading={
         <span className="sprout-search-group-heading">
-          {heading}{" "}
-          <span
-            data-slot="search-group-count"
-            className="sprout-search-group-count"
-          >
+          {heading}{' '}
+          <span data-slot="search-group-count" className="sprout-search-group-count">
             {count}
           </span>
         </span>
@@ -243,30 +206,15 @@ export interface SearchItemProps {
 }
 
 /** One result. The active item shows an Enter key hint. */
-export function SearchItem({
-  value,
-  onSelect,
-  media,
-  title,
-  meta,
-  detail,
-  trailing,
-}: SearchItemProps) {
+export function SearchItem({ value, onSelect, media, title, meta, detail, trailing }: SearchItemProps) {
   return (
-    <CommandItem
-      value={value}
-      onSelect={() => onSelect()}
-      className="sprout-search-item"
-    >
+    <CommandItem value={value} onSelect={() => onSelect()} className="sprout-search-item">
       <span data-slot="search-item-media" className="sprout-search-item-media">
         {media}
       </span>
       <span className="sprout-search-item-text">
         <span className="sprout-search-item-line">
-          <span
-            data-slot="search-item-title"
-            className="sprout-search-item-title"
-          >
+          <span data-slot="search-item-title" className="sprout-search-item-title">
             {title}
           </span>
           {meta && (
@@ -274,37 +222,24 @@ export function SearchItem({
               <span aria-hidden="true" className="sprout-search-item-dot">
                 ·
               </span>
-              <span
-                data-slot="search-item-meta"
-                className="sprout-search-item-meta"
-              >
+              <span data-slot="search-item-meta" className="sprout-search-item-meta">
                 {meta}
               </span>
             </>
           )}
         </span>
         {detail && (
-          <span
-            data-slot="search-item-detail"
-            className="sprout-search-item-detail"
-          >
+          <span data-slot="search-item-detail" className="sprout-search-item-detail">
             {detail}
           </span>
         )}
       </span>
       {trailing && (
-        <span
-          data-slot="search-item-trailing"
-          className="sprout-search-item-trailing"
-        >
+        <span data-slot="search-item-trailing" className="sprout-search-item-trailing">
           {trailing}
         </span>
       )}
-      <Kbd
-        variant="outline"
-        aria-hidden="true"
-        className="sprout-search-item-enter"
-      >
+      <Kbd variant="outline" aria-hidden="true" className="sprout-search-item-enter">
         ↵
       </Kbd>
     </CommandItem>
@@ -317,11 +252,7 @@ function tiles(media: ReactNode) {
       ? (media as ReactElement<{ children?: ReactNode }>).props.children
       : media;
   return Children.toArray(nodes).map((node, index) => (
-    <span
-      key={index}
-      data-slot="search-empty-tile"
-      className="sprout-search-empty-tile"
-    >
+    <span key={index} data-slot="search-empty-tile" className="sprout-search-empty-tile">
       {node}
     </span>
   ));
@@ -337,12 +268,7 @@ export interface SearchEmptyProps {
 }
 
 /** Fills the list when nothing matches and is announced as a status. */
-export function SearchEmpty({
-  media,
-  title,
-  description,
-  action,
-}: SearchEmptyProps) {
+export function SearchEmpty({ media, title, description, action }: SearchEmptyProps) {
   return (
     <div data-slot="search-empty" role="status" className="sprout-search-empty">
       {media && (

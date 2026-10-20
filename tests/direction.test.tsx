@@ -1,10 +1,6 @@
-import { describe, expect, it } from "vitest";
-import { renderToString } from "react-dom/server";
-import {
-  DirectionProvider,
-  useDirection,
-  type TextDirection,
-} from "../packages/sprout/src/components/direction.js";
+import { describe, expect, it } from 'vitest';
+import { renderToString } from 'react-dom/server';
+import { DirectionProvider, useDirection, type TextDirection } from '../packages/sprout/src/components/direction.js';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,44 +8,41 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../packages/sprout/src/components/breadcrumb.js";
-import * as sprout from "../packages/sprout/src/index.js";
+} from '../packages/sprout/src/components/breadcrumb.js';
+import * as sprout from '../packages/sprout/src/index.js';
 
 function Readout() {
   return <output>{useDirection()}</output>;
 }
 
-describe("Direction", () => {
-  it("is exported from the package root", () => {
+describe('Direction', () => {
+  it('is exported from the package root', () => {
     expect(sprout.DirectionProvider).toBe(DirectionProvider);
     expect(sprout.useDirection).toBe(useDirection);
   });
 
-  it("defaults to left to right without a provider or direction", () => {
-    expect(renderToString(<Readout />)).toBe("<output>ltr</output>");
+  it('defaults to left to right without a provider or direction', () => {
+    expect(renderToString(<Readout />)).toBe('<output>ltr</output>');
     expect(
       renderToString(
         <DirectionProvider>
           <Readout />
         </DirectionProvider>,
       ),
-    ).toBe("<output>ltr</output>");
+    ).toBe('<output>ltr</output>');
   });
 
-  it.each<TextDirection>(["ltr", "rtl"])(
-    "passes %s to descendants and renders no element of its own",
-    (direction) => {
-      expect(
-        renderToString(
-          <DirectionProvider direction={direction}>
-            <Readout />
-          </DirectionProvider>,
-        ),
-      ).toBe(`<output>${direction}</output>`);
-    },
-  );
+  it.each<TextDirection>(['ltr', 'rtl'])('passes %s to descendants and renders no element of its own', direction => {
+    expect(
+      renderToString(
+        <DirectionProvider direction={direction}>
+          <Readout />
+        </DirectionProvider>,
+      ),
+    ).toBe(`<output>${direction}</output>`);
+  });
 
-  it("uses the nearest provider", () => {
+  it('uses the nearest provider', () => {
     expect(
       renderToString(
         <DirectionProvider direction="rtl">
@@ -59,10 +52,10 @@ describe("Direction", () => {
           </DirectionProvider>
         </DirectionProvider>,
       ),
-    ).toBe("<output>rtl</output><output>ltr</output>");
+    ).toBe('<output>rtl</output><output>ltr</output>');
   });
 
-  it("wraps a dir element and breadcrumb as the playground does", () => {
+  it('wraps a dir element and breadcrumb as the playground does', () => {
     const html = renderToString(
       <DirectionProvider direction="rtl">
         <div dir="rtl" className="w-full">
@@ -81,7 +74,7 @@ describe("Direction", () => {
       </DirectionProvider>,
     );
     expect(html.startsWith('<div dir="rtl" class="w-full"><nav')).toBe(true);
-    expect(html).toContain("المشاريع");
+    expect(html).toContain('المشاريع');
     expect(html).toContain('aria-current="page"');
   });
 });

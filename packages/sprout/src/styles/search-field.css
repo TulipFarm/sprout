@@ -4,8 +4,7 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     .sprout-search-field-clear {
-      animation: sprout-search-field-clear-in var(--sprout-motion-fast, 120ms)
-        var(--sprout-motion-ease, ease-out);
+      animation: sprout-search-field-clear-in var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
   }
   @keyframes sprout-search-field-clear-in {

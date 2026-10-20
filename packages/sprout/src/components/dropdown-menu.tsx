@@ -1,18 +1,16 @@
-"use client";
+'use client';
 
-import type { ComponentProps } from "react";
-import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { cn, stateClassName } from "../internal/classes.js";
+import type { ComponentProps } from 'react';
+import { Menu as MenuPrimitive } from '@base-ui/react/menu';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { cn, stateClassName } from '../internal/classes.js';
 
-export const dropdownMenuContentSizeNames = ["anchor", "menu"] as const;
-export const dropdownMenuItemVariantNames = ["default", "destructive"] as const;
+export const dropdownMenuContentSizeNames = ['anchor', 'menu'] as const;
+export const dropdownMenuItemVariantNames = ['default', 'destructive'] as const;
 
-export type DropdownMenuContentSize =
-  (typeof dropdownMenuContentSizeNames)[number];
-export type DropdownMenuItemVariant =
-  (typeof dropdownMenuItemVariantNames)[number];
+export type DropdownMenuContentSize = (typeof dropdownMenuContentSizeNames)[number];
+export type DropdownMenuItemVariant = (typeof dropdownMenuItemVariantNames)[number];
 
 export type DropdownMenuProps = MenuPrimitive.Root.Props;
 
@@ -34,25 +32,24 @@ export function DropdownMenuTrigger(props: DropdownMenuTriggerProps) {
 
 type PositionerProps = Pick<
   MenuPrimitive.Positioner.Props,
-  | "align"
-  | "alignOffset"
-  | "side"
-  | "sideOffset"
-  | "collisionPadding"
-  | "collisionAvoidance"
-  | "sticky"
-  | "positionMethod"
+  | 'align'
+  | 'alignOffset'
+  | 'side'
+  | 'sideOffset'
+  | 'collisionPadding'
+  | 'collisionAvoidance'
+  | 'sticky'
+  | 'positionMethod'
 >;
 
-export interface DropdownMenuContentProps
-  extends MenuPrimitive.Popup.Props, PositionerProps {
+export interface DropdownMenuContentProps extends MenuPrimitive.Popup.Props, PositionerProps {
   /**
    * `anchor` matches the trigger width (at least 8rem). `menu` is a fixed
    * 16rem panel for icon triggers and longer labels.
    */
   size?: DropdownMenuContentSize;
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: MenuPrimitive.Portal.Props["container"];
+  container?: MenuPrimitive.Portal.Props['container'];
 }
 
 /**
@@ -60,15 +57,15 @@ export interface DropdownMenuContentProps
  * directly inside `DropdownMenu` or `DropdownMenuSub`.
  */
 export function DropdownMenuContent({
-  align = "start",
+  align = 'start',
   alignOffset = 0,
-  side = "bottom",
+  side = 'bottom',
   sideOffset = 4,
   collisionPadding = 8,
   collisionAvoidance,
   sticky,
   positionMethod,
-  size = "anchor",
+  size = 'anchor',
   container,
   className,
   ...props
@@ -91,7 +88,7 @@ export function DropdownMenuContent({
           data-size={size}
           {...props}
           className={stateClassName<MenuPrimitive.Popup.State>(
-            cn("sprout-dropdown-menu-content", `sprout-dropdown-menu-${size}`),
+            cn('sprout-dropdown-menu-content', `sprout-dropdown-menu-${size}`),
             className,
           )}
         />
@@ -111,23 +108,15 @@ interface Inset {
   inset?: boolean;
 }
 
-export interface DropdownMenuLabelProps
-  extends MenuPrimitive.GroupLabel.Props, Inset {}
+export interface DropdownMenuLabelProps extends MenuPrimitive.GroupLabel.Props, Inset {}
 
-export function DropdownMenuLabel({
-  className,
-  inset,
-  ...props
-}: DropdownMenuLabelProps) {
+export function DropdownMenuLabel({ className, inset, ...props }: DropdownMenuLabelProps) {
   return (
     <MenuPrimitive.GroupLabel
       data-slot="dropdown-menu-label"
       data-inset={inset || undefined}
       {...props}
-      className={stateClassName<MenuPrimitive.GroupLabel.State>(
-        "sprout-dropdown-menu-label",
-        className,
-      )}
+      className={stateClassName<MenuPrimitive.GroupLabel.State>('sprout-dropdown-menu-label', className)}
     />
   );
 }
@@ -136,22 +125,14 @@ export interface DropdownMenuItemProps extends MenuPrimitive.Item.Props, Inset {
   variant?: DropdownMenuItemVariant;
 }
 
-export function DropdownMenuItem({
-  className,
-  inset,
-  variant = "default",
-  ...props
-}: DropdownMenuItemProps) {
+export function DropdownMenuItem({ className, inset, variant = 'default', ...props }: DropdownMenuItemProps) {
   return (
     <MenuPrimitive.Item
       data-slot="dropdown-menu-item"
       data-inset={inset || undefined}
       data-variant={variant}
       {...props}
-      className={stateClassName<MenuPrimitive.Item.State>(
-        "sprout-dropdown-menu-item",
-        className,
-      )}
+      className={stateClassName<MenuPrimitive.Item.State>('sprout-dropdown-menu-item', className)}
     />
   );
 }
@@ -162,31 +143,21 @@ export function DropdownMenuSub(props: DropdownMenuSubProps) {
   return <MenuPrimitive.SubmenuRoot {...props} />;
 }
 
-export interface DropdownMenuSubTriggerProps
-  extends MenuPrimitive.SubmenuTrigger.Props, Inset {}
+export interface DropdownMenuSubTriggerProps extends MenuPrimitive.SubmenuTrigger.Props, Inset {}
 
-export function DropdownMenuSubTrigger({
-  className,
-  inset,
-  children,
-  ...props
-}: DropdownMenuSubTriggerProps) {
+export function DropdownMenuSubTrigger({ className, inset, children, ...props }: DropdownMenuSubTriggerProps) {
   return (
     <MenuPrimitive.SubmenuTrigger
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset || undefined}
       {...props}
       className={stateClassName<MenuPrimitive.SubmenuTrigger.State>(
-        "sprout-dropdown-menu-item sprout-dropdown-menu-sub-trigger",
+        'sprout-dropdown-menu-item sprout-dropdown-menu-sub-trigger',
         className,
       )}
     >
       {children}
-      <ChevronRight
-        size={16}
-        aria-hidden="true"
-        className="sprout-dropdown-menu-sub-chevron"
-      />
+      <ChevronRight size={16} aria-hidden="true" className="sprout-dropdown-menu-sub-chevron" />
     </MenuPrimitive.SubmenuTrigger>
   );
 }
@@ -195,9 +166,9 @@ export type DropdownMenuSubContentProps = DropdownMenuContentProps;
 
 /** A nested menu surface. It opens to the side and sizes to its content. */
 export function DropdownMenuSubContent({
-  align = "start",
+  align = 'start',
   alignOffset = -5,
-  side = "right",
+  side = 'right',
   sideOffset = 0,
   className,
   ...props
@@ -210,37 +181,25 @@ export function DropdownMenuSubContent({
       side={side}
       sideOffset={sideOffset}
       {...props}
-      className={stateClassName<MenuPrimitive.Popup.State>(
-        "sprout-dropdown-menu-sub-content",
-        className,
-      )}
+      className={stateClassName<MenuPrimitive.Popup.State>('sprout-dropdown-menu-sub-content', className)}
     />
   );
 }
 
-export interface DropdownMenuCheckboxItemProps
-  extends MenuPrimitive.CheckboxItem.Props, Inset {}
+export interface DropdownMenuCheckboxItemProps extends MenuPrimitive.CheckboxItem.Props, Inset {}
 
-export function DropdownMenuCheckboxItem({
-  className,
-  inset,
-  children,
-  ...props
-}: DropdownMenuCheckboxItemProps) {
+export function DropdownMenuCheckboxItem({ className, inset, children, ...props }: DropdownMenuCheckboxItemProps) {
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
       data-inset={inset || undefined}
       {...props}
       className={stateClassName<MenuPrimitive.CheckboxItem.State>(
-        "sprout-dropdown-menu-item sprout-dropdown-menu-choice",
+        'sprout-dropdown-menu-item sprout-dropdown-menu-choice',
         className,
       )}
     >
-      <span
-        className="sprout-dropdown-menu-indicator"
-        data-slot="dropdown-menu-checkbox-item-indicator"
-      >
+      <span className="sprout-dropdown-menu-indicator" data-slot="dropdown-menu-checkbox-item-indicator">
         <MenuPrimitive.CheckboxItemIndicator>
           <Check size={16} aria-hidden="true" />
         </MenuPrimitive.CheckboxItemIndicator>
@@ -253,37 +212,23 @@ export function DropdownMenuCheckboxItem({
 export type DropdownMenuRadioGroupProps = MenuPrimitive.RadioGroup.Props;
 
 export function DropdownMenuRadioGroup(props: DropdownMenuRadioGroupProps) {
-  return (
-    <MenuPrimitive.RadioGroup
-      data-slot="dropdown-menu-radio-group"
-      {...props}
-    />
-  );
+  return <MenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" {...props} />;
 }
 
-export interface DropdownMenuRadioItemProps
-  extends MenuPrimitive.RadioItem.Props, Inset {}
+export interface DropdownMenuRadioItemProps extends MenuPrimitive.RadioItem.Props, Inset {}
 
-export function DropdownMenuRadioItem({
-  className,
-  inset,
-  children,
-  ...props
-}: DropdownMenuRadioItemProps) {
+export function DropdownMenuRadioItem({ className, inset, children, ...props }: DropdownMenuRadioItemProps) {
   return (
     <MenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       data-inset={inset || undefined}
       {...props}
       className={stateClassName<MenuPrimitive.RadioItem.State>(
-        "sprout-dropdown-menu-item sprout-dropdown-menu-choice",
+        'sprout-dropdown-menu-item sprout-dropdown-menu-choice',
         className,
       )}
     >
-      <span
-        className="sprout-dropdown-menu-indicator"
-        data-slot="dropdown-menu-radio-item-indicator"
-      >
+      <span className="sprout-dropdown-menu-indicator" data-slot="dropdown-menu-radio-item-indicator">
         <MenuPrimitive.RadioItemIndicator>
           <Check size={16} aria-hidden="true" />
         </MenuPrimitive.RadioItemIndicator>
@@ -295,34 +240,21 @@ export function DropdownMenuRadioItem({
 
 export type DropdownMenuSeparatorProps = MenuPrimitive.Separator.Props;
 
-export function DropdownMenuSeparator({
-  className,
-  ...props
-}: DropdownMenuSeparatorProps) {
+export function DropdownMenuSeparator({ className, ...props }: DropdownMenuSeparatorProps) {
   return (
     <MenuPrimitive.Separator
       data-slot="dropdown-menu-separator"
       {...props}
-      className={stateClassName<MenuPrimitive.Separator.State>(
-        "sprout-dropdown-menu-separator",
-        className,
-      )}
+      className={stateClassName<MenuPrimitive.Separator.State>('sprout-dropdown-menu-separator', className)}
     />
   );
 }
 
-export type DropdownMenuShortcutProps = ComponentProps<"span">;
+export type DropdownMenuShortcutProps = ComponentProps<'span'>;
 
 /** Right-aligned hint text, such as a keyboard shortcut. It does not bind keys. */
-export function DropdownMenuShortcut({
-  className,
-  ...props
-}: DropdownMenuShortcutProps) {
+export function DropdownMenuShortcut({ className, ...props }: DropdownMenuShortcutProps) {
   return (
-    <span
-      data-slot="dropdown-menu-shortcut"
-      {...props}
-      className={cn("sprout-dropdown-menu-shortcut", className)}
-    />
+    <span data-slot="dropdown-menu-shortcut" {...props} className={cn('sprout-dropdown-menu-shortcut', className)} />
   );
 }

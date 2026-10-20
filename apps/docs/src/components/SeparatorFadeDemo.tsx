@@ -1,17 +1,9 @@
-import { useState, type ReactNode } from "react";
-import { Separator } from "@tulipfarm/sprout/separator";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import "../styles/separator-fade-demo.css";
+import { useState, type ReactNode } from 'react';
+import { Separator } from '@tulipfarm/sprout/separator';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import '../styles/separator-fade-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="separator-fade-demo-card" aria-label={title}>
       <header>
@@ -37,27 +29,21 @@ function Labels() {
   );
 }
 
-type Trigger = "manual" | "automatic" | "inactivity";
-type Handoff = "completed" | "pending";
+type Trigger = 'manual' | 'automatic' | 'inactivity';
+type Handoff = 'completed' | 'pending';
 
 // Sample adapter: the label a finished compaction shows in the transcript.
 function compactionLabel(trigger: Trigger) {
-  return trigger === "manual" ? "Compacted" : "Auto compacted";
+  return trigger === 'manual' ? 'Compacted' : 'Auto compacted';
 }
 
 const triggers: { value: Trigger; label: string }[] = [
-  { value: "manual", label: "Manual" },
-  { value: "automatic", label: "Automatic" },
-  { value: "inactivity", label: "Inactivity recap" },
+  { value: 'manual', label: 'Manual' },
+  { value: 'automatic', label: 'Automatic' },
+  { value: 'inactivity', label: 'Inactivity recap' },
 ];
 
-function Message({
-  from,
-  children,
-}: {
-  from: "user" | "assistant";
-  children: ReactNode;
-}) {
+function Message({ from, children }: { from: 'user' | 'assistant'; children: ReactNode }) {
   return (
     <div className="separator-fade-demo-message" data-from={from}>
       <p>{children}</p>
@@ -66,8 +52,8 @@ function Message({
 }
 
 function ChatCompaction() {
-  const [trigger, setTrigger] = useState<Trigger>("manual");
-  const [handoff, setHandoff] = useState<Handoff>("completed");
+  const [trigger, setTrigger] = useState<Trigger>('manual');
+  const [handoff, setHandoff] = useState<Handoff>('completed');
   return (
     <Example
       title="Chat compaction"
@@ -78,7 +64,7 @@ function ChatCompaction() {
           aria-label="Compaction trigger"
           size="sm"
           value={[trigger]}
-          onValueChange={(value) => value[0] && setTrigger(value[0] as Trigger)}
+          onValueChange={value => value[0] && setTrigger(value[0] as Trigger)}
         >
           {triggers.map(({ value, label }) => (
             <ToggleGroupItem key={value} value={value}>
@@ -90,25 +76,18 @@ function ChatCompaction() {
           aria-label="Handoff status"
           size="sm"
           value={[handoff]}
-          onValueChange={(value) => value[0] && setHandoff(value[0] as Handoff)}
+          onValueChange={value => value[0] && setHandoff(value[0] as Handoff)}
         >
           <ToggleGroupItem value="completed">Completed</ToggleGroupItem>
           <ToggleGroupItem value="pending">Writing handoff</ToggleGroupItem>
         </ToggleGroup>
       </div>
-      <div
-        className="separator-fade-demo-transcript"
-        role="log"
-        aria-label="Sample chat"
-      >
-        <Message from="user">
-          Summarise the spring planting plan for the Meadow beds.
-        </Message>
+      <div className="separator-fade-demo-transcript" role="log" aria-label="Sample chat">
+        <Message from="user">Summarise the spring planting plan for the Meadow beds.</Message>
         <Message from="assistant">
-          Tulips go in the north beds first, then the allium border once the
-          soil drops below 12°C.
+          Tulips go in the north beds first, then the allium border once the soil drops below 12°C.
         </Message>
-        {handoff === "completed" ? (
+        {handoff === 'completed' ? (
           <Separator variant="fade">{compactionLabel(trigger)}</Separator>
         ) : (
           <p role="status" className="separator-fade-demo-status">

@@ -1,38 +1,15 @@
-import { useState, type ReactNode } from "react";
-import { ArrowUp } from "reicon-react/icons/ArrowUp";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { BrandIcon, type Brand } from "@tulipfarm/sprout/brand-icon";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@tulipfarm/sprout/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
-import { ReasoningEffort } from "@tulipfarm/sprout/reasoning-effort";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@tulipfarm/sprout/tooltip";
-import "../styles/reasoning-effort-demo.css";
+import { useState, type ReactNode } from 'react';
+import { ArrowUp } from 'reicon-react/icons/ArrowUp';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
+import { Button } from '@tulipfarm/sprout/button';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@tulipfarm/sprout/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
+import { ReasoningEffort } from '@tulipfarm/sprout/reasoning-effort';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
+import '../styles/reasoning-effort-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="reasoning-effort-demo-card" aria-label={title}>
       <header>
@@ -44,7 +21,7 @@ function Example({
   );
 }
 
-const playgroundLevels = ["Quick", "Balanced", "Thorough", "Maximum"];
+const playgroundLevels = ['Quick', 'Balanced', 'Thorough', 'Maximum'];
 
 /** Cloud's internal playground: four named levels, no label. */
 export function ReasoningEffortPlayground() {
@@ -54,15 +31,8 @@ export function ReasoningEffortPlayground() {
       title="Interactive effort selector"
       description="Drag the thumb, click a spot on the track, or use the arrow keys. A bubble with the level name grows out of the track while you drag, and the thumb snaps to the nearest level when you let go."
     >
-      <div
-        className="reasoning-effort-demo-stack"
-        data-testid="effort-playground"
-      >
-        <ReasoningEffort
-          levels={playgroundLevels}
-          value={value}
-          onValueChange={setValue}
-        />
+      <div className="reasoning-effort-demo-stack" data-testid="effort-playground">
+        <ReasoningEffort levels={playgroundLevels} value={value} onValueChange={setValue} />
         <p role="status" className="reasoning-effort-demo-status">
           Selected level: {playgroundLevels[value]}
         </p>
@@ -72,14 +42,14 @@ export function ReasoningEffortPlayground() {
 }
 
 /* Cloud's composer vocabulary: the effort ids map to these labels. */
-type Effort = "low" | "medium" | "high" | "max";
+type Effort = 'low' | 'medium' | 'high' | 'max';
 const effortLabel: Record<Effort, string> = {
-  low: "Low",
-  medium: "Medium",
-  high: "High",
-  max: "Max",
+  low: 'Low',
+  medium: 'Medium',
+  high: 'High',
+  max: 'Max',
 };
-const allEfforts: readonly Effort[] = ["low", "medium", "high", "max"];
+const allEfforts: readonly Effort[] = ['low', 'medium', 'high', 'max'];
 
 interface Model {
   id: string;
@@ -90,33 +60,33 @@ interface Model {
 
 const models: readonly Model[] = [
   {
-    id: "claude-opus",
-    label: "Claude Opus",
-    brand: "claude",
+    id: 'claude-opus',
+    label: 'Claude Opus',
+    brand: 'claude',
     efforts: allEfforts,
   },
   {
-    id: "claude-sonnet",
-    label: "Claude Sonnet",
-    brand: "claude",
+    id: 'claude-sonnet',
+    label: 'Claude Sonnet',
+    brand: 'claude',
     efforts: allEfforts,
   },
-  { id: "gpt", label: "GPT", brand: "openai", efforts: allEfforts },
+  { id: 'gpt', label: 'GPT', brand: 'openai', efforts: allEfforts },
   {
-    id: "deepseek-pro",
-    label: "DeepSeek Pro",
-    brand: "deepseek",
+    id: 'deepseek-pro',
+    label: 'DeepSeek Pro',
+    brand: 'deepseek',
     efforts: allEfforts,
   },
-  { id: "grok", label: "Grok", brand: "grok", efforts: allEfforts },
-  { id: "kimi", label: "Kimi", brand: "kimi", efforts: allEfforts },
+  { id: 'grok', label: 'Grok', brand: 'grok', efforts: allEfforts },
+  { id: 'kimi', label: 'Kimi', brand: 'kimi', efforts: allEfforts },
 ];
 
 function ModelPicker() {
   const [open, setOpen] = useState(false);
-  const [modelId, setModelId] = useState("claude-opus");
-  const [effort, setEffort] = useState<Effort>("high");
-  const model = models.find((candidate) => candidate.id === modelId)!;
+  const [modelId, setModelId] = useState('claude-opus');
+  const [effort, setEffort] = useState<Effort>('high');
+  const model = models.find(candidate => candidate.id === modelId)!;
   const showEffort = model.efforts.length > 0;
   const effortIndex = Math.max(0, model.efforts.indexOf(effort));
   return (
@@ -129,7 +99,7 @@ function ModelPicker() {
                 <Button
                   size="sm"
                   variant="ghost"
-                  aria-label={`Model: ${model.label}${showEffort ? `, ${effortLabel[effort]} effort` : ""}`}
+                  aria-label={`Model: ${model.label}${showEffort ? `, ${effortLabel[effort]} effort` : ''}`}
                 />
               }
             />
@@ -143,14 +113,11 @@ function ModelPicker() {
       </Tooltip>
       <PopoverContent size="picker" side="top" align="end" sideOffset={8}>
         <Command>
-          <CommandInput
-            aria-label="Search models"
-            placeholder="Search models…"
-          />
+          <CommandInput aria-label="Search models" placeholder="Search models…" />
           <CommandList>
             <CommandEmpty>No models found.</CommandEmpty>
             <CommandGroup heading="Model">
-              {models.map((candidate) => (
+              {models.map(candidate => (
                 <CommandItem
                   key={candidate.id}
                   value={candidate.label}
@@ -159,32 +126,23 @@ function ModelPicker() {
                 >
                   <BrandIcon brand={candidate.brand} size="inline" />
                   <span>{candidate.label}</span>
-                  {candidate.id === modelId && (
-                    <span className="reasoning-effort-demo-sr-only">
-                      Current model
-                    </span>
-                  )}
+                  {candidate.id === modelId && <span className="reasoning-effort-demo-sr-only">Current model</span>}
                 </CommandItem>
               ))}
             </CommandGroup>
           </CommandList>
         </Command>
         {showEffort && (
-          <div
-            className="reasoning-effort-demo-effort"
-            data-testid="effort-footer"
-          >
+          <div className="reasoning-effort-demo-effort" data-testid="effort-footer">
             <div className="reasoning-effort-demo-effort-head">
               <span className="reasoning-effort-demo-muted">Effort</span>
-              <span className="reasoning-effort-demo-strong">
-                {effortLabel[effort]}
-              </span>
+              <span className="reasoning-effort-demo-strong">{effortLabel[effort]}</span>
             </div>
             <ReasoningEffort
               label={model.label}
-              levels={model.efforts.map((level) => effortLabel[level])}
+              levels={model.efforts.map(level => effortLabel[level])}
               value={effortIndex}
-              onValueChange={(index) => {
+              onValueChange={index => {
                 const level = model.efforts[index];
                 if (level) setEffort(level);
               }}
@@ -234,12 +192,12 @@ function LevelRow({
   initial: number;
 }) {
   const [value, setValue] = useState(initial);
-  const levels = efforts.map((level) => effortLabel[level]);
+  const levels = efforts.map(level => effortLabel[level]);
   return (
     <div className="reasoning-effort-demo-row" data-testid={testId}>
       <div className="reasoning-effort-demo-effort-head">
         <span className="reasoning-effort-demo-muted">
-          {model} · {levels.length} {levels.length === 1 ? "level" : "levels"}
+          {model} · {levels.length} {levels.length === 1 ? 'level' : 'levels'}
         </span>
         <span className="reasoning-effort-demo-strong">{levels[value]}</span>
       </div>
@@ -262,30 +220,10 @@ export function ReasoningEffortLevels() {
       description="A model's level list sets the ticks. Ticks grow taller toward higher effort, and the tick under the fill turns light. One level still renders, with the thumb parked at the start."
     >
       <div className="reasoning-effort-demo-grid">
-        <LevelRow
-          testId="effort-levels-4"
-          model="Claude Opus"
-          efforts={allEfforts}
-          initial={3}
-        />
-        <LevelRow
-          testId="effort-levels-3"
-          model="DeepSeek Pro"
-          efforts={["low", "medium", "high"]}
-          initial={1}
-        />
-        <LevelRow
-          testId="effort-levels-2"
-          model="Kimi"
-          efforts={["low", "high"]}
-          initial={0}
-        />
-        <LevelRow
-          testId="effort-levels-1"
-          model="Grok"
-          efforts={["high"]}
-          initial={0}
-        />
+        <LevelRow testId="effort-levels-4" model="Claude Opus" efforts={allEfforts} initial={3} />
+        <LevelRow testId="effort-levels-3" model="DeepSeek Pro" efforts={['low', 'medium', 'high']} initial={1} />
+        <LevelRow testId="effort-levels-2" model="Kimi" efforts={['low', 'high']} initial={0} />
+        <LevelRow testId="effort-levels-1" model="Grok" efforts={['high']} initial={0} />
       </div>
     </Example>
   );

@@ -232,11 +232,10 @@
   font-size: var(--sprout-text-sm);
   text-align: start;
   cursor: pointer;
-  transition: background-color var(--sprout-motion-fast)
-    var(--sprout-motion-ease);
+  transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
 }
 .popover-demo-choice > svg,
-.popover-demo-choice > [data-slot="brand-icon"],
+.popover-demo-choice > [data-slot='brand-icon'],
 .popover-demo-event > svg {
   flex: none;
 }
@@ -366,7 +365,7 @@
   color: var(--sprout-text);
 }
 .popover-demo-tab[data-active]::after {
-  content: "";
+  content: '';
   position: absolute;
   inset-inline: 4px;
   bottom: -1px;
@@ -452,8 +451,7 @@
   font-size: var(--sprout-text-xs);
   text-align: start;
   cursor: pointer;
-  transition: background-color var(--sprout-motion-fast)
-    var(--sprout-motion-ease);
+  transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
 }
 .popover-demo-overlap-trigger:hover,
 .popover-demo-overlap-trigger[data-popup-open] {
@@ -504,13 +502,12 @@
   font-size: var(--sprout-text-sm);
   font-variant-numeric: tabular-nums;
   cursor: pointer;
-  transition: background-color var(--sprout-motion-fast)
-    var(--sprout-motion-ease);
+  transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
 }
 .popover-demo-day:hover {
   background: var(--sprout-hover);
 }
-.popover-demo-day[aria-pressed="true"] {
+.popover-demo-day[aria-pressed='true'] {
   background: var(--sprout-primary);
   color: var(--sprout-on-primary);
 }
@@ -560,16 +557,16 @@
   border: 1px dashed var(--sprout-line);
   border-radius: var(--sprout-radius-panel);
 }
-.popover-demo-bud-stage[data-corner^="top"] {
+.popover-demo-bud-stage[data-corner^='top'] {
   align-items: flex-start;
 }
-.popover-demo-bud-stage[data-corner^="bottom"] {
+.popover-demo-bud-stage[data-corner^='bottom'] {
   align-items: flex-end;
 }
-.popover-demo-bud-stage[data-corner$="left"] {
+.popover-demo-bud-stage[data-corner$='left'] {
   justify-content: flex-start;
 }
-.popover-demo-bud-stage[data-corner$="right"] {
+.popover-demo-bud-stage[data-corner$='right'] {
   justify-content: flex-end;
 }
 .popover-demo-bud-face {
@@ -614,11 +611,11 @@
   padding: 8px 10px;
   border-radius: var(--sprout-radius-panel);
 }
-.popover-demo-bud-messages > li[data-from="user"] {
+.popover-demo-bud-messages > li[data-from='user'] {
   justify-self: end;
   background: var(--sprout-secondary);
 }
-.popover-demo-bud-messages > li[data-from="bud"] {
+.popover-demo-bud-messages > li[data-from='bud'] {
   justify-self: start;
   padding-inline: 0;
 }

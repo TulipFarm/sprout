@@ -1,5 +1,5 @@
 ---
-import Docs from "../../layouts/Docs.astro";
+import Docs from '../../layouts/Docs.astro';
 import {
   MessageScrollerButtons,
   MessageScrollerConversation,
@@ -8,22 +8,20 @@ import {
   MessageScrollerOpening,
   MessageScrollerStates,
   MessageScrollerStreaming,
-} from "../../components/MessageScrollerDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+} from '../../components/MessageScrollerDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Message Scroller"
-  description="A chat history that follows new replies and pins each new turn."
->
+<Docs title="Message Scroller" description="A chat history that follows new replies and pins each new turn.">
   <h1 class="docs-title">Message Scroller</h1>
   <p class="docs-lead">
-    The scrolling column of a conversation. It opens at the newest message, pins
-    each new turn under the top edge so its reply reads from the start, keeps
-    your place when older messages load, and shows a jump button when there is
-    more history below.
+    The scrolling column of a conversation. It opens at the newest message, pins each new turn under the top edge so its
+    reply reads from the start, keeps your place when older messages load, and shows a jump button when there is more
+    history below.
   </p>
-  <div class="mt-8"><MessageScrollerConversation client:only="react" /></div>
+  <div class="mt-8">
+    <MessageScrollerConversation client:only="react" />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -69,12 +67,10 @@ import CodeBlock from "../../components/CodeBlock.astro";
     />
     <p>
       <code>MessageScroller</code> fills its parent, so give the parent a height.
-      <code>MessageScrollerContent</code> spaces items 24px apart; pad inside each
-      item. Give every item a stable <code>messageId</code>. Set <code
-        >scrollAnchor</code
-      > on the turn that should be pinned when it is added, usually the newest message
-      the reader sent. A pinned turn leaves 64px of the message before it showing
-      (<code>scrollPreviousItemPeek</code>).
+      <code>MessageScrollerContent</code> spaces items 24px apart; pad inside each item. Give every item a stable{' '}
+      <code>messageId</code>. Set <code>scrollAnchor</code> on the turn that should be pinned when it is added, usually
+      the newest message the reader sent. A pinned turn leaves 64px of the message before it showing (
+      <code>scrollPreviousItemPeek</code>).
     </p>
   </section>
   <section class="prose-section">
@@ -88,12 +84,13 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </MessageScrollerProvider>`}
     />
     <p>
-      With <code>autoScroll</code>, growing content keeps the view at the end as
-      long as the reader is there. Scrolling up with the wheel, touch, or keys
-      stops following until they come back to the end. Without it, the sent turn
-      is still pinned and the reply grows below it.
+      With <code>autoScroll</code>, growing content keeps the view at the end as long as the reader is there. Scrolling
+      up with the wheel, touch, or keys stops following until they come back to the end. Without it, the sent turn is
+      still pinned and the reply grows below it.
     </p>
-    <div class="mt-6"><MessageScrollerStreaming client:only="react" /></div>
+    <div class="mt-6">
+      <MessageScrollerStreaming client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Jump and read position</h2>
@@ -107,45 +104,51 @@ const { visibleMessageIds, currentAnchorId } = useMessageScrollerVisibility();
 scrollToMessage("m8", { align: "center", behavior: "smooth" });`}
     />
     <p>
-      Call the hooks anywhere inside <code>MessageScrollerProvider</code>.
-      <code>align</code> is <code>"start"</code> (the default),
-      <code>"center"</code>, <code>"end"</code>, or <code>"nearest"</code>;
-      <code>behavior</code> is <code>"auto"</code> (the default) or
-      <code>"smooth"</code>. Each returns <code>false</code> when it can’t scroll,
-      such as for an unknown id; a jump requested before any message renders waits
-      for it. Visibility observes items only while a component reads it.
+      Call the hooks anywhere inside <code>MessageScrollerProvider</code>.<code>align</code> is <code>"start"</code>{' '}
+      (the default),
+      <code>"center"</code>, <code>"end"</code>, or <code>"nearest"</code>;<code>behavior</code> is <code>"auto"</code>{' '}
+      (the default) or
+      <code>"smooth"</code>. Each returns <code>false</code> when it can’t scroll, such as for an unknown id; a jump
+      requested before any message renders waits for it. Visibility observes items only while a component reads it.
     </p>
-    <div class="mt-6"><MessageScrollerNavigation client:only="react" /></div>
+    <div class="mt-6">
+      <MessageScrollerNavigation client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Opening position</h2>
     <p>
       <code>defaultScrollPosition</code> is <code>"end"</code> (the default),
       <code>"start"</code>, or <code>"last-anchor"</code>, which pins the last
-      <code>scrollAnchor</code> item. The history stays hidden until it is in place,
-      so it never flashes at the top first.
+      <code>scrollAnchor</code> item. The history stays hidden until it is in place, so it never flashes at the top
+      first.
     </p>
-    <div class="mt-6"><MessageScrollerOpening client:only="react" /></div>
+    <div class="mt-6">
+      <MessageScrollerOpening client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Jump button</h2>
     <p>
       <code>MessageScrollerButton</code> renders a Sprõut
-      <code>Button</code>, <code>secondary</code> and <code>icon-sm</code> by default,
-      and passes <code>variant</code> and <code>size</code> through.
-      <code>direction="start"</code> moves it to the top and turns the arrow up. Pass
-      children for a labeled button, or <code>render</code> for your own element.
+      <code>Button</code>, <code>secondary</code> and <code>icon-sm</code> by default, and passes <code>variant</code>{' '}
+      and <code>size</code> through.
+      <code>direction="start"</code> moves it to the top and turns the arrow up. Pass children for a labeled button, or{' '}
+      <code>render</code> for your own element.
     </p>
-    <div class="mt-6"><MessageScrollerButtons client:only="react" /></div>
+    <div class="mt-6">
+      <MessageScrollerButtons client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Loading earlier messages</h2>
     <p>
-      <code>preserveScrollOnPrepend</code> on the viewport is on by default: when
-      items are added above, the view moves by the same amount so the message you
-      are reading stays still. Turn it off to see the jump.
+      <code>preserveScrollOnPrepend</code> on the viewport is on by default: when items are added above, the view moves
+      by the same amount so the message you are reading stays still. Turn it off to see the jump.
     </p>
-    <div class="mt-6"><MessageScrollerHistory client:only="react" /></div>
+    <div class="mt-6">
+      <MessageScrollerHistory client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">States</h2>
@@ -154,19 +157,18 @@ scrollToMessage("m8", { align: "center", behavior: "smooth" });`}
       <code>MessageScrollerContent</code> so the frame keeps its size. Mark the viewport
       <code>aria-busy</code> while loading.
     </p>
-    <div class="mt-6"><MessageScrollerStates client:only="react" /></div>
+    <div class="mt-6">
+      <MessageScrollerStates client:only="react" />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
       The viewport is a focusable region named “Messages” unless you pass
-      <code>aria-label</code>, so arrow keys, Page Up, Page Down, Home, and End
-      scroll it. The content is a polite <code>log</code> that announces new messages.
-      A hidden jump button is inert and out of the tab order; icon-only buttons read
-      “Scroll to end” or “Scroll to start” unless you pass <code
-        >aria-label</code
-      >. The button fades and slides in over 180ms. With reduced motion set it
-      only fades, and its scroll is instant.
+      <code>aria-label</code>, so arrow keys, Page Up, Page Down, Home, and End scroll it. The content is a polite{' '}
+      <code>log</code> that announces new messages. A hidden jump button is inert and out of the tab order; icon-only
+      buttons read “Scroll to end” or “Scroll to start” unless you pass <code>aria-label</code>. The button fades and
+      slides in over 180ms. With reduced motion set it only fades, and its scroll is instant.
     </p>
   </section>
 </Docs>

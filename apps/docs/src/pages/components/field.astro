@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import FieldDemo from "../../components/FieldDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import FieldDemo from '../../components/FieldDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,11 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Field</h1>
   <p class="docs-lead">
-    A labeled row for one form control, with a required or optional marker, a
-    counter, and a helper or error line. ChoiceGroup and CheckboxField cover
-    radios and checkboxes. FieldsDisabled locks a whole form while it saves.
+    A labeled row for one form control, with a required or optional marker, a counter, and a helper or error line.
+    ChoiceGroup and CheckboxField cover radios and checkboxes. FieldsDisabled locks a whole form while it saves.
   </p>
-  <div class="mt-8"><FieldDemo client:load /></div>
+  <div class="mt-8">
+    <FieldDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -65,28 +66,25 @@ import { Input } from "@tulipfarm/sprout/input";
     />
     <p>
       Every Field, ChoiceGroup, and CheckboxField says whether it is
-      <code>required</code> or <code>optional</code>; there is no default. The
-      marker sits next to the label. Pass <code>id</code> to name the control, or
-      leave it out to generate one.
+      <code>required</code> or <code>optional</code>; there is no default. The marker sits next to the label. Pass{' '}
+      <code>id</code> to name the control, or leave it out to generate one.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Field</h2>
     <p>
       <code>label</code> names the control. <code>labelVisibility</code> is
-      <code>"visible"</code> (default) or <code>"screen-reader"</code>, which
-      keeps the label, marker, and counter for assistive tech only.
+      <code>"visible"</code> (default) or <code>"screen-reader"</code>, which keeps the label, marker, and counter for
+      assistive tech only.
       <code>helper</code> is a line of help below the control.
       <code>error</code> replaces it and marks the control invalid.
       <code>counter</code> is short status at the end of the label row, such as
-      <code>"120 / 8,000"</code>. <code>disabled</code> dims the label and disables
-      the control.
+      <code>"120 / 8,000"</code>. <code>disabled</code> dims the label and disables the control.
     </p>
     <p>
       The child is one control, or one element that wraps it. Sprõut
-      <code>Input</code> and <code>SelectTrigger</code> join the field on their own.
-      For any other control, call <code>useFieldControl(props)</code> and spread the
-      result on the focusable element:
+      <code>Input</code> and <code>SelectTrigger</code> join the field on their own. For any other control, call{' '}
+      <code>useFieldControl(props)</code> and spread the result on the focusable element:
     </p>
     <CodeBlock
       lang="tsx"
@@ -97,24 +95,21 @@ import { Input } from "@tulipfarm/sprout/input";
 }`}
     />
     <p>
-      It adds the field's <code>id</code>, <code>disabled</code>,
-      <code>aria-describedby</code>, <code>aria-invalid</code>, and
-      <code>aria-required</code>. Outside a Field, or when the control has its
-      own
-      <code>aria-label</code> or <code>aria-labelledby</code>, props pass
-      through unchanged.
+      It adds the field's <code>id</code>, <code>disabled</code>,<code>aria-describedby</code>,{' '}
+      <code>aria-invalid</code>, and
+      <code>aria-required</code>. Outside a Field, or when the control has its own
+      <code>aria-label</code> or <code>aria-labelledby</code>, props pass through unchanged.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">ChoiceGroup</h2>
     <p>
       <code>type="radio"</code> picks one value and <code>type="checkbox"</code>
-      picks many. <code>options</code> are <code
-        >{"{ value, label, description?, disabled? }"}</code
-      >. <code>layout</code> is <code>"list"</code> (default) or
+      picks many. <code>options</code> are <code>{'{ value, label, description?, disabled? }'}</code>.{' '}
+      <code>layout</code> is <code>"list"</code> (default) or
       <code>"columns"</code>, two columns from 640px. It also takes
-      <code>legend</code>, <code>legendVisibility</code>, <code>helper</code>,
-      <code>error</code>, <code>disabled</code>, <code>id</code>, and
+      <code>legend</code>, <code>legendVisibility</code>, <code>helper</code>,<code>error</code>, <code>disabled</code>,{' '}
+      <code>id</code>, and
       <code>warning</code>, a badge after the legend such as "Changes data".
     </p>
   </section>
@@ -124,44 +119,37 @@ import { Input } from "@tulipfarm/sprout/input";
       One checkbox with a label and a helper or error line. <code>variant</code>
       is <code>"default"</code>, filled with the primary color, or
       <code>"neutral"</code>, filled with the text color for filter lists. The
-      <code>id</code> goes on the wrapper, so a form can scroll to it and focus the
-      checkbox inside.
+      <code>id</code> goes on the wrapper, so a form can scroll to it and focus the checkbox inside.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">FieldSeparator and FieldsDisabled</h2>
     <p>
-      <code>FieldSeparator</code> is a labeled <code>Separator</code> that pulls in
-      the stack gap, so the line sits evenly between fields. Text such as "or" is
-      optional. <code>FieldsDisabled</code> is a context provider:
-      <code>{"<FieldsDisabled value={saving}>"}</code> disables every field below
-      it.
+      <code>FieldSeparator</code> is a labeled <code>Separator</code> that pulls in the stack gap, so the line sits
+      evenly between fields. Text such as "or" is optional. <code>FieldsDisabled</code> is a context provider:
+      <code>{'<FieldsDisabled value={saving}>'}</code> disables every field below it.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Labels point at their control with <code>for</code>. The control is
-      described by the error or helper, then the optional marker, then the
-      counter. Required controls get <code>aria-required</code>; invalid ones
-      get
+      Labels point at their control with <code>for</code>. The control is described by the error or helper, then the
+      optional marker, then the counter. Required controls get <code>aria-required</code>; invalid ones get
       <code>aria-invalid</code>. A checkbox group is a labelled
-      <code>role="group"</code>; a radio group is a Base UI radiogroup with
-      arrow key movement. Each option row is clickable, and option descriptions
-      describe their checkbox or radio.
+      <code>role="group"</code>; a radio group is a Base UI radiogroup with arrow key movement. Each option row is
+      clickable, and option descriptions describe their checkbox or radio.
     </p>
     <p>
-      Checkboxes and radios show a 2px focus ring. Rows are at least 36px tall,
-      and 44px on touch screens. Colors change in 120ms and stop when reduced
-      motion is requested. Forced colors mode uses system colors.
+      Checkboxes and radios show a 2px focus ring. Rows are at least 36px tall, and 44px on touch screens. Colors change
+      in 120ms and stop when reduced motion is requested. Forced colors mode uses system colors.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
       Labels use <code>--sprout-text</code>; markers, counters, and helpers use
-      <code>--sprout-muted</code>; errors use <code>--sprout-danger</code>.
-      Checked boxes use <code>--sprout-primary</code> and
+      <code>--sprout-muted</code>; errors use <code>--sprout-danger</code>. Checked boxes use{' '}
+      <code>--sprout-primary</code> and
       <code>--sprout-on-primary</code>, and checked rows use
       <code>--sprout-primary-subtle</code>. Focus rings use
       <code>--sprout-focus</code>.

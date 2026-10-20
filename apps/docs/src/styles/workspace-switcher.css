@@ -62,11 +62,11 @@
 .sprout-sidebar-header:has(.workspace-trigger) {
   padding: 8px;
 }
-.sprout-sidebar-panel[data-state="collapsed"] .workspace-summary,
-.sprout-sidebar-panel[data-state="collapsed"] .workspace-caret {
+.sprout-sidebar-panel[data-state='collapsed'] .workspace-summary,
+.sprout-sidebar-panel[data-state='collapsed'] .workspace-caret {
   display: none;
 }
-.sprout-sidebar-panel[data-state="collapsed"] .workspace-trigger {
+.sprout-sidebar-panel[data-state='collapsed'] .workspace-trigger {
   justify-content: center;
   padding-inline: 0;
 }

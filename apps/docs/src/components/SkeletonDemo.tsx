@@ -1,32 +1,19 @@
-import { useState, type CSSProperties, type ReactNode } from "react";
-import { Calendar } from "reicon-react/icons/Calendar";
-import { Chat } from "reicon-react/icons/Chat";
-import { Edit } from "reicon-react/icons/Edit";
-import { Folder } from "reicon-react/icons/Folder";
-import { Home } from "reicon-react/icons/Home";
-import { Inbox } from "reicon-react/icons/Inbox";
-import { Trash } from "reicon-react/icons/Trash";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Skeleton,
-  SkeletonGroup,
-  skeletonShapeNames,
-  type SkeletonShape,
-} from "@tulipfarm/sprout/skeleton";
-import { StatePanel } from "@tulipfarm/sprout/state-panel";
-import { Switch } from "@tulipfarm/sprout/switch";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import "../styles/skeleton-demo.css";
+import { useState, type CSSProperties, type ReactNode } from 'react';
+import { Calendar } from 'reicon-react/icons/Calendar';
+import { Chat } from 'reicon-react/icons/Chat';
+import { Edit } from 'reicon-react/icons/Edit';
+import { Folder } from 'reicon-react/icons/Folder';
+import { Home } from 'reicon-react/icons/Home';
+import { Inbox } from 'reicon-react/icons/Inbox';
+import { Trash } from 'reicon-react/icons/Trash';
+import { Button } from '@tulipfarm/sprout/button';
+import { Skeleton, SkeletonGroup, skeletonShapeNames, type SkeletonShape } from '@tulipfarm/sprout/skeleton';
+import { StatePanel } from '@tulipfarm/sprout/state-panel';
+import { Switch } from '@tulipfarm/sprout/switch';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import '../styles/skeleton-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="skeleton-demo-card" aria-label={title}>
       <header>
@@ -40,20 +27,20 @@ function Example({
 
 const shapeNotes: Record<SkeletonShape, { size: string; usedFor: string }> = {
   line: {
-    size: "16px tall, full width",
-    usedFor: "Chat, file, and project rows",
+    size: '16px tall, full width',
+    usedFor: 'Chat, file, and project rows',
   },
   title: {
-    size: "24px tall, two thirds wide",
-    usedFor: "Plan and canvas headings",
+    size: '24px tall, two thirds wide',
+    usedFor: 'Plan and canvas headings',
   },
-  avatar: { size: "32px circle", usedFor: "Member and account pictures" },
+  avatar: { size: '32px circle', usedFor: 'Member and account pictures' },
   panel: {
-    size: "128px tall, full width",
-    usedFor: "Workflow diagrams and invitations",
+    size: '128px tall, full width',
+    usedFor: 'Workflow diagrams and invitations',
   },
-  checkbox: { size: "16px box", usedFor: "Table row selection" },
-  action: { size: "28px square", usedFor: "Row edit and delete buttons" },
+  checkbox: { size: '16px box', usedFor: 'Table row selection' },
+  action: { size: '28px square', usedFor: 'Row edit and delete buttons' },
 };
 
 function Shapes() {
@@ -63,12 +50,8 @@ function Shapes() {
       description="Six footprints, each the size of the content it stands in for. Line is the default."
     >
       <div className="skeleton-demo-shapes">
-        {skeletonShapeNames.map((shape) => (
-          <div
-            key={shape}
-            className="skeleton-demo-shape"
-            data-testid={`shape-${shape}`}
-          >
+        {skeletonShapeNames.map(shape => (
+          <div key={shape} className="skeleton-demo-shape" data-testid={`shape-${shape}`}>
             <div className="skeleton-demo-shape-text">
               <code>{`shape="${shape}"`}</code>
               <span>
@@ -149,10 +132,7 @@ function Canvases() {
         </div>
         <div className="skeleton-demo-pane">
           <span className="skeleton-demo-caption">Workflow diagram</span>
-          <SkeletonGroup
-            label="Loading workflow diagram"
-            className="skeleton-demo-p"
-          >
+          <SkeletonGroup label="Loading workflow diagram" className="skeleton-demo-p">
             <Skeleton shape="title" />
             <Skeleton shape="panel" />
           </SkeletonGroup>
@@ -169,7 +149,7 @@ function Canvases() {
   );
 }
 
-const columns = ["Crop", "Bed", "Sown", "Harvest"];
+const columns = ['Crop', 'Bed', 'Sown', 'Harvest'];
 
 function TableRows() {
   const [canEdit, setCanEdit] = useState(true);
@@ -194,7 +174,7 @@ function TableRows() {
               <th scope="col">
                 <span className="skeleton-demo-sr">Select</span>
               </th>
-              {columns.map((column) => (
+              {columns.map(column => (
                 <th key={column} scope="col">
                   {column}
                 </th>
@@ -205,14 +185,14 @@ function TableRows() {
             </tr>
           </thead>
           <tbody aria-busy="true">
-            {[0, 1, 2].map((row) => (
+            {[0, 1, 2].map(row => (
               <tr key={row} data-testid="table-skeleton-row">
                 <td>
                   <div className="skeleton-demo-center">
                     <Skeleton shape="checkbox" />
                   </div>
                 </td>
-                {columns.map((column) => (
+                {columns.map(column => (
                   <td key={column}>
                     <div className="skeleton-demo-cell">
                       <Skeleton />
@@ -250,9 +230,7 @@ function StatusText() {
         </div>
         <div className="skeleton-demo-pane">
           <SkeletonGroup className="skeleton-demo-py">
-            <p className="skeleton-demo-status">
-              Checking who in “Greenhouse rotation” can open them…
-            </p>
+            <p className="skeleton-demo-status">Checking who in “Greenhouse rotation” can open them…</p>
             <Skeleton />
             <Skeleton />
           </SkeletonGroup>
@@ -281,10 +259,7 @@ function Cards() {
       description="Skeletons fill the body of a bordered card, or sit beside an icon in an event row."
     >
       <div className="skeleton-demo-grid">
-        <SkeletonGroup
-          label="Loading upcoming meetings"
-          className="skeleton-demo-bordered"
-        >
+        <SkeletonGroup label="Loading upcoming meetings" className="skeleton-demo-bordered">
           <Skeleton shape="line" />
           <Skeleton shape="line" />
           <Skeleton shape="line" />
@@ -293,22 +268,14 @@ function Cards() {
           <span className="skeleton-demo-event-icon" aria-hidden="true">
             <Calendar size={16} />
           </span>
-          <SkeletonGroup
-            label="Loading event details"
-            gap="sm"
-            className="skeleton-demo-grow"
-          >
+          <SkeletonGroup label="Loading event details" gap="sm" className="skeleton-demo-grow">
             <Skeleton />
             <Skeleton />
           </SkeletonGroup>
         </div>
         <div className="skeleton-demo-member">
           <Skeleton shape="avatar" />
-          <SkeletonGroup
-            label="Loading member"
-            gap="sm"
-            className="skeleton-demo-grow"
-          >
+          <SkeletonGroup label="Loading member" gap="sm" className="skeleton-demo-grow">
             <Skeleton className="skeleton-demo-w-name" />
             <Skeleton className="skeleton-demo-w-email" />
           </SkeletonGroup>
@@ -318,7 +285,7 @@ function Cards() {
   );
 }
 
-const menuWidths = ["72%", "56%", "84%", "64%"];
+const menuWidths = ['72%', '56%', '84%', '64%'];
 const menuIcons = [Home, Chat, Folder, Inbox];
 
 function MenuRows() {
@@ -333,55 +300,44 @@ function MenuRows() {
         Show icon
       </label>
       <div className="skeleton-demo-menus">
-        <SkeletonGroup
-          label="Loading chats"
-          gap="sm"
-          className="skeleton-demo-menu"
-        >
-          {menuWidths.map((width) => (
+        <SkeletonGroup label="Loading chats" gap="sm" className="skeleton-demo-menu">
+          {menuWidths.map(width => (
             <div key={width} className="skeleton-demo-menu-row">
-              {showIcon && (
-                <Skeleton
-                  className="skeleton-demo-menu-icon"
-                  data-sidebar="menu-skeleton-icon"
-                />
-              )}
+              {showIcon && <Skeleton className="skeleton-demo-menu-icon" data-sidebar="menu-skeleton-icon" />}
               <Skeleton
                 className="skeleton-demo-menu-text"
                 data-sidebar="menu-skeleton-text"
-                style={{ "--skeleton-width": width } as CSSProperties}
+                style={{ '--skeleton-width': width } as CSSProperties}
               />
             </div>
           ))}
         </SkeletonGroup>
         <ul className="skeleton-demo-menu" aria-label="Loaded chats">
-          {["Weekly harvest", "Seed order", "Shared files", "Inbox"].map(
-            (label, index) => {
-              const Icon = menuIcons[index]!;
-              return (
-                <li key={label} className="skeleton-demo-menu-row">
-                  {showIcon && <Icon size={16} aria-hidden="true" />}
-                  <span>{label}</span>
-                </li>
-              );
-            },
-          )}
+          {['Weekly harvest', 'Seed order', 'Shared files', 'Inbox'].map((label, index) => {
+            const Icon = menuIcons[index]!;
+            return (
+              <li key={label} className="skeleton-demo-menu-row">
+                {showIcon && <Icon size={16} aria-hidden="true" />}
+                <span>{label}</span>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </Example>
   );
 }
 
-type Phase = "loading" | "ready" | "empty" | "error";
+type Phase = 'loading' | 'ready' | 'empty' | 'error';
 
 const projects = [
-  { name: "Spring launch", detail: "12 files · 4 members" },
-  { name: "Greenhouse rotation", detail: "7 files · 2 members" },
-  { name: "Seed catalog 2027", detail: "31 files · 6 members" },
+  { name: 'Spring launch', detail: '12 files · 4 members' },
+  { name: 'Greenhouse rotation', detail: '7 files · 2 members' },
+  { name: 'Seed catalog 2027', detail: '31 files · 6 members' },
 ];
 
 function LoadStates() {
-  const [phase, setPhase] = useState<Phase>("loading");
+  const [phase, setPhase] = useState<Phase>('loading');
   return (
     <Example
       title="Load states"
@@ -393,7 +349,7 @@ function LoadStates() {
         size="sm"
         spacing={0}
         value={[phase]}
-        onValueChange={(value) => {
+        onValueChange={value => {
           if (value[0]) setPhase(value[0] as Phase);
         }}
       >
@@ -403,44 +359,32 @@ function LoadStates() {
         <ToggleGroupItem value="error">Error</ToggleGroupItem>
       </ToggleGroup>
       <div className="skeleton-demo-load" data-phase={phase}>
-        {phase === "loading" ? (
-          <SkeletonGroup
-            label="Loading projects"
-            gap="lg"
-            className="skeleton-demo-py"
-          >
+        {phase === 'loading' ? (
+          <SkeletonGroup label="Loading projects" gap="lg" className="skeleton-demo-py">
             <Skeleton />
             <Skeleton />
             <Skeleton />
           </SkeletonGroup>
-        ) : phase === "ready" ? (
+        ) : phase === 'ready' ? (
           <ul className="skeleton-demo-projects" aria-label="Projects">
-            {projects.map((project) => (
+            {projects.map(project => (
               <li key={project.name}>
                 <span className="skeleton-demo-project-text">
                   <span>{project.name}</span>
                   <span className="skeleton-demo-muted">{project.detail}</span>
                 </span>
                 <span className="skeleton-demo-row-actions">
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    aria-label={`Rename ${project.name}`}
-                  >
+                  <Button variant="ghost" size="icon-sm" aria-label={`Rename ${project.name}`}>
                     <Edit size={16} aria-hidden="true" />
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    aria-label={`Delete ${project.name}`}
-                  >
+                  <Button variant="ghost" size="icon-sm" aria-label={`Delete ${project.name}`}>
                     <Trash size={16} aria-hidden="true" />
                   </Button>
                 </span>
               </li>
             ))}
           </ul>
-        ) : phase === "empty" ? (
+        ) : phase === 'empty' ? (
           <StatePanel
             kind="empty"
             heading="h4"
@@ -454,11 +398,7 @@ function LoadStates() {
             title="Could not load projects"
             description="Check your connection and try again."
           >
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setPhase("loading")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setPhase('loading')}>
               Retry
             </Button>
           </StatePanel>

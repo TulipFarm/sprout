@@ -1,25 +1,23 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   StateSamplePlayground,
   StateSampleGallery,
   StateSampleWindows,
   StateSampleParts,
-} from "../../components/StateSampleDemo";
+} from '../../components/StateSampleDemo';
 ---
 
-<Docs
-  title="State Sample"
-  description="Small, decorative pictures of a filled page for empty states."
->
+<Docs title="State Sample" description="Small, decorative pictures of a filled page for empty states.">
   <h1 class="docs-title">State Sample</h1>
   <p class="docs-lead">
-    Draws a small picture of a page once it has content. Pass it to an empty <a
-      href="/components/state-panel/">State Panel</a
-    > so people see what they will get before they add anything.
+    Draws a small picture of a page once it has content. Pass it to an empty{' '}
+    <a href="/components/state-panel/">State Panel</a> so people see what they will get before they add anything.
   </p>
-  <div class="mt-8"><StateSamplePlayground client:load /></div>
+  <div class="mt-8">
+    <StateSamplePlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -56,19 +54,16 @@ import {
 </StatePanel>`}
     />
     <p>
-      <code>SampleWindow</code> draws a title bar with <code>icon</code>, a
-      breadcrumb <code>trail</code>, and an “Example” chip. Change the chip with <code
-        >label</code
-      >. The last trail part is the current page. Add <code>tabs</code> for a tab
-      row; the first tab is selected. Put a list, a table, or your own content inside.
+      <code>SampleWindow</code> draws a title bar with <code>icon</code>, a breadcrumb <code>trail</code>, and an
+      “Example” chip. Change the chip with <code>label</code>. The last trail part is the current page. Add{' '}
+      <code>tabs</code> for a tab row; the first tab is selected. Put a list, a table, or your own content inside.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Every sample</h2>
     <p>
-      These are the samples TulipFarm shows on its empty pages. Data, avatars,
-      and file glyphs here are sample adapters; the package only draws the
-      frame, rows, and placeholders.
+      These are the samples TulipFarm shows on its empty pages. Data, avatars, and file glyphs here are sample adapters;
+      the package only draws the frame, rows, and placeholders.
     </p>
     <StateSampleGallery client:load />
   </section>
@@ -93,55 +88,42 @@ import {
 />`}
     />
     <p>
-      <code>SampleList</code> takes <code>items</code>. Each item has a <code
-        >title</code
-      > and optional <code>detail</code>, <code>leading</code>, and <code
-        >trailing</code
-      > content. Rows are at least 56px tall.
+      <code>SampleList</code> takes <code>items</code>. Each item has a <code>title</code> and optional{' '}
+      <code>detail</code>, <code>leading</code>, and <code>trailing</code> content. Rows are at least 56px tall.
     </p>
     <p>
-      <code>SampleTable</code> takes <code>columns</code> and <code>rows</code>.
-      A column <code>size</code> is <code>"wide"</code> (1.6 shares), <code
-        >"default"</code
-      > (1 share), or <code>"narrow"</code> (a fixed 96px). Each row starts with a
-      decorative checkbox. Long text truncates with an ellipsis.
+      <code>SampleTable</code> takes <code>columns</code> and <code>rows</code>. A column <code>size</code> is{' '}
+      <code>"wide"</code> (1.6 shares), <code>"default"</code> (1 share), or <code>"narrow"</code> (a fixed 96px). Each
+      row starts with a decorative checkbox. Long text truncates with an ellipsis.
     </p>
     <StateSampleWindows client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Parts</h2>
     <p>
-      For <code>SampleText</code>, <code>tone</code> is <code>"default"</code>, <code
-        >"strong"</code
-      >, <code>"muted"</code>, <code>"link"</code>, or <code>"mono"</code>. A <code
-        >SampleMark</code
-      > is a colored square. Its <code>tone</code> is red, orange, green, blue, violet,
-      or teal, and its <code>size</code> is <code>"sm"</code> (14px) or <code
-        >"md"</code
-      > (28px). A <code>SampleBar</code> stands in for a value. Its <code
-        >width</code
-      > is <code>"sm"</code>, <code>"md"</code>, or <code>"lg"</code>. A <code
-        >SampleIconTile</code
-      > puts an icon in a 28px tile.
+      For <code>SampleText</code>, <code>tone</code> is <code>"default"</code>, <code>"strong"</code>,{' '}
+      <code>"muted"</code>, <code>"link"</code>, or <code>"mono"</code>. A <code>SampleMark</code> is a colored square.
+      Its <code>tone</code> is red, orange, green, blue, violet, or teal, and its <code>size</code> is <code>"sm"</code>{' '}
+      (14px) or <code>"md"</code> (28px). A <code>SampleBar</code> stands in for a value. Its <code>width</code> is{' '}
+      <code>"sm"</code>, <code>"md"</code>, or <code>"lg"</code>. A <code>SampleIconTile</code> puts an icon in a 28px
+      tile.
     </p>
     <StateSampleParts client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Samples are pictures, not controls. Nothing in them can be focused. Marks,
-      bars, icon tiles, checkboxes, and trail separators are hidden from
-      assistive technology. Inside a State Panel the whole sample is hidden and
-      inert, so screen readers hear only the panel text.
+      Samples are pictures, not controls. Nothing in them can be focused. Marks, bars, icon tiles, checkboxes, and trail
+      separators are hidden from assistive technology. Inside a State Panel the whole sample is hidden and inert, so
+      screen readers hear only the panel text.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
       Lines use <code>--sprout-line</code>, text uses <code>--sprout-text</code> and
-      <code>--sprout-muted</code>, links use <code>--sprout-info</code>, and
-      bars use <code>--sprout-active</code>. Mark gradients have light and dark
-      values set by the component.
+      <code>--sprout-muted</code>, links use <code>--sprout-info</code>, and bars use <code>--sprout-active</code>. Mark
+      gradients have light and dark values set by the component.
     </p>
   </section>
 </Docs>

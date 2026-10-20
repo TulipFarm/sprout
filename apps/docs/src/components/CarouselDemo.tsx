@@ -1,7 +1,7 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { Plus } from "reicon-react/icons/Plus";
+import { useEffect, useState, type ReactNode } from 'react';
+import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
+import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { Plus } from 'reicon-react/icons/Plus';
 import {
   Carousel,
   CarouselContent,
@@ -11,23 +11,12 @@ import {
   useCarousel,
   type CarouselApi,
   type CarouselOrientation,
-} from "@tulipfarm/sprout/carousel";
-import {
-  FileAttachment,
-  type AttachmentFile,
-} from "@tulipfarm/sprout/attachment";
-import { Button } from "@tulipfarm/sprout/button";
-import "../styles/carousel-demo.css";
+} from '@tulipfarm/sprout/carousel';
+import { FileAttachment, type AttachmentFile } from '@tulipfarm/sprout/attachment';
+import { Button } from '@tulipfarm/sprout/button';
+import '../styles/carousel-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="carousel-demo-card" aria-label={title}>
       <header>
@@ -39,7 +28,7 @@ function Example({
   );
 }
 
-const steps = ["Plant", "Water", "Grow"];
+const steps = ['Plant', 'Water', 'Grow'];
 
 function SlidePosition() {
   const { selectedIndex, snapCount } = useCarousel();
@@ -54,10 +43,7 @@ function StepCarousel({ orientation }: { orientation: CarouselOrientation }) {
   const content = (
     <CarouselContent>
       {steps.map((label, index) => (
-        <CarouselItem
-          key={label}
-          aria-label={`${index + 1} of ${steps.length}`}
-        >
+        <CarouselItem key={label} aria-label={`${index + 1} of ${steps.length}`}>
           <div className="carousel-demo-slide">
             {index + 1}. {label}
           </div>
@@ -74,11 +60,7 @@ function StepCarousel({ orientation }: { orientation: CarouselOrientation }) {
           aria-label={`Growing steps, ${orientation}`}
           data-testid={`steps-${orientation}`}
         >
-          {orientation === "vertical" ? (
-            <div className="carousel-demo-vertical-viewport">{content}</div>
-          ) : (
-            content
-          )}
+          {orientation === 'vertical' ? <div className="carousel-demo-vertical-viewport">{content}</div> : content}
           <CarouselPrevious />
           <CarouselNext />
           <SlidePosition />
@@ -103,87 +85,86 @@ function Orientations() {
 }
 
 const fileTypes = {
-  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  pdf: "application/pdf",
-  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  txt: "text/plain",
-  md: "text/markdown",
-  json: "application/json",
-  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-  csv: "text/csv",
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  pdf: 'application/pdf',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  txt: 'text/plain',
+  md: 'text/markdown',
+  json: 'application/json',
+  pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  csv: 'text/csv',
 };
 
 const seedFiles = (): AttachmentFile[] => [
   {
-    id: "1",
-    name: "Price list 2026.xlsx",
+    id: '1',
+    name: 'Price list 2026.xlsx',
     mediaType: fileTypes.xlsx,
-    size: "48 KB",
-    state: "ready",
+    size: '48 KB',
+    state: 'ready',
   },
   {
-    id: "2",
-    name: "Returns policy.pdf",
+    id: '2',
+    name: 'Returns policy.pdf',
     mediaType: fileTypes.pdf,
-    size: "212 KB",
-    state: "uploading",
+    size: '212 KB',
+    state: 'uploading',
   },
   {
-    id: "3",
-    name: "Onboarding checklist.docx",
+    id: '3',
+    name: 'Onboarding checklist.docx',
     mediaType: fileTypes.docx,
-    size: "2 KB",
-    state: "ready",
+    size: '2 KB',
+    state: 'ready',
   },
   {
-    id: "4",
-    name: "garden-notes.txt",
+    id: '4',
+    name: 'garden-notes.txt',
     mediaType: fileTypes.txt,
-    size: "1 KB",
-    state: "error",
+    size: '1 KB',
+    state: 'error',
   },
   {
-    id: "5",
-    name: "Spring planting plan.md",
+    id: '5',
+    name: 'Spring planting plan.md',
     mediaType: fileTypes.md,
-    size: "6 KB",
-    state: "processing",
+    size: '6 KB',
+    state: 'processing',
   },
   {
-    id: "6",
-    name: "inventory.json",
+    id: '6',
+    name: 'inventory.json',
     mediaType: fileTypes.json,
-    size: "14 KB",
-    state: "ready",
+    size: '14 KB',
+    state: 'ready',
   },
   {
-    id: "7",
-    name: "Q3 launch deck.pptx",
+    id: '7',
+    name: 'Q3 launch deck.pptx',
     mediaType: fileTypes.pptx,
-    size: "3.1 MB",
-    state: "ready",
+    size: '3.1 MB',
+    state: 'ready',
   },
 ];
 
-const extraFiles: Omit<AttachmentFile, "id">[] = [
+const extraFiles: Omit<AttachmentFile, 'id'>[] = [
   {
-    name: "Seed suppliers.csv",
+    name: 'Seed suppliers.csv',
     mediaType: fileTypes.csv,
-    size: "9 KB",
-    state: "uploading",
+    size: '9 KB',
+    state: 'uploading',
   },
   {
-    name: "Greenhouse layout.pdf",
+    name: 'Greenhouse layout.pdf',
     mediaType: fileTypes.pdf,
-    size: "640 KB",
-    state: "ready",
+    size: '640 KB',
+    state: 'ready',
   },
 ];
 
 /** The edge arrows an attachment row draws from `useCarousel`. */
 function AttachmentArrows() {
-  const { scrollPrev, scrollNext, canScrollPrev, canScrollNext } =
-    useCarousel();
+  const { scrollPrev, scrollNext, canScrollPrev, canScrollNext } = useCarousel();
   return (
     <>
       {canScrollPrev && (
@@ -200,12 +181,7 @@ function AttachmentArrows() {
       )}
       {canScrollNext && (
         <span className="carousel-demo-edge" data-side="end">
-          <button
-            type="button"
-            aria-label="Next attachments"
-            className="carousel-demo-edge-arrow"
-            onClick={scrollNext}
-          >
+          <button type="button" aria-label="Next attachments" className="carousel-demo-edge-arrow" onClick={scrollNext}>
             <ChevronRight size={12} aria-hidden="true" />
           </button>
         </span>
@@ -219,8 +195,8 @@ function AttachmentRow() {
   const [added, setAdded] = useState(0);
   const add = () => {
     const next = extraFiles[added % extraFiles.length]!;
-    setFiles((current) => [...current, { ...next, id: `extra-${added}` }]);
-    setAdded((count) => count + 1);
+    setFiles(current => [...current, { ...next, id: `extra-${added}` }]);
+    setAdded(count => count + 1);
   };
   return (
     <Example
@@ -232,32 +208,21 @@ function AttachmentRow() {
           <Carousel
             data-slot="attachment-group"
             aria-label="Attached files"
-            opts={{ align: "start", dragFree: true }}
+            opts={{ align: 'start', dragFree: true }}
             className="carousel-demo-attachments"
           >
             <CarouselContent className="carousel-demo-attachments-track">
-              {files.map((file) => (
-                <CarouselItem
-                  key={file.id}
-                  className="carousel-demo-attachments-item"
-                >
+              {files.map(file => (
+                <CarouselItem key={file.id} className="carousel-demo-attachments-item">
                   <FileAttachment
                     variant="chip"
                     file={file}
-                    onRemove={() =>
-                      setFiles((current) =>
-                        current.filter((item) => item.id !== file.id),
-                      )
-                    }
+                    onRemove={() => setFiles(current => current.filter(item => item.id !== file.id))}
                     onRetry={
-                      file.state === "error"
+                      file.state === 'error'
                         ? () =>
-                            setFiles((current) =>
-                              current.map((item) =>
-                                item.id === file.id
-                                  ? { ...item, state: "ready" }
-                                  : item,
-                              ),
+                            setFiles(current =>
+                              current.map(item => (item.id === file.id ? { ...item, state: 'ready' } : item)),
                             )
                         : undefined
                     }
@@ -277,16 +242,11 @@ function AttachmentRow() {
             <Plus data-icon="inline-start" aria-hidden="true" />
             Add file
           </Button>
-          <Button
-            size="sm"
-            variant="ghost"
-            disabled={!files.length}
-            onClick={() => setFiles([])}
-          >
+          <Button size="sm" variant="ghost" disabled={!files.length} onClick={() => setFiles([])}>
             Remove all
           </Button>
           <span className="carousel-demo-count" role="status">
-            {files.length} {files.length === 1 ? "file" : "files"}
+            {files.length} {files.length === 1 ? 'file' : 'files'}
           </span>
         </div>
       </div>
@@ -295,14 +255,14 @@ function AttachmentRow() {
 }
 
 const guides = [
-  { title: "Tomatoes", detail: "Sow indoors 6 weeks before the last frost." },
-  { title: "Basil", detail: "Pinch the tips weekly so it grows bushy." },
-  { title: "Lettuce", detail: "Sow a short row every two weeks." },
+  { title: 'Tomatoes', detail: 'Sow indoors 6 weeks before the last frost.' },
+  { title: 'Basil', detail: 'Pinch the tips weekly so it grows bushy.' },
+  { title: 'Lettuce', detail: 'Sow a short row every two weeks.' },
   {
-    title: "Carrots",
-    detail: "Thin seedlings to 5 cm once they are 3 cm tall.",
+    title: 'Carrots',
+    detail: 'Thin seedlings to 5 cm once they are 3 cm tall.',
   },
-  { title: "Peas", detail: "Give them a trellis before they start to climb." },
+  { title: 'Peas', detail: 'Give them a trellis before they start to climb.' },
 ];
 
 function ApiDots() {
@@ -316,9 +276,9 @@ function ApiDots() {
       setCount(current.scrollSnapList().length);
     };
     sync(api);
-    api.on("select", sync).on("reInit", sync);
+    api.on('select', sync).on('reInit', sync);
     return () => {
-      api.off("select", sync).off("reInit", sync);
+      api.off('select', sync).off('reInit', sync);
     };
   }, [api]);
   return (
@@ -329,17 +289,14 @@ function ApiDots() {
       <div className="carousel-demo-frame" data-orientation="horizontal">
         <Carousel
           aria-label="Planting guides"
-          opts={{ align: "start", loop: true }}
+          opts={{ align: 'start', loop: true }}
           setApi={setApi}
           className="carousel-demo-guides"
           data-testid="guides"
         >
           <CarouselContent>
             {guides.map((guide, index) => (
-              <CarouselItem
-                key={guide.title}
-                aria-label={`${index + 1} of ${guides.length}`}
-              >
+              <CarouselItem key={guide.title} aria-label={`${index + 1} of ${guides.length}`}>
                 <article className="carousel-demo-guide">
                   <h4>{guide.title}</h4>
                   <p>{guide.detail}</p>
@@ -351,18 +308,14 @@ function ApiDots() {
           <CarouselNext />
         </Carousel>
       </div>
-      <div
-        className="carousel-demo-dots"
-        role="group"
-        aria-label="Choose a position"
-      >
+      <div className="carousel-demo-dots" role="group" aria-label="Choose a position">
         {Array.from({ length: count }, (_, index) => (
           <button
             key={index}
             type="button"
             className="carousel-demo-dot"
             aria-label={`Go to position ${index + 1}`}
-            aria-current={index === selected ? "true" : undefined}
+            aria-current={index === selected ? 'true' : undefined}
             onClick={() => api?.scrollTo(index)}
           />
         ))}

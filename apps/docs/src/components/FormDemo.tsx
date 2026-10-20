@@ -1,17 +1,10 @@
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type ComponentProps,
-  type ReactNode,
-} from "react";
-import { Plus } from "reicon-react/icons/Plus";
-import { Refresh } from "reicon-react/icons/Refresh";
-import { Send } from "reicon-react/icons/Send";
-import { X } from "reicon-react/icons/X";
-import { Alert, AlertDescription } from "@tulipfarm/sprout/alert";
-import { Button } from "@tulipfarm/sprout/button";
+import { useEffect, useId, useRef, useState, type ComponentProps, type ReactNode } from 'react';
+import { Plus } from 'reicon-react/icons/Plus';
+import { Refresh } from 'reicon-react/icons/Refresh';
+import { Send } from 'reicon-react/icons/Send';
+import { X } from 'reicon-react/icons/X';
+import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
+import { Button } from '@tulipfarm/sprout/button';
 import {
   Dialog,
   DialogBody,
@@ -20,13 +13,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@tulipfarm/sprout/dialog";
-import {
-  CheckboxField,
-  ChoiceGroup,
-  Field,
-  useFieldControl,
-} from "@tulipfarm/sprout/field";
+} from '@tulipfarm/sprout/dialog';
+import { CheckboxField, ChoiceGroup, Field, useFieldControl } from '@tulipfarm/sprout/field';
 import {
   Form,
   FormFooter,
@@ -35,24 +23,18 @@ import {
   type FormActionState,
   type FormCancel,
   type FormFooterLayout,
-} from "@tulipfarm/sprout/form";
-import { Input } from "@tulipfarm/sprout/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@tulipfarm/sprout/select";
-import { StatePanel } from "@tulipfarm/sprout/state-panel";
-import DocsSelect from "./DocsSelect";
-import "../styles/form-demo.css";
+} from '@tulipfarm/sprout/form';
+import { Input } from '@tulipfarm/sprout/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@tulipfarm/sprout/select';
+import { StatePanel } from '@tulipfarm/sprout/state-panel';
+import DocsSelect from './DocsSelect';
+import '../styles/form-demo.css';
 
 /* Sample adapters. Saving, routing, and data are docs-only stand-ins for the
    Cloud write hooks and router links. Sprout has no Textarea yet, so a
    docs-only textarea reads the Field through useFieldControl. */
 
-function SampleTextarea(props: ComponentProps<"textarea">) {
+function SampleTextarea(props: ComponentProps<'textarea'>) {
   const field = useFieldControl(props);
   return <textarea rows={3} {...field} className="form-demo-textarea" />;
 }
@@ -93,12 +75,7 @@ function Frame({
   children: ReactNode;
 }) {
   return (
-    <section
-      className="form-demo-frame"
-      aria-label={title}
-      data-example={example}
-      data-wide={wide || undefined}
-    >
+    <section className="form-demo-frame" aria-label={title} data-example={example} data-wide={wide || undefined}>
       <div className="form-demo-frame-bar">{title}</div>
       <div className="form-demo-frame-body">{children}</div>
     </section>
@@ -115,43 +92,34 @@ function Toggle({
   children: ReactNode;
 }) {
   return (
-    <button
-      type="button"
-      className="form-demo-toggle"
-      aria-pressed={pressed}
-      onClick={() => onPressedChange(!pressed)}
-    >
+    <button type="button" className="form-demo-toggle" aria-pressed={pressed} onClick={() => onPressedChange(!pressed)}>
       {children}
     </button>
   );
 }
 
 const teams = [
-  { value: "operations", label: "Operations" },
-  { value: "finance", label: "Finance" },
-  { value: "support", label: "Customer support" },
+  { value: 'operations', label: 'Operations' },
+  { value: 'finance', label: 'Finance' },
+  { value: 'support', label: 'Customer support' },
 ];
 
 function TeamSelect({
   value,
   onValueChange,
-  placeholder = "Choose a team",
+  placeholder = 'Choose a team',
 }: {
   value: string;
   onValueChange: (value: string) => void;
   placeholder?: string;
 }) {
   return (
-    <Select
-      items={teams}
-      value={value || null}
-      onValueChange={(next) => onValueChange(next ?? "")}
-    >
+    <Select items={teams} value={value || null} onValueChange={next => onValueChange(next ?? '')}>
       <SelectTrigger width="full">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
-        {teams.map((team) => (
+        {teams.map(team => (
           <SelectItem key={team.value} value={team.value}>
             {team.label}
           </SelectItem>
@@ -163,9 +131,8 @@ function TeamSelect({
 
 /* Playground */
 
-type PlaygroundState =
-  "ready" | "busy" | "blocked" | "jump" | "action" | "link";
-type PlaygroundCancel = "none" | "reset" | "leave";
+type PlaygroundState = 'ready' | 'busy' | 'blocked' | 'jump' | 'action' | 'link';
+type PlaygroundCancel = 'none' | 'reset' | 'leave';
 
 const layoutCopy: Record<
   FormFooterLayout,
@@ -179,100 +146,100 @@ const layoutCopy: Record<
   }
 > = {
   bar: {
-    label: "Save sharing",
-    pending: "Saving sharing…",
-    secondary: "Save draft",
-    note: "Runs keep using the active version until a manager activates this one.",
-    error: "Fix 1 field to save sharing.",
-    reason: "Choose which settings to keep above first.",
+    label: 'Save sharing',
+    pending: 'Saving sharing…',
+    secondary: 'Save draft',
+    note: 'Runs keep using the active version until a manager activates this one.',
+    error: 'Fix 1 field to save sharing.',
+    reason: 'Choose which settings to keep above first.',
   },
   stack: {
-    label: "Email me a sign-in link",
-    pending: "Sending email…",
-    secondary: "Continue with a passkey",
-    note: "Sign-in links expire after 15 minutes.",
-    error: "Enter a valid work email.",
-    reason: "Complete verification to continue.",
+    label: 'Email me a sign-in link',
+    pending: 'Sending email…',
+    secondary: 'Continue with a passkey',
+    note: 'Sign-in links expire after 15 minutes.',
+    error: 'Enter a valid work email.',
+    reason: 'Complete verification to continue.',
   },
   compact: {
-    label: "Save answer",
-    pending: "Saving answer...",
-    secondary: "Save for later",
-    note: "Saved for this workspace. You can undo it.",
-    error: "Choose or enter an answer to continue.",
-    reason: "Choose a reply style.",
+    label: 'Save answer',
+    pending: 'Saving answer...',
+    secondary: 'Save for later',
+    note: 'Saved for this workspace. You can undo it.',
+    error: 'Choose or enter an answer to continue.',
+    reason: 'Choose a reply style.',
   },
 };
 
 const stateItems = [
-  { value: "ready", label: "Ready" },
-  { value: "busy", label: "Busy" },
-  { value: "blocked", label: "Blocked" },
-  { value: "jump", label: "Blocked, jump fix" },
-  { value: "action", label: "Blocked, action fix" },
-  { value: "link", label: "Blocked, link fix" },
+  { value: 'ready', label: 'Ready' },
+  { value: 'busy', label: 'Busy' },
+  { value: 'blocked', label: 'Blocked' },
+  { value: 'jump', label: 'Blocked, jump fix' },
+  { value: 'action', label: 'Blocked, action fix' },
+  { value: 'link', label: 'Blocked, link fix' },
 ] as const;
 
 export function FormPlayground() {
   const id = useId();
-  const [layout, setLayout] = useState<FormFooterLayout>("bar");
-  const [kind, setKind] = useState<PlaygroundState>("ready");
-  const [cancelKind, setCancelKind] = useState<PlaygroundCancel>("reset");
+  const [layout, setLayout] = useState<FormFooterLayout>('bar');
+  const [kind, setKind] = useState<PlaygroundState>('ready');
+  const [cancelKind, setCancelKind] = useState<PlaygroundCancel>('reset');
   const [dirty, setDirty] = useState(true);
   const [secondary, setSecondary] = useState(false);
   const [note, setNote] = useState(true);
   const [error, setError] = useState(false);
   const [locked, setLocked] = useState(false);
-  const [team, setTeam] = useState("operations");
-  const [email, setEmail] = useState("ada@tulipfarm.app");
-  const [style, setStyle] = useState("short");
-  const [message, setMessage] = useState("");
+  const [team, setTeam] = useState('operations');
+  const [email, setEmail] = useState('ada@tulipfarm.app');
+  const [style, setStyle] = useState('short');
+  const [message, setMessage] = useState('');
   const copy = layoutCopy[layout];
   const target = `${id}-target`;
   const state: FormActionState =
-    kind === "ready"
-      ? { kind: "ready" }
-      : kind === "busy"
-        ? { kind: "busy" }
-        : kind === "blocked"
-          ? { kind: "blocked", reason: copy.reason }
-          : kind === "jump"
+    kind === 'ready'
+      ? { kind: 'ready' }
+      : kind === 'busy'
+        ? { kind: 'busy' }
+        : kind === 'blocked'
+          ? { kind: 'blocked', reason: copy.reason }
+          : kind === 'jump'
             ? {
-                kind: "blocked",
+                kind: 'blocked',
                 reason: copy.reason,
-                fix: { kind: "jump", label: "Go to the field", target },
+                fix: { kind: 'jump', label: 'Go to the field', target },
               }
-            : kind === "action"
+            : kind === 'action'
               ? {
-                  kind: "blocked",
-                  reason: "Settings could not refresh.",
+                  kind: 'blocked',
+                  reason: 'Settings could not refresh.',
                   fix: {
-                    kind: "action",
-                    label: "Try again",
-                    onClick: () => setKind("ready"),
+                    kind: 'action',
+                    label: 'Try again',
+                    onClick: () => setKind('ready'),
                   },
                 }
               : {
-                  kind: "blocked",
-                  reason: "Restore the original Google integration.",
+                  kind: 'blocked',
+                  reason: 'Restore the original Google integration.',
                   fix: {
-                    kind: "link",
-                    label: "Open integrations",
+                    kind: 'link',
+                    label: 'Open integrations',
                     link: <a href="#form-integrations" />,
                   },
                 };
   const cancel: FormCancel | undefined =
-    cancelKind === "reset"
+    cancelKind === 'reset'
       ? {
-          kind: "reset",
-          label: "Discard changes",
+          kind: 'reset',
+          label: 'Discard changes',
           onReset: () => {
             setDirty(false);
-            setMessage("Changes discarded.");
+            setMessage('Changes discarded.');
           },
         }
-      : cancelKind === "leave"
-        ? { kind: "leave", label: "Cancel", link: <a href="#form-usage" /> }
+      : cancelKind === 'leave'
+        ? { kind: 'leave', label: 'Cancel', link: <a href="#form-usage" /> }
         : undefined;
   const footer = (
     <FormFooter
@@ -283,7 +250,7 @@ export function FormPlayground() {
         secondary
           ? {
               label: copy.secondary,
-              disabled: kind !== "ready",
+              disabled: kind !== 'ready',
               onSelect: () => setMessage(`${copy.secondary} selected.`),
             }
           : undefined
@@ -292,13 +259,8 @@ export function FormPlayground() {
       note={note ? copy.note : undefined}
       error={error ? copy.error : undefined}
     >
-      {layout === "compact" ? (
-        <Button
-          size="sm"
-          variant="ghost"
-          disabled={kind === "busy"}
-          onClick={() => setMessage("Question skipped.")}
-        >
+      {layout === 'compact' ? (
+        <Button size="sm" variant="ghost" disabled={kind === 'busy'} onClick={() => setMessage('Question skipped.')}>
           Skip
         </Button>
       ) : (
@@ -314,7 +276,7 @@ export function FormPlayground() {
           <DocsSelect
             label="Footer layout"
             value={layout}
-            items={formFooterLayoutNames.map((value) => ({
+            items={formFooterLayoutNames.map(value => ({
               value,
               label: value[0]!.toUpperCase() + value.slice(1),
             }))}
@@ -323,12 +285,7 @@ export function FormPlayground() {
         </label>
         <label>
           Submit
-          <DocsSelect
-            label="Submit state"
-            value={kind}
-            items={stateItems}
-            onValueChange={setKind}
-          />
+          <DocsSelect label="Submit state" value={kind} items={stateItems} onValueChange={setKind} />
         </label>
         <label>
           Cancel
@@ -336,18 +293,14 @@ export function FormPlayground() {
             label="Cancel kind"
             value={cancelKind}
             items={[
-              { value: "none", label: "None" },
-              { value: "reset", label: "Reset" },
-              { value: "leave", label: "Leave link" },
+              { value: 'none', label: 'None' },
+              { value: 'reset', label: 'Reset' },
+              { value: 'leave', label: 'Leave link' },
             ]}
             onValueChange={setCancelKind}
           />
         </label>
-        <div
-          className="form-demo-segments"
-          role="group"
-          aria-label="Footer options"
-        >
+        <div className="form-demo-segments" role="group" aria-label="Footer options">
           <Toggle pressed={dirty} onPressedChange={setDirty}>
             Dirty
           </Toggle>
@@ -368,32 +321,27 @@ export function FormPlayground() {
       <div className="form-demo-stage" data-layout={layout}>
         <Form
           label={
-            layout === "bar"
-              ? "Placement and sharing"
-              : layout === "stack"
-                ? "Sign in"
+            layout === 'bar'
+              ? 'Placement and sharing'
+              : layout === 'stack'
+                ? 'Sign in'
                 : "Answer Bud's preference question"
           }
-          disabled={locked || kind === "busy"}
+          disabled={locked || kind === 'busy'}
           onSubmit={() => {
             setMessage(`${copy.label} submitted in this example only.`);
             setDirty(false);
           }}
         >
-          {layout === "bar" ? (
+          {layout === 'bar' ? (
             <FormSection
               title="Placement and sharing"
               description="Where this agent is listed and who can use or manage it."
             >
-              <Field
-                id={target}
-                label="Owning team"
-                required
-                helper="Its managers can edit this agent."
-              >
+              <Field id={target} label="Owning team" required helper="Its managers can edit this agent.">
                 <TeamSelect
                   value={team}
-                  onValueChange={(value) => {
+                  onValueChange={value => {
                     setTeam(value);
                     setDirty(true);
                   }}
@@ -401,21 +349,16 @@ export function FormPlayground() {
               </Field>
               {footer}
             </FormSection>
-          ) : layout === "stack" ? (
+          ) : layout === 'stack' ? (
             <div className="form-demo-auth">
-              <Field
-                id={target}
-                label="Email"
-                required
-                error={error ? copy.error : undefined}
-              >
+              <Field id={target} label="Email" required error={error ? copy.error : undefined}>
                 <Input
                   type="email"
                   scale="lg"
                   autoComplete="email"
                   placeholder="you@company.com"
                   value={email}
-                  onChange={(event) => {
+                  onChange={event => {
                     setEmail(event.target.value);
                     setDirty(true);
                   }}
@@ -426,23 +369,21 @@ export function FormPlayground() {
             </div>
           ) : (
             <div className="form-demo-card">
-              <p className="form-demo-card-text">
-                How should Bud format replies for you?
-              </p>
+              <p className="form-demo-card-text">How should Bud format replies for you?</p>
               <ChoiceGroup
                 id={target}
                 type="radio"
                 legend="Reply style"
                 required
                 value={style}
-                onValueChange={(value) => {
+                onValueChange={value => {
                   setStyle(value);
                   setDirty(true);
                 }}
                 options={[
-                  { value: "short", label: "Short and direct" },
-                  { value: "detailed", label: "Detailed with context" },
-                  { value: "bullets", label: "Bulleted summaries" },
+                  { value: 'short', label: 'Short and direct' },
+                  { value: 'detailed', label: 'Detailed with context' },
+                  { value: 'bullets', label: 'Bulleted summaries' },
                 ]}
               />
               {footer}
@@ -458,7 +399,7 @@ export function FormPlayground() {
 /* Validation and recovery (compaction policy) */
 
 export function FormValidation() {
-  const saved = { threshold: "80", keep: "12" };
+  const saved = { threshold: '80', keep: '12' };
   const [draft, setDraft] = useState(saved);
   const [base, setBase] = useState(saved);
   const [showErrors, setShowErrors] = useState(false);
@@ -468,13 +409,8 @@ export function FormValidation() {
   const keep = Number(draft.keep);
   const errors = {
     threshold:
-      draft.threshold.trim() && threshold >= 50 && threshold <= 95
-        ? undefined
-        : "Enter a percent from 50 to 95.",
-    keep:
-      draft.keep.trim() && keep >= 2 && keep <= 40
-        ? undefined
-        : "Enter a number from 2 to 40.",
+      draft.threshold.trim() && threshold >= 50 && threshold <= 95 ? undefined : 'Enter a percent from 50 to 95.',
+    keep: draft.keep.trim() && keep >= 2 && keep <= 40 ? undefined : 'Enter a number from 2 to 40.',
   };
   const invalidCount = Object.values(errors).filter(Boolean).length;
   const dirty = draft.threshold !== base.threshold || draft.keep !== base.keep;
@@ -486,7 +422,7 @@ export function FormValidation() {
         onSubmit={() => {
           if (invalidCount) {
             setShowErrors(true);
-            return "invalid";
+            return 'invalid';
           }
           setDone(false);
           save.run(() => {
@@ -511,7 +447,7 @@ export function FormValidation() {
                 type="number"
                 inputMode="numeric"
                 value={draft.threshold}
-                onChange={(event) => {
+                onChange={event => {
                   setDraft({ ...draft, threshold: event.target.value });
                   setDone(false);
                 }}
@@ -528,7 +464,7 @@ export function FormValidation() {
                 type="number"
                 inputMode="numeric"
                 value={draft.keep}
-                onChange={(event) => {
+                onChange={event => {
                   setDraft({ ...draft, keep: event.target.value });
                   setDone(false);
                 }}
@@ -540,13 +476,13 @@ export function FormValidation() {
           dirty={dirty}
           note="Summaries use only approved budget models and never switch to a larger model."
           submit={{
-            label: "Save compaction settings",
-            pendingLabel: "Saving compaction settings…",
-            state: save.busy ? { kind: "busy" } : { kind: "ready" },
+            label: 'Save compaction settings',
+            pendingLabel: 'Saving compaction settings…',
+            state: save.busy ? { kind: 'busy' } : { kind: 'ready' },
           }}
           cancel={{
-            kind: "reset",
-            label: "Discard changes",
+            kind: 'reset',
+            label: 'Discard changes',
             onReset: () => {
               setDraft(base);
               setShowErrors(false);
@@ -554,7 +490,7 @@ export function FormValidation() {
           }}
           error={
             showErrors && invalidCount
-              ? `Fix ${invalidCount} ${invalidCount === 1 ? "field" : "fields"} to save compaction settings.`
+              ? `Fix ${invalidCount} ${invalidCount === 1 ? 'field' : 'fields'} to save compaction settings.`
               : undefined
           }
         >
@@ -568,15 +504,12 @@ export function FormValidation() {
 /* Footer layouts */
 
 function IntervalForm() {
-  const [saved, setSaved] = useState("60");
-  const [minutes, setMinutes] = useState("30");
+  const [saved, setSaved] = useState('60');
+  const [minutes, setMinutes] = useState('30');
   const [checked, setChecked] = useState(false);
   const save = useSampleSave();
   const value = Number(minutes);
-  const error =
-    minutes.trim() && value >= 15 && value <= 1440
-      ? undefined
-      : "Enter 15 to 1,440 minutes.";
+  const error = minutes.trim() && value >= 15 && value <= 1440 ? undefined : 'Enter 15 to 1,440 minutes.';
   return (
     <Form
       label="Change interval"
@@ -584,7 +517,7 @@ function IntervalForm() {
       onSubmit={() => {
         if (error) {
           setChecked(true);
-          return "invalid";
+          return 'invalid';
         }
         save.run(() => setSaved(minutes));
       }}
@@ -597,26 +530,20 @@ function IntervalForm() {
           helper="Minutes between runs."
           error={checked ? error : undefined}
         >
-          <Input
-            type="number"
-            value={minutes}
-            onChange={(event) => setMinutes(event.target.value)}
-          />
+          <Input type="number" value={minutes} onChange={event => setMinutes(event.target.value)} />
         </Field>
         <FormFooter
           dirty={minutes !== saved}
           note="Saving makes you the sponsor. The next run moves to match the new interval."
-          error={
-            checked && error ? "Fix 1 field to change the interval." : undefined
-          }
+          error={checked && error ? 'Fix 1 field to change the interval.' : undefined}
           submit={{
-            label: "Save interval",
-            pendingLabel: "Saving interval…",
-            state: save.busy ? { kind: "busy" } : { kind: "ready" },
+            label: 'Save interval',
+            pendingLabel: 'Saving interval…',
+            state: save.busy ? { kind: 'busy' } : { kind: 'ready' },
           }}
           cancel={{
-            kind: "reset",
-            label: "Discard changes",
+            kind: 'reset',
+            label: 'Discard changes',
             onReset: () => {
               setMinutes(saved);
               setChecked(false);
@@ -629,7 +556,7 @@ function IntervalForm() {
 }
 
 function SignInForm() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState<string>();
   const [sent, setSent] = useState(false);
@@ -639,8 +566,8 @@ function SignInForm() {
       disabled={save.busy}
       onSubmit={() => {
         if (!/^\S+@\S+\.\S+$/.test(email)) {
-          setError("Enter a valid email address.");
-          return "invalid";
+          setError('Enter a valid email address.');
+          return 'invalid';
         }
         setError(undefined);
         save.run(() => setSent(true));
@@ -655,7 +582,7 @@ function SignInForm() {
             placeholder="you@company.com"
             autoComplete="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={event => setEmail(event.target.value)}
           />
         </Field>
         <CheckboxField
@@ -666,18 +593,18 @@ function SignInForm() {
         <FormFooter
           dirty={false}
           layout="stack"
-          error={error ? "Check the email address and try again." : undefined}
+          error={error ? 'Check the email address and try again.' : undefined}
           submit={{
-            label: "Email me a sign-in link",
-            pendingLabel: "Sending email…",
+            label: 'Email me a sign-in link',
+            pendingLabel: 'Sending email…',
             state: save.busy
-              ? { kind: "busy" }
+              ? { kind: 'busy' }
               : !verified
                 ? {
-                    kind: "blocked",
-                    reason: "Complete verification to continue.",
+                    kind: 'blocked',
+                    reason: 'Complete verification to continue.',
                   }
-                : { kind: "ready" },
+                : { kind: 'ready' },
           }}
         />
         {sent && <Status>Check your inbox for the sign-in link.</Status>}
@@ -687,17 +614,17 @@ function SignInForm() {
 }
 
 function BudPreferenceForm() {
-  const [style, setStyle] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [result, setResult] = useState("");
+  const [style, setStyle] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [result, setResult] = useState('');
   const save = useSampleSave();
-  const value = style === "custom" ? answer.trim() : style;
+  const value = style === 'custom' ? answer.trim() : style;
   if (result)
     return (
       <div className="form-demo-card">
         <Status>{result}</Status>
         <div>
-          <Button size="sm" variant="outline" onClick={() => setResult("")}>
+          <Button size="sm" variant="outline" onClick={() => setResult('')}>
             Undo
           </Button>
         </div>
@@ -710,8 +637,7 @@ function BudPreferenceForm() {
         label="Answer Bud's preference question"
         disabled={save.busy}
         onSubmit={() => {
-          if (value)
-            save.run(() => setResult("Saved. Bud will keep replies short."));
+          if (value) save.run(() => setResult('Saved. Bud will keep replies short.'));
         }}
       >
         <div className="form-demo-stack">
@@ -722,41 +648,29 @@ function BudPreferenceForm() {
             value={style}
             onValueChange={setStyle}
             options={[
-              { value: "short", label: "Short and direct" },
-              { value: "detailed", label: "Detailed with context" },
-              { value: "custom", label: "Something else" },
+              { value: 'short', label: 'Short and direct' },
+              { value: 'detailed', label: 'Detailed with context' },
+              { value: 'custom', label: 'Something else' },
             ]}
           />
-          {style === "custom" && (
-            <Field
-              id="bud-answer"
-              label="Your preference"
-              required
-              helper="Saved for this workspace. You can undo it."
-            >
-              <SampleTextarea
-                value={answer}
-                maxLength={2000}
-                onChange={(event) => setAnswer(event.target.value)}
-              />
+          {style === 'custom' && (
+            <Field id="bud-answer" label="Your preference" required helper="Saved for this workspace. You can undo it.">
+              <SampleTextarea value={answer} maxLength={2000} onChange={event => setAnswer(event.target.value)} />
             </Field>
           )}
           <FormFooter
             layout="compact"
             dirty={!!value}
             submit={{
-              label: "Save answer",
-              pendingLabel: "Saving answer...",
+              label: 'Save answer',
+              pendingLabel: 'Saving answer...',
               state: save.busy
-                ? { kind: "busy" }
+                ? { kind: 'busy' }
                 : value
-                  ? { kind: "ready" }
+                  ? { kind: 'ready' }
                   : {
-                      kind: "blocked",
-                      reason:
-                        style === "custom"
-                          ? "Enter your preference."
-                          : "Choose a reply style.",
+                      kind: 'blocked',
+                      reason: style === 'custom' ? 'Enter your preference.' : 'Choose a reply style.',
                     },
             }}
           >
@@ -764,7 +678,7 @@ function BudPreferenceForm() {
               size="sm"
               variant="ghost"
               disabled={save.busy}
-              onClick={() => setResult("Skipped. Bud will not ask again.")}
+              onClick={() => setResult('Skipped. Bud will not ask again.')}
             >
               Skip
             </Button>
@@ -794,21 +708,21 @@ export function FormLayouts() {
 /* Submit states */
 
 function DestinationForm() {
-  const [team, setTeam] = useState("");
-  const [name, setName] = useState("");
+  const [team, setTeam] = useState('');
+  const [name, setName] = useState('');
   const [done, setDone] = useState(false);
   const save = useSampleSave();
   const state: FormActionState = save.busy
-    ? { kind: "busy" }
+    ? { kind: 'busy' }
     : team
-      ? { kind: "ready" }
+      ? { kind: 'ready' }
       : {
-          kind: "blocked",
-          reason: "Choose a destination team below first.",
+          kind: 'blocked',
+          reason: 'Choose a destination team below first.',
           fix: {
-            kind: "jump",
-            label: "Choose a team",
-            target: "slack-destination-team",
+            kind: 'jump',
+            label: 'Choose a team',
+            target: 'slack-destination-team',
           },
         };
   return (
@@ -820,11 +734,7 @@ function DestinationForm() {
     >
       <div className="form-demo-stack">
         <Field id="slack-destination-name" label="Display name" optional>
-          <Input
-            value={name}
-            placeholder="#ops-alerts"
-            onChange={(event) => setName(event.target.value)}
-          />
+          <Input value={name} placeholder="#ops-alerts" onChange={event => setName(event.target.value)} />
         </Field>
         <Field id="slack-destination-team" label="Destination team" required>
           <TeamSelect value={team} onValueChange={setTeam} />
@@ -832,8 +742,8 @@ function DestinationForm() {
         <FormFooter
           dirty={!!(team || name)}
           submit={{
-            label: "Add Slack destination",
-            pendingLabel: "Adding Slack destination…",
+            label: 'Add Slack destination',
+            pendingLabel: 'Adding Slack destination…',
             state,
           }}
         >
@@ -852,16 +762,16 @@ function SponsorForm() {
         dirty
         note="Schedules stay off until activation."
         submit={{
-          label: "Create schedule",
-          pendingLabel: "Creating schedule…",
+          label: 'Create schedule',
+          pendingLabel: 'Creating schedule…',
           state: loaded
-            ? { kind: "ready" }
+            ? { kind: 'ready' }
             : {
-                kind: "blocked",
-                reason: "Your sponsor details could not load.",
+                kind: 'blocked',
+                reason: 'Your sponsor details could not load.',
                 fix: {
-                  kind: "action",
-                  label: "Try again",
+                  kind: 'action',
+                  label: 'Try again',
                   onClick: () => setLoaded(true),
                 },
               },
@@ -878,13 +788,13 @@ export function FormSubmitStates() {
         <FormFooter
           dirty={false}
           submit={{
-            label: "Save Slack sharing",
-            pendingLabel: "Saving Slack sharing…",
-            state: { kind: "ready" },
+            label: 'Save Slack sharing',
+            pendingLabel: 'Saving Slack sharing…',
+            state: { kind: 'ready' },
           }}
           cancel={{
-            kind: "reset",
-            label: "Discard changes",
+            kind: 'reset',
+            label: 'Discard changes',
             onReset: () => undefined,
           }}
         />
@@ -893,13 +803,13 @@ export function FormSubmitStates() {
         <FormFooter
           dirty
           submit={{
-            label: "Save MCP allowlist",
-            pendingLabel: "Saving MCP allowlist…",
-            state: { kind: "ready" },
+            label: 'Save MCP allowlist',
+            pendingLabel: 'Saving MCP allowlist…',
+            state: { kind: 'ready' },
           }}
           cancel={{
-            kind: "reset",
-            label: "Discard changes",
+            kind: 'reset',
+            label: 'Discard changes',
             onReset: () => undefined,
           }}
           note="Runs use these tools after a manager activates the new version."
@@ -909,13 +819,13 @@ export function FormSubmitStates() {
         <FormFooter
           dirty
           submit={{
-            label: "Save investigation permissions",
-            pendingLabel: "Saving permissions…",
-            state: { kind: "busy" },
+            label: 'Save investigation permissions',
+            pendingLabel: 'Saving permissions…',
+            state: { kind: 'busy' },
           }}
           cancel={{
-            kind: "reset",
-            label: "Discard changes",
+            kind: 'reset',
+            label: 'Discard changes',
             onReset: () => undefined,
           }}
         />
@@ -924,12 +834,11 @@ export function FormSubmitStates() {
         <FormFooter
           dirty={false}
           submit={{
-            label: "Save investigation permissions",
-            pendingLabel: "Saving permissions…",
+            label: 'Save investigation permissions',
+            pendingLabel: 'Saving permissions…',
             state: {
-              kind: "blocked",
-              reason:
-                "Choose a person or team and repository, then change a read permission.",
+              kind: 'blocked',
+              reason: 'Choose a person or team and repository, then change a read permission.',
             },
           }}
         />
@@ -944,14 +853,14 @@ export function FormSubmitStates() {
         <FormFooter
           dirty
           submit={{
-            label: "Review event",
-            pendingLabel: "Preparing event…",
+            label: 'Review event',
+            pendingLabel: 'Preparing event…',
             state: {
-              kind: "blocked",
-              reason: "Restore the original Google integration.",
+              kind: 'blocked',
+              reason: 'Restore the original Google integration.',
               fix: {
-                kind: "link",
-                label: "Open integrations",
+                kind: 'link',
+                label: 'Open integrations',
                 link: <a href="#form-integrations" />,
               },
             },
@@ -963,20 +872,16 @@ export function FormSubmitStates() {
         <FormFooter
           dirty
           submit={{
-            label: "Review event",
-            pendingLabel: "Preparing event…",
-            state: { kind: "ready" },
+            label: 'Review event',
+            pendingLabel: 'Preparing event…',
+            state: { kind: 'ready' },
           }}
           error="Fix the marked fields."
           note="Review the exact event before it is sent to Google."
         />
       </Frame>
       <Frame title="Loading: form locked while refreshing">
-        <Form
-          label="Conversation compaction (refreshing)"
-          disabled
-          onSubmit={() => undefined}
-        >
+        <Form label="Conversation compaction (refreshing)" disabled onSubmit={() => undefined}>
           <div className="form-demo-stack">
             <Field id="compaction-loading" label="Start compacting at" required>
               <Input value="80" readOnly />
@@ -984,11 +889,11 @@ export function FormSubmitStates() {
             <FormFooter
               dirty={false}
               submit={{
-                label: "Save compaction settings",
-                pendingLabel: "Saving compaction settings…",
+                label: 'Save compaction settings',
+                pendingLabel: 'Saving compaction settings…',
                 state: {
-                  kind: "blocked",
-                  reason: "Wait for compaction settings to finish refreshing.",
+                  kind: 'blocked',
+                  reason: 'Wait for compaction settings to finish refreshing.',
                 },
               }}
             />
@@ -1011,20 +916,20 @@ export function FormSubmitStates() {
 
 const tools = [
   {
-    id: "read",
-    label: "Read rows",
-    helper: "Reads rows in the tables you allow.",
+    id: 'read',
+    label: 'Read rows',
+    helper: 'Reads rows in the tables you allow.',
   },
-  { id: "create", label: "Create rows", helper: "Adds rows. Changes data." },
+  { id: 'create', label: 'Create rows', helper: 'Adds rows. Changes data.' },
   {
-    id: "slack",
-    label: "Post to Slack",
-    helper: "Posts to attached channels.",
+    id: 'slack',
+    label: 'Post to Slack',
+    helper: 'Posts to attached channels.',
   },
 ];
 
 export function FormSections() {
-  const [granted, setGranted] = useState(["read", "slack", "create"]);
+  const [granted, setGranted] = useState(['read', 'slack', 'create']);
   return (
     <div className="form-demo-sections" data-example="sections">
       <FormSection
@@ -1032,18 +937,14 @@ export function FormSections() {
         description="Choose actions by app. Skills guide the work; these choices grant the capability."
         meta={`${granted.length} / 20`}
       >
-        {tools.map((tool) => (
+        {tools.map(tool => (
           <CheckboxField
             key={tool.id}
             label={tool.label}
             helper={tool.helper}
             checked={granted.includes(tool.id)}
-            onCheckedChange={(checked) =>
-              setGranted((current) =>
-                checked
-                  ? [...current, tool.id]
-                  : current.filter((item) => item !== tool.id),
-              )
+            onCheckedChange={checked =>
+              setGranted(current => (checked ? [...current, tool.id] : current.filter(item => item !== tool.id)))
             }
           />
         ))}
@@ -1069,10 +970,7 @@ export function FormSections() {
           <Button>Activate saved instructions</Button>
         </div>
       </FormSection>
-      <FormSection
-        title="Placement and sharing"
-        description="Where this agent is listed and who can use or manage it."
-      >
+      <FormSection title="Placement and sharing" description="Where this agent is listed and who can use or manage it.">
         <FormSection
           level={3}
           title="Team grants"
@@ -1082,10 +980,7 @@ export function FormSections() {
           <p className="form-demo-text">Operations · can use</p>
         </FormSection>
       </FormSection>
-      <FormSection
-        title="Delete agent"
-        description="Removes the agent and stops its active versions."
-      >
+      <FormSection title="Delete agent" description="Removes the agent and stops its active versions.">
         <div>
           <Button variant="destructive">Delete agent</Button>
         </div>
@@ -1096,20 +991,17 @@ export function FormSections() {
 
 /* Compositions */
 
-const steps = ["Basics", "Access", "Triggers", "Schedules", "Review"] as const;
+const steps = ['Basics', 'Access', 'Triggers', 'Schedules', 'Review'] as const;
 
 function BuilderComposition() {
   const [step, setStep] = useState(0);
-  const [name, setName] = useState("");
-  const [job, setJob] = useState("");
+  const [name, setName] = useState('');
+  const [job, setJob] = useState('');
   const [showErrors, setShowErrors] = useState(false);
-  const [result, setResult] = useState("");
-  const intent = useRef<"save" | "continue">("continue");
+  const [result, setResult] = useState('');
+  const intent = useRef<'save' | 'continue'>('continue');
   const save = useSampleSave();
-  const problems = [
-    !name.trim() && "Enter a name.",
-    !job.trim() && "Describe the job.",
-  ].filter(Boolean) as string[];
+  const problems = [!name.trim() && 'Enter a name.', !job.trim() && 'Describe the job.'].filter(Boolean) as string[];
   const review = step === steps.length - 1;
   return (
     <Form
@@ -1119,23 +1011,23 @@ function BuilderComposition() {
         if (problems.length) {
           setShowErrors(true);
           setStep(0);
-          intent.current = "continue";
-          return "invalid";
+          intent.current = 'continue';
+          return 'invalid';
         }
         setShowErrors(false);
-        if (intent.current === "save") {
-          intent.current = "continue";
-          save.run(() => setResult("Draft saved. New triggers stay off."));
+        if (intent.current === 'save') {
+          intent.current = 'continue';
+          save.run(() => setResult('Draft saved. New triggers stay off.'));
           return;
         }
-        if (review) save.run(() => setResult("Agent created and activated."));
+        if (review) save.run(() => setResult('Agent created and activated.'));
         else setStep(step + 1);
       }}
     >
       <div className="form-demo-stack">
         <ol className="form-demo-steps" aria-label="Setup progress">
           {steps.map((item, index) => (
-            <li key={item} aria-current={index === step ? "step" : undefined}>
+            <li key={item} aria-current={index === step ? 'step' : undefined}>
               {index + 1}. {item}
             </li>
           ))}
@@ -1151,11 +1043,11 @@ function BuilderComposition() {
           </FormSection>
         ) : (
           <FormSection
-            title={step === 0 ? "Identity" : steps[step]}
+            title={step === 0 ? 'Identity' : steps[step]}
             description={
               step === 0
-                ? "Start with the name and the job. Everything else is optional."
-                : "Optional in this example. Continue to the next section."
+                ? 'Start with the name and the job. Everything else is optional.'
+                : 'Optional in this example. Continue to the next section.'
             }
           >
             {step === 0 ? (
@@ -1165,62 +1057,52 @@ function BuilderComposition() {
                   label="Name"
                   required
                   counter={`${name.length} / 80`}
-                  error={
-                    showErrors && !name.trim() ? "Enter a name." : undefined
-                  }
+                  error={showErrors && !name.trim() ? 'Enter a name.' : undefined}
                 >
                   <Input
                     value={name}
                     maxLength={80}
                     placeholder="Supplier follow-up"
-                    onChange={(event) => setName(event.target.value)}
+                    onChange={event => setName(event.target.value)}
                   />
                 </Field>
                 <Field
                   id="agent-job"
                   label="Job"
                   required
-                  error={
-                    showErrors && !job.trim() ? "Describe the job." : undefined
-                  }
+                  error={showErrors && !job.trim() ? 'Describe the job.' : undefined}
                 >
                   <SampleTextarea
                     value={job}
                     placeholder="Chase suppliers whose deliveries are late and log their replies."
-                    onChange={(event) => setJob(event.target.value)}
+                    onChange={event => setJob(event.target.value)}
                   />
                 </Field>
               </>
             ) : (
-              <p className="form-demo-text">
-                No extra settings in this sample step.
-              </p>
+              <p className="form-demo-text">No extra settings in this sample step.</p>
             )}
           </FormSection>
         )}
         <FormFooter
           dirty={!!(name || job) && !result}
           submit={{
-            label: review
-              ? "Create and activate"
-              : step === 3
-                ? "Review agent"
-                : "Continue",
-            pendingLabel: "Saving setup…",
-            state: save.busy ? { kind: "busy" } : { kind: "ready" },
+            label: review ? 'Create and activate' : step === 3 ? 'Review agent' : 'Continue',
+            pendingLabel: 'Saving setup…',
+            state: save.busy ? { kind: 'busy' } : { kind: 'ready' },
           }}
           secondarySubmit={{
-            label: "Save draft",
+            label: 'Save draft',
             disabled: save.busy,
             onSelect: () => {
-              intent.current = "save";
+              intent.current = 'save';
             },
           }}
-          error={showErrors && problems.length ? problems.join(" ") : undefined}
+          error={showErrors && problems.length ? problems.join(' ') : undefined}
           note={
             review
-              ? "Nothing new runs unless activation completes."
-              : "Move between sections freely. Your choices stay here."
+              ? 'Nothing new runs unless activation completes.'
+              : 'Move between sections freely. Your choices stay here.'
           }
         >
           {result && <Status>{result}</Status>}
@@ -1231,10 +1113,10 @@ function BuilderComposition() {
 }
 
 const repositories = [
-  "tulipfarm/supplier-portal",
-  "tulipfarm/warehouse-scanner",
-  "tulipfarm/pricing-rules",
-  "tulipfarm/handbook",
+  'tulipfarm/supplier-portal',
+  'tulipfarm/warehouse-scanner',
+  'tulipfarm/pricing-rules',
+  'tulipfarm/handbook',
 ];
 
 function KnowledgeSelection() {
@@ -1247,11 +1129,7 @@ function KnowledgeSelection() {
   if (closed || done)
     return (
       <div className="form-demo-stack">
-        <Status>
-          {done
-            ? `${selected.length} repositories added to Knowledge.`
-            : "Selection cancelled."}
-        </Status>
+        <Status>{done ? `${selected.length} repositories added to Knowledge.` : 'Selection cancelled.'}</Status>
         <div>
           <Button
             variant="outline"
@@ -1279,22 +1157,13 @@ function KnowledgeSelection() {
           </p>
         }
         submit={{
-          label: "Add to Knowledge",
-          pendingLabel: "Adding to Knowledge…",
-          state: save.busy ? { kind: "busy" } : { kind: "ready" },
+          label: 'Add to Knowledge',
+          pendingLabel: 'Adding to Knowledge…',
+          state: save.busy ? { kind: 'busy' } : { kind: 'ready' },
         }}
-        error={
-          attempted && !selected.length
-            ? "Review the highlighted choices before adding to Knowledge."
-            : undefined
-        }
+        error={attempted && !selected.length ? 'Review the highlighted choices before adding to Knowledge.' : undefined}
       >
-        <Button
-          variant="ghost"
-          aria-label="Cancel selection"
-          disabled={save.busy}
-          onClick={() => setClosed(true)}
-        >
+        <Button variant="ghost" aria-label="Cancel selection" disabled={save.busy} onClick={() => setClosed(true)}>
           Cancel
         </Button>
       </FormFooter>
@@ -1305,7 +1174,7 @@ function KnowledgeSelection() {
         onSubmit={() => {
           if (!selected.length) {
             setAttempted(true);
-            return "invalid";
+            return 'invalid';
           }
           save.run(() => setDone(true));
         }}
@@ -1314,14 +1183,10 @@ function KnowledgeSelection() {
           type="checkbox"
           legend="Repositories"
           required
-          error={
-            attempted && !selected.length
-              ? "Choose at least one repository."
-              : undefined
-          }
+          error={attempted && !selected.length ? 'Choose at least one repository.' : undefined}
           value={selected}
           onValueChange={setSelected}
-          options={repositories.map((repo) => ({ value: repo, label: repo }))}
+          options={repositories.map(repo => ({ value: repo, label: repo }))}
         />
       </Form>
     </div>
@@ -1330,41 +1195,31 @@ function KnowledgeSelection() {
 
 function InteractionCard() {
   const id = useId();
-  const [choice, setChoice] = useState("");
+  const [choice, setChoice] = useState('');
   const [typed, setTyped] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [error, setError] = useState(false);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState('');
   const save = useSampleSave();
   if (result) return <Status>{result}</Status>;
   return (
     <div className="form-demo-card">
-      <p className="form-demo-card-text">
-        Which supplier should I contact first?
-      </p>
+      <p className="form-demo-card-text">Which supplier should I contact first?</p>
       <Form
         disabled={save.busy}
         onSubmit={() => {
           if (typed ? !text.trim() : !choice) {
             setError(true);
-            return "invalid";
+            return 'invalid';
           }
           setError(false);
-          save.run(() => setResult("Response saved. The task continues."));
+          save.run(() => setResult('Response saved. The task continues.'));
         }}
       >
         <div className="form-demo-stack">
           {typed ? (
-            <Field
-              id={`${id}-custom`}
-              label="Your answer"
-              required
-              error={error ? "Enter an answer." : undefined}
-            >
-              <SampleTextarea
-                value={text}
-                onChange={(event) => setText(event.target.value)}
-              />
+            <Field id={`${id}-custom`} label="Your answer" required error={error ? 'Enter an answer.' : undefined}>
+              <SampleTextarea value={text} onChange={event => setText(event.target.value)} />
             </Field>
           ) : (
             <ChoiceGroup
@@ -1372,19 +1227,19 @@ function InteractionCard() {
               legend="Answer"
               legendVisibility="screen-reader"
               required
-              error={error ? "Choose an answer." : undefined}
+              error={error ? 'Choose an answer.' : undefined}
               value={choice}
               onValueChange={setChoice}
               options={[
                 {
-                  value: "greenleaf",
-                  label: "Greenleaf Growers",
-                  description: "3 late deliveries",
+                  value: 'greenleaf',
+                  label: 'Greenleaf Growers',
+                  description: '3 late deliveries',
                 },
                 {
-                  value: "northfield",
-                  label: "Northfield Bulbs",
-                  description: "1 late delivery",
+                  value: 'northfield',
+                  label: 'Northfield Bulbs',
+                  description: '1 late delivery',
                 },
               ]}
             />
@@ -1401,24 +1256,19 @@ function InteractionCard() {
                   aria-controls={`${id}-custom`}
                   onClick={() => setTyped(!typed)}
                 >
-                  {typed ? "Use a listed answer" : "Other answer"}
+                  {typed ? 'Use a listed answer' : 'Other answer'}
                 </Button>
               </div>
             }
             dirty={!!text || !!choice}
             submit={{
-              label: "Continue",
-              pendingLabel: "Saving response…",
-              state: save.busy ? { kind: "busy" } : { kind: "ready" },
+              label: 'Continue',
+              pendingLabel: 'Saving response…',
+              state: save.busy ? { kind: 'busy' } : { kind: 'ready' },
             }}
-            error={error ? "Choose or enter an answer to continue." : undefined}
+            error={error ? 'Choose or enter an answer to continue.' : undefined}
           >
-            <Button
-              variant="ghost"
-              size="xs"
-              disabled={save.busy}
-              onClick={() => setResult("Question skipped.")}
-            >
+            <Button variant="ghost" size="xs" disabled={save.busy} onClick={() => setResult('Question skipped.')}>
               Skip
             </Button>
           </FormFooter>
@@ -1429,7 +1279,7 @@ function InteractionCard() {
 }
 
 function TestChat() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [messages, setMessages] = useState<string[]>([]);
   const send = useSampleSave(700);
   return (
@@ -1448,12 +1298,8 @@ function TestChat() {
           const sent = text.trim();
           if (!sent) return;
           send.run(() => {
-            setMessages((current) => [
-              ...current,
-              `You: ${sent}`,
-              "Agent: I would check the supplier table first.",
-            ]);
-            setText("");
+            setMessages(current => [...current, `You: ${sent}`, 'Agent: I would check the supplier table first.']);
+            setText('');
           });
         }}
       >
@@ -1462,13 +1308,13 @@ function TestChat() {
             <SampleTextarea
               value={text}
               placeholder="How should I request time off?"
-              onChange={(event) => setText(event.target.value)}
+              onChange={event => setText(event.target.value)}
             />
           </Field>
           <div className="form-demo-row">
             <Button type="submit" disabled={send.busy || !text.trim()}>
               <Send aria-hidden="true" />
-              {send.busy ? "Testing…" : "Send test"}
+              {send.busy ? 'Testing…' : 'Send test'}
             </Button>
             {messages.length > 0 && !send.busy && (
               <Button variant="ghost" onClick={() => setMessages([])}>
@@ -1485,15 +1331,13 @@ function TestChat() {
 }
 
 function RecordEditor() {
-  const [supplier, setSupplier] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [supplier, setSupplier] = useState('');
+  const [quantity, setQuantity] = useState('');
   const [checked, setChecked] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [saved, setSaved] = useState(false);
   const save = useSampleSave();
-  const errors = [!supplier.trim(), !(Number(quantity) > 0)].filter(
-    Boolean,
-  ).length;
+  const errors = [!supplier.trim(), !(Number(quantity) > 0)].filter(Boolean).length;
   return (
     <Form
       label="Add row"
@@ -1501,7 +1345,7 @@ function RecordEditor() {
       onSubmit={() => {
         if (errors) {
           setChecked(true);
-          return "invalid";
+          return 'invalid';
         }
         save.run(() => setSaved(true));
       }}
@@ -1511,60 +1355,41 @@ function RecordEditor() {
           id="row-supplier"
           label="Supplier"
           required
-          error={checked && !supplier.trim() ? "Enter a supplier." : undefined}
+          error={checked && !supplier.trim() ? 'Enter a supplier.' : undefined}
         >
-          <Input
-            value={supplier}
-            onChange={(event) => setSupplier(event.target.value)}
-          />
+          <Input value={supplier} onChange={event => setSupplier(event.target.value)} />
         </Field>
         <Field
           id="row-quantity"
           label="Quantity"
           required
-          error={
-            checked && !(Number(quantity) > 0)
-              ? "Enter a quantity above 0."
-              : undefined
-          }
+          error={checked && !(Number(quantity) > 0) ? 'Enter a quantity above 0.' : undefined}
         >
-          <Input
-            type="number"
-            value={quantity}
-            onChange={(event) => setQuantity(event.target.value)}
-          />
+          <Input type="number" value={quantity} onChange={event => setQuantity(event.target.value)} />
         </Field>
-        <CheckboxField
-          label="Simulate a newer saved definition"
-          checked={conflict}
-          onCheckedChange={setConflict}
-        />
+        <CheckboxField label="Simulate a newer saved definition" checked={conflict} onCheckedChange={setConflict} />
         <FormFooter
           dirty={!!(supplier || quantity) && !saved}
-          error={
-            checked && errors
-              ? `Fix ${errors} ${errors === 1 ? "field" : "fields"} to save the row.`
-              : undefined
-          }
+          error={checked && errors ? `Fix ${errors} ${errors === 1 ? 'field' : 'fields'} to save the row.` : undefined}
           submit={{
-            label: "Save new row",
-            pendingLabel: "Saving new row…",
+            label: 'Save new row',
+            pendingLabel: 'Saving new row…',
             state: save.busy
-              ? { kind: "busy" }
+              ? { kind: 'busy' }
               : conflict
                 ? {
-                    kind: "blocked",
-                    reason: "Review the changed fields before saving.",
+                    kind: 'blocked',
+                    reason: 'Review the changed fields before saving.',
                   }
-                : { kind: "ready" },
+                : { kind: 'ready' },
           }}
         >
           {saved && <Status>Row saved.</Status>}
           {conflict && (
             <Alert>
               <AlertDescription>
-                A newer definition was saved. Your edits are retained. Reload
-                the table, then choose which revision to edit.
+                A newer definition was saved. Your edits are retained. Reload the table, then choose which revision to
+                edit.
               </AlertDescription>
             </Alert>
           )}
@@ -1578,8 +1403,8 @@ function RecordEditor() {
               variant="outline"
               disabled={save.busy}
               onClick={() => {
-                setSupplier("");
-                setQuantity("");
+                setSupplier('');
+                setQuantity('');
                 setChecked(false);
                 setSaved(false);
               }}
@@ -1595,21 +1420,21 @@ function RecordEditor() {
 
 function InviteMembersDialog() {
   const [open, setOpen] = useState(false);
-  const [addresses, setAddresses] = useState([""]);
+  const [addresses, setAddresses] = useState(['']);
   const [validated, setValidated] = useState(false);
-  const [sent, setSent] = useState("");
+  const [sent, setSent] = useState('');
   const save = useSampleSave();
   const valid = (email: string) => /^\S+@\S+\.\S+$/.test(email.trim());
-  const filled = addresses.filter((email) => email.trim());
-  const invalid = !filled.length || filled.some((email) => !valid(email));
+  const filled = addresses.filter(email => email.trim());
+  const invalid = !filled.length || filled.some(email => !valid(email));
   return (
     <div className="form-demo-stack">
       <Dialog
         open={open}
-        onOpenChange={(next) => {
+        onOpenChange={next => {
           setOpen(next);
           if (next) {
-            setAddresses([""]);
+            setAddresses(['']);
             setValidated(false);
           }
         }}
@@ -1623,9 +1448,7 @@ function InviteMembersDialog() {
         <DialogContent size="form">
           <DialogHeader>
             <DialogTitle>Invite members</DialogTitle>
-            <DialogDescription>
-              Invitations expire after 7 days.
-            </DialogDescription>
+            <DialogDescription>Invitations expire after 7 days.</DialogDescription>
           </DialogHeader>
           <DialogBody>
             <Form
@@ -1634,12 +1457,10 @@ function InviteMembersDialog() {
               onSubmit={() => {
                 if (invalid) {
                   setValidated(true);
-                  return "invalid";
+                  return 'invalid';
                 }
                 save.run(() => {
-                  setSent(
-                    `${filled.length} ${filled.length === 1 ? "invitation" : "invitations"} sent.`,
-                  );
+                  setSent(`${filled.length} ${filled.length === 1 ? 'invitation' : 'invitations'} sent.`);
                   setOpen(false);
                 });
               }}
@@ -1656,10 +1477,8 @@ function InviteMembersDialog() {
                         required
                         className="form-demo-grow"
                         error={
-                          validated &&
-                          ((email.trim() && !valid(email)) ||
-                            (!filled.length && index === 0))
-                            ? "Enter a valid email address."
+                          validated && ((email.trim() && !valid(email)) || (!filled.length && index === 0))
+                            ? 'Enter a valid email address.'
                             : undefined
                         }
                       >
@@ -1668,11 +1487,9 @@ function InviteMembersDialog() {
                           autoComplete="off"
                           placeholder="teammate@example.com"
                           value={email}
-                          onChange={(event) =>
-                            setAddresses((current) =>
-                              current.map((item, at) =>
-                                at === index ? event.target.value : item,
-                              ),
+                          onChange={event =>
+                            setAddresses(current =>
+                              current.map((item, at) => (at === index ? event.target.value : item)),
                             )
                           }
                         />
@@ -1680,15 +1497,11 @@ function InviteMembersDialog() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        disabled={
-                          save.busy || (addresses.length === 1 && !email)
-                        }
+                        disabled={save.busy || (addresses.length === 1 && !email)}
                         aria-label={`Remove email ${index + 1}`}
                         onClick={() =>
-                          setAddresses((current) =>
-                            current.length === 1
-                              ? [""]
-                              : current.filter((_, at) => at !== index),
+                          setAddresses(current =>
+                            current.length === 1 ? [''] : current.filter((_, at) => at !== index),
                           )
                         }
                       >
@@ -1702,13 +1515,9 @@ function InviteMembersDialog() {
                     variant="ghost"
                     disabled={save.busy}
                     onClick={() => {
-                      setAddresses((current) => [...current, ""]);
+                      setAddresses(current => [...current, '']);
                       requestAnimationFrame(() =>
-                        document
-                          .getElementById(
-                            `invitation-email-${addresses.length}`,
-                          )
-                          ?.focus(),
+                        document.getElementById(`invitation-email-${addresses.length}`)?.focus(),
                       );
                     }}
                   >
@@ -1720,15 +1529,11 @@ function InviteMembersDialog() {
                   dirty={false}
                   layout="stack"
                   note="Drafts stay here until you leave Members. Sending is subject to hourly limits."
-                  error={
-                    validated && invalid
-                      ? "Check each email address and select its workspace member."
-                      : undefined
-                  }
+                  error={validated && invalid ? 'Check each email address and select its workspace member.' : undefined}
                   submit={{
-                    label: "Send invitations",
-                    pendingLabel: "Sending invitations…",
-                    state: save.busy ? { kind: "busy" } : { kind: "ready" },
+                    label: 'Send invitations',
+                    pendingLabel: 'Sending invitations…',
+                    state: save.busy ? { kind: 'busy' } : { kind: 'ready' },
                   }}
                 >
                   <Button variant="ghost" onClick={() => setOpen(false)}>
@@ -1746,26 +1551,16 @@ function InviteMembersDialog() {
 }
 
 function PolicySections() {
-  const base = { owner: "operations", enrollment: ["operations"] };
+  const base = { owner: 'operations', enrollment: ['operations'] };
   const [owner, setOwner] = useState(base.owner);
   const [savedOwner, setSavedOwner] = useState(base.owner);
   const [enrollment, setEnrollment] = useState(base.enrollment);
   const [savedEnrollment, setSavedEnrollment] = useState(base.enrollment);
-  const [feedback, setFeedback] = useState<"policy" | "enrollment" | null>(
-    null,
-  );
-  const [submitted, setSubmitted] = useState<"policy" | "enrollment" | null>(
-    null,
-  );
+  const [feedback, setFeedback] = useState<'policy' | 'enrollment' | null>(null);
+  const [submitted, setSubmitted] = useState<'policy' | 'enrollment' | null>(null);
   const save = useSampleSave();
-  const state: FormActionState = save.busy
-    ? { kind: "busy" }
-    : { kind: "ready" };
-  const button = (
-    section: "policy" | "enrollment",
-    label: string,
-    pending: string,
-  ) => ({
+  const state: FormActionState = save.busy ? { kind: 'busy' } : { kind: 'ready' };
+  const button = (section: 'policy' | 'enrollment', label: string, pending: string) => ({
     label,
     pendingLabel: submitted === section ? pending : label,
     state,
@@ -1781,10 +1576,10 @@ function PolicySections() {
         <Form
           disabled={save.busy}
           onSubmit={() => {
-            setSubmitted("policy");
+            setSubmitted('policy');
             save.run(() => {
               setSavedOwner(owner);
-              setFeedback("policy");
+              setFeedback('policy');
             });
           }}
         >
@@ -1795,13 +1590,13 @@ function PolicySections() {
             <FormFooter
               dirty={owner !== savedOwner}
               cancel={{
-                kind: "reset",
-                label: "Discard changes",
+                kind: 'reset',
+                label: 'Discard changes',
                 onReset: () => setOwner(savedOwner),
               }}
-              submit={button("policy", "Save sharing", "Saving sharing…")}
+              submit={button('policy', 'Save sharing', 'Saving sharing…')}
             >
-              {feedback === "policy" && <Status>Sharing saved.</Status>}
+              {feedback === 'policy' && <Status>Sharing saved.</Status>}
             </FormFooter>
           </div>
         </Form>
@@ -1814,10 +1609,10 @@ function PolicySections() {
         <Form
           disabled={save.busy}
           onSubmit={() => {
-            setSubmitted("enrollment");
+            setSubmitted('enrollment');
             save.run(() => {
               setSavedEnrollment(enrollment);
-              setFeedback("enrollment");
+              setFeedback('enrollment');
             });
           }}
         >
@@ -1834,17 +1629,13 @@ function PolicySections() {
             <FormFooter
               dirty={enrollmentDirty}
               cancel={{
-                kind: "reset",
-                label: "Discard changes",
+                kind: 'reset',
+                label: 'Discard changes',
                 onReset: () => setEnrollment(savedEnrollment),
               }}
-              submit={button(
-                "enrollment",
-                "Save enrollment",
-                "Saving enrollment…",
-              )}
+              submit={button('enrollment', 'Save enrollment', 'Saving enrollment…')}
             >
-              {feedback === "enrollment" && <Status>Enrollment saved.</Status>}
+              {feedback === 'enrollment' && <Status>Enrollment saved.</Status>}
             </FormFooter>
           </div>
         </Form>
@@ -1854,7 +1645,7 @@ function PolicySections() {
 }
 
 function EditorCreate() {
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState('');
   const [checked, setChecked] = useState(false);
   const [saved, setSaved] = useState(false);
   const save = useSampleSave();
@@ -1864,57 +1655,47 @@ function EditorCreate() {
       onSubmit={() => {
         if (!role.trim()) {
           setChecked(true);
-          return "invalid";
+          return 'invalid';
         }
         save.run(() => setSaved(true));
       }}
     >
       <div className="form-demo-stack">
-        <FormSection
-          title="Role"
-          description="Who this agent is and the job it does."
-        >
+        <FormSection title="Role" description="Who this agent is and the job it does.">
           <Field
             id="editor-role"
             label="Instructions"
             required
-            error={checked && !role.trim() ? "Enter instructions." : undefined}
+            error={checked && !role.trim() ? 'Enter instructions.' : undefined}
           >
-            <SampleTextarea
-              value={role}
-              onChange={(event) => setRole(event.target.value)}
-            />
+            <SampleTextarea value={role} onChange={event => setRole(event.target.value)} />
           </Field>
         </FormSection>
         <FormFooter
           layout="stack"
           dirty={!!role && !saved}
-          error={
-            checked && !role.trim()
-              ? "Fix 1 field to save the agent."
-              : undefined
-          }
+          error={checked && !role.trim() ? 'Fix 1 field to save the agent.' : undefined}
           submit={{
-            label: "Save agent",
-            pendingLabel: "Saving agent…",
+            label: 'Save agent',
+            pendingLabel: 'Saving agent…',
             state: save.busy
-              ? { kind: "busy" }
+              ? { kind: 'busy' }
               : saved
                 ? {
-                    kind: "blocked",
-                    reason: "Your changes are saved.",
+                    kind: 'blocked',
+                    reason: 'Your changes are saved.',
                     fix: {
-                      kind: "action",
-                      label: "Continue editing",
+                      kind: 'action',
+                      label: 'Continue editing',
                       onClick: () => setSaved(false),
                     },
                   }
-                : { kind: "ready" },
+                : { kind: 'ready' },
           }}
           note="Saving keeps the agent off until a manager configures access and activates it."
           cancel={{
-            kind: "leave",
-            label: "Cancel",
+            kind: 'leave',
+            label: 'Cancel',
             link: <a href="#form-compositions" />,
           }}
         />
@@ -1926,40 +1707,23 @@ function EditorCreate() {
 export function FormCompositions() {
   return (
     <div className="form-demo-compositions" data-example="compositions">
-      <Frame
-        title="Agent builder · steps, Save draft secondary submit"
-        example="builder"
-        wide
-      >
+      <Frame title="Agent builder · steps, Save draft secondary submit" example="builder" wide>
         <BuilderComposition />
       </Frame>
-      <Frame
-        title="Agent administration · one form per section"
-        example="policy"
-        wide
-      >
+      <Frame title="Agent administration · one form per section" example="policy" wide>
         <PolicySections />
       </Frame>
       <div className="form-demo-grid-2">
         <Frame title="New agent · stack footer, leave link" example="editor">
           <EditorCreate />
         </Frame>
-        <Frame
-          title="GitHub Knowledge · footer outside the form"
-          example="knowledge"
-        >
+        <Frame title="GitHub Knowledge · footer outside the form" example="knowledge">
           <KnowledgeSelection />
         </Frame>
-        <Frame
-          title="Chat question · compact summary actions"
-          example="interaction"
-        >
+        <Frame title="Chat question · compact summary actions" example="interaction">
           <InteractionCard />
         </Frame>
-        <Frame
-          title="Agent test chat · form without a footer"
-          example="test-chat"
-        >
+        <Frame title="Agent test chat · form without a footer" example="test-chat">
           <TestChat />
         </Frame>
         <Frame title="Table row · footer feedback and actions" example="record">

@@ -1,28 +1,28 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import { Button } from "../../packages/sprout/src/components/button.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Button } from '../../packages/sprout/src/components/button.js';
 import {
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
-} from "../../packages/sprout/src/components/button-group.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/button-group.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("button-group %s %s", async (theme, mode) => {
+it.each(themes)('button-group %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "flex",
+        display: 'flex',
         gap: 16,
-        alignItems: "start",
+        alignItems: 'start',
         width: 400,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
-      <div style={{ display: "grid", gap: 12, justifyItems: "start" }}>
+      <div style={{ display: 'grid', gap: 12, justifyItems: 'start' }}>
         <ButtonGroup aria-label="Pages">
           <Button variant="secondary" disabled>
             Previous
@@ -50,7 +50,5 @@ it.each(themes)("button-group %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`button-group-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`button-group-${theme}-${mode}`);
 });

@@ -1,19 +1,17 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import SliderDemo from "../../components/SliderDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import SliderDemo from '../../components/SliderDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Slider"
-  description="A track and thumb for picking a number or a range of numbers."
->
+<Docs title="Slider" description="A track and thumb for picking a number or a range of numbers.">
   <h1 class="docs-title">Slider</h1>
   <p class="docs-lead">
-    A track with a draggable thumb. Use it to pick one number, such as a volume,
-    or a range between two numbers.
+    A track with a draggable thumb. Use it to pick one number, such as a volume, or a range between two numbers.
   </p>
-  <div class="mt-8"><SliderDemo client:load /></div>
+  <div class="mt-8">
+    <SliderDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -43,10 +41,9 @@ const [range, setRange] = useState([20, 75]);
 </div>`}
     />
     <p>
-      Pass <code>value</code> and <code>onValueChange</code> to control the slider,
-      or <code>defaultValue</code> to let it keep its own state. A number gets one
-      thumb; an array gets one thumb per entry. With no value, the slider has one
-      thumb at <code>min</code>.
+      Pass <code>value</code> and <code>onValueChange</code> to control the slider, or <code>defaultValue</code> to let
+      it keep its own state. A number gets one thumb; an array gets one thumb per entry. With no value, the slider has
+      one thumb at <code>min</code>.
     </p>
   </section>
   <section class="prose-section">
@@ -55,42 +52,38 @@ const [range, setRange] = useState([20, 75]);
       <code>min</code> defaults to <code>0</code> and <code>max</code> to
       <code>100</code>. <code>orientation</code> is
       <code>"horizontal"</code> (fills its parent's width) or
-      <code>"vertical"</code> (fills its parent's height, at least 160px). The track
-      is 4px thick and the thumb is 12px, kept inside the track ends.
+      <code>"vertical"</code> (fills its parent's height, at least 160px). The track is 4px thick and the thumb is 12px,
+      kept inside the track ends.
     </p>
     <p>
       <code>disabled</code> dims the slider to 50% and blocks input; a disabled
-      <code>&lt;fieldset&gt;</code> does the same. The slider also takes Base UI props
-      such as <code>step</code>, <code>largeStep</code>,
-      <code>minStepsBetweenValues</code>, <code>name</code>,
-      <code>format</code>, <code>onValueCommitted</code>, and state functions
-      for <code>className</code>.
+      <code>&lt;fieldset&gt;</code> does the same. The slider also takes Base UI props such as <code>step</code>,{' '}
+      <code>largeStep</code>,<code>minStepsBetweenValues</code>, <code>name</code>,<code>format</code>,{' '}
+      <code>onValueCommitted</code>, and state functions for <code>className</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Each thumb is a range input. The root <code>aria-label</code> names the thumbs
-      too; a range adds "minimum" and "maximum". Use
+      Each thumb is a range input. The root <code>aria-label</code> names the thumbs too; a range adds "minimum" and
+      "maximum". Use
       <code>getAriaLabel</code> for other names, or
       <code>aria-labelledby</code> to point at visible text.
       <code>getAriaValueText</code> sets the spoken value.
     </p>
     <p>
-      Tab moves between thumbs. Arrow keys move one <code>step</code>, Page Up
-      and Page Down move one <code>largeStep</code>, and Home and End jump to
-      the ends. Hover, drag, and keyboard focus show a 3px ring that fades in
-      over 120ms; the fade stops when reduced motion is requested. In forced
-      colors mode the track, range, and thumb use system colors.
+      Tab moves between thumbs. Arrow keys move one <code>step</code>, Page Up and Page Down move one{' '}
+      <code>largeStep</code>, and Home and End jump to the ends. Hover, drag, and keyboard focus show a 3px ring that
+      fades in over 120ms; the fade stops when reduced motion is requested. In forced colors mode the track, range, and
+      thumb use system colors.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
       The track uses <code>--sprout-input</code> and the filled range uses
-      <code>--sprout-primary</code>, so the opt-in TulipFarm theme tints it
-      green. The thumb is white with a <code>--sprout-focus</code> border and ring.
-      Override <code>--sprout-slider-thumb</code> to change the thumb fill.
+      <code>--sprout-primary</code>, so the opt-in TulipFarm theme tints it green. The thumb is white with a{' '}
+      <code>--sprout-focus</code> border and ring. Override <code>--sprout-slider-thumb</code> to change the thumb fill.
     </p>
   </section>
 </Docs>

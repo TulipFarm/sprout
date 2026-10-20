@@ -102,10 +102,10 @@
   border-color: var(--sprout-border);
   outline: var(--sprout-focus-width) solid transparent;
 }
-.field-demo-textarea[aria-invalid="true"] {
+.field-demo-textarea[aria-invalid='true'] {
   border-color: var(--sprout-danger);
 }
-.field-demo-textarea[aria-invalid="true"]:focus-visible {
+.field-demo-textarea[aria-invalid='true']:focus-visible {
   outline-color: var(--sprout-danger);
 }
 .field-demo-textarea:disabled {
@@ -132,7 +132,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.field-demo-credential[aria-invalid="true"] {
+.field-demo-credential[aria-invalid='true'] {
   border-color: var(--sprout-danger);
 }
 

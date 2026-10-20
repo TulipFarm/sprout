@@ -63,7 +63,7 @@
   .sprout-mention-option:hover {
     background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
   }
-  .sprout-mention-option[aria-selected="true"] {
+  .sprout-mention-option[aria-selected='true'] {
     background: var(--sprout-hover);
     color: var(--sprout-text);
   }
@@ -73,7 +73,7 @@
     align-items: center;
     color: var(--sprout-muted);
   }
-  .sprout-mention-option[aria-selected="true"] .sprout-mention-option-media {
+  .sprout-mention-option[aria-selected='true'] .sprout-mention-option-media {
     color: var(--sprout-text);
   }
   .sprout-mention-option-media > :where(svg) {
@@ -132,7 +132,7 @@
     min-width: 0;
     overflow-wrap: anywhere;
   }
-  .sprout-mention-status[data-tone="error"] .sprout-mention-status-text {
+  .sprout-mention-status[data-tone='error'] .sprout-mention-status-text {
     color: var(--sprout-danger);
   }
   .sprout-mention-status-action {
@@ -140,7 +140,7 @@
   }
 
   @media (forced-colors: active) {
-    .sprout-mention-option[aria-selected="true"] {
+    .sprout-mention-option[aria-selected='true'] {
       outline: 2px solid Highlight;
       outline-offset: -1px;
     }
@@ -148,12 +148,10 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-mention-list {
-      animation: sprout-mention-list-in var(--sprout-motion-fast)
-        var(--sprout-motion-ease);
+      animation: sprout-mention-list-in var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
     .sprout-mention-option {
-      transition: background-color var(--sprout-motion-fast)
-        var(--sprout-motion-ease);
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
   }
 }

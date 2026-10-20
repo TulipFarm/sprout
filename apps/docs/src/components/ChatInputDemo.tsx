@@ -1,21 +1,18 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { BookOpen } from "reicon-react/icons/BookOpen";
-import { ChatDots } from "reicon-react/icons/ChatDots";
-import { Compass } from "reicon-react/icons/Compass";
-import { GraduationCap } from "reicon-react/icons/GraduationCap";
-import { Laptop } from "reicon-react/icons/Laptop";
-import { Lightbulb } from "reicon-react/icons/Lightbulb";
-import { Link } from "reicon-react/icons/Link";
-import { Map } from "reicon-react/icons/Map";
-import { Sparkles } from "reicon-react/icons/Sparkles";
-import { Target } from "reicon-react/icons/Target";
-import { Telescope } from "reicon-react/icons/Telescope";
-import { User } from "reicon-react/icons/User";
-import {
-  FileTypeIcon,
-  type AttachmentFile,
-} from "@tulipfarm/sprout/attachment";
-import { BrandIcon } from "@tulipfarm/sprout/brand-icon";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { BookOpen } from 'reicon-react/icons/BookOpen';
+import { ChatDots } from 'reicon-react/icons/ChatDots';
+import { Compass } from 'reicon-react/icons/Compass';
+import { GraduationCap } from 'reicon-react/icons/GraduationCap';
+import { Laptop } from 'reicon-react/icons/Laptop';
+import { Lightbulb } from 'reicon-react/icons/Lightbulb';
+import { Link } from 'reicon-react/icons/Link';
+import { Map } from 'reicon-react/icons/Map';
+import { Sparkles } from 'reicon-react/icons/Sparkles';
+import { Target } from 'reicon-react/icons/Target';
+import { Telescope } from 'reicon-react/icons/Telescope';
+import { User } from 'reicon-react/icons/User';
+import { FileTypeIcon, type AttachmentFile } from '@tulipfarm/sprout/attachment';
+import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
 import {
   ChatInput,
   type ChatInputModel,
@@ -23,20 +20,12 @@ import {
   type ChatInputPrompt,
   type ChatInputStatus,
   type ChatInputSuggestion,
-} from "@tulipfarm/sprout/chat-input";
-import type { RichTextValue } from "@tulipfarm/sprout/rich-text-editor";
-import { TooltipProvider } from "@tulipfarm/sprout/tooltip";
-import "../styles/chat-input-demo.css";
+} from '@tulipfarm/sprout/chat-input';
+import type { RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
+import { TooltipProvider } from '@tulipfarm/sprout/tooltip';
+import '../styles/chat-input-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <TooltipProvider>
       <section className="chat-input-demo-card" aria-label={title}>
@@ -53,65 +42,65 @@ function Example({
 const icon = (Icon: typeof Map) => <Icon size={16} aria-hidden="true" />;
 
 const emptyDoc = (): RichTextValue => ({
-  type: "doc",
-  content: [{ type: "paragraph" }],
+  type: 'doc',
+  content: [{ type: 'paragraph' }],
 });
 const textDoc = (text: string): RichTextValue => ({
-  type: "doc",
-  content: [{ type: "paragraph", content: [{ type: "text", text }] }],
+  type: 'doc',
+  content: [{ type: 'paragraph', content: [{ type: 'text', text }] }],
 });
 
 const agents: ChatInputSuggestion[] = [
   {
-    id: "researcher",
-    label: "Researcher",
-    description: "Finds and cites sources",
+    id: 'researcher',
+    label: 'Researcher',
+    description: 'Finds and cites sources',
     media: icon(Telescope),
   },
   {
-    id: "designer",
-    label: "Designer",
-    description: "Reviews layouts and flows",
+    id: 'designer',
+    label: 'Designer',
+    description: 'Reviews layouts and flows',
     media: icon(Compass),
   },
   {
-    id: "pm",
-    label: "Product manager",
-    description: "Writes specs and plans",
+    id: 'pm',
+    label: 'Product manager',
+    description: 'Writes specs and plans',
     media: icon(User),
   },
 ];
 const skills: ChatInputSuggestion[] = [
   {
-    id: "usability-review",
-    label: "usability-review",
-    description: "Heuristic review of a screen",
+    id: 'usability-review',
+    label: 'usability-review',
+    description: 'Heuristic review of a screen',
     media: icon(BookOpen),
   },
   {
-    id: "user-interview",
-    label: "user-interview",
-    description: "Draft an interview guide",
+    id: 'user-interview',
+    label: 'user-interview',
+    description: 'Draft an interview guide',
     media: icon(BookOpen),
   },
   {
-    id: "prd",
-    label: "prd",
-    description: "Turn notes into a product spec",
+    id: 'prd',
+    label: 'prd',
+    description: 'Turn notes into a product spec',
     media: icon(BookOpen),
   },
 ];
 const savedFiles = [
-  { name: "financial-dashboard.png", mediaType: "image/png", size: "412 KB" },
-  { name: "messaging-dashboard.png", mediaType: "image/png", size: "388 KB" },
+  { name: 'financial-dashboard.png', mediaType: 'image/png', size: '412 KB' },
+  { name: 'messaging-dashboard.png', mediaType: 'image/png', size: '388 KB' },
   {
-    name: "Q3-forecast.xlsx",
-    mediaType: "application/vnd.ms-excel",
-    size: "182 KB",
+    name: 'Q3-forecast.xlsx',
+    mediaType: 'application/vnd.ms-excel',
+    size: '182 KB',
   },
-  { name: "pricing-2026.pdf", mediaType: "application/pdf", size: "920 KB" },
+  { name: 'pricing-2026.pdf', mediaType: 'application/pdf', size: '920 KB' },
 ];
-const fileSuggestions: ChatInputSuggestion[] = savedFiles.map((file) => ({
+const fileSuggestions: ChatInputSuggestion[] = savedFiles.map(file => ({
   id: file.name,
   label: file.name,
   description: file.size,
@@ -119,137 +108,127 @@ const fileSuggestions: ChatInputSuggestion[] = savedFiles.map((file) => ({
 }));
 
 const search = (items: ChatInputSuggestion[]) => (query: string) =>
-  items.filter((item) =>
-    item.label.toLowerCase().includes(query.toLowerCase()),
-  );
+  items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()));
 
 const modes: ChatInputOption[] = [
   {
-    id: "plan",
-    label: "Plan",
-    description: "Proposes steps before it acts",
+    id: 'plan',
+    label: 'Plan',
+    description: 'Proposes steps before it acts',
     icon: icon(Map),
-    color: "#3b9ef5",
+    color: '#3b9ef5',
   },
   {
-    id: "research",
-    label: "Deep research",
-    description: "Reads many sources, takes longer",
+    id: 'research',
+    label: 'Deep research',
+    description: 'Reads many sources, takes longer',
     icon: icon(Telescope),
-    color: "#6366f1",
+    color: '#6366f1',
   },
   {
-    id: "ask",
-    label: "Ask",
-    description: "Answers without making edits",
+    id: 'ask',
+    label: 'Ask',
+    description: 'Answers without making edits',
     icon: icon(ChatDots),
-    color: "#10b981",
+    color: '#10b981',
   },
   {
-    id: "learn",
-    label: "Learn",
-    description: "Explains step by step",
+    id: 'learn',
+    label: 'Learn',
+    description: 'Explains step by step',
     icon: icon(GraduationCap),
-    color: "#f97316",
+    color: '#f97316',
   },
 ];
 const projects: ChatInputOption[] = [
-  { id: "none", label: "No project" },
-  { id: "onboarding", label: "Onboarding redesign" },
-  { id: "billing", label: "Billing revamp" },
-  { id: "q3", label: "Q3 research" },
+  { id: 'none', label: 'No project' },
+  { id: 'onboarding', label: 'Onboarding redesign' },
+  { id: 'billing', label: 'Billing revamp' },
+  { id: 'q3', label: 'Q3 research' },
 ];
 const models: ChatInputModel[] = [
   {
-    id: "claude-opus",
-    label: "Claude Opus 5.5",
-    brand: "claude",
-    description: "Anthropic · best for hard work",
+    id: 'claude-opus',
+    label: 'Claude Opus 5.5',
+    brand: 'claude',
+    description: 'Anthropic · best for hard work',
   },
   {
-    id: "claude-sonnet",
-    label: "Claude Sonnet 5.5",
-    brand: "claude",
-    description: "Anthropic · fast and capable",
+    id: 'claude-sonnet',
+    label: 'Claude Sonnet 5.5',
+    brand: 'claude',
+    description: 'Anthropic · fast and capable',
   },
-  { id: "gpt", label: "GPT-5.5", brand: "openai", description: "OpenAI" },
+  { id: 'gpt', label: 'GPT-5.5', brand: 'openai', description: 'OpenAI' },
   {
-    id: "gemini",
-    label: "Gemini 3 Pro",
-    brand: "gemini",
-    description: "Google",
+    id: 'gemini',
+    label: 'Gemini 3 Pro',
+    brand: 'gemini',
+    description: 'Google',
   },
-  { id: "grok", label: "Grok 5", brand: "grok", description: "xAI" },
+  { id: 'grok', label: 'Grok 5', brand: 'grok', description: 'xAI' },
   {
-    id: "mistral",
-    label: "Mistral Large 3",
-    brand: "mistral",
-    description: "Mistral",
+    id: 'mistral',
+    label: 'Mistral Large 3',
+    brand: 'mistral',
+    description: 'Mistral',
   },
-  { id: "llama", label: "Llama 5", brand: "meta", description: "Meta" },
-  { id: "qwen", label: "Qwen 4", brand: "qwen", description: "Alibaba" },
+  { id: 'llama', label: 'Llama 5', brand: 'meta', description: 'Meta' },
+  { id: 'qwen', label: 'Qwen 4', brand: 'qwen', description: 'Alibaba' },
   {
-    id: "deepseek",
-    label: "DeepSeek V4",
-    brand: "deepseek",
-    description: "DeepSeek",
+    id: 'deepseek',
+    label: 'DeepSeek V4',
+    brand: 'deepseek',
+    description: 'DeepSeek',
   },
   {
-    id: "kimi",
-    label: "Kimi K3",
-    brand: "kimi",
-    description: "Moonshot · unavailable",
+    id: 'kimi',
+    label: 'Kimi K3',
+    brand: 'kimi',
+    description: 'Moonshot · unavailable',
     disabled: true,
   },
 ];
 const prompts: ChatInputPrompt[] = [
   {
-    id: "clarify",
-    label: "Clarify user problem",
+    id: 'clarify',
+    label: 'Clarify user problem',
     icon: icon(Lightbulb),
-    prompt: "Help me clarify the user problem we are solving.",
+    prompt: 'Help me clarify the user problem we are solving.',
   },
   {
-    id: "context",
-    label: "Define user context",
+    id: 'context',
+    label: 'Define user context',
     icon: icon(Target),
-    prompt: "Describe who the users are and where they use this.",
+    prompt: 'Describe who the users are and where they use this.',
   },
   {
-    id: "deliverable",
-    label: "Select deliverable",
+    id: 'deliverable',
+    label: 'Select deliverable',
     icon: icon(BookOpen),
-    prompt: "Which deliverable fits best: a spec, a prototype, or a report?",
+    prompt: 'Which deliverable fits best: a spec, a prototype, or a report?',
   },
   {
-    id: "refine",
-    label: "Refine requirements",
+    id: 'refine',
+    label: 'Refine requirements',
     icon: icon(Sparkles),
-    prompt: "Refine these requirements and list open questions.",
+    prompt: 'Refine these requirements and list open questions.',
   },
 ];
 
-const ready = (
-  name: string,
-  mediaType: string,
-  size: string,
-): AttachmentFile => ({
+const ready = (name: string, mediaType: string, size: string): AttachmentFile => ({
   id: `${name}-${Math.random().toString(36).slice(2, 8)}`,
   name,
   mediaType,
   size,
-  state: "ready",
+  state: 'ready',
 });
 
-function useChat(
-  initial: RichTextValue,
-  initialFiles: AttachmentFile[] = [],
-  initialStatus: ChatInputStatus = "idle",
-) {
+function useChat(initial: RichTextValue, initialFiles: AttachmentFile[] = [], initialStatus: ChatInputStatus = 'idle') {
   const [value, setValue] = useState(initial);
   const [attachments, setAttachments] = useState(initialFiles);
   const [status, setStatus] = useState(initialStatus);
-  const [note, setNote] = useState("Nothing has been sent.");
+  const [note, setNote] = useState('Nothing has been sent.');
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
   return {
@@ -262,17 +241,17 @@ function useChat(
     send: () => {
       setValue(emptyDoc());
       setAttachments([]);
-      setStatus("streaming");
-      setNote("Sent. The agent is working. Stop ends the reply.");
+      setStatus('streaming');
+      setNote('Sent. The agent is working. Stop ends the reply.');
       timer.current = setTimeout(() => {
-        setStatus("idle");
-        setNote("Reply finished. Nothing left this page.");
+        setStatus('idle');
+        setNote('Reply finished. Nothing left this page.');
       }, 4000);
     },
     stop: () => {
       clearTimeout(timer.current);
-      setStatus("idle");
-      setNote("Reply stopped.");
+      setStatus('idle');
+      setNote('Reply stopped.');
     },
   };
 }
@@ -288,11 +267,10 @@ function Composer({
 }) {
   const chat = useChat(initial, initialFiles, initialStatus);
   const [mode, setMode] = useState<string | null>(null);
-  const [project, setProject] = useState("onboarding");
-  const [model, setModel] = useState("claude-opus");
+  const [project, setProject] = useState('onboarding');
+  const [model, setModel] = useState('claude-opus');
   const picker = useRef<HTMLInputElement>(null);
-  const add = (file: AttachmentFile) =>
-    chat.setAttachments((current) => [...current, file]);
+  const add = (file: AttachmentFile) => chat.setAttachments(current => [...current, file]);
   return (
     <div className="chat-input-demo-sample">
       <input
@@ -300,17 +278,13 @@ function Composer({
         type="file"
         multiple
         hidden
-        onChange={(event) => {
+        onChange={event => {
           for (const file of event.currentTarget.files ?? [])
             add({
-              ...ready(
-                file.name,
-                file.type,
-                `${Math.ceil(file.size / 1024)} KB`,
-              ),
-              source: { kind: "local", file },
+              ...ready(file.name, file.type, `${Math.ceil(file.size / 1024)} KB`),
+              source: { kind: 'local', file },
             });
-          event.currentTarget.value = "";
+          event.currentTarget.value = '';
         }}
       />
       <ChatInput
@@ -324,39 +298,28 @@ function Composer({
         skills={search(skills)}
         files={search(fileSuggestions)}
         attachments={chat.attachments}
-        onRemoveAttachment={(id) =>
-          chat.setAttachments((current) =>
-            current.filter((file) => file.id !== id),
-          )
-        }
+        onRemoveAttachment={id => chat.setAttachments(current => current.filter(file => file.id !== id))}
         attachActions={[
           {
-            id: "computer",
-            label: "Upload from computer",
-            description: "Files and images from this device",
+            id: 'computer',
+            label: 'Upload from computer',
+            description: 'Files and images from this device',
             icon: icon(Laptop),
             onSelect: () => picker.current?.click(),
           },
           {
-            id: "drive",
-            label: "Add from Google Drive",
-            description: "Docs, sheets, and slides",
+            id: 'drive',
+            label: 'Add from Google Drive',
+            description: 'Docs, sheets, and slides',
             icon: <BrandIcon brand="google-drive" size="inline" />,
-            onSelect: () =>
-              add(
-                ready(
-                  "Research plan.gdoc",
-                  "application/vnd.google-apps.document",
-                  "Google Drive",
-                ),
-              ),
+            onSelect: () => add(ready('Research plan.gdoc', 'application/vnd.google-apps.document', 'Google Drive')),
           },
           {
-            id: "url",
-            label: "Add a web page",
-            description: "Reads the page at a URL",
+            id: 'url',
+            label: 'Add a web page',
+            description: 'Reads the page at a URL',
             icon: icon(Link),
-            onSelect: () => add(ready("sprout.dev", "text/html", "Web page")),
+            onSelect: () => add(ready('sprout.dev', 'text/html', 'Web page')),
           },
         ]}
         modes={modes}
@@ -396,18 +359,18 @@ export function ChatInputAttachments() {
     >
       <Composer
         initial={textDoc(
-          "Compare the greenhouse layout with the returns policy. List the places where the layout makes returns hard, and suggest one fix for each.",
+          'Compare the greenhouse layout with the returns policy. List the places where the layout makes returns hard, and suggest one fix for each.',
         )}
         initialFiles={[
           {
-            ...ready("greenhouse-layout.png", "image/png", "4 KB"),
-            url: "/file-viewer-samples/greenhouse-layout.png",
+            ...ready('greenhouse-layout.png', 'image/png', '4 KB'),
+            url: '/file-viewer-samples/greenhouse-layout.png',
           },
           {
-            ...ready("returns-policy.pdf", "application/pdf", "1 KB"),
+            ...ready('returns-policy.pdf', 'application/pdf', '1 KB'),
             source: {
-              kind: "remote",
-              url: "/file-viewer-samples/returns-policy.pdf",
+              kind: 'remote',
+              url: '/file-viewer-samples/returns-policy.pdf',
             },
           },
         ]}

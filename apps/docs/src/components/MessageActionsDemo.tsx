@@ -1,28 +1,17 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@tulipfarm/sprout/dialog";
-import {
-  Message,
-  MessageBubble,
-  MessageContent,
-  MessageGroup,
-} from "@tulipfarm/sprout/message";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Button } from '@tulipfarm/sprout/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@tulipfarm/sprout/dialog';
+import { Message, MessageBubble, MessageContent, MessageGroup } from '@tulipfarm/sprout/message';
 import {
   MessageActions,
   MessageBranch,
   type MessageActionsAuthor,
   type MessageFeedback,
-} from "@tulipfarm/sprout/message-actions";
-import { MessageResponse } from "@tulipfarm/sprout/message-response";
-import { Switch } from "@tulipfarm/sprout/switch";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import "../styles/message-actions-demo.css";
+} from '@tulipfarm/sprout/message-actions';
+import { MessageResponse } from '@tulipfarm/sprout/message-response';
+import { Switch } from '@tulipfarm/sprout/switch';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import '../styles/message-actions-demo.css';
 
 function Frame({
   id,
@@ -68,12 +57,12 @@ function Segmented<Value extends string>({
       size="sm"
       variant="outline"
       value={[value]}
-      onValueChange={(next) => {
-        const picked = items.find((item) => item.value === next[0]);
+      onValueChange={next => {
+        const picked = items.find(item => item.value === next[0]);
         if (picked) onChange(picked.value);
       }}
     >
-      {items.map((item) => (
+      {items.map(item => (
         <ToggleGroupItem key={item.value} value={item.value}>
           {item.label}
         </ToggleGroupItem>
@@ -93,12 +82,7 @@ function Toggle({
 }) {
   return (
     <label className="ma-demo-switch">
-      <Switch
-        size="sm"
-        aria-label={label}
-        checked={checked}
-        onCheckedChange={onChange}
-      />
+      <Switch size="sm" aria-label={label} checked={checked} onCheckedChange={onChange} />
       {label}
     </label>
   );
@@ -108,17 +92,10 @@ function Toggle({
 
 function at(daysAgo: number, hour: number, minute: number) {
   const now = new Date();
-  return new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() - daysAgo,
-    hour,
-    minute,
-  ).toISOString();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysAgo, hour, minute).toISOString();
 }
 
-const ordersQuestion =
-  "Which March orders are missing from the warehouse export?";
+const ordersQuestion = 'Which March orders are missing from the warehouse export?';
 
 const ordersReply = `Three of the **1,284** March orders are missing from the warehouse export:
 
@@ -144,11 +121,7 @@ const handoff = `## Handoff
 Next: ask Robin whether the three were cancelled. Notes are in [the reconciliation sheet](https://example.com/sheets/march-recon).`;
 
 function feedbackLabel(feedback: MessageFeedback | null) {
-  return feedback === "up"
-    ? "Rated helpful."
-    : feedback === "down"
-      ? "Rated unhelpful."
-      : "No rating yet.";
+  return feedback === 'up' ? 'Rated helpful.' : feedback === 'down' ? 'Rated unhelpful.' : 'No rating yet.';
 }
 
 /** A ghost bubble with the Markdown reply, as Cloud renders assistant text. */
@@ -170,24 +143,22 @@ function HumanText({ text }: { text: string }) {
 
 /** Reads the rendered bubbles, so pasting into a doc keeps bold, code, and links. */
 function bubbleHtml(entry: HTMLElement | null) {
-  const parts = entry?.querySelectorAll("[data-slot=message-bubble]");
-  return parts?.length
-    ? [...parts].map((part) => part.innerHTML).join("")
-    : undefined;
+  const parts = entry?.querySelectorAll('[data-slot=message-bubble]');
+  return parts?.length ? [...parts].map(part => part.innerHTML).join('') : undefined;
 }
 
 /* Playground ----------------------------------------------------------------- */
 
 export function MessageActionsPlayground() {
-  const [author, setAuthor] = useState<MessageActionsAuthor>("assistant");
+  const [author, setAuthor] = useState<MessageActionsAuthor>('assistant');
   const [time, setTime] = useState(true);
   const [rating, setRating] = useState(true);
   const [regenerate, setRegenerate] = useState(true);
   const [hover, setHover] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [feedback, setFeedback] = useState<MessageFeedback | null>(null);
-  const [status, setStatus] = useState("No action yet.");
-  const assistant = author === "assistant";
+  const [status, setStatus] = useState('No action yet.');
+  const assistant = author === 'assistant';
   return (
     <Frame
       id="playground"
@@ -199,35 +170,23 @@ export function MessageActionsPlayground() {
             label="Author"
             value={author}
             items={[
-              { value: "assistant", label: "Assistant" },
-              { value: "human", label: "Human" },
+              { value: 'assistant', label: 'Assistant' },
+              { value: 'human', label: 'Human' },
             ]}
             onChange={setAuthor}
           />
           <Toggle label="Time" checked={time} onChange={setTime} />
-          {assistant && (
-            <Toggle label="Feedback" checked={rating} onChange={setRating} />
-          )}
-          {assistant && (
-            <Toggle
-              label="Regenerate"
-              checked={regenerate}
-              onChange={setRegenerate}
-            />
-          )}
+          {assistant && <Toggle label="Feedback" checked={rating} onChange={setRating} />}
+          {assistant && <Toggle label="Regenerate" checked={regenerate} onChange={setRegenerate} />}
           <Toggle label="Reveal on hover" checked={hover} onChange={setHover} />
           <Toggle label="Disabled" checked={disabled} onChange={setDisabled} />
         </>
       }
     >
       <div className="ma-demo-chat" data-testid="playground">
-        <Message align={assistant ? "start" : "end"}>
+        <Message align={assistant ? 'start' : 'end'}>
           <MessageContent>
-            {assistant ? (
-              <AssistantText text={ordersReply} />
-            ) : (
-              <HumanText text={ordersQuestion} />
-            )}
+            {assistant ? <AssistantText text={ordersReply} /> : <HumanText text={ordersQuestion} />}
             <MessageActions
               key={author}
               text={assistant ? ordersReply : ordersQuestion}
@@ -238,25 +197,17 @@ export function MessageActionsPlayground() {
               feedback={feedback}
               onFeedback={
                 assistant && rating
-                  ? (next) => {
+                  ? next => {
                       setFeedback(next);
                       setStatus(feedbackLabel(next));
                     }
                   : undefined
               }
-              onRetry={
-                assistant && regenerate
-                  ? () => setStatus("Regenerate requested.")
-                  : undefined
-              }
+              onRetry={assistant && regenerate ? () => setStatus('Regenerate requested.') : undefined}
             />
           </MessageContent>
         </Message>
-        <p
-          className="ma-demo-status"
-          role="status"
-          data-testid="playground-status"
-        >
+        <p className="ma-demo-status" role="status" data-testid="playground-status">
           {status}
         </p>
       </div>
@@ -314,23 +265,23 @@ export function MessageActionsTimes() {
   const now = new Date();
   const rows = [
     {
-      label: "Today",
-      text: "Sent the April forecast to Robin.",
+      label: 'Today',
+      text: 'Sent the April forecast to Robin.',
       createdAt: at(0, 8, 5),
     },
     {
-      label: "Yesterday",
-      text: "Can you draft the supplier email?",
+      label: 'Yesterday',
+      text: 'Can you draft the supplier email?',
       createdAt: at(1, 16, 30),
     },
     {
-      label: "This year",
-      text: "Pull last quarter’s refunds by region.",
+      label: 'This year',
+      text: 'Pull last quarter’s refunds by region.',
       createdAt: new Date(now.getFullYear(), 0, 3, 11, 20).toISOString(),
     },
     {
-      label: "Earlier year",
-      text: "Summarize the onboarding survey.",
+      label: 'Earlier year',
+      text: 'Summarize the onboarding survey.',
       createdAt: new Date(now.getFullYear() - 1, 10, 18, 14, 5).toISOString(),
     },
   ];
@@ -341,15 +292,11 @@ export function MessageActionsTimes() {
       note="Today shows the time, then Yesterday, then the date. Hover a time for the full date."
     >
       <dl className="ma-demo-times" data-testid="times">
-        {rows.map((row) => (
+        {rows.map(row => (
           <div key={row.label} className="ma-demo-time-row">
             <dt>{row.label}</dt>
             <dd>
-              <MessageActions
-                text={row.text}
-                author="human"
-                createdAt={row.createdAt}
-              />
+              <MessageActions text={row.text} author="human" createdAt={row.createdAt} />
             </dd>
           </div>
         ))}
@@ -363,16 +310,12 @@ export function MessageActionsTimes() {
 export function MessageActionsVersions() {
   const [count, setCount] = useState(2);
   const [index, setIndex] = useState(1);
-  const [ratings, setRatings] = useState<(MessageFeedback | null)[]>([
-    null,
-    "up",
-    null,
-  ]);
+  const [ratings, setRatings] = useState<(MessageFeedback | null)[]>([null, 'up', null]);
   const [pending, setPending] = useState(false);
   useEffect(() => {
     if (!pending) return;
     const timer = setTimeout(() => {
-      setCount((value) => Math.min(value + 1, versions.length));
+      setCount(value => Math.min(value + 1, versions.length));
       setIndex(Math.min(count, versions.length - 1));
       setPending(false);
     }, 900);
@@ -388,7 +331,7 @@ export function MessageActionsVersions() {
       <div className="ma-demo-chat" data-testid="versions">
         <Message align="start">
           <MessageContent>
-            <AssistantText text={pending ? "Writing another version…" : text} />
+            <AssistantText text={pending ? 'Writing another version…' : text} />
             <div className="ma-demo-version-row">
               <MessageBranch index={index} total={count} onChange={setIndex} />
               <MessageActions
@@ -397,14 +340,8 @@ export function MessageActionsVersions() {
                 createdAt={at(0, 9, 41 + index)}
                 disabled={pending}
                 feedback={ratings[index] ?? null}
-                onFeedback={(next) =>
-                  setRatings((all) =>
-                    all.map((value, i) => (i === index ? next : value)),
-                  )
-                }
-                onRetry={
-                  count < versions.length ? () => setPending(true) : undefined
-                }
+                onFeedback={next => setRatings(all => all.map((value, i) => (i === index ? next : value)))}
+                onRetry={count < versions.length ? () => setPending(true) : undefined}
               />
             </div>
           </MessageContent>
@@ -423,9 +360,7 @@ function HandoffBody() {
         <MessageResponse>{handoff}</MessageResponse>
       </div>
       <MessageActions text={handoff} />
-      <p className="ma-demo-hint">
-        Instructions: Keep it short and list the open order numbers.
-      </p>
+      <p className="ma-demo-hint">Instructions: Keep it short and list the open order numbers.</p>
     </section>
   );
 }
@@ -451,8 +386,7 @@ export function MessageActionsHandoff() {
           <DialogHeader>
             <DialogTitle>Conversation handoff</DialogTitle>
             <DialogDescription>
-              A summary to continue this work elsewhere. The model keeps its own
-              working summary.
+              A summary to continue this work elsewhere. The model keeps its own working summary.
             </DialogDescription>
           </DialogHeader>
           <div className="ma-demo-dialog-body">
@@ -469,16 +403,14 @@ export function MessageActionsHandoff() {
 /** Sample adapter: makes the browser clipboard refuse writes while chosen. */
 function useBlockedClipboard(blocked: boolean) {
   useEffect(() => {
-    const clipboard =
-      typeof navigator === "undefined" ? undefined : navigator.clipboard;
+    const clipboard = typeof navigator === 'undefined' ? undefined : navigator.clipboard;
     if (!blocked || !clipboard) return;
-    const refuse = () =>
-      Promise.reject(new DOMException("Clipboard blocked", "NotAllowedError"));
-    Object.defineProperty(clipboard, "write", {
+    const refuse = () => Promise.reject(new DOMException('Clipboard blocked', 'NotAllowedError'));
+    Object.defineProperty(clipboard, 'write', {
       value: refuse,
       configurable: true,
     });
-    Object.defineProperty(clipboard, "writeText", {
+    Object.defineProperty(clipboard, 'writeText', {
       value: refuse,
       configurable: true,
     });
@@ -490,9 +422,9 @@ function useBlockedClipboard(blocked: boolean) {
 }
 
 export function MessageActionsStates() {
-  const [clipboard, setClipboard] = useState<"allowed" | "blocked">("allowed");
+  const [clipboard, setClipboard] = useState<'allowed' | 'blocked'>('allowed');
   const [attempt, setAttempt] = useState(0);
-  useBlockedClipboard(clipboard === "blocked");
+  useBlockedClipboard(clipboard === 'blocked');
   return (
     <Frame
       id="states"
@@ -503,12 +435,12 @@ export function MessageActionsStates() {
           label="Clipboard"
           value={clipboard}
           items={[
-            { value: "allowed", label: "Allowed" },
-            { value: "blocked", label: "Blocked" },
+            { value: 'allowed', label: 'Allowed' },
+            { value: 'blocked', label: 'Blocked' },
           ]}
-          onChange={(next) => {
+          onChange={next => {
             setClipboard(next);
-            setAttempt((value) => value + 1);
+            setAttempt(value => value + 1);
           }}
         />
       }
@@ -530,14 +462,8 @@ export function MessageActionsStates() {
           <MessageActions text={handoff} disabled />
         </div>
         <div className="ma-demo-state" data-testid="state-copy">
-          <span className="ma-demo-state-label">
-            {clipboard === "blocked" ? "Clipboard blocked" : "Copy"}
-          </span>
-          <MessageActions
-            key={attempt}
-            text={ordersReply}
-            createdAt={at(0, 9, 41)}
-          />
+          <span className="ma-demo-state-label">{clipboard === 'blocked' ? 'Clipboard blocked' : 'Copy'}</span>
+          <MessageActions key={attempt} text={ordersReply} createdAt={at(0, 9, 41)} />
         </div>
       </div>
     </Frame>

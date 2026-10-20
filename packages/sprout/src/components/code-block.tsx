@@ -1,44 +1,26 @@
-"use client";
+'use client';
 
-import {
-  Fragment,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type HTMLAttributes,
-} from "react";
-import { Check } from "reicon-react/icons/Check";
-import { Copy } from "reicon-react/icons/Copy";
-import { cn } from "../internal/classes.js";
-import {
-  codeLanguageIds,
-  codeLanguageNames,
-  type CodeLanguage,
-} from "../internal/languages.js";
-import { tokenClass, useCodeTokens } from "../internal/code-tokens.js";
-import {
-  languageForFilename,
-  loadCodeLanguage,
-  resolveCodeLanguage,
-} from "../internal/syntax.js";
-import { Button } from "./button.js";
+import { Fragment, useEffect, useMemo, useRef, useState, type HTMLAttributes } from 'react';
+import { Check } from 'reicon-react/icons/Check';
+import { Copy } from 'reicon-react/icons/Copy';
+import { cn } from '../internal/classes.js';
+import { codeLanguageIds, codeLanguageNames, type CodeLanguage } from '../internal/languages.js';
+import { tokenClass, useCodeTokens } from '../internal/code-tokens.js';
+import { languageForFilename, loadCodeLanguage, resolveCodeLanguage } from '../internal/syntax.js';
+import { Button } from './button.js';
 
 export type { CodeLanguage };
 export { languageForFilename };
 
-export const codeBlockVariantNames = ["inline", "file", "preview"] as const;
+export const codeBlockVariantNames = ['inline', 'file', 'preview'] as const;
 export type CodeBlockVariant = (typeof codeBlockVariantNames)[number];
 
 /** Every language that gets syntax colors. Aliases and file extensions such as `ts`, `py`, and `yml` work too. */
 export const codeBlockLanguages = codeLanguageIds;
 
-export type CodeBlockCopyState = "idle" | "copying" | "copied" | "error";
+export type CodeBlockCopyState = 'idle' | 'copying' | 'copied' | 'error';
 
-export interface CodeBlockProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "children"
-> {
+export interface CodeBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   code: string;
   /** A language name, alias, or extension. Defaults to the one `filename` implies, else plain text. */
   language?: string | undefined;
@@ -64,7 +46,7 @@ export function isHighlightedLanguage(language: string) {
 /** The display name for a language, alias, or extension, such as “TypeScript” for `ts`. */
 export function codeLanguageName(language: string) {
   const resolved = resolveCodeLanguage(language);
-  return resolved ? codeLanguageNames[resolved] : "Plain text";
+  return resolved ? codeLanguageNames[resolved] : 'Plain text';
 }
 
 /**
@@ -73,7 +55,7 @@ export function codeLanguageName(language: string) {
  */
 export async function preloadCodeLanguages(...languages: string[]) {
   await Promise.all(
-    languages.flatMap((language) => {
+    languages.flatMap(language => {
       const resolved = resolveCodeLanguage(language);
       return resolved ? [loadCodeLanguage(resolved)] : [];
     }),
@@ -86,43 +68,43 @@ export function CodeBlock({
   filename,
   lineNumbers = true,
   wrap = false,
-  variant = "inline",
+  variant = 'inline',
   className,
   ...props
 }: CodeBlockProps) {
-  const [copyState, setCopyState] = useState<CodeBlockCopyState>("idle");
+  const [copyState, setCopyState] = useState<CodeBlockCopyState>('idle');
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
   const resolved = resolveCodeLanguage(language, filename);
   const tokens = useCodeTokens(code, resolved);
-  const lineCount = useMemo(() => code.split("\n").length, [code]);
+  const lineCount = useMemo(() => code.split('\n').length, [code]);
 
   const copy = async () => {
     clearTimeout(timer.current);
-    setCopyState("copying");
+    setCopyState('copying');
     try {
       await navigator.clipboard.writeText(code);
-      setCopyState("copied");
-      timer.current = setTimeout(() => setCopyState("idle"), copiedResetMs);
+      setCopyState('copied');
+      timer.current = setTimeout(() => setCopyState('idle'), copiedResetMs);
     } catch {
-      setCopyState("error");
+      setCopyState('error');
     }
   };
 
-  const languageLabel = resolved ? codeLanguageNames[resolved] : "Plain text";
+  const languageLabel = resolved ? codeLanguageNames[resolved] : 'Plain text';
   const label = filename ?? languageLabel;
-  const copied = copyState === "copied";
-  const preview = variant === "preview";
+  const copied = copyState === 'copied';
+  const preview = variant === 'preview';
   return (
     <div
       data-slot="code-block"
       data-variant={variant}
-      data-language={resolved ?? "text"}
-      data-highlighted={tokens ? "" : undefined}
-      data-wrap={wrap ? "" : undefined}
+      data-language={resolved ?? 'text'}
+      data-highlighted={tokens ? '' : undefined}
+      data-wrap={wrap ? '' : undefined}
       data-copy-state={copyState}
       {...props}
-      className={cn("sprout-code-block", className)}
+      className={cn('sprout-code-block', className)}
     >
       {!preview && (
         <div className="sprout-code-block-header">
@@ -131,15 +113,15 @@ export function CodeBlock({
             variant="ghost"
             size="sm"
             focusableWhenDisabled
-            disabled={copyState === "copying"}
+            disabled={copyState === 'copying'}
             onClick={() => void copy()}
-            aria-label={`Copy ${filename ?? "code"}`}
+            aria-label={`Copy ${filename ?? 'code'}`}
             className="sprout-code-block-copy"
           >
             <span className="sprout-code-block-icon" aria-hidden="true">
               {copied ? <Check size={14} /> : <Copy size={14} />}
             </span>
-            {copied ? "Copied" : "Copy"}
+            {copied ? 'Copied' : 'Copy'}
           </Button>
         </div>
       )}
@@ -149,15 +131,13 @@ export function CodeBlock({
           ? {}
           : {
               tabIndex: 0,
-              role: "region",
-              "aria-label": filename ?? `${languageLabel} code`,
+              role: 'region',
+              'aria-label': filename ?? `${languageLabel} code`,
             })}
       >
         {lineNumbers && !wrap && (
           <pre aria-hidden="true" className="sprout-code-block-gutter">
-            {Array.from({ length: lineCount }, (_, index) => index + 1).join(
-              "\n",
-            )}
+            {Array.from({ length: lineCount }, (_, index) => index + 1).join('\n')}
           </pre>
         )}
         <pre className="sprout-code-block-pre">
@@ -165,7 +145,7 @@ export function CodeBlock({
             <code className="sprout-code-block-syntax">
               {tokens.map((line, row) => (
                 <Fragment key={row}>
-                  {row > 0 && "\n"}
+                  {row > 0 && '\n'}
                   {line.map((token, index) => (
                     <span key={index} className={tokenClass(token)}>
                       {token.content}
@@ -179,14 +159,14 @@ export function CodeBlock({
           )}
         </pre>
       </div>
-      {copyState === "error" && (
+      {copyState === 'error' && (
         <p role="alert" className="sprout-code-block-error">
           Clipboard unavailable. Select the code to copy it, or try Copy again.
         </p>
       )}
       {!preview && (
         <span className="sprout-code-block-sr-only" role="status">
-          {copied ? "Code copied to clipboard." : ""}
+          {copied ? 'Code copied to clipboard.' : ''}
         </span>
       )}
     </div>

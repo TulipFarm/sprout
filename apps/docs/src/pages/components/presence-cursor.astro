@@ -1,19 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import PresenceCursorDemo from "../../components/PresenceCursorDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import PresenceCursorDemo from '../../components/PresenceCursorDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Presence Cursor"
-  description="Other people's pointers with a name tag or an avatar."
->
+<Docs title="Presence Cursor" description="Other people's pointers with a name tag or an avatar.">
   <h1 class="docs-title">Presence Cursor</h1>
   <p class="docs-lead">
-    Another person's pointer on a shared surface, like a canvas or a document.
-    It shows a colored arrow with a name tag, or with an avatar.
+    Another person's pointer on a shared surface, like a canvas or a document. It shows a colored arrow with a name tag,
+    or with an avatar.
   </p>
-  <div class="mt-8"><PresenceCursorDemo client:load /></div>
+  <div class="mt-8">
+    <PresenceCursorDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -48,38 +47,31 @@ import { Avatar, AvatarFallback, AvatarImage } from "@tulipfarm/sprout/avatar";
 />`}
     />
     <p>
-      <code>x</code> and <code>y</code> place the arrow tip, in px, from the top left
-      of the nearest positioned parent. Give that parent <code
-        >position: relative</code
-      >. Your app sends the positions, for example from a realtime channel. The
-      cursor does not track anything by itself.
+      <code>x</code> and <code>y</code> place the arrow tip, in px, from the top left of the nearest positioned parent.
+      Give that parent <code>position: relative</code>. Your app sends the positions, for example from a realtime
+      channel. The cursor does not track anything by itself.
     </p>
     <p>
-      <code>color</code> fills the arrow, the tag, and the avatar ring. The tag text
-      is white, so pick colors with at least 4.5:1 contrast against white. Pass
-      <code>avatar</code> to show it in place of the tag. A small Avatar fits best.
-      Long names cut off with an ellipsis at 16rem.
+      <code>color</code> fills the arrow, the tag, and the avatar ring. The tag text is white, so pick colors with at
+      least 4.5:1 contrast against white. Pass
+      <code>avatar</code> to show it in place of the tag. A small Avatar fits best. Long names cut off with an ellipsis
+      at 16rem.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Each cursor is an image named after the person, so screen readers read the
-      name in both forms. It ignores pointer events, so clicks go through it. It
-      glides to a new spot over 180ms, and jumps when reduced motion is
-      requested. In forced colors mode the arrow uses the system text color.
+      Each cursor is an image named after the person, so screen readers read the name in both forms. It ignores pointer
+      events, so clicks go through it. It glides to a new spot over 180ms, and jumps when reduced motion is requested.
+      In forced colors mode the arrow uses the system text color.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      The tag uses <code>--sprout-radius-control</code> and <code
-        >--sprout-shadow-control</code
-      >. Motion uses <code>--sprout-motion-normal</code> and <code
-        >--sprout-motion-ease</code
-      >. The color comes from the <code>color</code> prop, stored in <code
-        >--sprout-presence-color</code
-      >.
+      The tag uses <code>--sprout-radius-control</code> and <code>--sprout-shadow-control</code>. Motion uses{' '}
+      <code>--sprout-motion-normal</code> and <code>--sprout-motion-ease</code>. The color comes from the{' '}
+      <code>color</code> prop, stored in <code>--sprout-presence-color</code>.
     </p>
   </section>
 </Docs>

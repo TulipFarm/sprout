@@ -1,12 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import {
-  BoardCustom,
-  BoardLarge,
-  BoardPlain,
-  BoardPlayground,
-} from "../../components/BoardDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import { BoardCustom, BoardLarge, BoardPlain, BoardPlayground } from '../../components/BoardDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -15,11 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Board</h1>
   <p class="docs-lead">
-    A Kanban board. Columns go across. Lanes go down. Each card sits in the cell
-    where its column and lane meet. Drag cards to any cell, drag columns by
-    their grip, and click a card to open it.
+    A Kanban board. Columns go across. Lanes go down. Each card sits in the cell where its column and lane meet. Drag
+    cards to any cell, drag columns by their grip, and click a card to open it.
   </p>
-  <div class="mt-8"><BoardPlayground client:load /></div>
+  <div class="mt-8">
+    <BoardPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -51,45 +47,40 @@ const [items, setItems] = useState<BoardItem[]>([
     />
     <ul>
       <li>
-        <code>columns</code>: <code>{"{ id, title, limit? }[]"}</code>. Over
+        <code>columns</code>: <code>{'{ id, title, limit? }[]'}</code>. Over
         <code>limit</code>, the header turns amber and says “Over limit”.
       </li>
       <li>
-        <code>lanes</code>: <code>{"{ id, title }[]"}</code>. Leave it out for a
-        plain board with no lane bars.
+        <code>lanes</code>: <code>{'{ id, title }[]'}</code>. Leave it out for a plain board with no lane bars.
       </li>
       <li>
-        <code>items</code>: <code>{"{ id, columnId, laneId?, title }[]"}</code>
+        <code>items</code>: <code>{'{ id, columnId, laneId?, title }[]'}</code>
         plus your own fields. Cards in a cell show in their order in
         <code>items</code>.
       </li>
       <li>
-        <code>onItemsChange</code>: gets the whole new list after a move, a
-        rename, or a column delete. Without it, cards do not move.
+        <code>onItemsChange</code>: gets the whole new list after a move, a rename, or a column delete. Without it,
+        cards do not move.
       </li>
       <li>
-        <code>onColumnsChange</code>: gets the new columns after a reorder,
-        rename, or delete. Without it, columns are fixed.
+        <code>onColumnsChange</code>: gets the new columns after a reorder, rename, or delete. Without it, columns are
+        fixed.
       </li>
       <li>
-        <code>onItemAdd</code> and <code>onColumnAdd</code>: show “Add card” in
-        every cell and “Add column” after the last column. Your app makes the
-        id.
+        <code>onItemAdd</code> and <code>onColumnAdd</code>: show “Add card” in every cell and “Add column” after the
+        last column. Your app makes the id.
       </li>
       <li>
-        <code>onItemOpen</code>, <code>renderBody</code>, <code
-          >itemActions</code
-        >: what a click does, the card body under the title, and the items in
-        the card menu.
+        <code>onItemOpen</code>, <code>renderBody</code>, <code>itemActions</code>: what a click does, the card body
+        under the title, and the items in the card menu.
       </li>
       <li>
-        <code>renderTitle</code> and <code>renderCard</code>: change the title,
-        or draw the whole card. See “Custom cards”.
+        <code>renderTitle</code> and <code>renderCard</code>: change the title, or draw the whole card. See “Custom
+        cards”.
       </li>
       <li>
-        <code>searchable</code>, <code>searchText</code>, <code>laneBy</code>:
-        the toolbar. Search filters by title and any text you add. “Lanes by” is
-        a select; your app regroups <code>lanes</code> and
+        <code>searchable</code>, <code>searchText</code>, <code>laneBy</code>: the toolbar. Search filters by title and
+        any text you add. “Lanes by” is a select; your app regroups <code>lanes</code> and
         <code>laneId</code>.
       </li>
     </ul>
@@ -97,23 +88,23 @@ const [items, setItems] = useState<BoardItem[]>([
   <section class="prose-section">
     <h2 class="section-title">Without lanes</h2>
     <p>
-      With no <code>lanes</code>, the board is one row and the cells fill its
-      height.
+      With no <code>lanes</code>, the board is one row and the cells fill its height.
     </p>
-    <div class="mt-4"><BoardPlain client:load /></div>
+    <div class="mt-4">
+      <BoardPlain client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Custom cards</h2>
     <p>
-      <code>renderTitle</code> changes only the title. The playground above uses it
-      to show a key before each title. Screen readers still read
+      <code>renderTitle</code> changes only the title. The playground above uses it to show a key before each title.
+      Screen readers still read
       <code>item.title</code>.
     </p>
     <p>
-      <code>renderCard</code> draws the whole card. The board removes its own frame
-      and gives you <code>parts.title</code> and <code>parts.menu</code>. Put
-      them where you want. They keep rename and the card menu working. The board
-      still owns drag, focus, keys, click, and selection.
+      <code>renderCard</code> draws the whole card. The board removes its own frame and gives you{' '}
+      <code>parts.title</code> and <code>parts.menu</code>. Put them where you want. They keep rename and the card menu
+      working. The board still owns drag, focus, keys, click, and selection.
     </p>
     <CodeBlock
       lang="tsx"
@@ -135,38 +126,38 @@ const [items, setItems] = useState<BoardItem[]>([
   )}
 />`}
     />
-    <div class="mt-4"><BoardCustom client:load /></div>
+    <div class="mt-4">
+      <BoardCustom client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Large boards</h2>
     <p>
-      50 columns, 20 lanes, and 10,000 cards. Only the lanes and cards in view
-      render. The card you drag always stays rendered.
+      50 columns, 20 lanes, and 10,000 cards. Only the lanes and cards in view render. The card you drag always stays
+      rendered.
     </p>
-    <div class="mt-4"><BoardLarge client:load /></div>
+    <div class="mt-4">
+      <BoardLarge client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Selecting and moving many cards</h2>
     <p>
-      Cmd-click or Ctrl-click adds a card to the selection. Shift-click selects
-      a range. Drag one selected card and the rest go with it. Escape clears the
-      selection.
+      Cmd-click or Ctrl-click adds a card to the selection. Shift-click selects a range. Drag one selected card and the
+      rest go with it. Escape clears the selection.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The board is a named region. Each cell is a list named by its column and
-      lane. Tab moves to a card. Space picks it up, arrow keys move it, Space
-      drops it, and Escape puts it back. A screen reader hears each step with
-      the card title and its cell. On touch, press and hold a card to pick it
-      up; a swipe still scrolls.
+      The board is a named region. Each cell is a list named by its column and lane. Tab moves to a card. Space picks it
+      up, arrow keys move it, Space drops it, and Escape puts it back. A screen reader hears each step with the card
+      title and its cell. On touch, press and hold a card to pick it up; a swipe still scrolls.
     </p>
     <p>
       Enter opens a card. F2 or Rename in the card menu renames it. With no
-      <code>onItemOpen</code>, a double-click renames too. In a title field,
-      Enter saves and Escape cancels. Columns move with their grip button in the
-      same way. The “Over limit” state is in words, not only color.
+      <code>onItemOpen</code>, a double-click renames too. In a title field, Enter saves and Escape cancels. Columns
+      move with their grip button in the same way. The “Over limit” state is in words, not only color.
     </p>
   </section>
   <section class="prose-section">
@@ -174,10 +165,10 @@ const [items, setItems] = useState<BoardItem[]>([
     <p>
       Cards use <code>--sprout-card-raised</code> and
       <code>--sprout-card-raised-shadow</code>. Columns tint
-      <code>--sprout-hover</code> over <code>--sprout-canvas</code>. Over limit
-      uses <code>--sprout-warning-subtle</code>, and selection
-      <code>--sprout-primary</code>. Set <code>--sprout-board-height</code>,
-      <code>--sprout-board-column-width</code>, and
+      <code>--sprout-hover</code> over <code>--sprout-canvas</code>. Over limit uses{' '}
+      <code>--sprout-warning-subtle</code>, and selection
+      <code>--sprout-primary</code>. Set <code>--sprout-board-height</code>,<code>--sprout-board-column-width</code>,
+      and
       <code>--sprout-board-cell-height</code> on the board to size it.
     </p>
   </section>

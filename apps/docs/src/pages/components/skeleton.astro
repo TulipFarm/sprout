@@ -1,19 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import SkeletonDemo from "../../components/SkeletonDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import SkeletonDemo from '../../components/SkeletonDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Skeleton"
-  description="Pulsing placeholders that hold the shape of content while it loads."
->
+<Docs title="Skeleton" description="Pulsing placeholders that hold the shape of content while it loads.">
   <h1 class="docs-title">Skeleton</h1>
   <p class="docs-lead">
-    Holds the space of content that is still loading. Use it for rows, titles,
-    panels, and table cells, so the page does not jump when data arrives.
+    Holds the space of content that is still loading. Use it for rows, titles, panels, and table cells, so the page does
+    not jump when data arrives.
   </p>
-  <div class="mt-8"><SkeletonDemo client:load /></div>
+  <div class="mt-8">
+    <SkeletonDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -33,24 +32,32 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </SkeletonGroup>`}
     />
     <p>
-      <code>Skeleton</code> renders an empty <code>div</code>. <code>shape</code
-      >
+      <code>Skeleton</code> renders an empty <code>div</code>. <code>shape</code>
       sets its size:
     </p>
     <ul>
-      <li><code>"line"</code>, the default: 16px tall, full width.</li>
-      <li><code>"title"</code>: 24px tall, two thirds wide.</li>
-      <li><code>"avatar"</code>: a 32px circle.</li>
-      <li><code>"panel"</code>: 128px tall, full width.</li>
-      <li><code>"checkbox"</code>: a 16px box.</li>
+      <li>
+        <code>"line"</code>, the default: 16px tall, full width.
+      </li>
+      <li>
+        <code>"title"</code>: 24px tall, two thirds wide.
+      </li>
+      <li>
+        <code>"avatar"</code>: a 32px circle.
+      </li>
+      <li>
+        <code>"panel"</code>: 128px tall, full width.
+      </li>
+      <li>
+        <code>"checkbox"</code>: a 16px box.
+      </li>
       <li>
         <code>"action"</code>: a 28px square, the size of a small icon button.
       </li>
     </ul>
     <p>
       <code>className</code>, <code>style</code>, and <code>data-*</code>
-      attributes pass through, so you can set a custom size or a width variable for
-      one placeholder.
+      attributes pass through, so you can set a custom size or a width variable for one placeholder.
     </p>
     <p>
       <code>SkeletonGroup</code> stacks skeletons in a <code>status</code>
@@ -102,13 +109,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
     <p>
       Each skeleton is <code>aria-hidden</code>, so screen readers skip it.
       <code>SkeletonGroup</code> has <code>role="status"</code>. Its
-      <code>label</code> becomes the accessible name and is also rendered as visually
-      hidden text, such as “Loading projects…”. Skeletons are not focusable and ignore
-      the pointer.
+      <code>label</code> becomes the accessible name and is also rendered as visually hidden text, such as “Loading
+      projects…”. Skeletons are not focusable and ignore the pointer.
     </p>
     <p>
-      The pulse runs every 1.6 seconds and stops when reduced motion is
-      requested. In forced colors mode each skeleton gets a visible border.
+      The pulse runs every 1.6 seconds and stops when reduced motion is requested. In forced colors mode each skeleton
+      gets a visible border.
     </p>
   </section>
   <section class="prose-section">

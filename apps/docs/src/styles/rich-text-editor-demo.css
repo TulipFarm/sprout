@@ -31,7 +31,7 @@
   background: var(--sprout-canvas);
 }
 /* The docs page draws a global focus outline; the group draws its own ring. */
-.sprout-input-group [data-slot="input-group-control"]:focus-visible {
+.sprout-input-group [data-slot='input-group-control']:focus-visible {
   outline: none;
 }
 .rte-demo-grid {
@@ -106,7 +106,7 @@
 .rte-demo-transcript > li {
   max-width: 32rem;
 }
-.rte-demo-transcript > [data-role="user"] {
+.rte-demo-transcript > [data-role='user'] {
   justify-self: end;
   padding: 8px 12px;
   border-radius: var(--sprout-radius-panel);
@@ -278,7 +278,7 @@
   cursor: default;
   user-select: none;
 }
-.rte-demo-option[aria-selected="true"] {
+.rte-demo-option[aria-selected='true'] {
   background: var(--sprout-hover);
 }
 .rte-demo-option-title {

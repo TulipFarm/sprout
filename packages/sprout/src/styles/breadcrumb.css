@@ -16,7 +16,7 @@
     list-style: none;
     overflow-wrap: break-word;
   }
-  .sprout-breadcrumb-list[data-wrap="false"] {
+  .sprout-breadcrumb-list[data-wrap='false'] {
     flex-wrap: nowrap;
   }
   .sprout-breadcrumb-item {
@@ -25,14 +25,11 @@
     gap: 4px;
     min-width: 0;
   }
-  .sprout-breadcrumb-list[data-wrap="false"] > .sprout-breadcrumb-item {
+  .sprout-breadcrumb-list[data-wrap='false'] > .sprout-breadcrumb-item {
     flex-shrink: 0;
   }
-  .sprout-breadcrumb-list[data-wrap="false"]
-    > .sprout-breadcrumb-item:is(
-      [aria-current="page"],
-      :has(> [aria-current="page"])
-    ) {
+  .sprout-breadcrumb-list[data-wrap='false']
+    > .sprout-breadcrumb-item:is([aria-current='page'], :has(> [aria-current='page'])) {
     flex-shrink: 1;
   }
 

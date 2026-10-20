@@ -1,15 +1,10 @@
-"use client";
+'use client';
 
-import { useRef, type KeyboardEvent } from "react";
-import { Search } from "reicon-react/icons/Search";
-import { X } from "reicon-react/icons/X";
-import { cn } from "../internal/classes.js";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "./input-group.js";
+import { useRef, type KeyboardEvent } from 'react';
+import { Search } from 'reicon-react/icons/Search';
+import { X } from 'reicon-react/icons/X';
+import { cn } from '../internal/classes.js';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from './input-group.js';
 
 export interface SearchFieldProps {
   /** Accessible name of the input. It is also the placeholder when none is given. */
@@ -28,28 +23,17 @@ export interface SearchFieldProps {
  * that appears once there is text. Clear and Escape empty the value and keep
  * focus in the input. A disabled ancestor `fieldset` disables both controls.
  */
-export function SearchField({
-  label,
-  value,
-  onChange,
-  placeholder,
-  maxLength,
-  id,
-  className,
-}: SearchFieldProps) {
+export function SearchField({ label, value, onChange, placeholder, maxLength, id, className }: SearchFieldProps) {
   const input = useRef<HTMLInputElement>(null);
   // The first Escape clears the text; with no text it reaches popovers and dialogs.
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== "Escape" || !value) return;
+    if (event.key !== 'Escape' || !value) return;
     event.preventDefault();
     event.stopPropagation();
-    onChange("");
+    onChange('');
   };
   return (
-    <InputGroup
-      data-slot="search-field"
-      className={cn("sprout-search-field", className)}
-    >
+    <InputGroup data-slot="search-field" className={cn('sprout-search-field', className)}>
       <InputGroupAddon>
         <Search size={16} aria-hidden="true" />
       </InputGroupAddon>
@@ -63,7 +47,7 @@ export function SearchField({
         placeholder={placeholder ?? label}
         autoComplete="off"
         spellCheck={false}
-        onChange={(event) => onChange(event.currentTarget.value)}
+        onChange={event => onChange(event.currentTarget.value)}
         onKeyDown={onKeyDown}
       />
       {value && (
@@ -74,7 +58,7 @@ export function SearchField({
             aria-label="Clear search"
             className="sprout-search-field-clear"
             onClick={() => {
-              onChange("");
+              onChange('');
               input.current?.focus();
             }}
           >

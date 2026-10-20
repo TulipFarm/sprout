@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
-import { Check } from "reicon-react/icons/Check";
-import { Minus } from "reicon-react/icons/Minus";
-import { cn, stateClassName } from "../internal/classes.js";
-import { useFieldsetDisabled } from "../internal/fieldset.js";
+import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
+import { Check } from 'reicon-react/icons/Check';
+import { Minus } from 'reicon-react/icons/Minus';
+import { cn, stateClassName } from '../internal/classes.js';
+import { useFieldsetDisabled } from '../internal/fieldset.js';
 
-export const checkboxVariantNames = ["default", "neutral"] as const;
+export const checkboxVariantNames = ['default', 'neutral'] as const;
 
 export type CheckboxVariant = (typeof checkboxVariantNames)[number];
 
@@ -24,7 +24,7 @@ export interface CheckboxProps extends BaseCheckbox.Root.Props {
  * `indeterminate` to show a mixed state, such as a "select all" box.
  */
 export function Checkbox({
-  variant = "default",
+  variant = 'default',
   indeterminate = false,
   className,
   disabled,
@@ -41,19 +41,12 @@ export function Checkbox({
       ref={fieldsetRef}
       disabled={disabled || fieldsetDisabled}
       className={stateClassName<BaseCheckbox.Root.State>(
-        cn("sprout-checkbox", `sprout-checkbox-variant-${variant}`),
+        cn('sprout-checkbox', `sprout-checkbox-variant-${variant}`),
         className,
       )}
     >
-      <BaseCheckbox.Indicator
-        data-slot="checkbox-indicator"
-        className="sprout-checkbox-indicator"
-      >
-        {indeterminate ? (
-          <Minus aria-hidden="true" />
-        ) : (
-          <Check aria-hidden="true" />
-        )}
+      <BaseCheckbox.Indicator data-slot="checkbox-indicator" className="sprout-checkbox-indicator">
+        {indeterminate ? <Minus aria-hidden="true" /> : <Check aria-hidden="true" />}
       </BaseCheckbox.Indicator>
     </BaseCheckbox.Root>
   );

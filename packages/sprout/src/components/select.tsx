@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { Select as SelectPrimitive } from "@base-ui/react/select";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { ChevronUp } from "reicon-react/icons/ChevronUp";
-import { cn, stateClassName } from "../internal/classes.js";
-import { useFieldControl } from "./field.js";
+import { Select as SelectPrimitive } from '@base-ui/react/select';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronUp } from 'reicon-react/icons/ChevronUp';
+import { cn, stateClassName } from '../internal/classes.js';
+import { useFieldControl } from './field.js';
 
-export const selectTriggerSizeNames = ["default", "sm", "calendar"] as const;
-export const selectTriggerWidthNames = ["fit", "full"] as const;
+export const selectTriggerSizeNames = ['default', 'sm', 'calendar'] as const;
+export const selectTriggerWidthNames = ['fit', 'full'] as const;
 
 export type SelectTriggerSize = (typeof selectTriggerSizeNames)[number];
 export type SelectTriggerWidth = (typeof selectTriggerWidthNames)[number];
 
-export type SelectProps<
-  Value = unknown,
-  Multiple extends boolean | undefined = false,
-> = SelectPrimitive.Root.Props<Value, Multiple>;
+export type SelectProps<Value = unknown, Multiple extends boolean | undefined = false> = SelectPrimitive.Root.Props<
+  Value,
+  Multiple
+>;
 
 /**
  * Holds the value and open state. It takes every Base UI select root prop,
@@ -32,10 +32,7 @@ export function SelectGroup({ className, ...props }: SelectGroupProps) {
     <SelectPrimitive.Group
       data-slot="select-group"
       {...props}
-      className={stateClassName<SelectPrimitive.Group.State>(
-        "sprout-select-group",
-        className,
-      )}
+      className={stateClassName<SelectPrimitive.Group.State>('sprout-select-group', className)}
     />
   );
 }
@@ -51,10 +48,7 @@ export function SelectValue({ className, ...props }: SelectValueProps) {
     <SelectPrimitive.Value
       data-slot="select-value"
       {...props}
-      className={stateClassName<SelectPrimitive.Value.State>(
-        "sprout-select-value",
-        className,
-      )}
+      className={stateClassName<SelectPrimitive.Value.State>('sprout-select-value', className)}
     />
   );
 }
@@ -70,13 +64,7 @@ export interface SelectTriggerProps extends SelectPrimitive.Trigger.Props {
   width?: SelectTriggerWidth;
 }
 
-export function SelectTrigger({
-  className,
-  size = "default",
-  width = "fit",
-  children,
-  ...rest
-}: SelectTriggerProps) {
+export function SelectTrigger({ className, size = 'default', width = 'fit', children, ...rest }: SelectTriggerProps) {
   const props = useFieldControl(rest);
   return (
     <SelectPrimitive.Trigger
@@ -85,11 +73,7 @@ export function SelectTrigger({
       data-width={width}
       {...props}
       className={stateClassName<SelectPrimitive.Trigger.State>(
-        cn(
-          "sprout-select-trigger",
-          `sprout-select-trigger-${size}`,
-          `sprout-select-trigger-${width}`,
-        ),
+        cn('sprout-select-trigger', `sprout-select-trigger-${size}`, `sprout-select-trigger-${width}`),
         className,
       )}
     >
@@ -103,21 +87,20 @@ export function SelectTrigger({
 
 type PositionerProps = Pick<
   SelectPrimitive.Positioner.Props,
-  | "align"
-  | "alignOffset"
-  | "side"
-  | "sideOffset"
-  | "alignItemWithTrigger"
-  | "collisionPadding"
-  | "collisionAvoidance"
-  | "sticky"
-  | "positionMethod"
+  | 'align'
+  | 'alignOffset'
+  | 'side'
+  | 'sideOffset'
+  | 'alignItemWithTrigger'
+  | 'collisionPadding'
+  | 'collisionAvoidance'
+  | 'sticky'
+  | 'positionMethod'
 >;
 
-export interface SelectContentProps
-  extends SelectPrimitive.Popup.Props, PositionerProps {
+export interface SelectContentProps extends SelectPrimitive.Popup.Props, PositionerProps {
   /** Where the portal renders. Defaults to `document.body`. */
-  container?: SelectPrimitive.Portal.Props["container"];
+  container?: SelectPrimitive.Portal.Props['container'];
 }
 
 /**
@@ -126,9 +109,9 @@ export interface SelectContentProps
  * `alignItemWithTrigger={false}` to open below it instead.
  */
 export function SelectContent({
-  side = "bottom",
+  side = 'bottom',
   sideOffset = 4,
-  align = "center",
+  align = 'center',
   alignOffset = 0,
   alignItemWithTrigger = true,
   collisionPadding = 8,
@@ -158,15 +141,10 @@ export function SelectContent({
           data-slot="select-content"
           data-align-trigger={alignItemWithTrigger}
           {...props}
-          className={stateClassName<SelectPrimitive.Popup.State>(
-            "sprout-select-content",
-            className,
-          )}
+          className={stateClassName<SelectPrimitive.Popup.State>('sprout-select-content', className)}
         >
           <SelectScrollUpButton />
-          <SelectPrimitive.List className="sprout-select-list">
-            {children}
-          </SelectPrimitive.List>
+          <SelectPrimitive.List className="sprout-select-list">{children}</SelectPrimitive.List>
           <SelectScrollDownButton />
         </SelectPrimitive.Popup>
       </SelectPrimitive.Positioner>
@@ -181,10 +159,7 @@ export function SelectLabel({ className, ...props }: SelectLabelProps) {
     <SelectPrimitive.GroupLabel
       data-slot="select-label"
       {...props}
-      className={stateClassName<SelectPrimitive.GroupLabel.State>(
-        "sprout-select-label",
-        className,
-      )}
+      className={stateClassName<SelectPrimitive.GroupLabel.State>('sprout-select-label', className)}
     />
   );
 }
@@ -200,14 +175,9 @@ export function SelectItem({ className, children, ...props }: SelectItemProps) {
     <SelectPrimitive.Item
       data-slot="select-item"
       {...props}
-      className={stateClassName<SelectPrimitive.Item.State>(
-        "sprout-select-item",
-        className,
-      )}
+      className={stateClassName<SelectPrimitive.Item.State>('sprout-select-item', className)}
     >
-      <SelectPrimitive.ItemText className="sprout-select-item-text">
-        {children}
-      </SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemText className="sprout-select-item-text">{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator className="sprout-select-item-indicator">
         <Check aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
@@ -222,26 +192,20 @@ export function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
     <SelectPrimitive.Separator
       data-slot="select-separator"
       {...props}
-      className={stateClassName<SelectPrimitive.Separator.State>(
-        "sprout-select-separator",
-        className,
-      )}
+      className={stateClassName<SelectPrimitive.Separator.State>('sprout-select-separator', className)}
     />
   );
 }
 
 export type SelectScrollUpButtonProps = SelectPrimitive.ScrollUpArrow.Props;
 
-export function SelectScrollUpButton({
-  className,
-  ...props
-}: SelectScrollUpButtonProps) {
+export function SelectScrollUpButton({ className, ...props }: SelectScrollUpButtonProps) {
   return (
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"
       {...props}
       className={stateClassName<SelectPrimitive.ScrollUpArrow.State>(
-        "sprout-select-scroll-button sprout-select-scroll-up",
+        'sprout-select-scroll-button sprout-select-scroll-up',
         className,
       )}
     >
@@ -252,16 +216,13 @@ export function SelectScrollUpButton({
 
 export type SelectScrollDownButtonProps = SelectPrimitive.ScrollDownArrow.Props;
 
-export function SelectScrollDownButton({
-  className,
-  ...props
-}: SelectScrollDownButtonProps) {
+export function SelectScrollDownButton({ className, ...props }: SelectScrollDownButtonProps) {
   return (
     <SelectPrimitive.ScrollDownArrow
       data-slot="select-scroll-down-button"
       {...props}
       className={stateClassName<SelectPrimitive.ScrollDownArrow.State>(
-        "sprout-select-scroll-button sprout-select-scroll-down",
+        'sprout-select-scroll-button sprout-select-scroll-down',
         className,
       )}
     >

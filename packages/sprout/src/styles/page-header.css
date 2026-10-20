@@ -29,12 +29,12 @@
     font-weight: 500;
     letter-spacing: normal;
   }
-  .sprout-page-header-title[data-placement="page"] {
+  .sprout-page-header-title[data-placement='page'] {
     font-size: 1.5rem;
     line-height: 2rem;
     overflow-wrap: break-word;
   }
-  .sprout-page-header-title[data-placement="chrome"] {
+  .sprout-page-header-title[data-placement='chrome'] {
     min-width: 0;
     overflow: hidden;
     font-size: var(--sprout-text-sm);
@@ -65,10 +65,10 @@
     align-items: center;
     gap: 0.5rem;
   }
-  .sprout-page-header-actions[data-placement="page"] {
+  .sprout-page-header-actions[data-placement='page'] {
     flex-wrap: wrap;
   }
-  .sprout-page-header-actions[data-placement="inline"] {
+  .sprout-page-header-actions[data-placement='inline'] {
     justify-content: flex-end;
   }
 
@@ -111,19 +111,16 @@
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
-  .sprout-page-header-breadcrumb[data-placement="chrome"]
-    .sprout-page-header-breadcrumb-item:first-child {
+  .sprout-page-header-breadcrumb[data-placement='chrome'] .sprout-page-header-breadcrumb-item:first-child {
     flex-shrink: 3;
     min-width: 2rem;
   }
-  .sprout-page-header-breadcrumb[data-placement="chrome"]
-    .sprout-page-header-breadcrumb-link {
+  .sprout-page-header-breadcrumb[data-placement='chrome'] .sprout-page-header-breadcrumb-link {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .sprout-page-header-breadcrumb[data-placement="chrome"]
-    .sprout-page-header-breadcrumb-current {
+  .sprout-page-header-breadcrumb[data-placement='chrome'] .sprout-page-header-breadcrumb-current {
     min-width: 2.5rem;
   }
   .sprout-page-header-breadcrumb-separator {

@@ -1,40 +1,23 @@
-import { useState, type ReactNode } from "react";
-import { ArrowRight } from "reicon-react/icons/ArrowRight";
-import { Calendar } from "reicon-react/icons/Calendar";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Clock } from "reicon-react/icons/Clock";
-import { Code } from "reicon-react/icons/Code";
-import { Danger } from "reicon-react/icons/Danger";
-import { Database } from "reicon-react/icons/Database";
-import { Warning } from "reicon-react/icons/Warning";
-import { Badge } from "@tulipfarm/sprout/badge";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@tulipfarm/sprout/collapsible";
-import {
-  Spinner,
-  spinnerActivityNames,
-  type SpinnerActivity,
-  type SpinnerSize,
-} from "@tulipfarm/sprout/spinner";
-import { StatePanel } from "@tulipfarm/sprout/state-panel";
-import { Switch } from "@tulipfarm/sprout/switch";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import "../styles/spinner-demo.css";
+import { useState, type ReactNode } from 'react';
+import { ArrowRight } from 'reicon-react/icons/ArrowRight';
+import { Calendar } from 'reicon-react/icons/Calendar';
+import { Check } from 'reicon-react/icons/Check';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { Clock } from 'reicon-react/icons/Clock';
+import { Code } from 'reicon-react/icons/Code';
+import { Danger } from 'reicon-react/icons/Danger';
+import { Database } from 'reicon-react/icons/Database';
+import { Warning } from 'reicon-react/icons/Warning';
+import { Badge } from '@tulipfarm/sprout/badge';
+import { Button } from '@tulipfarm/sprout/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@tulipfarm/sprout/collapsible';
+import { Spinner, spinnerActivityNames, type SpinnerActivity, type SpinnerSize } from '@tulipfarm/sprout/spinner';
+import { StatePanel } from '@tulipfarm/sprout/state-panel';
+import { Switch } from '@tulipfarm/sprout/switch';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import '../styles/spinner-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="spinner-demo-card" aria-label={title}>
       <header>
@@ -46,15 +29,7 @@ function Example({
   );
 }
 
-function Pane({
-  caption,
-  children,
-  testId,
-}: {
-  caption: ReactNode;
-  children: ReactNode;
-  testId?: string;
-}) {
+function Pane({ caption, children, testId }: { caption: ReactNode; children: ReactNode; testId?: string }) {
   return (
     <div className="spinner-demo-pane" data-testid={testId}>
       <span className="spinner-demo-caption">{caption}</span>
@@ -64,9 +39,9 @@ function Pane({
 }
 
 const sizeNotes: Record<SpinnerSize, string> = {
-  sm: "12px. Inside badges, such as an integration that is still checking.",
-  default: "16px. Inline with text and inside buttons of every size.",
-  lg: "20px. Swaps with 20px status icons, so the slot does not jump.",
+  sm: '12px. Inside badges, such as an integration that is still checking.',
+  default: '16px. Inline with text and inside buttons of every size.',
+  lg: '20px. Swaps with 20px status icons, so the slot does not jump.',
 };
 
 function Sizes() {
@@ -111,15 +86,15 @@ function Sizes() {
 }
 
 const activityNotes: Record<SpinnerActivity, string> = {
-  working: "Particles on tilted orbits. The general default.",
-  searching: "A scan line sweeps a dotted globe.",
-  solving: "Bands scramble, then click back into place.",
-  listening: "A waveform rolls through the rings.",
-  connecting: "A constellation wires itself together.",
-  weaving: "Three strands plait around the sphere.",
-  composing: "An undulating band, for writing a reply.",
-  breathing: "A ring slowly morphing, for quiet thinking.",
-  shaping: "A dotted outline turns circle, triangle, square.",
+  working: 'Particles on tilted orbits. The general default.',
+  searching: 'A scan line sweeps a dotted globe.',
+  solving: 'Bands scramble, then click back into place.',
+  listening: 'A waveform rolls through the rings.',
+  connecting: 'A constellation wires itself together.',
+  weaving: 'Three strands plait around the sphere.',
+  composing: 'An undulating band, for writing a reply.',
+  breathing: 'A ring slowly morphing, for quiet thinking.',
+  shaping: 'A dotted outline turns circle, triangle, square.',
 };
 
 function Thinking() {
@@ -129,14 +104,9 @@ function Thinking() {
       description='variant="thinking" shows a dotted thought orb for AI and agent work. Pick the activity that matches what the agent is doing.'
     >
       <div className="spinner-demo-orbs" data-testid="thinking-activities">
-        {spinnerActivityNames.map((activity) => (
+        {spinnerActivityNames.map(activity => (
           <figure key={activity} className="spinner-demo-orb">
-            <Spinner
-              variant="thinking"
-              size="xl"
-              activity={activity}
-              aria-label={`${activity} orb`}
-            />
+            <Spinner variant="thinking" size="xl" activity={activity} aria-label={`${activity} orb`} />
             <figcaption>
               <code>{activity}</code>
               <span>{activityNotes[activity]}</span>
@@ -148,33 +118,19 @@ function Thinking() {
         <Pane caption={<code>size="lg"</code>} testId="thinking-inline">
           <p className="spinner-demo-note">20px, beside a chat status line.</p>
           <p role="status" className="spinner-demo-line">
-            <Spinner
-              variant="thinking"
-              activity="searching"
-              aria-hidden="true"
-            />
+            <Spinner variant="thinking" activity="searching" aria-hidden="true" />
             Searching your Drive…
           </p>
           <p role="status" className="spinner-demo-line">
-            <Spinner
-              variant="thinking"
-              activity="composing"
-              aria-hidden="true"
-            />
+            <Spinner variant="thinking" activity="composing" aria-hidden="true" />
             Writing a reply…
           </p>
         </Pane>
         <Pane caption="Standalone" testId="thinking-name">
-          <p className="spinner-demo-note">
-            A status named “Thinking” unless you name it.
-          </p>
+          <p className="spinner-demo-note">A status named “Thinking” unless you name it.</p>
           <div className="spinner-demo-row">
             <Spinner variant="thinking" />
-            <Spinner
-              variant="thinking"
-              activity="connecting"
-              aria-label="Connecting tools"
-            />
+            <Spinner variant="thinking" activity="connecting" aria-label="Connecting tools" />
           </div>
         </Pane>
       </div>
@@ -199,9 +155,7 @@ function Naming() {
         </Pane>
         <Pane caption="Attachment chip" testId="name-chip">
           <div className="spinner-demo-chip">
-            <span className="spinner-demo-chip-name">
-              Q3-harvest-forecast.pdf
-            </span>
+            <span className="spinner-demo-chip-name">Q3-harvest-forecast.pdf</span>
             <Spinner aria-label="Uploading" />
           </div>
         </Pane>
@@ -232,15 +186,11 @@ function Buttons() {
           <div className="spinner-demo-row">
             <Button disabled={busy} aria-busy={busy}>
               {busy && <Spinner aria-hidden="true" />}
-              {busy ? "Opening sign-in…" : "Connect account"}
+              {busy ? 'Opening sign-in…' : 'Connect account'}
             </Button>
             <Button disabled={busy} aria-busy={busy}>
-              {busy ? (
-                <Spinner aria-hidden="true" />
-              ) : (
-                <ArrowRight aria-hidden="true" />
-              )}
-              {busy ? "Creating workspace…" : "Create workspace"}
+              {busy ? <Spinner aria-hidden="true" /> : <ArrowRight aria-hidden="true" />}
+              {busy ? 'Creating workspace…' : 'Create workspace'}
             </Button>
           </div>
         </Pane>
@@ -272,15 +222,10 @@ function Buttons() {
                   Checking…
                 </>
               ) : (
-                "Apply RSQL"
+                'Apply RSQL'
               )}
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={busy}
-              aria-busy={busy}
-            >
+            <Button variant="outline" size="sm" disabled={busy} aria-busy={busy}>
               {busy && <Spinner aria-hidden="true" />}
               Refresh integrations
             </Button>
@@ -378,18 +323,18 @@ function StatusLines() {
   );
 }
 
-type Phase = "pending" | "running" | "done" | "failed";
+type Phase = 'pending' | 'running' | 'done' | 'failed';
 
 const phaseLabel: Record<Phase, string> = {
-  pending: "Queued",
-  running: "Running",
-  done: "Done",
-  failed: "Failed",
+  pending: 'Queued',
+  running: 'Running',
+  done: 'Done',
+  failed: 'Failed',
 };
 
 function StatusIcons() {
-  const [phase, setPhase] = useState<Phase>("running");
-  const running = phase === "running";
+  const [phase, setPhase] = useState<Phase>('running');
+  const running = phase === 'running';
   return (
     <Example
       title="Status icons"
@@ -401,7 +346,7 @@ function StatusIcons() {
         size="sm"
         spacing={0}
         value={[phase]}
-        onValueChange={(value) => {
+        onValueChange={value => {
           if (value[0]) setPhase(value[0] as Phase);
         }}
       >
@@ -416,9 +361,9 @@ function StatusIcons() {
             <span className="spinner-demo-step-icon" aria-hidden="true">
               {running ? (
                 <Spinner />
-              ) : phase === "done" ? (
+              ) : phase === 'done' ? (
                 <Check size={16} />
-              ) : phase === "failed" ? (
+              ) : phase === 'failed' ? (
                 <Warning size={16} />
               ) : (
                 <Clock size={16} />
@@ -433,28 +378,12 @@ function StatusIcons() {
         <Pane caption="Tool call" testId="icon-tool">
           <Collapsible className="spinner-demo-tool">
             <CollapsibleTrigger className="spinner-demo-tool-trigger">
-              {running ? (
-                <Spinner aria-hidden="true" />
-              ) : (
-                <Code size={16} aria-hidden="true" />
-              )}
+              {running ? <Spinner aria-hidden="true" /> : <Code size={16} aria-hidden="true" />}
               <span className="spinner-demo-tool-name">search_tables</span>
-              <Badge
-                variant={
-                  phase === "failed"
-                    ? "destructive"
-                    : phase === "done"
-                      ? "success"
-                      : "secondary"
-                }
-              >
+              <Badge variant={phase === 'failed' ? 'destructive' : phase === 'done' ? 'success' : 'secondary'}>
                 {phaseLabel[phase]}
               </Badge>
-              <ChevronDown
-                size={14}
-                aria-hidden="true"
-                data-slot="collapsible-indicator"
-              />
+              <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
             </CollapsibleTrigger>
             <CollapsibleContent>
               <pre className="spinner-demo-tool-input">{`{ "query": "beds sown this week" }`}</pre>
@@ -462,25 +391,21 @@ function StatusIcons() {
           </Collapsible>
         </Pane>
         <Pane caption="Result status" testId="icon-result">
-          <span
-            role="status"
-            className="spinner-demo-result"
-            data-phase={phase}
-          >
+          <span role="status" className="spinner-demo-result" data-phase={phase}>
             {running ? (
               <Spinner aria-hidden="true" />
-            ) : phase === "done" ? (
+            ) : phase === 'done' ? (
               <Check size={14} aria-hidden="true" />
-            ) : phase === "failed" ? (
+            ) : phase === 'failed' ? (
               <Danger size={14} aria-hidden="true" />
             ) : null}
             {running
-              ? "Saving to Notion…"
-              : phase === "done"
-                ? "Saved to Notion"
-                : phase === "failed"
-                  ? "Could not save"
-                  : "Ready to save"}
+              ? 'Saving to Notion…'
+              : phase === 'done'
+                ? 'Saved to Notion'
+                : phase === 'failed'
+                  ? 'Could not save'
+                  : 'Ready to save'}
           </span>
         </Pane>
         <Pane caption="Table proposal, 20px slot" testId="icon-proposal">
@@ -488,9 +413,9 @@ function StatusIcons() {
             <span className="spinner-demo-slot" data-phase={phase}>
               {running ? (
                 <Spinner size="lg" aria-hidden="true" />
-              ) : phase === "done" ? (
+              ) : phase === 'done' ? (
                 <Check size={20} aria-hidden="true" />
-              ) : phase === "failed" ? (
+              ) : phase === 'failed' ? (
                 <Danger size={20} aria-hidden="true" />
               ) : (
                 <Database size={20} aria-hidden="true" />
@@ -498,12 +423,12 @@ function StatusIcons() {
             </span>
             <span role="status">
               {running
-                ? "Creating Harvest log…"
-                : phase === "done"
-                  ? "Harvest log created"
-                  : phase === "failed"
-                    ? "Could not create Harvest log"
-                    : "Create Harvest log table"}
+                ? 'Creating Harvest log…'
+                : phase === 'done'
+                  ? 'Harvest log created'
+                  : phase === 'failed'
+                    ? 'Could not create Harvest log'
+                    : 'Create Harvest log table'}
             </span>
           </div>
         </Pane>
@@ -535,16 +460,16 @@ function PageLoading() {
   );
 }
 
-type Load = "loading" | "ready" | "empty" | "error";
+type Load = 'loading' | 'ready' | 'empty' | 'error';
 
 const integrations = [
-  { name: "GitHub", detail: "3 repositories" },
-  { name: "Google Drive", detail: "Marketing team folder" },
-  { name: "Atlassian", detail: "2 Confluence spaces" },
+  { name: 'GitHub', detail: '3 repositories' },
+  { name: 'Google Drive', detail: 'Marketing team folder' },
+  { name: 'Atlassian', detail: '2 Confluence spaces' },
 ];
 
 function LoadStates() {
-  const [load, setLoad] = useState<Load>("loading");
+  const [load, setLoad] = useState<Load>('loading');
   return (
     <Example
       title="Load states"
@@ -556,7 +481,7 @@ function LoadStates() {
         size="sm"
         spacing={0}
         value={[load]}
-        onValueChange={(value) => {
+        onValueChange={value => {
           if (value[0]) setLoad(value[0] as Load);
         }}
       >
@@ -566,21 +491,21 @@ function LoadStates() {
         <ToggleGroupItem value="error">Error</ToggleGroupItem>
       </ToggleGroup>
       <div className="spinner-demo-load">
-        {load === "loading" ? (
+        {load === 'loading' ? (
           <p role="status" className="spinner-demo-line">
             <Spinner aria-hidden="true" />
             Loading integrations…
           </p>
-        ) : load === "ready" ? (
+        ) : load === 'ready' ? (
           <ul className="spinner-demo-list" aria-label="Integrations">
-            {integrations.map((item) => (
+            {integrations.map(item => (
               <li key={item.name}>
                 <span>{item.name}</span>
                 <span className="spinner-demo-muted">{item.detail}</span>
               </li>
             ))}
           </ul>
-        ) : load === "empty" ? (
+        ) : load === 'empty' ? (
           <StatePanel
             kind="empty"
             heading="h4"
@@ -594,11 +519,7 @@ function LoadStates() {
             title="Could not load integrations"
             description="Check your connection and try again."
           >
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setLoad("loading")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setLoad('loading')}>
               Retry
             </Button>
           </StatePanel>

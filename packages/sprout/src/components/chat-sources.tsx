@@ -1,18 +1,14 @@
-"use client";
+'use client';
 
-import { useRef, type ComponentProps } from "react";
-import { ArrowUpRight } from "reicon-react/icons/ArrowUpRight";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { FileText } from "reicon-react/icons/FileText";
-import { cn } from "../internal/classes.js";
-import { Button } from "./button.js";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "./collapsible.js";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover.js";
-import { Spinner } from "./spinner.js";
+import { useRef, type ComponentProps } from 'react';
+import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { FileText } from 'reicon-react/icons/FileText';
+import { cn } from '../internal/classes.js';
+import { Button } from './button.js';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
+import { Popover, PopoverContent, PopoverTrigger } from './popover.js';
+import { Spinner } from './spinner.js';
 
 export type ChatSource = {
   id: string;
@@ -29,19 +25,13 @@ const hoverCloseDelay = 150;
 
 function hostOf(href: string) {
   try {
-    return new URL(href).hostname.replace(/^www\./, "");
+    return new URL(href).hostname.replace(/^www\./, '');
   } catch {
     return null;
   }
 }
 
-function SourceContent({
-  source,
-  number,
-}: {
-  source: ChatSource;
-  number?: number;
-}) {
+function SourceContent({ source, number }: { source: ChatSource; number?: number }) {
   const host = number === undefined ? null : hostOf(source.href);
   return (
     <div data-slot="chat-source" className="sprout-chat-sources-source">
@@ -56,12 +46,7 @@ function SourceContent({
       <p className="sprout-chat-sources-title">{source.title}</p>
       <p className="sprout-chat-sources-location">{source.location}</p>
       <p className="sprout-chat-sources-excerpt">{source.excerpt}</p>
-      <a
-        href={source.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="sprout-chat-sources-link"
-      >
+      <a href={source.href} target="_blank" rel="noopener noreferrer" className="sprout-chat-sources-link">
         Open source
         <ArrowUpRight size={14} aria-hidden="true" />
         <span className="sprout-chat-sources-sr-only"> in a new tab</span>
@@ -89,13 +74,7 @@ export function InlineCitation({ source, number }: InlineCitationProps) {
         closeDelay={hoverCloseDelay}
         data-slot="inline-citation"
         className="sprout-chat-sources-citation"
-        render={
-          <Button
-            variant="secondary"
-            size="icon-xs"
-            aria-label={`Source ${number}: ${source.title}`}
-          />
-        }
+        render={<Button variant="secondary" size="icon-xs" aria-label={`Source ${number}: ${source.title}`} />}
       >
         {number}
       </PopoverTrigger>
@@ -106,10 +85,7 @@ export function InlineCitation({ source, number }: InlineCitationProps) {
   );
 }
 
-export interface ChatSourcesProps extends Omit<
-  ComponentProps<"div">,
-  "children"
-> {
+export interface ChatSourcesProps extends Omit<ComponentProps<'div'>, 'children'> {
   /** Sources in citation order. With none, it says no sources were used. */
   sources: readonly ChatSource[];
   /** Start with the list open. */
@@ -120,23 +96,11 @@ export interface ChatSourcesProps extends Omit<
  * The sources a reply used. A count opens the numbered list; numbers match
  * each `InlineCitation`.
  */
-export function ChatSources({
-  sources,
-  defaultOpen,
-  className,
-  ...props
-}: ChatSourcesProps) {
+export function ChatSources({ sources, defaultOpen, className, ...props }: ChatSourcesProps) {
   if (sources.length === 0)
     return (
-      <div
-        data-slot="chat-sources"
-        data-empty=""
-        {...props}
-        className={cn("sprout-chat-sources", className)}
-      >
-        <p className="sprout-chat-sources-empty">
-          No sources were used for this response.
-        </p>
+      <div data-slot="chat-sources" data-empty="" {...props} className={cn('sprout-chat-sources', className)}>
+        <p className="sprout-chat-sources-empty">No sources were used for this response.</p>
       </div>
     );
   return (
@@ -144,18 +108,14 @@ export function ChatSources({
       data-slot="chat-sources"
       defaultOpen={defaultOpen}
       {...props}
-      className={cn("sprout-chat-sources", className)}
+      className={cn('sprout-chat-sources', className)}
     >
       <CollapsibleTrigger className="sprout-chat-sources-trigger">
         <FileText size={16} aria-hidden="true" />
         <span>
-          {sources.length} {sources.length === 1 ? "source" : "sources"}
+          {sources.length} {sources.length === 1 ? 'source' : 'sources'}
         </span>
-        <ChevronDown
-          size={14}
-          aria-hidden="true"
-          data-slot="collapsible-indicator"
-        />
+        <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
       </CollapsibleTrigger>
       <CollapsibleContent variant="sidebar">
         <ol className="sprout-chat-sources-list">
@@ -171,22 +131,16 @@ export function ChatSources({
   );
 }
 
-export const citationStateKindNames = [
-  "idle",
-  "loading",
-  "ready",
-  "unavailable",
-  "error",
-] as const;
+export const citationStateKindNames = ['idle', 'loading', 'ready', 'unavailable', 'error'] as const;
 
 export type CitationStateKind = (typeof citationStateKindNames)[number];
 
 export type CitationState =
-  | { kind: "idle" }
-  | { kind: "loading" }
-  | { kind: "ready"; title: string; location: string; excerpt: string }
-  | { kind: "unavailable"; message: string }
-  | { kind: "error"; message: string };
+  | { kind: 'idle' }
+  | { kind: 'loading' }
+  | { kind: 'ready'; title: string; location: string; excerpt: string }
+  | { kind: 'unavailable'; message: string }
+  | { kind: 'error'; message: string };
 
 export interface CheckedCitationProps {
   /** The linked words in the reply. */
@@ -203,12 +157,7 @@ export interface CheckedCitationProps {
  * click. While checking it shows a spinner; an unavailable source never shows
  * an old passage.
  */
-export function CheckedCitation({
-  label,
-  state,
-  onOpen,
-  onRetry,
-}: CheckedCitationProps) {
+export function CheckedCitation({ label, state, onOpen, onRetry }: CheckedCitationProps) {
   const popup = useRef<HTMLDivElement>(null);
   const openReason = useRef<string | undefined>(undefined);
   return (
@@ -221,11 +170,7 @@ export function CheckedCitation({
         }
         // Base UI keeps a hover-close timer from before a reopen; a passage
         // opened by click or keyboard closes only by click, Escape, or outside press.
-        if (
-          details.reason === "trigger-hover" &&
-          openReason.current === "trigger-press"
-        )
-          details.cancel();
+        if (details.reason === 'trigger-hover' && openReason.current === 'trigger-press') details.cancel();
       }}
     >
       <PopoverTrigger
@@ -234,27 +179,17 @@ export function CheckedCitation({
         closeDelay={hoverCloseDelay}
         data-slot="checked-citation"
         className="sprout-chat-sources-checked"
-        render={
-          <Button
-            variant="link"
-            size="task-link"
-            aria-label={`Source: ${label}`}
-          />
-        }
+        render={<Button variant="link" size="task-link" aria-label={`Source: ${label}`} />}
       >
         {label}
       </PopoverTrigger>
-      <PopoverContent
-        ref={popup}
-        data-citation-state={state.kind}
-        className="sprout-chat-sources-preview"
-      >
-        {state.kind === "idle" || state.kind === "loading" ? (
+      <PopoverContent ref={popup} data-citation-state={state.kind} className="sprout-chat-sources-preview">
+        {state.kind === 'idle' || state.kind === 'loading' ? (
           <p role="status" className="sprout-chat-sources-checking">
             <Spinner aria-hidden="true" />
             Checking access to this source…
           </p>
-        ) : state.kind === "ready" ? (
+        ) : state.kind === 'ready' ? (
           <div data-slot="chat-source" className="sprout-chat-sources-source">
             <p className="sprout-chat-sources-title">{state.title}</p>
             <p className="sprout-chat-sources-location">{state.location}</p>
@@ -265,14 +200,12 @@ export function CheckedCitation({
         ) : (
           <div className="sprout-chat-sources-source">
             <p className="sprout-chat-sources-title">
-              {state.kind === "unavailable"
-                ? "Source unavailable"
-                : "Couldn’t load this source"}
+              {state.kind === 'unavailable' ? 'Source unavailable' : 'Couldn’t load this source'}
             </p>
             <p role="alert" className="sprout-chat-sources-excerpt">
               {state.message}
             </p>
-            {state.kind === "error" && (
+            {state.kind === 'error' && (
               <Button
                 variant="outline"
                 size="sm"

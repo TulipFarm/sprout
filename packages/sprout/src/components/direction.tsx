@@ -8,4 +8,4 @@ export {
   useDirection,
   type DirectionProviderProps,
   type TextDirection,
-} from "@base-ui/react/direction-provider";
+} from '@base-ui/react/direction-provider';

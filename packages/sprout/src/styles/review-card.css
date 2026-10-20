@@ -76,7 +76,7 @@
   }
   /* The whole header is the click target; the title button stays the named control. */
   .sprout-review-card-trigger::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
   }
@@ -228,8 +228,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-review-card-header {
-      transition: background-color var(--sprout-motion-fast, 120ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
   }
 }

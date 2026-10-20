@@ -1,37 +1,29 @@
-"use client";
+'use client';
 
-import { useId, useState, type ComponentProps, type ReactNode } from "react";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { cn } from "../internal/classes.js";
-import { Badge, type BadgeVariant } from "./badge.js";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "./collapsible.js";
+import { useId, useState, type ComponentProps, type ReactNode } from 'react';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { cn } from '../internal/classes.js';
+import { Badge, type BadgeVariant } from './badge.js';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
 
 export const reviewCardBadgeVariantNames = [
-  "default",
-  "success",
-  "warning",
-  "info",
-  "secondary",
-  "destructive",
-  "outline",
+  'default',
+  'success',
+  'warning',
+  'info',
+  'secondary',
+  'destructive',
+  'outline',
 ] as const satisfies readonly BadgeVariant[];
 
-export type ReviewCardBadgeVariant =
-  (typeof reviewCardBadgeVariantNames)[number];
+export type ReviewCardBadgeVariant = (typeof reviewCardBadgeVariantNames)[number];
 
 export type ReviewCardBadge = {
   label: string;
   variant: ReviewCardBadgeVariant;
 };
 
-export interface ReviewCardProps extends Omit<
-  ComponentProps<"section">,
-  "title" | "children"
-> {
+export interface ReviewCardProps extends Omit<ComponentProps<'section'>, 'title' | 'children'> {
   /** A 14–16px icon shown in a tile before the title. */
   icon: ReactNode;
   title: string;
@@ -85,7 +77,7 @@ export function ReviewCard({
       aria-label={label}
       aria-labelledby={label ? undefined : titleId}
       {...props}
-      className={cn("sprout-review-card", className)}
+      className={cn('sprout-review-card', className)}
     >
       <Collapsible open={open} onOpenChange={setOpen}>
         <div className="sprout-review-card-header">
@@ -93,9 +85,7 @@ export function ReviewCard({
             {icon}
           </span>
           <h4 id={titleId} className="sprout-review-card-title">
-            <CollapsibleTrigger className="sprout-review-card-trigger">
-              {title}
-            </CollapsibleTrigger>
+            <CollapsibleTrigger className="sprout-review-card-trigger">{title}</CollapsibleTrigger>
           </h4>
           <Badge variant={badge.variant} className="sprout-review-card-badge">
             {badge.label}
@@ -114,50 +104,30 @@ export function ReviewCard({
       {(showStatus || showActions) && (
         <div className="sprout-review-card-footer">
           {status}
-          {showActions && (
-            <div className="sprout-review-card-actions">{actions}</div>
-          )}
+          {showActions && <div className="sprout-review-card-actions">{actions}</div>}
         </div>
       )}
     </section>
   );
 }
 
-export type ReviewRowsProps = ComponentProps<"dl">;
+export type ReviewRowsProps = ComponentProps<'dl'>;
 
 /** A bordered list of labeled facts, such as Change, Table, and Trigger. */
 export function ReviewRows({ className, ...props }: ReviewRowsProps) {
-  return (
-    <dl
-      data-slot="review-rows"
-      {...props}
-      className={cn("sprout-review-rows", className)}
-    />
-  );
+  return <dl data-slot="review-rows" {...props} className={cn('sprout-review-rows', className)} />;
 }
 
-export interface ReviewRowProps extends Omit<
-  ComponentProps<"div">,
-  "children"
-> {
+export interface ReviewRowProps extends Omit<ComponentProps<'div'>, 'children'> {
   label: string;
   /** The value: text, badges, or a stacked new and current value. */
   children: ReactNode;
 }
 
 /** One fact: the label on the left and its value on the right. */
-export function ReviewRow({
-  label,
-  children,
-  className,
-  ...props
-}: ReviewRowProps) {
+export function ReviewRow({ label, children, className, ...props }: ReviewRowProps) {
   return (
-    <div
-      data-slot="review-row"
-      {...props}
-      className={cn("sprout-review-row", className)}
-    >
+    <div data-slot="review-row" {...props} className={cn('sprout-review-row', className)}>
       <dt className="sprout-review-row-label">{label}</dt>
       <dd className="sprout-review-row-value">{children}</dd>
     </div>
@@ -166,28 +136,16 @@ export function ReviewRow({
 
 export type ReviewStep = { summary: ReactNode; detail?: ReactNode };
 
-export interface ReviewStepsProps extends Omit<
-  ComponentProps<"div">,
-  "title" | "children"
-> {
+export interface ReviewStepsProps extends Omit<ComponentProps<'div'>, 'title' | 'children'> {
   /** Short heading, such as “3 steps”. */
   title: string;
   steps: readonly ReviewStep[];
 }
 
 /** A numbered list of what will happen, each with optional detail below. */
-export function ReviewSteps({
-  title,
-  steps,
-  className,
-  ...props
-}: ReviewStepsProps) {
+export function ReviewSteps({ title, steps, className, ...props }: ReviewStepsProps) {
   return (
-    <div
-      data-slot="review-steps"
-      {...props}
-      className={cn("sprout-review-steps", className)}
-    >
+    <div data-slot="review-steps" {...props} className={cn('sprout-review-steps', className)}>
       <h5 className="sprout-review-steps-title">{title}</h5>
       <ol className="sprout-review-steps-list">
         {steps.map((step, index) => (
@@ -208,25 +166,14 @@ export function ReviewSteps({
 
 export type ReviewValue = { name: string; value: string };
 
-export interface ReviewValuesProps extends Omit<
-  ComponentProps<"dl">,
-  "children"
-> {
+export interface ReviewValuesProps extends Omit<ComponentProps<'dl'>, 'children'> {
   values: readonly ReviewValue[];
 }
 
 /** Exact names and values in monospace, such as headers or written fields. */
-export function ReviewValues({
-  values,
-  className,
-  ...props
-}: ReviewValuesProps) {
+export function ReviewValues({ values, className, ...props }: ReviewValuesProps) {
   return (
-    <dl
-      data-slot="review-values"
-      {...props}
-      className={cn("sprout-review-values", className)}
-    >
+    <dl data-slot="review-values" {...props} className={cn('sprout-review-values', className)}>
       {values.map(({ name, value }) => (
         <div key={name} className="sprout-review-value">
           <dt className="sprout-review-value-name">{name}</dt>

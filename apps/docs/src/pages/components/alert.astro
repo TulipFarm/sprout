@@ -1,24 +1,17 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
-import {
-  AlertVariants,
-  AlertActions,
-  AlertContent,
-  AlertStates,
-} from "../../components/AlertDemo";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { AlertVariants, AlertActions, AlertContent, AlertStates } from '../../components/AlertDemo';
 ---
 
-<Docs
-  title="Alert"
-  description="Inline messages for errors, warnings, and status that stay on the page."
->
+<Docs title="Alert" description="Inline messages for errors, warnings, and status that stay on the page.">
   <h1 class="docs-title">Alert</h1>
   <p class="docs-lead">
-    An inline message that stays in place. Use it for errors, conflicts, and
-    notes next to the content they affect.
+    An inline message that stays in place. Use it for errors, conflicts, and notes next to the content they affect.
   </p>
-  <div class="mt-8" id="alert-demo"><AlertVariants client:load /></div>
+  <div class="mt-8" id="alert-demo">
+    <AlertVariants client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -49,46 +42,38 @@ import { InfoCircle } from "reicon-react/icons/InfoCircle";
 </Alert>`}
     />
     <p>
-      <code>variant</code> is <code>"default"</code> or <code
-        >"destructive"</code
-      >. Both sit on the surface color. Destructive tints the text, title, and
-      icon with <code>--sprout-danger</code>. There is one size.
+      <code>variant</code> is <code>"default"</code> or <code>"destructive"</code>. Both sit on the surface color.
+      Destructive tints the text, title, and icon with <code>--sprout-danger</code>. There is one size.
     </p>
     <p>
-      Every part is optional. Use a description alone for short notes, add a
-      title for a headline, and put an icon first to get a two-column layout.
-      Icons are sized to 16px unless they carry a <code>size-*</code> class. <code
-        >AlertAction</code
-      > pins a small control to the top-right corner and reserves space for it.
+      Every part is optional. Use a description alone for short notes, add a title for a headline, and put an icon first
+      to get a two-column layout. Icons are sized to 16px unless they carry a <code>size-*</code> class.{' '}
+      <code>AlertAction</code> pins a small control to the top-right corner and reserves space for it.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Actions</h2>
     <p>
-      Put recovery buttons after the description in a wrapping row, or place a
-      single button as a direct child. Direct buttons and buttons inside the
-      description align to the start instead of stretching. A link-style button
-      in the description stays inline with the text.
+      Put recovery buttons after the description in a wrapping row, or place a single button as a direct child. Direct
+      buttons and buttons inside the description align to the start instead of stretching. A link-style button in the
+      description stays inline with the text.
     </p>
     <AlertActions client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Rich content</h2>
     <p>
-      Descriptions accept paragraphs, lists, and links. Paragraphs are spaced
-      for you; lists keep the classes you give them. Plain text, <code
-        >&lt;p&gt;</code
-      >, and <code>&lt;pre&gt;</code> work as direct children too. The content column
-      can shrink to zero, so long names wrap instead of overflowing.
+      Descriptions accept paragraphs, lists, and links. Paragraphs are spaced for you; lists keep the classes you give
+      them. Plain text, <code>&lt;p&gt;</code>, and <code>&lt;pre&gt;</code> work as direct children too. The content
+      column can shrink to zero, so long names wrap instead of overflowing.
     </p>
     <AlertContent client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">States</h2>
     <p>
-      Alerts are static. Your app decides when to show one and which variant to
-      use. Switch <code>variant</code> from the outcome of the work, and render one
-      alert per item when several things fail.
+      Alerts are static. Your app decides when to show one and which variant to use. Switch <code>variant</code> from
+      the outcome of the work, and render one alert per item when several things fail.
     </p>
     <AlertStates client:load />
   </section>
@@ -106,42 +91,33 @@ import { InfoCircle } from "reicon-react/icons/InfoCircle";
 </div>`}
     />
     <p>
-      All four parts render a <code>div</code> and accept the Base UI <code
-        >render</code
-      > prop, <code>className</code>, <code>ref</code>, and any HTML attribute. <code
-        >alertVariants()</code
-      > returns the alert classes for elements you render yourself.
+      All four parts render a <code>div</code> and accept the Base UI <code>render</code> prop, <code>className</code>,{' '}
+      <code>ref</code>, and any HTML attribute. <code>alertVariants()</code> returns the alert classes for elements you
+      render yourself.
     </p>
     <p>
-      Parts get <code>data-slot</code> values of <code>alert</code>, <code
-        >alert-title</code
-      >, <code>alert-description</code>, and <code>alert-action</code>. The root
-      also gets <code>data-variant</code>.
+      Parts get <code>data-slot</code> values of <code>alert</code>, <code>alert-title</code>,{' '}
+      <code>alert-description</code>, and <code>alert-action</code>. The root also gets <code>data-variant</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      <code>Alert</code> has <code>role="alert"</code> by default, so screen readers
-      announce it when it appears. Pass <code>role="status"</code> for results that
-      should not interrupt, or <code>role="note"</code> for standing information.
-      Mark icons <code>aria-hidden</code>; the words carry the meaning.
+      <code>Alert</code> has <code>role="alert"</code> by default, so screen readers announce it when it appears. Pass{' '}
+      <code>role="status"</code> for results that should not interrupt, or <code>role="note"</code> for standing
+      information. Mark icons <code>aria-hidden</code>; the words carry the meaning.
     </p>
     <p>
-      Alerts never take focus. Buttons and links inside keep their own focus
-      rings and keyboard behavior. Alerts fade in over 180ms; links change color
-      over 120ms. Both stop when reduced motion is requested.
+      Alerts never take focus. Buttons and links inside keep their own focus rings and keyboard behavior. Alerts fade in
+      over 180ms; links change color over 120ms. Both stop when reduced motion is requested.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Alerts use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code
-        >--sprout-text</code
-      >, <code>--sprout-muted</code>, <code>--sprout-danger</code>, and <code
-        >--sprout-radius-control</code
-      >. They follow light and dark mode and need no brand color, so they look
-      the same with the neutral and TulipFarm themes.
+      Alerts use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code>--sprout-text</code>,{' '}
+      <code>--sprout-muted</code>, <code>--sprout-danger</code>, and <code>--sprout-radius-control</code>. They follow
+      light and dark mode and need no brand color, so they look the same with the neutral and TulipFarm themes.
     </p>
   </section>
 </Docs>

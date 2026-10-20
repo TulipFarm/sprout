@@ -9,7 +9,7 @@
     max-width: 100%;
     border-radius: var(--sprout-radius-control);
   }
-  .sprout-toggle-group[data-orientation="vertical"] {
+  .sprout-toggle-group[data-orientation='vertical'] {
     flex-direction: column;
     align-items: stretch;
   }
@@ -46,14 +46,14 @@
     flex-shrink: 0;
     pointer-events: none;
   }
-  .sprout-toggle-group-item svg:not([class*="size-"]) {
+  .sprout-toggle-group-item svg:not([class*='size-']) {
     width: var(--sprout-toggle-group-icon);
     height: var(--sprout-toggle-group-icon);
   }
-  .sprout-toggle-group-item:has(> [data-icon="inline-start"]) {
+  .sprout-toggle-group-item:has(> [data-icon='inline-start']) {
     padding-inline-start: 8px;
   }
-  .sprout-toggle-group-item:has(> [data-icon="inline-end"]) {
+  .sprout-toggle-group-item:has(> [data-icon='inline-end']) {
     padding-inline-end: 8px;
   }
   .sprout-toggle-group-item:focus-visible {
@@ -91,10 +91,10 @@
     font-size: var(--sprout-text-xs);
     line-height: 16px;
   }
-  .sprout-toggle-group-item-size-sm:has(> [data-icon="inline-start"]) {
+  .sprout-toggle-group-item-size-sm:has(> [data-icon='inline-start']) {
     padding-inline-start: 6px;
   }
-  .sprout-toggle-group-item-size-sm:has(> [data-icon="inline-end"]) {
+  .sprout-toggle-group-item-size-sm:has(> [data-icon='inline-end']) {
     padding-inline-end: 6px;
   }
   .sprout-toggle-group-item-size-lg {
@@ -103,49 +103,43 @@
   }
 
   /* spacing={0} joins items into one segmented control. */
-  .sprout-toggle-group-item[data-spacing="0"] {
+  .sprout-toggle-group-item[data-spacing='0'] {
     padding-inline: 8px;
     border-radius: 0;
     box-shadow: none;
   }
-  .sprout-toggle-group[data-spacing="0"][data-variant="outline"] {
+  .sprout-toggle-group[data-spacing='0'][data-variant='outline'] {
     box-shadow: var(--sprout-shadow-control);
   }
-  .sprout-toggle-group-item[data-spacing="0"]:has(
-      > [data-icon="inline-start"]
-    ) {
+  .sprout-toggle-group-item[data-spacing='0']:has(> [data-icon='inline-start']) {
     padding-inline-start: 6px;
   }
-  .sprout-toggle-group-item[data-spacing="0"]:has(> [data-icon="inline-end"]) {
+  .sprout-toggle-group-item[data-spacing='0']:has(> [data-icon='inline-end']) {
     padding-inline-end: 6px;
   }
-  .sprout-toggle-group-item[data-spacing="0"][data-orientation="horizontal"]:first-child {
+  .sprout-toggle-group-item[data-spacing='0'][data-orientation='horizontal']:first-child {
     border-start-start-radius: var(--sprout-radius-control);
     border-end-start-radius: var(--sprout-radius-control);
   }
-  .sprout-toggle-group-item[data-spacing="0"][data-orientation="horizontal"]:last-child {
+  .sprout-toggle-group-item[data-spacing='0'][data-orientation='horizontal']:last-child {
     border-start-end-radius: var(--sprout-radius-control);
     border-end-end-radius: var(--sprout-radius-control);
   }
-  .sprout-toggle-group-item[data-spacing="0"][data-orientation="vertical"]:first-child {
+  .sprout-toggle-group-item[data-spacing='0'][data-orientation='vertical']:first-child {
     border-start-start-radius: var(--sprout-radius-control);
     border-start-end-radius: var(--sprout-radius-control);
   }
-  .sprout-toggle-group-item[data-spacing="0"][data-orientation="vertical"]:last-child {
+  .sprout-toggle-group-item[data-spacing='0'][data-orientation='vertical']:last-child {
     border-end-start-radius: var(--sprout-radius-control);
     border-end-end-radius: var(--sprout-radius-control);
   }
-  .sprout-toggle-group-item-outline[data-spacing="0"][data-orientation="horizontal"]:not(
-      :first-child
-    ) {
+  .sprout-toggle-group-item-outline[data-spacing='0'][data-orientation='horizontal']:not(:first-child) {
     border-inline-start-width: 0;
   }
-  .sprout-toggle-group-item-outline[data-spacing="0"][data-orientation="vertical"]:not(
-      :first-child
-    ) {
+  .sprout-toggle-group-item-outline[data-spacing='0'][data-orientation='vertical']:not(:first-child) {
     border-top-width: 0;
   }
-  .sprout-toggle-group-item[data-spacing="0"]:focus-visible {
+  .sprout-toggle-group-item[data-spacing='0']:focus-visible {
     outline-offset: -1px;
   }
 

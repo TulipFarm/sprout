@@ -6,7 +6,7 @@
 .input-demo .sprout-input:focus-visible {
   outline-offset: 0;
 }
-.input-demo .sprout-input[aria-invalid="true"]:focus-visible,
+.input-demo .sprout-input[aria-invalid='true']:focus-visible,
 .input-demo .sprout-input[data-invalid]:focus-visible {
   outline-color: var(--sprout-danger);
 }

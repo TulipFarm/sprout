@@ -112,7 +112,7 @@
   }
   .sprout-field-checkbox::after,
   .sprout-field-radio::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: -8px -12px;
   }
@@ -125,17 +125,16 @@
     border-color: var(--sprout-primary);
     background-color: var(--sprout-primary);
   }
-  .sprout-field-checkbox[data-variant="neutral"][data-checked] {
+  .sprout-field-checkbox[data-variant='neutral'][data-checked] {
     border-color: var(--sprout-text);
     background-color: var(--sprout-text);
     color: var(--sprout-surface);
   }
-  .sprout-field-checkbox[aria-invalid="true"]:not([data-checked]) {
+  .sprout-field-checkbox[aria-invalid='true']:not([data-checked]) {
     border-color: var(--sprout-danger);
-    box-shadow: 0 0 0 3px
-      color-mix(in oklab, var(--sprout-danger) 20%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--sprout-danger) 20%, transparent);
   }
-  .sprout-field-checkbox[aria-invalid="true"]:focus-visible {
+  .sprout-field-checkbox[aria-invalid='true']:focus-visible {
     outline-color: var(--sprout-danger);
   }
   .sprout-field-checkbox[data-disabled],
@@ -202,11 +201,11 @@
     gap: 4px;
     min-width: 0;
   }
-  .sprout-choice-group[data-type="radio"] .sprout-choice-group-options {
+  .sprout-choice-group[data-type='radio'] .sprout-choice-group-options {
     gap: 8px;
   }
   @media (min-width: 40rem) {
-    .sprout-choice-group-options[data-layout="columns"] {
+    .sprout-choice-group-options[data-layout='columns'] {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -233,15 +232,14 @@
   .sprout-choice-option[data-disabled] {
     color: var(--sprout-muted);
   }
-  .sprout-choice-group[data-type="radio"] .sprout-choice-option {
+  .sprout-choice-group[data-type='radio'] .sprout-choice-option {
     border: 1px solid var(--sprout-input);
     background-color: var(--sprout-surface);
   }
-  .sprout-choice-group[data-type="radio"]
-    .sprout-choice-option:not([data-disabled]):hover {
+  .sprout-choice-group[data-type='radio'] .sprout-choice-option:not([data-disabled]):hover {
     background-color: var(--sprout-hover);
   }
-  .sprout-choice-group[data-type="radio"] .sprout-choice-option[data-checked] {
+  .sprout-choice-group[data-type='radio'] .sprout-choice-option[data-checked] {
     border-color: color-mix(in oklab, var(--sprout-primary) 50%, transparent);
     background-color: var(--sprout-primary-subtle);
   }
@@ -258,7 +256,7 @@
     cursor: not-allowed;
   }
   .sprout-choice-option-label::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
@@ -307,14 +305,10 @@
     .sprout-field-checkbox,
     .sprout-field-radio {
       transition:
-        color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        background-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        border-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        opacity var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        border-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        opacity var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
   }
 

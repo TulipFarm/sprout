@@ -1,19 +1,18 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CardDemo from "../../components/CardDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CardDemo from '../../components/CardDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
-<Docs
-  title="Card"
-  description="A bordered panel that groups a title, content, and actions."
->
+<Docs title="Card" description="A bordered panel that groups a title, content, and actions.">
   <h1 class="docs-title">Card</h1>
   <p class="docs-lead">
-    A bordered panel that groups related content. Two sizes, a flat or raised
-    surface, and parts for a header, content, and a footer.
+    A bordered panel that groups related content. Two sizes, a flat or raised surface, and parts for a header, content,
+    and a footer.
   </p>
-  <div class="mt-8"><CardDemo client:load /></div>
+  <div class="mt-8">
+    <CardDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -44,35 +43,30 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </Card>`}
     />
     <p>
-      <code>size</code> is <code>"default"</code> (16px padding and gaps, 16px title)
-      or <code>"sm"</code> (12px, 14px title). Both are exposed as the
-      <code>--sprout-card-spacing</code> variable for content that needs to line up
-      with the card edges. <code>surface</code> is <code>"default"</code> or
-      <code>"raised"</code>, which tints the panel and adds a soft shadow in
-      light mode for settings panels that sit on a surface of the same color.
+      <code>size</code> is <code>"default"</code> (16px padding and gaps, 16px title) or <code>"sm"</code> (12px, 14px
+      title). Both are exposed as the
+      <code>--sprout-card-spacing</code> variable for content that needs to line up with the card edges.{' '}
+      <code>surface</code> is <code>"default"</code> or
+      <code>"raised"</code>, which tints the panel and adds a soft shadow in light mode for settings panels that sit on
+      a surface of the same color.
     </p>
     <p>
       The root and every part render a <code>div</code> and take the Base UI
-      <code>render</code> prop. <code>CardTitle</code> is not a heading by default;
-      pass <code>render={"{<h3 />}"}</code> to place it in the document outline. The
-      root exposes <code>data-size</code> and <code>data-surface</code>, and
-      each part has a matching <code>data-slot</code>. <code
-        >cardVariants()</code
-      >
+      <code>render</code> prop. <code>CardTitle</code> is not a heading by default; pass{' '}
+      <code>render={'{<h3 />}'}</code> to place it in the document outline. The root exposes <code>data-size</code> and{' '}
+      <code>data-surface</code>, and each part has a matching <code>data-slot</code>. <code>cardVariants()</code>
       returns the root classes for other elements.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Layout</h2>
     <p>
-      <code>CardHeader</code> is a grid. A <code>CardAction</code> takes a second
-      column and spans the title and description rows. Add a
-      <code>border-b</code> class to the header to divide it from the content. A <code
-        >CardFooter</code
-      > sits flush with the bottom edge with a tinted background and top border, even
-      when it is wrapped in an element such as
-      <code>{'<div className="mt-auto">'}</code> that pushes it down in an equal-height
-      grid. An image placed first or last runs edge to edge.
+      <code>CardHeader</code> is a grid. A <code>CardAction</code> takes a second column and spans the title and
+      description rows. Add a<code>border-b</code> class to the header to divide it from the content. A{' '}
+      <code>CardFooter</code> sits flush with the bottom edge with a tinted background and top border, even when it is
+      wrapped in an element such as
+      <code>{'<div className="mt-auto">'}</code> that pushes it down in an equal-height grid. An image placed first or
+      last runs edge to edge.
     </p>
     <CodeBlock
       lang="tsx"
@@ -105,24 +99,23 @@ import CodeBlock from "../../components/CodeBlock.astro";
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      A card is a plain container with no role and no focus stop. Name the
-      region around it with <code>section</code> or <code>article</code> and
-      <code>aria-label</code> when it stands alone, and render the title as a heading
-      that fits the page outline. Links and buttons inside keep their own focus rings,
-      and long text wraps instead of overflowing. Theme changes fade in 120ms and
-      stop when reduced motion is requested.
+      A card is a plain container with no role and no focus stop. Name the region around it with <code>section</code> or{' '}
+      <code>article</code> and
+      <code>aria-label</code> when it stands alone, and render the title as a heading that fits the page outline. Links
+      and buttons inside keep their own focus rings, and long text wraps instead of overflowing. Theme changes fade in
+      120ms and stop when reduced motion is requested.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Cards use <code>--sprout-surface</code>, <code>--sprout-line</code>,
-      <code>--sprout-text</code>, <code>--sprout-muted</code>, and
+      Cards use <code>--sprout-surface</code>, <code>--sprout-line</code>,<code>--sprout-text</code>,{' '}
+      <code>--sprout-muted</code>, and
       <code>--sprout-radius-panel</code>. The footer tints with
       <code>--sprout-hover</code>. Raised cards use
       <code>--sprout-card-raised</code> and
-      <code>--sprout-card-raised-shadow</code>, defined for light and dark modes
-      and overridable like any other Sprõut token.
+      <code>--sprout-card-raised-shadow</code>, defined for light and dark modes and overridable like any other Sprõut
+      token.
     </p>
   </section>
 </Docs>

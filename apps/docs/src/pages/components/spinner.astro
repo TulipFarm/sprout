@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import SpinnerDemo from "../../components/SpinnerDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import SpinnerDemo from '../../components/SpinnerDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,11 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Spinner</h1>
   <p class="docs-lead">
-    Shows that something is working when you cannot show its shape. Use it in
-    busy buttons, short status lines, and in place of a status icon while a step
-    runs. To hold the space of content that is loading, use Skeleton.
+    Shows that something is working when you cannot show its shape. Use it in busy buttons, short status lines, and in
+    place of a status icon while a step runs. To hold the space of content that is loading, use Skeleton.
   </p>
-  <div class="mt-8"><SpinnerDemo client:load /></div>
+  <div class="mt-8">
+    <SpinnerDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -37,16 +38,18 @@ import CodeBlock from "../../components/CodeBlock.astro";
       <code>size</code> sets its size:
     </p>
     <ul>
-      <li><code>"sm"</code>: 12px, for badges.</li>
       <li>
-        <code>"default"</code>: 16px, for text rows and buttons. Buttons of
-        every size keep it at 16px.
+        <code>"sm"</code>: 12px, for badges.
       </li>
-      <li><code>"lg"</code>: 20px, to swap with 20px status icons.</li>
+      <li>
+        <code>"default"</code>: 16px, for text rows and buttons. Buttons of every size keep it at 16px.
+      </li>
+      <li>
+        <code>"lg"</code>: 20px, to swap with 20px status icons.
+      </li>
     </ul>
     <p>
-      <code>className</code>, <code>style</code>, <code>data-*</code>, and other
-      SVG attributes pass through.
+      <code>className</code>, <code>style</code>, <code>data-*</code>, and other SVG attributes pass through.
     </p>
   </section>
   <section class="prose-section">
@@ -65,24 +68,25 @@ import CodeBlock from "../../components/CodeBlock.astro";
       <code>variant="thinking"</code> draws a dotted orb from
       <a href="https://github.com/Jakubantalik/thinking-orbs">thinking-orbs</a>
       (MIT) on a canvas. <code>activity</code> picks one of nine animations:
-      <code>working</code> (default), <code>searching</code>,
-      <code>solving</code>, <code>listening</code>, <code>connecting</code>,
-      <code>weaving</code>, <code>composing</code>, <code>breathing</code>, and <code
-        >shaping</code
-      >. <code>spinnerActivityNames</code> lists them.
+      <code>working</code> (default), <code>searching</code>,<code>solving</code>, <code>listening</code>,{' '}
+      <code>connecting</code>,<code>weaving</code>, <code>composing</code>, <code>breathing</code>, and{' '}
+      <code>shaping</code>. <code>spinnerActivityNames</code> lists them.
     </p>
     <ul>
-      <li><code>"lg"</code>: 20px, the default, beside text.</li>
-      <li><code>"xl"</code>: 64px, at avatar scale.</li>
+      <li>
+        <code>"lg"</code>: 20px, the default, beside text.
+      </li>
+      <li>
+        <code>"xl"</code>: 64px, at avatar scale.
+      </li>
     </ul>
     <p>
       The two sizes are separately tuned designs, so the orb has no
-      <code>"sm"</code> or <code>"default"</code>. Its code loads the first time
-      a thinking spinner renders, so apps that only use the loader never
-      download it. The orb is monochrome: dark dots on light themes and light
-      dots on dark themes, following the <code>dark</code> and
-      <code>light</code> classes or the system setting. It does not take the text
-      color. With reduced motion it shows a still frame.
+      <code>"sm"</code> or <code>"default"</code>. Its code loads the first time a thinking spinner renders, so apps
+      that only use the loader never download it. The orb is monochrome: dark dots on light themes and light dots on
+      dark themes, following the <code>dark</code> and
+      <code>light</code> classes or the system setting. It does not take the text color. With reduced motion it shows a
+      still frame.
     </p>
   </section>
   <section class="prose-section">
@@ -114,26 +118,21 @@ import CodeBlock from "../../components/CodeBlock.astro";
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      By default the spinner has <code>role="status"</code> and the name “Loading”,
-      or “Thinking” for <code>variant="thinking"</code>. Pass <code
-        >aria-label</code
-      >, such as “Opening workspace”, when the spinner stands alone. When text
-      beside it already explains the wait, pass <code>aria-hidden="true"</code>:
-      the role and name are then left out, and the sentence’s own status region
-      is read instead.
+      By default the spinner has <code>role="status"</code> and the name “Loading”, or “Thinking” for{' '}
+      <code>variant="thinking"</code>. Pass <code>aria-label</code>, such as “Opening workspace”, when the spinner
+      stands alone. When text beside it already explains the wait, pass <code>aria-hidden="true"</code>: the role and
+      name are then left out, and the sentence’s own status region is read instead.
     </p>
     <p>
-      The spinner turns once a second and stops when reduced motion is
-      requested. Its fading spokes still read as loading when still. It is never
-      focusable and ignores the pointer.
+      The spinner turns once a second and stops when reduced motion is requested. Its fading spokes still read as
+      loading when still. It is never focusable and ignores the pointer.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      The spinner has no color of its own. It uses <code>currentColor</code>, so
-      it follows the text, button, or badge it sits in, in light, dark, and
-      brand themes.
+      The spinner has no color of its own. It uses <code>currentColor</code>, so it follows the text, button, or badge
+      it sits in, in light, dark, and brand themes.
     </p>
   </section>
 </Docs>

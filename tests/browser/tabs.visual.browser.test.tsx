@@ -1,27 +1,22 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../../packages/sprout/src/components/tabs.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../packages/sprout/src/components/tabs.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("tabs %s %s", async (theme, mode) => {
+it.each(themes)('tabs %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
+        display: 'grid',
         gap: 20,
         width: 420,
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
-      {(["default", "line", "steps"] as const).map((variant) => (
+      {(['default', 'line', 'steps'] as const).map(variant => (
         <Tabs key={variant} defaultValue="overview">
           <TabsList variant={variant} aria-label={`${variant} tabs`}>
             <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -43,7 +38,5 @@ it.each(themes)("tabs %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`tabs-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`tabs-${theme}-${mode}`);
 });

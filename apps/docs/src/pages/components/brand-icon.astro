@@ -1,6 +1,6 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   BrandIconPlayground,
   BrandIconSizes,
@@ -11,16 +11,18 @@ import {
   ResultCardCompositions,
   StackCompositions,
   BrandNameCompositions,
-} from "../../components/BrandIconDemo";
+} from '../../components/BrandIconDemo';
 ---
 
 <Docs title="Brand Icon">
   <h1 class="docs-title">Brand Icon</h1>
   <p class="docs-lead">
-    Logos for the apps and models your product connects to. Draw a bare glyph in
-    text, a framed tile in lists, or a stack of tiles with names on hover.
+    Logos for the apps and models your product connects to. Draw a bare glyph in text, a framed tile in lists, or a
+    stack of tiles with names on hover.
   </p>
-  <div class="mt-8"><BrandIconPlayground client:load /></div>
+  <div class="mt-8">
+    <BrandIconPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -35,13 +37,12 @@ import {
 <BrandStack brands={[{ brand: "gmail", name: brandNames.gmail }]} />`}
     />
     <p>
-      <code>BrandIcon</code> takes a <code>brand</code> and a <code>size</code>.
-      <code>"inline"</code> (16px), <code>"glyph"</code> (20px), and <code
-        >"fill"</code
-      > draw only the logo. <code>"sm"</code> (24px), <code>"md"</code> (36px, default),
-      <code>"lg"</code> (48px), and <code>"xl"</code> (56px) put it in a tile. Near-black
-      logos such as GitHub, Notion, and OpenAI follow the text color, so they stay
-      visible in dark mode. Logos are decorative; put the app name in nearby text.
+      <code>BrandIcon</code> takes a <code>brand</code> and a <code>size</code>.<code>"inline"</code> (16px),{' '}
+      <code>"glyph"</code> (20px), and <code>"fill"</code> draw only the logo. <code>"sm"</code> (24px),{' '}
+      <code>"md"</code> (36px, default),
+      <code>"lg"</code> (48px), and <code>"xl"</code> (56px) put it in a tile. Near-black logos such as GitHub, Notion,
+      and OpenAI follow the text color, so they stay visible in dark mode. Logos are decorative; put the app name in
+      nearby text.
     </p>
     <div class="mt-6 grid gap-4">
       <BrandIconSizes client:load />
@@ -51,9 +52,8 @@ import {
   <section class="prose-section">
     <h2 class="section-title">Inline and glyph</h2>
     <p>
-      Use <code>"inline"</code> next to 14px text: buttons, menu options, tool activity,
-      and notes. Use <code>"glyph"</code> for 20px slots: file rows, chips, workflow
-      steps, and prompt banners.
+      Use <code>"inline"</code> next to 14px text: buttons, menu options, tool activity, and notes. Use{' '}
+      <code>"glyph"</code> for 20px slots: file rows, chips, workflow steps, and prompt banners.
     </p>
     <InlineCompositions client:load />
     <GlyphCompositions client:load />
@@ -75,14 +75,14 @@ import {
     />
     <p>
       <code>BrandTile</code> is the frame on its own. Put any icon in it. Its
-      <code>size</code> is <code>"sm"</code>, <code>"md"</code>, <code
-        >"lg"</code
-      >, <code>"xl"</code>, or <code>"action"</code>. An action tile is 36px and
-      grows to 44px on touch screens. Use <code>render</code> to make the tile a button,
-      link, or popover trigger, then fill it with <code>size="fill"</code>.
+      <code>size</code> is <code>"sm"</code>, <code>"md"</code>, <code>"lg"</code>, <code>"xl"</code>, or{' '}
+      <code>"action"</code>. An action tile is 36px and grows to 44px on touch screens. Use <code>render</code> to make
+      the tile a button, link, or popover trigger, then fill it with <code>size="fill"</code>.
     </p>
     <TileCompositions client:load />
-    <div class="mt-4"><ResultCardCompositions client:load /></div>
+    <div class="mt-4">
+      <ResultCardCompositions client:load />
+    </div>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Brand stack</h2>
@@ -98,35 +98,30 @@ import {
 />`}
     />
     <p>
-      <code>BrandStack</code> overlaps small tiles. Each tile shows its name on hover.
-      The stack is one image; its name is <code>label</code>, or the item names
-      joined with commas. An empty list renders nothing. Set <code
-        >--sprout-brand-ring</code
-      > to the color behind the stack.
+      <code>BrandStack</code> overlaps small tiles. Each tile shows its name on hover. The stack is one image; its name
+      is <code>label</code>, or the item names joined with commas. An empty list renders nothing. Set{' '}
+      <code>--sprout-brand-ring</code> to the color behind the stack.
     </p>
     <StackCompositions client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Brand names</h2>
     <p>
-      <code>brandNames</code> maps every brand to its display name. Use it for labels
-      so names match the logos.
+      <code>brandNames</code> maps every brand to its display name. Use it for labels so names match the logos.
     </p>
     <BrandNameCompositions client:load />
     <p>
-      Popovers, cards, badges, and prompt rows above are sample code. The
-      package draws the logos, tiles, and stacks. Your application owns data and
-      actions.
+      Popovers, cards, badges, and prompt rows above are sample code. The package draws the logos, tiles, and stacks.
+      Your application owns data and actions.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      <code>BrandIcon</code> and <code>BrandTile</code> are hidden from screen readers
-      unless you give them a role and label. When a tile is a button, give it an
-      <code>aria-label</code>. <code>BrandStack</code> is announced as one image with
-      every app name, so its hover tooltips are not needed to understand it. Tooltips
-      fade in over 120ms; reduced motion turns this off.
+      <code>BrandIcon</code> and <code>BrandTile</code> are hidden from screen readers unless you give them a role and
+      label. When a tile is a button, give it an
+      <code>aria-label</code>. <code>BrandStack</code> is announced as one image with every app name, so its hover
+      tooltips are not needed to understand it. Tooltips fade in over 120ms; reduced motion turns this off.
     </p>
   </section>
 </Docs>

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 import {
   AreaTrendChart,
   CategoryChart,
@@ -16,19 +16,19 @@ import {
   TrendChart,
   WaterfallChart,
   type ChartSeries,
-} from "@tulipfarm/sprout/chart";
-import "../styles/chart-demo.css";
+} from '@tulipfarm/sprout/chart';
+import '../styles/chart-demo.css';
 
 const usd = (value: number) =>
-  value.toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-    notation: Math.abs(value) >= 10_000 ? "compact" : "standard",
+  value.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    notation: Math.abs(value) >= 10_000 ? 'compact' : 'standard',
     maximumFractionDigits: Math.abs(value) >= 10_000 ? 1 : 0,
   });
 const percent = (value: number) => `${value}%`;
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
 const revenue = months.map((month, index) => ({
   month,
@@ -39,47 +39,47 @@ const revenue = months.map((month, index) => ({
 
 const revenueSeries: ChartSeries[] = [
   {
-    key: "subscriptions",
-    label: "Subscriptions",
-    color: "var(--sprout-chart-1)",
+    key: 'subscriptions',
+    label: 'Subscriptions',
+    color: 'var(--sprout-chart-1)',
   },
-  { key: "services", label: "Services", color: "var(--sprout-chart-2)" },
+  { key: 'services', label: 'Services', color: 'var(--sprout-chart-2)' },
 ];
 
 const regions = [
-  { region: "North America", profit: 42_000 },
-  { region: "EMEA", profit: 18_500 },
-  { region: "APAC", profit: -6_200 },
-  { region: "LATAM", profit: 3_100 },
+  { region: 'North America', profit: 42_000 },
+  { region: 'EMEA', profit: 18_500 },
+  { region: 'APAC', profit: -6_200 },
+  { region: 'LATAM', profit: 3_100 },
 ];
 
 const traffic = [
-  { source: "Organic search", visitors: 18_400 },
-  { source: "Direct", visitors: 9_200 },
-  { source: "Referral", visitors: 5_600 },
-  { source: "Paid search", visitors: 4_100 },
-  { source: "Email", visitors: 2_300 },
-  { source: "Social", visitors: 1_200 },
-  { source: "Partners", visitors: 600 },
+  { source: 'Organic search', visitors: 18_400 },
+  { source: 'Direct', visitors: 9_200 },
+  { source: 'Referral', visitors: 5_600 },
+  { source: 'Paid search', visitors: 4_100 },
+  { source: 'Email', visitors: 2_300 },
+  { source: 'Social', visitors: 1_200 },
+  { source: 'Partners', visitors: 600 },
 ];
 
 const funnel = [
-  { step: "Visited site", people: 24_000 },
-  { step: "Started trial", people: 6_100 },
-  { step: "Activated", people: 3_400 },
-  { step: "Paid", people: 1_150 },
+  { step: 'Visited site', people: 24_000 },
+  { step: 'Started trial', people: 6_100 },
+  { step: 'Activated', people: 3_400 },
+  { step: 'Paid', people: 1_150 },
 ];
 
 const bridge = [
-  { step: "Q2 ARR", change: 1_200_000 },
-  { step: "New", change: 310_000 },
-  { step: "Expansion", change: 140_000 },
-  { step: "Contraction", change: -60_000 },
-  { step: "Churn", change: -95_000 },
-  { step: "Q3 ARR" },
+  { step: 'Q2 ARR', change: 1_200_000 },
+  { step: 'New', change: 310_000 },
+  { step: 'Expansion', change: 140_000 },
+  { step: 'Contraction', change: -60_000 },
+  { step: 'Churn', change: -95_000 },
+  { step: 'Q3 ARR' },
 ];
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const hours = Array.from({ length: 12 }, (_, index) => `${index * 2}h`);
 const activity = days.flatMap((day, row) =>
   hours.map((hour, column) => ({
@@ -88,24 +88,22 @@ const activity = days.flatMap((day, row) =>
     orders:
       row > 4
         ? ((column * 3 + row) % 7) + 1
-        : Math.round(
-            Math.max(0, 14 - Math.abs(column - 6) * 2.4) + ((row + column) % 4),
-          ),
+        : Math.round(Math.max(0, 14 - Math.abs(column - 6) * 2.4) + ((row + column) % 4)),
   })),
 );
 
 const plan = [
-  { task: "Research", start: "2026-09-01", end: "2026-09-12", team: "product" },
-  { task: "Design", start: "2026-09-08", end: "2026-09-26", team: "design" },
-  { task: "Build API", start: "2026-09-21", end: "2026-10-17", team: "eng" },
-  { task: "Build UI", start: "2026-09-28", end: "2026-10-24", team: "eng" },
-  { task: "Beta", start: "2026-10-19", end: "2026-11-06", team: "product" },
-  { task: "Launch", start: "2026-11-06", end: "2026-11-10", team: "design" },
+  { task: 'Research', start: '2026-09-01', end: '2026-09-12', team: 'product' },
+  { task: 'Design', start: '2026-09-08', end: '2026-09-26', team: 'design' },
+  { task: 'Build API', start: '2026-09-21', end: '2026-10-17', team: 'eng' },
+  { task: 'Build UI', start: '2026-09-28', end: '2026-10-24', team: 'eng' },
+  { task: 'Beta', start: '2026-10-19', end: '2026-11-06', team: 'product' },
+  { task: 'Launch', start: '2026-11-06', end: '2026-11-10', team: 'design' },
 ];
 const teams: ChartSeries[] = [
-  { key: "product", label: "Product", color: "var(--sprout-chart-2)" },
-  { key: "design", label: "Design", color: "var(--sprout-chart-4)" },
-  { key: "eng", label: "Engineering", color: "var(--sprout-chart-1)" },
+  { key: 'product', label: 'Product', color: 'var(--sprout-chart-2)' },
+  { key: 'design', label: 'Design', color: 'var(--sprout-chart-4)' },
+  { key: 'eng', label: 'Engineering', color: 'var(--sprout-chart-1)' },
 ];
 
 const deals = (offset: number) =>
@@ -116,23 +114,23 @@ const deals = (offset: number) =>
   }));
 
 const spend = [
-  { team: "Engineering", spend: 412_000 },
-  { team: "Sales", spend: 268_000 },
-  { team: "Marketing", spend: 190_000 },
-  { team: "Support", spend: 96_000 },
-  { team: "Design", spend: 74_000 },
-  { team: "Legal", spend: 31_000 },
-  { team: "Finance", spend: 28_000 },
+  { team: 'Engineering', spend: 412_000 },
+  { team: 'Sales', spend: 268_000 },
+  { team: 'Marketing', spend: 190_000 },
+  { team: 'Support', spend: 96_000 },
+  { team: 'Design', spend: 74_000 },
+  { team: 'Legal', spend: 31_000 },
+  { team: 'Finance', spend: 28_000 },
 ];
 
 const leads = {
   nodes: [
-    { name: "Website" },
-    { name: "Events" },
-    { name: "Outbound" },
-    { name: "Qualified" },
-    { name: "Lost" },
-    { name: "Won" },
+    { name: 'Website' },
+    { name: 'Events' },
+    { name: 'Outbound' },
+    { name: 'Qualified' },
+    { name: 'Lost' },
+    { name: 'Won' },
   ],
   links: [
     { source: 0, target: 3, value: 420 },
@@ -147,45 +145,23 @@ const leads = {
 };
 
 const scores = [
-  { area: "Speed", ours: 86, rival: 70 },
-  { area: "Price", ours: 64, rival: 82 },
-  { area: "Support", ours: 91, rival: 60 },
-  { area: "Features", ours: 78, rival: 85 },
-  { area: "Ease of use", ours: 88, rival: 66 },
+  { area: 'Speed', ours: 86, rival: 70 },
+  { area: 'Price', ours: 64, rival: 82 },
+  { area: 'Support', ours: 91, rival: 60 },
+  { area: 'Features', ours: 78, rival: 85 },
+  { area: 'Ease of use', ours: 88, rival: 66 },
 ];
 
-function Tile({
-  title,
-  wide = false,
-  children,
-}: {
-  title: string;
-  wide?: boolean;
-  children: ReactNode;
-}) {
+function Tile({ title, wide = false, children }: { title: string; wide?: boolean; children: ReactNode }) {
   return (
-    <section
-      className="chart-demo-tile"
-      data-wide={wide || undefined}
-      aria-label={title}
-    >
+    <section className="chart-demo-tile" data-wide={wide || undefined} aria-label={title}>
       <h4>{title}</h4>
       {children}
     </section>
   );
 }
 
-function Stat({
-  label,
-  value,
-  change,
-  values,
-}: {
-  label: string;
-  value: string;
-  change: string;
-  values: number[];
-}) {
+function Stat({ label, value, change, values }: { label: string; value: string; change: string; values: number[] }) {
   return (
     <div className="chart-demo-stat">
       <p className="chart-demo-eyebrow">{label}</p>
@@ -202,20 +178,12 @@ export function BusinessCharts() {
     <div className="chart-demo-gallery" data-testid="chart-gallery">
       <Tile title="Sparkline" wide>
         <div className="chart-demo-stats">
-          <Stat
-            label="MRR"
-            value="$91.2k"
-            change="+9.8%"
-            values={[60, 62, 61, 66, 70, 69, 74, 78, 80, 84, 88, 91]}
-          />
+          <Stat label="MRR" value="$91.2k" change="+9.8%" values={[60, 62, 61, 66, 70, 69, 74, 78, 80, 84, 88, 91]} />
           <Stat
             label="Active users"
             value="12,480"
             change="+3.1%"
-            values={[
-              11, 11.4, 11.2, 11.6, 11.5, 11.9, 12, 11.8, 12.1, 12.3, 12.2,
-              12.5,
-            ]}
+            values={[11, 11.4, 11.2, 11.6, 11.5, 11.9, 12, 11.8, 12.1, 12.3, 12.2, 12.5]}
           />
           <Stat
             label="Churn"
@@ -251,11 +219,11 @@ export function BusinessCharts() {
           series={[
             ...revenueSeries,
             {
-              key: "growth",
-              label: "Growth",
-              color: "var(--sprout-chart-4)",
-              kind: "line",
-              axis: "right",
+              key: 'growth',
+              label: 'Growth',
+              color: 'var(--sprout-chart-4)',
+              kind: 'line',
+              axis: 'right',
             },
           ]}
           stacked
@@ -268,9 +236,7 @@ export function BusinessCharts() {
         <CategoryChart
           rows={regions}
           category="region"
-          series={[
-            { key: "profit", label: "Profit", color: "var(--sprout-chart-2)" },
-          ]}
+          series={[{ key: 'profit', label: 'Profit', color: 'var(--sprout-chart-2)' }]}
           horizontal
           valueFormatter={usd}
           title="Profit by region"
@@ -307,47 +273,32 @@ export function BusinessCharts() {
       </Tile>
       <Tile title="GaugeChart">
         <div className="chart-demo-gauges">
-          <GaugeChart
-            value={72}
-            label="of Q3 quota"
-            title="Q3 quota attainment"
-          />
+          <GaugeChart value={72} label="of Q3 quota" title="Q3 quota attainment" />
           <GaugeChart
             value={418}
             max={500}
             label="NPS responses"
             title="NPS responses"
             color="var(--sprout-chart-2)"
-            valueFormatter={(value) => value.toLocaleString("en-US")}
+            valueFormatter={value => value.toLocaleString('en-US')}
           />
         </div>
       </Tile>
       <Tile title="StepFunnelChart">
-        <StepFunnelChart
-          rows={funnel}
-          category="step"
-          value="people"
-          title="Trial conversion"
-        />
+        <StepFunnelChart rows={funnel} category="step" value="people" title="Trial conversion" />
       </Tile>
       <Tile title="WaterfallChart" wide>
         <WaterfallChart
           rows={bridge}
           category="step"
           value="change"
-          totals={["Q2 ARR", "Q3 ARR"]}
+          totals={['Q2 ARR', 'Q3 ARR']}
           valueFormatter={usd}
           title="ARR bridge, Q2 to Q3"
         />
       </Tile>
       <Tile title="HeatmapChart" wide>
-        <HeatmapChart
-          rows={activity}
-          x="hour"
-          y="day"
-          value="orders"
-          title="Orders by weekday and hour"
-        />
+        <HeatmapChart rows={activity} x="hour" y="day" value="orders" title="Orders by weekday and hour" />
       </Tile>
       <Tile title="TimelineChart" wide>
         <TimelineChart
@@ -365,49 +316,39 @@ export function BusinessCharts() {
         <ScatterPlotChart
           series={[
             {
-              key: "inbound",
-              label: "Inbound",
-              color: "var(--sprout-chart-1)",
+              key: 'inbound',
+              label: 'Inbound',
+              color: 'var(--sprout-chart-1)',
               rows: deals(0),
             },
             {
-              key: "outbound",
-              label: "Outbound",
-              color: "var(--sprout-chart-2)",
+              key: 'outbound',
+              label: 'Outbound',
+              color: 'var(--sprout-chart-2)',
               rows: deals(5),
             },
           ]}
           x="days"
           y="size"
           size="seats"
-          labels={{ x: "Days to close", y: "Deal size", size: "Seats" }}
+          labels={{ x: 'Days to close', y: 'Deal size', size: 'Seats' }}
           valueFormatter={usd}
           title="Deal size by days to close"
         />
       </Tile>
       <Tile title="TreemapChart">
-        <TreemapChart
-          rows={spend}
-          category="team"
-          value="spend"
-          valueFormatter={usd}
-          title="Spend by team"
-        />
+        <TreemapChart rows={spend} category="team" value="spend" valueFormatter={usd} title="Spend by team" />
       </Tile>
       <Tile title="SankeyChart">
-        <SankeyChart
-          nodes={leads.nodes}
-          links={leads.links}
-          title="Where leads go"
-        />
+        <SankeyChart nodes={leads.nodes} links={leads.links} title="Where leads go" />
       </Tile>
       <Tile title="RadarScoreChart">
         <RadarScoreChart
           rows={scores}
           category="area"
           series={[
-            { key: "ours", label: "Sprout", color: "var(--sprout-chart-1)" },
-            { key: "rival", label: "Rival", color: "var(--sprout-chart-5)" },
+            { key: 'ours', label: 'Sprout', color: 'var(--sprout-chart-1)' },
+            { key: 'rival', label: 'Rival', color: 'var(--sprout-chart-5)' },
           ]}
           title="Scores against a rival"
         />

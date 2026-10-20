@@ -1,41 +1,22 @@
-import {
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-  type RefObject,
-} from "react";
-import {
-  Extension,
-  Node,
-  mergeAttributes,
-  type Editor,
-  type Extensions,
-  type Range,
-} from "@tiptap/core";
-import { PluginKey } from "@tiptap/pm/state";
-import Suggestion, {
-  type SuggestionKeyDownProps,
-  type SuggestionProps,
-} from "@tiptap/suggestion";
-import { ArrowUp } from "reicon-react/icons/ArrowUp";
-import { Bold } from "reicon-react/icons/Bold";
-import { BookOpen } from "reicon-react/icons/BookOpen";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Cpu } from "reicon-react/icons/Cpu";
-import { FileText } from "reicon-react/icons/FileText";
-import { Italic } from "reicon-react/icons/Italic";
-import { Lightbulb } from "reicon-react/icons/Lightbulb";
-import { List } from "reicon-react/icons/List";
-import { Paperclip } from "reicon-react/icons/Paperclip";
-import { Send } from "reicon-react/icons/Send";
-import { Sparkle } from "reicon-react/icons/Sparkle";
-import { Stop3 } from "reicon-react/icons/Stop3";
-import { X } from "reicon-react/icons/X";
-import { Button } from "@tulipfarm/sprout/button";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
+import { Extension, Node, mergeAttributes, type Editor, type Extensions, type Range } from '@tiptap/core';
+import { PluginKey } from '@tiptap/pm/state';
+import Suggestion, { type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion';
+import { ArrowUp } from 'reicon-react/icons/ArrowUp';
+import { Bold } from 'reicon-react/icons/Bold';
+import { BookOpen } from 'reicon-react/icons/BookOpen';
+import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { Cpu } from 'reicon-react/icons/Cpu';
+import { FileText } from 'reicon-react/icons/FileText';
+import { Italic } from 'reicon-react/icons/Italic';
+import { Lightbulb } from 'reicon-react/icons/Lightbulb';
+import { List } from 'reicon-react/icons/List';
+import { Paperclip } from 'reicon-react/icons/Paperclip';
+import { Send } from 'reicon-react/icons/Send';
+import { Sparkle } from 'reicon-react/icons/Sparkle';
+import { Stop3 } from 'reicon-react/icons/Stop3';
+import { X } from 'reicon-react/icons/X';
+import { Button } from '@tulipfarm/sprout/button';
 import {
   Command,
   CommandEmpty,
@@ -44,7 +25,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@tulipfarm/sprout/command";
+} from '@tulipfarm/sprout/command';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -52,50 +33,19 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@tulipfarm/sprout/dropdown-menu";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-} from "@tulipfarm/sprout/input-group";
-import { Kbd } from "@tulipfarm/sprout/kbd";
-import { Label } from "@tulipfarm/sprout/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@tulipfarm/sprout/popover";
-import {
-  RichTextEditor,
-  type RichTextEditorHandle,
-  type RichTextValue,
-} from "@tulipfarm/sprout/rich-text-editor";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@tulipfarm/sprout/select";
-import { Switch } from "@tulipfarm/sprout/switch";
-import { ToggleGroup, ToggleGroupItem } from "@tulipfarm/sprout/toggle-group";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@tulipfarm/sprout/tooltip";
-import "../styles/rich-text-editor-demo.css";
+} from '@tulipfarm/sprout/dropdown-menu';
+import { InputGroup, InputGroupAddon, InputGroupButton } from '@tulipfarm/sprout/input-group';
+import { Kbd } from '@tulipfarm/sprout/kbd';
+import { Label } from '@tulipfarm/sprout/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
+import { RichTextEditor, type RichTextEditorHandle, type RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@tulipfarm/sprout/select';
+import { Switch } from '@tulipfarm/sprout/switch';
+import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
+import '../styles/rich-text-editor-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="rte-demo-card" aria-label={title}>
       <header>
@@ -108,23 +58,23 @@ function Example({
 }
 
 const paragraph = (text: string): RichTextValue => ({
-  type: "paragraph",
-  content: [{ type: "text", text }],
+  type: 'paragraph',
+  content: [{ type: 'text', text }],
 });
 const doc = (...content: RichTextValue[]): RichTextValue => ({
-  type: "doc",
+  type: 'doc',
   content,
 });
-const emptyDoc = (): RichTextValue => doc({ type: "paragraph" });
+const emptyDoc = (): RichTextValue => doc({ type: 'paragraph' });
 
 function hasContent(node: RichTextValue): boolean {
-  if (node.type === "reference") return true;
-  if (node.type === "text") return Boolean(node.text?.trim());
+  if (node.type === 'reference') return true;
+  if (node.type === 'text') return Boolean(node.text?.trim());
   return node.content?.some(hasContent) ?? false;
 }
 
 function textLength(node: RichTextValue): number {
-  if (node.type === "text") return node.text?.length ?? 0;
+  if (node.type === 'text') return node.text?.length ?? 0;
   return node.content?.reduce((sum, child) => sum + textLength(child), 0) ?? 0;
 }
 
@@ -134,20 +84,20 @@ function useEditorTick(handle: RefObject<RichTextEditorHandle | null>) {
   useEffect(() => {
     let editor: Editor | null = null;
     let frame = 0;
-    const bump = () => setTick((tick) => tick + 1);
+    const bump = () => setTick(tick => tick + 1);
     const attach = () => {
       editor = handle.current?.editor() ?? null;
       if (!editor) {
         frame = requestAnimationFrame(attach);
         return;
       }
-      editor.on("transaction", bump);
+      editor.on('transaction', bump);
       bump();
     };
     attach();
     return () => {
       cancelAnimationFrame(frame);
-      editor?.off("transaction", bump);
+      editor?.off('transaction', bump);
     };
   }, [handle]);
 }
@@ -163,12 +113,7 @@ function FormatToolbar({
 }) {
   useEditorTick(editor);
   const current = editor.current?.editor();
-  const format = (
-    label: string,
-    mark: string,
-    icon: ReactNode,
-    run: (editor: Editor) => void,
-  ) => (
+  const format = (label: string, mark: string, icon: ReactNode, run: (editor: Editor) => void) => (
     <Tooltip>
       <TooltipTrigger
         render={
@@ -192,28 +137,14 @@ function FormatToolbar({
   );
   return (
     <>
-      {format("Bold", "bold", <Bold size={16} aria-hidden="true" />, (e) =>
-        e.chain().focus().toggleMark("bold").run(),
+      {format('Bold', 'bold', <Bold size={16} aria-hidden="true" />, e => e.chain().focus().toggleMark('bold').run())}
+      {format('Italic', 'italic', <Italic size={16} aria-hidden="true" />, e =>
+        e.chain().focus().toggleMark('italic').run(),
       )}
-      {format(
-        "Italic",
-        "italic",
-        <Italic size={16} aria-hidden="true" />,
-        (e) => e.chain().focus().toggleMark("italic").run(),
+      {format('Bulleted list', 'bulletList', <List size={16} aria-hidden="true" />, e =>
+        e.chain().focus().toggleList('bulletList', 'listItem').run(),
       )}
-      {format(
-        "Bulleted list",
-        "bulletList",
-        <List size={16} aria-hidden="true" />,
-        (e) => e.chain().focus().toggleList("bulletList", "listItem").run(),
-      )}
-      <Button
-        variant="outline"
-        size="sm"
-        className="rte-demo-push"
-        disabled={disabled}
-        onClick={onSend}
-      >
+      <Button variant="outline" size="sm" className="rte-demo-push" disabled={disabled} onClick={onSend}>
         Send
         <Send size={16} aria-hidden="true" />
       </Button>
@@ -223,12 +154,10 @@ function FormatToolbar({
 
 export function RichTextEditorSizes() {
   const editorRef = useRef<RichTextEditorHandle>(null);
-  const [value, setValue] = useState<RichTextValue>(
-    doc(paragraph("A local draft. Try bold, lists, or a heading.")),
-  );
+  const [value, setValue] = useState<RichTextValue>(doc(paragraph('A local draft. Try bold, lists, or a heading.')));
   const [sent, setSent] = useState(false);
   const [compactValue, setCompactValue] = useState<RichTextValue>(
-    doc(paragraph("Remind me to send the Northwind renewal on Friday")),
+    doc(paragraph('Remind me to send the Northwind renewal on Friday')),
   );
   const [compactSent, setCompactSent] = useState(false);
   return (
@@ -246,18 +175,11 @@ export function RichTextEditorSizes() {
               onSend={() => setSent(true)}
               ariaLabel="Local draft"
               placeholder="Write a local draft…"
-              toolbarAddon={
-                <FormatToolbar
-                  editor={editorRef}
-                  onSend={() => setSent(true)}
-                />
-              }
+              toolbarAddon={<FormatToolbar editor={editorRef} onSend={() => setSent(true)} />}
             />
           </div>
           <p role="status" className="rte-demo-note">
-            {sent
-              ? "Draft example sent locally."
-              : "default · formatting toolbar · Nothing has been sent."}
+            {sent ? 'Draft example sent locally.' : 'default · formatting toolbar · Nothing has been sent.'}
           </p>
         </div>
         <div className="rte-demo-sample" data-testid="size-compact">
@@ -272,9 +194,7 @@ export function RichTextEditorSizes() {
             />
           </div>
           <p role="status" className="rte-demo-note">
-            {compactSent
-              ? "Note sent locally."
-              : "compact · no toolbar · Cmd or Ctrl+Enter also sends"}
+            {compactSent ? 'Note sent locally.' : 'compact · no toolbar · Cmd or Ctrl+Enter also sends'}
           </p>
         </div>
       </div>
@@ -284,42 +204,40 @@ export function RichTextEditorSizes() {
 
 const formattedDraft = doc(
   {
-    type: "heading",
+    type: 'heading',
     attrs: { level: 2 },
-    content: [{ type: "text", text: "Q3 renewal plan" }],
+    content: [{ type: 'text', text: 'Q3 renewal plan' }],
   },
   {
-    type: "paragraph",
+    type: 'paragraph',
     content: [
-      { type: "text", text: "Northwind renews on " },
-      { type: "text", marks: [{ type: "bold" }], text: "October 31" },
-      { type: "text", text: ". Draft terms live in " },
+      { type: 'text', text: 'Northwind renews on ' },
+      { type: 'text', marks: [{ type: 'bold' }], text: 'October 31' },
+      { type: 'text', text: '. Draft terms live in ' },
       {
-        type: "text",
-        marks: [
-          { type: "link", attrs: { href: "https://example.com/northwind" } },
-        ],
-        text: "the contract folder",
+        type: 'text',
+        marks: [{ type: 'link', attrs: { href: 'https://example.com/northwind' } }],
+        text: 'the contract folder',
       },
-      { type: "text", text: "." },
+      { type: 'text', text: '.' },
     ],
   },
   {
-    type: "bulletList",
+    type: 'bulletList',
     content: [
       {
-        type: "listItem",
-        content: [paragraph("Confirm seat count with procurement")],
+        type: 'listItem',
+        content: [paragraph('Confirm seat count with procurement')],
       },
       {
-        type: "listItem",
+        type: 'listItem',
         content: [
           {
-            type: "paragraph",
+            type: 'paragraph',
             content: [
-              { type: "text", text: "Offer the " },
-              { type: "text", marks: [{ type: "italic" }], text: "annual" },
-              { type: "text", text: " discount only if they sign by the 24th" },
+              { type: 'text', text: 'Offer the ' },
+              { type: 'text', marks: [{ type: 'italic' }], text: 'annual' },
+              { type: 'text', text: ' discount only if they sign by the 24th' },
             ],
           },
         ],
@@ -327,37 +245,35 @@ const formattedDraft = doc(
     ],
   },
   {
-    type: "orderedList",
+    type: 'orderedList',
     attrs: { start: 1 },
     content: [
-      { type: "listItem", content: [paragraph("Send the summary")] },
-      { type: "listItem", content: [paragraph("Book the review call")] },
+      { type: 'listItem', content: [paragraph('Send the summary')] },
+      { type: 'listItem', content: [paragraph('Book the review call')] },
     ],
   },
   {
-    type: "blockquote",
-    content: [
-      paragraph("We need the signed copy before finance closes the quarter."),
-    ],
+    type: 'blockquote',
+    content: [paragraph('We need the signed copy before finance closes the quarter.')],
   },
   {
-    type: "paragraph",
+    type: 'paragraph',
     content: [
-      { type: "text", text: "Run " },
+      { type: 'text', text: 'Run ' },
       {
-        type: "text",
-        marks: [{ type: "code" }],
-        text: "forecast --quarter q3",
+        type: 'text',
+        marks: [{ type: 'code' }],
+        text: 'forecast --quarter q3',
       },
-      { type: "text", text: " before the call:" },
+      { type: 'text', text: ' before the call:' },
     ],
   },
   {
-    type: "codeBlock",
-    attrs: { language: "sql" },
+    type: 'codeBlock',
+    attrs: { language: 'sql' },
     content: [
       {
-        type: "text",
+        type: 'text',
         text: "select account, seats, renews_on\nfrom renewals\nwhere renews_on < '2026-11-01';",
       },
     ],
@@ -369,7 +285,7 @@ export function RichTextEditorFormatting() {
   const [value, setValue] = useState<RichTextValue>(formattedDraft);
   const [sent, setSent] = useState(false);
   const [disabledValue, setDisabledValue] = useState<RichTextValue>(
-    doc(paragraph("This chat is archived. Restore it to keep writing.")),
+    doc(paragraph('This chat is archived. Restore it to keep writing.')),
   );
   const disabledRef = useRef<RichTextEditorHandle>(null);
   return (
@@ -387,20 +303,11 @@ export function RichTextEditorFormatting() {
               onSend={() => setSent(true)}
               ariaLabel="Renewal plan draft"
               placeholder="Write a local draft…"
-              toolbarAddon={
-                <FormatToolbar
-                  editor={editorRef}
-                  onSend={() => setSent(true)}
-                />
-              }
+              toolbarAddon={<FormatToolbar editor={editorRef} onSend={() => setSent(true)} />}
             />
           </div>
           <p className="rte-demo-note">
-            <span role="status">
-              {sent
-                ? "Plan sent locally."
-                : "Enter inside a list or code block adds a line."}
-            </span>{" "}
+            <span role="status">{sent ? 'Plan sent locally.' : 'Enter inside a list or code block adds a line.'}</span>{' '}
             <button
               type="button"
               className="rte-demo-link"
@@ -422,13 +329,7 @@ export function RichTextEditorFormatting() {
               onSend={() => {}}
               ariaLabel="Archived chat message"
               disabled
-              toolbarAddon={
-                <FormatToolbar
-                  editor={disabledRef}
-                  disabled
-                  onSend={() => {}}
-                />
-              }
+              toolbarAddon={<FormatToolbar editor={disabledRef} disabled onSend={() => {}} />}
             />
           </div>
           <p className="rte-demo-note">disabled · toolbar disabled too</p>
@@ -473,25 +374,25 @@ type SuggestionState = {
 } | null;
 
 const referenceNode = Node.create({
-  name: "reference",
+  name: 'reference',
   inline: true,
-  group: "inline",
+  group: 'inline',
   atom: true,
   selectable: true,
   addAttributes() {
-    return { kind: { default: "file" }, label: { default: "" } };
+    return { kind: { default: 'file' }, label: { default: '' } };
   },
   parseHTML() {
-    return [{ tag: "span[data-reference]" }];
+    return [{ tag: 'span[data-reference]' }];
   },
   renderHTML({ node, HTMLAttributes }) {
     return [
-      "span",
+      'span',
       mergeAttributes(HTMLAttributes, {
-        "data-reference": node.attrs.kind,
-        class: "rte-demo-reference",
+        'data-reference': node.attrs.kind,
+        class: 'rte-demo-reference',
       }),
-      `${node.attrs.kind === "skill" ? "/" : ""}${node.attrs.label}`,
+      `${node.attrs.kind === 'skill' ? '/' : ''}${node.attrs.label}`,
     ];
   },
 });
@@ -525,41 +426,36 @@ function triggerExtension(options: {
                 label: options.label,
                 items: current.items,
                 active: Math.min(active, Math.max(0, current.items.length - 1)),
-                select: (index) => {
+                select: index => {
                   const item = current?.items[index];
                   if (item) current?.command(item);
                 },
               });
             };
             return {
-              onStart: (props) => {
+              onStart: props => {
                 current = props;
                 active = 0;
                 publish();
               },
-              onUpdate: (props) => {
+              onUpdate: props => {
                 current = props;
                 active = 0;
                 publish();
               },
               onKeyDown: ({ event }: SuggestionKeyDownProps) => {
-                if (event.key === "Escape") {
+                if (event.key === 'Escape') {
                   options.onState(null);
                   return true;
                 }
                 if (!current?.items.length) return false;
-                if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
                   const count = current.items.length;
-                  active =
-                    (active + (event.key === "ArrowDown" ? 1 : count - 1)) %
-                    count;
+                  active = (active + (event.key === 'ArrowDown' ? 1 : count - 1)) % count;
                   publish();
                   return true;
                 }
-                if (
-                  (event.key === "Enter" && !event.shiftKey) ||
-                  event.key === "Tab"
-                ) {
+                if ((event.key === 'Enter' && !event.shiftKey) || event.key === 'Tab') {
                   current.command(current.items[active]!);
                   return true;
                 }
@@ -578,25 +474,25 @@ function triggerExtension(options: {
 }
 
 const savedFiles = [
-  { name: "Q3-forecast.xlsx", detail: "Spreadsheet · 182 KB" },
-  { name: "northwind-contract.docx", detail: "Document · 64 KB" },
-  { name: "board-deck-q3.pptx", detail: "Slides · 4.1 MB" },
-  { name: "pricing-2026.pdf", detail: "PDF · 920 KB" },
+  { name: 'Q3-forecast.xlsx', detail: 'Spreadsheet · 182 KB' },
+  { name: 'northwind-contract.docx', detail: 'Document · 64 KB' },
+  { name: 'board-deck-q3.pptx', detail: 'Slides · 4.1 MB' },
+  { name: 'pricing-2026.pdf', detail: 'PDF · 920 KB' },
 ];
 const skills = [
-  { name: "Weekly metrics digest", detail: "Summarize last week's numbers" },
-  { name: "Renewal follow-up", detail: "Draft a renewal reminder email" },
-  { name: "Meeting prep", detail: "Brief me before my next meeting" },
+  { name: 'Weekly metrics digest', detail: "Summarize last week's numbers" },
+  { name: 'Renewal follow-up', detail: 'Draft a renewal reminder email' },
+  { name: 'Meeting prep', detail: 'Brief me before my next meeting' },
 ];
 
-function insertReference(kind: "file" | "skill", label: string) {
+function insertReference(kind: 'file' | 'skill', label: string) {
   return (editor: Editor, range: Range) =>
     editor
       .chain()
       .focus()
       .insertContentAt(range, [
-        { type: "reference", attrs: { kind, label } },
-        { type: "text", text: " " },
+        { type: 'reference', attrs: { kind, label } },
+        { type: 'text', text: ' ' },
       ])
       .run();
 }
@@ -608,39 +504,35 @@ function useChatExtensions(onState: (state: SuggestionState) => void) {
     () => [
       referenceNode,
       triggerExtension({
-        key: "file",
-        char: "@",
-        label: "Saved files",
-        onState: (state) => stateRef.current(state),
-        items: (query) =>
+        key: 'file',
+        char: '@',
+        label: 'Saved files',
+        onState: state => stateRef.current(state),
+        items: query =>
           savedFiles
-            .filter((file) =>
-              file.name.toLowerCase().includes(query.toLowerCase()),
-            )
-            .map((file) => ({
+            .filter(file => file.name.toLowerCase().includes(query.toLowerCase()))
+            .map(file => ({
               id: file.name,
               title: file.name,
               description: file.detail,
               media: <FileText size={16} aria-hidden="true" />,
-              apply: insertReference("file", file.name),
+              apply: insertReference('file', file.name),
             })),
       }),
       triggerExtension({
-        key: "skill",
-        char: "/",
-        label: "Skills",
-        onState: (state) => stateRef.current(state),
-        items: (query) =>
+        key: 'skill',
+        char: '/',
+        label: 'Skills',
+        onState: state => stateRef.current(state),
+        items: query =>
           skills
-            .filter((skill) =>
-              skill.name.toLowerCase().includes(query.toLowerCase()),
-            )
-            .map((skill) => ({
+            .filter(skill => skill.name.toLowerCase().includes(query.toLowerCase()))
+            .map(skill => ({
               id: skill.name,
               title: skill.name,
               description: skill.detail,
               media: <BookOpen size={16} aria-hidden="true" />,
-              apply: insertReference("skill", skill.name),
+              apply: insertReference('skill', skill.name),
             })),
       }),
     ],
@@ -651,17 +543,10 @@ function useChatExtensions(onState: (state: SuggestionState) => void) {
 function SuggestionPanel({ state }: { state: NonNullable<SuggestionState> }) {
   return (
     <div className="rte-demo-suggestions">
-      <p
-        className="rte-demo-suggestions-label"
-        id={`${state.key}-suggestions-label`}
-      >
+      <p className="rte-demo-suggestions-label" id={`${state.key}-suggestions-label`}>
         {state.label}
       </p>
-      <div
-        id={`${state.key}-suggestions`}
-        role="listbox"
-        aria-labelledby={`${state.key}-suggestions-label`}
-      >
+      <div id={`${state.key}-suggestions`} role="listbox" aria-labelledby={`${state.key}-suggestions-label`}>
         {state.items.map((item, index) => (
           <div
             key={item.id}
@@ -669,7 +554,7 @@ function SuggestionPanel({ state }: { state: NonNullable<SuggestionState> }) {
             role="option"
             aria-selected={index === state.active}
             className="rte-demo-option"
-            onMouseDown={(event) => event.preventDefault()}
+            onMouseDown={event => event.preventDefault()}
             onClick={() => state.select(index)}
           >
             {item.media}
@@ -680,13 +565,13 @@ function SuggestionPanel({ state }: { state: NonNullable<SuggestionState> }) {
       </div>
       {!state.items.length && (
         <p role="status" className="rte-demo-suggestions-empty">
-          {state.key === "file" ? "No saved files match." : "No skills match."}
+          {state.key === 'file' ? 'No saved files match.' : 'No skills match.'}
         </p>
       )}
       {state.items.length > 0 && (
         <p className="sr-only" aria-live="polite">
-          {state.items.length} {state.items.length === 1 ? "option" : "options"}
-          . Use Up and Down to choose, Enter to select, Escape to close.
+          {state.items.length} {state.items.length === 1 ? 'option' : 'options'}. Use Up and Down to choose, Enter to
+          select, Escape to close.
         </p>
       )}
     </div>
@@ -695,40 +580,40 @@ function SuggestionPanel({ state }: { state: NonNullable<SuggestionState> }) {
 
 const modes = [
   {
-    id: "research",
-    label: "Research",
-    description: "Searches your sources before answering",
+    id: 'research',
+    label: 'Research',
+    description: 'Searches your sources before answering',
   },
-  { id: "write", label: "Write", description: "Drafts and edits documents" },
+  { id: 'write', label: 'Write', description: 'Drafts and edits documents' },
 ];
 const agents = [
   {
-    id: "renewal-desk",
-    label: "Renewal desk",
-    description: "Tracks renewals and drafts follow-ups",
+    id: 'renewal-desk',
+    label: 'Renewal desk',
+    description: 'Tracks renewals and drafts follow-ups',
   },
   {
-    id: "people-ops",
-    label: "People Ops helper",
-    description: "Answers policy and onboarding questions",
+    id: 'people-ops',
+    label: 'People Ops helper',
+    description: 'Answers policy and onboarding questions',
   },
 ];
-type Persona = { kind: "mode" | "agent"; id: string; label: string };
+type Persona = { kind: 'mode' | 'agent'; id: string; label: string };
 
 const models = [
-  { id: "gpt", label: "GPT-5.5", efforts: ["Low", "Medium", "High"] },
+  { id: 'gpt', label: 'GPT-5.5', efforts: ['Low', 'Medium', 'High'] },
   {
-    id: "claude",
-    label: "Claude Sonnet 5",
-    efforts: ["Low", "Medium", "High"],
+    id: 'claude',
+    label: 'Claude Sonnet 5',
+    efforts: ['Low', 'Medium', 'High'],
   },
-  { id: "gemini", label: "Gemini 3 Flash", efforts: [] as string[] },
+  { id: 'gemini', label: 'Gemini 3 Flash', efforts: [] as string[] },
   {
-    id: "o-legacy",
-    label: "Legacy reasoning model",
+    id: 'o-legacy',
+    label: 'Legacy reasoning model',
     efforts: [],
     disabled: true,
-    reason: "retired",
+    reason: 'retired',
   },
 ];
 
@@ -742,7 +627,7 @@ function PersonaPicker({
   disabled: boolean;
 }) {
   const [open, setOpen] = useState(false);
-  const label = value?.label ?? "Mode";
+  const label = value?.label ?? 'Mode';
   const pick = (next: Persona) => {
     onChange(value?.id === next.id ? null : next);
     setOpen(false);
@@ -751,12 +636,7 @@ function PersonaPicker({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         render={
-          <InputGroupButton
-            size="sm"
-            variant="ghost"
-            disabled={disabled}
-            aria-label={`Mode or agent: ${label}`}
-          />
+          <InputGroupButton size="sm" variant="ghost" disabled={disabled} aria-label={`Mode or agent: ${label}`} />
         }
       >
         <Sparkle size={16} aria-hidden="true" />
@@ -765,46 +645,35 @@ function PersonaPicker({
       </PopoverTrigger>
       <PopoverContent size="menu" side="top" align="start" sideOffset={8}>
         <Command>
-          <CommandInput
-            aria-label="Search modes and agents"
-            placeholder="Search modes and agents…"
-          />
+          <CommandInput aria-label="Search modes and agents" placeholder="Search modes and agents…" />
           <CommandList>
             <CommandEmpty>No matches.</CommandEmpty>
             <CommandGroup heading="Modes">
-              {modes.map((mode) => (
+              {modes.map(mode => (
                 <CommandItem
                   key={mode.id}
                   value={`${mode.label} ${mode.description}`}
                   data-checked={value?.id === mode.id}
-                  onSelect={() =>
-                    pick({ kind: "mode", id: mode.id, label: mode.label })
-                  }
+                  onSelect={() => pick({ kind: 'mode', id: mode.id, label: mode.label })}
                 >
                   <Sparkle size={16} aria-hidden="true" />
                   <span className="rte-demo-nowrap">{mode.label}</span>
-                  <span className="rte-demo-option-detail">
-                    {mode.description}
-                  </span>
+                  <span className="rte-demo-option-detail">{mode.description}</span>
                 </CommandItem>
               ))}
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="Agents">
-              {agents.map((agent) => (
+              {agents.map(agent => (
                 <CommandItem
                   key={agent.id}
                   value={`${agent.label} ${agent.description}`}
                   data-checked={value?.id === agent.id}
-                  onSelect={() =>
-                    pick({ kind: "agent", id: agent.id, label: agent.label })
-                  }
+                  onSelect={() => pick({ kind: 'agent', id: agent.id, label: agent.label })}
                 >
                   <Lightbulb size={16} aria-hidden="true" />
                   <span className="rte-demo-nowrap">{agent.label}</span>
-                  <span className="rte-demo-option-detail">
-                    {agent.description}
-                  </span>
+                  <span className="rte-demo-option-detail">{agent.description}</span>
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -818,7 +687,7 @@ function PersonaPicker({
 function ModelPicker({ disabled }: { disabled: boolean }) {
   const [open, setOpen] = useState(false);
   const [model, setModel] = useState(models[1]!);
-  const [effort, setEffort] = useState("Medium");
+  const [effort, setEffort] = useState('Medium');
   const showEffort = model.efforts.length > 0;
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -831,41 +700,36 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
                   size="sm"
                   variant="ghost"
                   disabled={disabled}
-                  aria-label={`Model: ${model.label}${showEffort ? `, ${effort} effort` : ""}`}
+                  aria-label={`Model: ${model.label}${showEffort ? `, ${effort} effort` : ''}`}
                 />
               }
             />
           }
         >
           <Cpu size={16} aria-hidden="true" />
-          <span className="rte-demo-truncate rte-demo-model">
-            {model.label}
-          </span>
+          <span className="rte-demo-truncate rte-demo-model">{model.label}</span>
           <ChevronDown size={12} aria-hidden="true" />
         </TooltipTrigger>
         <TooltipContent>AI model that writes replies</TooltipContent>
       </Tooltip>
       <PopoverContent size="picker" side="top" align="end" sideOffset={8}>
         <Command>
-          <CommandInput
-            aria-label="Search models"
-            placeholder="Search models…"
-          />
+          <CommandInput aria-label="Search models" placeholder="Search models…" />
           <CommandList>
             <CommandEmpty>No models found.</CommandEmpty>
             <CommandGroup heading="Model">
-              {models.map((candidate) => (
+              {models.map(candidate => (
                 <CommandItem
                   key={candidate.id}
                   value={candidate.label}
                   data-checked={candidate.id === model.id}
-                  disabled={"disabled" in candidate}
+                  disabled={'disabled' in candidate}
                   onSelect={() => setModel(candidate)}
                 >
                   <Cpu size={16} aria-hidden="true" />
                   <span>
                     {candidate.label}
-                    {"reason" in candidate ? ` (${candidate.reason})` : ""}
+                    {'reason' in candidate ? ` (${candidate.reason})` : ''}
                   </span>
                 </CommandItem>
               ))}
@@ -881,11 +745,11 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
               spacing={0}
               aria-label={`${model.label} effort`}
               value={[effort]}
-              onValueChange={(next) => {
+              onValueChange={next => {
                 if (next[0]) setEffort(next[0]);
               }}
             >
-              {model.efforts.map((level) => (
+              {model.efforts.map(level => (
                 <ToggleGroupItem key={level} value={level}>
                   {level}
                 </ToggleGroupItem>
@@ -900,19 +764,16 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
 
 const fileChoices = {
   read: {
-    title: "Let the assistant read a file",
-    detail:
-      "Type @ and pick a saved file. The assistant reads it with your message.",
+    title: 'Let the assistant read a file',
+    detail: 'Type @ and pick a saved file. The assistant reads it with your message.',
   },
   store: {
-    title: "Store a private file",
-    detail:
-      "Saved for download. This chat doesn’t read it. Up to 5 files, 10 MiB each.",
+    title: 'Store a private file',
+    detail: 'Saved for download. This chat doesn’t read it. Up to 5 files, 10 MiB each.',
   },
   knowledge: {
-    title: "Add a file to Knowledge",
-    detail:
-      "Opens Files. Your chats and agents can search Knowledge; other people can’t.",
+    title: 'Add a file to Knowledge',
+    detail: 'Opens Files. Your chats and agents can search Knowledge; other people can’t.',
   },
 } as const;
 
@@ -931,23 +792,14 @@ function FileChoices({
     <DropdownMenuItem onClick={run}>
       <span className="rte-demo-menu-copy">
         <span>{fileChoices[key].title}</span>
-        <span className="rte-demo-option-detail">
-          {fileChoices[key].detail}
-        </span>
+        <span className="rte-demo-option-detail">{fileChoices[key].detail}</span>
       </span>
     </DropdownMenuItem>
   );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={
-          <InputGroupButton
-            size="sm"
-            variant="ghost"
-            aria-label="Add a file"
-            disabled={disabled}
-          />
-        }
+        render={<InputGroupButton size="sm" variant="ghost" aria-label="Add a file" disabled={disabled} />}
       >
         <Paperclip size={16} aria-hidden="true" />
         <span className="rte-demo-wide-only">Files</span>
@@ -955,9 +807,9 @@ function FileChoices({
       <DropdownMenuContent size="menu" side="top">
         <DropdownMenuGroup>
           <DropdownMenuLabel>What should happen to the file?</DropdownMenuLabel>
-          {choice("read", read)}
-          {choice("store", store)}
-          {choice("knowledge", knowledge)}
+          {choice('read', read)}
+          {choice('store', store)}
+          {choice('knowledge', knowledge)}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -965,28 +817,26 @@ function FileChoices({
 }
 
 const projects = [
-  { value: "none", label: "No project" },
-  { value: "renewals", label: "Q3 renewals" },
-  { value: "hiring", label: "Support hiring" },
+  { value: 'none', label: 'No project' },
+  { value: 'renewals', label: 'Q3 renewals' },
+  { value: 'hiring', label: 'Support hiring' },
 ];
 
 function ProjectScope({ disabled }: { disabled: boolean }) {
-  const [project, setProject] = useState("none");
+  const [project, setProject] = useState('none');
   return (
     <Select
       value={project}
       disabled={disabled}
-      onValueChange={(value) => {
-        if (typeof value === "string") setProject(value);
+      onValueChange={value => {
+        if (typeof value === 'string') setProject(value);
       }}
     >
       <SelectTrigger size="sm" aria-label="Start this chat in">
-        <SelectValue>
-          {projects.find((item) => item.value === project)?.label}
-        </SelectValue>
+        <SelectValue>{projects.find(item => item.value === project)?.label}</SelectValue>
       </SelectTrigger>
       <SelectContent>
-        {projects.map((item) => (
+        {projects.map(item => (
           <SelectItem key={item.value} value={item.value}>
             {item.label}
           </SelectItem>
@@ -997,7 +847,7 @@ function ProjectScope({ disabled }: { disabled: boolean }) {
 }
 
 const messageLimit = 400;
-type Phase = "idle" | "sending" | "replying";
+type Phase = 'idle' | 'sending' | 'replying';
 
 interface ComposerProps {
   label: string;
@@ -1034,44 +884,35 @@ function ChatComposer({
   const [suggestion, setSuggestion] = useState<SuggestionState>(null);
   const [panelBelow, setPanelBelow] = useState(false);
   const [persona, setPersona] = useState<Persona | null>(null);
-  const [mode, setMode] = useState<"normal" | "plan">("normal");
+  const [mode, setMode] = useState<'normal' | 'plan'>('normal');
   const extensions = useChatExtensions(setSuggestion);
   // Compact composers keep mention nodes but drop @ and / triggers.
   const editorExtensions = useMemo(
-    () =>
-      compact
-        ? extensions.filter((extension) => extension.type !== "extension")
-        : extensions,
+    () => (compact ? extensions.filter(extension => extension.type !== 'extension') : extensions),
     [compact, extensions],
   );
   const length = textLength(value);
   const validation =
-    length > messageLimit
-      ? `Shorten your message to ${messageLimit} characters. It has ${length}.`
-      : null;
+    length > messageLimit ? `Shorten your message to ${messageLimit} characters. It has ${length}.` : null;
   const canSend = hasContent(value) && !validation;
-  const sending = phase === "sending";
+  const sending = phase === 'sending';
   const disabled = readOnly;
   const busy = disabled || sending;
-  const condensed =
-    !compact && questionPending && !focused && !attachments.length && !canSend;
+  const condensed = !compact && questionPending && !focused && !attachments.length && !canSend;
   const panelOpen = !compact && !!suggestion;
   useLayoutEffect(() => {
     const bounds = form.current?.getBoundingClientRect();
     // A composer near the top of a short screen has no room above it, so suggestions open below.
-    if (panelOpen && bounds)
-      setPanelBelow(
-        bounds.top < 320 && window.innerHeight - bounds.bottom > bounds.top,
-      );
+    if (panelOpen && bounds) setPanelBelow(bounds.top < 320 && window.innerHeight - bounds.bottom > bounds.top);
   }, [panelOpen]);
   const send = () => {
     if (canSend && !busy) onSend();
   };
   const placeholder = questionPending
-    ? "Send a separate message…"
-    : persona?.kind === "agent"
+    ? 'Send a separate message…'
+    : persona?.kind === 'agent'
       ? `Ask ${persona.label} anything…`
-      : "Ask anything…";
+      : 'Ask anything…';
 
   return (
     <form
@@ -1080,19 +921,18 @@ function ChatComposer({
       aria-label={label}
       data-condensed={condensed || undefined}
       onFocusCapture={() => setFocused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget))
-          setFocused(false);
+      onBlurCapture={event => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
       }}
-      onSubmit={(event) => {
+      onSubmit={event => {
         event.preventDefault();
         send();
       }}
     >
-      <InputGroup variant={questionPending ? "question-composer" : "composer"}>
+      <InputGroup variant={questionPending ? 'question-composer' : 'composer'}>
         {attachments.length > 0 && (
           <InputGroupAddon align="block-start">
-            {attachments.map((file) => (
+            {attachments.map(file => (
               <span key={file} className="rte-demo-chip">
                 <FileText size={14} aria-hidden="true" />
                 <span className="rte-demo-truncate">{file}</span>
@@ -1100,11 +940,7 @@ function ChatComposer({
                   size="icon-xs"
                   aria-label={`Remove ${file}`}
                   disabled={busy}
-                  onClick={() =>
-                    onAttachmentsChange(
-                      attachments.filter((name) => name !== file),
-                    )
-                  }
+                  onClick={() => onAttachmentsChange(attachments.filter(name => name !== file))}
                 >
                   <X aria-hidden="true" />
                 </InputGroupButton>
@@ -1113,9 +949,9 @@ function ChatComposer({
           </InputGroupAddon>
         )}
         <RichTextEditor
-          key={compact ? "compact" : "full"}
+          key={compact ? 'compact' : 'full'}
           ref={input}
-          size={compact ? "compact" : "default"}
+          size={compact ? 'compact' : 'default'}
           condensed={condensed}
           placeholder={placeholder}
           value={value}
@@ -1123,13 +959,9 @@ function ChatComposer({
           ariaInvalid={!!validation}
           ariaDescribedBy={validation ? errorId : undefined}
           ariaExpanded={panelOpen}
-          ariaControls={
-            compact || !suggestion ? undefined : `${suggestion.key}-suggestions`
-          }
+          ariaControls={compact || !suggestion ? undefined : `${suggestion.key}-suggestions`}
           ariaActiveDescendant={
-            compact || !suggestion?.items.length
-              ? undefined
-              : `${suggestion.key}-option-${suggestion.active}`
+            compact || !suggestion?.items.length ? undefined : `${suggestion.key}-option-${suggestion.active}`
           }
           extensions={editorExtensions}
           onChange={onValueChange}
@@ -1140,24 +972,9 @@ function ChatComposer({
                 <>
                   <FileChoices
                     disabled={busy}
-                    read={() =>
-                      input.current
-                        ?.editor()
-                        ?.chain()
-                        .focus()
-                        .insertContent("@")
-                        .run()
-                    }
-                    store={() =>
-                      onAttachmentsChange([
-                        ...new Set([...attachments, "pricing-2026.pdf"]),
-                      ])
-                    }
-                    knowledge={() =>
-                      onAttachmentsChange([
-                        ...new Set([...attachments, "brand-guide.pdf"]),
-                      ])
-                    }
+                    read={() => input.current?.editor()?.chain().focus().insertContent('@').run()}
+                    store={() => onAttachmentsChange([...new Set([...attachments, 'pricing-2026.pdf'])])}
+                    knowledge={() => onAttachmentsChange([...new Set([...attachments, 'brand-guide.pdf'])])}
                   />
                   <Tooltip>
                     <TooltipTrigger
@@ -1167,62 +984,40 @@ function ChatComposer({
                           variant="ghost"
                           aria-label="Use a skill"
                           disabled={busy}
-                          onClick={() =>
-                            input.current
-                              ?.editor()
-                              ?.chain()
-                              .focus()
-                              .insertContent("/")
-                              .run()
-                          }
+                          onClick={() => input.current?.editor()?.chain().focus().insertContent('/').run()}
                         />
                       }
                     >
                       <BookOpen size={16} aria-hidden="true" />
                       <span className="rte-demo-wide-only">Skills</span>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      Skills are saved procedures the agent follows · /
-                    </TooltipContent>
+                    <TooltipContent>Skills are saved procedures the agent follows · /</TooltipContent>
                   </Tooltip>
                   <ProjectScope disabled={busy} />
                   <Select
                     value={mode}
                     disabled={busy}
-                    onValueChange={(next) => {
-                      if (next === "normal" || next === "plan") setMode(next);
+                    onValueChange={next => {
+                      if (next === 'normal' || next === 'plan') setMode(next);
                     }}
                   >
                     <Tooltip>
-                      <TooltipTrigger
-                        render={
-                          <SelectTrigger size="sm" aria-label="Chat mode" />
-                        }
-                      >
-                        <SelectValue>
-                          {mode === "plan" ? "Plan" : "Normal"}
-                        </SelectValue>
+                      <TooltipTrigger render={<SelectTrigger size="sm" aria-label="Chat mode" />}>
+                        <SelectValue>{mode === 'plan' ? 'Plan' : 'Normal'}</SelectValue>
                       </TooltipTrigger>
-                      <TooltipContent>
-                        Normal acts on your request. Plan only proposes steps
-                        first.
-                      </TooltipContent>
+                      <TooltipContent>Normal acts on your request. Plan only proposes steps first.</TooltipContent>
                     </Tooltip>
                     <SelectContent>
                       <SelectItem value="normal">Normal</SelectItem>
                       <SelectItem value="plan">Plan only</SelectItem>
                     </SelectContent>
                   </Select>
-                  <PersonaPicker
-                    value={persona}
-                    onChange={setPersona}
-                    disabled={busy}
-                  />
+                  <PersonaPicker value={persona} onChange={setPersona} disabled={busy} />
                 </>
               )}
               <div className="rte-demo-toolbar-end">
                 {!compact && !condensed && <ModelPicker disabled={busy} />}
-                {phase === "replying" ? (
+                {phase === 'replying' ? (
                   <Tooltip>
                     <TooltipTrigger
                       render={
@@ -1246,7 +1041,7 @@ function ChatComposer({
                         <InputGroupButton
                           type="submit"
                           size="icon-sm"
-                          variant={canSend ? "default" : "secondary"}
+                          variant={canSend ? 'default' : 'secondary'}
                           aria-label="Send message"
                           aria-busy={sending}
                           disabled={busy || !canSend}
@@ -1264,13 +1059,7 @@ function ChatComposer({
         />
       </InputGroup>
       {panelOpen && suggestion && (
-        <div
-          className={
-            panelBelow
-              ? "rte-demo-panel rte-demo-panel-below"
-              : "rte-demo-panel"
-          }
-        >
+        <div className={panelBelow ? 'rte-demo-panel rte-demo-panel-below' : 'rte-demo-panel'}>
           <SuggestionPanel state={suggestion} />
         </div>
       )}
@@ -1286,31 +1075,31 @@ function ChatComposer({
 function useConversation(initial: RichTextValue, initialFiles: string[] = []) {
   const [value, setValue] = useState<RichTextValue>(initial);
   const [attachments, setAttachments] = useState<string[]>(initialFiles);
-  const [phase, setPhase] = useState<Phase>("idle");
-  const [status, setStatus] = useState("Nothing has been sent.");
+  const [phase, setPhase] = useState<Phase>('idle');
+  const [status, setStatus] = useState('Nothing has been sent.');
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
   const send = () => {
-    if (phase !== "idle") return;
-    setPhase("sending");
-    setStatus("Sending…");
+    if (phase !== 'idle') return;
+    setPhase('sending');
+    setStatus('Sending…');
     timers.current = [
       setTimeout(() => {
         setValue(emptyDoc());
         setAttachments([]);
-        setPhase("replying");
-        setStatus("The agent is replying. Stop ends the reply.");
+        setPhase('replying');
+        setStatus('The agent is replying. Stop ends the reply.');
       }, 700),
       setTimeout(() => {
-        setPhase("idle");
-        setStatus("Reply finished. Nothing left this page.");
+        setPhase('idle');
+        setStatus('Reply finished. Nothing left this page.');
       }, 4000),
     ];
   };
   const stop = () => {
     timers.current.forEach(clearTimeout);
-    setPhase("idle");
-    setStatus("Reply stopped.");
+    setPhase('idle');
+    setStatus('Reply stopped.');
   };
   return {
     value,
@@ -1325,7 +1114,7 @@ function useConversation(initial: RichTextValue, initialFiles: string[] = []) {
 }
 
 export function RichTextEditorComposer() {
-  const chat = useConversation(emptyDoc(), ["Q3-forecast.xlsx"]);
+  const chat = useConversation(emptyDoc(), ['Q3-forecast.xlsx']);
   return (
     <Example
       title="Chat composer"
@@ -1333,13 +1122,8 @@ export function RichTextEditorComposer() {
     >
       <div className="rte-demo-sample" data-testid="composer">
         <ol className="rte-demo-transcript" aria-label="Sample conversation">
-          <li data-role="user">
-            Pull the Q3 numbers for Northwind and Contoso.
-          </li>
-          <li data-role="agent">
-            Northwind grew 14% and Contoso held flat. Want a renewal summary for
-            each?
-          </li>
+          <li data-role="user">Pull the Q3 numbers for Northwind and Contoso.</li>
+          <li data-role="agent">Northwind grew 14% and Contoso held flat. Want a renewal summary for each?</li>
         </ol>
         <ChatComposer
           label="Message composer"
@@ -1362,14 +1146,14 @@ export function RichTextEditorComposer() {
 export function RichTextEditorCompactComposer() {
   const chat = useConversation(
     doc({
-      type: "paragraph",
+      type: 'paragraph',
       content: [
-        { type: "text", text: "Compare " },
+        { type: 'text', text: 'Compare ' },
         {
-          type: "reference",
-          attrs: { kind: "file", label: "Q3-forecast.xlsx" },
+          type: 'reference',
+          attrs: { kind: 'file', label: 'Q3-forecast.xlsx' },
         },
-        { type: "text", text: " with last quarter" },
+        { type: 'text', text: ' with last quarter' },
       ],
     }),
   );
@@ -1378,10 +1162,7 @@ export function RichTextEditorCompactComposer() {
       title="Compact composer"
       description="Side panels use size compact: one 40px row with 14px text and only the send or stop button inline. Saved file chips still render, but @ and / suggestions are off."
     >
-      <div
-        className="rte-demo-sample rte-demo-side"
-        data-testid="compact-composer"
-      >
+      <div className="rte-demo-sample rte-demo-side" data-testid="compact-composer">
         <ChatComposer
           label="Side panel composer"
           compact
@@ -1418,11 +1199,7 @@ export function RichTextEditorQuestionComposer() {
               The agent asked: Which region should the Q3 report cover?
             </p>
             <Label className="rte-demo-switch">
-              <Switch
-                size="sm"
-                checked={pending}
-                onCheckedChange={setPending}
-              />
+              <Switch size="sm" checked={pending} onCheckedChange={setPending} />
               Question waiting
             </Label>
           </div>
@@ -1453,9 +1230,7 @@ export function RichTextEditorQuestionComposer() {
             onSend={read.send}
             onStop={read.stop}
           />
-          <p className="rte-demo-note">
-            This chat is read-only. composer · disabled
-          </p>
+          <p className="rte-demo-note">This chat is read-only. composer · disabled</p>
         </div>
       </div>
     </Example>

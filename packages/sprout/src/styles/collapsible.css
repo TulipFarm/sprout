@@ -19,23 +19,21 @@
   }
 
   /* An indicator turns when its own trigger, or its collapsible's header, is open. */
-  [data-slot="collapsible-indicator"] {
+  [data-slot='collapsible-indicator'] {
     flex-shrink: 0;
   }
-  [data-panel-open] [data-slot="collapsible-indicator"],
-  .sprout-collapsible[data-open]
-    > :not(.sprout-collapsible-content)
-    [data-slot="collapsible-indicator"] {
+  [data-panel-open] [data-slot='collapsible-indicator'],
+  .sprout-collapsible[data-open] > :not(.sprout-collapsible-content) [data-slot='collapsible-indicator'] {
     transform: rotate(180deg);
   }
-  [data-panel-open] [data-slot="collapsible-indicator"][data-direction="right"],
+  [data-panel-open] [data-slot='collapsible-indicator'][data-direction='right'],
   .sprout-collapsible[data-open]
     > :not(.sprout-collapsible-content)
-    [data-slot="collapsible-indicator"][data-direction="right"] {
+    [data-slot='collapsible-indicator'][data-direction='right'] {
     transform: rotate(90deg);
   }
 
-  .sprout-collapsible-content[hidden]:not([hidden="until-found"]) {
+  .sprout-collapsible-content[hidden]:not([hidden='until-found']) {
     display: none;
   }
   .sprout-collapsible-content-sidebar,
@@ -54,19 +52,16 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    [data-slot="collapsible-indicator"] {
-      transition: transform var(--sprout-motion-fast, 120ms)
-        var(--sprout-motion-ease, ease-out);
+    [data-slot='collapsible-indicator'] {
+      transition: transform var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-collapsible-content-sidebar {
       transition:
-        height var(--sprout-motion-normal, 180ms)
-          var(--sprout-motion-ease, ease-out),
+        height var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out),
         opacity var(--sprout-motion-fast, 120ms) ease-out;
     }
     .sprout-collapsible-content-card {
-      transition: height var(--sprout-motion-normal, 180ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: height var(--sprout-motion-normal, 180ms) var(--sprout-motion-ease, ease-out);
     }
   }
 }

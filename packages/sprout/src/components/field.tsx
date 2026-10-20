@@ -1,24 +1,17 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  useContext,
-  useId,
-  type AriaAttributes,
-  type ReactElement,
-  type ReactNode,
-} from "react";
-import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
-import { Check } from "reicon-react/icons/Check";
-import { cn } from "../internal/classes.js";
-import { Badge } from "./badge.js";
-import { RadioGroup, RadioGroupItem } from "./radio-group.js";
-import { Separator, type SeparatorLabelProps } from "./separator.js";
+import { createContext, useContext, useId, type AriaAttributes, type ReactElement, type ReactNode } from 'react';
+import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
+import { Check } from 'reicon-react/icons/Check';
+import { cn } from '../internal/classes.js';
+import { Badge } from './badge.js';
+import { RadioGroup, RadioGroupItem } from './radio-group.js';
+import { Separator, type SeparatorLabelProps } from './separator.js';
 
-export const fieldLabelVisibilityNames = ["visible", "screen-reader"] as const;
-export const choiceGroupTypeNames = ["checkbox", "radio"] as const;
-export const choiceGroupLayoutNames = ["list", "columns"] as const;
-export const checkboxFieldVariantNames = ["default", "neutral"] as const;
+export const fieldLabelVisibilityNames = ['visible', 'screen-reader'] as const;
+export const choiceGroupTypeNames = ['checkbox', 'radio'] as const;
+export const choiceGroupLayoutNames = ['list', 'columns'] as const;
+export const checkboxFieldVariantNames = ['default', 'neutral'] as const;
 
 export type FieldLabelVisibility = (typeof fieldLabelVisibilityNames)[number];
 export type ChoiceGroupType = (typeof choiceGroupTypeNames)[number];
@@ -26,8 +19,7 @@ export type ChoiceGroupLayout = (typeof choiceGroupLayoutNames)[number];
 export type CheckboxFieldVariant = (typeof checkboxFieldVariantNames)[number];
 
 /** Every field states whether it is required or optional; there is no default. */
-export type Requirement =
-  { required: true; optional?: never } | { optional: true; required?: never };
+export type Requirement = { required: true; optional?: never } | { optional: true; required?: never };
 
 /**
  * Locks every Field, ChoiceGroup, and CheckboxField below it. Render it as a
@@ -48,11 +40,11 @@ const FieldControlContext = createContext<FieldControl | null>(null);
 export interface FieldControlProps {
   id?: string | undefined;
   disabled?: boolean | undefined;
-  "aria-describedby"?: string | undefined;
-  "aria-invalid"?: AriaAttributes["aria-invalid"];
-  "aria-required"?: AriaAttributes["aria-required"];
-  "aria-label"?: string | undefined;
-  "aria-labelledby"?: string | undefined;
+  'aria-describedby'?: string | undefined;
+  'aria-invalid'?: AriaAttributes['aria-invalid'];
+  'aria-required'?: AriaAttributes['aria-required'];
+  'aria-label'?: string | undefined;
+  'aria-labelledby'?: string | undefined;
 }
 
 /**
@@ -63,43 +55,27 @@ export interface FieldControlProps {
  */
 export function useFieldControl<P extends FieldControlProps>(props: P): P {
   const field = useContext(FieldControlContext);
-  if (
-    !field ||
-    props["aria-label"] !== undefined ||
-    props["aria-labelledby"] !== undefined
-  )
-    return props;
+  if (!field || props['aria-label'] !== undefined || props['aria-labelledby'] !== undefined) return props;
   return {
     ...props,
     id: field.id,
     disabled: field.disabled || props.disabled,
-    "aria-describedby": ids(field.describedBy, props["aria-describedby"]),
-    "aria-invalid": field.invalid || props["aria-invalid"],
-    "aria-required": field.required || props["aria-required"],
+    'aria-describedby': ids(field.describedBy, props['aria-describedby']),
+    'aria-invalid': field.invalid || props['aria-invalid'],
+    'aria-required': field.required || props['aria-required'],
   };
 }
 
 // Deduped so a control that applies useFieldControl twice keeps one copy of each id.
 function ids(...values: (string | false | undefined)[]) {
-  const tokens = values.flatMap((value) => (value ? value.split(/\s+/) : []));
-  return [...new Set(tokens.filter(Boolean))].join(" ") || undefined;
+  const tokens = values.flatMap(value => (value ? value.split(/\s+/) : []));
+  return [...new Set(tokens.filter(Boolean))].join(' ') || undefined;
 }
 
-function RequirementMarker({
-  required,
-  id,
-}: {
-  required: boolean;
-  id: string | undefined;
-}) {
+function RequirementMarker({ required, id }: { required: boolean; id: string | undefined }) {
   return (
-    <span
-      id={id}
-      aria-hidden={id ? undefined : true}
-      data-slot="requirement"
-      className="sprout-field-requirement"
-    >
-      {required ? "Required" : "Optional"}
+    <span id={id} aria-hidden={id ? undefined : true} data-slot="requirement" className="sprout-field-requirement">
+      {required ? 'Required' : 'Optional'}
     </span>
   );
 }
@@ -127,7 +103,7 @@ export type FieldProps = Requirement & {
  */
 export function Field({
   label,
-  labelVisibility = "visible",
+  labelVisibility = 'visible',
   helper,
   error,
   counter,
@@ -140,11 +116,7 @@ export function Field({
   const generatedId = useId();
   const controlId = id ?? generatedId;
   const locked = useContext(FieldsDisabled) || disabled === true;
-  const lineId = error
-    ? `${controlId}-error`
-    : helper
-      ? `${controlId}-helper`
-      : undefined;
+  const lineId = error ? `${controlId}-error` : helper ? `${controlId}-helper` : undefined;
   const markerId = required ? undefined : `${controlId}-requirement`;
   const counterId = counter ? `${controlId}-counter` : undefined;
   const control: FieldControl = {
@@ -159,51 +131,31 @@ export function Field({
       data-slot="field"
       data-disabled={locked || undefined}
       data-invalid={error ? true : undefined}
-      className={cn("sprout-field", className)}
+      className={cn('sprout-field', className)}
     >
       <div
         data-slot="field-header"
-        className={
-          labelVisibility === "screen-reader"
-            ? "sprout-field-sr-only"
-            : "sprout-field-header"
-        }
+        className={labelVisibility === 'screen-reader' ? 'sprout-field-sr-only' : 'sprout-field-header'}
       >
         <div className="sprout-field-heading">
-          <label
-            data-slot="label"
-            htmlFor={controlId}
-            className="sprout-field-label"
-          >
+          <label data-slot="label" htmlFor={controlId} className="sprout-field-label">
             {label}
           </label>
           <RequirementMarker required={required === true} id={markerId} />
         </div>
         {counter && (
-          <p
-            id={counterId}
-            data-slot="field-counter"
-            className="sprout-field-counter"
-          >
+          <p id={counterId} data-slot="field-counter" className="sprout-field-counter">
             {counter}
           </p>
         )}
       </div>
       <FieldControlContext value={control}>{children}</FieldControlContext>
       {error ? (
-        <p
-          id={lineId}
-          data-slot="field-error"
-          className="sprout-field-message sprout-field-error"
-        >
+        <p id={lineId} data-slot="field-error" className="sprout-field-message sprout-field-error">
           {error}
         </p>
       ) : helper ? (
-        <p
-          id={lineId}
-          data-slot="field-helper"
-          className="sprout-field-message"
-        >
+        <p id={lineId} data-slot="field-helper" className="sprout-field-message">
           {helper}
         </p>
       ) : null}
@@ -212,7 +164,7 @@ export function Field({
 }
 
 function FieldCheckbox({
-  variant = "default",
+  variant = 'default',
   className,
   ...props
 }: BaseCheckbox.Root.Props & { variant?: CheckboxFieldVariant | undefined }) {
@@ -220,13 +172,10 @@ function FieldCheckbox({
     <BaseCheckbox.Root
       data-slot="checkbox"
       data-variant={variant}
-      className={cn("sprout-field-checkbox", className)}
+      className={cn('sprout-field-checkbox', className)}
       {...props}
     >
-      <BaseCheckbox.Indicator
-        data-slot="checkbox-indicator"
-        className="sprout-field-checkbox-indicator"
-      >
+      <BaseCheckbox.Indicator data-slot="checkbox-indicator" className="sprout-field-checkbox-indicator">
         <Check aria-hidden="true" />
       </BaseCheckbox.Indicator>
     </BaseCheckbox.Root>
@@ -256,11 +205,11 @@ export type ChoiceGroupProps<V extends string> = Requirement & {
   className?: string | undefined;
 } & (
     | {
-        type: "checkbox";
+        type: 'checkbox';
         value: readonly V[];
         onValueChange: (value: V[]) => void;
       }
-    | { type: "radio"; value: V; onValueChange: (value: V) => void }
+    | { type: 'radio'; value: V; onValueChange: (value: V) => void }
   );
 
 /**
@@ -270,19 +219,19 @@ export type ChoiceGroupProps<V extends string> = Requirement & {
 export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
   const {
     legend,
-    legendVisibility = "visible",
+    legendVisibility = 'visible',
     helper,
     error,
     warning,
     options,
-    layout = "list",
+    layout = 'list',
     required,
     className,
   } = props;
   const generatedId = useId();
   const groupId = props.id ?? generatedId;
   const locked = useContext(FieldsDisabled) || props.disabled === true;
-  const radio = props.type === "radio";
+  const radio = props.type === 'radio';
   const legendId = `${groupId}-legend`;
   const errorId = error ? `${groupId}-error` : undefined;
   const helperId = helper ? `${groupId}-helper` : undefined;
@@ -290,21 +239,16 @@ export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
   const markerId = radio && required ? undefined : `${groupId}-requirement`;
   const labelling = {
     id: groupId,
-    "aria-labelledby": legendId,
-    "aria-describedby": ids(errorId, helperId, markerId),
+    'aria-labelledby': legendId,
+    'aria-describedby': ids(errorId, helperId, markerId),
   };
 
   const rows = options.map((option, index) => {
-    const checked =
-      props.type === "checkbox"
-        ? props.value.includes(option.value)
-        : props.value === option.value;
+    const checked = props.type === 'checkbox' ? props.value.includes(option.value) : props.value === option.value;
     const disabled = locked || option.disabled === true;
-    const descriptionId = option.description
-      ? `${groupId}-option-${index}-description`
-      : undefined;
+    const descriptionId = option.description ? `${groupId}-option-${index}-description` : undefined;
     let control: ReactElement;
-    if (props.type === "checkbox") {
+    if (props.type === 'checkbox') {
       const { value, onValueChange } = props;
       control = (
         <FieldCheckbox
@@ -312,12 +256,8 @@ export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
           disabled={disabled}
           aria-describedby={descriptionId}
           aria-invalid={error ? true : undefined}
-          onCheckedChange={(next) =>
-            onValueChange(
-              next
-                ? [...value, option.value]
-                : value.filter((item) => item !== option.value),
-            )
+          onCheckedChange={next =>
+            onValueChange(next ? [...value, option.value] : value.filter(item => item !== option.value))
           }
         />
       );
@@ -354,13 +294,7 @@ export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
 
   const content = (
     <>
-      <div
-        className={
-          legendVisibility === "screen-reader"
-            ? "sprout-field-sr-only"
-            : "sprout-choice-group-legend"
-        }
-      >
+      <div className={legendVisibility === 'screen-reader' ? 'sprout-field-sr-only' : 'sprout-choice-group-legend'}>
         <p id={legendId} className="sprout-choice-group-legend-text">
           {legend}
         </p>
@@ -372,11 +306,7 @@ export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
           {helper}
         </p>
       )}
-      <div
-        data-slot="choice-group-options"
-        data-layout={layout}
-        className="sprout-choice-group-options"
-      >
+      <div data-slot="choice-group-options" data-layout={layout} className="sprout-choice-group-options">
         {rows}
       </div>
       {error && (
@@ -387,8 +317,8 @@ export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
     </>
   );
 
-  const classes = cn("sprout-choice-group", className);
-  if (props.type === "radio") {
+  const classes = cn('sprout-choice-group', className);
+  if (props.type === 'radio') {
     const { onValueChange } = props;
     return (
       <RadioGroup
@@ -400,8 +330,8 @@ export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
         aria-required={required || undefined}
         aria-invalid={error ? true : undefined}
         {...labelling}
-        onValueChange={(next) => {
-          const option = options.find((item) => item.value === next);
+        onValueChange={next => {
+          const option = options.find(item => item.value === next);
           if (option) onValueChange(option.value);
         }}
       >
@@ -452,17 +382,13 @@ export function CheckboxField({
   const generatedId = useId();
   const fieldId = id ?? generatedId;
   const locked = useContext(FieldsDisabled) || disabled === true;
-  const lineId = error
-    ? `${fieldId}-error`
-    : helper
-      ? `${fieldId}-helper`
-      : undefined;
+  const lineId = error ? `${fieldId}-error` : helper ? `${fieldId}-helper` : undefined;
   return (
     <div
       id={fieldId}
       data-slot="checkbox-field"
       data-disabled={locked || undefined}
-      className={cn("sprout-checkbox-field", className)}
+      className={cn('sprout-checkbox-field', className)}
     >
       <label className="sprout-checkbox-field-label">
         <FieldCheckbox
@@ -471,22 +397,16 @@ export function CheckboxField({
           disabled={locked}
           aria-describedby={lineId}
           aria-invalid={error ? true : undefined}
-          onCheckedChange={(next) => onCheckedChange(next)}
+          onCheckedChange={next => onCheckedChange(next)}
         />
         <span className="sprout-checkbox-field-text">{label}</span>
       </label>
       {error ? (
-        <p
-          id={lineId}
-          className="sprout-field-message sprout-field-error sprout-checkbox-field-message"
-        >
+        <p id={lineId} className="sprout-field-message sprout-field-error sprout-checkbox-field-message">
           {error}
         </p>
       ) : helper ? (
-        <p
-          id={lineId}
-          className="sprout-field-message sprout-checkbox-field-message"
-        >
+        <p id={lineId} className="sprout-field-message sprout-checkbox-field-message">
           {helper}
         </p>
       ) : null}
@@ -494,28 +414,17 @@ export function CheckboxField({
   );
 }
 
-export type FieldSeparatorProps = Omit<
-  SeparatorLabelProps,
-  "variant" | "children"
-> & {
-  children?: SeparatorLabelProps["children"];
+export type FieldSeparatorProps = Omit<SeparatorLabelProps, 'variant' | 'children'> & {
+  children?: SeparatorLabelProps['children'];
 };
 
 /**
  * A labeled separator sized for a field stack: it pulls in the stack gap so
  * the line sits evenly between fields. Text such as "or" is optional.
  */
-export function FieldSeparator({
-  className,
-  children = null,
-  ...props
-}: FieldSeparatorProps) {
+export function FieldSeparator({ className, children = null, ...props }: FieldSeparatorProps) {
   return (
-    <Separator
-      data-slot="field-separator"
-      className={cn("sprout-field-separator", className)}
-      {...props}
-    >
+    <Separator data-slot="field-separator" className={cn('sprout-field-separator', className)} {...props}>
       {children}
     </Separator>
   );

@@ -59,7 +59,7 @@
   font-size: var(--sprout-text-sm);
   line-height: 1.25rem;
 }
-.settings-list-demo-note[data-tone="danger"] {
+.settings-list-demo-note[data-tone='danger'] {
   color: var(--sprout-danger);
 }
 .settings-list-demo-block {
@@ -166,10 +166,9 @@
 .settings-list-demo-input:focus-visible {
   border-color: var(--sprout-border-strong);
   outline: none;
-  box-shadow: 0 0 0 3px
-    color-mix(in oklab, var(--sprout-focus) 30%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--sprout-focus) 30%, transparent);
 }
-.settings-list-demo-input[aria-invalid="true"] {
+.settings-list-demo-input[aria-invalid='true'] {
   border-color: var(--sprout-danger);
 }
 .settings-list-demo-input:read-only {
@@ -188,8 +187,7 @@
   border-radius: 999px;
   background: var(--sprout-input);
   cursor: pointer;
-  transition: background-color var(--sprout-motion-normal)
-    var(--sprout-motion-ease);
+  transition: background-color var(--sprout-motion-normal) var(--sprout-motion-ease);
 }
 .settings-list-demo-switch[data-checked] {
   background: var(--sprout-primary);
@@ -262,12 +260,10 @@
   border-left: 1px solid var(--sprout-line);
 }
 .settings-list-demo-toggle:first-child {
-  border-radius: calc(var(--sprout-radius-control) - 1px) 0 0
-    calc(var(--sprout-radius-control) - 1px);
+  border-radius: calc(var(--sprout-radius-control) - 1px) 0 0 calc(var(--sprout-radius-control) - 1px);
 }
 .settings-list-demo-toggle:last-child {
-  border-radius: 0 calc(var(--sprout-radius-control) - 1px)
-    calc(var(--sprout-radius-control) - 1px) 0;
+  border-radius: 0 calc(var(--sprout-radius-control) - 1px) calc(var(--sprout-radius-control) - 1px) 0;
 }
 .settings-list-demo-toggle:hover {
   background: var(--sprout-hover);

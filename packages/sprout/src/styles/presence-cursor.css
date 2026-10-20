@@ -51,8 +51,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-presence-cursor {
-      transition: transform var(--sprout-motion-normal)
-        var(--sprout-motion-ease);
+      transition: transform var(--sprout-motion-normal) var(--sprout-motion-ease);
     }
   }
 

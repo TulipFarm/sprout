@@ -16,11 +16,7 @@
     max-width: 100%;
   }
   /* The darker tint keeps AA contrast on the hovered and open background. */
-  .sprout-toolbar-status-trigger[data-status="error"]:is(
-      :hover,
-      :active,
-      [data-popup-open]
-    ) {
+  .sprout-toolbar-status-trigger[data-status='error']:is(:hover, :active, [data-popup-open]) {
     background: color-mix(in srgb, var(--sprout-danger) 18%, transparent);
     color: var(--sprout-danger-hover);
   }
@@ -37,8 +33,7 @@
     gap: 2px;
     min-width: 0;
   }
-  .sprout-toolbar-status-content[data-status="error"]
-    .sprout-toolbar-status-title {
+  .sprout-toolbar-status-content[data-status='error'] .sprout-toolbar-status-title {
     color: var(--sprout-danger);
   }
 

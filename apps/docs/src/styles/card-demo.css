@@ -49,7 +49,7 @@
   display: grid;
   justify-items: center;
 }
-.card-demo-stage > [data-slot="card"] {
+.card-demo-stage > [data-slot='card'] {
   width: 100%;
   max-width: 24rem;
 }
@@ -249,7 +249,7 @@
   color: var(--sprout-warning);
   background: var(--sprout-warning-subtle);
 }
-.card-demo-kind[data-kind="workflow"] {
+.card-demo-kind[data-kind='workflow'] {
   color: var(--sprout-muted);
   background: var(--sprout-secondary);
 }

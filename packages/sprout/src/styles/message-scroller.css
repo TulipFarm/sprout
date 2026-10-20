@@ -22,18 +22,11 @@
     border-radius: inherit;
     outline: none;
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in oklab, var(--sprout-muted) 40%, transparent)
-      transparent;
+    scrollbar-color: color-mix(in oklab, var(--sprout-muted) 40%, transparent) transparent;
     scrollbar-gutter: stable;
   }
-  .sprout-message-scroller-viewport[data-scrollable~="end"]:not(
-      :focus-visible
-    ) {
-    mask-image: linear-gradient(
-      to bottom,
-      #000 calc(100% - var(--sprout-message-scroller-fade)),
-      transparent
-    );
+  .sprout-message-scroller-viewport[data-scrollable~='end']:not(:focus-visible) {
+    mask-image: linear-gradient(to bottom, #000 calc(100% - var(--sprout-message-scroller-fade)), transparent);
   }
   .sprout-message-scroller-viewport:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -69,33 +62,33 @@
     translate: -50% var(--sprout-message-scroller-shift);
     box-shadow: var(--sprout-shadow-panel);
   }
-  .sprout-message-scroller-button[data-variant="secondary"] {
+  .sprout-message-scroller-button[data-variant='secondary'] {
     border-color: var(--sprout-line);
     background: var(--sprout-surface);
     color: var(--sprout-text);
   }
-  .sprout-message-scroller-button[data-variant="secondary"]:hover,
-  .sprout-message-scroller-button[data-variant="secondary"]:active {
+  .sprout-message-scroller-button[data-variant='secondary']:hover,
+  .sprout-message-scroller-button[data-variant='secondary']:active {
     background: var(--sprout-hover);
   }
-  .sprout-message-scroller-button[data-direction="end"] {
+  .sprout-message-scroller-button[data-direction='end'] {
     bottom: 16px;
   }
-  .sprout-message-scroller-button[data-direction="start"] {
+  .sprout-message-scroller-button[data-direction='start'] {
     top: 16px;
   }
-  .sprout-message-scroller-button[data-direction="start"] svg {
+  .sprout-message-scroller-button[data-direction='start'] svg {
     rotate: 180deg;
   }
-  .sprout-message-scroller-button[data-active="false"] {
+  .sprout-message-scroller-button[data-active='false'] {
     pointer-events: none;
     opacity: 0;
     scale: 0.95;
   }
-  .sprout-message-scroller-button[data-active="false"][data-direction="end"] {
+  .sprout-message-scroller-button[data-active='false'][data-direction='end'] {
     --sprout-message-scroller-shift: 100%;
   }
-  .sprout-message-scroller-button[data-active="false"][data-direction="start"] {
+  .sprout-message-scroller-button[data-active='false'][data-direction='start'] {
     --sprout-message-scroller-shift: -100%;
   }
 
@@ -120,12 +113,12 @@
         background-color var(--sprout-motion-fast) ease-out,
         color var(--sprout-motion-fast) ease-out;
     }
-    .sprout-message-scroller-button[data-active="false"] {
+    .sprout-message-scroller-button[data-active='false'] {
       transition-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .sprout-message-scroller-button[data-active="false"] {
+    .sprout-message-scroller-button[data-active='false'] {
       --sprout-message-scroller-shift: 0;
       scale: 1;
     }

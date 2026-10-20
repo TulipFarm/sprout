@@ -14,12 +14,12 @@
     line-height: 1.25rem;
   }
   /* Inside a popover or card the host owns the surface and padding. */
-  [data-slot="popover-content"] > .sprout-calendar {
+  [data-slot='popover-content'] > .sprout-calendar {
     width: 100%;
     padding: 0;
     background: transparent;
   }
-  [data-slot="card-content"] .sprout-calendar {
+  [data-slot='card-content'] .sprout-calendar {
     background: transparent;
   }
 
@@ -61,7 +61,7 @@
     border-radius: var(--sprout-calendar-radius);
     pointer-events: auto;
   }
-  .sprout-calendar-nav-button[aria-disabled="true"] {
+  .sprout-calendar-nav-button[aria-disabled='true'] {
     pointer-events: none;
     opacity: 0.5;
   }
@@ -69,9 +69,7 @@
     width: 1rem;
     height: 1rem;
   }
-  .sprout-calendar:dir(rtl):not([dir])
-    .sprout-calendar-nav-button
-    .sprout-calendar-chevron {
+  .sprout-calendar:dir(rtl):not([dir]) .sprout-calendar-nav-button .sprout-calendar-chevron {
     transform: rotate(180deg);
   }
 
@@ -173,12 +171,10 @@
     background: var(--sprout-calendar-band);
   }
   .sprout-calendar-range-start {
-    border-radius: var(--sprout-calendar-radius) 0 0
-      var(--sprout-calendar-radius);
+    border-radius: var(--sprout-calendar-radius) 0 0 var(--sprout-calendar-radius);
   }
   .sprout-calendar-range-end {
-    border-radius: 0 var(--sprout-calendar-radius) var(--sprout-calendar-radius)
-      0;
+    border-radius: 0 var(--sprout-calendar-radius) var(--sprout-calendar-radius) 0;
   }
   .sprout-calendar-range-start.sprout-calendar-range-end {
     border-radius: var(--sprout-calendar-radius);
@@ -186,15 +182,11 @@
   .sprout-calendar-range-middle {
     border-radius: 0;
   }
-  .sprout-calendar:dir(rtl)
-    .sprout-calendar-range-start:not(.sprout-calendar-range-end) {
-    border-radius: 0 var(--sprout-calendar-radius) var(--sprout-calendar-radius)
-      0;
+  .sprout-calendar:dir(rtl) .sprout-calendar-range-start:not(.sprout-calendar-range-end) {
+    border-radius: 0 var(--sprout-calendar-radius) var(--sprout-calendar-radius) 0;
   }
-  .sprout-calendar:dir(rtl)
-    .sprout-calendar-range-end:not(.sprout-calendar-range-start) {
-    border-radius: var(--sprout-calendar-radius) 0 0
-      var(--sprout-calendar-radius);
+  .sprout-calendar:dir(rtl) .sprout-calendar-range-end:not(.sprout-calendar-range-start) {
+    border-radius: var(--sprout-calendar-radius) 0 0 var(--sprout-calendar-radius);
   }
   .sprout-calendar-hidden {
     visibility: hidden;
@@ -234,23 +226,23 @@
   .sprout-calendar-today .sprout-calendar-day-button:hover {
     background: var(--sprout-active);
   }
-  .sprout-calendar-day-button[data-range-middle="true"] {
+  .sprout-calendar-day-button[data-range-middle='true'] {
     border-radius: 0;
     background: var(--sprout-calendar-band);
     color: var(--sprout-text);
   }
-  .sprout-calendar-day-button[data-range-middle="true"]:hover {
+  .sprout-calendar-day-button[data-range-middle='true']:hover {
     background: var(--sprout-active);
   }
-  .sprout-calendar-day-button[data-selected-single="true"],
-  .sprout-calendar-day-button[data-range-start="true"],
-  .sprout-calendar-day-button[data-range-end="true"] {
+  .sprout-calendar-day-button[data-selected-single='true'],
+  .sprout-calendar-day-button[data-range-start='true'],
+  .sprout-calendar-day-button[data-range-end='true'] {
     background: var(--sprout-primary);
     color: var(--sprout-on-primary);
   }
-  .sprout-calendar-day-button[data-selected-single="true"]:hover,
-  .sprout-calendar-day-button[data-range-start="true"]:hover,
-  .sprout-calendar-day-button[data-range-end="true"]:hover {
+  .sprout-calendar-day-button[data-selected-single='true']:hover,
+  .sprout-calendar-day-button[data-range-start='true']:hover,
+  .sprout-calendar-day-button[data-range-end='true']:hover {
     background: var(--sprout-primary-hover);
   }
   /* A selected run that wraps a week keeps rounded ends at the row edges. */
@@ -258,12 +250,8 @@
     border-start-end-radius: var(--sprout-calendar-radius);
     border-end-end-radius: var(--sprout-calendar-radius);
   }
-  .sprout-calendar:not([data-week-numbers])
-    .sprout-calendar-day:first-child[data-selected]
-    .sprout-calendar-day-button,
-  .sprout-calendar[data-week-numbers]
-    .sprout-calendar-day:nth-child(2)[data-selected]
-    .sprout-calendar-day-button {
+  .sprout-calendar:not([data-week-numbers]) .sprout-calendar-day:first-child[data-selected] .sprout-calendar-day-button,
+  .sprout-calendar[data-week-numbers] .sprout-calendar-day:nth-child(2)[data-selected] .sprout-calendar-day-button {
     border-start-start-radius: var(--sprout-calendar-radius);
     border-end-start-radius: var(--sprout-calendar-radius);
   }
@@ -278,13 +266,13 @@
   }
 
   @media (forced-colors: active) {
-    .sprout-calendar-day-button[data-selected-single="true"],
-    .sprout-calendar-day-button[data-range-start="true"],
-    .sprout-calendar-day-button[data-range-end="true"] {
+    .sprout-calendar-day-button[data-selected-single='true'],
+    .sprout-calendar-day-button[data-range-start='true'],
+    .sprout-calendar-day-button[data-range-end='true'] {
       outline: 2px solid Highlight;
       outline-offset: -1px;
     }
-    .sprout-calendar-day-button[data-range-middle="true"] {
+    .sprout-calendar-day-button[data-range-middle='true'] {
       outline: 1px dashed Highlight;
       outline-offset: -1px;
     }

@@ -16,22 +16,9 @@
 
   /* A checkbox, switch, or radio inside the label, or just before it. */
   .sprout-label:has(
-    > :is(
-      [role="checkbox"],
-      [role="switch"],
-      [role="radio"],
-      input[type="checkbox"],
-      input[type="radio"]
-    )
+    > :is([role='checkbox'], [role='switch'], [role='radio'], input[type='checkbox'], input[type='radio'])
   ),
-  :is(
-      [role="checkbox"],
-      [role="switch"],
-      [role="radio"],
-      input[type="checkbox"],
-      input[type="radio"]
-    )
-    + .sprout-label {
+  :is([role='checkbox'], [role='switch'], [role='radio'], input[type='checkbox'], input[type='radio']) + .sprout-label {
     cursor: pointer;
     line-height: 1.25rem;
   }
@@ -41,9 +28,9 @@
     > :is(
       textarea,
       select,
-      input:not([type="checkbox"], [type="radio"], [type="hidden"]),
-      [data-slot="input"],
-      [data-slot="select-trigger"],
+      input:not([type='checkbox'], [type='radio'], [type='hidden']),
+      [data-slot='input'],
+      [data-slot='select-trigger'],
       [contenteditable]
     )
   ) {
@@ -52,29 +39,21 @@
     gap: 6px;
   }
 
-  .sprout-label:has(:disabled, [data-disabled]:not([data-disabled="false"])) {
+  .sprout-label:has(:disabled, [data-disabled]:not([data-disabled='false'])) {
     color: var(--sprout-muted);
     cursor: not-allowed;
   }
 
   :is(input, textarea, select, button):disabled ~ .sprout-label,
-  :is([role], [data-slot])[data-disabled]:not([data-disabled="false"])
-    ~ .sprout-label,
+  :is([role], [data-slot])[data-disabled]:not([data-disabled='false']) ~ .sprout-label,
   .sprout-label:has(
-    + :is(
-      :is(input, textarea, select, button):disabled,
-      [data-disabled]:not([data-disabled="false"])
-    )
+    + :is(:is(input, textarea, select, button):disabled, [data-disabled]:not([data-disabled='false']))
   ) {
     cursor: not-allowed;
     opacity: 0.5;
   }
 
-  :where(
-      [data-slot="field"][data-disabled]:not([data-disabled="false"]),
-      fieldset:disabled
-    )
-    .sprout-label {
+  :where([data-slot='field'][data-disabled]:not([data-disabled='false']), fieldset:disabled) .sprout-label {
     opacity: 0.5;
     pointer-events: none;
   }

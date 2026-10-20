@@ -1,11 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
-import {
-  ChatInputAttachments,
-  ChatInputComposer,
-  ChatInputStreaming,
-} from "../../components/ChatInputDemo";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { ChatInputAttachments, ChatInputComposer, ChatInputStreaming } from '../../components/ChatInputDemo';
 ---
 
 <Docs
@@ -14,12 +10,9 @@ import {
 >
   <h1 class="docs-title">Chat Input</h1>
   <p class="docs-lead">
-    The message box of a chat. Type <code>@</code> to tag an agent, <code
-      >/</code
-    >
-    to add a skill, or <code>#</code> to add a file. Markdown and shortcuts format
-    text. The bar holds attach and mode menus, a project picker, a model picker, and
-    send.
+    The message box of a chat. Type <code>@</code> to tag an agent, <code>/</code>
+    to add a skill, or <code>#</code> to add a file. Markdown and shortcuts format text. The bar holds attach and mode
+    menus, a project picker, a model picker, and send.
   </p>
   <section class="prose-section" id="chat-input-composer">
     <h2 class="section-title">Chat input</h2>
@@ -69,22 +62,19 @@ import {
     />
     <p>
       <code>value</code> is a Tiptap JSON document. Tags are
-      <code>chatReference</code> nodes with <code>kind</code>, <code>id</code>,
-      and
-      <code>label</code>. A trigger is on only when its source is set. A source
-      may return a promise. Leave out a menu or picker and its button goes away.
-      Give a mode a <code>color</code> (any CSS color) to tint the box border, the
+      <code>chatReference</code> nodes with <code>kind</code>, <code>id</code>, and
+      <code>label</code>. A trigger is on only when its source is set. A source may return a promise. Leave out a menu
+      or picker and its button goes away. Give a mode a <code>color</code> (any CSS color) to tint the box border, the
       mode chip, and its menu icon while that mode is on.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Keyboard</h2>
     <p>
-      <kbd>Enter</kbd> sends and <kbd>Shift</kbd>+<kbd>Enter</kbd> adds a line. In
-      the panel, <kbd>↓</kbd> and <kbd>↑</kbd> move, <kbd>Enter</kbd> or
+      <kbd>Enter</kbd> sends and <kbd>Shift</kbd>+<kbd>Enter</kbd> adds a line. In the panel, <kbd>↓</kbd> and{' '}
+      <kbd>↑</kbd> move, <kbd>Enter</kbd> or
       <kbd>Tab</kbd> adds, and <kbd>Escape</kbd> closes. <kbd>⌘B</kbd> is bold,
-      <kbd>⌘I</kbd> is italic, and <kbd>⌘K</kbd> turns a selected URL or email into
-      a link, or removes a link.
+      <kbd>⌘I</kbd> is italic, and <kbd>⌘K</kbd> turns a selected URL or email into a link, or removes a link.
     </p>
   </section>
 </Docs>

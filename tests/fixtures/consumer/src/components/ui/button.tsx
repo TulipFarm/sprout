@@ -1,5 +1,5 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps } from 'react';
 
-export function Button(props: ComponentProps<"button">) {
+export function Button(props: ComponentProps<'button'>) {
   return <button {...props} className="bg-primary" />;
 }

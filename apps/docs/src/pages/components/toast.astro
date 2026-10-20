@@ -1,26 +1,24 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   ToastCustomList,
   ToastIsolated,
   ToastPlayground,
   ToastPromise,
   ToastWithAction,
-} from "../../components/ToastDemo";
+} from '../../components/ToastDemo';
 ---
 
-<Docs
-  title="Toast"
-  description="Short notices that stack in a corner and dismiss themselves."
->
+<Docs title="Toast" description="Short notices that stack in a corner and dismiss themselves.">
   <h1 class="docs-title">Toast</h1>
   <p class="docs-lead">
-    A short notice about something that just happened: a save, a failed upload,
-    a sent invite. Toasts stack in the bottom corner, close on their own, and
-    never take focus away from what someone is doing.
+    A short notice about something that just happened: a save, a failed upload, a sent invite. Toasts stack in the
+    bottom corner, close on their own, and never take focus away from what someone is doing.
   </p>
-  <div class="mt-8" id="toast-demo"><ToastPlayground client:load /></div>
+  <div class="mt-8" id="toast-demo">
+    <ToastPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -41,43 +39,35 @@ toast.add({
 });`}
     />
     <p>
-      <code>Toaster</code> mounts a provider and a ready-made viewport. Call <code
-        >toast.add</code
-      > from event handlers, data hooks, or plain modules; it returns an id you can
-      pass to <code>toast.update</code> or <code>toast.close</code>.
+      <code>Toaster</code> mounts a provider and a ready-made viewport. Call <code>toast.add</code> from event handlers,
+      data hooks, or plain modules; it returns an id you can pass to <code>toast.update</code> or{' '}
+      <code>toast.close</code>.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Types</h2>
     <p>
-      <code>type</code> picks the icon: <code>"success"</code> (check), <code
-        >"error"</code
-      > (a cross in the danger color), <code>"warning"</code> (triangle), <code
-        >"info"</code
-      > (circle), and <code>"loading"</code> (spinner). Leave it out for a plain toast
-      with no icon. Toasts close after 5 seconds unless you pass another <code
-        >timeout</code
-      >; <code>{"timeout: 0"}</code> keeps one open until it’s dismissed.
+      <code>type</code> picks the icon: <code>"success"</code> (check), <code>"error"</code> (a cross in the danger
+      color), <code>"warning"</code> (triangle), <code>"info"</code> (circle), and <code>"loading"</code> (spinner).
+      Leave it out for a plain toast with no icon. Toasts close after 5 seconds unless you pass another{' '}
+      <code>timeout</code>; <code>{'timeout: 0'}</code> keeps one open until it’s dismissed.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Actions</h2>
     <p>
-      Pass <code>actionProps</code> to add one small outline button. Its <code
-        >children</code
-      > are the label and its <code>onClick</code> runs before the toast closes. Keep
-      the action optional: the same result must be reachable elsewhere, because the
-      toast can close before someone reaches it.
+      Pass <code>actionProps</code> to add one small outline button. Its <code>children</code> are the label and its{' '}
+      <code>onClick</code> runs before the toast closes. Keep the action optional: the same result must be reachable
+      elsewhere, because the toast can close before someone reaches it.
     </p>
     <ToastWithAction client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Isolated managers</h2>
     <p>
-      <code>createToastManager()</code> makes a separate stack. Hand it to <code
-        >{"<Toaster toastManager={manager}>"}</code
-      > and call <code>useToastManager().add</code> from components inside it. Create
-      it once, for example with <code>useState(createToastManager)</code>.
+      <code>createToastManager()</code> makes a separate stack. Hand it to{' '}
+      <code>{'<Toaster toastManager={manager}>'}</code> and call <code>useToastManager().add</code> from components
+      inside it. Create it once, for example with <code>useState(createToastManager)</code>.
     </p>
     <CodeBlock
       lang="tsx"
@@ -105,77 +95,60 @@ export function Example() {
   <section class="prose-section">
     <h2 class="section-title">Loading and results</h2>
     <p>
-      <code>toast.promise</code> shows a <code>"loading"</code> toast while the promise
-      runs, then replaces it in place with the <code>success</code> or <code
-        >error</code
-      > options. Each option can be a function of the result or the error.
+      <code>toast.promise</code> shows a <code>"loading"</code> toast while the promise runs, then replaces it in place
+      with the <code>success</code> or <code>error</code> options. Each option can be a function of the result or the
+      error.
     </p>
     <ToastPromise client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Custom layout</h2>
     <p>
-      For a different layout, compose the parts yourself: <code
-        >ToastProvider</code
-      >, <code>ToastPortal</code> (optional), <code>ToastViewport</code>, and a
-      list of <code>Toast</code> roots read from <code
-        >useToastManager().toasts</code
-      >, each holding <code>ToastContent</code>, <code>ToastTitle</code>, <code
-        >ToastDescription</code
-      >, <code>ToastAction</code>, and <code>ToastClose</code>. Title and
-      description fill themselves from the toast; the action renders only when
-      it has a label.
+      For a different layout, compose the parts yourself: <code>ToastProvider</code>, <code>ToastPortal</code>{' '}
+      (optional), <code>ToastViewport</code>, and a list of <code>Toast</code> roots read from{' '}
+      <code>useToastManager().toasts</code>, each holding <code>ToastContent</code>, <code>ToastTitle</code>,{' '}
+      <code>ToastDescription</code>, <code>ToastAction</code>, and <code>ToastClose</code>. Title and description fill
+      themselves from the toast; the action renders only when it has a label.
     </p>
     <ToastCustomList client:load />
   </section>
   <section class="prose-section" id="toast-api">
     <h2 class="section-title">API</h2>
     <p>
-      <code>Toaster</code> takes every <code>ToastProvider</code> prop: <code
-        >toastManager</code
-      > (defaults to the shared <code>toast</code>), <code>timeout</code> (5000),
-      and <code>limit</code> (3 visible). <code>toast.add</code> takes <code
-        >title</code
-      >, <code>description</code>, <code>type</code>, <code>timeout</code>, <code
-        >priority</code
-      >, <code>actionProps</code>, <code>onClose</code>, and <code>data</code>.
+      <code>Toaster</code> takes every <code>ToastProvider</code> prop: <code>toastManager</code> (defaults to the
+      shared <code>toast</code>), <code>timeout</code> (5000), and <code>limit</code> (3 visible).{' '}
+      <code>toast.add</code> takes <code>title</code>, <code>description</code>, <code>type</code>, <code>timeout</code>
+      , <code>priority</code>, <code>actionProps</code>, <code>onClose</code>, and <code>data</code>.
     </p>
     <p>
-      <code>ToastAction</code> renders a small outline <code>Button</code> and <code
-        >ToastClose</code
-      > a small ghost icon button labeled “Close toast”; pass <code>render</code
-      > to swap either. <code>Toast</code> takes <code>swipeDirection</code>
-      (down and right by default). Every part sets a <code>data-slot</code>, and <code
-        >toastTypeNames</code
-      > lists the types with icons.
+      <code>ToastAction</code> renders a small outline <code>Button</code> and <code>ToastClose</code> a small ghost
+      icon button labeled “Close toast”; pass <code>render</code> to swap either. <code>Toast</code> takes{' '}
+      <code>swipeDirection</code>
+      (down and right by default). Every part sets a <code>data-slot</code>, and <code>toastTypeNames</code> lists the
+      types with icons.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The viewport is a polite live region named “Notifications”, so new toasts
-      are announced without moving focus. Press F6 to jump to the stack; Tab
-      then moves through each toast’s action and close button, and focus returns
-      where it was when the stack empties. Hovering or focusing the stack
-      expands it and pauses every timer. Swipe a toast away on touch screens.
-      Pass <code>{'priority: "high"'}</code> for an urgent error that should be announced
+      The viewport is a polite live region named “Notifications”, so new toasts are announced without moving focus.
+      Press F6 to jump to the stack; Tab then moves through each toast’s action and close button, and focus returns
+      where it was when the stack empties. Hovering or focusing the stack expands it and pauses every timer. Swipe a
+      toast away on touch screens. Pass <code>{'priority: "high"'}</code> for an urgent error that should be announced
       right away.
     </p>
     <p>
-      Toasts slide up over 180ms and the stack reflows over 120–180ms. With
-      reduced motion they only fade. In forced-colors mode each toast keeps a
-      visible border.
+      Toasts slide up over 180ms and the stack reflows over 120–180ms. With reduced motion they only fade. In
+      forced-colors mode each toast keeps a visible border.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Toasts use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code
-        >--sprout-text</code
-      >, <code>--sprout-muted</code>, <code>--sprout-danger</code> for the error icon,
-      <code>--sprout-shadow-overlay</code>, and the panel radius. They need no
-      brand color, so they look the same with the neutral and TulipFarm themes
-      in light and dark mode.
+      Toasts use <code>--sprout-surface</code>, <code>--sprout-line</code>, <code>--sprout-text</code>,{' '}
+      <code>--sprout-muted</code>, <code>--sprout-danger</code> for the error icon,
+      <code>--sprout-shadow-overlay</code>, and the panel radius. They need no brand color, so they look the same with
+      the neutral and TulipFarm themes in light and dark mode.
     </p>
   </section>
 </Docs>

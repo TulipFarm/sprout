@@ -1,39 +1,16 @@
-"use client";
+'use client';
 
-import {
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  type ReactNode,
-  type Ref,
-} from "react";
-import { EditorContent, useEditor } from "@tiptap/react";
-import {
-  Extension,
-  InputRule,
-  type Editor,
-  type Extensions,
-  type JSONContent,
-} from "@tiptap/core";
-import {
-  Fragment,
-  Slice,
-  type Node as ProseMirrorNode,
-  type Schema,
-} from "@tiptap/pm/model";
-import {
-  Plugin,
-  PluginKey,
-  TextSelection,
-  type EditorState,
-} from "@tiptap/pm/state";
-import { canSplit } from "@tiptap/pm/transform";
-import StarterKit from "@tiptap/starter-kit";
-import Placeholder from "@tiptap/extension-placeholder";
-import { cn } from "../internal/classes.js";
+import { useEffect, useImperativeHandle, useMemo, useRef, type ReactNode, type Ref } from 'react';
+import { EditorContent, useEditor } from '@tiptap/react';
+import { Extension, InputRule, type Editor, type Extensions, type JSONContent } from '@tiptap/core';
+import { Fragment, Slice, type Node as ProseMirrorNode, type Schema } from '@tiptap/pm/model';
+import { Plugin, PluginKey, TextSelection, type EditorState } from '@tiptap/pm/state';
+import { canSplit } from '@tiptap/pm/transform';
+import StarterKit from '@tiptap/starter-kit';
+import Placeholder from '@tiptap/extension-placeholder';
+import { cn } from '../internal/classes.js';
 
-export const richTextEditorSizeNames = ["default", "compact"] as const;
+export const richTextEditorSizeNames = ['default', 'compact'] as const;
 
 export type RichTextEditorSize = (typeof richTextEditorSizeNames)[number];
 /** A Tiptap JSON document, such as `{ type: "doc", content: [{ type: "paragraph" }] }`. */
@@ -85,38 +62,26 @@ const openingFence = /^ {0,3}(?:(`{3,})([^`]*)|(~{3,})(.*))$/;
 
 function isFenceLine(state: EditorState) {
   const { $from, empty } = state.selection;
-  if (
-    !empty ||
-    $from.parent.type.name !== "paragraph" ||
-    $from.parentOffset !== $from.parent.content.size
-  )
+  if (!empty || $from.parent.type.name !== 'paragraph' || $from.parentOffset !== $from.parent.content.size)
     return false;
-  return fenceOnly.test(
-    $from.parent
-      .textBetween(0, $from.parentOffset, undefined, "\n")
-      .split("\n")
-      .at(-1) ?? "",
-  );
+  return fenceOnly.test($from.parent.textBetween(0, $from.parentOffset, undefined, '\n').split('\n').at(-1) ?? '');
 }
 
 function markdownBlocks(schema: Schema, text: string) {
   const blocks: ProseMirrorNode[] = [];
-  const lines = text.replace(/\r\n?/g, "\n").split("\n");
+  const lines = text.replace(/\r\n?/g, '\n').split('\n');
   while (lines.length) {
     const line = lines.shift()!;
     const open = openingFence.exec(line);
     if (!open) {
-      if (line.trim())
-        blocks.push(schema.nodes.paragraph!.create(null, schema.text(line)));
+      if (line.trim()) blocks.push(schema.nodes.paragraph!.create(null, schema.text(line)));
       continue;
     }
     const fence = open[1] ?? open[3]!;
     const info = (open[2] ?? open[4]!).trim().split(/\s/)[0]!;
     const closing = new RegExp(`^ {0,3}${fence[0]}{${fence.length},}\\s*$`);
-    const end = lines.findIndex((candidate) => closing.test(candidate));
-    const code = (
-      end === -1 ? lines.splice(0) : lines.splice(0, end + 1).slice(0, -1)
-    ).join("\n");
+    const end = lines.findIndex(candidate => closing.test(candidate));
+    const code = (end === -1 ? lines.splice(0) : lines.splice(0, end + 1).slice(0, -1)).join('\n');
     blocks.push(
       schema.nodes.codeBlock!.create(
         { language: fenceLanguage.test(info) ? info : null },
@@ -129,7 +94,7 @@ function markdownBlocks(schema: Schema, text: string) {
 
 // StarterKit's fence rule only fires at the start of a paragraph, but Shift+Enter leaves the fence after a hard break.
 const MarkdownCodeFence = Extension.create({
-  name: "markdownCodeFence",
+  name: 'markdownCodeFence',
   priority: 1000,
   addInputRules() {
     return [
@@ -139,37 +104,18 @@ const MarkdownCodeFence = Extension.create({
           const { tr, schema } = state;
           const codeBlock = schema.nodes.codeBlock!;
           const $from = tr.doc.resolve(range.from);
-          if (
-            $from.parent.type.name !== "paragraph" ||
-            range.to !== $from.end()
-          )
-            return null;
+          if ($from.parent.type.name !== 'paragraph' || range.to !== $from.end()) return null;
           const before = $from.nodeBefore;
           const attrs = { language: match[1] ?? null };
           if (!before) {
-            if (
-              !$from
-                .node(-1)
-                .canReplaceWith(
-                  $from.index(-1),
-                  $from.indexAfter(-1),
-                  codeBlock,
-                )
-            )
-              return null;
-            tr.delete(range.from, range.to).setBlockType(
-              range.from,
-              range.from,
-              codeBlock,
-              attrs,
-            );
+            if (!$from.node(-1).canReplaceWith($from.index(-1), $from.indexAfter(-1), codeBlock)) return null;
+            tr.delete(range.from, range.to).setBlockType(range.from, range.from, codeBlock, attrs);
             return;
           }
-          if (before.type.name !== "hardBreak") return null;
+          if (before.type.name !== 'hardBreak') return null;
           const splitAt = range.from - before.nodeSize;
           tr.delete(splitAt, range.to);
-          if (!canSplit(tr.doc, splitAt, 1, [{ type: codeBlock, attrs }]))
-            return null;
+          if (!canSplit(tr.doc, splitAt, 1, [{ type: codeBlock, attrs }])) return null;
           tr.split(splitAt, 1, [{ type: codeBlock, attrs }]);
           tr.setSelection(TextSelection.create(tr.doc, splitAt + 2));
         },
@@ -179,27 +125,22 @@ const MarkdownCodeFence = Extension.create({
   addProseMirrorPlugins() {
     return [
       new Plugin({
-        key: new PluginKey("markdownCodeFencePaste"),
+        key: new PluginKey('markdownCodeFencePaste'),
         props: {
           handlePaste: (view, event) => {
-            const text = event.clipboardData?.getData("text/plain") ?? "";
+            const text = event.clipboardData?.getData('text/plain') ?? '';
             if (
               view.state.selection.$from.parent.type.spec.code ||
-              !text.split(/\r\n?|\n/).some((line) => openingFence.test(line))
+              !text.split(/\r\n?|\n/).some(line => openingFence.test(line))
             )
               return false;
             const blocks = markdownBlocks(view.state.schema, text);
             const slice = new Slice(
               Fragment.from(blocks),
-              blocks[0]?.type.name === "paragraph" ? 1 : 0,
-              blocks.at(-1)?.type.name === "paragraph" ? 1 : 0,
+              blocks[0]?.type.name === 'paragraph' ? 1 : 0,
+              blocks.at(-1)?.type.name === 'paragraph' ? 1 : 0,
             );
-            view.dispatch(
-              view.state.tr
-                .replaceSelection(slice)
-                .scrollIntoView()
-                .setMeta("paste", true),
-            );
+            view.dispatch(view.state.tr.replaceSelection(slice).scrollIntoView().setMeta('paste', true));
             return true;
           },
         },
@@ -209,28 +150,28 @@ const MarkdownCodeFence = Extension.create({
 });
 
 const MessageFormatting = Extension.create({
-  name: "messageFormatting",
+  name: 'messageFormatting',
   extendMarkSchema(extension) {
-    if (extension.name === "link") return { inclusive: false };
+    if (extension.name === 'link') return { inclusive: false };
     return {};
   },
   addProseMirrorPlugins() {
     return [
       new Plugin({
-        key: new PluginKey("clearDeletedLink"),
+        key: new PluginKey('clearDeletedLink'),
         appendTransaction(transactions, oldState, state) {
           const link = state.schema.marks.link;
           if (
             !link ||
-            !transactions.some((transaction) => transaction.docChanged) ||
+            !transactions.some(transaction => transaction.docChanged) ||
             state.doc.content.size >= oldState.doc.content.size ||
             !state.selection.empty ||
-            !state.storedMarks?.some((mark) => mark.type === link)
+            !state.storedMarks?.some(mark => mark.type === link)
           )
             return null;
           if (
             state.selection.$from.parent.content.size &&
-            state.selection.$from.marks().some((mark) => mark.type === link)
+            state.selection.$from.marks().some(mark => mark.type === link)
           )
             return null;
           return state.tr.removeStoredMark(link);
@@ -242,12 +183,11 @@ const MessageFormatting = Extension.create({
 
 function within(state: EditorState, name: string) {
   const { $from } = state.selection;
-  for (let depth = $from.depth; depth > 0; depth -= 1)
-    if ($from.node(depth).type.name === name) return true;
+  for (let depth = $from.depth; depth > 0; depth -= 1) if ($from.node(depth).type.name === name) return true;
   return false;
 }
 
-const allowedProtocols = ["http:", "https:", "mailto:"];
+const allowedProtocols = ['http:', 'https:', 'mailto:'];
 
 const baseExtensions: Extensions = [
   StarterKit.configure({
@@ -258,10 +198,7 @@ const baseExtensions: Extensions = [
       openOnClick: false,
       isAllowedUri: (url, context) => {
         const protocol = /^[a-z][a-z\d+.-]*:/i.exec(url)?.[0].toLowerCase();
-        return (
-          context.defaultValidate(url) &&
-          (!protocol || allowedProtocols.includes(protocol))
-        );
+        return context.defaultValidate(url) && (!protocol || allowedProtocols.includes(protocol));
       },
     },
   }),
@@ -283,9 +220,9 @@ export function RichTextEditor({
   onChange,
   onSend,
   extensions = [],
-  placeholder = "Ask anything…",
+  placeholder = 'Ask anything…',
   disabled = false,
-  ariaLabel = "Message",
+  ariaLabel = 'Message',
   ariaInvalid = false,
   ariaDescribedBy,
   ariaExpanded,
@@ -294,8 +231,8 @@ export function RichTextEditor({
   toolbarAddon,
   className,
 }: RichTextEditorProps) {
-  const scale = size ?? "default";
-  const inline = condensed || scale === "compact";
+  const scale = size ?? 'default';
+  const inline = condensed || scale === 'compact';
   const onSendRef = useRef(onSend);
   const onChangeRef = useRef(onChange);
   const placeholderRef = useRef(placeholder);
@@ -305,11 +242,7 @@ export function RichTextEditor({
   placeholderRef.current = placeholder;
   suggestionOpenRef.current = ariaExpanded ?? false;
   const configured = useMemo(
-    () => [
-      ...baseExtensions,
-      Placeholder.configure({ placeholder: () => placeholderRef.current }),
-      ...extensions,
-    ],
+    () => [...baseExtensions, Placeholder.configure({ placeholder: () => placeholderRef.current }), ...extensions],
     [extensions],
   );
   const editor = useEditor({
@@ -320,35 +253,35 @@ export function RichTextEditor({
     editorProps: {
       // useEditor re-applies editorProps on every render, so these stay current.
       attributes: {
-        "data-slot": "input-group-control",
-        role: "textbox",
-        "aria-label": ariaLabel,
-        "aria-disabled": String(disabled),
-        "aria-multiline": "true",
-        "aria-autocomplete": "list",
-        "aria-invalid": ariaInvalid ? "true" : "false",
+        'data-slot': 'input-group-control',
+        role: 'textbox',
+        'aria-label': ariaLabel,
+        'aria-disabled': String(disabled),
+        'aria-multiline': 'true',
+        'aria-autocomplete': 'list',
+        'aria-invalid': ariaInvalid ? 'true' : 'false',
         // ARIA forbids aria-expanded on a textbox; aria-controls and aria-activedescendant carry the open list.
-        ...(ariaDescribedBy && { "aria-describedby": ariaDescribedBy }),
-        ...(ariaControls && { "aria-controls": ariaControls }),
+        ...(ariaDescribedBy && { 'aria-describedby': ariaDescribedBy }),
+        ...(ariaControls && { 'aria-controls': ariaControls }),
         ...(ariaActiveDescendant && {
-          "aria-activedescendant": ariaActiveDescendant,
+          'aria-activedescendant': ariaActiveDescendant,
         }),
-        class: "sprout-rich-text-editor-content",
+        class: 'sprout-rich-text-editor-content',
       },
       handleKeyDown: (view, event) => {
         if (event.isComposing) return false;
-        if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+        if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
           event.preventDefault();
           onSendRef.current();
           return true;
         }
-        if (event.key === "Enter" && suggestionOpenRef.current) return false;
-        if (event.key === "Enter" && isFenceLine(view.state)) return false;
+        if (event.key === 'Enter' && suggestionOpenRef.current) return false;
+        if (event.key === 'Enter' && isFenceLine(view.state)) return false;
         if (
-          event.key === "Enter" &&
+          event.key === 'Enter' &&
           !event.shiftKey &&
-          !within(view.state, "listItem") &&
-          !within(view.state, "codeBlock")
+          !within(view.state, 'listItem') &&
+          !within(view.state, 'codeBlock')
         ) {
           event.preventDefault();
           onSendRef.current();
@@ -365,8 +298,7 @@ export function RichTextEditor({
     () => ({
       focus: () => editor?.commands.focus(),
       editor: () => editor,
-      setContent: (content) =>
-        editor?.commands.setContent(content, { emitUpdate: true }),
+      setContent: content => editor?.commands.setContent(content, { emitUpdate: true }),
     }),
     [editor],
   );
@@ -389,9 +321,9 @@ export function RichTextEditor({
       data-condensed={condensed || undefined}
       data-disabled={disabled || undefined}
       className={cn(
-        "sprout-rich-text-editor",
+        'sprout-rich-text-editor',
         `sprout-rich-text-editor-size-${scale}`,
-        condensed && "sprout-rich-text-editor-condensed",
+        condensed && 'sprout-rich-text-editor-condensed',
         className,
       )}
     >
@@ -401,10 +333,7 @@ export function RichTextEditor({
       {toolbarAddon && (
         <div
           data-slot="rich-text-editor-toolbar"
-          className={cn(
-            "sprout-rich-text-editor-toolbar",
-            inline && "sprout-rich-text-editor-toolbar-inline",
-          )}
+          className={cn('sprout-rich-text-editor-toolbar', inline && 'sprout-rich-text-editor-toolbar-inline')}
         >
           {toolbarAddon}
         </div>

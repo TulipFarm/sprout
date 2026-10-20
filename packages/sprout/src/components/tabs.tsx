@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Tabs as BaseTabs } from "@base-ui/react/tabs";
-import { cn, stateClassName } from "../internal/classes.js";
+import { Tabs as BaseTabs } from '@base-ui/react/tabs';
+import { cn, stateClassName } from '../internal/classes.js';
 
-export const tabsListVariantNames = ["default", "line", "steps"] as const;
+export const tabsListVariantNames = ['default', 'line', 'steps'] as const;
 
 export type TabsListVariant = (typeof tabsListVariantNames)[number];
 
@@ -14,17 +14,13 @@ export type TabsProps = BaseTabs.Root.Props;
  * control the active tab, or `defaultValue` to let it manage itself.
  * `orientation="vertical"` stacks the list beside the panels.
  */
-export function Tabs({
-  className,
-  orientation = "horizontal",
-  ...props
-}: TabsProps) {
+export function Tabs({ className, orientation = 'horizontal', ...props }: TabsProps) {
   return (
     <BaseTabs.Root
       data-slot="tabs"
       orientation={orientation}
       {...props}
-      className={stateClassName<BaseTabs.Root.State>("sprout-tabs", className)}
+      className={stateClassName<BaseTabs.Root.State>('sprout-tabs', className)}
     />
   );
 }
@@ -35,15 +31,8 @@ export interface TabsListVariantOptions {
 }
 
 /** Returns the list classes, for a custom element that should look like a tab list. */
-export function tabsListVariants({
-  variant,
-  className,
-}: TabsListVariantOptions = {}) {
-  return cn(
-    "sprout-tabs-list",
-    `sprout-tabs-list-${variant ?? "default"}`,
-    className,
-  );
+export function tabsListVariants({ variant, className }: TabsListVariantOptions = {}) {
+  return cn('sprout-tabs-list', `sprout-tabs-list-${variant ?? 'default'}`, className);
 }
 
 export interface TabsListProps extends BaseTabs.List.Props {
@@ -55,20 +44,15 @@ export interface TabsListProps extends BaseTabs.List.Props {
   variant?: TabsListVariant;
 }
 
-export function TabsList({
-  className,
-  variant = "default",
-  ...props
-}: TabsListProps) {
+export function TabsList({ className, variant = 'default', ...props }: TabsListProps) {
   return (
     <BaseTabs.List
       data-slot="tabs-list"
       data-variant={variant}
       {...props}
       className={
-        typeof className === "function"
-          ? (state: BaseTabs.List.State) =>
-              tabsListVariants({ variant, className: className(state) })
+        typeof className === 'function'
+          ? (state: BaseTabs.List.State) => tabsListVariants({ variant, className: className(state) })
           : tabsListVariants({ variant, className })
       }
     />
@@ -86,10 +70,7 @@ export function TabsTrigger({ className, ...props }: TabsTriggerProps) {
     <BaseTabs.Tab
       data-slot="tabs-trigger"
       {...props}
-      className={stateClassName<BaseTabs.Tab.State>(
-        "sprout-tabs-trigger",
-        className,
-      )}
+      className={stateClassName<BaseTabs.Tab.State>('sprout-tabs-trigger', className)}
     />
   );
 }
@@ -105,10 +86,7 @@ export function TabsContent({ className, ...props }: TabsContentProps) {
     <BaseTabs.Panel
       data-slot="tabs-content"
       {...props}
-      className={stateClassName<BaseTabs.Panel.State>(
-        "sprout-tabs-content",
-        className,
-      )}
+      className={stateClassName<BaseTabs.Panel.State>('sprout-tabs-content', className)}
     />
   );
 }

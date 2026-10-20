@@ -177,15 +177,12 @@
   @media (prefers-reduced-motion: no-preference) {
     .sprout-chat-sources .sprout-chat-sources-trigger,
     .sprout-chat-sources-link {
-      transition: color var(--sprout-motion-fast, 120ms)
-        var(--sprout-motion-ease, ease-out);
+      transition: color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
     .sprout-chat-sources-citation.sprout-button {
       transition:
-        color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out),
-        background-color var(--sprout-motion-fast, 120ms)
-          var(--sprout-motion-ease, ease-out);
+        color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out),
+        background-color var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
     }
   }
 }

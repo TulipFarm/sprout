@@ -67,8 +67,7 @@
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    transition: text-decoration-thickness var(--sprout-motion-fast)
-      var(--sprout-motion-ease);
+    transition: text-decoration-thickness var(--sprout-motion-fast) var(--sprout-motion-ease);
   }
   .sprout-message-response a:hover {
     text-decoration-thickness: 2px;
@@ -133,7 +132,7 @@
   .sprout-message-response .contains-task-list .contains-task-list {
     padding-left: 1.5rem;
   }
-  .sprout-message-response input[type="checkbox"] {
+  .sprout-message-response input[type='checkbox'] {
     margin: 0 0.5rem 0 0;
     vertical-align: -1px;
     accent-color: var(--sprout-primary);
@@ -154,8 +153,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-message-response-caret {
-      animation: sprout-message-response-pulse 2s cubic-bezier(0.4, 0, 0.6, 1)
-        infinite;
+      animation: sprout-message-response-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
   }
   @media (prefers-reduced-motion: reduce) {

@@ -122,7 +122,7 @@
   user-select: none;
 }
 .dropdown-demo-menubar-trigger:hover,
-.dropdown-demo-menubar-trigger[aria-expanded="true"] {
+.dropdown-demo-menubar-trigger[aria-expanded='true'] {
   background: var(--sprout-hover);
 }
 .dropdown-demo-menubar-trigger:focus-visible {

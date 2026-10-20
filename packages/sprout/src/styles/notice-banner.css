@@ -54,8 +54,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-notice-banner {
-      animation: sprout-notice-banner-in var(--sprout-motion-normal)
-        var(--sprout-motion-ease);
+      animation: sprout-notice-banner-in var(--sprout-motion-normal) var(--sprout-motion-ease);
     }
   }
 

@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   Message,
   MessageAvatar,
@@ -10,16 +10,13 @@ import {
   MessageHeader,
   MessageReactions,
   messageBubbleVariantNames,
-} from "../../packages/sprout/src/components/message.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/message.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("message %s %s", async (theme, mode) => {
+it.each(themes)('message %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
-    <div
-      data-testid="shot"
-      style={{ width: 520, padding: 24, background: "var(--sprout-surface)" }}
-    >
+    <div data-testid="shot" style={{ width: 520, padding: 24, background: 'var(--sprout-surface)' }}>
       <MessageGroup>
         <Message>
           <MessageAvatar>
@@ -27,8 +24,8 @@ it.each(themes)("message %s %s", async (theme, mode) => {
               style={{
                 width: 32,
                 height: 32,
-                display: "grid",
-                placeItems: "center",
+                display: 'grid',
+                placeItems: 'center',
               }}
             >
               AM
@@ -58,7 +55,7 @@ it.each(themes)("message %s %s", async (theme, mode) => {
             <MessageFooter>Sent</MessageFooter>
           </MessageContent>
         </Message>
-        {messageBubbleVariantNames.map((variant) => (
+        {messageBubbleVariantNames.map(variant => (
           <MessageBubble key={variant} variant={variant}>
             {variant} bubble
           </MessageBubble>
@@ -67,7 +64,5 @@ it.each(themes)("message %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`message-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`message-${theme}-${mode}`);
 });

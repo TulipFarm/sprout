@@ -87,13 +87,13 @@
   text-align: center;
   overflow: hidden;
 }
-.aspect-ratio-demo-placeholder[data-state="error"] {
+.aspect-ratio-demo-placeholder[data-state='error'] {
   border-color: color-mix(in oklab, var(--sprout-danger) 35%, transparent);
   background: var(--sprout-danger-subtle);
   color: var(--sprout-danger);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .aspect-ratio-demo-placeholder[data-state="loading"] {
+  .aspect-ratio-demo-placeholder[data-state='loading'] {
     animation: aspect-ratio-demo-pulse 1.6s ease-in-out infinite;
   }
 }

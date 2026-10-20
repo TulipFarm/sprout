@@ -45,7 +45,7 @@
 .toolbar-status-demo-toggle:hover:not(:disabled) {
   background: var(--sprout-hover);
 }
-.toolbar-status-demo-toggle[aria-pressed="true"] {
+.toolbar-status-demo-toggle[aria-pressed='true'] {
   border-color: var(--sprout-border-strong);
   background: var(--sprout-hover);
 }
@@ -112,7 +112,7 @@
   container-type: inline-size;
   container-name: selection;
 }
-.toolbar-status-demo-frame[data-width="narrow"] {
+.toolbar-status-demo-frame[data-width='narrow'] {
   max-width: 24rem;
 }
 .toolbar-status-demo-frame-label {

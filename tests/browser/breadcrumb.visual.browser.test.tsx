@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -8,18 +8,18 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../../packages/sprout/src/components/breadcrumb.js";
-import { setTheme, settle, themes } from "./support.js";
+} from '../../packages/sprout/src/components/breadcrumb.js';
+import { setTheme, settle, themes } from './support.js';
 
-it.each(themes)("breadcrumb %s %s", async (theme, mode) => {
+it.each(themes)('breadcrumb %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "inline-grid",
+        display: 'inline-grid',
         padding: 16,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <Breadcrumb>
@@ -49,9 +49,7 @@ it.each(themes)("breadcrumb %s %s", async (theme, mode) => {
     </div>,
   );
   // Park the pointer on the padding so no link renders its hover color.
-  await screen.getByTestId("shot").hover({ position: { x: 2, y: 2 } });
+  await screen.getByTestId('shot').hover({ position: { x: 2, y: 2 } });
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`breadcrumb-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`breadcrumb-${theme}-${mode}`);
 });

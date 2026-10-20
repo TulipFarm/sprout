@@ -5,16 +5,8 @@
     --sprout-board-height: 36rem;
     --sprout-board-cell-height: 24rem;
     --sprout-board-gap: 0.5rem;
-    --sprout-board-column-bg: color-mix(
-      in oklab,
-      var(--sprout-hover) 40%,
-      var(--sprout-canvas)
-    );
-    --sprout-board-card-border: color-mix(
-      in oklab,
-      var(--sprout-border) 30%,
-      var(--sprout-line)
-    );
+    --sprout-board-column-bg: color-mix(in oklab, var(--sprout-hover) 40%, var(--sprout-canvas));
+    --sprout-board-card-border: color-mix(in oklab, var(--sprout-border) 30%, var(--sprout-line));
     display: flex;
     flex-direction: column;
     height: var(--sprout-board-height);
@@ -65,7 +57,7 @@
   }
   .sprout-board-frame::before,
   .sprout-board-frame::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     bottom: 0;
@@ -168,8 +160,7 @@
     font: inherit;
     cursor: pointer;
     border-radius: var(--sprout-radius-control);
-    transition: background-color var(--sprout-motion-fast)
-      var(--sprout-motion-ease);
+    transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
   }
   .sprout-board-column-toggle,
   .sprout-board-grip {
@@ -266,7 +257,7 @@
     padding: 0.375rem 0.75rem 0.125rem;
     border-top: 1px solid var(--sprout-line);
   }
-  .sprout-board-lane[data-index="0"] .sprout-board-lane-bar {
+  .sprout-board-lane[data-index='0'] .sprout-board-lane-bar {
     border-top: 0;
   }
   .sprout-board-lane-toggle {
@@ -355,18 +346,14 @@
       border-color var(--sprout-motion-fast) var(--sprout-motion-ease),
       background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
   }
-  .sprout-board-card[aria-roledescription="draggable card"] {
+  .sprout-board-card[aria-roledescription='draggable card'] {
     cursor: grab;
   }
   .sprout-board-card[data-openable] {
     cursor: pointer;
   }
   .sprout-board-card:hover {
-    border-color: color-mix(
-      in oklab,
-      var(--sprout-border) 70%,
-      var(--sprout-line)
-    );
+    border-color: color-mix(in oklab, var(--sprout-border) 70%, var(--sprout-line));
   }
   .sprout-board-card:focus-visible {
     outline: 2px solid var(--sprout-focus-ring);
@@ -374,11 +361,7 @@
   }
   .sprout-board-card[data-selected] {
     border-color: var(--sprout-primary);
-    background: color-mix(
-      in oklab,
-      var(--sprout-primary-subtle) 60%,
-      var(--sprout-card-raised)
-    );
+    background: color-mix(in oklab, var(--sprout-primary-subtle) 60%, var(--sprout-card-raised));
   }
   .sprout-board-card[data-custom] {
     display: block;

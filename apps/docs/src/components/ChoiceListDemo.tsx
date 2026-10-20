@@ -1,25 +1,13 @@
-import { useEffect, useId, useState, type ReactNode } from "react";
-import { Badge } from "@tulipfarm/sprout/badge";
-import { Button } from "@tulipfarm/sprout/button";
-import {
-  ChoiceList,
-  ChoiceSummary,
-  type ChoiceListOption,
-} from "@tulipfarm/sprout/choice-list";
-import { Field } from "@tulipfarm/sprout/field";
-import { Form, FormFooter } from "@tulipfarm/sprout/form";
-import { Textarea } from "@tulipfarm/sprout/textarea";
-import "../styles/choice-list-demo.css";
+import { useEffect, useId, useState, type ReactNode } from 'react';
+import { Badge } from '@tulipfarm/sprout/badge';
+import { Button } from '@tulipfarm/sprout/button';
+import { ChoiceList, ChoiceSummary, type ChoiceListOption } from '@tulipfarm/sprout/choice-list';
+import { Field } from '@tulipfarm/sprout/field';
+import { Form, FormFooter } from '@tulipfarm/sprout/form';
+import { Textarea } from '@tulipfarm/sprout/textarea';
+import '../styles/choice-list-demo.css';
 
-function Example({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+function Example({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
     <section className="choice-list-demo-card" aria-label={title}>
       <header>
@@ -31,15 +19,7 @@ function Example({
   );
 }
 
-function Panel({
-  caption,
-  testId,
-  children,
-}: {
-  caption: string;
-  testId?: string;
-  children: ReactNode;
-}) {
+function Panel({ caption, testId, children }: { caption: string; testId?: string; children: ReactNode }) {
   return (
     <div className="choice-list-demo-panel" data-testid={testId}>
       <p className="choice-list-demo-caption">{caption}</p>
@@ -52,64 +32,54 @@ function Panel({
    "(Recommended)" in the label; Bud reply styles carry an extra value. */
 const replyStyles = [
   {
-    id: "short",
-    label: "Short answers",
-    value: "Keep replies short and direct. Lead with the answer.",
+    id: 'short',
+    label: 'Short answers',
+    value: 'Keep replies short and direct. Lead with the answer.',
   },
   {
-    id: "detailed",
-    label: "Detailed answers",
-    value: "Give detailed replies with clear explanations and useful examples.",
+    id: 'detailed',
+    label: 'Detailed answers',
+    value: 'Give detailed replies with clear explanations and useful examples.',
   },
-  { id: "custom", label: "Custom", value: "" },
+  { id: 'custom', label: 'Custom', value: '' },
 ];
 const repositories: ChoiceListOption[] = [
-  { id: "web", label: "tulipfarm/web (Recommended)" },
-  { id: "api", label: "tulipfarm/api" },
-  { id: "docs", label: "tulipfarm/docs" },
+  { id: 'web', label: 'tulipfarm/web (Recommended)' },
+  { id: 'api', label: 'tulipfarm/api' },
+  { id: 'docs', label: 'tulipfarm/docs' },
 ];
 const channels: ChoiceListOption[] = [
-  { id: "product", label: "#product" },
-  { id: "support", label: "#support-escalations" },
-  { id: "releases", label: "#eng-releases" },
-  { id: "design", label: "#design-reviews" },
-  { id: "incidents", label: "#incidents" },
-  { id: "sales", label: "#sales-wins" },
-  { id: "random", label: "#random" },
+  { id: 'product', label: '#product' },
+  { id: 'support', label: '#support-escalations' },
+  { id: 'releases', label: '#eng-releases' },
+  { id: 'design', label: '#design-reviews' },
+  { id: 'incidents', label: '#incidents' },
+  { id: 'sales', label: '#sales-wins' },
+  { id: 'random', label: '#random' },
 ];
-const fruits = ["Apple", "Apricot", "Blueberry", "Cherry", "Pear"];
+const fruits = ['Apple', 'Apricot', 'Blueberry', 'Cherry', 'Pear'];
 
 function LayoutPairs() {
-  const [style, setStyle] = useState<string[]>(["short"]);
-  const [fruit, setFruit] = useState<string[]>(["Apple", "Cherry"]);
+  const [style, setStyle] = useState<string[]>(['short']);
+  const [fruit, setFruit] = useState<string[]>(['Apple', 'Cherry']);
   const [repo, setRepo] = useState<string[]>([]);
-  const [watch, setWatch] = useState<string[]>(["support"]);
+  const [watch, setWatch] = useState<string[]>(['support']);
   return (
     <div className="choice-list-demo-grid">
       <Panel caption="Stacked · single (radio)" testId="layout-stacked-single">
-        <ChoiceList
-          legend="Reply style"
-          options={replyStyles}
-          value={style}
-          onChange={setStyle}
-        />
+        <ChoiceList legend="Reply style" options={replyStyles} value={style} onChange={setStyle} />
       </Panel>
-      <Panel
-        caption="Stacked · multiple (checkbox)"
-        testId="layout-stacked-multiple"
-      >
+      <Panel caption="Stacked · multiple (checkbox)" testId="layout-stacked-multiple">
         <ChoiceList
           legend="Multiple choices"
           multiple
-          options={fruits.map((id) => ({ id, label: id }))}
+          options={fruits.map(id => ({ id, label: id }))}
           value={fruit}
           onChange={setFruit}
         />
       </Panel>
       <Panel caption="Compact · single (radio)" testId="layout-compact-single">
-        <p className="choice-list-demo-prompt">
-          Which repository should I open the issue in?
-        </p>
+        <p className="choice-list-demo-prompt">Which repository should I open the issue in?</p>
         <ChoiceList
           layout="compact"
           legend="Choose one answer"
@@ -118,13 +88,8 @@ function LayoutPairs() {
           onChange={setRepo}
         />
       </Panel>
-      <Panel
-        caption="Compact · multiple (checkbox), scrolls past ~6 rows"
-        testId="layout-compact-multiple"
-      >
-        <p className="choice-list-demo-prompt">
-          Which Slack channels should I summarize each morning?
-        </p>
+      <Panel caption="Compact · multiple (checkbox), scrolls past ~6 rows" testId="layout-compact-multiple">
+        <p className="choice-list-demo-prompt">Which Slack channels should I summarize each morning?</p>
         <ChoiceList
           layout="compact"
           multiple
@@ -138,39 +103,29 @@ function LayoutPairs() {
   );
 }
 
-type PreferenceState = "asking" | "saving" | "saved";
+type PreferenceState = 'asking' | 'saving' | 'saved';
 
 function BudPreference() {
   const id = useId();
   const [style, setStyle] = useState<string[]>([]);
-  const [answer, setAnswer] = useState("");
-  const [state, setState] = useState<PreferenceState>("asking");
-  const custom = style[0] === "custom";
-  const value = custom
-    ? answer.trim()
-    : (replyStyles.find((item) => item.id === style[0])?.value ?? "");
-  const busy = state === "saving";
+  const [answer, setAnswer] = useState('');
+  const [state, setState] = useState<PreferenceState>('asking');
+  const custom = style[0] === 'custom';
+  const value = custom ? answer.trim() : (replyStyles.find(item => item.id === style[0])?.value ?? '');
+  const busy = state === 'saving';
   useEffect(() => {
     if (!busy) return;
-    const timer = setTimeout(() => setState("saved"), 1200);
+    const timer = setTimeout(() => setState('saved'), 1200);
     return () => clearTimeout(timer);
   }, [busy]);
   return (
-    <section
-      aria-label="Personal preference"
-      className="choice-list-demo-preference"
-      data-testid="bud-preference"
-    >
-      {state === "saved" ? (
+    <section aria-label="Personal preference" className="choice-list-demo-preference" data-testid="bud-preference">
+      {state === 'saved' ? (
         <>
           <p role="status">Remembered for this workspace</p>
           <p>{value}</p>
           <div>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setState("asking")}
-            >
+            <Button size="sm" variant="outline" onClick={() => setState('asking')}>
               Undo
             </Button>
           </div>
@@ -182,16 +137,10 @@ function BudPreference() {
             label="Answer Bud's preference question"
             disabled={busy}
             onSubmit={() => {
-              if (value) setState("saving");
+              if (value) setState('saving');
             }}
           >
-            <ChoiceList
-              legend="Reply style"
-              options={replyStyles}
-              value={style}
-              onChange={setStyle}
-              disabled={busy}
-            />
+            <ChoiceList legend="Reply style" options={replyStyles} value={style} onChange={setStyle} disabled={busy} />
             {custom && (
               <Field
                 id={`${id}-answer`}
@@ -199,24 +148,20 @@ function BudPreference() {
                 required
                 helper="Saved for this workspace. You can undo it."
               >
-                <Textarea
-                  value={answer}
-                  maxLength={2000}
-                  onChange={(event) => setAnswer(event.target.value)}
-                />
+                <Textarea value={answer} maxLength={2000} onChange={event => setAnswer(event.target.value)} />
               </Field>
             )}
             <FormFooter
               layout="compact"
               dirty={!!value}
               submit={{
-                label: "Save answer",
-                pendingLabel: "Saving answer...",
+                label: 'Save answer',
+                pendingLabel: 'Saving answer...',
                 state: busy
-                  ? { kind: "busy" }
+                  ? { kind: 'busy' }
                   : value
-                    ? { kind: "ready" }
-                    : { kind: "blocked", reason: "Choose a reply style." },
+                    ? { kind: 'ready' }
+                    : { kind: 'blocked', reason: 'Choose a reply style.' },
               }}
             >
               <Button
@@ -225,7 +170,7 @@ function BudPreference() {
                 disabled={busy}
                 onClick={() => {
                   setStyle([]);
-                  setAnswer("");
+                  setAnswer('');
                 }}
               >
                 Skip
@@ -238,10 +183,10 @@ function BudPreference() {
   );
 }
 
-type QuestionStatus = "pending" | "answered" | "cancelled";
+type QuestionStatus = 'pending' | 'answered' | 'cancelled';
 
 function textError(text: string) {
-  return text.length > 2000 ? "Keep your answer under 2,000 characters." : null;
+  return text.length > 2000 ? 'Keep your answer under 2,000 characters.' : null;
 }
 
 function AgentQuestion({
@@ -260,47 +205,33 @@ function AgentQuestion({
   testId: string;
 }) {
   const id = useId();
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [choices, setChoices] = useState<string[]>([]);
   const [typed, setTyped] = useState(false);
   const [attempted, setAttempted] = useState(false);
-  const [status, setStatus] = useState<QuestionStatus>("pending");
+  const [status, setStatus] = useState<QuestionStatus>('pending');
   const [recorded, setRecorded] = useState<string | undefined>();
-  const validation = typed
-    ? textError(text)
-    : choices.length
-      ? null
-      : "Choose an answer.";
+  const validation = typed ? textError(text) : choices.length ? null : 'Choose an answer.';
   const blankText = typed && !text.trim();
-  const error = attempted
-    ? blankText
-      ? "Enter your answer."
-      : validation
-    : null;
-  const labels = new Map(options.map((choice) => [choice.id, choice.label]));
+  const error = attempted ? (blankText ? 'Enter your answer.' : validation) : null;
+  const labels = new Map(options.map(choice => [choice.id, choice.label]));
   const reset = () => {
-    setStatus("pending");
+    setStatus('pending');
     setChoices([]);
-    setText("");
+    setText('');
     setTyped(false);
     setAttempted(false);
     setRecorded(undefined);
   };
-  if (status !== "pending")
+  if (status !== 'pending')
     return (
-      <section
-        aria-labelledby={`${id}-title`}
-        className="choice-list-demo-answered"
-        data-testid={testId}
-      >
+      <section aria-labelledby={`${id}-title`} className="choice-list-demo-answered" data-testid={testId}>
         <h4 id={`${id}-title`} className="choice-list-demo-sr-only">
           {prompt}
         </h4>
         <ChoiceSummary prompt={prompt} answer={recorded} />
         <p role="status" className="choice-list-demo-status">
-          {status === "answered"
-            ? "Your answer was recorded."
-            : "This request was cancelled without an answer."}
+          {status === 'answered' ? 'Your answer was recorded.' : 'This request was cancelled without an answer.'}
         </p>
         <div className="choice-list-demo-status">
           <Button size="xs" variant="ghost" onClick={reset}>
@@ -310,11 +241,7 @@ function AgentQuestion({
       </section>
     );
   return (
-    <section
-      aria-labelledby={`${id}-title`}
-      className="choice-list-demo-question"
-      data-testid={testId}
-    >
+    <section aria-labelledby={`${id}-title`} className="choice-list-demo-question" data-testid={testId}>
       <h4 id={`${id}-title`} className="choice-list-demo-question-title">
         {prompt}
       </h4>
@@ -323,26 +250,20 @@ function AgentQuestion({
         onSubmit={() => {
           if (locked) return;
           setAttempted(true);
-          if (validation || blankText) return "invalid";
-          setRecorded(
-            typed
-              ? text
-              : choices
-                  .map((choice) => labels.get(choice) ?? "Unavailable choice")
-                  .join(", "),
-          );
-          setStatus("answered");
+          if (validation || blankText) return 'invalid';
+          setRecorded(typed ? text : choices.map(choice => labels.get(choice) ?? 'Unavailable choice').join(', '));
+          setStatus('answered');
         }}
       >
         <ChoiceList
           layout="compact"
-          legend={multiple ? "Choose one or more answers" : "Choose one answer"}
+          legend={multiple ? 'Choose one or more answers' : 'Choose one answer'}
           multiple={multiple}
           options={options}
           value={typed ? [] : choices}
           disabled={locked}
           error={!typed ? (error ?? undefined) : undefined}
-          onChange={(value) => {
+          onChange={value => {
             setChoices(value);
             setTyped(false);
           }}
@@ -352,7 +273,7 @@ function AgentQuestion({
                   id: `${id}-custom`,
                   value: text,
                   active: typed,
-                  onChange: (value) => {
+                  onChange: value => {
                     setText(value);
                     setTyped(true);
                   },
@@ -374,26 +295,19 @@ function AgentQuestion({
                 aria-controls={`${id}-custom`}
                 onClick={() => setTyped(!typed)}
               >
-                {typed ? "Use a listed answer" : "Other answer"}
+                {typed ? 'Use a listed answer' : 'Other answer'}
               </Button>
             ) : undefined
           }
           dirty={!!text || choices.length > 0}
           submit={{
-            label: "Continue",
-            pendingLabel: "Saving response…",
-            state: locked
-              ? { kind: "blocked", reason: "Wait for Bud to finish replying." }
-              : { kind: "ready" },
+            label: 'Continue',
+            pendingLabel: 'Saving response…',
+            state: locked ? { kind: 'blocked', reason: 'Wait for Bud to finish replying.' } : { kind: 'ready' },
           }}
-          error={error ? "Choose or enter an answer to continue." : undefined}
+          error={error ? 'Choose or enter an answer to continue.' : undefined}
         >
-          <Button
-            variant="ghost"
-            size="xs"
-            disabled={locked}
-            onClick={() => setStatus("cancelled")}
-          >
+          <Button variant="ghost" size="xs" disabled={locked} onClick={() => setStatus('cancelled')}>
             Skip
           </Button>
         </FormFooter>
@@ -403,23 +317,23 @@ function AgentQuestion({
 }
 
 function RecommendedCustom() {
-  const [value, setValue] = useState<string[]>(["short"]);
-  const [text, setText] = useState("");
+  const [value, setValue] = useState<string[]>(['short']);
+  const [text, setText] = useState('');
   const [custom, setCustom] = useState(false);
   const labels: Record<string, string> = {
-    short: "Short answers",
-    detail: "Detailed answers",
+    short: 'Short answers',
+    detail: 'Detailed answers',
   };
   return (
     <div className="choice-list-demo-stack" data-testid="recommended-custom">
       <ChoiceList
         legend="Reply style"
         options={[
-          { id: "short", label: "Short answers (Recommended)" },
-          { id: "detail", label: "Detailed answers" },
+          { id: 'short', label: 'Short answers (Recommended)' },
+          { id: 'detail', label: 'Detailed answers' },
         ]}
         value={custom ? [] : value}
-        onChange={(next) => {
+        onChange={next => {
           setValue(next);
           setCustom(false);
         }}
@@ -431,10 +345,7 @@ function RecommendedCustom() {
           error: null,
         }}
       />
-      <ChoiceSummary
-        prompt="Reply style"
-        answer={custom ? text : value.map((id) => labels[id]).join(", ")}
-      />
+      <ChoiceSummary prompt="Reply style" answer={custom ? text : value.map(id => labels[id]).join(', ')} />
     </div>
   );
 }
@@ -442,22 +353,22 @@ function RecommendedCustom() {
 function StatesExample() {
   const [style, setStyle] = useState<string[]>([]);
   const [repo, setRepo] = useState<string[]>([]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   return (
     <div className="choice-list-demo-grid">
       <Panel caption="Preselected and disabled" testId="state-disabled">
         <ChoiceList
           legend="Preselected and disabled"
           disabled
-          options={[{ id: "short", label: "Short answers" }]}
-          value={["short"]}
+          options={[{ id: 'short', label: 'Short answers' }]}
+          value={['short']}
           onChange={() => {}}
         />
         <ChoiceList
           legend="Saving answer (busy)"
           disabled
           options={replyStyles}
-          value={["detailed"]}
+          value={['detailed']}
           onChange={() => {}}
         />
       </Panel>
@@ -467,7 +378,7 @@ function StatesExample() {
           options={replyStyles}
           value={style}
           onChange={setStyle}
-          error={style.length ? undefined : "Choose a reply style."}
+          error={style.length ? undefined : 'Choose a reply style.'}
         />
       </Panel>
       <Panel caption="Compact error" testId="state-compact-error">
@@ -477,7 +388,7 @@ function StatesExample() {
           options={repositories}
           value={repo}
           onChange={setRepo}
-          error={repo.length ? undefined : "Choose an answer."}
+          error={repo.length ? undefined : 'Choose an answer.'}
         />
       </Panel>
       <Panel caption="Typed answer error" testId="state-text-error">
@@ -491,8 +402,8 @@ function StatesExample() {
             active: true,
             onChange: setText,
             onFocus: () => {},
-            error: text.trim() ? null : "Enter your answer.",
-            id: "choice-list-demo-text-error",
+            error: text.trim() ? null : 'Enter your answer.',
+            id: 'choice-list-demo-text-error',
           }}
         />
       </Panel>
@@ -504,10 +415,7 @@ function Summaries() {
   return (
     <div className="choice-list-demo-summaries" data-testid="summaries">
       <div>
-        <ChoiceSummary
-          prompt="Which repository should I open the issue in?"
-          answer="tulipfarm/web (Recommended)"
-        />
+        <ChoiceSummary prompt="Which repository should I open the issue in?" answer="tulipfarm/web (Recommended)" />
         <p className="choice-list-demo-status">Your answer was recorded.</p>
       </div>
       <div>
@@ -520,23 +428,17 @@ function Summaries() {
       <div>
         <ChoiceSummary
           prompt="Anything I should know before drafting the launch note?"
-          answer={
-            "Mention the pricing change first.\nKeep the tone calm — this ships to every workspace on Monday."
-          }
+          answer={'Mention the pricing change first.\nKeep the tone calm — this ships to every workspace on Monday.'}
         />
         <p className="choice-list-demo-status">Your answer was recorded.</p>
       </div>
       <div>
         <ChoiceSummary prompt="Should I archive last quarter's planning docs?" />
-        <p className="choice-list-demo-status">
-          This request expired without an answer.
-        </p>
+        <p className="choice-list-demo-status">This request expired without an answer.</p>
       </div>
       <div>
         <ChoiceSummary prompt="Which repository should I open the issue in?" />
-        <p className="choice-list-demo-status">
-          This request was cancelled without an answer.
-        </p>
+        <p className="choice-list-demo-status">This request was cancelled without an answer.</p>
       </div>
       <div>
         <ChoiceSummary prompt="Reply style" answer="Short answers">
@@ -582,8 +484,8 @@ export default function ChoiceListDemo() {
           <AgentQuestion
             prompt="Should I send the weekly digest now?"
             options={[
-              { id: "now", label: "Send it now (Recommended)" },
-              { id: "monday", label: "Wait until Monday" },
+              { id: 'now', label: 'Send it now (Recommended)' },
+              { id: 'monday', label: 'Wait until Monday' },
             ]}
             locked
             testId="question-locked"
@@ -596,10 +498,7 @@ export default function ChoiceListDemo() {
       >
         <RecommendedCustom />
       </Example>
-      <Example
-        title="States"
-        description="Disabled, busy, and error states for both layouts and the typed answer."
-      >
+      <Example title="States" description="Disabled, busy, and error states for both layouts and the typed answer.">
         <StatesExample />
       </Example>
       <Example

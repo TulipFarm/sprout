@@ -75,10 +75,10 @@
     background: var(--sprout-hover);
     color: var(--sprout-text);
   }
-  .sprout-dropdown-menu-item[data-variant="destructive"] {
+  .sprout-dropdown-menu-item[data-variant='destructive'] {
     color: var(--sprout-danger);
   }
-  .sprout-dropdown-menu-item[data-variant="destructive"][data-highlighted] {
+  .sprout-dropdown-menu-item[data-variant='destructive'][data-highlighted] {
     background: var(--sprout-danger-subtle);
     color: var(--sprout-danger);
   }

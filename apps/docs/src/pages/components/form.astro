@@ -1,6 +1,6 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   FormCompositions,
   FormLayouts,
@@ -8,16 +8,18 @@ import {
   FormSections,
   FormSubmitStates,
   FormValidation,
-} from "../../components/FormDemo";
+} from '../../components/FormDemo';
 ---
 
 <Docs title="Form">
   <h1 class="docs-title">Form</h1>
   <p class="docs-lead">
-    A form that locks its fields while saving, moves focus to the first error,
-    and ends with a save area that explains why it cannot save yet.
+    A form that locks its fields while saving, moves focus to the first error, and ends with a save area that explains
+    why it cannot save yet.
   </p>
-  <div class="mt-8"><FormPlayground client:load /></div>
+  <div class="mt-8">
+    <FormPlayground client:load />
+  </div>
   <section class="prose-section" id="form-usage">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -49,10 +51,10 @@ import { Input } from "@tulipfarm/sprout/input";
 </Form>`}
     />
     <p>
-      <code>Form</code> renders a <code>noValidate</code> form and prevents the browser
-      submit. Return <code>"invalid"</code> from <code>onSubmit</code>
-      after you show errors; the form then scrolls to and focuses the first control
-      with <code>aria-invalid="true"</code>. <code>disabled</code>
+      <code>Form</code> renders a <code>noValidate</code> form and prevents the browser submit. Return{' '}
+      <code>"invalid"</code> from <code>onSubmit</code>
+      after you show errors; the form then scrolls to and focuses the first control with{' '}
+      <code>aria-invalid="true"</code>. <code>disabled</code>
       locks every <code>Field</code>, <code>ChoiceGroup</code>, and
       <code>CheckboxField</code> inside. <code>label</code> names the form.
     </p>
@@ -68,9 +70,8 @@ import { Input } from "@tulipfarm/sprout/input";
   <section class="prose-section">
     <h2 class="section-title">Validation and recovery</h2>
     <p>
-      Clear a field and save. Focus moves to the first error, the footer shows a
-      summary, and Discard changes restores the saved values. While saving, the
-      fields lock and Discard changes hides.
+      Clear a field and save. Focus moves to the first error, the footer shows a summary, and Discard changes restores
+      the saved values. While saving, the fields lock and Discard changes hides.
     </p>
     <FormValidation client:load />
   </section>
@@ -78,9 +79,8 @@ import { Input } from "@tulipfarm/sprout/input";
     <h2 class="section-title">Footer layouts</h2>
     <p>
       <code>bar</code> sits under a divider for page and section forms.
-      <code>stack</code> uses full-width large buttons for sign-in, onboarding, and
-      dialogs. <code>compact</code> fits chat cards: it hides the status line from
-      sight, and its children sit beside the buttons instead of below them.
+      <code>stack</code> uses full-width large buttons for sign-in, onboarding, and dialogs. <code>compact</code> fits
+      chat cards: it hides the status line from sight, and its children sit beside the buttons instead of below them.
     </p>
     <FormLayouts client:load />
   </section>
@@ -103,20 +103,19 @@ import { Input } from "@tulipfarm/sprout/input";
       <code>busy</code> shows <code>pendingLabel</code> and sets
       <code>aria-busy</code>. <code>blocked</code> shows its
       <code>reason</code> under the buttons and links it with
-      <code>aria-describedby</code>. Busy and blocked buttons stay focusable so
-      keyboard users hear why. A <code>fix</code> adds a link button:
-      <code>jump</code> focuses an element by id, <code>action</code> runs a callback,
-      and <code>link</code> renders your router link.
-      <code>dirty</code> shows Unsaved changes; a <code>reset</code> cancel shows
-      only while dirty and not busy.
+      <code>aria-describedby</code>. Busy and blocked buttons stay focusable so keyboard users hear why. A{' '}
+      <code>fix</code> adds a link button:
+      <code>jump</code> focuses an element by id, <code>action</code> runs a callback, and <code>link</code> renders
+      your router link.
+      <code>dirty</code> shows Unsaved changes; a <code>reset</code> cancel shows only while dirty and not busy.
     </p>
     <FormSubmitStates client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Sections</h2>
     <p>
-      Meta badges count choices or items. The header wraps the badge under the
-      title when the section is narrow. Long titles and descriptions wrap.
+      Meta badges count choices or items. The header wraps the badge under the title when the section is narrow. Long
+      titles and descriptions wrap.
     </p>
     <FormSections client:load />
   </section>
@@ -124,21 +123,18 @@ import { Input } from "@tulipfarm/sprout/input";
     <h2 class="section-title">Compositions</h2>
     <p>
       <code>secondarySubmit</code> adds an outline submit such as Save draft; its
-      <code>onSelect</code> runs before the form submits. A
-      <code>leave</code> cancel renders a link. Pass <code>form</code> to put the
-      footer outside its form, and <code>summary</code> to replace the status line
-      with your own content. Footer children carry save feedback, alerts, and extra
-      actions.
+      <code>onSelect</code> runs before the form submits. A<code>leave</code> cancel renders a link. Pass{' '}
+      <code>form</code> to put the footer outside its form, and <code>summary</code> to replace the status line with
+      your own content. Footer children carry save feedback, alerts, and extra actions.
     </p>
     <FormCompositions client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Name every form with <code>label</code> or a surrounding section. Errors render
-      in a destructive <code>Alert</code>. Status lines fade in over 180ms and
-      appear at once with reduced motion. Saving, routing, and data in these
-      examples are sample code; the textarea is a docs-only stand-in.
+      Name every form with <code>label</code> or a surrounding section. Errors render in a destructive{' '}
+      <code>Alert</code>. Status lines fade in over 180ms and appear at once with reduced motion. Saving, routing, and
+      data in these examples are sample code; the textarea is a docs-only stand-in.
     </p>
   </section>
 </Docs>

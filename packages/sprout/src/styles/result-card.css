@@ -90,10 +90,10 @@
   .sprout-result-card-status > svg {
     flex-shrink: 0;
   }
-  .sprout-result-card-status[data-tone="success"] {
+  .sprout-result-card-status[data-tone='success'] {
     color: var(--sprout-success);
   }
-  .sprout-result-card-status[data-tone="error"] {
+  .sprout-result-card-status[data-tone='error'] {
     color: var(--sprout-danger);
   }
   .sprout-result-card-action {
@@ -202,7 +202,7 @@
     flex-shrink: 0;
     color: var(--sprout-muted);
   }
-  .sprout-result-app-action[data-state="failed"] .sprout-result-app-prefix {
+  .sprout-result-app-action[data-state='failed'] .sprout-result-app-prefix {
     color: var(--sprout-danger);
   }
   .sprout-result-app-label {

@@ -33,8 +33,7 @@
     flex-direction: column;
     gap: 0.75rem;
     min-width: 0;
-    padding: var(--sprout-settings-row-block, 0.75rem)
-      var(--sprout-settings-row-inline, 1rem);
+    padding: var(--sprout-settings-row-block, 0.75rem) var(--sprout-settings-row-inline, 1rem);
   }
   .sprout-settings-row-text {
     display: grid;

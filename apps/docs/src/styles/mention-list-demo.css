@@ -45,7 +45,7 @@
 .mention-list-demo-toggle:hover {
   background: var(--sprout-hover);
 }
-.mention-list-demo-toggle[aria-pressed="true"] {
+.mention-list-demo-toggle[aria-pressed='true'] {
   border-color: var(--sprout-border-strong);
   background: var(--sprout-hover);
 }

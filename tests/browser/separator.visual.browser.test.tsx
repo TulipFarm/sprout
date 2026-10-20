@@ -1,11 +1,7 @@
-import { expect, it } from "vitest";
-import { render } from "vitest-browser-react";
-import {
-  Separator,
-  SeparatorContent,
-  SeparatorIcon,
-} from "../../packages/sprout/src/components/separator.js";
-import { setTheme, settle, themes } from "./support.js";
+import { expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { Separator, SeparatorContent, SeparatorIcon } from '../../packages/sprout/src/components/separator.js';
+import { setTheme, settle, themes } from './support.js';
 
 const Check = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -13,21 +9,21 @@ const Check = () => (
   </svg>
 );
 
-it.each(themes)("separator %s %s", async (theme, mode) => {
+it.each(themes)('separator %s %s', async (theme, mode) => {
   setTheme(theme, mode);
   const screen = await render(
     <div
       data-testid="shot"
       style={{
-        display: "grid",
+        display: 'grid',
         gap: 16,
         padding: 16,
         width: 360,
-        background: "var(--sprout-canvas)",
+        background: 'var(--sprout-canvas)',
       }}
     >
       <Separator />
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         Draft
         <Separator orientation="vertical" />
         Edited today
@@ -55,7 +51,5 @@ it.each(themes)("separator %s %s", async (theme, mode) => {
     </div>,
   );
   await settle();
-  await expect
-    .element(screen.getByTestId("shot"))
-    .toMatchScreenshot(`separator-${theme}-${mode}`);
+  await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`separator-${theme}-${mode}`);
 });

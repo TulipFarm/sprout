@@ -1,6 +1,6 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 import {
   AvatarPlayground,
   AvatarSizes,
@@ -10,16 +10,18 @@ import {
   AgentCompositions,
   EntityCompositions,
   ChatCompositions,
-} from "../../components/AvatarDemo";
+} from '../../components/AvatarDemo';
 ---
 
 <Docs title="Avatar">
   <h1 class="docs-title">Avatar</h1>
   <p class="docs-lead">
-    Pictures for people, agents, and workspaces. Shows initials when there is no
-    image or the image fails. Built with Base UI.
+    Pictures for people, agents, and workspaces. Shows initials when there is no image or the image fails. Built with
+    Base UI.
   </p>
-  <div class="mt-8"><AvatarPlayground client:load /></div>
+  <div class="mt-8">
+    <AvatarPlayground client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -38,12 +40,10 @@ import {
 </Avatar>`}
     />
     <p>
-      <code>Avatar</code> takes <code>size</code>: <code>"xs"</code>, <code
-        >"sm"</code
-      >, <code>"default"</code>, or <code>"lg"</code>. The fallback shows while
-      the image loads, when it fails, and when there is no image. Use
-      <code>delay</code> on <code>AvatarFallback</code> to avoid a flash on fast networks.
-      The image fades in over 180ms; reduced motion turns this off.
+      <code>Avatar</code> takes <code>size</code>: <code>"xs"</code>, <code>"sm"</code>, <code>"default"</code>, or{' '}
+      <code>"lg"</code>. The fallback shows while the image loads, when it fails, and when there is no image. Use
+      <code>delay</code> on <code>AvatarFallback</code> to avoid a flash on fast networks. The image fades in over
+      180ms; reduced motion turns this off.
     </p>
     <div class="mt-6 grid gap-4">
       <AvatarSizes client:load />
@@ -51,10 +51,8 @@ import {
     </div>
     <p>
       <code>AvatarBadge</code> sits on the bottom edge. Its icon hides at small sizes.
-      <code>AvatarGroup</code> overlaps avatars, and <code
-        >AvatarGroupCount</code
-      > matches their size. Set <code>--sprout-avatar-ring</code> to the surface color
-      behind a group or badge.
+      <code>AvatarGroup</code> overlaps avatars, and <code>AvatarGroupCount</code> matches their size. Set{' '}
+      <code>--sprout-avatar-ring</code> to the surface color behind a group or badge.
     </p>
   </section>
   <section class="prose-section">
@@ -65,13 +63,13 @@ import {
       code={`<AgentAvatar agentId={agent.id} name={agent.name} size="sm" />`}
     />
     <p>
-      <code>AgentAvatar</code> picks stable artwork from <code>agentId</code>.
-      The image is decorative; put the agent name in nearby text. Pass <code
-        >src</code
-      > to use your own artwork. <code>agentAvatarSrc(id, baseUrl)</code> returns
-      the default URL.
+      <code>AgentAvatar</code> picks stable artwork from <code>agentId</code>. The image is decorative; put the agent
+      name in nearby text. Pass <code>src</code> to use your own artwork. <code>agentAvatarSrc(id, baseUrl)</code>{' '}
+      returns the default URL.
     </p>
-    <div class="mt-6"><AgentAvatarSizes client:load /></div>
+    <div class="mt-6">
+      <AgentAvatarSizes client:load />
+    </div>
     <AgentCompositions client:load />
   </section>
   <section class="prose-section">
@@ -88,31 +86,30 @@ import {
 />`}
     />
     <p>
-      <code>EntityAvatar</code> takes a <code>seed</code>, <code>name</code>,
-      optional <code>image</code>, <code>size</code> up to <code>"xl"</code>,
-      and <code>shape</code> (<code>"circle"</code> or <code>"square"</code>).
-      Without an image it shows the first letter on a gradient. The same seed
-      always gives the same gradient. An empty name shows <code>?</code>.
+      <code>EntityAvatar</code> takes a <code>seed</code>, <code>name</code>, optional <code>image</code>,{' '}
+      <code>size</code> up to <code>"xl"</code>, and <code>shape</code> (<code>"circle"</code> or <code>"square"</code>
+      ). Without an image it shows the first letter on a gradient. The same seed always gives the same gradient. An
+      empty name shows <code>?</code>.
     </p>
-    <div class="mt-6"><EntityAvatars client:load /></div>
+    <div class="mt-6">
+      <EntityAvatars client:load />
+    </div>
     <EntityCompositions client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">In conversations</h2>
     <ChatCompositions client:load />
     <p>
-      Image upload, file checks, menus, tables, and messages above are sample
-      code. The package only draws the avatar. Your application owns data,
-      uploads, and navigation.
+      Image upload, file checks, menus, tables, and messages above are sample code. The package only draws the avatar.
+      Your application owns data, uploads, and navigation.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      Give <code>AvatarImage</code> real <code>alt</code> text when the avatar is
-      the only name on screen. Use <code>alt=""</code> when a name is next to it.
-      Avatars are not focusable; put them inside a link or button for actions. Give
-      badges and icon counts an accessible label.
+      Give <code>AvatarImage</code> real <code>alt</code> text when the avatar is the only name on screen. Use{' '}
+      <code>alt=""</code> when a name is next to it. Avatars are not focusable; put them inside a link or button for
+      actions. Give badges and icon counts an accessible label.
     </p>
   </section>
 </Docs>

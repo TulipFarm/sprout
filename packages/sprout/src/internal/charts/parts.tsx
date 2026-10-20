@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 import {
   Bar,
   BarChart,
@@ -15,8 +15,8 @@ import {
   XAxis,
   YAxis,
   type TreemapNode,
-} from "recharts";
-import { cn } from "../classes.js";
+} from 'recharts';
+import { cn } from '../classes.js';
 import {
   ChartContainer,
   ChartLegend,
@@ -32,7 +32,7 @@ import {
   tooltipCursor,
   type ChartRow,
   type ReadyChartProps,
-} from "../chart-kit.js";
+} from '../chart-kit.js';
 
 interface PartChartProps extends ReadyChartProps {
   /** One row per part, keyed by `category` and `value`. */
@@ -43,12 +43,7 @@ interface PartChartProps extends ReadyChartProps {
   value: string;
 }
 
-const centerText = (
-  viewBox: unknown,
-  main: string,
-  sub: string | undefined,
-  lift = 0,
-) => {
+const centerText = (viewBox: unknown, main: string, sub: string | undefined, lift = 0) => {
   // A Pie hands its Label the plot box; a polar axis hands it the circle.
   const box = viewBox as
     | {
@@ -65,13 +60,7 @@ const centerText = (
   if (!Number.isFinite(cx) || !Number.isFinite(cy)) return null;
   const y = cy - lift;
   return (
-    <text
-      x={cx}
-      y={y}
-      textAnchor="middle"
-      dominantBaseline="middle"
-      className="sprout-chart-center"
-    >
+    <text x={cx} y={y} textAnchor="middle" dominantBaseline="middle" className="sprout-chart-center">
       <tspan x={cx} y={sub ? y - 8 : y} className="sprout-chart-center-value">
         {main}
       </tspan>
@@ -86,7 +75,7 @@ const centerText = (
 
 export interface DonutChartProps extends PartChartProps {
   /** `donut` leaves a hole with the total in it; `pie` fills the circle. */
-  variant?: "donut" | "pie";
+  variant?: 'donut' | 'pie';
   /** Words under the total in the hole, such as "Visitors". */
   totalLabel?: string;
 }
@@ -99,37 +88,26 @@ export function DonutChart({
   rows,
   category,
   value,
-  variant = "donut",
+  variant = 'donut',
   totalLabel,
   title,
   valueFormatter = formatNumber,
   className,
 }: DonutChartProps) {
-  const parts = useMemo(
-    () => foldParts(rows, category, value),
-    [rows, category, value],
-  );
+  const parts = useMemo(() => foldParts(rows, category, value), [rows, category, value]);
   const config = useMemo(() => partConfig(parts), [parts]);
   const total = parts.reduce((sum, part) => sum + part.value, 0);
-  const donut = variant === "donut";
+  const donut = variant === 'donut';
   return (
-    <ChartContainer
-      data-variant={variant}
-      className={cn("sprout-chart-donut", className)}
-      config={config}
-    >
+    <ChartContainer data-variant={variant} className={cn('sprout-chart-donut', className)} config={config}>
       <PieChart accessibilityLayer title={title ?? `${value} by ${category}`}>
-        <ChartTooltip
-          content={
-            <ChartTooltipContent hideLabel valueFormatter={valueFormatter} />
-          }
-        />
+        <ChartTooltip content={<ChartTooltipContent hideLabel valueFormatter={valueFormatter} />} />
         <ChartLegend content={configLegend(config)} />
         <Pie
           data={parts}
           dataKey="value"
           nameKey="name"
-          innerRadius={donut ? "62%" : 0}
+          innerRadius={donut ? '62%' : 0}
           outerRadius="92%"
           paddingAngle={donut && parts.length > 1 ? 2 : 0}
           cornerRadius={donut ? 3 : 0}
@@ -140,9 +118,7 @@ export function DonutChart({
           {donut ? (
             <Label
               position="center"
-              content={({ viewBox }) =>
-                centerText(viewBox, valueFormatter(total), totalLabel)
-              }
+              content={({ viewBox }) => centerText(viewBox, valueFormatter(total), totalLabel)}
             />
           ) : null}
         </Pie>
@@ -165,20 +141,20 @@ export function StepFunnelChart({
   rows,
   category,
   value,
-  color = "var(--sprout-chart-1)",
-  title = "Conversion by step",
+  color = 'var(--sprout-chart-1)',
+  title = 'Conversion by step',
   valueFormatter = formatNumber,
   className,
 }: StepFunnelChartProps) {
   const steps = useMemo(() => {
-    const values = rows.map((row) => Math.max(0, Number(row[value]) || 0));
+    const values = rows.map(row => Math.max(0, Number(row[value]) || 0));
     const top = Math.max(0, ...values);
     const first = values[0] || 1;
     return rows.map((row, index) => {
       const count = values[index] ?? 0;
       const share = Math.round((count / first) * 100);
       return {
-        name: String(row[category] ?? ""),
+        name: String(row[category] ?? ''),
         detail: `${valueFormatter(count)} · ${share}%`,
         count,
         range: [(top - count) / 2, (top + count) / 2],
@@ -187,14 +163,11 @@ export function StepFunnelChart({
       };
     });
   }, [rows, category, value, color, valueFormatter]);
-  const config = useMemo(
-    () => ({ count: { label: value, color } }),
-    [value, color],
-  );
+  const config = useMemo(() => ({ count: { label: value, color } }), [value, color]);
   return (
     <ChartContainer
       data-variant="funnel"
-      className={cn("sprout-chart-funnel", className)}
+      className={cn('sprout-chart-funnel', className)}
       style={{ height: `${steps.length * 2.5 + 1}rem` }}
       config={config}
     >
@@ -206,15 +179,8 @@ export function StepFunnelChart({
         barCategoryGap="12%"
         margin={{ top: 8, right: 0, bottom: 8, left: 0 }}
       >
-        <XAxis type="number" hide domain={[0, "dataMax"]} />
-        <YAxis
-          yAxisId="name"
-          type="category"
-          dataKey="name"
-          width="auto"
-          {...quietAxis}
-          interval={0}
-        />
+        <XAxis type="number" hide domain={[0, 'dataMax']} />
+        <YAxis yAxisId="name" type="category" dataKey="name" width="auto" {...quietAxis} interval={0} />
         <YAxis
           yAxisId="detail"
           type="category"
@@ -226,27 +192,21 @@ export function StepFunnelChart({
         />
         <ChartTooltip
           cursor={tooltipCursor}
-          content={(props) => (
+          content={props => (
             <ChartTooltipContent
               active={props.active}
               label={props.label}
               valueFormatter={valueFormatter}
-              payload={props.payload?.map((item) => ({
+              payload={props.payload?.map(item => ({
                 ...item,
-                name: "count",
+                name: 'count',
                 value: (item.payload as { count: number }).count,
                 color,
               }))}
             />
           )}
         />
-        <Bar
-          yAxisId="name"
-          dataKey="range"
-          radius={4}
-          shape={rowFillShape}
-          isAnimationActive={false}
-        />
+        <Bar yAxisId="name" dataKey="range" radius={4} shape={rowFillShape} isAnimationActive={false} />
       </BarChart>
     </ChartContainer>
   );
@@ -295,15 +255,12 @@ export function TreemapChart({
   valueFormatter = formatNumber,
   className,
 }: TreemapChartProps) {
-  const parts = useMemo(
-    () => foldParts(rows, category, value),
-    [rows, category, value],
-  );
+  const parts = useMemo(() => foldParts(rows, category, value), [rows, category, value]);
   const config = useMemo(() => partConfig(parts), [parts]);
   return (
     <ChartContainer
       data-variant="treemap"
-      className={cn("sprout-chart-treemap", className)}
+      className={cn('sprout-chart-treemap', className)}
       config={config}
       role="img"
       aria-label={title ?? `${value} by ${category}`}
@@ -316,11 +273,7 @@ export function TreemapChart({
         isAnimationActive={false}
         content={(node: TreemapNode) => treemapBox(node, valueFormatter)}
       >
-        <ChartTooltip
-          content={
-            <ChartTooltipContent hideLabel valueFormatter={valueFormatter} />
-          }
-        />
+        <ChartTooltip content={<ChartTooltipContent hideLabel valueFormatter={valueFormatter} />} />
       </Treemap>
     </ChartContainer>
   );
@@ -342,8 +295,7 @@ export interface GaugeChartProps {
   className?: string;
 }
 
-const percentOfMax = (value: number, max: number) =>
-  `${Math.round((value / (max || 1)) * 100)}%`;
+const percentOfMax = (value: number, max: number) => `${Math.round((value / (max || 1)) * 100)}%`;
 
 /** Progress toward a goal as a half ring with the number in the middle. */
 export function GaugeChart({
@@ -351,24 +303,19 @@ export function GaugeChart({
   max = 100,
   label,
   title,
-  color = "var(--sprout-chart-1)",
+  color = 'var(--sprout-chart-1)',
   valueFormatter = percentOfMax,
   className,
 }: GaugeChartProps) {
   const data = useMemo(
-    () => [
-      { name: "value", value: Math.min(Math.max(value, 0), max), fill: color },
-    ],
+    () => [{ name: 'value', value: Math.min(Math.max(value, 0), max), fill: color }],
     [value, max, color],
   );
-  const config = useMemo(
-    () => ({ value: { label: title, color } }),
-    [title, color],
-  );
+  const config = useMemo(() => ({ value: { label: title, color } }), [title, color]);
   return (
     <ChartContainer
       data-variant="gauge"
-      className={cn("sprout-chart-gauge", className)}
+      className={cn('sprout-chart-gauge', className)}
       config={config}
       role="meter"
       aria-label={title}
@@ -377,27 +324,11 @@ export function GaugeChart({
       aria-valuenow={data[0]!.value}
       aria-valuetext={valueFormatter(value, max)}
     >
-      <RadialBarChart
-        data={data}
-        startAngle={180}
-        endAngle={0}
-        cy="78%"
-        innerRadius="118%"
-        outerRadius="158%"
-      >
+      <RadialBarChart data={data} startAngle={180} endAngle={0} cy="78%" innerRadius="118%" outerRadius="158%">
         <PolarAngleAxis type="number" domain={[0, max]} tick={false} />
-        <RadialBar
-          dataKey="value"
-          background
-          cornerRadius={6}
-          isAnimationActive={false}
-        />
+        <RadialBar dataKey="value" background cornerRadius={6} isAnimationActive={false} />
         <PolarRadiusAxis tick={false} axisLine={false}>
-          <Label
-            content={({ viewBox }) =>
-              centerText(viewBox, valueFormatter(value, max), label, 12)
-            }
-          />
+          <Label content={({ viewBox }) => centerText(viewBox, valueFormatter(value, max), label, 12)} />
         </PolarRadiusAxis>
       </RadialBarChart>
     </ChartContainer>

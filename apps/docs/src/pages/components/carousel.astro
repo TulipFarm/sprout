@@ -1,7 +1,7 @@
 ---
-import Docs from "../../layouts/Docs.astro";
-import CarouselDemo from "../../components/CarouselDemo";
-import CodeBlock from "../../components/CodeBlock.astro";
+import Docs from '../../layouts/Docs.astro';
+import CarouselDemo from '../../components/CarouselDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <Docs
@@ -10,10 +10,12 @@ import CodeBlock from "../../components/CodeBlock.astro";
 >
   <h1 class="docs-title">Carousel</h1>
   <p class="docs-lead">
-    A row or column of slides that scrolls one stop at a time. Use it for step
-    cards, a strip of attachments, or a few cards side by side.
+    A row or column of slides that scrolls one stop at a time. Use it for step cards, a strip of attachments, or a few
+    cards side by side.
   </p>
-  <div class="mt-8"><CarouselDemo client:load /></div>
+  <div class="mt-8">
+    <CarouselDemo client:load />
+  </div>
   <section class="prose-section">
     <h2 class="section-title">Usage</h2>
     <CodeBlock
@@ -44,17 +46,16 @@ import CodeBlock from "../../components/CodeBlock.astro";
 </div>`}
     />
     <p>
-      The carousel scrolls natively, so touch swipe, trackpads, and focus moving
-      into a hidden slide all work. Slides snap into place unless
+      The carousel scrolls natively, so touch swipe, trackpads, and focus moving into a hidden slide all work. Slides
+      snap into place unless
       <code>opts.dragFree</code> is set. A mouse can drag the slides too.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Vertical</h2>
     <p>
-      <code>orientation="vertical"</code> stacks slides in a column. Give the content
-      a height, for example by wrapping it in a flex column with a fixed height. The
-      arrows sit above and below and turn to point up and down.
+      <code>orientation="vertical"</code> stacks slides in a column. Give the content a height, for example by wrapping
+      it in a flex column with a fixed height. The arrows sit above and below and turn to point up and down.
     </p>
     <CodeBlock
       lang="tsx"
@@ -78,34 +79,34 @@ import CodeBlock from "../../components/CodeBlock.astro";
         <code>center</code>, or <code>end</code>. Where the current slide lands.
       </li>
       <li>
-        <code>opts.dragFree</code>: scroll without snapping. Arrows and keys
-        still step one slide.
+        <code>opts.dragFree</code>: scroll without snapping. Arrows and keys still step one slide.
       </li>
       <li>
-        <code>opts.loop</code>: Next on the last stop goes to the first, and
-        Previous on the first goes to the last.
+        <code>opts.loop</code>: Next on the last stop goes to the first, and Previous on the first goes to the last.
       </li>
-      <li><code>opts.startIndex</code>: the slide shown first.</li>
+      <li>
+        <code>opts.startIndex</code>: the slide shown first.
+      </li>
     </ul>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Sizing slides</h2>
     <p>
-      Slides fill the viewport by default. Set CSS tokens on the carousel, or
-      pass a <code>className</code> to <code>CarouselItem</code>:
+      Slides fill the viewport by default. Set CSS tokens on the carousel, or pass a <code>className</code> to{' '}
+      <code>CarouselItem</code>:
     </p>
     <ul>
       <li>
-        <code>--sprout-carousel-basis</code>: slide size. <code>auto</code> lets each
-        slide keep its own width, as an attachment row does.
+        <code>--sprout-carousel-basis</code>: slide size. <code>auto</code> lets each slide keep its own width, as an
+        attachment row does.
         <code>calc((100% - 16px) / 2)</code> shows two per view.
       </li>
       <li>
         <code>--sprout-carousel-gap</code>: space between slides. Default 16px.
       </li>
       <li>
-        <code>--sprout-carousel-control-offset</code>: how far outside the
-        carousel the arrows sit. Default 48px. Leave that much room around it.
+        <code>--sprout-carousel-control-offset</code>: how far outside the carousel the arrows sit. Default 48px. Leave
+        that much room around it.
       </li>
     </ul>
     <CodeBlock
@@ -149,18 +150,15 @@ import CodeBlock from "../../components/CodeBlock.astro";
     <h2 class="section-title">API</h2>
     <p>
       <code>useCarousel()</code> works inside a carousel and returns
-      <code>scrollPrev</code>, <code>scrollNext</code>, <code>scrollTo</code>,
-      <code>canScrollPrev</code>, <code>canScrollNext</code>,
-      <code>selectedIndex</code>, <code>snapCount</code>,
-      <code>orientation</code>, and <code>api</code>. Use it to draw your own
-      arrows or a counter.
+      <code>scrollPrev</code>, <code>scrollNext</code>, <code>scrollTo</code>,<code>canScrollPrev</code>,{' '}
+      <code>canScrollNext</code>,<code>selectedIndex</code>, <code>snapCount</code>,<code>orientation</code>, and{' '}
+      <code>api</code>. Use it to draw your own arrows or a counter.
     </p>
     <p>
       <code>setApi</code> hands the <code>CarouselApi</code> to a parent. It has
-      <code>scrollPrev()</code>, <code>scrollNext()</code>,
-      <code>scrollTo(index)</code>, <code>canScrollPrev()</code>,
-      <code>canScrollNext()</code>, <code>selectedScrollSnap()</code>,
-      <code>scrollSnapList()</code>, <code>slideNodes()</code>, and
+      <code>scrollPrev()</code>, <code>scrollNext()</code>,<code>scrollTo(index)</code>, <code>canScrollPrev()</code>,
+      <code>canScrollNext()</code>, <code>selectedScrollSnap()</code>,<code>scrollSnapList()</code>,{' '}
+      <code>slideNodes()</code>, and
       <code>on</code>/<code>off</code> for the <code>select</code> and
       <code>reInit</code> events. The carousel does not take Embla plugins.
     </p>
@@ -185,25 +183,22 @@ useEffect(() => {
     />
     <p>
       <code>CarouselPrevious</code> and <code>CarouselNext</code> are
-      <code>Button</code>s, <code>secondary</code> and <code>icon</code> by default,
-      and take any Button <code>variant</code> and <code>size</code>. They grow
-      to 44px on touch screens.
+      <code>Button</code>s, <code>secondary</code> and <code>icon</code> by default, and take any Button{' '}
+      <code>variant</code> and <code>size</code>. They grow to 44px on touch screens.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
       The carousel is a <code>region</code> with
-      <code>aria-roledescription="carousel"</code>, and each slide is a
-      <code>group</code> with <code>aria-roledescription="slide"</code>. Name
-      the carousel with <code>aria-label</code>.
+      <code>aria-roledescription="carousel"</code>, and each slide is a<code>group</code> with{' '}
+      <code>aria-roledescription="slide"</code>. Name the carousel with <code>aria-label</code>.
     </p>
     <p>
-      Left and Right step through slides while focus is inside, and Up and Down
-      do the same when it is vertical. Keys typed into fields are left alone.
-      The arrow buttons stay focusable when they turn off at an end, so focus
-      does not jump away. When no slide holds a focusable element, the viewport
-      itself takes focus, and Home and End jump to the first and last slide.
+      Left and Right step through slides while focus is inside, and Up and Down do the same when it is vertical. Keys
+      typed into fields are left alone. The arrow buttons stay focusable when they turn off at an end, so focus does not
+      jump away. When no slide holds a focusable element, the viewport itself takes focus, and Home and End jump to the
+      first and last slide.
     </p>
     <p>Scrolling animates only when reduced motion is off.</p>
   </section>

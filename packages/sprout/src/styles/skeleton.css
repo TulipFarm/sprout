@@ -10,25 +10,25 @@
     pointer-events: none;
     user-select: none;
   }
-  .sprout-skeleton[data-shape="title"] {
+  .sprout-skeleton[data-shape='title'] {
     width: 66.6667%;
     height: 24px;
   }
-  .sprout-skeleton[data-shape="avatar"] {
+  .sprout-skeleton[data-shape='avatar'] {
     width: 32px;
     height: 32px;
     border-radius: 9999px;
   }
-  .sprout-skeleton[data-shape="panel"] {
+  .sprout-skeleton[data-shape='panel'] {
     height: 128px;
     border-radius: var(--sprout-radius-control);
   }
-  .sprout-skeleton[data-shape="checkbox"] {
+  .sprout-skeleton[data-shape='checkbox'] {
     width: 16px;
     height: 16px;
     border-radius: 4px;
   }
-  .sprout-skeleton[data-shape="action"] {
+  .sprout-skeleton[data-shape='action'] {
     width: 28px;
     height: 28px;
   }
@@ -39,10 +39,10 @@
     gap: 12px;
     min-width: 0;
   }
-  .sprout-skeleton-group[data-gap="sm"] {
+  .sprout-skeleton-group[data-gap='sm'] {
     gap: 8px;
   }
-  .sprout-skeleton-group[data-gap="lg"] {
+  .sprout-skeleton-group[data-gap='lg'] {
     gap: 16px;
   }
   .sprout-skeleton-group-label {
@@ -58,10 +58,8 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-skeleton {
-      animation: sprout-skeleton-pulse 1.6s cubic-bezier(0.4, 0, 0.6, 1)
-        infinite;
-      transition: background-color var(--sprout-motion-fast)
-        var(--sprout-motion-ease);
+      animation: sprout-skeleton-pulse 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
   }
 
