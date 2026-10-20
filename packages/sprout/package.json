@@ -64,6 +64,10 @@
       "types": "./dist/components/badge.d.ts",
       "import": "./dist/components/badge.js"
     },
+    "./board": {
+      "types": "./dist/components/board.d.ts",
+      "import": "./dist/components/board.js"
+    },
     "./brand-icon": {
       "types": "./dist/components/brand-icon.d.ts",
       "import": "./dist/components/brand-icon.js"

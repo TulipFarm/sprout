@@ -265,6 +265,10 @@ export const componentGroups: NavGroup[] = [
       ),
       component("Avatar", "Pictures for people, agents, and workspaces."),
       component("Badge", "Small labels for status, counts, and metadata."),
+      component(
+        "Board",
+        "A Kanban board with columns, lanes, drag and drop, and inline editing.",
+      ),
       component("Brand Icon", "Logos for the apps and models you connect to."),
       component(
         "Carousel",

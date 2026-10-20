@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **786.4 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **794.8 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -110,9 +110,10 @@ Full library: **786.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `alert`             |  35.2 kB |  11.5 kB |  10.1 kB |
 | `alert-dialog`      | 169.1 kB |  57.0 kB |  49.8 kB |
 | `aspect-ratio`      |  30.2 kB |   9.7 kB |   8.5 kB |
-| `attachment`        | 459.9 kB | 155.6 kB | 128.6 kB |
+| `attachment`        | 459.9 kB | 155.8 kB | 128.4 kB |
 | `avatar`            |  45.5 kB |  15.4 kB |  13.6 kB |
 | `badge`             |  34.9 kB |  11.4 kB |  10.0 kB |
+| `board`             | 448.8 kB | 147.3 kB | 124.1 kB |
 | `brand-icon`        | 195.1 kB |  70.2 kB |  61.2 kB |
 | `breadcrumb`        |  40.5 kB |  13.4 kB |  11.7 kB |
 | `button`            |  50.5 kB |  16.7 kB |  14.6 kB |
@@ -125,7 +126,7 @@ Full library: **786.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |  76.7 kB |  25.8 kB |  22.4 kB |
 | `chat-plan`         |  42.3 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      | 206.2 kB |  70.5 kB |  60.3 kB |
-| `chat-input`        | 962.4 kB | 317.0 kB | 261.5 kB |
+| `chat-input`        | 962.5 kB | 317.0 kB | 261.3 kB |
 | `checkbox`          |  60.0 kB |  21.0 kB |  18.5 kB |
 | `choice-list`       |  43.0 kB |  14.5 kB |  12.6 kB |
 | `code-block`        |  74.4 kB |  25.9 kB |  22.3 kB |
@@ -137,15 +138,15 @@ Full library: **786.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `direction`         |   1.4 kB |   0.7 kB |   0.7 kB |
 | `dropdown-menu`     | 239.6 kB |  80.0 kB |  69.2 kB |
 | `field`             |  97.9 kB |  34.2 kB |  29.5 kB |
-| `file-explorer`     | 527.9 kB | 180.1 kB | 147.5 kB |
-| `file-viewer`       | 459.5 kB | 155.5 kB | 128.4 kB |
+| `file-explorer`     | 527.9 kB | 180.4 kB | 147.7 kB |
+| `file-viewer`       | 459.5 kB | 155.7 kB | 128.5 kB |
 | `form`              | 109.7 kB |  37.3 kB |  32.2 kB |
 | `glass-banner`      |  33.0 kB |  10.6 kB |   9.4 kB |
 | `gradient-banner`   |  32.2 kB |  10.3 kB |   9.1 kB |
 | `hover-card`        | 163.2 kB |  56.3 kB |  49.1 kB |
 | `input`             | 108.2 kB |  37.4 kB |  32.3 kB |
-| `input-group`       | 119.1 kB |  40.5 kB |  34.8 kB |
-| `input-otp`         |  65.3 kB |  22.9 kB |  20.3 kB |
+| `input-group`       | 119.1 kB |  40.5 kB |  34.7 kB |
+| `input-otp`         |  65.3 kB |  22.9 kB |  20.4 kB |
 | `kbd`               |  30.4 kB |   9.7 kB |   8.5 kB |
 | `label`             |  30.2 kB |   9.6 kB |   8.4 kB |
 | `mention-list`      |  52.6 kB |  17.2 kB |  15.2 kB |
@@ -185,10 +186,10 @@ Full library: **786.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `skeleton`          |  35.1 kB |  11.5 kB |  10.1 kB |
 | `slider`            |  83.6 kB |  29.5 kB |  25.9 kB |
 | `spinner`           |  36.5 kB |  11.6 kB |  10.1 kB |
-| `state-panel`       | 459.7 kB | 155.6 kB | 128.5 kB |
+| `state-panel`       | 459.7 kB | 155.7 kB | 128.5 kB |
 | `state-sample`      |  33.5 kB |  10.5 kB |   9.2 kB |
 | `switch`            |  50.3 kB |  17.3 kB |  15.3 kB |
-| `table`             | 536.6 kB | 171.9 kB | 144.4 kB |
+| `table`             | 541.3 kB | 173.7 kB | 145.9 kB |
 | `table-nuqs`        |   2.1 kB |   1.1 kB |   1.0 kB |
 | `tabs`              |  80.2 kB |  27.6 kB |  24.4 kB |
 | `textarea`          |  98.2 kB |  34.2 kB |  29.5 kB |

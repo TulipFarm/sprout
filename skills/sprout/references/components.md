@@ -1201,6 +1201,42 @@ import { Badge } from "@tulipfarm/sprout/badge";
 Tones: `default`, `success`, `warning`, `info`, `secondary`, `destructive`,
 `outline`, `ghost`, `link`.
 
+### Board
+
+```tsx
+import {
+  Board,
+  type BoardColumn,
+  type BoardItem,
+} from "@tulipfarm/sprout/board";
+
+<Board
+  label="Product team"
+  columns={[
+    { id: "todo", title: "To do" },
+    { id: "doing", title: "In progress", limit: 3 },
+  ]}
+  lanes={[
+    { id: "ana", title: "Ana" },
+    { id: "ben", title: "Ben" },
+  ]}
+  items={items}
+  onItemsChange={setItems}
+  onColumnsChange={setColumns}
+  onItemAdd={({ title, columnId, laneId }) => addCard(title, columnId, laneId)}
+  onItemOpen={(item) => openSheet(item)}
+  renderBody={(item) => <Badge variant="warning">{item.priority}</Badge>}
+  itemActions={(item) => (
+    <DropdownMenuItem onClick={() => remove(item)}>
+      Delete card
+    </DropdownMenuItem>
+  )}
+  searchable
+/>;
+```
+
+A Kanban board. Columns go across, optional `lanes` (swimlanes) go down, and a card sits in the cell of its `columnId` and `laneId`. Card order in a cell is its order in `items`; every move, rename, or column delete comes back as a whole new list through `onItemsChange`. Columns reorder by a grip and rename from the title through `onColumnsChange`. `limit` marks a column "Over limit" in words. `renderBody` adds content under the title, `renderTitle` replaces the title content, and `renderCard(item, { title, menu })` draws the whole card with no default frame (place `title` and `menu` yourself; drag, focus, keys and selection stay with the board). Lanes and the cards in each cell are virtualized, so boards with thousands of cards stay fast. Use Table for records in rows; use Board when the column is the status.
+
 ### Brand Icon
 
 ```tsx
