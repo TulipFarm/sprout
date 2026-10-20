@@ -424,3 +424,205 @@ describe('Board drag and drop', () => {
     expect(latestItems).toEqual(startItems);
   });
 });
+
+describe('Board read-only', () => {
+  const readOnly = (props: Partial<BoardProps<BoardItem>> = {}) =>
+    render(
+      <Board label="Status board" columns={startColumns} lanes={lanes} items={startItems} searchable {...props} />,
+    );
+
+  it('has no drag, rename, or column tools', () => {
+    readOnly();
+    const target = card('Plant tulips');
+    expect(target.getAttribute('role')).toBe('group');
+    expect(target.getAttribute('aria-roledescription')).toBe('card');
+    expect(target.hasAttribute('aria-pressed')).toBe(false);
+    expect(target.hasAttribute('aria-disabled')).toBe(false);
+    expect(screen.queryByRole('button', { name: /^(Rename|Move) / })).toBeNull();
+    expect(screen.queryByRole('button', { name: /column actions$/ })).toBeNull();
+    expect(screen.queryByRole('button', { name: /^Actions for/ })).toBeNull();
+    fireEvent.keyDown(target, { key: 'F2' });
+    fireEvent.doubleClick(target);
+    expect(screen.queryByRole('textbox', { name: 'Card title' })).toBeNull();
+  });
+
+  it('does not pick up cards by keyboard or pointer', async () => {
+    readOnly();
+    const target = card('Plant tulips');
+    target.focus();
+    fireEvent.keyDown(target, { key: ' ', code: 'Space' });
+    await frame();
+    await drag(card('Order soil'), { x: 2 * COLUMN_WIDTH + 100, y: 300 });
+    expect(document.body.textContent).not.toContain('Picked up');
+    expect(document.querySelector('.sprout-board-overlay')).toBeNull();
+  });
+
+  it('opens cards but does not select them', () => {
+    const onItemOpen = vi.fn();
+    readOnly({ onItemOpen });
+    fireEvent.click(card('Plant tulips'), { metaKey: true });
+    fireEvent.click(card('Order soil'), { shiftKey: true });
+    expect(status()).toBe('4 cards');
+    expect(card('Plant tulips').hasAttribute('data-selected')).toBe(false);
+    expect(onItemOpen.mock.calls.map(([item]) => item.id)).toEqual(['a', 'b']);
+  });
+});
+
+describe('Board column states', () => {
+  const plainItems = startItems.map(({ laneId: _, ...item }) => item);
+  const statusBoard = (columns: BoardColumn[], props: Partial<BoardProps<BoardItem>> = {}) =>
+    render(<Board label="Status board" columns={columns} items={plainItems} {...props} />);
+  const header = (name: RegExp) =>
+    screen.getAllByRole('group', { name }).find(node => node.classList.contains('sprout-board-column-header'))!;
+
+  it('counts from total and shows all from the column foot', () => {
+    const onColumnShowAll = vi.fn();
+    statusBoard(
+      [
+        { id: 'todo', title: 'To do', total: 1280 },
+        { id: 'doing', title: 'Doing', total: 2 },
+        { id: 'done', title: 'Done', total: 3, limit: 2 },
+      ],
+      { onColumnShowAll },
+    );
+    expect(header(/^To do/).getAttribute('aria-label')).toBe('To do, 1,280 cards, 2 shown');
+    expect(header(/^To do/).textContent).toContain('1,280');
+    expect(header(/^Doing/).getAttribute('aria-label')).toBe('Doing, 2 cards');
+    expect(header(/^Done/).getAttribute('aria-label')).toBe('Done, 3 cards, 0 shown, over limit');
+    fireEvent.click(screen.getByRole('button', { name: 'Show all 1,280 in To do' }));
+    expect(onColumnShowAll).toHaveBeenCalledWith(expect.objectContaining({ id: 'todo' }));
+    expect(screen.getByRole('button', { name: 'Show all 3 in Done' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /in Doing$/ })).toBeNull();
+    expect(screen.queryByText('No cards')).toBeNull();
+  });
+
+  it('hides Show all without the callback', () => {
+    statusBoard([{ id: 'todo', title: 'To do', total: 50 }]);
+    expect(screen.queryByRole('button', { name: /^Show all/ })).toBeNull();
+  });
+
+  it('shows skeleton cards in a loading column only', () => {
+    const { container } = statusBoard(
+      [
+        { id: 'todo', title: 'To do' },
+        { id: 'done', title: 'Done', status: 'loading' },
+      ],
+      { onItemAdd: vi.fn() },
+    );
+    expect(header(/^Done/).getAttribute('aria-label')).toBe('Done, loading');
+    expect(header(/^Done/).getAttribute('aria-busy')).toBe('true');
+    expect(header(/^Done/).querySelector('.sprout-board-count')).toBeNull();
+    expect(screen.getAllByRole('status').map(node => node.textContent)).toContain('Loading cards in Done…');
+    expect(screen.getByRole('list', { name: 'Done, 0 cards' }).getAttribute('aria-busy')).toBe('true');
+    expect(container.querySelectorAll('.sprout-board-skeleton-card')).toHaveLength(3);
+    expect(screen.queryByRole('button', { name: 'Add card to Done' })).toBeNull();
+    expect(screen.getByRole('list', { name: 'To do, 2 cards' }).hasAttribute('aria-busy')).toBe(false);
+    expect(screen.getByRole('button', { name: 'Add card to To do' })).toBeTruthy();
+    expect(screen.queryByText('No cards')).toBeNull();
+  });
+
+  it('keeps the total while loading', () => {
+    statusBoard([{ id: 'done', title: 'Done', status: 'loading', total: 40 }]);
+    expect(header(/^Done/).getAttribute('aria-label')).toBe('Done, 40 cards, loading');
+  });
+
+  it('shows an error with Try again', () => {
+    const onColumnRetry = vi.fn();
+    statusBoard(
+      [
+        { id: 'todo', title: 'To do' },
+        { id: 'done', title: 'Done', status: 'error' },
+      ],
+      { onColumnRetry },
+    );
+    expect(screen.getByRole('alert').textContent).toBe('Couldn’t load this column.');
+    expect(header(/^Done/).getAttribute('aria-label')).toBe('Done, couldn’t load');
+    fireEvent.click(screen.getByRole('button', { name: 'Try again to load Done' }));
+    expect(onColumnRetry).toHaveBeenCalledWith(expect.objectContaining({ id: 'done' }));
+    expect(screen.getAllByRole('button', { name: /^Try again/ })).toHaveLength(1);
+  });
+
+  it('shows a custom error without a retry callback', () => {
+    statusBoard([{ id: 'done', title: 'Done', status: 'error', error: 'The server timed out.' }]);
+    expect(screen.getByRole('alert').textContent).toBe('The server timed out.');
+    expect(screen.queryByRole('button', { name: /^Try again/ })).toBeNull();
+  });
+
+  it('shows an unavailable column', () => {
+    statusBoard([{ id: 'done', title: 'Done', status: 'unavailable' }]);
+    expect(screen.getByText('Cards are unavailable.')).toBeTruthy();
+    expect(screen.queryByRole('alert')).toBeNull();
+    expect(header(/^Done/).getAttribute('aria-label')).toBe('Done, unavailable');
+  });
+
+  it('shows column states once with lanes', () => {
+    const onColumnRetry = vi.fn();
+    const onColumnShowAll = vi.fn();
+    const { container } = render(
+      <Board
+        columns={[
+          { id: 'todo', title: 'To do', total: 9 },
+          { id: 'doing', title: 'Doing', status: 'loading' },
+          { id: 'done', title: 'Done', status: 'error' },
+        ]}
+        lanes={lanes}
+        items={startItems.filter(item => item.columnId === 'todo')}
+        onColumnRetry={onColumnRetry}
+        onColumnShowAll={onColumnShowAll}
+      />,
+    );
+    expect(screen.getAllByRole('alert')).toHaveLength(1);
+    expect(container.querySelector('.sprout-board-header .sprout-board-notice')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Try again to load Done' }));
+    expect(onColumnRetry).toHaveBeenCalledOnce();
+    expect(screen.getAllByRole('button', { name: 'Show all 9 in To do' })).toHaveLength(1);
+    expect(container.querySelector('.sprout-board-foot')).toBeTruthy();
+    expect(container.querySelectorAll('.sprout-board-skeletons')).toHaveLength(2);
+    expect(screen.getByRole('list', { name: 'Doing, Ben, 0 cards' }).getAttribute('aria-busy')).toBe('true');
+  });
+
+  it('says a ready column has no cards', () => {
+    statusBoard([
+      { id: 'todo', title: 'To do' },
+      { id: 'done', title: 'Done' },
+    ]);
+    expect(screen.getAllByText('No cards')).toHaveLength(1);
+    expect(screen.getByText('No cards').closest('.sprout-board-cell')?.textContent).toBe('No cards');
+  });
+
+  it('leaves empty cells of a column with cards quiet', () => {
+    render(<Board columns={startColumns} lanes={lanes} items={startItems} />);
+    // Done is empty in both lanes; To do is empty only for Ben.
+    expect(screen.getAllByText('No cards')).toHaveLength(2);
+  });
+
+  it('draws the title in a Badge of the tone', () => {
+    const { container } = statusBoard([{ id: 'done', title: 'Done', tone: 'success' }], {
+      onColumnsChange: vi.fn(),
+    });
+    const badge = container.querySelector('.sprout-board-column-badge');
+    expect(badge?.textContent).toBe('Done');
+    expect(badge?.classList.contains('sprout-badge-success')).toBe(true);
+    expect(screen.getByRole('button', { name: 'Rename Done' }).contains(badge)).toBe(true);
+  });
+
+  it('uses the app column texts', () => {
+    const onColumnShowAll = vi.fn();
+    statusBoard(
+      [
+        { id: 'todo', title: 'To do', total: 1280 },
+        { id: 'done', title: 'Done' },
+      ],
+      {
+        onColumnShowAll,
+        columnText: { empty: 'No rows', showAll: total => `Show all ${total.toLocaleString('en-US')} in table` },
+      },
+    );
+    expect(screen.getByText('No rows')).toBeTruthy();
+    expect(screen.queryByText('No cards')).toBeNull();
+    const button = screen.getByRole('button', { name: 'Show all 1,280 in table, To do' });
+    expect(button.hasAttribute('aria-label')).toBe(false);
+    fireEvent.click(button);
+    expect(onColumnShowAll).toHaveBeenCalledWith(expect.objectContaining({ id: 'todo' }));
+  });
+});

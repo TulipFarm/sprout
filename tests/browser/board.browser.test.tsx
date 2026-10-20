@@ -53,6 +53,35 @@ const titlesIn = (container: HTMLElement, name: string) =>
 
 const wait = (ms = 60) => new Promise(resolve => setTimeout(resolve, ms));
 
+const statusColumns: BoardColumn[] = [
+  { id: 'todo', title: 'To do', tone: 'info', total: 42 },
+  { id: 'doing', title: 'Doing', tone: 'warning', status: 'loading', total: 7 },
+  { id: 'blocked', title: 'Blocked', tone: 'destructive', status: 'error' },
+  { id: 'hidden', title: 'Private', status: 'unavailable' },
+  { id: 'done', title: 'Done', tone: 'success', total: 0 },
+];
+
+function StatusBoard({
+  withLanes = false,
+  onRetry = () => {},
+  onShowAll = () => {},
+}: {
+  withLanes?: boolean;
+  onRetry?: (column: BoardColumn) => void;
+  onShowAll?: (column: BoardColumn) => void;
+}) {
+  return (
+    <Board
+      label="Status board"
+      columns={statusColumns}
+      lanes={withLanes ? lanes : undefined}
+      items={startItems.filter(item => item.columnId === 'todo')}
+      onColumnRetry={onRetry}
+      onColumnShowAll={onShowAll}
+    />
+  );
+}
+
 describe('Board in a real browser', () => {
   it.each(themes)('%s %s passes axe', async (theme, mode) => {
     setTheme(theme, mode);
@@ -164,5 +193,44 @@ describe('Board in a real browser', () => {
     await wait();
     expect(latest.map(i => i.id)).toEqual(['a', 'b']);
     expect(screen.container.querySelector('[aria-label^="Doing,"]')).toBeNull();
+  });
+
+  it.each(themes)('%s %s passes axe with column states', async (theme, mode) => {
+    setTheme(theme, mode);
+    await emulate({ reducedMotion: true });
+    const screen = await render(<StatusBoard />);
+    await settle();
+    expect(await axeViolations(screen.container)).toEqual([]);
+  });
+
+  it('passes axe with column states and lanes', async () => {
+    await emulate({ reducedMotion: true });
+    const screen = await render(<StatusBoard withLanes />);
+    await settle();
+    expect(await axeViolations(screen.container)).toEqual([]);
+  });
+
+  it('reaches Try again and Show all with the keyboard on a read-only board', async () => {
+    await emulate({ reducedMotion: true });
+    const retried: string[] = [];
+    const shown: string[] = [];
+    const screen = await render(
+      <StatusBoard onRetry={column => retried.push(column.id)} onShowAll={column => shown.push(column.id)} />,
+    );
+    await settle();
+    const card = screen.container.querySelector<HTMLElement>('[aria-label="Plant tulips"]')!;
+    card.focus();
+    await userEvent.keyboard(' ');
+    await wait();
+    expect(document.body.textContent).not.toContain('Picked up');
+    await userEvent.tab();
+    await userEvent.tab();
+    expect(document.activeElement?.getAttribute('aria-label')).toBe('Show all 42 in To do');
+    await userEvent.keyboard('{Enter}');
+    expect(shown).toEqual(['todo']);
+    await userEvent.tab();
+    expect(document.activeElement?.getAttribute('aria-label')).toBe('Try again to load Blocked');
+    await userEvent.keyboard('{Enter}');
+    expect(retried).toEqual(['blocked']);
   });
 });

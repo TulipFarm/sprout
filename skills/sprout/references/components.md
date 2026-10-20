@@ -1083,7 +1083,8 @@ import { Board, type BoardColumn, type BoardItem } from '@tulipfarm/sprout/board
   label="Product team"
   columns={[
     { id: 'todo', title: 'To do' },
-    { id: 'doing', title: 'In progress', limit: 3 },
+    { id: 'doing', title: 'In progress', limit: 3, total: 42, tone: 'info' },
+    { id: 'done', title: 'Done', status: 'error' },
   ]}
   lanes={[
     { id: 'ana', title: 'Ana' },
@@ -1096,11 +1097,13 @@ import { Board, type BoardColumn, type BoardItem } from '@tulipfarm/sprout/board
   onItemOpen={item => openSheet(item)}
   renderBody={item => <Badge variant="warning">{item.priority}</Badge>}
   itemActions={item => <DropdownMenuItem onClick={() => remove(item)}>Delete card</DropdownMenuItem>}
+  onColumnRetry={column => reload(column.id)}
+  onColumnShowAll={column => openTable(column.id)}
   searchable
 />;
 ```
 
-A Kanban board. Columns go across, optional `lanes` (swimlanes) go down, and a card sits in the cell of its `columnId` and `laneId`. Card order in a cell is its order in `items`; every move, rename, or column delete comes back as a whole new list through `onItemsChange`. Columns reorder by a grip and rename from the title through `onColumnsChange`. `limit` marks a column "Over limit" in words. `renderBody` adds content under the title, `renderTitle` replaces the title content, and `renderCard(item, { title, menu })` draws the whole card with no default frame (place `title` and `menu` yourself; drag, focus, keys and selection stay with the board). Lanes and the cards in each cell are virtualized, so boards with thousands of cards stay fast. Use Table for records in rows; use Board when the column is the status.
+A Kanban board. Columns go across, optional `lanes` (swimlanes) go down, and a card sits in the cell of its `columnId` and `laneId`. Card order in a cell is its order in `items`; every move, rename, or column delete comes back as a whole new list through `onItemsChange`. Columns reorder by a grip and rename from the title through `onColumnsChange`. `limit` marks a column "Over limit" in words. Leave out `onItemsChange` and `onColumnsChange` for a read-only board: cards and columns do not drag, rename, or select, and Enter still opens. Columns can load on their own: `total` is the server count (header, accessible name, "Over limit"); `status: 'loading'` shows skeleton cards with `aria-busy`, `'error'` an alert with "Try again" (`onColumnRetry(column)`), `'unavailable'` a message only, and `error` replaces the message; other columns are not affected. `onColumnShowAll(column)` adds "Show all N" at the column foot when `total` is more than the loaded cards. With lanes, the message and "Show all" show once, under the header and at the board foot. A ready column with no cards says "No cards". `columnText={{ empty, showAll: (total, column) => … }}` replaces those texts, such as "No rows" or "Show all 40 in table"; the Show all button's accessible name still ends with the column title. `tone` draws the column title as a Badge of that variant. `renderBody` adds content under the title, `renderTitle` replaces the title content, and `renderCard(item, { title, menu })` draws the whole card with no default frame (place `title` and `menu` yourself; drag, focus, keys and selection stay with the board). Lanes and the cards in each cell are virtualized, so boards with thousands of cards stay fast. Use Table for records in rows; use Board when the column is the status.
 
 ### Brand Icon
 

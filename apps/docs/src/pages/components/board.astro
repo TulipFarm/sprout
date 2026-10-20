@@ -1,6 +1,6 @@
 ---
 import Docs from '../../layouts/Docs.astro';
-import { BoardCustom, BoardLarge, BoardPlain, BoardPlayground } from '../../components/BoardDemo';
+import { BoardCustom, BoardLarge, BoardPlain, BoardPlayground, BoardReadOnly } from '../../components/BoardDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
@@ -47,8 +47,8 @@ const [items, setItems] = useState<BoardItem[]>([
     />
     <ul>
       <li>
-        <code>columns</code>: <code>{'{ id, title, limit? }[]'}</code>. Over
-        <code>limit</code>, the header turns amber and says “Over limit”.
+        <code>columns</code>: <code>{'{ id, title, limit?, total?, status?, error?, tone? }[]'}</code>. Over
+        <code>limit</code>, the header turns amber and says “Over limit”. See “Read-only” for the rest.
       </li>
       <li>
         <code>lanes</code>: <code>{'{ id, title }[]'}</code>. Leave it out for a plain board with no lane bars.
@@ -69,6 +69,10 @@ const [items, setItems] = useState<BoardItem[]>([
       <li>
         <code>onItemAdd</code> and <code>onColumnAdd</code>: show “Add card” in every cell and “Add column” after the
         last column. Your app makes the id.
+      </li>
+      <li>
+        <code>onColumnRetry</code> and <code>onColumnShowAll</code>: show “Try again” on a column that failed to load,
+        and “Show all N” on a column whose <code>total</code> is more than its loaded cards.
       </li>
       <li>
         <code>onItemOpen</code>, <code>renderBody</code>, <code>itemActions</code>: what a click does, the card body
@@ -92,6 +96,49 @@ const [items, setItems] = useState<BoardItem[]>([
     </p>
     <div class="mt-4">
       <BoardPlain client:load />
+    </div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Read-only</h2>
+    <p>
+      Leave out <code>onItemsChange</code> and <code>onColumnsChange</code> for a status board. Cards and columns do not
+      drag, rename, or select. Click or Enter still opens a card.
+    </p>
+    <p>
+      Each column can load on its own. <code>total</code> is the count from your server; the header shows it, and with
+      <code>onColumnShowAll</code> the column foot offers “Show all N” when you loaded fewer cards. <code>status</code>
+      is <code>'loading'</code> (skeleton cards), <code>'error'</code> (a message and “Try again”, which calls
+      <code>onColumnRetry</code>), or <code>'unavailable'</code> (a message only). <code>error</code> replaces the
+      default message. Other columns are not affected. A ready column with no cards says “No cards”. <code>tone</code>{' '}
+      draws the title as a Badge of that variant.
+    </p>
+    <p>
+      <code>columnText</code> changes the column texts to your product's words:
+      <code>{'columnText={{ empty: "No rows", showAll: (total) => `Show all ${total} in table` }}'}</code>. The Show all
+      button's accessible name still ends with the column title.
+    </p>
+    <p>
+      With lanes, a column's message and its “Show all” appear once, under the column header and at the board foot.
+      Skeleton cards appear in every lane of a loading column.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      code={`<Board
+  label="Release status"
+  columns={[
+    { id: "backlog", title: "Backlog", tone: "secondary", total: 128 },
+    { id: "review", title: "Review", tone: "warning", total: 9, status: "loading" },
+    { id: "blocked", title: "Blocked", tone: "destructive", status: "error" },
+    { id: "done", title: "Done", tone: "success", total: 0 },
+  ]}
+  items={firstRowsOfEachColumn}
+  onItemOpen={(item) => openSheet(item)}
+  onColumnRetry={(column) => reload(column.id)}
+  onColumnShowAll={(column) => openTable(column.id)}
+/>`}
+    />
+    <div class="mt-4">
+      <BoardReadOnly client:load />
     </div>
   </section>
   <section class="prose-section">
@@ -143,8 +190,8 @@ const [items, setItems] = useState<BoardItem[]>([
   <section class="prose-section">
     <h2 class="section-title">Selecting and moving many cards</h2>
     <p>
-      Cmd-click or Ctrl-click adds a card to the selection. Shift-click selects a range. Drag one selected card and the
-      rest go with it. Escape clears the selection.
+      When cards can move, Cmd-click or Ctrl-click adds a card to the selection. Shift-click selects a range. Drag one
+      selected card and the rest go with it. Escape clears the selection.
     </p>
   </section>
   <section class="prose-section">
@@ -158,6 +205,11 @@ const [items, setItems] = useState<BoardItem[]>([
       Enter opens a card. F2 or Rename in the card menu renames it. With no
       <code>onItemOpen</code>, a double-click renames too. In a title field, Enter saves and Escape cancels. Columns
       move with their grip button in the same way. The “Over limit” state is in words, not only color.
+    </p>
+    <p>
+      A column header's name includes its count and state, such as “Review, 9 cards, loading”. A loading column is
+      <code>aria-busy</code> and announces “Loading cards in Review…”. A load error is an alert, and its “Try again” and
+      “Show all N” buttons name their column.
     </p>
   </section>
   <section class="prose-section">
