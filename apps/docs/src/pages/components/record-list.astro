@@ -1,0 +1,161 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import { RecordListPlayground } from '../../components/RecordListDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs
+  title="Record List"
+  description="Rows of records to read and triage, with labelled values, badges, and row actions."
+>
+  <h1 class="docs-title">Record List</h1>
+  <p class="docs-lead">
+    The List view of a table. Each record on the current page is one row: a title, up to four labelled values, choice
+    badges, and row actions. Use it to read and triage records. Use Table to compare values in columns, edit, or select
+    rows in bulk.
+  </p>
+  <div class="mt-8">
+    <RecordListPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A page of tickets"
+      code={`import { Badge } from "@tulipfarm/sprout/badge";
+import { RecordList, type RecordListHandle } from "@tulipfarm/sprout/record-list";
+
+const list = useRef<RecordListHandle>(null);
+
+<RecordList
+  ref={list}
+  label="Tickets"
+  items={page.rows}
+  status={read.loading ? "loading" : read.failed ? "error" : "ready"}
+  onRetry={read.retry}
+  values={(ticket) => [
+    { label: "Assignee", value: ticket.assignee },
+    { label: "Due", value: ticket.due },
+  ]}
+  badges={(ticket) => <Badge variant="info">{ticket.status}</Badge>}
+  renderActions={(ticket) => <TicketActions ticket={ticket} />}
+  onItemOpen={(ticket) => openSheet(ticket)}
+  footer={<TicketPagination onPageChange={() => list.current?.focusFirst()} />}
+/>`}
+    />
+    <ul>
+      <li>
+        <code>items</code>: <code>{'{ id, title }[]'}</code> plus your own fields, in page order.
+        <code>title</code> is plain text. Screen readers use it, and it shows in full on hover.
+      </li>
+      <li>
+        <code>label</code> names the list. The row count is added, so screen readers hear “Tickets, 6 rows”.
+      </li>
+      <li>
+        <code>renderTitle</code> draws the title, such as a key before the text. Screen readers still use
+        <code>title</code>.
+      </li>
+      <li>
+        <code>values</code> returns <code>{'{ label, value, text? }[]'}</code>.{' '}
+        <strong>Only the first four show; the rest are left out.</strong> Leave out empty values before you return them.
+        Use <code>text</code> for the hover hint when
+        <code>value</code> is not a string or number.
+      </li>
+      <li>
+        <code>badges</code> returns choice badges, such as status and priority. Leave out empty choices.
+      </li>
+      <li>
+        <code>renderActions</code> is a free slot for row actions, such as an Edit icon button and a
+        <code>DropdownMenu</code>. Clicks in it never open the row. Give each action a name that includes the row.
+      </li>
+      <li>
+        <code>onItemOpen</code> runs on a click anywhere else in the row, or on Enter. A click that ends a text
+        selection does not open the row.
+      </li>
+      <li>
+        <code>footer</code> sits under the rows inside the panel. Put your <code>Pagination</code> there.
+      </li>
+      <li>
+        <code>density="compact"</code> uses 8px by 12px padding instead of 12px by 16px.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <p>
+      <code>status</code> is <code>"ready"</code>, <code>"loading"</code>, or <code>"error"</code>. While a page loads
+      and rows are already shown, they stay in place, dimmed, with <code>aria-busy</code> and a “Loading rows…”
+      announcement. With no rows yet, five skeleton rows hold the space.
+    </p>
+    <p>
+      <code>"error"</code> replaces the rows with an error state. <code>error</code> is its description, and
+      <code>onRetry</code> adds a Try again button. When <code>items</code> is empty and ready, the list shows
+      <code>empty</code>: pass a <code>StatePanel</code> or text. Without it, the list says “No rows to show”.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Custom empty state"
+      code={`<RecordList
+  label="Tickets"
+  items={[]}
+  empty={
+    <StatePanel kind="empty" heading="h3" title="No rows match" description="No tickets match the current filters.">
+      <Button variant="outline" onClick={clearFilters}>Clear filters</Button>
+    </StatePanel>
+  }
+/>`}
+    />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Layout</h2>
+    <p>
+      Rows sit in one bordered panel, separated by hairlines. The title is on the first line in 14px medium text. Values
+      follow on the second line as muted label and strong value pairs, with tabular numerals, 16px apart, wrapping as
+      needed. Badges and actions sit on the right.
+    </p>
+    <p>
+      Long titles cut off after one line. Each value cuts off at 16rem. The full text shows on hover and is always read
+      by screen readers. When the list is 640px wide or less, badges move under the values, actions stay at the top
+      right, and titles wrap to two lines.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Keyboard and focus</h2>
+    <ul>
+      <li>The list is one tab stop. Tab lands on the last focused row, or the first row.</li>
+      <li>Up and Down move between rows. Home and End go to the first and last row. Enter opens the row.</li>
+      <li>
+        Tab from a row reaches that row's actions, then leaves the list. Actions in other rows are out of the tab order
+        until their row is focused. Clicking an action also makes its row the focused row.
+      </li>
+      <li>
+        Menus opened from actions work as usual, and focus returns to their trigger when they close. Shift+Tab from an
+        action goes back to its row.
+      </li>
+    </ul>
+    <p>
+      After a page change, call <code>focusFirst()</code> on the ref so focus does not fall to the page. While
+      <code>status</code> is <code>"loading"</code>, it waits for the new rows, so you can call it from the page
+      button's click handler. With no rows, it focuses the empty or error state.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The list is a named <code>list</code>, and each row is a <code>listitem</code> named by its title. The values and
+      badges describe the row, so screen readers read them after the title. Values are a description list of field and
+      value. Rows have a hover color and an inset focus ring. Rows fade in over 180ms and the dim changes smoothly only
+      when reduced motion is not requested. In forced colors mode the lines use the system text color.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The panel uses <code>--sprout-surface</code>, <code>--sprout-line</code>, and <code>--sprout-radius-panel</code>.
+      Titles and values use <code>--sprout-text</code>, labels use <code>--sprout-muted</code>, and hover uses
+      <code>--sprout-hover</code>. Focus uses <code>--sprout-focus-ring</code> and <code>--sprout-focus-width</code>.
+      Motion uses <code>--sprout-motion-fast</code>, <code>--sprout-motion-normal</code>, and
+      <code>--sprout-motion-ease</code>.
+    </p>
+  </section>
+</Docs>

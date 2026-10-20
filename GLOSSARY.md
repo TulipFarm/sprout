@@ -8,6 +8,10 @@ Sprõut is a React component library. This glossary covers the shared words for 
 The one component for showing rows of records in columns. It replaces every other table-like component.
 _Avoid_: Data grid, data list, data table
 
+**Record list**:
+A list for reading and triaging records, one row per record: a title, up to four labelled values, badges, and row actions. It has no columns, so it does not compare values or edit them in place. Use the Table for that.
+_Avoid_: Data list, item list, card list
+
 **Column**:
 One field of a record shown down the Table, with its header, width, and rules for sort, filter, edit, and group.
 _Avoid_: Field, header

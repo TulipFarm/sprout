@@ -143,6 +143,7 @@ import { PresenceCursor } from '@tulipfarm/sprout/presence-cursor';
 import { Progress, ProgressLabel, ProgressValue } from '@tulipfarm/sprout/progress';
 import { RadioGroup, RadioGroupItem } from '@tulipfarm/sprout/radio-group';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@tulipfarm/sprout/resizable';
+import { RecordList } from '@tulipfarm/sprout/record-list';
 import { ResultCard } from '@tulipfarm/sprout/result-card';
 import { ResultNotice } from '@tulipfarm/sprout/result-notice';
 import type { RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
@@ -1381,6 +1382,31 @@ function PresenceCursorPreview() {
   );
 }
 
+const previewRecords = [
+  { id: 'r1', title: 'Order compost for the north beds', owner: 'Chen Wei', due: 'Oct 8', status: 'In progress' },
+  { id: 'r2', title: 'Replace torn shade cloth', owner: 'Ana Ruiz', due: 'Oct 15', status: 'Open' },
+  { id: 'r3', title: 'Frost alert texts arrive late', owner: 'Ben Okafor', due: 'Oct 22', status: 'Done' },
+] as const;
+const previewRecordTone = { 'In progress': 'warning', Open: 'info', Done: 'success' } as const;
+
+function RecordListPreview() {
+  return (
+    <div className="home-p-zoom home-p-wide">
+      <RecordList
+        label="Tasks"
+        density="compact"
+        items={[...previewRecords]}
+        renderTitle={record => record.title}
+        values={record => [
+          { label: 'Owner', value: record.owner },
+          { label: 'Due', value: record.due },
+        ]}
+        badges={record => <Badge variant={previewRecordTone[record.status]}>{record.status}</Badge>}
+      />
+    </div>
+  );
+}
+
 function ResultCardPreview() {
   const [opened, setOpened] = useState(false);
   return (
@@ -1599,6 +1625,7 @@ const previews: Record<string, () => ReactNode> = {
   'glass-banner': GlassBannerPreview,
   'gradient-banner': GradientBannerPreview,
   'presence-cursor': PresenceCursorPreview,
+  'record-list': RecordListPreview,
   'result-card': ResultCardPreview,
   board: BoardPreview,
   table: TablePreview,

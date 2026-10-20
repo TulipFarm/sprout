@@ -204,6 +204,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Glass Banner    | `glass-banner`    | Frosted hero banner with draggable chips.                                        |
 | Gradient Banner | `gradient-banner` | Decorative gradient art with readable panels on top.                             |
 | Presence Cursor | `presence-cursor` | Other people's pointers on a shared surface, with a name tag or avatar.          |
+| Record List     | `record-list`     | List view of records: title, four labelled values, badges, row actions, paging.  |
 | Result Card     | `result-card`     | Something an agent made, with apps used, status, one action.                     |
 | Schema Diagram  | `schema-diagram`  | Tables, fields, and links with proposed changes marked.                          |
 | SQL Viewer      | `sql-viewer`      | Explore TulipFarm tables, columns, keys, and joins. Shows 4, collapses the rest. |

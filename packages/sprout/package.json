@@ -284,6 +284,10 @@
       "types": "./dist/components/reasoning-effort.d.ts",
       "import": "./dist/components/reasoning-effort.js"
     },
+    "./record-list": {
+      "types": "./dist/components/record-list.d.ts",
+      "import": "./dist/components/record-list.js"
+    },
     "./resizable": {
       "types": "./dist/components/resizable.d.ts",
       "import": "./dist/components/resizable.js"
