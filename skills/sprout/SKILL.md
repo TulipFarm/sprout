@@ -155,6 +155,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Pagination      | `pagination`      | Previous / next / numbered pages for long lists.             |
 | Sidebar         | `sidebar`         | App navigation: groups, icon rail, mobile drawer.            |
 | Tabs            | `tabs`            | Switch between panels of one page, or steps of a setup flow. |
+| View Switcher   | `view-switcher`   | A table's open views (Table, List, Board…) and Add view.     |
 
 ### Layout
 

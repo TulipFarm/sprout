@@ -769,6 +769,44 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tulipfarm/sprout/tabs
 
 List variants: `default`, `line`, `steps`.
 
+### View Switcher
+
+```tsx
+import { ViewSwitcher, viewSwitcherTabId } from '@tulipfarm/sprout/view-switcher';
+
+<ViewSwitcher
+  views={[
+    { id: 'table', label: 'Table', icon: Grid },
+    { id: 'board', label: 'Board', icon: Kanban, closable: true },
+  ]}
+  value={layout}
+  onValueChange={setLayout}
+  options={[
+    { id: 'list', label: 'List', icon: List, description: 'One item per row for quick reading.' },
+    {
+      id: 'board',
+      label: 'Board',
+      icon: Kanban,
+      description: 'Cards in lanes.',
+      unavailable: 'Needs a single-select field.',
+    },
+  ]}
+  onAdd={id => openView(id)}
+  onClose={id => closeView(id)}
+  panelId="records"
+  actions={
+    <Button variant="ghost" size="icon-sm" aria-label="View settings">
+      …
+    </Button>
+  }
+/>;
+<div role="tabpanel" id="records" aria-labelledby={viewSwitcherTabId('records', layout)} tabIndex={0}>
+  …
+</div>;
+```
+
+Fully controlled: it shows exactly `views` (the bar) and `options` (the "Add view" menu) and decides nothing. Options already in `views` show a check; choosing one still calls `onAdd`, so switch to it there. `unavailable` disables an option and shows the reason. Close shows only for `closable` views when `onClose` is passed; Delete on a focused tab closes it.
+
 ## Layout
 
 ### Accordion

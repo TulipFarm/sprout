@@ -94,6 +94,7 @@
 @import './toolbar-status.css';
 @import './tooltip.css';
 @import './typed-text.css';
+@import './view-switcher.css';
 @source "../**/*.js";
 
 @theme inline {

@@ -420,6 +420,10 @@
       "types": "./dist/components/typed-text.d.ts",
       "import": "./dist/components/typed-text.js"
     },
+    "./view-switcher": {
+      "types": "./dist/components/view-switcher.d.ts",
+      "import": "./dist/components/view-switcher.js"
+    },
     "./styles.css": "./dist/styles/index.css",
     "./themes/*": "./dist/styles/themes/*",
     "./package.json": "./package.json"

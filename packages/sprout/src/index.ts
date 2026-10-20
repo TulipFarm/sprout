@@ -94,3 +94,4 @@ export * from './components/tool-activity.js';
 export * from './components/toolbar-status.js';
 export * from './components/tooltip.js';
 export * from './components/typed-text.js';
+export * from './components/view-switcher.js';
