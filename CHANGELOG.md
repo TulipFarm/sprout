@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.5.0](https://github.com/TulipFarm/sprout/compare/v0.4.0...v0.5.0) (2026-10-21)
+
+### ⚠ BREAKING CHANGES
+
+* **agent-avatar:** AgentAvatar and agentAvatarSrc moved from
+  @tulipfarm/sprout/avatar to @tulipfarm/sprout/agent-avatar.
+  agentAvatarSrc no longer takes a baseUrl and returns a data URI. New
+* size names are now sm / md / lg.
+  - default -> md and compact -> sm on every sized component.
+  - Button: xs and the special sizes are removed. Icon sizes stay.
+  - Attachment: default/sm/xs -> lg/md/sm.
+  - Avatar, EntityAvatar, AgentAvatar: xs and xl are removed.
+  - GradientBanner: xl is removed. ScrollArea: auto is removed; leave size
+    unset to follow content.
+  - StateSample columns: wide/narrow -> lg/sm.
+  - Select: the calendar size is removed.
+
+### Features
+
+* **agent-avatar:** bundle agent avatar artwork into sprout ([c7a2955](https://github.com/TulipFarm/sprout/commit/c7a2955eff265e971e0f1752175ce8ec7f815544))
+* share control height, add ghost-destructive, unify sizes to sm/md/lg ([76f3664](https://github.com/TulipFarm/sprout/commit/76f36648c69bcee56f8fbf209e82bbe9d9135a1b))
+
 ## [0.4.0](https://github.com/TulipFarm/sprout/compare/v0.3.1...v0.4.0) (2026-10-21)
 
 ### Features
