@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://github.com/TulipFarm/sprout/compare/v0.3.1...v0.4.0) (2026-10-21)
+
+### Features
+
+* **board:** add Board (Kanban) component ([#26](https://github.com/TulipFarm/sprout/issues/26)) ([f30114c](https://github.com/TulipFarm/sprout/commit/f30114cae466b698a02f2162916d433b2a9d36d9))
+* **board:** add per-column states, Show all and read-only fixes ([54f616d](https://github.com/TulipFarm/sprout/commit/54f616da7a6df13f51e5f23bdf5b0fe014d51ba5))
+* **chart:** add business charts ([#27](https://github.com/TulipFarm/sprout/issues/27)) ([a198de3](https://github.com/TulipFarm/sprout/commit/a198de3364f63339e87730c75d43d1f7c8a04aa4))
+* **record-list:** add RecordList for the List view ([1723745](https://github.com/TulipFarm/sprout/commit/1723745b0fd3e4e164e2718701e14c809ba3d790))
+* **result-notice:** add ResultNotice for capped result sets ([73ea90f](https://github.com/TulipFarm/sprout/commit/73ea90f3a1011ebad48a9d7fa79cc35cd2ec69c0))
+* **theme:** add a vibrant ten-hue palette for charts and agent colors ([#25](https://github.com/TulipFarm/sprout/issues/25)) ([e096670](https://github.com/TulipFarm/sprout/commit/e09667030eb2baa15f95fdb9165985c8e870115f))
+* **timeline:** add windowed record timeline entry ([78b7a72](https://github.com/TulipFarm/sprout/commit/78b7a72041c00dba43fc2e242cd226c901f0e5d8))
+* **view-switcher:** add ViewSwitcher for a table's open views ([feafb8b](https://github.com/TulipFarm/sprout/commit/feafb8bdfee914f56942f4eacd7e3b5811440680))
+
 ## [0.3.1](https://github.com/TulipFarm/sprout/compare/v0.2.0...v0.3.1) (2026-10-19)
 
 ### Features
