@@ -5,8 +5,8 @@ import { CheckCircle } from 'reicon-react/icons/CheckCircle';
 import { ChevronDown } from 'reicon-react/icons/ChevronDown';
 import { Cursor } from 'reicon-react/icons/Cursor';
 import { UserAdd } from 'reicon-react/icons/UserAdd';
+import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import {
-  AgentAvatar,
   Avatar,
   AvatarBadge,
   AvatarFallback,
@@ -177,32 +177,6 @@ export function AvatarSizes() {
             <span>{size}</span>
           </div>
         ))}
-      </div>
-    </Frame>
-  );
-}
-
-export function AgentAvatarSizes() {
-  return (
-    <Frame
-      title="Agent avatars"
-      foot="Artwork is chosen from the agent id. The last example has no artwork, so it shows the first letter."
-    >
-      <div className="avatar-row">
-        {sizes.map(size => (
-          <div key={size} className="avatar-cell">
-            <AgentAvatar agentId="docs-garden-example" name="Garden assistant" size={size} />
-            <span>{size}</span>
-          </div>
-        ))}
-        <div className="avatar-cell">
-          <AgentAvatar agentId="docs-other-example" name="Orchard helper" />
-          <span>other id</span>
-        </div>
-        <div className="avatar-cell">
-          <AgentAvatar agentId="docs-missing-art" name="Weekly reporter" src={sample.missing} />
-          <span>fallback</span>
-        </div>
       </div>
     </Frame>
   );

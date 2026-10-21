@@ -14,7 +14,7 @@ import { Plug } from 'reicon-react/icons/Plug';
 import { ShieldUser } from 'reicon-react/icons/ShieldUser';
 import { User } from 'reicon-react/icons/User';
 import { Users } from 'reicon-react/icons/Users';
-import { AgentAvatar } from '@tulipfarm/sprout/avatar';
+import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';

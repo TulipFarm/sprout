@@ -1,0 +1,135 @@
+// Turns the agent avatar SVG sources into src/internal/agent-avatar-artwork.ts.
+// Run `pnpm avatars` after editing anything in artwork/agent-avatars/.
+import { execFileSync } from 'node:child_process';
+import { readFile, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { optimize } from 'svgo';
+
+const at = relative => fileURLToPath(new URL(relative, import.meta.url));
+const sources = at('../artwork/agent-avatars/');
+export const output = at('../src/internal/agent-avatar-artwork.ts');
+
+export const ROLES = ['circle', 'outline', 'main', 'secondary', 'highlight', 'shadow', 'accent'];
+export const COLORS = ['pink', 'coral', 'orange', 'yellow', 'green', 'teal', 'blue', 'purple'];
+// Placeholder colors survive svgo untouched; the component swaps in the palette.
+const sentinel = role => `#0000a${ROLES.indexOf(role) + 1}`;
+const CIRCLE = `<circle cx="128" cy="128" r="120" fill="${sentinel('circle')}"/>`;
+const SVG_BUDGET = 30 * 1024;
+
+const allowedElements = new Set([
+  'svg',
+  'title',
+  'desc',
+  'g',
+  'path',
+  'circle',
+  'ellipse',
+  'rect',
+  'line',
+  'polyline',
+  'polygon',
+  'defs',
+  'linearGradient',
+  'radialGradient',
+  'stop',
+  'clipPath',
+  'pattern',
+]);
+
+export function compile(source, slug) {
+  if (/<!DOCTYPE|<!ENTITY/i.test(source)) throw new Error(`${slug}: SVG declarations are not allowed.`);
+  const fail = message => {
+    throw new Error(`${slug}: ${message}`);
+  };
+  const { data } = optimize(source, {
+    plugins: [
+      {
+        name: 'tulipfarm-roles',
+        fn: () => ({
+          element: {
+            enter(node) {
+              if (!allowedElements.has(node.name)) fail(`unsupported element <${node.name}>.`);
+              const attrs = node.attributes;
+              if (node.name === 'svg' && attrs.viewBox !== '0 0 256 256') fail('viewBox must be "0 0 256 256".');
+              if (attrs.id?.startsWith('tf-background-')) fail('ids starting with tf-background- are reserved.');
+              for (const [name, value] of Object.entries(attrs)) {
+                if (
+                  /^on/i.test(name) ||
+                  /href$/i.test(name) ||
+                  name === 'style' ||
+                  /url\((?!#[a-zA-Z][\w-]*\))/.test(value)
+                )
+                  fail(`unsupported attribute ${name}.`);
+              }
+              for (const property of ['fill', 'stroke', 'stop-color']) {
+                const role = attrs[`data-${property}`];
+                if (role !== undefined) {
+                  if (!ROLES.includes(role)) fail(`unknown color role ${role}.`);
+                  attrs[property] = sentinel(role);
+                  delete attrs[`data-${property}`];
+                } else if (
+                  attrs[property] &&
+                  attrs[property] !== 'none' &&
+                  !/^url\(#[a-zA-Z][\w-]*\)$/.test(attrs[property])
+                ) {
+                  fail(`${property}="${attrs[property]}" needs a data-${property} role.`);
+                }
+              }
+            },
+          },
+        }),
+      },
+      'removeTitle',
+      { name: 'preset-default', params: { overrides: { cleanupIds: false } } },
+    ],
+  });
+  const root = /^<svg [^>]*>(.*)<\/svg>$/s.exec(data);
+  if (!root) fail('unexpected <svg> root after optimizing.');
+  const body = root[1];
+  if (body.split(CIRCLE).length !== 2) fail(`needs exactly one background circle: ${CIRCLE}`);
+  // `$` marks where the shared background finish goes.
+  const art = body.replace(CIRCLE, '$');
+  if (Buffer.byteLength(art) > SVG_BUDGET) fail('exceeds the 30 KiB budget.');
+  return art;
+}
+
+export async function generate() {
+  const catalog = JSON.parse(await readFile(`${sources}catalog.json`, 'utf8'));
+  const palettes = JSON.parse(await readFile(`${sources}palettes.json`, 'utf8'));
+  if (Object.keys(palettes).join() !== COLORS.join()) throw new Error('palettes.json must list the colors in order.');
+  for (const [name, palette] of Object.entries(palettes)) {
+    if (Object.keys(palette).sort().join() !== [...ROLES].sort().join())
+      throw new Error(`palette ${name} must define ${ROLES.join(', ')}.`);
+    if (Object.values(palette).some(color => !/^#[0-9a-f]{6}$/i.test(color)))
+      throw new Error(`palette ${name} has an invalid color.`);
+  }
+  const seen = new Set();
+  for (const { slug, name, status } of catalog) {
+    if (!/^[a-z]+(?:-[a-z]+)*$/.test(slug) || seen.has(slug)) throw new Error(`Invalid or duplicate slug: ${slug}`);
+    if (typeof name !== 'string' || !name.trim()) throw new Error(`${slug} needs a name.`);
+    if (status !== 'approved') throw new Error(`${slug} is not approved. Only approved artwork ships.`);
+    seen.add(slug);
+  }
+  const art = await Promise.all(
+    catalog.map(async ({ slug }) => compile(await readFile(`${sources}${slug}.svg`, 'utf8'), slug)),
+  );
+  const lines = [
+    '// Generated by packages/sprout/scripts/agent-avatars.mjs from artwork/agent-avatars/. Do not edit.',
+    '',
+    '// Frozen order: any edit, even appending, changes existing agent avatars.',
+    `export const objects = ${JSON.stringify(catalog.map(({ slug }) => slug))} as const;`,
+    '',
+    `export const colors = ${JSON.stringify(COLORS)} as const;`,
+    '',
+    `// Each palette lists ${ROLES.join(', ')}.`,
+    `export const palettes = ${JSON.stringify(COLORS.map(color => ROLES.map(role => palettes[color][role].toLowerCase())))};`,
+    '',
+    '// One SVG body per object. #0000a1-#0000a7 are palette roles; $ is the background.',
+    `export const artwork = ${JSON.stringify(art)};`,
+    '',
+  ];
+  await writeFile(output, lines.join('\n'));
+  execFileSync('oxfmt', [output], { cwd: at('../../../'), stdio: 'inherit' });
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) await generate();

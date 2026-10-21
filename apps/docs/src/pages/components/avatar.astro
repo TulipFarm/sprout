@@ -4,10 +4,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
 import {
   AvatarPlayground,
   AvatarSizes,
-  AgentAvatarSizes,
   EntityAvatars,
   AvatarGroups,
-  AgentCompositions,
   EntityCompositions,
   ChatCompositions,
 } from '../../components/AvatarDemo';
@@ -16,8 +14,7 @@ import {
 <Docs title="Avatar">
   <h1 class="docs-title">Avatar</h1>
   <p class="docs-lead">
-    Pictures for people, agents, and workspaces. Shows initials when there is no image or the image fails. Built with
-    Base UI.
+    Pictures for people and workspaces. Shows initials when there is no image or the image fails. Built with Base UI.
   </p>
   <div class="mt-8">
     <AvatarPlayground client:load />
@@ -57,20 +54,13 @@ import {
   </section>
   <section class="prose-section">
     <h2 class="section-title">Agent avatars</h2>
-    <CodeBlock
-      lang="tsx"
-      title="Agent avatar"
-      code={`<AgentAvatar agentId={agent.id} name={agent.name} size="sm" />`}
-    />
     <p>
-      <code>AgentAvatar</code> picks stable artwork from <code>agentId</code>. The image is decorative; put the agent
-      name in nearby text. Pass <code>src</code> to use your own artwork. <code>agentAvatarSrc(id, baseUrl)</code>{' '}
-      returns the default URL.
+      For agents, use{' '}
+      <a href="/components/agent-avatar">
+        <code>AgentAvatar</code>
+      </a>
+      . It picks built-in artwork from the agent's id.
     </p>
-    <div class="mt-6">
-      <AgentAvatarSizes client:load />
-    </div>
-    <AgentCompositions client:load />
   </section>
   <section class="prose-section">
     <h2 class="section-title">Entity avatars</h2>

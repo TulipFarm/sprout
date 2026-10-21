@@ -81,3 +81,9 @@ _Avoid_: Limit notice, truncation warning, cap banner
 **Window**:
 The date range a timeline shows: the one week, month, or quarter that holds a chosen day. Rows outside it are not drawn; bars that run past it are cut at its edge.
 _Avoid_: Range, period, viewport
+
+## Avatars
+
+**Agent avatar**:
+An agent's picture: one of 100 built-in objects in one of eight colors, picked from the agent's id. The artwork ships inside Sprõut, so nothing is hosted.
+_Avoid_: Avatar service, avatar URL

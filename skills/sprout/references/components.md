@@ -1121,6 +1121,19 @@ import { Avatar, AvatarFallback, AvatarImage } from '@tulipfarm/sprout/avatar';
 </Avatar>;
 ```
 
+### Agent Avatar
+
+```tsx
+import { AgentAvatar, agentAvatar } from '@tulipfarm/sprout/agent-avatar';
+
+<AgentAvatar agentId={agent.id} name={agent.name} size="sm" />;
+agentAvatar(agent.id); // { object, color, src }
+```
+
+- 100 objects in eight colors ship in the package as SVG `data:` URLs. No host, no network request.
+- The same `agentId` always gets the same picture. `object` and `color` choose it yourself; `src` uses your own image with an initial fallback.
+- Decorative (`alt=""`): keep the agent's name in nearby text.
+
 ### Badge
 
 ```tsx

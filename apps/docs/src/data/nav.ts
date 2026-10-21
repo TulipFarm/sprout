@@ -138,8 +138,9 @@ export const componentGroups: NavGroup[] = [
   {
     title: 'Data display',
     items: [
+      component('Agent Avatar', 'Built-in artwork for agents: 100 objects in eight colors.'),
       component('Attachment', 'File cards, chips, upload states, and a drop zone.'),
-      component('Avatar', 'Pictures for people, agents, and workspaces.'),
+      component('Avatar', 'Pictures for people and workspaces, with initials and groups.'),
       component('Badge', 'Small labels for status, counts, and metadata.'),
       component('Board', 'A Kanban board with columns, lanes, drag and drop, and inline editing.'),
       component('Brand Icon', 'Logos for the apps and models you connect to.'),

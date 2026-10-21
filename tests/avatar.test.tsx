@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import {
-  AgentAvatar,
   Avatar,
   AvatarBadge,
   AvatarFallback,
@@ -9,7 +8,6 @@ import {
   AvatarGroupCount,
   AvatarImage,
   EntityAvatar,
-  agentAvatarSrc,
 } from '../packages/sprout/src/components/avatar.js';
 
 describe('Avatar', () => {
@@ -44,15 +42,6 @@ describe('Avatar', () => {
   it('merges class names', () => {
     expect(renderToString(<Avatar className="custom" size="lg" />)).toMatch(/class="sprout-avatar custom"/);
     expect(renderToString(<AvatarBadge className="b" />)).toContain('class="sprout-avatar-badge b"');
-  });
-
-  it('derives stable agent artwork and an initial fallback', () => {
-    expect(agentAvatarSrc('sample-collections')).toBe(agentAvatarSrc('sample-collections'));
-    expect(agentAvatarSrc('a')).toMatch(/^https:\/\/avatars\.tulipfarm\.ai\/avatar\/[a-z-]+\/[a-z]+\.svg$/);
-    expect(agentAvatarSrc('a', '/art')).toMatch(/^\/art\//);
-    const html = renderToString(<AgentAvatar agentId="x" name=" garden assistant" size="sm" />);
-    expect(html).toContain('data-size="sm"');
-    expect(html).toContain('>G<');
   });
 
   it('draws seeded entity avatars in every size and shape', () => {

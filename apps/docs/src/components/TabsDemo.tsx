@@ -17,7 +17,7 @@ import {
   tabsListVariantNames,
   type TabsListVariant,
 } from '@tulipfarm/sprout/tabs';
-import { AgentAvatar } from '@tulipfarm/sprout/avatar';
+import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import { Badge, type BadgeVariant } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
