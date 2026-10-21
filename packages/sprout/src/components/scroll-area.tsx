@@ -3,7 +3,7 @@
 import { ScrollArea as BaseScrollArea } from '@base-ui/react/scroll-area';
 import { stateClassName } from '../internal/classes.js';
 
-export const scrollAreaSizeNames = ['auto', 'sm', 'md'] as const;
+export const scrollAreaSizeNames = ['sm', 'md'] as const;
 export const scrollAreaVariantNames = ['plain', 'table'] as const;
 export const scrollAreaOrientationNames = ['vertical', 'horizontal', 'both'] as const;
 
@@ -12,7 +12,7 @@ export type ScrollAreaVariant = (typeof scrollAreaVariantNames)[number];
 export type ScrollAreaOrientation = (typeof scrollAreaOrientationNames)[number];
 
 export interface ScrollAreaProps extends BaseScrollArea.Root.Props {
-  /** `"sm"` is 10rem tall, `"md"` is 16rem tall. `"auto"` follows its content or your className. */
+  /** `"sm"` is 10rem tall, `"md"` is 16rem tall. Leave it out to follow the content or your className. */
   size?: ScrollAreaSize;
   /** `"table"` adds a bordered surface, caps the height at 60dvh, and makes the viewport a labeled region. */
   variant?: ScrollAreaVariant;
@@ -26,7 +26,7 @@ export interface ScrollAreaProps extends BaseScrollArea.Root.Props {
 export function ScrollArea({
   className,
   children,
-  size = 'auto',
+  size,
   variant = 'plain',
   orientation = 'vertical',
   viewportLabel,

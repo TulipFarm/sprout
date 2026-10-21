@@ -583,7 +583,7 @@ function ProjectScope({
           <Button
             type="button"
             variant={privateBadge ? 'ghost' : badge ? 'scope' : 'outline'}
-            size={badge ? 'badge' : 'default'}
+            size={badge ? 'sm' : 'md'}
             aria-label={`${label}: ${name}`}
             title={privateBadge ? 'Personal chat. Choose a project to share it.' : name}
             disabled={disabled}
@@ -680,7 +680,7 @@ function ProjectScope({
             <Button
               type="button"
               variant="ghost"
-              size="nav"
+              size="md"
               onClick={() => {
                 setOpen(false);
                 onNewProject();

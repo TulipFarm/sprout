@@ -298,7 +298,7 @@ export function RecordListPlayground() {
   const [page, setPage] = useState(1);
   const [paging, setPaging] = useState(false);
   const [shown, setShown] = useState<Shown>('rows');
-  const [density, setDensity] = useState<'default' | 'compact'>('default');
+  const [density, setDensity] = useState<'md' | 'sm'>('md');
   const [log, setLog] = useState('Click a row, or focus the list and press Enter, to edit it.');
   const [tickets, setTickets] = useState(seedTickets);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -389,10 +389,10 @@ export function RecordListPlayground() {
           variant="outline"
           spacing={0}
           value={[density]}
-          onValueChange={next => next[0] && setDensity(next[0] as 'default' | 'compact')}
+          onValueChange={next => next[0] && setDensity(next[0] as 'md' | 'sm')}
         >
-          <ToggleGroupItem value="default">Default</ToggleGroupItem>
-          <ToggleGroupItem value="compact">Compact</ToggleGroupItem>
+          <ToggleGroupItem value="md">Default</ToggleGroupItem>
+          <ToggleGroupItem value="sm">Compact</ToggleGroupItem>
         </ToggleGroup>
       </div>
       <RecordList

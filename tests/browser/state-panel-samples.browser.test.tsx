@@ -129,7 +129,7 @@ describe('State panel samples in a real browser', () => {
     expect(texts(document, head('two'))).toEqual(['Subject', 'Priority']);
     expect(texts(document, head('one'))).toEqual(['Region']);
     expect(texts(document, head('none'))).toEqual(['Row']);
-    expect(document.querySelector(head('none'))!.getAttribute('data-size')).toBe('wide');
+    expect(document.querySelector(head('none'))!.getAttribute('data-size')).toBe('lg');
     expect(document.querySelector('[data-records="two"] .sprout-state-sample-crumb[data-current]')!.textContent).toBe(
       'Support tickets',
     );

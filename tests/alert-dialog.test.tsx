@@ -26,7 +26,7 @@ function tag(html: string, slot: string) {
 
 describe('AlertDialog', () => {
   it('lists the sizes Cloud uses and is exported from the package root', () => {
-    expect(alertDialogSizeNames).toEqual(['default', 'sm']);
+    expect(alertDialogSizeNames).toEqual(['md', 'sm']);
     for (const name of [
       'AlertDialog',
       'AlertDialogAction',
@@ -84,7 +84,7 @@ describe('AlertDialog', () => {
     const cancel = tag(html, 'alert-dialog-cancel');
     expect(cancel).toMatch(/^<button /);
     expect(cancel).toContain('sprout-button-variant-outline');
-    expect(cancel).toContain('sprout-button-size-default');
+    expect(cancel).toContain('sprout-button-size-md');
     const action = tag(html, 'alert-dialog-action');
     expect(action).toContain('sprout-button-variant-destructive');
     expect(html).not.toContain('data-slot="button"');

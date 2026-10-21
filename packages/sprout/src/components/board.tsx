@@ -694,7 +694,7 @@ export function Board<T extends BoardItem>({
             {selected.size > 0 ? (
               <>
                 {selected.size} selected
-                <Button variant="ghost" size="xs" onClick={() => setSelected(new Set())}>
+                <Button variant="ghost" size="sm" onClick={() => setSelected(new Set())}>
                   Clear
                 </Button>
               </>
@@ -1044,7 +1044,7 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
         ) : (
           <Button
             variant="ghost"
-            size="xs"
+            size="sm"
             className="sprout-board-add"
             onClick={() => setAdding(true)}
             aria-label={`Add card to ${name}`}
@@ -1384,7 +1384,7 @@ function ColumnNotice({
         {onRetry && (
           <Button
             variant="outline"
-            size="xs"
+            size="sm"
             aria-label={`Try again to load ${column.title}`}
             onClick={() => onRetry(column)}
           >
@@ -1416,7 +1416,7 @@ function ShowAll({
   return (
     <Button
       variant="ghost"
-      size="xs"
+      size="sm"
       className="sprout-board-show-all"
       aria-label={text ? undefined : `Show all ${formatCount(count)} in ${column.title}`}
       onClick={() => onShowAll(column)}

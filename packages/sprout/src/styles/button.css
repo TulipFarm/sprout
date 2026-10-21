@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    height: 28px;
+    height: var(--sprout-control-height);
     padding: 0 10px;
     border: 1px solid transparent;
     border-radius: var(--sprout-radius-control);
@@ -104,6 +104,17 @@
   .sprout-button-variant-destructive:focus-visible {
     outline-color: var(--sprout-danger);
   }
+  .sprout-button-variant-ghost-destructive {
+    background: transparent;
+    color: var(--sprout-danger);
+  }
+  .sprout-button-variant-ghost-destructive:hover,
+  .sprout-button-variant-ghost-destructive:active {
+    background: color-mix(in srgb, var(--sprout-danger) 10%, transparent);
+  }
+  .sprout-button-variant-ghost-destructive:focus-visible {
+    outline-color: var(--sprout-danger);
+  }
   .sprout-button-variant-link {
     background: transparent;
     color: var(--sprout-primary);
@@ -122,158 +133,31 @@
     background: color-mix(in srgb, var(--sprout-info) 16%, transparent);
   }
 
-  .sprout-button-size-default:has([data-icon='inline-start']),
+  .sprout-button-size-md:has([data-icon='inline-start']),
   .sprout-button-size-lg:has([data-icon='inline-start']) {
     padding-inline-start: 8px;
   }
-  .sprout-button-size-default:has([data-icon='inline-end']),
+  .sprout-button-size-md:has([data-icon='inline-end']),
   .sprout-button-size-lg:has([data-icon='inline-end']) {
     padding-inline-end: 8px;
-  }
-  .sprout-button-size-xs {
-    --sprout-button-icon: 0.75rem;
-    gap: 4px;
-    height: 24px;
-    padding: 0 8px;
-    border-radius: min(var(--sprout-radius-control), 10px);
-    font-size: var(--sprout-text-xs);
   }
   .sprout-button-size-sm {
     --sprout-button-icon: 0.875rem;
     gap: 4px;
+    height: calc(var(--sprout-control-height) - 4px);
     padding: 0 10px;
     border-radius: min(var(--sprout-radius-control), 12px);
     font-size: var(--sprout-text-xs);
+    line-height: 16px;
   }
-  .sprout-button-size-xs:has([data-icon='inline-start']),
   .sprout-button-size-sm:has([data-icon='inline-start']) {
     padding-inline-start: 6px;
   }
-  .sprout-button-size-xs:has([data-icon='inline-end']),
   .sprout-button-size-sm:has([data-icon='inline-end']) {
     padding-inline-end: 6px;
   }
   .sprout-button-size-lg {
-    height: 36px;
-  }
-  .sprout-button-size-back {
-    --sprout-button-icon: 0.875rem;
-    gap: 4px;
-    padding: 0 10px 0 6px;
-    border-radius: min(var(--sprout-radius-control), 12px);
-    font-size: var(--sprout-text-xs);
-  }
-  .sprout-button-size-onboarding {
-    gap: 8px;
-    width: 100%;
-    height: 44px;
-    padding: 0 16px;
-    font-size: var(--sprout-text-base);
-  }
-  .sprout-button-size-bud,
-  .sprout-button-size-bud-labeled {
-    border-radius: 999px;
-    cursor: grab;
-    touch-action: none;
-  }
-  .sprout-button-size-bud:active,
-  .sprout-button-size-bud-labeled:active {
-    cursor: grabbing;
-  }
-  .sprout-button-size-bud {
-    width: 64px;
-    height: 64px;
-    padding: 0;
-  }
-  .sprout-button-size-bud-labeled {
-    gap: 8px;
-    height: 48px;
-    padding: 0 16px 0 8px;
-  }
-  .sprout-button-size-chat-row {
-    justify-content: space-between;
-    gap: 16px;
-    width: 100%;
-    min-width: 0;
-    height: 44px;
-    padding: 0 12px;
-    color: var(--sprout-text);
-    text-align: start;
-  }
-  .sprout-button-size-task-link {
-    justify-content: flex-start;
-    min-width: 0;
-    max-width: 100%;
-    height: auto;
-    min-height: 32px;
-    padding-block: 4px;
-    text-align: start;
-    white-space: normal;
-  }
-  .sprout-button-size-card-title {
-    justify-content: flex-start;
-    gap: 8px;
-    width: 100%;
-    min-width: 0;
-    height: 40px;
-    padding: 0;
-    color: var(--sprout-text);
-    text-align: start;
-    white-space: normal;
-  }
-  .sprout-button-size-result-card {
-    height: 32px;
-    padding: 0 12px;
-  }
-  .sprout-button-size-calendar-title {
-    gap: 4px;
-    height: 32px;
-    padding: 0 4px;
-    color: var(--sprout-text);
-    letter-spacing: -0.015em;
-  }
-  .sprout-button-size-calendar {
-    height: 32px;
-    padding: 0 8px;
-    font-size: var(--sprout-text-xs);
-  }
-  .sprout-button-size-calendar-icon {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-  }
-  .sprout-button-size-nav {
-    justify-content: flex-start;
-    gap: 8px;
-    width: 100%;
-    height: 32px;
-    text-align: start;
-  }
-  .sprout-button-size-column-header,
-  .sprout-button-size-column-header-end {
-    --sprout-button-icon: 0.875rem;
-    gap: 4px;
-    padding: 0 8px;
-  }
-  .sprout-button-size-column-header {
-    margin-inline-start: -8px;
-  }
-  .sprout-button-size-column-header-end {
-    flex-direction: row-reverse;
-    margin-inline-end: -8px;
-  }
-  .sprout-button-size-table-link {
-    justify-content: flex-start;
-    min-width: 0;
-    height: auto;
-    padding: 2px 0;
-    text-align: start;
-  }
-  .sprout-button-size-badge {
-    min-width: 0;
-    max-width: 176px;
-    padding: 0 10px;
-    border-radius: 999px;
+    height: calc(var(--sprout-control-height) + 4px);
   }
   .sprout-button-size-icon,
   .sprout-button-size-icon-xs,
@@ -282,8 +166,8 @@
     padding: 0;
   }
   .sprout-button-size-icon {
-    width: 32px;
-    height: 32px;
+    width: var(--sprout-control-height);
+    height: var(--sprout-control-height);
   }
   .sprout-button-size-icon-xs {
     --sprout-button-icon: 0.75rem;
@@ -292,15 +176,14 @@
     border-radius: min(var(--sprout-radius-control), 10px);
   }
   .sprout-button-size-icon-sm {
-    width: 28px;
-    height: 28px;
+    width: calc(var(--sprout-control-height) - 4px);
+    height: calc(var(--sprout-control-height) - 4px);
     border-radius: min(var(--sprout-radius-control), 12px);
   }
   .sprout-button-size-icon-lg {
-    width: 36px;
-    height: 36px;
+    width: calc(var(--sprout-control-height) + 4px);
+    height: calc(var(--sprout-control-height) + 4px);
   }
-  [data-slot='button-group'] .sprout-button-size-xs,
   [data-slot='button-group'] .sprout-button-size-sm,
   [data-slot='button-group'] .sprout-button-size-icon-xs,
   [data-slot='button-group'] .sprout-button-size-icon-sm {
@@ -317,18 +200,21 @@
     font-family: var(--sprout-font);
   }
   /* Long labels such as "Add #channel to execution limits" wrap instead of overflowing. */
-  .sprout-button-action > :is(.sprout-button-size-default, .sprout-button-size-sm, .sprout-button-size-lg),
+  .sprout-button-action > :is(.sprout-button-size-md, .sprout-button-size-sm, .sprout-button-size-lg),
   .sprout-action-group-row > .sprout-button {
     max-width: 100%;
     height: auto;
-    min-height: 28px;
+    min-height: var(--sprout-control-height);
     padding-block: 3px;
     white-space: normal;
     overflow-wrap: anywhere;
     text-align: center;
   }
+  .sprout-button-action > .sprout-button-size-sm {
+    min-height: calc(var(--sprout-control-height) - 4px);
+  }
   .sprout-button-action > .sprout-button-size-lg {
-    min-height: 36px;
+    min-height: calc(var(--sprout-control-height) + 4px);
   }
   .sprout-action-group-row {
     display: flex;
@@ -343,17 +229,6 @@
     max-width: 100%;
   }
 
-  @media (min-width: 640px) {
-    .sprout-button-size-calendar-title {
-      font-size: 1.125rem;
-    }
-  }
-  @media (max-width: 639px) {
-    .sprout-button-size-back {
-      width: 28px;
-      padding-inline: 0;
-    }
-  }
   @media (pointer: coarse) {
     .sprout-button,
     .sprout-button-action > .sprout-button,

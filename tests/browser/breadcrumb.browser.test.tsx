@@ -172,7 +172,7 @@ describe('Breadcrumb in a real browser', () => {
         <Breadcrumb aria-label="Destination path" style={{ ['--sprout-breadcrumb-label-width' as string]: '10rem' }}>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink render={<Button variant="ghost" size="xs" />}>Clients</BreadcrumbLink>
+              <BreadcrumbLink render={<Button variant="ghost" size="sm" />}>Clients</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -188,7 +188,7 @@ describe('Breadcrumb in a real browser', () => {
     expect(getComputedStyle(label).textOverflow).toBe('ellipsis');
     expect(label.scrollWidth).toBeGreaterThan(label.clientWidth);
     const clients = screen.getByRole('button', { name: 'Clients' }).element();
-    expect(clients.getBoundingClientRect().height).toBe(24);
+    expect(clients.getBoundingClientRect().height).toBe(28);
     const destination = screen.getByRole('navigation', { name: 'Destination path' }).element();
     expect(getComputedStyle(slot(slot(destination, 'breadcrumb-page'), 'breadcrumb-label')).maxWidth).toBe('160px');
   });

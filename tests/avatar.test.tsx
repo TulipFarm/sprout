@@ -12,7 +12,7 @@ import {
 
 describe('Avatar', () => {
   it('renders sizes, fallbacks, badges, and groups on the server', () => {
-    for (const size of ['xs', 'sm', 'default', 'lg'] as const) {
+    for (const size of ['sm', 'md', 'lg'] as const) {
       const html = renderToString(
         <Avatar size={size}>
           <AvatarImage src="/a.png" alt="Alex" />
@@ -25,7 +25,7 @@ describe('Avatar', () => {
       expect(html).toContain('>AM<');
       expect(html).toContain('data-slot="avatar-badge"');
     }
-    expect(renderToString(<Avatar />)).toContain('data-size="default"');
+    expect(renderToString(<Avatar />)).toContain('data-size="md"');
     const group = renderToString(
       <AvatarGroup>
         <Avatar>
@@ -51,7 +51,7 @@ describe('Avatar', () => {
     expect(a).toContain('data-shape="circle"');
     expect(a).toContain('>M<');
     expect(a).not.toBe(renderToString(<EntityAvatar seed="t" name="Meadow" />));
-    for (const size of ['xs', 'sm', 'default', 'lg', 'xl'] as const)
+    for (const size of ['sm', 'md', 'lg'] as const)
       expect(renderToString(<EntityAvatar seed="s" name="M" size={size} shape="square" />)).toContain(
         `data-size="${size}"`,
       );

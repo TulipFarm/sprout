@@ -6,7 +6,7 @@ import { useRender } from '@base-ui/react/use-render';
 import { cn, stateClassName } from '../internal/classes.js';
 import { Button, type ButtonProps, type ButtonSize, type ButtonVariant } from './button.js';
 
-export const alertDialogSizeNames = ['default', 'sm'] as const;
+export const alertDialogSizeNames = ['md', 'sm'] as const;
 
 export type AlertDialogSize = (typeof alertDialogSizeNames)[number];
 
@@ -51,7 +51,7 @@ export interface AlertDialogContentProps extends AlertDialogPrimitive.Popup.Prop
  * The alert dialog surface. It renders its own portal and overlay, so place
  * it directly inside `AlertDialog`.
  */
-export function AlertDialogContent({ className, size = 'default', container, ...props }: AlertDialogContentProps) {
+export function AlertDialogContent({ className, size = 'md', container, ...props }: AlertDialogContentProps) {
   return (
     <AlertDialogPortal container={container}>
       <AlertDialogOverlay />
@@ -87,7 +87,7 @@ function part(slot: PartSlot, base: string) {
 
 /**
  * Groups media, title, and description. Centered on narrow screens and in
- * `sm` dialogs; from 640px a `default` dialog aligns it to the start with the
+ * `sm` dialogs; from 640px an `md` dialog aligns it to the start with the
  * media beside the text.
  */
 export const AlertDialogHeader = part('alert-dialog-header', 'sprout-alert-dialog-header');
@@ -142,7 +142,7 @@ export interface AlertDialogCancelProps extends AlertDialogPrimitive.Close.Props
 }
 
 /** Closes the dialog. An outline button unless `variant` says otherwise. */
-export function AlertDialogCancel({ variant = 'outline', size = 'default', ...props }: AlertDialogCancelProps) {
+export function AlertDialogCancel({ variant = 'outline', size = 'md', ...props }: AlertDialogCancelProps) {
   return (
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-cancel"

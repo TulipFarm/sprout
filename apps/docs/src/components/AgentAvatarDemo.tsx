@@ -8,7 +8,7 @@ import {
 import type { AvatarSize } from '@tulipfarm/sprout/avatar';
 import '../styles/avatar-demo.css';
 
-const sizes: AvatarSize[] = ['xs', 'sm', 'default', 'lg'];
+const sizes: AvatarSize[] = ['sm', 'md', 'lg'];
 
 function Frame({ title, children, foot }: { title: string; children: ReactNode; foot?: ReactNode }) {
   return (

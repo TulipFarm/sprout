@@ -17,7 +17,7 @@ import {
 import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
 
 function Project({
-  size = 'default',
+  size = 'md',
   surface = 'default',
   footer = true,
   text = 'Three tasks are ready to review.',
@@ -43,7 +43,7 @@ function Project({
       </CardContent>
       {footer && (
         <CardFooter>
-          <Button variant="outline" size={size === 'sm' ? 'sm' : 'default'}>
+          <Button variant="outline" size={size === 'sm' ? 'sm' : 'md'}>
             Review example
           </Button>
         </CardFooter>
@@ -86,9 +86,7 @@ describe('Card in a real browser', () => {
     setTheme(theme, mode);
     const screen = await render(<Gallery />);
     await settle();
-    expect(getComputedStyle(screen.getByTestId('default').element()).backgroundColor).toBe(
-      colorOf('var(--sprout-surface)'),
-    );
+    expect(getComputedStyle(screen.getByTestId('md').element()).backgroundColor).toBe(colorOf('var(--sprout-surface)'));
     expect(await axeViolations(screen.container)).toEqual([]);
   });
 
@@ -96,7 +94,7 @@ describe('Card in a real browser', () => {
     const screen = await render(<Gallery />);
     await settle();
     for (const [size, spacing, titleSize] of [
-      ['default', 16, '16px'],
+      ['md', 16, '16px'],
       ['sm', 12, '14px'],
     ] as const) {
       const card = screen.getByTestId(size).element();
@@ -147,7 +145,7 @@ describe('Card in a real browser', () => {
   it('raised surface tints the panel in light and dark', async () => {
     await emulate({ reducedMotion: true });
     const screen = await render(<Gallery />);
-    const flat = screen.getByTestId('default').element();
+    const flat = screen.getByTestId('md').element();
     const raised = screen.getByTestId('raised').element();
     expect(raised.getAttribute('data-surface')).toBe('raised');
     for (const mode of ['light', 'dark'] as const) {
@@ -173,7 +171,7 @@ describe('Card in a real browser', () => {
 
   it('transitions are subtle and stop for reduced motion', async () => {
     const screen = await render(<Project />);
-    const card = screen.getByTestId('default').element();
+    const card = screen.getByTestId('md').element();
     for (const value of getComputedStyle(card).transitionDuration.split(',')) {
       const ms = parseFloat(value) * 1000;
       expect(ms).toBeGreaterThanOrEqual(120);

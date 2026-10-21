@@ -49,10 +49,12 @@
 
   .sprout-context-menu-item {
     position: relative;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: 6px;
     min-width: 0;
+    min-height: calc(var(--sprout-control-height) - 4px);
     padding: 4px 6px;
     border-radius: var(--sprout-radius-control);
     color: var(--sprout-text);

@@ -139,6 +139,7 @@ describe('Menubar in a real browser', () => {
       await settle();
       expect(await axeViolations()).toEqual([]);
       expect(getComputedStyle(page.getByRole('menubar').element()).height).toBe('32px');
+      expect(trigger('File').element().getBoundingClientRect().height).toBe(24);
       const file = trigger('File').element().getBoundingClientRect();
       await trigger('File').click();
       await settle();

@@ -254,7 +254,7 @@ function DestinationPicker() {
               <BreadcrumbPage>{sections[section]}</BreadcrumbPage>
             ) : (
               <BreadcrumbLink
-                render={<Button variant="ghost" size="xs" disabled={moving} onClick={() => setPath([])} />}
+                render={<Button variant="ghost" size="sm" disabled={moving} onClick={() => setPath([])} />}
               >
                 {sections[section]}
               </BreadcrumbLink>
@@ -272,7 +272,7 @@ function DestinationPicker() {
                     render={
                       <Button
                         variant="ghost"
-                        size="xs"
+                        size="sm"
                         disabled={moving}
                         onClick={() => setPath(path.slice(0, index + 1))}
                       />
@@ -290,7 +290,7 @@ function DestinationPicker() {
         <ul aria-label="Folders" className="breadcrumb-demo-folders">
           {list.map(folder => (
             <li key={folder.id}>
-              <Button variant="ghost" size="nav" disabled={moving} onClick={() => setPath([...path, folder])}>
+              <Button variant="ghost" size="md" disabled={moving} onClick={() => setPath([...path, folder])}>
                 <Folder size={16} aria-hidden="true" />
                 <span className="breadcrumb-demo-folder-name" title={folder.name}>
                   {folder.name}

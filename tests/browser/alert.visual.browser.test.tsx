@@ -27,7 +27,7 @@ it.each(themes)('alert %s %s', async (theme, mode) => {
             The invoice is ready. <a href="#details">See what changes</a>
           </AlertDescription>
           <AlertAction>
-            <Button size="xs" variant="outline">
+            <Button size="sm" variant="outline">
               Undo
             </Button>
           </AlertAction>

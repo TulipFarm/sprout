@@ -91,7 +91,6 @@ describe('GradientBanner in a real browser', () => {
       sm: { height: 96, padding: '16px', radius: '8px' },
       md: { height: 160, padding: '20px', radius: '12px' },
       lg: { height: 240, padding: '24px', radius: '12px' },
-      xl: { height: 360, padding: '32px', radius: '16px' },
     };
     for (const [size, want] of Object.entries(sizes)) {
       const banner = document.querySelector<HTMLElement>(`[data-size="${size}"]`)!;

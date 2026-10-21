@@ -54,7 +54,7 @@ export function SearchField({ label, value, onChange, placeholder, maxLength, id
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             data-slot="search-field-clear"
-            size="icon-xs"
+            size="icon"
             aria-label="Clear search"
             className="sprout-search-field-clear"
             onClick={() => {

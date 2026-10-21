@@ -59,7 +59,7 @@ function Segmented<Value extends string>({
       {options.map(option => (
         <Button
           key={option.value}
-          size="xs"
+          size="sm"
           variant={option.value === value ? 'secondary' : 'ghost'}
           aria-pressed={option.value === value}
           onClick={() => onChange(option.value)}
@@ -340,9 +340,7 @@ function PendingWork({
         : `${label} tasks and approvals without a scheduled time`;
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        render={<Button variant="outline" size="calendar" aria-label="Pending work" title={description} />}
-      >
+      <PopoverTrigger render={<Button variant="outline" size="md" aria-label="Pending work" title={description} />}>
         <Inbox size={14} aria-hidden="true" />
         <span className="popover-demo-pending-label">Pending work</span>
         <Badge
@@ -550,7 +548,7 @@ export function PopoverPlayground() {
         <div className="popover-demo-size" data-size="bud">
           <span className="popover-demo-size-name">bud</span>
           <Popover open={budOpen} onOpenChange={setBudOpen}>
-            <PopoverTrigger render={<Button variant="outline" size="bud-labeled" aria-label="Open Bud quick chat" />}>
+            <PopoverTrigger render={<Button variant="outline" size="lg" aria-label="Open Bud quick chat" />}>
               <span className="popover-demo-bud-face" aria-hidden="true">
                 <Sparkle size={16} />
               </span>
@@ -611,7 +609,7 @@ function CitationLink({ label, outcome }: { label: string; outcome: 'ready' | 'u
         if (open && (state.kind === 'idle' || state.kind === 'error')) load(state.kind === 'idle');
       }}
     >
-      <PopoverTrigger render={<Button variant="link" size="task-link" aria-label={`Source: ${label}`} />}>
+      <PopoverTrigger render={<Button variant="link" size="md" aria-label={`Source: ${label}`} />}>
         {label}
       </PopoverTrigger>
       <PopoverContent>
@@ -697,7 +695,7 @@ export function PopoverSources() {
       </Row>
       <Row label="Integration help" note="ghost xs · default · align end · external link">
         <Popover>
-          <PopoverTrigger render={<Button variant="ghost" size="xs" />}>Missing a repository?</PopoverTrigger>
+          <PopoverTrigger render={<Button variant="ghost" size="sm" />}>Missing a repository?</PopoverTrigger>
           <PopoverContent align="end">
             <p>
               Your GitHub login includes repositories you own and those shared with you. Organizations may require owner
@@ -734,7 +732,7 @@ function ProjectSharing({ name, archived }: { name: string; archived?: boolean }
           <Button
             type="button"
             variant="scope"
-            size="badge"
+            size="sm"
             aria-label={`Project sharing details: ${name}`}
             title="Project sharing details"
           />
@@ -750,7 +748,7 @@ function ProjectSharing({ name, archived }: { name: string; archived?: boolean }
         <PopoverTitle>Shared in this project</PopoverTitle>
         <p className="popover-demo-muted">Project members can read this chat.</p>
         {archived && <p className="popover-demo-muted">The project is archived, so this chat is read-only.</p>}
-        <Button variant="link" size="task-link" nativeButton={false} render={<a href="#popover-sources" />}>
+        <Button variant="link" size="md" nativeButton={false} render={<a href="#popover-sources" />}>
           {name}
         </Button>
       </PopoverContent>
@@ -1039,7 +1037,7 @@ function ProjectScope({
           <Button
             type="button"
             variant={privateBadge ? 'ghost' : badge ? 'scope' : 'outline'}
-            size={badge ? 'badge' : 'default'}
+            size={badge ? 'sm' : 'md'}
             aria-label={`Project: ${privateBadge ? 'Personal chat' : name}`}
             title={privateBadge ? 'Personal chat. Choose a project to share it.' : name}
           />
@@ -1662,7 +1660,7 @@ function DatePicker() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <h2 className="popover-demo-calendar-title" aria-label={title}>
-        <PopoverTrigger render={<Button variant="ghost" size="calendar-title" aria-label="Choose date" />}>
+        <PopoverTrigger render={<Button variant="ghost" size="md" aria-label="Choose date" />}>
           <span>{title}</span>
           <ChevronDown size={14} aria-hidden="true" />
         </PopoverTrigger>
@@ -1897,7 +1895,7 @@ export function PopoverQuickChat() {
       <div className="popover-demo-bud-stage" data-corner={corner}>
         <Button
           ref={launcher}
-          size="bud-labeled"
+          size="lg"
           variant="outline"
           aria-label={open ? 'Hide Bud quick chat' : 'Open Bud quick chat'}
           aria-expanded={open}

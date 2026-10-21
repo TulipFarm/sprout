@@ -18,7 +18,7 @@ import { Skeleton, SkeletonGroup } from './skeleton.js';
 import { StatePanel } from '../internal/state-panel.js';
 
 export const recordListStatusNames = ['ready', 'loading', 'error'] as const;
-export const recordListDensityNames = ['default', 'compact'] as const;
+export const recordListDensityNames = ['md', 'sm'] as const;
 
 export type RecordListStatus = (typeof recordListStatusNames)[number];
 export type RecordListDensity = (typeof recordListDensityNames)[number];
@@ -74,7 +74,7 @@ export interface RecordListProps<T extends RecordListItem> {
   empty?: ReactNode;
   /** Shown under the rows, inside the panel. Put the app's `Pagination` here. */
   footer?: ReactNode;
-  /** `"compact"` uses less padding for dense pages. Defaults to `"default"`. */
+  /** `"sm"` uses less padding for dense pages. Defaults to `"md"`. */
   density?: RecordListDensity | undefined;
   /** Gets `focusFirst()` for moving focus after a page change. */
   ref?: Ref<RecordListHandle> | undefined;
@@ -151,7 +151,7 @@ export function RecordList<T extends RecordListItem>({
   onRetry,
   empty,
   footer,
-  density = 'default',
+  density = 'md',
   ref,
   className,
 }: RecordListProps<T>) {

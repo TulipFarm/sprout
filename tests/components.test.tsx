@@ -320,7 +320,7 @@ const inputGroupExports = [
 
 const textareaExports = ['Textarea', 'textareaVariantNames'];
 
-const inputOtpExports = ['InputOTP', 'InputOTPGroup', 'InputOTPSeparator', 'InputOTPSlot'];
+const inputOtpExports = ['InputOTP', 'InputOTPGroup', 'InputOTPSeparator', 'InputOTPSlot', 'inputOTPSizeNames'];
 
 const searchFieldExports = ['SearchField'];
 
@@ -966,8 +966,17 @@ describe('Sidebar public surface', () => {
 describe('Button', () => {
   const { Button, buttonVariants, buttonVariantNames, buttonSizeNames } = sprout;
   it('lists every variant and size', () => {
-    expect(buttonVariantNames).toEqual(['default', 'outline', 'secondary', 'ghost', 'destructive', 'link', 'scope']);
-    expect(buttonSizeNames).toHaveLength(24);
+    expect(buttonVariantNames).toEqual([
+      'default',
+      'outline',
+      'secondary',
+      'ghost',
+      'destructive',
+      'ghost-destructive',
+      'link',
+      'scope',
+    ]);
+    expect(buttonSizeNames).toEqual(['md', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg']);
     for (const size of buttonSizeNames) expect(buttonVariants({ size })).toContain(`sprout-button-size-${size}`);
   });
   it('renders a native button with defaults and data hooks', () => {
@@ -976,7 +985,7 @@ describe('Button', () => {
     expect(html).toContain('type="button"');
     expect(html).toContain('data-slot="button"');
     expect(html).toContain('data-variant="default"');
-    expect(html).toContain('data-size="default"');
+    expect(html).toContain('data-size="md"');
     expect(html).toContain('sprout-button-variant-default');
   });
   it('passes form, ARIA, and data props and allows data-slot overrides', () => {
@@ -1029,7 +1038,7 @@ describe('Button', () => {
   });
   it('merges utilities and state classNames', () => {
     expect(buttonVariants({ variant: 'ghost', className: 'size-8 p-0' })).toBe(
-      'sprout-button sprout-button-variant-ghost sprout-button-size-default size-8 p-0',
+      'sprout-button sprout-button-variant-ghost sprout-button-size-md size-8 p-0',
     );
     const html = renderToString(
       <Button disabled className={state => (state.disabled ? 'is-off' : 'is-on')}>
@@ -1037,7 +1046,7 @@ describe('Button', () => {
       </Button>,
     );
     expect(html).toContain('is-off');
-    expect(html).toContain('sprout-button-size-default');
+    expect(html).toContain('sprout-button-size-md');
   });
 });
 

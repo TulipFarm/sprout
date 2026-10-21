@@ -613,7 +613,7 @@ export function SearchFieldPickers() {
             {modes.map(item => (
               <Button
                 key={item.value}
-                size="xs"
+                size="sm"
                 variant={mode === item.value ? 'secondary' : 'ghost'}
                 aria-pressed={mode === item.value}
                 onClick={() => setMode(item.value)}

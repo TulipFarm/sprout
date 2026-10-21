@@ -43,7 +43,7 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
   </>} />
 
 // Compact, without a toolbar
-<RichTextEditor size="compact" value={value} onChange={setValue} onSend={send} />
+<RichTextEditor size="sm" value={value} onChange={setValue} onSend={send} />
 
 // Inside the chat composer
 <InputGroup variant={questionPending ? "question-composer" : "composer"}>
@@ -51,7 +51,7 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
   <RichTextEditor
     key={compact ? "compact" : "full"}
     ref={inputRef}
-    size={compact ? "compact" : "default"}
+    size={compact ? "sm" : "md"}
     condensed={questionPending && !focused && !attachments && !canSend}
     placeholder={questionPending ? "Send a separate message…" : "Ask anything…"}
     value={value}
@@ -67,7 +67,7 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
     toolbarAddon={<>
       <FileChoices />
       <ModelPicker />
-      <InputGroupButton type="submit" size="icon-sm"
+      <InputGroupButton type="submit" size="icon"
         variant={canSend ? "default" : "secondary"} aria-label="Send message">
         <ArrowUp aria-hidden="true" />
       </InputGroupButton>
@@ -84,9 +84,9 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
       <code>onChange</code>.<code>onSend</code> runs on Enter and on Cmd or Ctrl+Enter.
     </p>
     <p>
-      <code>size</code> is <code>default</code> (80px to 256px, 16px text, a toolbar row below) or <code>compact</code>{' '}
-      (40px to 128px, 14px text, the toolbar inline at the end). <code>condensed</code> shrinks a default editor to the
-      same single row, such as while an agent question waits. Past the maximum height the editor scrolls.
+      <code>size</code> is <code>md</code> (80px to 256px, 16px text, a toolbar row below) or <code>sm</code> (40px to
+      128px, 14px text, the toolbar inline at the end). <code>condensed</code> shrinks a default editor to the same
+      single row, such as while an agent question waits. Past the maximum height the editor scrolls.
     </p>
     <p>
       <code>toolbarAddon</code> holds buttons and pickers.

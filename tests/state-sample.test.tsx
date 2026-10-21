@@ -21,7 +21,7 @@ function Glyph({ size }: { size?: number }) {
 
 describe('State sample', () => {
   it('lists every Cloud variant name', () => {
-    expect(sampleColumnSizeNames).toEqual(['wide', 'default', 'narrow']);
+    expect(sampleColumnSizeNames).toEqual(['lg', 'md', 'sm']);
     expect(sampleTextToneNames).toEqual(['default', 'strong', 'muted', 'link', 'mono']);
     expect(sampleMarkToneNames).toEqual(['red', 'orange', 'green', 'blue', 'violet', 'teal']);
     expect(sampleMarkSizeNames).toEqual(['sm', 'md']);
@@ -64,10 +64,10 @@ describe('State sample', () => {
     expect(html).not.toContain('>/</span>');
   });
 
-  it('sizes table cells from their column, defaulting to default', () => {
+  it('sizes table cells from their column, defaulting to md', () => {
     const html = renderToString(
       <SampleTable
-        columns={[{ label: 'Table', size: 'wide' }, { label: 'Trigger' }, { label: 'Rows', size: 'narrow' }]}
+        columns={[{ label: 'Table', size: 'lg' }, { label: 'Trigger' }, { label: 'Rows', size: 'sm' }]}
         rows={[
           [
             <>
@@ -80,9 +80,9 @@ describe('State sample', () => {
         ]}
       />,
     );
-    expect(html.match(/data-size="wide"/g)).toHaveLength(2);
-    expect(html.match(/data-size="default"/g)).toHaveLength(2);
-    expect(html.match(/data-size="narrow"/g)).toHaveLength(2);
+    expect(html.match(/cell" data-size="lg"/g)).toHaveLength(2);
+    expect(html.match(/cell" data-size="md"/g)).toHaveLength(2);
+    expect(html.match(/cell" data-size="sm"/g)).toHaveLength(2);
     expect(html.match(/sprout-state-sample-check/g)).toHaveLength(2);
     expect(html).toContain('Deal won');
   });

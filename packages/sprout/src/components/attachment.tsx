@@ -31,7 +31,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card.js';
 import { Spinner } from './spinner.js';
 
 export const attachmentStateNames = ['idle', 'uploading', 'processing', 'error', 'done'] as const;
-export const attachmentSizeNames = ['default', 'sm', 'xs'] as const;
+export const attachmentSizeNames = ['lg', 'md', 'sm'] as const;
 export const attachmentOrientationNames = ['horizontal', 'vertical'] as const;
 export const attachmentMediaVariantNames = ['icon', 'image'] as const;
 export const attachmentGroupVariantNames = ['carousel', 'grid', 'inline', 'list'] as const;
@@ -60,7 +60,7 @@ export interface AttachmentProps extends ComponentProps<'div'> {
 export function Attachment({
   className,
   state = 'done',
-  size = 'default',
+  size = 'lg',
   orientation = 'horizontal',
   ...props
 }: AttachmentProps) {

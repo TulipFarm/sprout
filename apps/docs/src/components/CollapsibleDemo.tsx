@@ -206,7 +206,7 @@ export function CollapsibleTriggers() {
       </Pair>
       <Pair label="ghost · xs">
         <Collapsible defaultOpen>
-          <CollapsibleTrigger render={<Button variant="ghost" size="xs" />}>Verification details</CollapsibleTrigger>
+          <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>Verification details</CollapsibleTrigger>
           <CollapsibleContent>
             <ul className="collapsible-demo-small collapsible-demo-list collapsible-demo-gap-sm">
               <li>
@@ -219,7 +219,7 @@ export function CollapsibleTriggers() {
           </CollapsibleContent>
         </Collapsible>
         <Collapsible>
-          <CollapsibleTrigger render={<Button variant="ghost" size="xs" />}>Details</CollapsibleTrigger>
+          <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>Details</CollapsibleTrigger>
           <CollapsibleContent>
             <DetailsText>
               <p>Request revision 2. Expires Oct 24, 2026, 5:00 PM.</p>
@@ -288,7 +288,7 @@ function ToolPickerRow({ app, label, defaultOpen = false }: { app: Brand; label:
     <section aria-label={`${label} actions`} className="collapsible-demo-tool-row">
       <Collapsible open={open} onOpenChange={setOpen}>
         <h4>
-          <CollapsibleTrigger render={<Button variant="ghost" size="chat-row" />}>
+          <CollapsibleTrigger render={<Button variant="ghost" size="lg" />}>
             <span className="collapsible-demo-tool-name">
               <BrandIcon brand={app} size="sm" />
               {label}
@@ -733,7 +733,7 @@ function RecentItem({ state, retry }: { state: RecentState; retry: () => void })
               <SidebarMenuSubItem>
                 <div role="alert" className="collapsible-demo-recent-note">
                   <span>Recent chats didn’t load.</span>
-                  <Button variant="link" size="xs" onClick={retry}>
+                  <Button variant="link" size="sm" onClick={retry}>
                     Try again
                   </Button>
                 </div>

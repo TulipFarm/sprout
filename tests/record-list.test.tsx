@@ -76,7 +76,7 @@ describe('RecordList', () => {
   it('is exported from the package root with its names', () => {
     expect(sprout).toHaveProperty('RecordList', RecordList);
     expect(recordListStatusNames).toEqual(['ready', 'loading', 'error']);
-    expect(recordListDensityNames).toEqual(['default', 'compact']);
+    expect(recordListDensityNames).toEqual(['md', 'sm']);
     expect(recordListMaxValues).toBe(4);
   });
 
@@ -253,10 +253,10 @@ describe('RecordList', () => {
   });
 
   it('renders the footer inside the panel', () => {
-    render(<List footer={<nav aria-label="Ticket pages">Pages</nav>} density="compact" />);
+    render(<List footer={<nav aria-label="Ticket pages">Pages</nav>} density="sm" />);
     const footer = screen.getByRole('navigation', { name: 'Ticket pages' }).parentElement!;
     expect(footer!.getAttribute('data-slot')).toBe('record-list-footer');
-    expect(footer.closest('[data-slot="record-list"]')!.getAttribute('data-density')).toBe('compact');
+    expect(footer.closest('[data-slot="record-list"]')!.getAttribute('data-density')).toBe('sm');
   });
 
   it('focusFirst focuses the first row, waiting while a page loads', async () => {

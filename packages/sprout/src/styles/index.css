@@ -166,6 +166,7 @@
     --sprout-text-base: 1rem;
     --sprout-radius-control: 0.375rem;
     --sprout-radius-panel: 0.75rem;
+    --sprout-control-height: 32px;
     --sprout-sidebar-width: 15.25rem;
     --sprout-sidebar-icon-width: 3.5rem;
     --sprout-sidebar-mobile-width: 18rem;
@@ -181,14 +182,14 @@
   .light {
     --sprout-canvas: #f8f8f8;
     --sprout-surface: #fdfdfd;
-    --sprout-hover: #eeeeee;
+    --sprout-hover: #ededed;
     --sprout-active: #e3e3e3;
     --sprout-text: #242424;
     --sprout-muted: #626262;
     --sprout-line: #e0e0e0;
     --sprout-border: #909090;
     --sprout-border-strong: #707070;
-    --sprout-input: #d4d4d4;
+    --sprout-input: #939393;
     --sprout-primary: #262626;
     --sprout-primary-hover: #171717;
     --sprout-primary-active: #0d0d0d;
@@ -221,7 +222,7 @@
     --sprout-line: #383838;
     --sprout-border: #808080;
     --sprout-border-strong: #a0a0a0;
-    --sprout-input: #474747;
+    --sprout-input: #686868;
     --sprout-primary: #ededed;
     --sprout-primary-hover: #d6d6d6;
     --sprout-primary-active: #c4c4c4;
@@ -254,7 +255,7 @@
       --sprout-line: #383838;
       --sprout-border: #808080;
       --sprout-border-strong: #a0a0a0;
-      --sprout-input: #474747;
+      --sprout-input: #686868;
       --sprout-primary: #ededed;
       --sprout-primary-hover: #d6d6d6;
       --sprout-primary-active: #c4c4c4;

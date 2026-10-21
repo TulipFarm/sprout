@@ -757,7 +757,7 @@ function SearchDemo({ onChoose }: { onChoose: (name: string) => void }) {
         <div className="dialog-demo-search-filters" role="group" aria-label="Record type">
           <Button
             variant="outline"
-            size="xs"
+            size="sm"
             aria-pressed={onlyDocs}
             onClick={() => {
               setOnlyDocs(!onlyDocs);

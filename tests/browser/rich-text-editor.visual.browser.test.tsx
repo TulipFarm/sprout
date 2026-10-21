@@ -67,7 +67,7 @@ it.each(themes)('rich-text-editor %s %s', async (theme, mode) => {
       />
       <RichTextEditor
         ariaLabel="Quick note"
-        size="compact"
+        size="sm"
         placeholder="Add a quick note…"
         value={{ type: 'doc', content: [p()] }}
         onChange={() => {}}

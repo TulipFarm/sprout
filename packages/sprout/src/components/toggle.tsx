@@ -4,7 +4,7 @@ import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import { cn, stateClassName } from '../internal/classes.js';
 
 export const toggleVariantNames = ['default', 'outline'] as const;
-export const toggleSizeNames = ['default', 'sm', 'lg'] as const;
+export const toggleSizeNames = ['md', 'sm', 'lg'] as const;
 
 export type ToggleVariant = (typeof toggleVariantNames)[number];
 export type ToggleSize = (typeof toggleSizeNames)[number];
@@ -23,7 +23,7 @@ export function toggleVariants({ variant, size, className }: ToggleVariantOption
   return cn(
     'sprout-toggle',
     `sprout-toggle-variant-${variant ?? 'default'}`,
-    `sprout-toggle-size-${size ?? 'default'}`,
+    `sprout-toggle-size-${size ?? 'md'}`,
     className,
   );
 }
@@ -31,7 +31,7 @@ export function toggleVariants({ variant, size, className }: ToggleVariantOption
 export interface ToggleProps<Value extends string = string> extends BaseToggle.Props<Value> {
   /** `default` is borderless. `outline` draws a control border. */
   variant?: ToggleVariant | null;
-  /** `sm` is 28px, `default` 32px, and `lg` 36px tall. */
+  /** `sm` is 28px, `md` 32px, and `lg` 36px tall. */
   size?: ToggleSize | null;
 }
 
@@ -45,7 +45,7 @@ export function Toggle<Value extends string = string>({ variant, size, className
     <BaseToggle<Value>
       data-slot="toggle"
       data-variant={variant ?? 'default'}
-      data-size={size ?? 'default'}
+      data-size={size ?? 'md'}
       {...props}
       className={stateClassName<BaseToggle.State>(toggleVariants({ variant, size }), className)}
     />

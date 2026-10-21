@@ -33,8 +33,12 @@ describe('Button without state', () => {
         </Button>,
       ),
     ).toBe(
-      '<a href="/x" data-slot="button" data-variant="default" data-size="default" class="sprout-button sprout-button-variant-default sprout-button-size-default">Go</a>',
+      '<a href="/x" data-slot="button" data-variant="default" data-size="md" class="sprout-button sprout-button-variant-default sprout-button-size-md">Go</a>',
     );
+  });
+  it('renders the ghost-destructive variant class', () => {
+    const html = renderToString(<Button variant="ghost-destructive">Remove</Button>);
+    expect(html).toContain('class="sprout-button sprout-button-variant-ghost-destructive sprout-button-size-md"');
   });
 });
 
@@ -50,7 +54,7 @@ describe('Button with state', () => {
     );
     const tag = button(html);
     expect(tag).toContain('type="button"');
-    expect(tag).toContain('class="sprout-button sprout-button-variant-default sprout-button-size-default"');
+    expect(tag).toContain('class="sprout-button sprout-button-variant-default sprout-button-size-md"');
     expect(tag).not.toMatch(/ disabled=""|aria-disabled="true"|data-disabled/);
     expect(tag).not.toContain('aria-busy');
     expect(html).toContain('>Activate saved instructions</button></div>');
@@ -134,7 +138,7 @@ describe('Button with state', () => {
       </Button>,
     );
     expect(jump).toMatch(
-      /<button[^>]*sprout-button-variant-link[^>]*sprout-button-size-xs[^>]*>Choose a table<\/button>/,
+      /<button[^>]*sprout-button-variant-link[^>]*sprout-button-size-sm[^>]*>Choose a table<\/button>/,
     );
     const action = renderToString(
       <Button

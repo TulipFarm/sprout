@@ -74,8 +74,9 @@ const [showError, setShowError] = useState(true);
       <code>InputOTPSeparator</code> draws a dash between groups.
     </p>
     <p>
-      Slots are 32px square with 14px text. On coarse pointers they grow to 44px with 16px text so each slot is an easy
-      touch target. Groups sit 8px apart.
+      <code>size</code> sets the slot square: <code>"sm"</code> (28px), <code>"md"</code> (32px, the default, from
+      <code>--sprout-control-height</code>), or <code>"lg"</code> (36px). On coarse pointers they grow to 44px with 16px
+      text so each slot is an easy touch target. Groups sit 8px apart.
     </p>
   </section>
   <section class="prose-section">

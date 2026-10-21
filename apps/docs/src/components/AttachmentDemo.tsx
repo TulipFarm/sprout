@@ -104,9 +104,9 @@ const primitiveStates: {
 ];
 
 const sizeSamples: Record<AttachmentSize, { title: string; description: string }> = {
-  default: { title: 'Greenhouse layout.png', description: 'Image · 1.4 MB' },
-  sm: { title: 'Seed tray.png', description: '220 KB' },
-  xs: { title: 'Logo.png', description: 'PNG' },
+  lg: { title: 'Greenhouse layout.png', description: 'Image · 1.4 MB' },
+  md: { title: 'Seed tray.png', description: '220 KB' },
+  sm: { title: 'Logo.png', description: 'PNG' },
 };
 
 function PrimitivesExample() {
@@ -154,7 +154,7 @@ function PrimitivesExample() {
         </Pane>
         <Pane caption="Sizes and orientations" testId="attachment-sizes">
           <div className="attachment-demo-sizes">
-            {(['default', 'sm', 'xs'] as const).map(size => (
+            {(['lg', 'md', 'sm'] as const).map(size => (
               <div key={size} className="attachment-demo-size-row">
                 <span className="attachment-demo-label">
                   <code>{size}</code>

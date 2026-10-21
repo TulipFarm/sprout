@@ -37,7 +37,7 @@ import InputGroupDemo from '../../components/InputGroupDemo';
     maxLength={640} value={query} onChange={event => setQuery(event.target.value)} />
   <InputGroupAddon align="inline-end">
     {query && (
-      <InputGroupButton size="icon-xs" aria-label="Clear search"
+      <InputGroupButton size="icon" aria-label="Clear search"
         onClick={() => { setQuery(""); input.current?.focus(); }}>
         <X aria-hidden="true" />
       </InputGroupButton>
@@ -57,10 +57,10 @@ import InputGroupDemo from '../../components/InputGroupDemo';
   <InputGroupAddon align="block-start">{attachments}</InputGroupAddon>
   <InputGroupTextarea aria-label="Message" placeholder="Ask anything…" />
   <InputGroupAddon align="block-end" className="border-t">
-    <DropdownMenuTrigger render={<InputGroupButton size="sm" aria-label="Add a file" />}>
+    <DropdownMenuTrigger render={<InputGroupButton aria-label="Add a file" />}>
       <Paperclip aria-hidden="true" /> Files
     </DropdownMenuTrigger>
-    <InputGroupButton type="submit" size="icon-sm"
+    <InputGroupButton type="submit" size="icon"
       variant={canSend ? "default" : "secondary"} aria-label="Send message">
       <ArrowUp aria-hidden="true" />
     </InputGroupButton>
@@ -71,10 +71,10 @@ import InputGroupDemo from '../../components/InputGroupDemo';
 <InputGroup>
   <Combobox.Input render={<InputGroupInput />} aria-label="Choose a fruit" />
   <InputGroupAddon align="inline-end">
-    <InputGroupButton size="icon-xs" render={<Combobox.Trigger />} aria-label="Show fruits">
+    <InputGroupButton size="icon" render={<Combobox.Trigger />} aria-label="Show fruits">
       <ChevronDown aria-hidden="true" />
     </InputGroupButton>
-    <Combobox.Clear render={<InputGroupButton size="icon-xs" />} aria-label="Clear selection">
+    <Combobox.Clear render={<InputGroupButton size="icon" />} aria-label="Clear selection">
       <X aria-hidden="true" />
     </Combobox.Clear>
   </InputGroupAddon>
@@ -84,8 +84,8 @@ import InputGroupDemo from '../../components/InputGroupDemo';
   <section class="prose-section">
     <h2 class="section-title">Props</h2>
     <p>
-      <code>InputGroup</code> takes <code>size</code>: <code>default</code>
-      (32px, 14px text) or <code>lg</code> (44px, 16px text), and
+      <code>InputGroup</code> takes <code>size</code>: <code>sm</code> (28px, 12px text),
+      <code>md</code> (32px, the default) or <code>lg</code> (36px), and
       <code>variant</code>: <code>default</code>, <code>composer</code> (a stacked message box with a stronger border
       and panel radius), or
       <code>question-composer</code> (the same box with a quieter border while an agent waits on an answer). It is a{' '}

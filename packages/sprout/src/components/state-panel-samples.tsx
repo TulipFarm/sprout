@@ -287,7 +287,7 @@ export function WorkflowsSample(props: StatePanelSampleProps) {
   return (
     <SampleWindow {...props} icon={BranchDown} trail={['Workflows']}>
       <SampleTable
-        columns={[{ label: 'Workflow', size: 'wide' }, { label: 'Trigger' }, { label: 'Status', size: 'narrow' }]}
+        columns={[{ label: 'Workflow', size: 'lg' }, { label: 'Trigger' }, { label: 'Status', size: 'sm' }]}
         rows={[
           [named('green', 'Approve large discounts'), muted('New quote'), active],
           [named('blue', 'Onboard a new customer'), muted('Deal won'), active],
@@ -313,9 +313,9 @@ export function TablesSample(props: StatePanelSampleProps) {
     <SampleWindow {...props} icon={Database} trail={['Tables']}>
       <SampleTable
         columns={[
-          { label: 'Table', size: 'wide' },
-          { label: 'Fields', size: 'narrow' },
-          { label: 'Rows', size: 'narrow' },
+          { label: 'Table', size: 'lg' },
+          { label: 'Fields', size: 'sm' },
+          { label: 'Rows', size: 'sm' },
         ]}
         rows={rows.map(([tone, name, fields, count]) => [
           named(tone, name),
@@ -348,9 +348,9 @@ export function RecordsSample({ table, fields, ...props }: RecordsSampleProps) {
   const columns: SampleColumn[] = shown.length
     ? shown.map((label, index) => ({
         label,
-        size: index === 0 ? 'wide' : 'default',
+        size: index === 0 ? 'lg' : 'md',
       }))
-    : [{ label: 'Row', size: 'wide' }];
+    : [{ label: 'Row', size: 'lg' }];
   return (
     <SampleWindow {...props} icon={Database} trail={['Tables', table]}>
       <SampleTable
@@ -384,7 +384,7 @@ export function CreateInChatSample(props: StatePanelSampleProps) {
         </p>
         <div className="sprout-state-panel-samples-schema">
           <SampleTable
-            columns={[{ label: 'Field', size: 'wide' }, { label: 'Type' }]}
+            columns={[{ label: 'Field', size: 'lg' }, { label: 'Type' }]}
             rows={[
               [strong('Name'), muted('Text')],
               [strong('Contact email'), muted('Email')],
@@ -481,7 +481,7 @@ export function MembersSample(props: StatePanelSampleProps) {
   return (
     <SampleWindow {...props} icon={User} trail={['Settings', 'Members']}>
       <SampleTable
-        columns={[{ label: 'Member', size: 'wide' }, { label: 'Role', size: 'narrow' }, { label: 'Teams' }]}
+        columns={[{ label: 'Member', size: 'lg' }, { label: 'Role', size: 'sm' }, { label: 'Teams' }]}
         rows={[
           [named('violet', 'Maya Chen'), admin, muted('Operations')],
           [named('orange', 'Leo Martins'), member, muted('Sales, Support')],
@@ -530,7 +530,7 @@ export function InvitationsSample(props: StatePanelSampleProps) {
   return (
     <SampleWindow {...props} icon={Envelope} trail={['Settings', 'Members', 'Invitations']}>
       <SampleTable
-        columns={[{ label: 'Email', size: 'wide' }, { label: 'Status', size: 'narrow' }, { label: 'Email delivery' }]}
+        columns={[{ label: 'Email', size: 'lg' }, { label: 'Status', size: 'sm' }, { label: 'Email delivery' }]}
         rows={[
           [link('maya@northwind.co'), badge('info', 'active'), muted('Delivered')],
           [link('leo@northwind.co'), badge('secondary', 'Accepted'), muted('Delivered')],
@@ -554,9 +554,9 @@ export function GrantsSample(props: StatePanelSampleProps) {
     >
       <SampleTable
         columns={[
-          { label: 'Table', size: 'wide' },
-          { label: 'Read', size: 'narrow' },
-          { label: 'Edit', size: 'narrow' },
+          { label: 'Table', size: 'lg' },
+          { label: 'Read', size: 'sm' },
+          { label: 'Edit', size: 'sm' },
         ]}
         rows={[
           [named('blue', 'Customers'), granted, granted],

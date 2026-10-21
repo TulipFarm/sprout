@@ -141,6 +141,18 @@ describe('Sidebar in a real browser', () => {
     expect(await axeViolations(screen.container)).toEqual([]);
   });
 
+  it('rows are 32px, sub rows 28px, and the section action sits 4px inside its row', async () => {
+    await page.viewport(1280, 720);
+    const screen = await render(<App />);
+    const height = (el: Element) => el.getBoundingClientRect().height;
+    expect(height(screen.getByRole('link', { name: 'Overview', exact: true }).element())).toBe(32);
+    expect(height(screen.getByRole('link', { name: 'Garden plan' }).element())).toBe(28);
+    expect(height(document.querySelector('.sprout-sidebar-trigger')!)).toBe(32);
+    const row = document.querySelector('.sprout-sidebar-section-heading')!.getBoundingClientRect();
+    const action = document.querySelector('.sprout-sidebar-menu-action')!.getBoundingClientRect();
+    expect([action.height, action.top - row.top, row.bottom - action.bottom]).toEqual([24, 4, 4]);
+  });
+
   it('sections disclose independently and rotate the chevron', async () => {
     const screen = await render(<App />);
     const project = screen.getByRole('link', { name: 'Website refresh' });

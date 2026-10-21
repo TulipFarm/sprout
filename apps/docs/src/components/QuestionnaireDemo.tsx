@@ -355,7 +355,7 @@ export function QuestionnaireStates() {
 
 /* Button sizes ------------------------------------------------------------------ */
 
-function SizedQuestionnaire({ size, testId }: { size: 'default' | 'sm'; testId: string }) {
+function SizedQuestionnaire({ size, testId }: { size: 'md' | 'sm'; testId: string }) {
   return (
     <Questionnaire data-testid={testId} onSubmit={event => event.preventDefault()}>
       <QuestionnaireProgress />
@@ -388,7 +388,7 @@ export function QuestionnaireSizes() {
     <Frame id="questionnaire-sizes" title="Action sizes" note="Navigation buttons take Button size and variant.">
       <div className="questionnaire-demo-grid">
         <Panel caption="default size: outline back and skip, default next">
-          <SizedQuestionnaire size="default" testId="size-default" />
+          <SizedQuestionnaire size="md" testId="size-default" />
         </Panel>
         <Panel caption="sm size: ghost back and skip, for chat replies">
           <SizedQuestionnaire size="sm" testId="size-sm" />

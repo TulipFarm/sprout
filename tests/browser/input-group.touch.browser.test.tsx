@@ -28,11 +28,11 @@ function Composer() {
           onChange={event => setMessage(event.target.value)}
         />
         <InputGroupAddon align="block-end">
-          <InputGroupButton size="icon-sm" aria-label="Add a file">
+          <InputGroupButton size="icon" aria-label="Add a file">
             <Search />
           </InputGroupButton>
           <InputGroupButton
-            size="icon-sm"
+            size="icon"
             type="submit"
             variant={message ? 'default' : 'secondary'}
             disabled={!message || tooLong}

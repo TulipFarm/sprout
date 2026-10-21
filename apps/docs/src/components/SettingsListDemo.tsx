@@ -98,7 +98,7 @@ function ImagePicker({
   }
   return (
     <div className="settings-list-demo-picker">
-      <EntityAvatar seed={seed} name={name} image={image} size="xl" shape={shape} />
+      <EntityAvatar seed={seed} name={name} image={image} size="lg" shape={shape} />
       <input
         ref={chooser}
         type="file"

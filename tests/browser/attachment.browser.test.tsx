@@ -37,7 +37,7 @@ function Card({
   orientation = 'horizontal',
   testId,
 }: {
-  size?: 'default' | 'sm' | 'xs';
+  size?: 'lg' | 'md' | 'sm';
   state?: 'idle' | 'uploading' | 'done' | 'error';
   orientation?: 'horizontal' | 'vertical';
   testId?: string;
@@ -134,9 +134,9 @@ describe('Attachment in a real browser', () => {
   it('sizes keep the Cloud footprint and states paint', async () => {
     const screen = await render(
       <div style={{ display: 'grid', gap: 8, width: 480 }}>
-        <Card testId="default" />
+        <Card testId="lg" />
+        <Card testId="md" size="md" />
         <Card testId="sm" size="sm" />
-        <Card testId="xs" size="xs" />
         <Card testId="vertical" orientation="vertical" />
         <Card testId="error" state="error" />
         <Card testId="idle" state="idle" />
@@ -148,13 +148,13 @@ describe('Attachment in a real browser', () => {
     const media = (id: string) =>
       screen.getByTestId(id).element().querySelector('[data-slot="attachment-media"]')!.getBoundingClientRect();
     for (const [id, px] of [
-      ['default', 40],
-      ['sm', 32],
-      ['xs', 28],
+      ['lg', 40],
+      ['md', 32],
+      ['sm', 28],
     ] as const)
       expect([media(id).width, media(id).height], id).toEqual([px, px]);
     expect(screen.getByTestId('vertical').element().getBoundingClientRect().height).toBeGreaterThan(
-      screen.getByTestId('default').element().getBoundingClientRect().height,
+      screen.getByTestId('lg').element().getBoundingClientRect().height,
     );
     const chip = screen.container.querySelector('[data-variant="chip"]')!;
     expect(Math.round(chip.getBoundingClientRect().height)).toBe(36);

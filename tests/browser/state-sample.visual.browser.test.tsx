@@ -32,7 +32,7 @@ it.each(themes)('state-sample %s %s', async (theme, mode) => {
     >
       <SampleWindow icon={Glyph} trail={['Workspace', 'Workflows']} tabs={['All', 'Active']}>
         <SampleTable
-          columns={[{ label: 'Workflow', size: 'wide' }, { label: 'Trigger' }, { label: 'Status', size: 'narrow' }]}
+          columns={[{ label: 'Workflow', size: 'lg' }, { label: 'Trigger' }, { label: 'Status', size: 'sm' }]}
           rows={[
             [<SampleBar width="lg" />, <SampleBar />, <SampleBar width="sm" />],
             [

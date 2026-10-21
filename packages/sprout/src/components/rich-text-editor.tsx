@@ -10,7 +10,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import { cn } from '../internal/classes.js';
 
-export const richTextEditorSizeNames = ['default', 'compact'] as const;
+export const richTextEditorSizeNames = ['md', 'sm'] as const;
 
 export type RichTextEditorSize = (typeof richTextEditorSizeNames)[number];
 /** A Tiptap JSON document, such as `{ type: "doc", content: [{ type: "paragraph" }] }`. */
@@ -27,8 +27,8 @@ export type RichTextEditorHandle = {
 export interface RichTextEditorProps {
   ref?: Ref<RichTextEditorHandle> | undefined;
   /**
-   * `default` is an 80px to 256px box with 16px text and a toolbar row below.
-   * `compact` is a 40px to 128px box with 14px text and the toolbar inline at
+   * `md` is an 80px to 256px box with 16px text and a toolbar row below.
+   * `sm` is a 40px to 128px box with 14px text and the toolbar inline at
    * the end.
    */
   size?: RichTextEditorSize | null | undefined;
@@ -231,8 +231,8 @@ export function RichTextEditor({
   toolbarAddon,
   className,
 }: RichTextEditorProps) {
-  const scale = size ?? 'default';
-  const inline = condensed || scale === 'compact';
+  const scale = size ?? 'md';
+  const inline = condensed || scale === 'sm';
   const onSendRef = useRef(onSend);
   const onChangeRef = useRef(onChange);
   const placeholderRef = useRef(placeholder);

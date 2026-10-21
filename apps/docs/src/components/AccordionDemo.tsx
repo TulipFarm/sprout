@@ -167,7 +167,7 @@ export function AccordionCalendarFilters() {
                     {source.summary}
                   </label>
                 ))}
-                <Button variant="link" size="xs" nativeButton={false} render={<a href="#calendar-filters" />}>
+                <Button variant="link" size="sm" nativeButton={false} render={<a href="#calendar-filters" />}>
                   Manage integrations
                 </Button>
               </section>

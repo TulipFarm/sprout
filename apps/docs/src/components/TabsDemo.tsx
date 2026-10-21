@@ -413,7 +413,7 @@ export function TabsBuilder() {
             <span className="tabs-demo-muted">{term}</span>
             <span>{value}</span>
           </span>
-          <Button variant="ghost" size="xs" aria-label={`Edit ${term.toLowerCase()}`} onClick={() => setStep(edit)}>
+          <Button variant="ghost" size="sm" aria-label={`Edit ${term.toLowerCase()}`} onClick={() => setStep(edit)}>
             Edit
           </Button>
         </li>

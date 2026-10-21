@@ -42,7 +42,7 @@ describe('PageHeader', () => {
     );
     expect(html).toMatch(/<a href="\/skills"[^>]*data-slot="page-back"/);
     expect(html).toContain('sprout-button-variant-ghost');
-    expect(html).toContain('sprout-button-size-back');
+    expect(html).toContain('sprout-button-size-sm');
     expect(html).not.toContain('role="button"');
     expect(html).toMatch(/<svg[^>]*data-icon="inline-start"[^>]*aria-hidden="true"/);
     expect(html).toContain('<span class="sprout-page-header-back-label">Back to skills</span>');

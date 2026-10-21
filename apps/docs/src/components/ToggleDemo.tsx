@@ -34,7 +34,7 @@ function Example({ title, description, children }: { title: string; description:
 
 const sizes: Record<ToggleSize, { label: string; note: string }> = {
   sm: { label: 'Small', note: '28px · filter chip' },
-  default: { label: 'Default', note: '32px · icon and label' },
+  md: { label: 'Medium', note: '32px · icon and label' },
   lg: { label: 'Large', note: '36px · view option' },
 };
 
@@ -84,7 +84,7 @@ export function ToggleVariants() {
       description="default has no border. outline draws a control border. Each size pairs a labeled toggle with an icon-only one."
     >
       <div className="toggle-demo-matrix">
-        {(['sm', 'default', 'lg'] as const).map(size => (
+        {(['sm', 'md', 'lg'] as const).map(size => (
           <div key={size} className="toggle-demo-matrix-row">
             <div className="toggle-demo-matrix-label">
               <p>{sizes[size].label}</p>

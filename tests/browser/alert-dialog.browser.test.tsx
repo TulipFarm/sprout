@@ -25,7 +25,7 @@ const Trash = () => (
 );
 
 function Confirm({
-  size = 'default',
+  size = 'md',
   defaultOpen = false,
   onConfirm,
 }: {
@@ -100,7 +100,7 @@ describe('AlertDialog in a real browser', () => {
   });
 
   for (const width of [390, 1280])
-    for (const size of ['default', 'sm'] as const)
+    for (const size of ['md', 'sm'] as const)
       it(`${size} lays out media, title and footer at ${width}px`, async () => {
         await page.viewport(width, 900);
         await render(<Confirm size={size} defaultOpen />);
@@ -109,7 +109,7 @@ describe('AlertDialog in a real browser', () => {
         expect(fits(popup())).toEqual(fitting);
         expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(width);
         const box = popup().getBoundingClientRect();
-        const wide = size === 'default' && width >= 640;
+        const wide = size === 'md' && width >= 640;
         expect(box.width).toBe(wide ? 384 : 320);
         const media = slot('alert-dialog-media').getBoundingClientRect();
         const title = slot('alert-dialog-title').getBoundingClientRect();

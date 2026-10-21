@@ -66,7 +66,7 @@ describe('Pagination', () => {
     expect(active).toContain('sprout-button-variant-outline');
     const previous = html.match(/<a[^>]*href="#previous"[^>]*>/)?.[0] ?? '';
     expect(previous).toContain('aria-label="Go to previous page"');
-    expect(previous).toContain('sprout-button-size-default');
+    expect(previous).toContain('sprout-button-size-md');
     expect(previous).toContain('sprout-pagination-previous');
     expect(html).toContain('<span class="sprout-pagination-label">Previous</span>');
     expect(html).toContain('<span class="sprout-pagination-label">Next</span>');

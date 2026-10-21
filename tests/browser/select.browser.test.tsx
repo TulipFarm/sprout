@@ -99,7 +99,7 @@ describe('Select in a real browser', () => {
         <Choice label="Team" items={['Platform engineering']} width="full" />
         <Choice label="Role" items={['Can view']} />
         <Choice label="Rows" items={['25', '100']} size="sm" />
-        <Choice label="View" items={['Week']} size="calendar" />
+        <Choice label="View" items={['Week']} size="lg" />
         <Choice label="Proposal" size="sm" items={['Post the launch summary in #launches and tag the owners']} />
       </div>,
     );
@@ -110,8 +110,8 @@ describe('Select in a real browser', () => {
     expect(size(el('Role'))[0]).toBeLessThan(160);
     expect(size(el('Rows'))[1]).toBe(28);
     expect(getComputedStyle(el('Rows')).fontSize).toBe('12px');
-    expect(size(el('View'))[1]).toBe(32);
-    expect(getComputedStyle(el('View')).fontSize).toBe('12px');
+    expect(size(el('View'))[1]).toBe(36);
+    expect(getComputedStyle(el('View')).fontSize).toBe('14px');
     for (const name of ['Team', 'Role', 'Rows', 'View', 'Proposal']) expect(fitsSideways(el(name)), name).toBe(true);
   });
 

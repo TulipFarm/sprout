@@ -30,7 +30,7 @@ function Status({ children }: { children: ReactNode }) {
 }
 
 export function AlertDialogPlayground() {
-  const [size, setSize] = useState<AlertDialogSize>('default');
+  const [size, setSize] = useState<AlertDialogSize>('md');
   const [media, setMedia] = useState(true);
   const [variant, setVariant] = useState<'destructive' | 'default'>('destructive');
   const [open, setOpen] = useState(false);
@@ -91,7 +91,7 @@ export function AlertDialogPlayground() {
 }
 
 const sizeExamples = {
-  default: {
+  md: {
     trigger: 'Delete Q3 supplier contracts.pdf',
     title: 'Delete Q3 supplier contracts.pdf?',
     description:
@@ -114,10 +114,10 @@ function SizeExample({ size, onDone }: { size: AlertDialogSize; onDone: (text: s
   return (
     <Row
       label={`${size} size`}
-      note={size === 'default' ? 'Media beside the text from 640px' : 'Centered, two equal buttons'}
+      note={size === 'md' ? 'Media beside the text from 640px' : 'Centered, two equal buttons'}
     >
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger render={<Button variant="destructive" size={size === 'sm' ? 'sm' : 'default'} />}>
+        <AlertDialogTrigger render={<Button variant="destructive" size={size === 'sm' ? 'sm' : 'md'} />}>
           {copy.trigger}
         </AlertDialogTrigger>
         <AlertDialogContent size={size}>
@@ -779,7 +779,7 @@ export function AlertDialogUnsaved() {
                 else triggers.current.delete(team.id);
               }}
               variant={team.id === selectedId ? 'secondary' : 'ghost'}
-              size="nav"
+              size="md"
               aria-current={team.id === selectedId ? 'true' : undefined}
               onClick={() => {
                 if (team.id === selectedId) return;

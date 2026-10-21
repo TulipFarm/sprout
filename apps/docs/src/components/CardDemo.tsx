@@ -51,7 +51,7 @@ function Example({
 type Parts = 'full' | 'header-content' | 'content';
 
 function Playground() {
-  const [size, setSize] = useState<CardSize>('default');
+  const [size, setSize] = useState<CardSize>('md');
   const [surface, setSurface] = useState<CardSurface>('default');
   const [parts, setParts] = useState<Parts>('full');
   const [reviewed, setReviewed] = useState(false);
@@ -65,7 +65,7 @@ function Playground() {
             label="Size"
             value={size}
             items={[
-              { value: 'default', label: 'Default' },
+              { value: 'md', label: 'Medium' },
               { value: 'sm', label: 'Small' },
             ]}
             onValueChange={setSize}
@@ -110,11 +110,7 @@ function Playground() {
           </CardContent>
           {parts === 'full' && (
             <CardFooter>
-              <Button
-                variant="outline"
-                size={size === 'sm' ? 'sm' : 'default'}
-                onClick={() => setReviewed(value => !value)}
-              >
+              <Button variant="outline" size={size === 'sm' ? 'sm' : 'md'} onClick={() => setReviewed(value => !value)}>
                 {reviewed ? 'Reopen tasks' : 'Review tasks'}
               </Button>
             </CardFooter>
@@ -132,7 +128,7 @@ function Sizes() {
       description="Default uses 16px spacing and a 16px title. Small uses 12px spacing and a 14px title for dense grids."
     >
       <div className="card-demo-grid">
-        <Card size="default" data-testid="size-default">
+        <Card size="md" data-testid="size-default">
           <CardHeader>
             <CardTitle render={<h4 />}>Meadow project</CardTitle>
             <CardDescription>A fictional garden project · default</CardDescription>
@@ -597,7 +593,7 @@ function PendingCards() {
                 <CardHeader>
                   <Button
                     variant="ghost"
-                    size="card-title"
+                    size="md"
                     nativeButton={false}
                     title={item.title}
                     onClick={open}
@@ -616,7 +612,7 @@ function PendingCards() {
                       {item.kind === 'task' ? (
                         <Button
                           variant="outline"
-                          size="calendar"
+                          size="md"
                           onClick={() => setMessage(`Reserved 09:00 tomorrow for ${item.title}.`)}
                         >
                           <Clock3 size={14} aria-hidden="true" />
@@ -625,7 +621,7 @@ function PendingCards() {
                       ) : (
                         <Button
                           variant="outline"
-                          size="calendar"
+                          size="md"
                           aria-label={`Review ${item.title}`}
                           nativeButton={false}
                           onClick={open}

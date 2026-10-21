@@ -28,7 +28,7 @@ it.each(themes)('avatar %s %s', async (theme, mode) => {
       }}
     >
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        {(['xs', 'sm', 'default', 'lg'] as const).map(size => (
+        {(['sm', 'md', 'lg'] as const).map(size => (
           <Avatar key={size} size={size}>
             <AvatarFallback>AM</AvatarFallback>
             <AvatarBadge />
@@ -40,7 +40,7 @@ it.each(themes)('avatar %s %s', async (theme, mode) => {
         </Avatar>
       </div>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        {(['sm', 'default', 'lg', 'xl'] as const).flatMap(size =>
+        {(['sm', 'md', 'lg'] as const).flatMap(size =>
           (['circle', 'square'] as const).map(shape => (
             <EntityAvatar key={size + shape} seed="studio" name="Studio" size={size} shape={shape} />
           )),

@@ -136,6 +136,18 @@ describe('Command in a real browser', () => {
     expect(await axeViolations()).toEqual([]);
   });
 
+  it('the search box follows --sprout-control-height', async () => {
+    await render(<Palette />);
+    const box = () => document.querySelector('.sprout-command-input-group')!.getBoundingClientRect().height;
+    expect(box()).toBe(32);
+    document.documentElement.style.setProperty('--sprout-control-height', '40px');
+    try {
+      expect(box()).toBe(40);
+    } finally {
+      document.documentElement.style.removeProperty('--sprout-control-height');
+    }
+  });
+
   it('typing filters, Enter picks, and focus never leaves the search', async () => {
     const screen = await render(<Picked />);
     await userEvent.click(input());

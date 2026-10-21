@@ -14,7 +14,7 @@ describe('ToggleGroup', () => {
       expect(sprout).toHaveProperty(name);
     }
     expect(toggleGroupVariantNames).toEqual(['default', 'outline']);
-    expect(toggleGroupSizeNames).toEqual(['default', 'sm', 'lg']);
+    expect(toggleGroupSizeNames).toEqual(['md', 'sm', 'lg']);
   });
 
   it('renders a named Base UI group with default variant, size, and spacing', () => {
@@ -29,11 +29,11 @@ describe('ToggleGroup', () => {
     expect(html).toContain('data-slot="toggle-group"');
     expect(html).toContain('data-orientation="horizontal"');
     expect(html).toContain('data-variant="default"');
-    expect(html).toContain('data-size="default"');
+    expect(html).toContain('data-size="md"');
     expect(html).toContain('data-spacing="2"');
     expect(html).toContain('--sprout-toggle-group-spacing:2');
     expect(html).toContain(
-      'class="sprout-toggle-group-item sprout-toggle-group-item-default sprout-toggle-group-item-size-default"',
+      'class="sprout-toggle-group-item sprout-toggle-group-item-default sprout-toggle-group-item-size-md"',
     );
     expect(html.match(/aria-pressed="true"/g)).toHaveLength(1);
     expect(html.match(/aria-pressed="false"/g)).toHaveLength(1);
@@ -89,6 +89,6 @@ describe('ToggleGroup', () => {
     expect(html).toContain('class="sprout-toggle-group is-horizontal"');
     expect(html).toContain('--sprout-toggle-group-spacing:1');
     expect(html).toContain('margin-top:4px');
-    expect(html).toContain('sprout-toggle-group-item-size-default off');
+    expect(html).toContain('sprout-toggle-group-item-size-md off');
   });
 });

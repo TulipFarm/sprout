@@ -7,7 +7,7 @@ import { ChevronUp } from 'reicon-react/icons/ChevronUp';
 import { cn, stateClassName } from '../internal/classes.js';
 import { useFieldControl } from './field.js';
 
-export const selectTriggerSizeNames = ['default', 'sm', 'calendar'] as const;
+export const selectTriggerSizeNames = ['md', 'sm', 'lg'] as const;
 export const selectTriggerWidthNames = ['fit', 'full'] as const;
 
 export type SelectTriggerSize = (typeof selectTriggerSizeNames)[number];
@@ -54,17 +54,13 @@ export function SelectValue({ className, ...props }: SelectValueProps) {
 }
 
 export interface SelectTriggerProps extends SelectPrimitive.Trigger.Props {
-  /**
-   * `default` is 32px for forms. `sm` is 28px for toolbars, filters, table
-   * rows, and inline sentences. `calendar` is a 32px control with small text
-   * for calendar headers.
-   */
+  /** `sm` is 28px, `md` is 32px (`--sprout-control-height`), and `lg` is 36px. */
   size?: SelectTriggerSize;
   /** `fit` sizes to the value. `full` fills the parent, as in form fields. */
   width?: SelectTriggerWidth;
 }
 
-export function SelectTrigger({ className, size = 'default', width = 'fit', children, ...rest }: SelectTriggerProps) {
+export function SelectTrigger({ className, size = 'md', width = 'fit', children, ...rest }: SelectTriggerProps) {
   const props = useFieldControl(rest);
   return (
     <SelectPrimitive.Trigger

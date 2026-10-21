@@ -40,7 +40,7 @@ function Pane({ caption, children, testId }: { caption: ReactNode; children: Rea
 
 const sizeNotes: Record<SpinnerSize, string> = {
   sm: '12px. Inside badges, such as an integration that is still checking.',
-  default: '16px. Inline with text and inside buttons of every size.',
+  md: '16px. Inline with text and inside buttons of every size.',
   lg: '20px. Swaps with 20px status icons, so the slot does not jump.',
 };
 
@@ -64,8 +64,8 @@ function Sizes() {
             </Badge>
           </div>
         </Pane>
-        <Pane caption={<code>size="default"</code>} testId="size-default">
-          <p className="spinner-demo-note">{sizeNotes.default}</p>
+        <Pane caption={<code>size="md"</code>} testId="size-default">
+          <p className="spinner-demo-note">{sizeNotes.md}</p>
           <p role="status" className="spinner-demo-line">
             <Spinner aria-hidden="true" />
             Loading rows…
@@ -247,7 +247,7 @@ function Buttons() {
           </div>
         </Pane>
         <Pane caption={'size="onboarding"'}>
-          <Button size="onboarding" disabled={busy} aria-busy={busy}>
+          <Button size="lg" disabled={busy} aria-busy={busy}>
             {busy && <Spinner aria-hidden="true" />}
             Continue
           </Button>

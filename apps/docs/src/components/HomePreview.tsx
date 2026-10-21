@@ -435,7 +435,7 @@ function RichTextPreview() {
     <div className="home-p-wide">
       <Suspense fallback={<Skeleton />}>
         <RichTextEditor
-          size="compact"
+          size="sm"
           value={value}
           onChange={setValue}
           placeholder="Write a message… Enter sends"
@@ -1423,7 +1423,7 @@ function RecordListPreview() {
     <div className="home-p-zoom home-p-wide">
       <RecordList
         label="Tasks"
-        density="compact"
+        density="sm"
         items={[...previewRecords]}
         renderTitle={record => record.title}
         values={record => [

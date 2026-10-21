@@ -84,7 +84,7 @@ describe('Pagination in a real browser', () => {
     expect(link('2').element().className).toMatch(/sprout-button-variant-ghost/);
     const previous = link('Go to previous page').element();
     const next = link('Go to next page').element();
-    expect(previous.getBoundingClientRect().height).toBe(28);
+    expect(previous.getBoundingClientRect().height).toBe(32);
     expect(getComputedStyle(previous).paddingLeft).toBe('6px');
     expect(getComputedStyle(next).paddingRight).toBe('6px');
     const label = previous.querySelector('.sprout-pagination-label')!;
@@ -95,7 +95,7 @@ describe('Pagination in a real browser', () => {
 
   it.each([
     ['icon-sm', 'sm', 28, 28],
-    ['icon', 'default', 32, 28],
+    ['icon', 'default', 32, 32],
     ['icon-lg', 'lg', 36, 36],
   ] as const)('%s pages pair with %s edges', async (linkSize, edgeSize, square, edge) => {
     await render(<Pager start={2} link={linkSize} edge={edgeSize} />);
@@ -103,6 +103,8 @@ describe('Pagination in a real browser', () => {
     const box = active.getBoundingClientRect();
     expect([box.width, box.height]).toEqual([square, square]);
     expect(link('Go to next page').element().getBoundingClientRect().height).toBe(edge);
+    const ellipsis = document.querySelector('[data-slot="pagination-ellipsis"]')!.getBoundingClientRect();
+    expect([ellipsis.width, ellipsis.height]).toEqual([square, square]);
   });
 
   it('keyboard moves through links with a focus ring and activates with Enter', async () => {

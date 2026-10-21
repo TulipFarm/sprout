@@ -335,7 +335,6 @@ function OptionPicker({
       <PopoverTrigger
         render={
           <InputGroupButton
-            size="sm"
             aria-label={`${label}: ${selected?.label ?? 'None'}`}
             disabled={disabled}
             className="sprout-chat-input-picker"
@@ -522,7 +521,7 @@ export function ChatInput({
                           render={
                             <DropdownMenuTrigger
                               render={
-                                <InputGroupButton size="icon-sm" aria-label="Add files and more" disabled={disabled} />
+                                <InputGroupButton size="icon" aria-label="Add files and more" disabled={disabled} />
                               }
                             />
                           }
@@ -557,7 +556,7 @@ export function ChatInput({
                             <DropdownMenuTrigger
                               render={
                                 <InputGroupButton
-                                  size="icon-sm"
+                                  size="icon"
                                   aria-label={`Mode: ${activeMode?.label ?? 'Default'}`}
                                   disabled={disabled}
                                 />
@@ -606,7 +605,6 @@ export function ChatInput({
                   )}
                   {activeMode && (
                     <InputGroupButton
-                      size="sm"
                       variant="secondary"
                       className="sprout-chat-input-mode"
                       aria-label={`Turn off ${activeMode.label}`}
@@ -649,7 +647,7 @@ export function ChatInput({
                   )}
                   {streaming ? (
                     <InputGroupButton
-                      size="icon-sm"
+                      size="icon"
                       variant="default"
                       className="sprout-chat-input-send"
                       aria-label="Stop"
@@ -660,7 +658,7 @@ export function ChatInput({
                   ) : (
                     <InputGroupButton
                       type="submit"
-                      size="icon-sm"
+                      size="icon"
                       variant={canSend ? 'default' : 'secondary'}
                       className="sprout-chat-input-send"
                       aria-label="Send message"

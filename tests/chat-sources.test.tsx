@@ -105,7 +105,7 @@ describe('CheckedCitation', () => {
     );
     expect(html).toContain('aria-label="Source: Garden notes"');
     expect(html).toContain('sprout-button-variant-link');
-    expect(html).toContain('sprout-button-size-task-link');
+    expect(html).toContain('sprout-button-size-md');
     expect(html).toContain('data-slot="checked-citation"');
     expect(html).toMatch(/>Garden notes<\/button>/);
   });

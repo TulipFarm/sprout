@@ -309,7 +309,7 @@ export function SearchDialogCalendar() {
       <Row label="Calendar search" note="trailing keys · raw icon media · detail line · empty with media">
         <Button
           variant="ghost"
-          size="calendar"
+          size="md"
           aria-label="Calendar commands"
           title="Search events and commands (/)"
           onClick={() => setOpen(true)}

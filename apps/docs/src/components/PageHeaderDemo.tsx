@@ -243,17 +243,12 @@ export function PageHeaderExamples() {
           actions={
             <>
               <span className="page-demo-wide-only">
-                <Button
-                  variant="ghost"
-                  size="calendar"
-                  aria-label="Calendar commands"
-                  title="Search events and commands (/)"
-                >
+                <Button variant="ghost" size="md" aria-label="Calendar commands" title="Search events and commands (/)">
                   <Search size={14} aria-hidden="true" />
                   Search
                 </Button>
               </span>
-              <Button size="calendar">
+              <Button size="md">
                 <Add size={14} aria-hidden="true" />
                 Create
               </Button>
@@ -460,12 +455,12 @@ export function PageHeaderChrome() {
                 actions={
                   <>
                     <span className="page-demo-wide-only">
-                      <Button variant="ghost" size="calendar" aria-label="Calendar commands">
+                      <Button variant="ghost" size="md" aria-label="Calendar commands">
                         <Search size={14} aria-hidden="true" />
                         Search
                       </Button>
                     </span>
-                    <Button size="calendar">
+                    <Button size="md">
                       <Add size={14} aria-hidden="true" />
                       Create
                     </Button>

@@ -30,10 +30,6 @@
       mix-blend-mode: lighten;
     }
   }
-  :is(.sprout-avatar, .sprout-entity-avatar)[data-size='xs'] {
-    --sprout-avatar-size: 1.25rem;
-    font-size: var(--sprout-text-xs);
-  }
   :is(.sprout-avatar, .sprout-entity-avatar)[data-size='sm'] {
     --sprout-avatar-size: 1.5rem;
     font-size: var(--sprout-text-xs);
@@ -45,17 +41,13 @@
     --sprout-avatar-size: 2.5rem;
     font-size: var(--sprout-text-base);
   }
-  .sprout-entity-avatar[data-size='xl'] {
-    --sprout-avatar-size: 4rem;
-    font-size: 1.5rem;
-  }
   .sprout-entity-avatar {
     overflow: hidden;
   }
   .sprout-entity-avatar[data-shape='square'] {
     border-radius: 0.5rem;
   }
-  .sprout-entity-avatar[data-shape='square'][data-size='xs'] {
+  .sprout-entity-avatar[data-shape='square'][data-size='sm'] {
     border-radius: 0.25rem;
   }
 
@@ -109,15 +101,11 @@
     width: 0.5rem;
     height: 0.5rem;
   }
-  .sprout-avatar[data-size='xs'] > .sprout-avatar-badge {
-    width: 0.375rem;
-    height: 0.375rem;
-  }
   .sprout-avatar[data-size='sm'] > .sprout-avatar-badge {
     width: 0.5rem;
     height: 0.5rem;
   }
-  .sprout-avatar:is([data-size='xs'], [data-size='sm']) > .sprout-avatar-badge > svg {
+  .sprout-avatar[data-size='sm'] > .sprout-avatar-badge > svg {
     display: none;
   }
   .sprout-avatar[data-size='lg'] > .sprout-avatar-badge {

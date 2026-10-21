@@ -97,7 +97,7 @@
     gap: 8px;
     width: 100%;
     min-width: 0;
-    min-height: 28px;
+    min-height: calc(var(--sprout-control-height) - 4px);
     padding: 4px 32px 4px 6px;
     border-radius: var(--sprout-radius-control);
     color: var(--sprout-text);
@@ -170,7 +170,7 @@
     gap: 4px;
     width: 100%;
     min-width: 0;
-    min-height: 32px;
+    min-height: var(--sprout-control-height);
     padding: 4px 10px;
     border: 1px solid var(--sprout-input);
     border-radius: var(--sprout-radius-control);
@@ -181,6 +181,17 @@
     outline: 0 solid transparent;
     outline-offset: 0;
     cursor: text;
+  }
+  .sprout-combobox-chips-size-sm {
+    min-height: calc(var(--sprout-control-height) - 4px);
+    padding-block: 2px;
+    border-radius: min(var(--sprout-radius-control), 12px);
+    font-size: var(--sprout-text-xs);
+    line-height: 16px;
+  }
+  .sprout-combobox-chips-size-lg {
+    min-height: calc(var(--sprout-control-height) + 4px);
+    padding-block: 6px;
   }
   .sprout-combobox-chips:has([data-slot='combobox-chip']) {
     padding-inline: 4px;

@@ -18,7 +18,7 @@ describe('Toggle', () => {
       expect(sprout).toHaveProperty(name);
     }
     expect(toggleVariantNames).toEqual(['default', 'outline']);
-    expect(toggleSizeNames).toEqual(['default', 'sm', 'lg']);
+    expect(toggleSizeNames).toEqual(['md', 'sm', 'lg']);
     const pkg = JSON.parse(readFileSync(new URL('../packages/sprout/package.json', import.meta.url), 'utf8'));
     expect(pkg.exports['./toggle']).toEqual({
       types: './dist/components/toggle.d.ts',
@@ -40,8 +40,8 @@ describe('Toggle', () => {
     expect(html).toContain('aria-label="Bold"');
     expect(html).toContain('data-slot="toggle"');
     expect(html).toContain('data-variant="default"');
-    expect(html).toContain('data-size="default"');
-    expect(html).toContain('class="sprout-toggle sprout-toggle-variant-default sprout-toggle-size-default"');
+    expect(html).toContain('data-size="md"');
+    expect(html).toContain('class="sprout-toggle sprout-toggle-variant-default sprout-toggle-size-md"');
     expect(html).not.toContain('data-pressed');
   });
 
@@ -83,11 +83,11 @@ describe('Toggle', () => {
     expect(html).toContain('sprout-toggle sprout-toggle-variant-default');
     expect(html).toContain('is-on');
     const merged = renderToString(<Toggle className="custom">A</Toggle>);
-    expect(merged).toContain('sprout-toggle-size-default custom');
+    expect(merged).toContain('sprout-toggle-size-md custom');
   });
 
   it('toggleVariants returns the same classes Toggle renders and merges className', () => {
-    expect(toggleVariants()).toBe('sprout-toggle sprout-toggle-variant-default sprout-toggle-size-default');
+    expect(toggleVariants()).toBe('sprout-toggle sprout-toggle-variant-default sprout-toggle-size-md');
     for (const variant of toggleVariantNames) {
       for (const size of toggleSizeNames) {
         const html = renderToString(
@@ -132,12 +132,12 @@ describe('Toggle', () => {
 
   it('defines Cloud sizes, icon slots, states, and reduced motion in CSS', () => {
     for (const rule of [
-      'height: 32px',
-      'min-width: 32px',
-      'height: 28px',
-      'min-width: 28px',
-      'height: 36px',
-      'min-width: 36px',
+      'height: var(--sprout-control-height)',
+      'min-width: var(--sprout-control-height)',
+      'height: calc(var(--sprout-control-height) - 4px)',
+      'min-width: calc(var(--sprout-control-height) - 4px)',
+      'height: calc(var(--sprout-control-height) + 4px)',
+      'min-width: calc(var(--sprout-control-height) + 4px)',
       '--sprout-toggle-icon: 0.875rem',
       "[data-icon='inline-start']",
       "[data-icon='inline-end']",

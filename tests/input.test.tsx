@@ -13,7 +13,7 @@ describe('Input', () => {
     for (const name of ['Input', 'inputScaleNames', 'SidebarInput']) {
       expect(sprout).toHaveProperty(name);
     }
-    expect(inputScaleNames).toEqual(['default', 'lg']);
+    expect(inputScaleNames).toEqual(['md', 'sm', 'lg']);
     const pkg = JSON.parse(read('../packages/sprout/package.json'));
     expect(pkg.exports['./input']).toEqual({
       types: './dist/components/input.d.ts',
@@ -26,8 +26,8 @@ describe('Input', () => {
     const html = renderToString(<Input placeholder="People Ops helper" />);
     expect(html).toMatch(/^<input/);
     expect(html).toContain('data-slot="input"');
-    expect(html).toContain('data-scale="default"');
-    expect(html).toContain('class="sprout-input sprout-input-scale-default"');
+    expect(html).toContain('data-scale="md"');
+    expect(html).toContain('class="sprout-input sprout-input-scale-md"');
     expect(html).toContain('placeholder="People Ops helper"');
   });
 
@@ -109,16 +109,16 @@ describe('Input', () => {
   it('lets a composition replace data-slot and add classes', () => {
     const html = renderToString(<Input data-slot="input-group-control" aria-label="Search paths" className="bare" />);
     expect(html).toContain('data-slot="input-group-control"');
-    expect(html).toContain('class="sprout-input sprout-input-scale-default bare"');
+    expect(html).toContain('class="sprout-input sprout-input-scale-md bare"');
     const fn = renderToString(<Input className={state => (state.disabled ? 'off' : 'on')} />);
-    expect(fn).toContain('class="sprout-input sprout-input-scale-default on"');
+    expect(fn).toContain('class="sprout-input sprout-input-scale-md on"');
   });
 
   it('renders SidebarInput as a sidebar-slot input', () => {
     const html = renderToString(<SidebarInput aria-label="Search sample sidebar" placeholder="Search locally…" />);
     expect(html).toContain('data-slot="sidebar-input"');
     expect(html).toContain('data-sidebar="input"');
-    expect(html).toContain('class="sprout-input sprout-input-scale-default sprout-sidebar-input"');
+    expect(html).toContain('class="sprout-input sprout-input-scale-md sprout-sidebar-input"');
     expect(read('../packages/sprout/src/styles/sidebar.css')).toContain(
       '.sprout-input.sprout-sidebar-input:not(:disabled)',
     );

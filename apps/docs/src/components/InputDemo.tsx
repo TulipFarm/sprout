@@ -66,8 +66,9 @@ function DemoField({
 }
 
 const scales: Record<InputScale, { label: string; note: string }> = {
-  default: { label: 'Default', note: '32px · settings, dialogs, builders' },
-  lg: { label: 'Large', note: '44px · sign-in and onboarding' },
+  sm: { label: 'Small', note: '28px · dense rows and toolbars' },
+  md: { label: 'Medium', note: '32px · settings, dialogs, builders' },
+  lg: { label: 'Large', note: '36px · sign-in and onboarding' },
 };
 
 function ScaleSample({ scale }: { scale: InputScale }) {
@@ -106,10 +107,10 @@ export function InputScales() {
   return (
     <Example
       title="Scales"
-      description="default fits dense forms. lg is for sign-in and onboarding. Each scale shows the fields Cloud uses it for."
+      description="md fits dense forms. lg is for sign-in and onboarding. Each scale shows the fields Cloud uses it for."
     >
       <div className="input-demo-matrix">
-        {(['default', 'lg'] as const).map(scale => (
+        {(['md', 'lg'] as const).map(scale => (
           <div key={scale} className="input-demo-matrix-row" data-testid={`sample-${scale}`}>
             <div className="input-demo-matrix-label">
               <p>{scales[scale].label}</p>
@@ -161,7 +162,7 @@ export function InputStates() {
       title="States"
       description="Empty with a placeholder, filled, read-only, disabled, and invalid, at both scales. Field.Root passes disabled and invalid to the input."
     >
-      <StateSamples scale="default" />
+      <StateSamples scale="md" />
       <StateSamples scale="lg" />
     </Example>
   );

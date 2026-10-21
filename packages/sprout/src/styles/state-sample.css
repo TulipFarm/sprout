@@ -130,10 +130,10 @@
     font-weight: 500;
     text-overflow: ellipsis;
   }
-  .sprout-state-sample-cell[data-size='wide'] {
+  .sprout-state-sample-cell[data-size='lg'] {
     flex: 1.6 1 0%;
   }
-  .sprout-state-sample-cell[data-size='narrow'] {
+  .sprout-state-sample-cell[data-size='sm'] {
     flex: none;
     width: 6rem;
   }

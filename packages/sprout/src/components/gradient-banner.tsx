@@ -2,7 +2,7 @@ import { Children, useId, type ComponentProps } from 'react';
 import { cn } from '../internal/classes.js';
 
 export const gradientBannerVariantNames = ['aurora', 'citrus', 'lagoon', 'iris', 'cobalt', 'mint'] as const;
-export const gradientBannerSizeNames = ['sm', 'md', 'lg', 'xl'] as const;
+export const gradientBannerSizeNames = ['sm', 'md', 'lg'] as const;
 export const gradientBannerPanelToneNames = ['light', 'dark'] as const;
 
 export type GradientBannerVariant = (typeof gradientBannerVariantNames)[number];
@@ -12,7 +12,7 @@ export type GradientBannerPanelTone = (typeof gradientBannerPanelToneNames)[numb
 export interface GradientBannerProps extends ComponentProps<'div'> {
   /** Color story of the art. Defaults to `"aurora"`. */
   variant?: GradientBannerVariant | undefined;
-  /** `sm` 96px, `md` 160px, `lg` 240px (default), `xl` 360px minimum height. */
+  /** `sm` 96px, `md` 160px, `lg` 240px (default) minimum height. */
   size?: GradientBannerSize | undefined;
   /** Film grain over the art. Defaults to `true`. */
   texture?: boolean | undefined;

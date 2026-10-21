@@ -226,7 +226,7 @@ function report(step: Step) {
         against the saved results.
       </p>
       <Collapsible>
-        <CollapsibleTrigger render={<Button variant="ghost" size="xs" />}>Verification details</CollapsibleTrigger>
+        <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>Verification details</CollapsibleTrigger>
         <CollapsibleContent>
           <ul className="outline-demo-report-list">
             {step.criteria.map((criterion, index) => (

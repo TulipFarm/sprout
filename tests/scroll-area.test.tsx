@@ -20,7 +20,7 @@ describe('ScrollArea', () => {
     ]) {
       expect(sprout).toHaveProperty(name);
     }
-    expect(scrollAreaSizeNames).toEqual(['auto', 'sm', 'md']);
+    expect(scrollAreaSizeNames).toEqual(['sm', 'md']);
     expect(scrollAreaVariantNames).toEqual(['plain', 'table']);
     expect(scrollAreaOrientationNames).toEqual(['vertical', 'horizontal', 'both']);
   });
@@ -32,7 +32,7 @@ describe('ScrollArea', () => {
       </ScrollArea>,
     );
     expect(html).toContain('data-slot="scroll-area"');
-    expect(html).toContain('data-size="auto"');
+    expect(html).not.toContain('data-size');
     expect(html).toContain('data-variant="plain"');
     expect(html).toContain('class="sprout-scroll-area"');
     expect(html).toContain('data-slot="scroll-area-viewport"');

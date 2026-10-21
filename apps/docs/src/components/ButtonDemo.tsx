@@ -42,140 +42,8 @@ const states: { value: PlaygroundState; label: string }[] = [
   { value: 'invalid', label: 'Invalid' },
   { value: 'expanded', label: 'Expanded' },
 ];
-const standardSizes = [
-  'default',
-  'xs',
-  'sm',
-  'lg',
-  'icon',
-  'icon-xs',
-  'icon-sm',
-  'icon-lg',
-] as const satisfies readonly ButtonSize[];
-const patternSizes = buttonSizeNames.filter(size => !(standardSizes as readonly string[]).includes(size));
-const iconOnly = (size: ButtonSize) => size.startsWith('icon') || size === 'bud' || size === 'calendar-icon';
-
-const patternUsage: Partial<Record<ButtonSize, string>> = {
-  back: 'Return to the previous page',
-  onboarding: 'Full-width auth and setup actions',
-  bud: 'Draggable assistant launcher',
-  'bud-labeled': 'Launcher with a name',
-  'chat-row': 'Chat and project list rows',
-  'task-link': 'Inline links that may wrap',
-  'card-title': 'Clickable card headings',
-  'result-card': 'Actions inside result cards',
-  'calendar-title': 'Month picker heading',
-  calendar: 'Calendar toolbar actions',
-  'calendar-icon': 'Previous and next period',
-  nav: 'Tree and side navigation items',
-  'column-header': 'Sortable table column',
-  'column-header-end': 'Sortable numeric column',
-  'table-link': 'Links inside table cells',
-  badge: 'Filter and scope chips',
-};
-
-// Context sizes are designed for one pairing in Cloud; show each in its real context.
-function sizeSample(size: ButtonSize): {
-  variant: ButtonVariant;
-  content: ReactNode;
-} {
-  if (iconOnly(size)) {
-    return {
-      variant: size === 'bud' ? 'secondary' : 'outline',
-      content: size === 'calendar-icon' ? <ChevronRightIcon /> : <PlusIcon />,
-    };
-  }
-  switch (size) {
-    case 'back':
-      return {
-        variant: 'ghost',
-        content: (
-          <>
-            <ChevronLeftIcon data-icon="inline-start" />
-            <span className="button-demo-back-label">Back</span>
-          </>
-        ),
-      };
-    case 'onboarding':
-      return { variant: 'default', content: 'Continue' };
-    case 'bud-labeled':
-      return {
-        variant: 'secondary',
-        content: (
-          <>
-            <span className="button-demo-bud" aria-hidden="true">
-              <SparkleIcon />
-            </span>
-            Research bud
-          </>
-        ),
-      };
-    case 'chat-row':
-      return {
-        variant: 'ghost',
-        content: (
-          <>
-            <span>Weekly planning</span>
-            <span className="button-demo-meta">2h</span>
-          </>
-        ),
-      };
-    case 'task-link':
-      return { variant: 'link', content: 'Review launch notes' };
-    case 'card-title':
-      return { variant: 'ghost', content: 'Prepare launch notes' };
-    case 'result-card':
-      return { variant: 'outline', content: 'Open result' };
-    case 'calendar-title':
-      return {
-        variant: 'ghost',
-        content: (
-          <>
-            October 2026
-            <ChevronDownIcon data-icon="inline-end" />
-          </>
-        ),
-      };
-    case 'calendar':
-      return { variant: 'outline', content: 'Today' };
-    case 'nav':
-      return {
-        variant: 'ghost',
-        content: (
-          <>
-            <FolderIcon data-icon="inline-start" />
-            Projects
-          </>
-        ),
-      };
-    case 'column-header':
-      return {
-        variant: 'ghost',
-        content: (
-          <>
-            Name
-            <ArrowUpIcon />
-          </>
-        ),
-      };
-    case 'column-header-end':
-      return {
-        variant: 'ghost',
-        content: (
-          <>
-            Size
-            <ArrowDownIcon />
-          </>
-        ),
-      };
-    case 'table-link':
-      return { variant: 'link', content: 'invoices.csv' };
-    case 'badge':
-      return { variant: 'secondary', content: 'Marketing' };
-    default:
-      return { variant: 'outline', content: 'Button' };
-  }
-}
+const iconOnly = (size: ButtonSize) => size.startsWith('icon');
+const sizeContent = (size: ButtonSize) => (iconOnly(size) ? <PlusIcon /> : 'Button');
 
 function Spinner({ still = false }: { still?: boolean }) {
   return <LoaderIcon className={still ? undefined : 'button-demo-spinner'} aria-hidden="true" />;
@@ -205,7 +73,7 @@ function Preview({
 
 function Playground() {
   const [variant, setVariant] = useState<ButtonVariant>('default');
-  const [size, setSize] = useState<ButtonSize>('default');
+  const [size, setSize] = useState<ButtonSize>('md');
   const [state, setState] = useState<PlaygroundState>('ready');
   const [clicks, setClicks] = useState(0);
   const [theme, setTheme] = useState('neutral');
@@ -310,7 +178,7 @@ function SaveFlow() {
       {phase === 'error' ? (
         <div role="alert" className="button-demo-alert">
           <span>The sample save failed. Nothing was sent.</span>
-          <Button variant="outline" size="xs" onClick={save}>
+          <Button variant="outline" size="sm" onClick={save}>
             Retry
           </Button>
         </div>
@@ -406,7 +274,7 @@ function JumpFix() {
 }
 
 const pendingSamples = [
-  ['default', 'default', 'Install and enable', 'Installing…'],
+  ['default', 'md', 'Install and enable', 'Installing…'],
   ['outline', 'sm', 'Revoke schedule', 'Revoking…'],
   ['destructive', 'lg', 'Delete agent', 'Deleting agent…'],
 ] as const satisfies readonly (readonly [ButtonVariant, ButtonSize, string, string])[];
@@ -555,7 +423,7 @@ function SortTable() {
       >
         <Button
           variant={active ? 'secondary' : 'ghost'}
-          size={key === 'size' ? 'column-header-end' : 'column-header'}
+          size="sm"
           onClick={() => setSort({ key, asc: active ? !sort.asc : true })}
         >
           {label}
@@ -579,7 +447,7 @@ function SortTable() {
             <td>
               <Button
                 variant="link"
-                size="table-link"
+                size="sm"
                 nativeButton={false}
                 render={<a href={`#${row.name.toLowerCase().replace(' ', '-')}`} />}
               >
@@ -632,7 +500,7 @@ function Tree() {
         <li role="none" key={node.path}>
           <Button
             variant={selected === node.path ? 'secondary' : 'ghost'}
-            size="nav"
+            size="sm"
             role="treeitem"
             aria-level={level}
             aria-selected={selected === node.path}
@@ -687,7 +555,7 @@ function DraggableAssistant() {
       <div className="button-demo-dock-anchor" data-corner={corners[corner]}>
         <Button
           variant="outline"
-          size="bud-labeled"
+          size="lg"
           aria-haspopup="dialog"
           aria-expanded={open}
           title="Sample assistant. Drag to move to another corner."
@@ -770,7 +638,7 @@ function Overlays() {
             <Popover.Popup className="button-demo-popup button-demo-popover">
               <Popover.Title className="button-demo-popup-title">Sample details</Popover.Title>
               <Popover.Description>Updated two minutes ago.</Popover.Description>
-              <Popover.Close render={<Button variant="outline" size="xs" />}>Close</Popover.Close>
+              <Popover.Close render={<Button variant="outline" size="sm" />}>Close</Popover.Close>
             </Popover.Popup>
           </Popover.Positioner>
         </Popover.Portal>
@@ -848,11 +716,15 @@ export default function ButtonDemo() {
         </div>
       </Preview>
 
-      <Preview id="sizes" title="Sizes" description="Text, icon, and pattern sizes. Touch screens get 44px targets.">
+      <Preview
+        id="sizes"
+        title="Sizes"
+        description="sm is 28px, default is 32px, lg is 36px. Touch screens get 44px targets."
+      >
         <div className="button-demo-sizes">
           {(
             [
-              ['Text', ['xs', 'sm', 'default', 'lg']],
+              ['Text', ['sm', 'md', 'lg']],
               ['Icon', ['icon-xs', 'icon-sm', 'icon', 'icon-lg']],
             ] as const satisfies readonly (readonly [string, readonly ButtonSize[]])[]
           ).map(([group, sizes]) => (
@@ -860,16 +732,15 @@ export default function ButtonDemo() {
               <h3>{group}</h3>
               <div className="button-demo-scale-row">
                 {sizes.map(size => {
-                  const sample = sizeSample(size);
                   return (
                     <figure key={size}>
                       <div className="button-demo-scale-stage">
                         <Button
-                          variant={sample.variant}
+                          variant="outline"
                           size={size}
                           aria-label={iconOnly(size) ? `${size} example` : undefined}
                         >
-                          {sample.content}
+                          {sizeContent(size)}
                         </Button>
                       </div>
                       <figcaption>{size}</figcaption>
@@ -879,31 +750,6 @@ export default function ButtonDemo() {
               </div>
             </section>
           ))}
-          <section className="button-demo-pattern-sizes" aria-label="Pattern sizes">
-            <h3>Patterns</h3>
-            <dl>
-              {patternSizes.map(size => {
-                const sample = sizeSample(size);
-                return (
-                  <div key={size} className="button-demo-pattern">
-                    <dt>
-                      <code>{size}</code>
-                      <span>{patternUsage[size]}</span>
-                    </dt>
-                    <dd>
-                      <Button
-                        variant={sample.variant}
-                        size={size}
-                        aria-label={iconOnly(size) ? `${size} example` : undefined}
-                      >
-                        {sample.content}
-                      </Button>
-                    </dd>
-                  </div>
-                );
-              })}
-            </dl>
-          </section>
         </div>
       </Preview>
 
@@ -1031,7 +877,7 @@ export default function ButtonDemo() {
             </Button>
           </div>
           <Button
-            size="badge"
+            size="sm"
             variant={scopeAll ? 'ghost' : 'scope'}
             aria-pressed={!scopeAll}
             onClick={() => setScopeAll(value => !value)}
@@ -1049,7 +895,7 @@ export default function ButtonDemo() {
 
       <Preview id="links" title="Links" description="Use nativeButton={false} and render for router or anchor links.">
         <div className="button-demo-row">
-          <Button variant="ghost" size="back" nativeButton={false} render={<a href="#button-demo" />}>
+          <Button variant="ghost" size="sm" nativeButton={false} render={<a href="#button-demo" />}>
             <ChevronLeftIcon data-icon="inline-start" />
             <span className="button-demo-back-label">All files</span>
           </Button>
@@ -1072,7 +918,7 @@ export default function ButtonDemo() {
             <DownloadIcon data-icon="inline-start" />
             Download
           </Button>
-          <Button variant="link" size="xs" nativeButton={false} render={<a href="mailto:hello@example.com" />}>
+          <Button variant="link" size="sm" nativeButton={false} render={<a href="mailto:hello@example.com" />}>
             Email support
           </Button>
           <Button variant="outline" disabled nativeButton={false} render={<a href="#links-title" />}>
@@ -1080,7 +926,7 @@ export default function ButtonDemo() {
           </Button>
         </div>
         <div className="button-demo-narrow">
-          <Button variant="link" size="task-link" nativeButton={false} render={<a href="#links-title" />}>
+          <Button variant="link" nativeButton={false} render={<a href="#links-title" />}>
             Review the quarterly customer research summary and draft follow-up questions
           </Button>
         </div>
@@ -1175,24 +1021,24 @@ export default function ButtonDemo() {
             <div className="button-demo-row">
               <Button
                 variant="ghost"
-                size="calendar-icon"
+                size="icon-sm"
                 aria-label="Previous month"
                 onClick={() => setMonth(m => (m + 11) % 12)}
               >
                 <ChevronLeftIcon />
               </Button>
-              <Button variant="ghost" size="calendar-title" onClick={() => setMonth(9)}>
+              <Button variant="ghost" size="sm" onClick={() => setMonth(9)}>
                 {months[month]} 2026
               </Button>
               <Button
                 variant="ghost"
-                size="calendar-icon"
+                size="icon-sm"
                 aria-label="Next month"
                 onClick={() => setMonth(m => (m + 1) % 12)}
               >
                 <ChevronRightIcon />
               </Button>
-              <Button variant="outline" size="calendar" onClick={() => setMonth(9)}>
+              <Button variant="outline" size="sm" onClick={() => setMonth(9)}>
                 Today
               </Button>
             </div>
@@ -1204,17 +1050,17 @@ export default function ButtonDemo() {
                 ['Launch checklist', '2m'],
                 ['Customer interview notes', '1h'],
               ].map(([title, time]) => (
-                <Button key={title} variant="ghost" size="chat-row">
+                <Button key={title} variant="ghost" size="lg">
                   <span className="button-demo-truncate">{title}</span>
                   <span className="button-demo-faint">{time}</span>
                 </Button>
               ))}
-              <Button variant="ghost" size="card-title">
+              <Button variant="ghost">
                 <FileTextIcon />
                 Quarterly planning document with a long wrapping title
               </Button>
               <div className="button-demo-row">
-                <Button variant="outline" size="result-card">
+                <Button variant="outline" size="md">
                   Open record
                 </Button>
                 <Button variant="outline" size="icon" aria-label="Add record">
@@ -1230,8 +1076,8 @@ export default function ButtonDemo() {
           <div className="button-demo-panel">
             <h3>Onboarding</h3>
             <div className="button-demo-stack">
-              <Button size="onboarding">Continue</Button>
-              <Button size="onboarding" variant="outline">
+              <Button size="lg">Continue</Button>
+              <Button size="lg" variant="outline">
                 Skip for now
               </Button>
             </div>
@@ -1239,7 +1085,7 @@ export default function ButtonDemo() {
           <div className="button-demo-panel">
             <h3>Floating assistant</h3>
             <DraggableAssistant />
-            <Button variant="outline" size="bud" aria-label="Open compact assistant">
+            <Button variant="outline" size="icon-lg" aria-label="Open compact assistant">
               <SparkleIcon />
             </Button>
           </div>

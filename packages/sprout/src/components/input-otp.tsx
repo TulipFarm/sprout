@@ -5,6 +5,8 @@ import { OTPField } from '@base-ui/react/otp-field';
 import { Minus } from 'reicon-react/icons/Minus';
 import { cn, stateClassName } from '../internal/classes.js';
 
+export const inputOTPSizeNames = ['md', 'sm', 'lg'] as const;
+export type InputOTPSize = (typeof inputOTPSizeNames)[number];
 export type InputOTPState = OTPField.Root.State;
 export type InputOTPSlotState = OTPField.Input.State;
 
@@ -20,9 +22,11 @@ type Invalid = boolean | 'true' | 'false' | 'grammar' | 'spelling';
 
 const isInvalid = (value: Invalid | undefined) => value === true || value === 'true';
 
-export interface InputOTPProps extends Omit<OTPField.Root.Props, 'length' | 'aria-invalid' | 'children'> {
+export interface InputOTPProps extends Omit<OTPField.Root.Props, 'length' | 'aria-invalid' | 'children' | 'size'> {
   /** Number of character slots. Matches the slot indexes you render. */
   maxLength: number;
+  /** Square slots: `sm` is 28px, `md` is 32px (`--sprout-control-height`), and `lg` is 36px. */
+  size?: InputOTPSize | null;
   /** Called with the new code on every edit, paste, or autofill. */
   onChange?: ((value: string) => void) | undefined;
   /** Marks every slot invalid and draws the danger ring on its group. */
@@ -38,6 +42,7 @@ export interface InputOTPProps extends Omit<OTPField.Root.Props, 'length' | 'ari
  */
 export function InputOTP({
   maxLength,
+  size,
   onChange,
   onValueChange,
   className,
@@ -51,10 +56,12 @@ export function InputOTP({
   const generated = useId();
   const labelId = ariaLabelledBy ?? (ariaLabel ? `${generated}-label` : undefined);
   const invalid = isInvalid(ariaInvalid);
+  const scale = size ?? 'md';
   return (
     <InputOTPContext.Provider value={{ length: maxLength, labelId, invalid }}>
       <OTPField.Root
         data-slot="input-otp"
+        data-size={scale}
         data-invalid={invalid ? '' : undefined}
         length={maxLength}
         validationType={validationType}
@@ -64,7 +71,7 @@ export function InputOTP({
           onChange?.(value);
         }}
         {...props}
-        className={stateClassName<InputOTPState>('sprout-input-otp', className)}
+        className={stateClassName<InputOTPState>(cn('sprout-input-otp', `sprout-input-otp-size-${scale}`), className)}
       >
         {ariaLabel && !ariaLabelledBy ? (
           <span id={labelId} className="sprout-input-otp-sr-only">

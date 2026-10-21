@@ -5,7 +5,7 @@
     min-width: 0;
     color: var(--sprout-text);
   }
-  .sprout-rich-text-editor-size-compact,
+  .sprout-rich-text-editor-size-sm,
   .sprout-rich-text-editor-condensed {
     display: flex;
     align-items: flex-end;
@@ -21,7 +21,7 @@
     /* Holds the editor's height before Tiptap mounts on the client. */
     min-height: 5rem;
   }
-  .sprout-rich-text-editor-size-compact > .sprout-rich-text-editor-body,
+  .sprout-rich-text-editor-size-sm > .sprout-rich-text-editor-body,
   .sprout-rich-text-editor-condensed > .sprout-rich-text-editor-body {
     min-height: 2.5rem;
   }
@@ -41,7 +41,7 @@
     outline: 0 solid transparent;
     outline-offset: 0;
   }
-  .sprout-rich-text-editor-size-compact .sprout-rich-text-editor-content {
+  .sprout-rich-text-editor-size-sm .sprout-rich-text-editor-content {
     min-height: 2.5rem;
     max-height: 8rem;
     font-size: var(--sprout-text-sm);

@@ -182,7 +182,6 @@ export function ResultCard({
             <div className="sprout-result-card-action">
               <Button
                 variant="outline"
-                size="result-card"
                 disabled={state === 'loading' || disabled || action.disabled === true}
                 onClick={action.onClick}
               >
