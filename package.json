@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "pnpm --filter @tulipfarm/sprout build && pnpm --filter @sprout/docs build",
+    "avatars": "node packages/sprout/scripts/agent-avatars.mjs",
     "dev": "pnpm --filter @tulipfarm/sprout build && pnpm --filter @sprout/docs dev",
     "board": "node tools/component-board/server.mjs",
     "test:board": "node --test --test-concurrency=1 tools/component-board/*.test.mjs",
@@ -53,6 +54,7 @@
     "release-it": "21.1.1",
     "shadcn": "4.22.0",
     "simple-git-hooks": "2.14.0",
+    "svgo": "4.0.0",
     "typescript": "6.0.3",
     "vitest": "5.0.5",
     "vitest-browser-react": "2.3.0"

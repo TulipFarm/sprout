@@ -1,0 +1,71 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { AgentAvatarGallery, AgentAvatarSizes } from '../../components/AgentAvatarDemo';
+import { AgentCompositions } from '../../components/AvatarDemo';
+---
+
+<Docs title="Agent Avatar" description="Built-in artwork for agents: 100 objects in eight colors.">
+  <h1 class="docs-title">Agent Avatar</h1>
+  <p class="docs-lead">
+    A picture for each agent, chosen from its id. 100 hand-drawn objects in eight colors ship inside the package, so
+    there is nothing to host and no network request.
+  </p>
+  <div class="mt-8">
+    <AgentAvatarSizes client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Agent avatar"
+      code={`import { AgentAvatar } from "@tulipfarm/sprout/agent-avatar";
+
+<AgentAvatar agentId={agent.id} name={agent.name} size="sm" />`}
+    />
+    <p>
+      The same <code>agentId</code> always gets the same object and color. <code>size</code> matches
+      <code>Avatar</code>: <code>"xs"</code>, <code>"sm"</code>, <code>"default"</code>, or <code>"lg"</code>. Pass
+      <code>object</code> or <code>color</code> to choose the artwork yourself, or <code>src</code> to use your own
+      image. With <code>src</code>, the first letter of <code>name</code> shows while it loads or if it fails.
+    </p>
+    <p>
+      The artwork is an inline SVG <code>data:</code> URL, so it renders on the server and works offline. All 100
+      objects add about 25 kB gzipped to the <code>agent-avatar</code> entry. Import it from its own entry so other
+      avatars stay small.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Gallery</h2>
+    <AgentAvatarGallery client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Helpers</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Agent avatar helpers"
+      code={`import {
+  agentAvatar, agentAvatarArtwork, agentAvatarColors, agentAvatarObjects, agentAvatarSrc,
+} from "@tulipfarm/sprout/agent-avatar";
+
+agentAvatar("agent_123");          // { object: "…", color: "…", src: "data:image/svg+xml,…" }
+agentAvatarSrc("agent_123");       // the same src
+agentAvatarArtwork("tulip", "pink"); // one object in one color`}
+    />
+    <p>
+      <code>agentAvatarObjects</code> and <code>agentAvatarColors</code> list every choice. Their order is frozen:
+      changing it would give existing agents new pictures.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">In context</h2>
+    <AgentCompositions client:load />
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The artwork is decorative and has <code>alt=""</code>. Put the agent's name in nearby text. Avatars are not
+      focusable; put them inside a link or button for actions.
+    </p>
+  </section>
+</Docs>

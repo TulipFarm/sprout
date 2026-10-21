@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { CheckCircle } from 'reicon-react/icons/CheckCircle';
 import { Pause } from 'reicon-react/icons/Pause';
 import { Play } from 'reicon-react/icons/Play';
-import { AgentAvatar } from '@tulipfarm/sprout/avatar';
+import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
 import {

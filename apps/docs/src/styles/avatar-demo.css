@@ -309,3 +309,36 @@
     transition: none;
   }
 }
+.agent-avatar-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 20px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.agent-avatar-gallery span {
+  text-align: center;
+}
+.agent-avatar-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.agent-avatar-color {
+  padding: 2px 10px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 9999px;
+  background: var(--sprout-surface);
+  color: var(--sprout-muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+.agent-avatar-color[aria-pressed='true'] {
+  border-color: var(--sprout-text);
+  color: var(--sprout-text);
+}
+.agent-avatar-color:focus-visible {
+  outline: 2px solid var(--sprout-focus, var(--sprout-primary));
+  outline-offset: 2px;
+}

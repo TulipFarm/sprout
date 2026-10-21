@@ -40,6 +40,10 @@
       "types": "./dist/components/agent-fanout.d.ts",
       "import": "./dist/components/agent-fanout.js"
     },
+    "./agent-avatar": {
+      "types": "./dist/components/agent-avatar.d.ts",
+      "import": "./dist/components/agent-avatar.js"
+    },
     "./alert": {
       "types": "./dist/components/alert.d.ts",
       "import": "./dist/components/alert.js"

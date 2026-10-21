@@ -84,8 +84,16 @@ const breadcrumbExports = [
 
 const alertExports = ['Alert', 'AlertAction', 'AlertDescription', 'AlertTitle', 'alertVariantNames', 'alertVariants'];
 
-const avatarExports = [
+const agentAvatarExports = [
   'AgentAvatar',
+  'agentAvatar',
+  'agentAvatarArtwork',
+  'agentAvatarColors',
+  'agentAvatarObjects',
+  'agentAvatarSrc',
+];
+
+const avatarExports = [
   'Avatar',
   'AvatarBadge',
   'AvatarFallback',
@@ -93,7 +101,6 @@ const avatarExports = [
   'AvatarGroupCount',
   'AvatarImage',
   'EntityAvatar',
-  'agentAvatarSrc',
 ];
 
 const brandIconExports = [
@@ -652,7 +659,7 @@ const typedTextExports = ['TypedText', 'typedTextCharacterDuration', 'typedTextM
 const viewSwitcherExports = ['ViewSwitcher', 'viewSwitcherTabId'];
 
 describe('Sidebar public surface', () => {
-  it('exports only Accordion, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Label, Menubar, Message, Message Actions, Message Response, Message Scroller, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Switch, Table, Tables Feedback, Tabs, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, and View Switcher parts', () => {
+  it('exports only Accordion, Agent Avatar, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Label, Menubar, Message, Message Actions, Message Response, Message Scroller, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Switch, Table, Tables Feedback, Tabs, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, and View Switcher parts', () => {
     const names = Object.keys(sprout);
     const buttonExports = [
       'Button',
@@ -705,6 +712,7 @@ describe('Sidebar public surface', () => {
           name.startsWith('Sidebar') ||
           name === 'useSidebar' ||
           alertExports.includes(name) ||
+          agentAvatarExports.includes(name) ||
           alertDialogExports.includes(name) ||
           avatarExports.includes(name) ||
           badgeExports.includes(name) ||
@@ -807,6 +815,7 @@ describe('Sidebar public surface', () => {
     expect(names).toEqual(
       expect.arrayContaining([
         ...alertExports,
+        ...agentAvatarExports,
         ...chartExports,
         ...timelineExports,
         ...alertDialogExports,

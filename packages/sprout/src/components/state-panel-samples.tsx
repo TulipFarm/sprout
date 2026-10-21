@@ -14,7 +14,7 @@ import { ShieldUser } from 'reicon-react/icons/ShieldUser';
 import { User } from 'reicon-react/icons/User';
 import { Users } from 'reicon-react/icons/Users';
 import { FileTypeIcon } from './attachment.js';
-import { AgentAvatar } from './avatar.js';
+import { AgentAvatar } from './agent-avatar.js';
 import { Badge } from './badge.js';
 import { BrandIcon } from './brand-icon.js';
 import {
