@@ -20,9 +20,9 @@ const Glyph = ({ size = 14 }: { size?: number }) => (
 );
 
 const columns: SampleColumn[] = [
-  { label: 'Workflow', size: 'wide' },
+  { label: 'Workflow', size: 'lg' },
   { label: 'Trigger' },
-  { label: 'Status', size: 'narrow' },
+  { label: 'Status', size: 'sm' },
 ];
 
 function Workflows() {
@@ -143,9 +143,9 @@ describe('StateSample in a real browser', () => {
     await settle();
     const workflows = byTestId('workflows');
     const width = (selector: string) => workflows.querySelector(selector)!.getBoundingClientRect().width;
-    expect(width('.sprout-state-sample-row [data-size="narrow"]')).toBe(96);
+    expect(width('.sprout-state-sample-row [data-size="sm"]')).toBe(96);
     expect(
-      width('.sprout-state-sample-row [data-size="wide"]') / width('.sprout-state-sample-row [data-size="default"]'),
+      width('.sprout-state-sample-row [data-size="lg"]') / width('.sprout-state-sample-row [data-size="md"]'),
     ).toBeCloseTo(1.6, 1);
     expect(byTestId('red-sm').getBoundingClientRect().width).toBe(14);
     expect(byTestId('red-md').getBoundingClientRect().width).toBe(28);

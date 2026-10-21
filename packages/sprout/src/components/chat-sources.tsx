@@ -179,7 +179,7 @@ export function CheckedCitation({ label, state, onOpen, onRetry }: CheckedCitati
         closeDelay={hoverCloseDelay}
         data-slot="checked-citation"
         className="sprout-chat-sources-checked"
-        render={<Button variant="link" size="task-link" aria-label={`Source: ${label}`} />}
+        render={<Button variant="link" aria-label={`Source: ${label}`} />}
       >
         {label}
       </PopoverTrigger>

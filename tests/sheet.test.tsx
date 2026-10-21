@@ -67,7 +67,7 @@ describe('Sheet', () => {
     expect(triggers[0]).toContain('sprout-button-size-sm');
     expect(triggers[1]).toContain('sprout-button-size-icon-sm');
     expect(triggers[1]).toContain('aria-label="Filter and sort"');
-    expect(triggers[2]).toContain('sprout-button-size-default');
+    expect(triggers[2]).toContain('sprout-button-size-md');
     for (const trigger of triggers) {
       expect(trigger).toContain('sprout-button-variant-outline');
       expect(trigger).toContain('aria-haspopup="dialog"');

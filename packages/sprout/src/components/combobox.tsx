@@ -7,7 +7,7 @@ import { ChevronDown } from 'reicon-react/icons/ChevronDown';
 import { X } from 'reicon-react/icons/X';
 import { cn, stateClassName } from '../internal/classes.js';
 import { Button } from './button.js';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from './input-group.js';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, type InputGroupSize } from './input-group.js';
 
 export type ComboboxProps<Value, Multiple extends boolean | undefined = false> = ComboboxPrimitive.Root.Props<
   Value,
@@ -60,7 +60,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
       aria-label="Clear selection"
-      render={<InputGroupButton variant="ghost" size="icon-xs" />}
+      render={<InputGroupButton variant="ghost" size="icon" />}
       {...props}
       className={stateClassName<ComboboxPrimitive.Clear.State>('sprout-combobox-clear', className)}
     >
@@ -69,9 +69,11 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
   );
 }
 
-export interface ComboboxInputProps extends Omit<ComboboxPrimitive.Input.Props, 'className'> {
+export interface ComboboxInputProps extends Omit<ComboboxPrimitive.Input.Props, 'className' | 'size'> {
   /** Classes for the surrounding `InputGroup`. */
   className?: string;
+  /** `sm` is 28px, `md` is 32px (`--sprout-control-height`), and `lg` is 36px. */
+  size?: InputGroupSize | null;
   /** Shows the chevron button that opens the list. On by default. */
   showTrigger?: boolean;
   /**
@@ -93,15 +95,16 @@ export function ComboboxInput({
   disabled = false,
   showTrigger = true,
   showClear = false,
+  size,
   ...props
 }: ComboboxInputProps) {
   return (
-    <InputGroup className={cn('sprout-combobox-input-group', className)}>
+    <InputGroup size={size} className={cn('sprout-combobox-input-group', className)}>
       <ComboboxPrimitive.Input render={<InputGroupInput />} disabled={disabled} {...props} />
       <InputGroupAddon align="inline-end">
         {showTrigger && (
           <InputGroupButton
-            size="icon-xs"
+            size="icon"
             variant="ghost"
             render={<ComboboxTrigger />}
             data-slot="input-group-button"
@@ -253,19 +256,27 @@ export function ComboboxSeparator({ className, ...props }: ComboboxSeparatorProp
   );
 }
 
-export type ComboboxChipsProps = ComboboxPrimitive.Chips.Props;
+export interface ComboboxChipsProps extends ComboboxPrimitive.Chips.Props {
+  /** `sm` is 28px, `md` is 32px (`--sprout-control-height`), and `lg` is 36px. It is a minimum: chips wrap onto more rows. */
+  size?: InputGroupSize | null;
+}
 
 /**
  * The bordered field for `multiple` comboboxes. Put a `ComboboxValue` that
  * renders `ComboboxChip`s and a `ComboboxChipsInput` inside it. Arrow left
  * and right move between chips; Backspace removes one.
  */
-export function ComboboxChips({ className, ...props }: ComboboxChipsProps) {
+export function ComboboxChips({ className, size, ...props }: ComboboxChipsProps) {
+  const scale = size ?? 'md';
   return (
     <ComboboxPrimitive.Chips
       data-slot="combobox-chips"
+      data-size={scale}
       {...props}
-      className={stateClassName<ComboboxPrimitive.Chips.State>('sprout-combobox-chips', className)}
+      className={stateClassName<ComboboxPrimitive.Chips.State>(
+        cn('sprout-combobox-chips', `sprout-combobox-chips-size-${scale}`),
+        className,
+      )}
     />
   );
 }

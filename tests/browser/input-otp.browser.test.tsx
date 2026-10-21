@@ -97,6 +97,15 @@ describe('InputOTP in a real browser', () => {
     expect(gap).toBe(32);
   });
 
+  it.each([
+    ['sm', '28px', '12px'],
+    ['lg', '36px', '14px'],
+  ] as const)('size %s slots are %s with %s text', async (size, square, font) => {
+    await render(<Code size={size} />);
+    const slot = getComputedStyle(slots()[0]!);
+    expect([slot.width, slot.height, slot.fontSize]).toEqual([square, square, font]);
+  });
+
   it('a native label focuses the first slot', async () => {
     const screen = await render(
       <>

@@ -80,7 +80,7 @@ describe('Combobox', () => {
     expect(trigger).toMatch(/^<button /);
     expect(trigger).toContain('aria-label="Show options"');
     expect(trigger).toContain('sprout-combobox-input-trigger');
-    expect(trigger).toContain('sprout-input-group-button-size-icon-xs');
+    expect(trigger).toContain('sprout-input-group-button-size-icon');
     expect(html).not.toContain('<select');
   });
 

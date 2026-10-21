@@ -112,7 +112,7 @@ describe('NoticeBanner in a real browser', () => {
     expect(Math.round(trigger.getBoundingClientRect().width)).toBe(256);
     expect(trigger.getBoundingClientRect().height).toBe(32);
     const action = page.getByRole('button').element();
-    expect(action.getBoundingClientRect().height).toBe(28);
+    expect(action.getBoundingClientRect().height).toBe(32);
     expect(getComputedStyle(action).fontSize).toBe('14px');
   });
 

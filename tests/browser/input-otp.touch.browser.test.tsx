@@ -40,4 +40,17 @@ describe('InputOTP on a touch screen', () => {
     expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
     for (const slot of slots()) expect(slot.getBoundingClientRect().right).toBeLessThanOrEqual(390);
   });
+
+  it('every size grows to 44px on coarse pointers', async () => {
+    await render(
+      <>
+        <Code testId="sm" size="sm" />
+        <Code testId="lg" size="lg" />
+      </>,
+    );
+    for (const testId of ['sm', 'lg']) {
+      const slot = getComputedStyle(slots(testId)[0]!);
+      expect([slot.width, slot.height], testId).toEqual(['44px', '44px']);
+    }
+  });
 });

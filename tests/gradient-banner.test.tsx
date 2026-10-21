@@ -38,7 +38,7 @@ describe('GradientBanner', () => {
 
   it('names every Cloud variant, size, and tone', () => {
     expect(gradientBannerVariantNames).toEqual(['aurora', 'citrus', 'lagoon', 'iris', 'cobalt', 'mint']);
-    expect(gradientBannerSizeNames).toEqual(['sm', 'md', 'lg', 'xl']);
+    expect(gradientBannerSizeNames).toEqual(['sm', 'md', 'lg']);
     expect(gradientBannerPanelToneNames).toEqual(['light', 'dark']);
     for (const variant of gradientBannerVariantNames)
       for (const size of gradientBannerSizeNames) {
@@ -142,7 +142,7 @@ describe('Gradient Banner package wiring', () => {
     expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './gradient-banner.css';");
     const css = readFileSync(new URL('src/styles/gradient-banner.css', root), 'utf8');
     for (const variant of gradientBannerVariantNames.slice(1)) expect(css).toContain(`[data-variant='${variant}']`);
-    for (const height of ['6rem', '10rem', '15rem', '22.5rem']) expect(css).toContain(`min-height: ${height}`);
+    for (const height of ['6rem', '10rem', '15rem']) expect(css).toContain(`min-height: ${height}`);
     expect(css).toContain('prefers-reduced-motion: reduce');
     expect(css).not.toMatch(/--banner-/);
   });

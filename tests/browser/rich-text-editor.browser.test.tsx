@@ -117,7 +117,7 @@ describe('RichTextEditor in a real browser', () => {
     await render(
       <>
         <Editor ariaLabel="Local draft" />
-        <Editor ariaLabel="Quick note" size="compact" />
+        <Editor ariaLabel="Quick note" size="sm" />
       </>,
     );
     const full = await mounted('Local draft');

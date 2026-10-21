@@ -50,8 +50,8 @@ describe('Input in a real browser', () => {
   });
 
   it.each([
-    ['default', '32px', '14px', '10px'],
-    ['lg', '44px', '16px', '12px'],
+    ['md', '32px', '14px', '10px'],
+    ['lg', '36px', '14px', '12px'],
   ] as const)('%s scale renders at Cloud dimensions', async (scale, height, font, padding) => {
     const screen = await render(<States scale={scale} />);
     for (const input of screen.container.querySelectorAll('input')) {

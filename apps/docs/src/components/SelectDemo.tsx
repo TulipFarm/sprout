@@ -241,7 +241,7 @@ export function SelectSizes() {
   return (
     <div className="select-demo-panel" data-demo="select-sizes">
       <div className="select-demo-sizes">
-        <SizeRow size="default" width="full" note="Form fields">
+        <SizeRow size="md" width="full" note="Form fields">
           <DemoField
             id={`${id}-team`}
             label="Owning team"
@@ -262,7 +262,7 @@ export function SelectSizes() {
             </Select>
           </DemoField>
         </SizeRow>
-        <SizeRow size="default" width="fit" note="Access rows">
+        <SizeRow size="md" width="fit" note="Access rows">
           <div className="select-demo-person">
             <span className="select-demo-person-name">
               Priya Raman
@@ -317,14 +317,14 @@ export function SelectSizes() {
             </Select>
           </div>
         </SizeRow>
-        <SizeRow size="calendar" width="fit" note="Calendar header">
+        <SizeRow size="sm" width="fit" note="Calendar header">
           <div className="select-demo-calendar-bar">
             <Button size="sm" variant="outline">
               Today
             </Button>
             <strong>June 9 – 15, 2025</strong>
             <Select items={viewLabels} value={view} onValueChange={value => value && setView(value)}>
-              <SelectTrigger size="calendar" aria-label="Calendar view">
+              <SelectTrigger size="sm" aria-label="Calendar view">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

@@ -16,7 +16,7 @@ it.each(themes)('switch %s %s', async (theme, mode) => {
         background: 'var(--sprout-canvas)',
       }}
     >
-      {(['default', 'sm'] as const).flatMap(size => [
+      {(['md', 'sm'] as const).flatMap(size => [
         <Switch key={`${size}-off`} size={size} aria-label="Off" />,
         <Switch key={`${size}-on`} size={size} aria-label="On" defaultChecked />,
         <Switch key={`${size}-dis`} size={size} aria-label="Disabled" disabled />,

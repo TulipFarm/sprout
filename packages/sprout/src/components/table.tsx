@@ -1038,7 +1038,8 @@ function HeadCell<R extends RowData>({
         {sortable ? (
           <Button
             variant={sorted ? 'secondary' : 'ghost'}
-            size={align === 'right' ? 'column-header-end' : 'column-header'}
+            size="sm"
+            className={align === 'right' ? 'sprout-table-sort sprout-table-sort-end' : 'sprout-table-sort'}
             aria-label={`Sort by ${title}${hint}`}
             title={sorted ? undefined : 'Sort ascending'}
             onClick={column.getToggleSortingHandler()}

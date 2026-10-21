@@ -301,7 +301,7 @@ function WorkflowsSample() {
   return (
     <SampleWindow icon={BranchDown} trail={['Workflows']}>
       <SampleTable
-        columns={[{ label: 'Workflow', size: 'wide' }, { label: 'Trigger' }, { label: 'Status', size: 'narrow' }]}
+        columns={[{ label: 'Workflow', size: 'lg' }, { label: 'Trigger' }, { label: 'Status', size: 'sm' }]}
         rows={[
           [named('green', 'Approve large discounts'), muted('New quote'), <Badge variant="success">Active</Badge>],
           [named('blue', 'Onboard a new customer'), muted('Deal won'), <Badge variant="success">Active</Badge>],
@@ -327,9 +327,9 @@ function TablesSample() {
     <SampleWindow icon={Database} trail={['Tables']}>
       <SampleTable
         columns={[
-          { label: 'Table', size: 'wide' },
-          { label: 'Fields', size: 'narrow' },
-          { label: 'Rows', size: 'narrow' },
+          { label: 'Table', size: 'lg' },
+          { label: 'Fields', size: 'sm' },
+          { label: 'Rows', size: 'sm' },
         ]}
         rows={rows.map(([tone, name, fields, count]) => [
           named(tone, name),
@@ -346,9 +346,9 @@ function RecordsSample({ table, fields }: { table: string; fields: readonly stri
   const columns: SampleColumn[] = shown.length
     ? shown.map((label, index) => ({
         label,
-        size: index === 0 ? 'wide' : 'default',
+        size: index === 0 ? 'lg' : 'md',
       }))
-    : [{ label: 'Row', size: 'wide' }];
+    : [{ label: 'Row', size: 'lg' }];
   const rows = [
     ['blue', 'lg', 'md'],
     ['green', 'md', 'sm'],
@@ -390,7 +390,7 @@ function CreateInChatSample() {
         </p>
         <div className="state-sample-demo-schema">
           <SampleTable
-            columns={[{ label: 'Field', size: 'wide' }, { label: 'Type' }]}
+            columns={[{ label: 'Field', size: 'lg' }, { label: 'Type' }]}
             rows={[
               [<SampleText tone="strong">Name</SampleText>, muted('Text')],
               [<SampleText tone="strong">Contact email</SampleText>, muted('Email')],
@@ -484,7 +484,7 @@ function MembersSample() {
   return (
     <SampleWindow icon={User} trail={['Settings', 'Members']}>
       <SampleTable
-        columns={[{ label: 'Member', size: 'wide' }, { label: 'Role', size: 'narrow' }, { label: 'Teams' }]}
+        columns={[{ label: 'Member', size: 'lg' }, { label: 'Role', size: 'sm' }, { label: 'Teams' }]}
         rows={[
           [named('violet', 'Maya Chen'), <Badge variant="info">Admin</Badge>, muted('Operations')],
           [named('orange', 'Leo Martins'), <Badge variant="secondary">Member</Badge>, muted('Sales, Support')],
@@ -533,7 +533,7 @@ function InvitationsSample() {
   return (
     <SampleWindow icon={Envelope} trail={['Settings', 'Members', 'Invitations']}>
       <SampleTable
-        columns={[{ label: 'Email', size: 'wide' }, { label: 'Status', size: 'narrow' }, { label: 'Email delivery' }]}
+        columns={[{ label: 'Email', size: 'lg' }, { label: 'Status', size: 'sm' }, { label: 'Email delivery' }]}
         rows={[
           [link('maya@northwind.co'), <Badge variant="info">active</Badge>, muted('Delivered')],
           [link('leo@northwind.co'), <Badge variant="secondary">Accepted</Badge>, muted('Delivered')],
@@ -551,9 +551,9 @@ function GrantsSample() {
     <SampleWindow icon={ShieldUser} trail={['Settings', 'Table access']} tabs={['Sales', 'Finance', 'Support']}>
       <SampleTable
         columns={[
-          { label: 'Table', size: 'wide' },
-          { label: 'Read', size: 'narrow' },
-          { label: 'Edit', size: 'narrow' },
+          { label: 'Table', size: 'lg' },
+          { label: 'Read', size: 'sm' },
+          { label: 'Edit', size: 'sm' },
         ]}
         rows={[
           [named('blue', 'Customers'), granted, granted],
@@ -893,8 +893,8 @@ export function StateSampleWindows() {
           >
             <SampleTable
               columns={[
-                { label: 'Email', size: 'wide' },
-                { label: 'Status', size: 'narrow' },
+                { label: 'Email', size: 'lg' },
+                { label: 'Status', size: 'sm' },
               ]}
               rows={[[<SampleText tone="link">maya@northwind.co</SampleText>, <Badge variant="info">active</Badge>]]}
             />

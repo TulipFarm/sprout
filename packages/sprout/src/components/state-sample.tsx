@@ -61,7 +61,7 @@ export function SampleWindow({
   );
 }
 
-export const sampleColumnSizeNames = ['wide', 'default', 'narrow'] as const;
+export const sampleColumnSizeNames = ['lg', 'md', 'sm'] as const;
 export type SampleColumnSize = (typeof sampleColumnSizeNames)[number];
 export type SampleColumn = { label: string; size?: SampleColumnSize };
 
@@ -76,7 +76,7 @@ export function SampleTable({ columns, rows, className, ...props }: SampleTableP
       <div className="sprout-state-sample-head">
         <span className="sprout-state-sample-check" aria-hidden="true" />
         {columns.map((column, index) => (
-          <span key={index} className="sprout-state-sample-cell" data-size={column.size ?? 'default'}>
+          <span key={index} className="sprout-state-sample-cell" data-size={column.size ?? 'md'}>
             {column.label}
           </span>
         ))}
@@ -85,11 +85,7 @@ export function SampleTable({ columns, rows, className, ...props }: SampleTableP
         <div key={rowIndex} className="sprout-state-sample-row">
           <span className="sprout-state-sample-check" aria-hidden="true" />
           {row.map((cell, cellIndex) => (
-            <span
-              key={cellIndex}
-              className="sprout-state-sample-cell"
-              data-size={columns[cellIndex]?.size ?? 'default'}
-            >
+            <span key={cellIndex} className="sprout-state-sample-cell" data-size={columns[cellIndex]?.size ?? 'md'}>
               {cell}
             </span>
           ))}

@@ -124,7 +124,7 @@
     .sprout-result-card-app + .sprout-result-card-app {
       margin-inline-start: -8px;
     }
-    .sprout-result-card-action .sprout-button-size-result-card {
+    .sprout-result-card-action .sprout-button {
       height: 44px;
     }
   }

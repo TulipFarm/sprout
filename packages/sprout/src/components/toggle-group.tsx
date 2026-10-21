@@ -6,7 +6,7 @@ import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
 import { cn } from '../internal/classes.js';
 
 export const toggleGroupVariantNames = ['default', 'outline'] as const;
-export const toggleGroupSizeNames = ['default', 'sm', 'lg'] as const;
+export const toggleGroupSizeNames = ['md', 'sm', 'lg'] as const;
 
 export type ToggleGroupVariant = (typeof toggleGroupVariantNames)[number];
 export type ToggleGroupSize = (typeof toggleGroupSizeNames)[number];
@@ -20,7 +20,7 @@ interface ToggleGroupContextValue {
 
 const ToggleGroupContext = createContext<ToggleGroupContextValue>({
   variant: 'default',
-  size: 'default',
+  size: 'md',
   spacing: 2,
   orientation: 'horizontal',
 });
@@ -28,7 +28,7 @@ const ToggleGroupContext = createContext<ToggleGroupContextValue>({
 export interface ToggleGroupProps<Value extends string = string> extends BaseToggleGroup.Props<Value> {
   /** `default` is borderless. `outline` draws a control border on each item. */
   variant?: ToggleGroupVariant;
-  /** `sm` is 28px, `default` 32px, and `lg` 36px tall. */
+  /** `sm` is 28px, `md` 32px, and `lg` 36px tall. */
   size?: ToggleGroupSize;
   /**
    * Gap between items in 4px steps. `0` joins the items into one
@@ -46,7 +46,7 @@ export function ToggleGroup<Value extends string = string>({
   className,
   style,
   variant = 'default',
-  size = 'default',
+  size = 'md',
   spacing = 2,
   orientation = 'horizontal',
   children,

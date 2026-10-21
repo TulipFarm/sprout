@@ -58,35 +58,35 @@
     border-color: color-mix(in oklab, var(--sprout-danger) 35%, transparent);
   }
 
-  .sprout-attachment-size-default {
+  .sprout-attachment-size-lg {
     gap: 8px;
     font-size: var(--sprout-text-sm);
   }
-  .sprout-attachment-size-default:has([data-slot='attachment-content']) {
+  .sprout-attachment-size-lg:has([data-slot='attachment-content']) {
     padding: 8px 10px;
   }
-  .sprout-attachment-size-default:has([data-slot='attachment-media']) {
+  .sprout-attachment-size-lg:has([data-slot='attachment-media']) {
     padding: 8px;
   }
-  .sprout-attachment-size-sm {
+  .sprout-attachment-size-md {
     gap: 10px;
     font-size: var(--sprout-text-xs);
   }
-  .sprout-attachment-size-sm:has([data-slot='attachment-content']) {
+  .sprout-attachment-size-md:has([data-slot='attachment-content']) {
     padding: 6px 8px;
   }
-  .sprout-attachment-size-sm:has([data-slot='attachment-media']) {
+  .sprout-attachment-size-md:has([data-slot='attachment-media']) {
     padding: 6px;
   }
-  .sprout-attachment-size-xs {
+  .sprout-attachment-size-sm {
     gap: 6px;
     border-radius: 8px;
     font-size: var(--sprout-text-xs);
   }
-  .sprout-attachment-size-xs:has([data-slot='attachment-content']) {
+  .sprout-attachment-size-sm:has([data-slot='attachment-content']) {
     padding: 4px 6px;
   }
-  .sprout-attachment-size-xs:has([data-slot='attachment-media']) {
+  .sprout-attachment-size-sm:has([data-slot='attachment-media']) {
     padding: 4px;
   }
 
@@ -115,10 +115,10 @@
     background: var(--sprout-hover);
     color: var(--sprout-text);
   }
-  .sprout-attachment-size-sm .sprout-attachment-media {
+  .sprout-attachment-size-md .sprout-attachment-media {
     width: 32px;
   }
-  .sprout-attachment-size-xs .sprout-attachment-media {
+  .sprout-attachment-size-sm .sprout-attachment-media {
     width: 28px;
     border-radius: 6px;
   }
@@ -141,7 +141,7 @@
     width: 24px;
     height: 24px;
   }
-  .sprout-attachment-size-xs .sprout-attachment-media svg:not([class*='size-']) {
+  .sprout-attachment-size-sm .sprout-attachment-media svg:not([class*='size-']) {
     width: 14px;
     height: 14px;
   }
@@ -206,7 +206,7 @@
   .sprout-attachment-vertical .sprout-attachment-actions .sprout-button {
     background: color-mix(in oklab, var(--sprout-surface) 88%, transparent);
   }
-  .sprout-attachment-size-xs.sprout-attachment-vertical .sprout-attachment-actions {
+  .sprout-attachment-size-sm.sprout-attachment-vertical .sprout-attachment-actions {
     top: 6px;
     right: 6px;
   }

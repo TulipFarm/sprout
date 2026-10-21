@@ -236,7 +236,7 @@ export function TextareaStates() {
             <p id="team-description-help" className="textarea-demo-helper">
               {saving ? 'Saving… the text stays selectable.' : 'Up to 1,000 characters.'}
             </p>
-            <Button size="xs" variant="outline" aria-pressed={saving} onClick={() => setSaving(!saving)}>
+            <Button size="sm" variant="outline" aria-pressed={saving} onClick={() => setSaving(!saving)}>
               {saving ? 'Finish saving' : 'Simulate saving'}
             </Button>
           </div>

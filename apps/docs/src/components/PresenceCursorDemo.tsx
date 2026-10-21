@@ -103,7 +103,7 @@ function Board({ kind, moving }: { kind: Kind; moving: boolean }) {
             y={(spots[index]!.y / 100) * size.height}
             avatar={
               kind === 'label' ? undefined : (
-                <Avatar size={kind === 'photo' ? 'default' : 'sm'}>
+                <Avatar size={kind === 'photo' ? 'md' : 'sm'}>
                   {kind === 'photo' && <AvatarImage src={person.photo} alt="" />}
                   <AvatarFallback>{person.initials}</AvatarFallback>
                 </Avatar>

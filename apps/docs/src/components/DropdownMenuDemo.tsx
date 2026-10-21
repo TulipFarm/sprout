@@ -135,7 +135,7 @@ export function DropdownMenuPlayground() {
   );
 }
 
-const moreTrigger = (label: string, variant: 'ghost' | 'outline', size: 'icon-sm' | 'icon' | 'calendar-icon') => (
+const moreTrigger = (label: string, variant: 'ghost' | 'outline', size: 'icon-sm' | 'icon') => (
   <Button variant={variant} size={size} aria-label={label} />
 );
 
@@ -340,9 +340,9 @@ export function DropdownMenuActions() {
           </DropdownMenuContent>
         </DropdownMenu>
       </Row>
-      <Row label="Calendar" note="ghost calendar-icon · menu">
+      <Row label="Calendar" note="ghost icon · menu">
         <DropdownMenu>
-          <DropdownMenuTrigger render={moreTrigger('More calendar actions', 'ghost', 'calendar-icon')}>
+          <DropdownMenuTrigger render={moreTrigger('More calendar actions', 'ghost', 'icon')}>
             <MoreH size={16} aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent size="menu" align="end">
@@ -730,7 +730,7 @@ export function DropdownMenuSidebar() {
                 aria-label={`Workspace menu, ${current.name}`}
                 render={<SidebarMenuButton className="dropdown-demo-workspace" />}
               >
-                <EntityAvatar seed={current.id} name={current.name} size="xs" shape="square" />
+                <EntityAvatar seed={current.id} name={current.name} size="sm" shape="square" />
                 <span className="truncate">{current.name}</span>
                 <ChevronDown size={12} aria-hidden="true" />
               </DropdownMenuTrigger>
@@ -758,7 +758,7 @@ export function DropdownMenuSidebar() {
                           setResult(`Switched to ${item.name}.`);
                         }}
                       >
-                        <EntityAvatar seed={item.id} name={item.name} size="xs" shape="square" />
+                        <EntityAvatar seed={item.id} name={item.name} size="sm" shape="square" />
                         <span className="dropdown-demo-workspace-name">{item.name}</span>
                         {item.slug === current.slug && <Check size={14} aria-label="Current workspace" />}
                       </DropdownMenuItem>
@@ -776,7 +776,7 @@ export function DropdownMenuSidebar() {
           <SidebarFooter>
             <DropdownMenu onOpenChange={open => open && setResult('')}>
               <DropdownMenuTrigger aria-label="Account menu" render={<SidebarMenuButton tooltip="Account" />}>
-                <EntityAvatar seed="user-ama" name="Ama Owusu" size="xs" />
+                <EntityAvatar seed="user-ama" name="Ama Owusu" size="sm" />
                 <span className="truncate">Ama Owusu</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent size="menu" side="top">

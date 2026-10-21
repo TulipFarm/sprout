@@ -115,6 +115,30 @@ describe('ViewSwitcher in a real browser', () => {
     await userEvent.keyboard('{Escape}');
   });
 
+  it('tabs match the sm Add view button inside a token + 8px bar', async () => {
+    await render(<Harness />);
+    const height = (el: Element) => el.getBoundingClientRect().height;
+    expect(height(list().element())).toBe(40);
+    expect(height(tab('Table').element())).toBe(28);
+    expect(height(page.getByRole('button', { name: 'Add view' }).element())).toBe(28);
+  });
+
+  it('closable tabs keep the same gaps as fixed ones, and the close button floats over the tab end', async () => {
+    await render(<Harness />);
+    const boxes = [...document.querySelectorAll('.sprout-view-switcher-tab')].map(tab => {
+      const label = tab.querySelector('.sprout-view-switcher-label')!.getBoundingClientRect();
+      return { tab: tab.getBoundingClientRect(), label };
+    });
+    const trailing = boxes.map(({ tab, label }) => Math.round(tab.right - label.right));
+    expect(new Set(trailing)).toEqual(new Set([8]));
+    const close = document.querySelector('.sprout-view-switcher-close')!.getBoundingClientRect();
+    const owner = document
+      .querySelector('.sprout-view-switcher-close')!
+      .closest('.sprout-view-switcher-tab')!
+      .getBoundingClientRect();
+    expect(Math.round(owner.right - close.right)).toBe(4);
+  });
+
   it('is a tablist whose tabs point at the app panel', async () => {
     await render(<Harness />);
     await expect.element(list()).toBeVisible();

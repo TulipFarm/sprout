@@ -111,7 +111,9 @@ describe('Input OTP', () => {
   });
 
   it('styles Cloud dimensions, states, touch size, and motion in namespaced CSS', () => {
-    expect(css).toMatch(/\.sprout-input-otp-slot \{[^}]*width: 32px;[^}]*height: 32px;/s);
+    expect(css).toMatch(
+      /\.sprout-input-otp-slot \{[^}]*width: var\(--sprout-control-height\);[^}]*height: var\(--sprout-control-height\);/s,
+    );
     expect(css).toMatch(/@media \(pointer: coarse\)[^@]*width: 44px;/s);
     expect(css).toContain(".sprout-input-otp-slot[aria-invalid='true']");
     expect(css).toContain(".sprout-input-otp-group:has(.sprout-input-otp-slot[aria-invalid='true'])");

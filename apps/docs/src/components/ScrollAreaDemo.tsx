@@ -41,11 +41,11 @@ const sizes = [
     note: 'size="md" · plain · both · 16rem tall, 40rem wide content',
   },
   {
-    size: 'auto',
+    size: undefined,
     variant: 'table',
     orientation: 'vertical',
     count: 8,
-    note: 'size="auto" · table · vertical · grows to 60dvh',
+    note: 'no size · table · vertical · grows to 60dvh',
   },
 ] as const;
 
@@ -57,13 +57,13 @@ function Sizes() {
     >
       <div className="scroll-area-demo-sizes">
         {sizes.map(item => (
-          <figure key={item.size} className="scroll-area-demo-size">
+          <figure key={item.note} className="scroll-area-demo-size">
             <figcaption>{item.note}</figcaption>
             <ScrollArea
               size={item.size}
               variant={item.variant}
               orientation={item.orientation}
-              viewportLabel={`${item.size} sample records`}
+              viewportLabel={`${item.size ?? 'auto'} sample records`}
               data-testid={`size-${item.size}`}
               className={item.variant === 'plain' ? 'scroll-area-demo-framed' : undefined}
             >

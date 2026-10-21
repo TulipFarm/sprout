@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Button, buttonSizeNames, buttonVariantNames } from '../../packages/sprout/src/components/button.js';
+import { Input } from '../../packages/sprout/src/components/input.js';
 import { axeViolations, emulate, setTheme, settle, size, themes } from './support.js';
 
 const Plus = () => (
@@ -42,31 +43,19 @@ describe('Button in a real browser', () => {
 
   it('every size renders with its documented geometry', async () => {
     const expected: Record<string, [number | null, number]> = {
-      default: [null, 28],
-      xs: [null, 24],
+      md: [null, 32],
       sm: [null, 28],
       lg: [null, 36],
       icon: [32, 32],
       'icon-xs': [24, 24],
       'icon-sm': [28, 28],
       'icon-lg': [36, 36],
-      onboarding: [null, 44],
-      bud: [64, 64],
-      'bud-labeled': [null, 48],
-      'chat-row': [null, 44],
-      'card-title': [null, 40],
-      'result-card': [null, 32],
-      'calendar-title': [null, 32],
-      calendar: [null, 32],
-      'calendar-icon': [32, 32],
-      nav: [null, 32],
-      badge: [null, 28],
     };
     const screen = await render(
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {buttonSizeNames.map(name => (
           <Button key={name} size={name} aria-label={name}>
-            {name.startsWith('icon') || name === 'bud' ? (
+            {name.startsWith('icon') ? (
               <Plus />
             ) : (
               <>
@@ -84,12 +73,7 @@ describe('Button in a real browser', () => {
       if (width !== null) expect(w, name).toBe(width);
       expect(h, name).toBe(height);
     }
-    const css = (name: string) => getComputedStyle(node(name));
-    expect(css('calendar-title').fontSize).toBe('18px');
-    expect(css('task-link').whiteSpace).toBe('normal');
-    expect(css('column-header-end').flexDirection).toBe('row-reverse');
-    expect(css('bud').touchAction).toBe('none');
-    for (const name of ['xs', 'icon-xs']) expect(getComputedStyle(node(name).querySelector('svg')!).width).toBe('12px');
+    expect(getComputedStyle(node('icon-xs').querySelector('svg')!).width).toBe('12px');
   });
 
   it('keyboard activates, shows a focus ring, and busy stops the spinner', async () => {
@@ -135,6 +119,23 @@ describe('Button in a real browser', () => {
     const link = screen.getByText('Unavailable link');
     await expect.element(link).toHaveAttribute('aria-disabled', 'true');
     expect(getComputedStyle(link.element()).pointerEvents).toBe('none');
+  });
+
+  it('default Button and Input share --sprout-control-height; sm and lg step 4px from it', async () => {
+    const screen = await render(
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Input aria-label="Name" />
+        <Button size="sm">sm</Button>
+        <Button>default</Button>
+        <Button size="lg">lg</Button>
+      </div>,
+    );
+    const height = (element: Element) => element.getBoundingClientRect().height;
+    const input = height(screen.getByRole('textbox').element());
+    expect(input).toBe(32);
+    expect(height(screen.getByRole('button', { name: 'default' }).element())).toBe(input);
+    expect(height(screen.getByRole('button', { name: 'sm' }).element())).toBe(input - 4);
+    expect(height(screen.getByRole('button', { name: 'lg' }).element())).toBe(input + 4);
   });
 
   it('does not overflow a 320px viewport', async () => {

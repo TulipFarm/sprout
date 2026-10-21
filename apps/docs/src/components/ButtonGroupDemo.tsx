@@ -128,7 +128,7 @@ function Sizes() {
         <div className="button-group-demo-row" data-testid="size-xs">
           <Label code='size="xs" · "icon-xs"' note="Split share action in a dense row." />
           <ButtonGroup aria-label="Share note">
-            <Button variant="outline" size="xs" onClick={say('Copied link to Greenhouse notes.')}>
+            <Button variant="outline" size="sm" onClick={say('Copied link to Greenhouse notes.')}>
               <Copy data-icon="inline-start" aria-hidden="true" />
               Copy link
             </Button>

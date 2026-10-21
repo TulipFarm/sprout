@@ -23,7 +23,7 @@ describe('SearchField', () => {
   it('renders a labelled search input that uses the label as placeholder', () => {
     const html = renderToString(<SearchField label="Search models" value="" onChange={noop} />);
     expect(html).toContain('data-slot="search-field"');
-    expect(html).toContain('sprout-input-group sprout-input-group-size-default');
+    expect(html).toContain('sprout-input-group sprout-input-group-size-md');
     expect(html).toContain('data-slot="input-group-control"');
     expect(html).toContain('type="search"');
     expect(html).toContain('aria-label="Search models"');
@@ -58,7 +58,7 @@ describe('SearchField', () => {
     expect(html).toContain('data-slot="search-field-clear"');
     expect(html).toContain('type="button"');
     expect(html).toContain('sprout-button-variant-ghost');
-    expect(html).toContain('sprout-input-group-button-size-icon-xs');
+    expect(html).toContain('sprout-input-group-button-size-icon');
     expect(html).toContain('data-align="inline-end"');
   });
 

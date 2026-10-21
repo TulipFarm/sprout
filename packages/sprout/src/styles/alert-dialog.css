@@ -121,28 +121,28 @@
   }
 
   @media (min-width: 40rem) {
-    .sprout-alert-dialog-content[data-size='default'] {
+    .sprout-alert-dialog-content[data-size='md'] {
       max-width: 24rem;
     }
-    .sprout-alert-dialog-content[data-size='default'] > .sprout-alert-dialog-header {
+    .sprout-alert-dialog-content[data-size='md'] > .sprout-alert-dialog-header {
       justify-items: start;
       text-align: start;
     }
-    .sprout-alert-dialog-content[data-size='default'] > .sprout-alert-dialog-header:has(> .sprout-alert-dialog-media) {
+    .sprout-alert-dialog-content[data-size='md'] > .sprout-alert-dialog-header:has(> .sprout-alert-dialog-media) {
       grid-template-columns: auto minmax(0, 1fr);
       grid-template-rows: auto 1fr;
       column-gap: 16px;
     }
-    .sprout-alert-dialog-content[data-size='default'] > .sprout-alert-dialog-header > .sprout-alert-dialog-media {
+    .sprout-alert-dialog-content[data-size='md'] > .sprout-alert-dialog-header > .sprout-alert-dialog-media {
       grid-row: span 2;
       margin-bottom: 0;
     }
-    .sprout-alert-dialog-content[data-size='default']
+    .sprout-alert-dialog-content[data-size='md']
       > .sprout-alert-dialog-header:has(> .sprout-alert-dialog-media)
       > :not(.sprout-alert-dialog-media) {
       grid-column-start: 2;
     }
-    .sprout-alert-dialog-content[data-size='default'] > .sprout-alert-dialog-footer {
+    .sprout-alert-dialog-content[data-size='md'] > .sprout-alert-dialog-footer {
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: flex-end;

@@ -45,10 +45,10 @@ describe('InputGroup', () => {
   });
 
   it('names every Cloud size, variant, alignment, and button size', () => {
-    expect(inputGroupSizeNames).toEqual(['default', 'lg']);
+    expect(inputGroupSizeNames).toEqual(['md', 'sm', 'lg']);
     expect(inputGroupVariantNames).toEqual(['default', 'composer', 'question-composer']);
     expect(inputGroupAddonAlignNames).toEqual(['inline-start', 'inline-end', 'block-start', 'block-end']);
-    expect(inputGroupButtonSizeNames).toEqual(['xs', 'sm', 'icon-xs', 'icon-sm']);
+    expect(inputGroupButtonSizeNames).toEqual(['md', 'icon']);
   });
 
   it('renders a group with defaults and merges classes', () => {
@@ -59,10 +59,10 @@ describe('InputGroup', () => {
     );
     expect(html).toMatch(/^<div[^>]*role="group"/);
     expect(html).toContain('data-slot="input-group"');
-    expect(html).toContain('data-size="default"');
+    expect(html).toContain('data-size="md"');
     expect(html).toContain('data-variant="default"');
     expect(html).toContain(
-      'class="sprout-input-group sprout-input-group-size-default sprout-input-group-variant-default w-auto"',
+      'class="sprout-input-group sprout-input-group-size-md sprout-input-group-variant-default w-auto"',
     );
   });
 
@@ -99,13 +99,13 @@ describe('InputGroup', () => {
     }
   });
 
-  it('renders ghost xs type=button buttons by default and every size', () => {
+  it('renders ghost default type=button buttons by default and every size', () => {
     const html = renderToString(<InputGroupButton>Copy</InputGroupButton>);
     expect(html).toContain('type="button"');
-    expect(html).toContain('data-size="xs"');
+    expect(html).toContain('data-size="md"');
     expect(html).toContain('data-variant="ghost"');
     expect(html).toContain('sprout-button-variant-ghost');
-    expect(html).toContain('sprout-input-group-button-size-xs');
+    expect(html).toContain('sprout-input-group-button-size-md');
     for (const size of inputGroupButtonSizeNames) {
       const sized = renderToString(
         <InputGroupButton size={size} variant="default" type="submit" aria-label="Send message" />,
@@ -114,7 +114,6 @@ describe('InputGroup', () => {
       expect(sized).toContain('type="submit"');
       expect(sized).toContain('sprout-button-variant-default');
       expect(sized).toContain(`sprout-input-group-button-size-${size}`);
-      expect(css).toContain(`.sprout-input-group-button-size-${size}`);
     }
     const busy = renderToString(<InputGroupButton variant="secondary" disabled aria-busy />);
     expect(busy).toContain('disabled=""');
@@ -137,7 +136,7 @@ describe('InputGroup', () => {
     expect(input).toContain('data-slot="input-group-control"');
     expect(input).toContain('maxLength="48"');
     expect(input).toContain('aria-invalid="true"');
-    expect(input).toContain('sprout-input sprout-input-scale-default sprout-input-group-input extra');
+    expect(input).toContain('sprout-input sprout-input-scale-md sprout-input-group-input extra');
     const textarea = renderToString(<InputGroupTextarea aria-label="Draft message" placeholder="Write something…" />);
     expect(textarea).toMatch(/^<textarea/);
     expect(textarea).toContain('data-slot="input-group-control"');

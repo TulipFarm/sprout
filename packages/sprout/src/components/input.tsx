@@ -4,13 +4,13 @@ import { Input as BaseInput } from '@base-ui/react/input';
 import { cn, stateClassName } from '../internal/classes.js';
 import { useFieldControl } from './field.js';
 
-export const inputScaleNames = ['default', 'lg'] as const;
+export const inputScaleNames = ['md', 'sm', 'lg'] as const;
 
 export type InputScale = (typeof inputScaleNames)[number];
 export type InputState = BaseInput.State;
 
 export interface InputProps extends BaseInput.Props {
-  /** `default` is 32px tall with 14px text. `lg` is 44px with 16px text. */
+  /** `sm` is 28px, `md` is 32px (`--sprout-control-height`), and `lg` is 36px. */
   scale?: InputScale | null;
 }
 
@@ -23,7 +23,7 @@ export interface InputProps extends BaseInput.Props {
  */
 export function Input({ scale, className, ...rest }: InputProps) {
   const props = useFieldControl(rest);
-  const size = scale ?? 'default';
+  const size = scale ?? 'md';
   return (
     <BaseInput
       data-slot="input"

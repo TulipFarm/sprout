@@ -57,7 +57,7 @@ export function TooltipPlayground() {
           {aligns.map(value => (
             <Button
               key={value}
-              size="xs"
+              size="sm"
               variant={value === align ? 'secondary' : 'ghost'}
               aria-pressed={value === align}
               onClick={() => setAlign(value)}

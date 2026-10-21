@@ -2,7 +2,7 @@ import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { cn } from '../internal/classes.js';
 
-export const cardSizeNames = ['default', 'sm'] as const;
+export const cardSizeNames = ['md', 'sm'] as const;
 export const cardSurfaceNames = ['default', 'raised'] as const;
 
 export type CardSize = (typeof cardSizeNames)[number];
@@ -35,7 +35,7 @@ export interface CardProps extends useRender.ComponentProps<'div', CardState> {
  * A bordered panel that groups related content. Compose it with
  * `CardHeader`, `CardContent`, and `CardFooter`.
  */
-export function Card({ className, size = 'default', surface = 'default', render, ref, ...props }: CardProps) {
+export function Card({ className, size = 'md', surface = 'default', render, ref, ...props }: CardProps) {
   return useRender({
     defaultTagName: 'div',
     ref,

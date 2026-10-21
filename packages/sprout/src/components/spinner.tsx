@@ -3,7 +3,7 @@ import { Loader } from 'reicon-react/icons/Loader';
 import type { OrbState } from 'thinking-orbs';
 import { cn } from '../internal/classes.js';
 
-export const spinnerSizeNames = ['sm', 'default', 'lg'] as const;
+export const spinnerSizeNames = ['sm', 'md', 'lg'] as const;
 
 export type SpinnerSize = (typeof spinnerSizeNames)[number];
 
@@ -28,7 +28,7 @@ export type SpinnerActivity = (typeof spinnerActivityNames)[number];
 export interface LoaderSpinnerProps extends Omit<ComponentProps<'svg'>, 'children' | 'color'> {
   variant?: 'default' | undefined;
   /**
-   * `"sm"` is 12px, `"default"` 16px, and `"lg"` 20px. The size holds inside
+   * `"sm"` is 12px, `"md"` 16px, and `"lg"` 20px. The size holds inside
    * buttons; badges shrink it to their 12px icon size.
    */
   size?: SpinnerSize | undefined;
@@ -66,7 +66,7 @@ export function Spinner(props: SpinnerProps) {
   if (props.variant === 'thinking') return <ThinkingSpinner {...props} />;
   const {
     variant: _variant,
-    size = 'default',
+    size = 'md',
     className,
     role = 'status',
     'aria-label': label = 'Loading',

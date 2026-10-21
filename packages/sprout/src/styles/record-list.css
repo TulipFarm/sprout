@@ -16,7 +16,7 @@
     line-height: 1.25rem;
     overflow: hidden;
   }
-  .sprout-record-list[data-density='compact'] {
+  .sprout-record-list[data-density='sm'] {
     --sprout-record-list-pad-y: 0.5rem;
     --sprout-record-list-pad-x: 0.75rem;
   }

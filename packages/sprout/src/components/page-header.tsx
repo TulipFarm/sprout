@@ -116,7 +116,7 @@ export function PageHeader({
   const backButton = back && (
     <Button
       variant="ghost"
-      size="back"
+      size="sm"
       nativeButton={false}
       render={back.link}
       data-slot="page-back"

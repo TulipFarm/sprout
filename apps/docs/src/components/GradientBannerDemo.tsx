@@ -177,18 +177,6 @@ const sizedExamples: Record<GradientBannerSize, { variant: GradientBannerVariant
       </GradientBannerPanel>
     ),
   },
-  xl: {
-    variant: 'iris',
-    body: (
-      <GradientBannerPanel>
-        <GradientBannerBadge>
-          <CheckCircle size={14} aria-hidden="true" />
-          Fix ready for review
-        </GradientBannerBadge>
-        <span>Engineering agent · Fix checkout timeout</span>
-      </GradientBannerPanel>
-    ),
-  },
 };
 
 export function GradientBannerSizesInContext() {
@@ -423,7 +411,7 @@ export function GradientBannerAgentActivity() {
         </span>
       </div>
       <div className="gradient-demo-auth">
-        <GradientBanner variant="iris" size="xl" data-demo="agent-activity">
+        <GradientBanner variant="iris" size="lg" data-demo="agent-activity">
           <div className="gradient-demo-agent">
             <div className="gradient-demo-center">
               <GradientBannerPanel tone="dark">

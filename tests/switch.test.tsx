@@ -10,7 +10,7 @@ describe('Switch', () => {
   it('is exported from the package root, its subpath, and the CSS entry', () => {
     expect(sprout).toHaveProperty('Switch');
     expect(sprout).toHaveProperty('switchSizeNames');
-    expect(switchSizeNames).toEqual(['default', 'sm']);
+    expect(switchSizeNames).toEqual(['md', 'sm']);
     const pkg = JSON.parse(readFileSync(new URL('../packages/sprout/package.json', import.meta.url), 'utf8'));
     expect(pkg.exports['./switch']).toEqual({
       types: './dist/components/switch.d.ts',
@@ -26,8 +26,8 @@ describe('Switch', () => {
     expect(html).toContain('aria-checked="false"');
     expect(html).toContain('aria-label="Allow GPT-5"');
     expect(html).toContain('data-slot="switch"');
-    expect(html).toContain('data-size="default"');
-    expect(html).toContain('class="sprout-switch sprout-switch-size-default"');
+    expect(html).toContain('data-size="md"');
+    expect(html).toContain('class="sprout-switch sprout-switch-size-md"');
     expect(html).toContain('data-unchecked');
     expect(html).toContain('data-slot="switch-thumb"');
     expect(html).toContain('class="sprout-switch-thumb"');
@@ -57,10 +57,10 @@ describe('Switch', () => {
     expect(html).toContain('aria-required="true"');
     expect(html).toContain('aria-readonly="true"');
     expect(html).toContain('data-readonly');
-    expect(html).toContain('sprout-switch-size-default ml-auto');
+    expect(html).toContain('sprout-switch-size-md ml-auto');
     expect(html).toMatch(/id="example-summary"/);
     const fn = renderToString(<Switch defaultChecked className={state => (state.checked ? 'is-on' : 'is-off')} />);
-    expect(fn).toContain('sprout-switch sprout-switch-size-default is-on');
+    expect(fn).toContain('sprout-switch sprout-switch-size-md is-on');
   });
 
   it('styles sizes and states with tokens, a hit area, reduced motion, RTL, and forced colors', () => {

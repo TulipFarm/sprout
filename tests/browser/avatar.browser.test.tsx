@@ -16,7 +16,7 @@ const art = `data:image/svg+xml,${encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#dceefb"/><circle cx="32" cy="30" r="12" fill="#e2557f"/></svg>',
 )}`;
 const broken = 'data:image/png;base64,AAAA';
-const sizes = { xs: 20, sm: 24, default: 32, lg: 40 } as const;
+const sizes = { sm: 24, md: 32, lg: 40 } as const;
 
 const Check = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -38,7 +38,7 @@ function Gallery() {
         ))}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-        {[...Object.keys(sizes), 'xl'].flatMap(name =>
+        {Object.keys(sizes).flatMap(name =>
           (['circle', 'square'] as const).map(shape => (
             <EntityAvatar
               key={name + shape}
@@ -50,7 +50,7 @@ function Gallery() {
           )),
         )}
       </div>
-      {(['sm', 'default', 'lg'] as const).map(name => (
+      {(['sm', 'md', 'lg'] as const).map(name => (
         <AvatarGroup key={name} role="group" aria-label={`7 people, ${name}`}>
           {['AM', 'RF', 'PR'].map(initials => (
             <Avatar key={initials} size={name}>
@@ -82,18 +82,16 @@ describe('Avatar in a real browser', () => {
       expect(size(avatar), name).toEqual([px, px]);
       const badge = avatar.querySelector('[data-slot="avatar-badge"]')!;
       expect(size(badge)[0], name).toBeGreaterThan(0);
-      expect(getComputedStyle(badge.querySelector('svg')!).display, name).toBe(
-        name === 'xs' || name === 'sm' ? 'none' : 'block',
-      );
+      expect(getComputedStyle(badge.querySelector('svg')!).display, name).toBe(name === 'sm' ? 'none' : 'block');
     }
-    for (const [name, px] of Object.entries({ ...sizes, xl: 64 }))
+    for (const [name, px] of Object.entries(sizes))
       for (const shape of ['circle', 'square']) expect(size(entity(screen.container, name, shape))).toEqual([px, px]);
     const radius = (name: string, shape: string) =>
       getComputedStyle(entity(screen.container, name, shape)).borderRadius;
-    expect(radius('xs', 'square')).toBe('4px');
+    expect(radius('sm', 'square')).toBe('4px');
     expect(radius('lg', 'square')).toBe('8px');
     expect(radius('lg', 'circle')).toBe('9999px');
-    for (const [name, px] of Object.entries({ sm: 24, default: 32, lg: 40 })) {
+    for (const [name, px] of Object.entries(sizes)) {
       const group = screen.getByRole('group', { name: `7 people, ${name}` });
       const count = group.element().querySelector('[data-slot="avatar-group-count"]')!;
       expect(size(count)).toEqual([px, px]);

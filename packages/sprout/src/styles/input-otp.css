@@ -35,8 +35,8 @@
   .sprout-input-otp-slot {
     position: relative;
     box-sizing: border-box;
-    width: 32px;
-    height: 32px;
+    width: var(--sprout-control-height);
+    height: var(--sprout-control-height);
     min-width: 0;
     margin: 0;
     padding: 0;
@@ -64,6 +64,16 @@
     border-start-end-radius: var(--sprout-radius-control);
     border-end-end-radius: var(--sprout-radius-control);
   }
+  .sprout-input-otp-size-sm .sprout-input-otp-slot {
+    width: calc(var(--sprout-control-height) - 4px);
+    height: calc(var(--sprout-control-height) - 4px);
+    font-size: var(--sprout-text-xs);
+    line-height: 16px;
+  }
+  .sprout-input-otp-size-lg .sprout-input-otp-slot {
+    width: calc(var(--sprout-control-height) + 4px);
+    height: calc(var(--sprout-control-height) + 4px);
+  }
   .sprout-input-otp-slot::selection {
     background: transparent;
   }
@@ -87,7 +97,7 @@
   }
 
   @media (pointer: coarse) {
-    .sprout-input-otp-slot {
+    .sprout-input-otp .sprout-input-otp-slot {
       width: 44px;
       height: 44px;
       font-size: var(--sprout-text-base);

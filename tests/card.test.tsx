@@ -36,7 +36,7 @@ describe('Card', () => {
     ]) {
       expect(sprout).toHaveProperty(name);
     }
-    expect(cardSizeNames).toEqual(['default', 'sm']);
+    expect(cardSizeNames).toEqual(['md', 'sm']);
     expect(cardSurfaceNames).toEqual(['default', 'raised']);
   });
 
@@ -55,7 +55,7 @@ describe('Card', () => {
     const root = tag(html, 'card');
     expect(root).toMatch(/^<div/);
     expect(root).toContain('class="sprout-card"');
-    expect(root).toContain('data-size="default"');
+    expect(root).toContain('data-size="md"');
     expect(root).toContain('data-surface="default"');
     expect(root).not.toContain('role=');
     for (const [slot, className] of [

@@ -159,7 +159,7 @@ export function FormFooter({
   const action = useActionControl(submit.state);
   const stack = layout === 'stack';
   const compact = layout === 'compact';
-  const size = stack ? 'lg' : 'default';
+  const size = stack ? 'lg' : 'md';
   const wide = stack ? 'sprout-form-footer-wide' : undefined;
   const save = (
     <Button type="submit" form={form} size={size} className={wide} {...action.button}>

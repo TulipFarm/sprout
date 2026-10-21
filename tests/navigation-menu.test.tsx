@@ -123,7 +123,7 @@ describe('Navigation Menu', () => {
 
   it('styles compactly with sprout tokens and motion only when allowed', () => {
     const css = read('../packages/sprout/src/styles/navigation-menu.css');
-    expect(css).toMatch(/\.sprout-navigation-menu-trigger,[^{]*\{[^}]*height: 32px;/);
+    expect(css).toMatch(/\.sprout-navigation-menu-trigger,[^{]*\{[^}]*height: var\(--sprout-control-height\);/);
     expect(css).toMatch(/\.sprout-navigation-menu-positioner \{[^}]*z-index: 50;/);
     expect(css).toMatch(/\.sprout-navigation-menu-popup \{[^}]*width: var\(--popup-width\);/);
     expect(css).toContain('@media (prefers-reduced-motion: no-preference)');

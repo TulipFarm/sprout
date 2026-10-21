@@ -26,7 +26,7 @@ const roles = { viewer: 'Can view', editor: 'Can edit', manager: 'Can manage' };
 
 describe('Select', () => {
   it('lists every trigger size and width Cloud uses', () => {
-    expect(selectTriggerSizeNames).toEqual(['default', 'sm', 'calendar']);
+    expect(selectTriggerSizeNames).toEqual(['md', 'sm', 'lg']);
     expect(selectTriggerWidthNames).toEqual(['fit', 'full']);
   });
 
@@ -65,9 +65,9 @@ describe('Select', () => {
     expect(trigger).toMatch(/^<button /);
     expect(trigger).toContain('role="combobox"');
     expect(trigger).toContain('aria-expanded="false"');
-    expect(trigger).toContain('data-size="default"');
+    expect(trigger).toContain('data-size="md"');
     expect(trigger).toContain('data-width="fit"');
-    expect(trigger).toContain('sprout-select-trigger-default');
+    expect(trigger).toContain('sprout-select-trigger-md');
     expect(trigger).toContain('sprout-select-trigger-fit');
     expect(trigger).toContain('aria-label="Access for Priya Raman"');
     expect(html).toContain('Can edit');

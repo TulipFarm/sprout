@@ -23,8 +23,8 @@
     justify-content: center;
     gap: 6px;
     box-sizing: border-box;
-    height: 32px;
-    min-width: 32px;
+    height: var(--sprout-control-height);
+    min-width: var(--sprout-control-height);
     margin: 0;
     padding: 0 10px;
     border: 1px solid transparent;
@@ -86,8 +86,8 @@
   .sprout-toggle-group-item-size-sm {
     --sprout-toggle-group-icon: 0.875rem;
     gap: 4px;
-    height: 28px;
-    min-width: 28px;
+    height: calc(var(--sprout-control-height) - 4px);
+    min-width: calc(var(--sprout-control-height) - 4px);
     font-size: var(--sprout-text-xs);
     line-height: 16px;
   }
@@ -98,8 +98,8 @@
     padding-inline-end: 6px;
   }
   .sprout-toggle-group-item-size-lg {
-    height: 36px;
-    min-width: 36px;
+    height: calc(var(--sprout-control-height) + 4px);
+    min-width: calc(var(--sprout-control-height) + 4px);
   }
 
   /* spacing={0} joins items into one segmented control. */

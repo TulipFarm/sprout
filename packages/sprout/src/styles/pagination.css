@@ -36,9 +36,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: var(--sprout-control-height);
+    height: var(--sprout-control-height);
     color: var(--sprout-muted);
+  }
+  /* The ellipsis has no size prop, so it matches the links around it. */
+  .sprout-pagination-content:has(.sprout-button-size-sm, .sprout-button-size-icon-sm) .sprout-pagination-ellipsis {
+    width: calc(var(--sprout-control-height) - 4px);
+    height: calc(var(--sprout-control-height) - 4px);
+  }
+  .sprout-pagination-content:has(.sprout-button-size-lg, .sprout-button-size-icon-lg) .sprout-pagination-ellipsis {
+    width: calc(var(--sprout-control-height) + 4px);
+    height: calc(var(--sprout-control-height) + 4px);
   }
   .sprout-pagination-ellipsis > svg {
     width: 16px;

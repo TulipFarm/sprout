@@ -133,6 +133,10 @@
   }
 
   @media (max-width: 639px) {
+    .sprout-page-header-back {
+      width: calc(var(--sprout-control-height) - 4px);
+      padding-inline: 0;
+    }
     .sprout-page-header-back-label {
       position: absolute;
       width: 1px;

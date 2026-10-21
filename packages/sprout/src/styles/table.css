@@ -263,11 +263,18 @@
     cursor: grab;
     touch-action: none;
   }
-  .sprout-table-handle + .sprout-button-size-column-header {
-    margin-inline-start: 0;
+  .sprout-button.sprout-table-sort {
+    margin-inline-start: -8px;
+    padding: 0 8px;
+    font-size: var(--sprout-text-sm);
+    line-height: 20px;
   }
-  .sprout-table-handle + .sprout-button-size-column-header-end {
-    margin-inline-end: 0;
+  .sprout-button.sprout-table-sort-end {
+    flex-direction: row-reverse;
+    margin-inline: 0 -8px;
+  }
+  .sprout-table-handle + .sprout-button.sprout-table-sort {
+    margin-inline: 0;
   }
   .sprout-table-handle:disabled {
     cursor: not-allowed;

@@ -234,7 +234,7 @@ function AgentQuestion({
           {status === 'answered' ? 'Your answer was recorded.' : 'This request was cancelled without an answer.'}
         </p>
         <div className="choice-list-demo-status">
-          <Button size="xs" variant="ghost" onClick={reset}>
+          <Button size="sm" variant="ghost" onClick={reset}>
             Ask again
           </Button>
         </div>
@@ -289,7 +289,7 @@ function AgentQuestion({
             allowText ? (
               <Button
                 variant="ghost"
-                size="xs"
+                size="sm"
                 disabled={locked}
                 aria-expanded={typed}
                 aria-controls={`${id}-custom`}
@@ -307,7 +307,7 @@ function AgentQuestion({
           }}
           error={error ? 'Choose or enter an answer to continue.' : undefined}
         >
-          <Button variant="ghost" size="xs" disabled={locked} onClick={() => setStatus('cancelled')}>
+          <Button variant="ghost" size="sm" disabled={locked} onClick={() => setStatus('cancelled')}>
             Skip
           </Button>
         </FormFooter>

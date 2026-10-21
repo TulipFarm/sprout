@@ -124,16 +124,16 @@ describe('State panel samples', () => {
 
   it('draws the table samples with Cloud column sizes', () => {
     const workflows = renderToString(<WorkflowsSample />);
-    expect(heads(workflows)).toEqual(['Workflow:wide', 'Trigger:default', 'Status:narrow']);
+    expect(heads(workflows)).toEqual(['Workflow:lg', 'Trigger:md', 'Status:sm']);
     expect(count(workflows, /sprout-state-sample-row"/)).toBe(5);
     const tables = renderToString(<TablesSample />);
-    expect(heads(tables)).toEqual(['Table:wide', 'Fields:narrow', 'Rows:narrow']);
+    expect(heads(tables)).toEqual(['Table:lg', 'Fields:sm', 'Rows:sm']);
     expect(count(tables, /sprout-state-sample-row"/)).toBe(6);
     for (const tone of ['blue', 'green', 'orange', 'violet', 'red', 'teal'])
       expect(tables).toContain(`data-tone="${tone}"`);
     const members = renderToString(<MembersSample />);
     expect(crumbs(members)).toEqual(['Settings', 'Members']);
-    expect(heads(members)).toEqual(['Member:wide', 'Role:narrow', 'Teams:default']);
+    expect(heads(members)).toEqual(['Member:lg', 'Role:sm', 'Teams:md']);
     expect(badges(members)).toEqual([
       'info:Admin',
       'secondary:Member',
@@ -143,12 +143,12 @@ describe('State panel samples', () => {
     ]);
     const invitations = renderToString(<InvitationsSample />);
     expect(crumbs(invitations)).toEqual(['Settings', 'Members', 'Invitations']);
-    expect(heads(invitations)).toEqual(['Email:wide', 'Status:narrow', 'Email delivery:default']);
+    expect(heads(invitations)).toEqual(['Email:lg', 'Status:sm', 'Email delivery:md']);
     expect(count(invitations, /data-tone="link"/)).toBe(4);
     const grants = renderToString(<GrantsSample />);
     expect(crumbs(grants)).toEqual(['Settings', 'Table access']);
     expect(tabs(grants)).toEqual(['Sales', 'Finance', 'Support']);
-    expect(heads(grants)).toEqual(['Table:wide', 'Read:narrow', 'Edit:narrow']);
+    expect(heads(grants)).toEqual(['Table:lg', 'Read:sm', 'Edit:sm']);
     expect(count(grants, /sprout-badge-success/)).toBe(6);
   });
 
@@ -175,7 +175,7 @@ describe('State panel samples', () => {
     expect(html).toContain('sprout-state-panel-samples-bubble');
     expect(html).toContain('<strong>Suppliers</strong>');
     expect(html).toMatch(/sprout-state-panel-samples-schema"><div data-slot="state-sample-table"/);
-    expect(heads(html)).toEqual(['Field:wide', 'Type:default']);
+    expect(heads(html)).toEqual(['Field:lg', 'Type:md']);
     expect(count(html, /sprout-state-sample-row"/)).toBe(4);
   });
 
@@ -184,14 +184,14 @@ describe('State panel samples', () => {
       <RecordsSample table="Suppliers" fields={['Name', 'Contact email', 'Payment terms', 'Region']} />,
     );
     expect(crumbs(four)).toEqual(['Tables', 'Suppliers']);
-    expect(heads(four)).toEqual(['Name:wide', 'Contact email:default', 'Payment terms:default']);
+    expect(heads(four)).toEqual(['Name:lg', 'Contact email:md', 'Payment terms:md']);
     expect(count(four, /data-slot="state-sample-bar"/)).toBe(18);
     expect(count(four, /data-slot="state-sample-mark"/)).toBe(6);
     const two = renderToString(<RecordsSample table="Tickets" fields={['Subject', 'Priority']} />);
-    expect(heads(two)).toEqual(['Subject:wide', 'Priority:default']);
+    expect(heads(two)).toEqual(['Subject:lg', 'Priority:md']);
     expect(count(two, /data-slot="state-sample-bar"/)).toBe(12);
     const none = renderToString(<RecordsSample table="Untitled" fields={[]} />);
-    expect(heads(none)).toEqual(['Row:wide']);
+    expect(heads(none)).toEqual(['Row:lg']);
     expect(count(none, /data-slot="state-sample-bar"/)).toBe(6);
   });
 

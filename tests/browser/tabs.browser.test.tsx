@@ -88,6 +88,27 @@ describe('Tabs in a real browser', () => {
         await expect.element(active).toHaveAttribute('aria-selected', 'true');
       });
 
+  it('every list variant is --sprout-control-height tall', async () => {
+    await render(<Gallery />);
+    const heights = () =>
+      variants.map(
+        name =>
+          page
+            .getByRole('tablist', { name: `${name} tabs` })
+            .element()
+            .getBoundingClientRect().height,
+      );
+    const trigger = () => page.getByRole('tab', { name: 'Overview' }).first().element().getBoundingClientRect().height;
+    expect(heights()).toEqual([32, 32, 32]);
+    expect(trigger()).toBe(26);
+    document.documentElement.style.setProperty('--sprout-control-height', '40px');
+    try {
+      expect(heights()).toEqual([40, 40, 40]);
+    } finally {
+      document.documentElement.style.removeProperty('--sprout-control-height');
+    }
+  });
+
   it('keyboard moves between tabs, skips selecting disabled ones, and reaches the panel', async () => {
     await render(
       <>

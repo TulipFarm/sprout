@@ -1389,7 +1389,7 @@ function useNavigationButton(
     disabled = false,
     onClick,
     render,
-    size = 'default',
+    size = 'md',
     tabIndex,
     type,
     variant,

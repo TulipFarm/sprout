@@ -185,7 +185,7 @@ export function RichTextEditorSizes() {
         <div className="rte-demo-sample" data-testid="size-compact">
           <div className="rte-demo-frame">
             <RichTextEditor
-              size="compact"
+              size="sm"
               value={compactValue}
               onChange={setCompactValue}
               onSend={() => setCompactSent(true)}
@@ -194,7 +194,7 @@ export function RichTextEditorSizes() {
             />
           </div>
           <p role="status" className="rte-demo-note">
-            {compactSent ? 'Note sent locally.' : 'compact · no toolbar · Cmd or Ctrl+Enter also sends'}
+            {compactSent ? 'Note sent locally.' : 'sm · no toolbar · Cmd or Ctrl+Enter also sends'}
           </p>
         </div>
       </div>
@@ -635,9 +635,7 @@ function PersonaPicker({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
-        render={
-          <InputGroupButton size="sm" variant="ghost" disabled={disabled} aria-label={`Mode or agent: ${label}`} />
-        }
+        render={<InputGroupButton variant="ghost" disabled={disabled} aria-label={`Mode or agent: ${label}`} />}
       >
         <Sparkle size={16} aria-hidden="true" />
         <span className="rte-demo-truncate">{label}</span>
@@ -697,7 +695,6 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
             <PopoverTrigger
               render={
                 <InputGroupButton
-                  size="sm"
                   variant="ghost"
                   disabled={disabled}
                   aria-label={`Model: ${model.label}${showEffort ? `, ${effort} effort` : ''}`}
@@ -798,9 +795,7 @@ function FileChoices({
   );
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        render={<InputGroupButton size="sm" variant="ghost" aria-label="Add a file" disabled={disabled} />}
-      >
+      <DropdownMenuTrigger render={<InputGroupButton variant="ghost" aria-label="Add a file" disabled={disabled} />}>
         <Paperclip size={16} aria-hidden="true" />
         <span className="rte-demo-wide-only">Files</span>
       </DropdownMenuTrigger>
@@ -937,7 +932,7 @@ function ChatComposer({
                 <FileText size={14} aria-hidden="true" />
                 <span className="rte-demo-truncate">{file}</span>
                 <InputGroupButton
-                  size="icon-xs"
+                  size="icon"
                   aria-label={`Remove ${file}`}
                   disabled={busy}
                   onClick={() => onAttachmentsChange(attachments.filter(name => name !== file))}
@@ -951,7 +946,7 @@ function ChatComposer({
         <RichTextEditor
           key={compact ? 'compact' : 'full'}
           ref={input}
-          size={compact ? 'compact' : 'default'}
+          size={compact ? 'sm' : 'md'}
           condensed={condensed}
           placeholder={placeholder}
           value={value}
@@ -980,7 +975,6 @@ function ChatComposer({
                     <TooltipTrigger
                       render={
                         <InputGroupButton
-                          size="sm"
                           variant="ghost"
                           aria-label="Use a skill"
                           disabled={busy}
@@ -1022,7 +1016,7 @@ function ChatComposer({
                     <TooltipTrigger
                       render={
                         <InputGroupButton
-                          size="icon-sm"
+                          size="icon"
                           variant="default"
                           aria-label="Stop reply"
                           disabled={disabled}
@@ -1040,7 +1034,7 @@ function ChatComposer({
                       render={
                         <InputGroupButton
                           type="submit"
-                          size="icon-sm"
+                          size="icon"
                           variant={canSend ? 'default' : 'secondary'}
                           aria-label="Send message"
                           aria-busy={sending}

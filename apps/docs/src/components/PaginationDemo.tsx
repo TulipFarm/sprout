@@ -188,7 +188,7 @@ const sizes: {
     name: 'Search results pages',
     caption: 'Default · icon with default',
     link: 'icon',
-    edge: 'default',
+    edge: 'md',
     total: 9,
     start: 5,
   },

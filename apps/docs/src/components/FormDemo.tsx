@@ -1250,7 +1250,7 @@ function InteractionCard() {
               <div className="form-demo-summary-actions">
                 <Button
                   variant="ghost"
-                  size="xs"
+                  size="sm"
                   disabled={save.busy}
                   aria-expanded={typed}
                   aria-controls={`${id}-custom`}
@@ -1268,7 +1268,7 @@ function InteractionCard() {
             }}
             error={error ? 'Choose or enter an answer to continue.' : undefined}
           >
-            <Button variant="ghost" size="xs" disabled={save.busy} onClick={() => setResult('Question skipped.')}>
+            <Button variant="ghost" size="sm" disabled={save.busy} onClick={() => setResult('Question skipped.')}>
               Skip
             </Button>
           </FormFooter>

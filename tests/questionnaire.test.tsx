@@ -162,7 +162,7 @@ describe('Questionnaire', () => {
     expect(button(html, 'previous')).toContain('sprout-button-variant-outline');
     expect(button(html, 'skip')).toContain('sprout-button-variant-outline');
     expect(button(html, 'next')).toContain('sprout-button-variant-default');
-    expect(button(html, 'next')).toContain('sprout-button-size-default');
+    expect(button(html, 'next')).toContain('sprout-button-size-md');
 
     const small = renderToString(<Sample defaultItem="plants" size="sm" />);
     expect(button(small, 'skip')).toContain('sprout-button-variant-ghost');

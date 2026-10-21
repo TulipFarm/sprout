@@ -126,7 +126,7 @@ describe('ButtonGroup in a real browser', () => {
     expect(Math.round(s.height)).toBe(Math.round(p.height) - 2);
     expect(Math.round(s.x - p.right)).toBe(0);
     expect(Math.round(n.x - s.right)).toBe(0);
-    expect(Math.round(p.height)).toBe(28);
+    expect(Math.round(p.height)).toBe(32);
     const quantity = group('horizontal quantity');
     const text = quantity.querySelector('[data-slot="button-group-text"]')!;
     const add = button(quantity, 'Add one');
@@ -192,9 +192,8 @@ describe('ButtonGroup in a real browser', () => {
 
   it('every button size keeps its height and control-radius corners', async () => {
     const rows = [
-      ['xs', 24, 'icon-xs'],
       ['sm', 28, 'icon-sm'],
-      ['default', 28, 'icon-sm'],
+      ['md', 32, 'icon'],
       ['lg', 36, 'icon-lg'],
       ['icon', 32, 'icon'],
     ] as const;
@@ -218,7 +217,7 @@ describe('ButtonGroup in a real browser', () => {
       expect(corners(first!), size).toMatchObject({ tl: r, bl: r, tr: '0px' });
       expect(corners(last!), size).toMatchObject({ tr: r, br: r, tl: '0px' });
       expect(Math.round(box(first!).height), size).toBe(height);
-      if (size !== 'default') {
+      if (size !== 'md') {
         expect(Math.round(box(last!).height), square).toBe(height);
         expect(Math.round(box(last!).width), square).toBe(height);
       }

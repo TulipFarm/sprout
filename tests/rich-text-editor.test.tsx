@@ -37,7 +37,7 @@ describe('RichTextEditor', () => {
   });
 
   it('names both Cloud sizes', () => {
-    expect(richTextEditorSizeNames).toEqual(['default', 'compact']);
+    expect(richTextEditorSizeNames).toEqual(['md', 'sm']);
   });
 
   it('renders the default size with a stacked toolbar', () => {
@@ -45,8 +45,8 @@ describe('RichTextEditor', () => {
       <RichTextEditor value={empty} onChange={noop} onSend={noop} toolbarAddon={<button type="button">Send</button>} />,
     );
     expect(html).toContain('data-slot="rich-text-editor"');
-    expect(html).toContain('data-size="default"');
-    expect(html).toContain('sprout-rich-text-editor-size-default');
+    expect(html).toContain('data-size="md"');
+    expect(html).toContain('sprout-rich-text-editor-size-md');
     expect(html).toContain('data-slot="rich-text-editor-toolbar"');
     expect(html).not.toContain('sprout-rich-text-editor-toolbar-inline');
     expect(html).not.toContain('data-condensed');
@@ -56,14 +56,14 @@ describe('RichTextEditor', () => {
   it('puts the toolbar inline for compact and condensed editors', () => {
     const compact = renderToString(
       <RichTextEditor
-        size="compact"
+        size="sm"
         value={empty}
         onChange={noop}
         onSend={noop}
         toolbarAddon={<button type="button">Send</button>}
       />,
     );
-    expect(compact).toContain('data-size="compact"');
+    expect(compact).toContain('data-size="sm"');
     expect(compact).toContain('sprout-rich-text-editor-toolbar-inline');
 
     const condensed = renderToString(
@@ -75,7 +75,7 @@ describe('RichTextEditor', () => {
         toolbarAddon={<button type="button">Send</button>}
       />,
     );
-    expect(condensed).toContain('data-size="default"');
+    expect(condensed).toContain('data-size="md"');
     expect(condensed).toContain('data-condensed="true"');
     expect(condensed).toContain('sprout-rich-text-editor-condensed');
     expect(condensed).toContain('sprout-rich-text-editor-toolbar-inline');
@@ -83,7 +83,7 @@ describe('RichTextEditor', () => {
 
   it('omits the toolbar without an addon and marks disabled editors', () => {
     const html = renderToString(
-      <RichTextEditor size="compact" disabled className="extra" value={empty} onChange={noop} onSend={noop} />,
+      <RichTextEditor size="sm" disabled className="extra" value={empty} onChange={noop} onSend={noop} />,
     );
     expect(html).not.toContain('rich-text-editor-toolbar');
     expect(html).toContain('data-disabled="true"');
@@ -104,7 +104,7 @@ describe('RichTextEditor', () => {
   it('styles every size, the toolbar, and content, with motion and contrast fallbacks', () => {
     for (const selector of [
       '.sprout-rich-text-editor-content',
-      '.sprout-rich-text-editor-size-compact',
+      '.sprout-rich-text-editor-size-sm',
       '.sprout-rich-text-editor-condensed',
       '.sprout-rich-text-editor-toolbar-inline',
       '.is-editor-empty',

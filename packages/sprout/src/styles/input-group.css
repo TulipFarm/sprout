@@ -6,7 +6,7 @@
     align-items: center;
     width: 100%;
     min-width: 0;
-    height: 32px;
+    height: var(--sprout-control-height);
     border: 1px solid var(--sprout-input);
     border-radius: var(--sprout-radius-control);
     background-color: var(--sprout-surface);
@@ -43,8 +43,12 @@
     outline-color: transparent;
   }
 
+  .sprout-input-group-size-sm {
+    height: calc(var(--sprout-control-height) - 4px);
+    border-radius: min(var(--sprout-radius-control), 12px);
+  }
   .sprout-input-group-size-lg {
-    height: 44px;
+    height: calc(var(--sprout-control-height) + 4px);
   }
 
   .sprout-input-group-variant-composer,
@@ -159,38 +163,42 @@
     height: 16px;
   }
 
+  /* 4px inset on each side of the group, so the button tracks the group size. */
+  .sprout-input-group {
+    --sprout-input-group-button-height: calc(var(--sprout-control-height) - 8px);
+  }
+  .sprout-input-group-size-sm {
+    --sprout-input-group-button-height: calc(var(--sprout-control-height) - 12px);
+  }
+  .sprout-input-group-size-lg {
+    --sprout-input-group-button-height: calc(var(--sprout-control-height) - 4px);
+  }
+  .sprout-input-group-addon-align-block-start,
+  .sprout-input-group-addon-align-block-end {
+    --sprout-input-group-button-height: calc(var(--sprout-control-height) - 4px);
+  }
   .sprout-button.sprout-input-group-button {
-    gap: 8px;
+    --sprout-button-icon: 1rem;
+    gap: 6px;
+    height: var(--sprout-input-group-button-height);
+    padding: 0 8px;
+    border-radius: max(calc(var(--sprout-radius-control) - 2px), 2px);
     font-size: var(--sprout-text-sm);
     box-shadow: none;
   }
-  .sprout-button.sprout-input-group-button-size-xs {
+  .sprout-button.sprout-input-group-button-size-icon {
+    width: var(--sprout-input-group-button-height);
+    padding: 0;
+  }
+  .sprout-input-group-size-sm .sprout-button.sprout-input-group-button {
     --sprout-button-icon: 0.875rem;
     gap: 4px;
-    height: 24px;
     padding: 0 6px;
-    border-radius: max(calc(var(--sprout-radius-control) - 2px), 2px);
+    font-size: var(--sprout-text-xs);
+    line-height: 16px;
   }
-  .sprout-button.sprout-input-group-button-size-sm {
-    --sprout-button-icon: 1rem;
-    gap: 6px;
-    height: 28px;
-    padding: 0 8px;
-    border-radius: var(--sprout-radius-control);
-  }
-  .sprout-button.sprout-input-group-button-size-icon-xs {
-    --sprout-button-icon: 0.875rem;
-    width: 24px;
-    height: 24px;
+  .sprout-input-group-size-sm .sprout-button.sprout-input-group-button-size-icon {
     padding: 0;
-    border-radius: max(calc(var(--sprout-radius-control) - 2px), 2px);
-  }
-  .sprout-button.sprout-input-group-button-size-icon-sm {
-    --sprout-button-icon: 1rem;
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    border-radius: var(--sprout-radius-control);
   }
   @media (pointer: coarse) {
     .sprout-input-group-variant-composer .sprout-button.sprout-input-group-button {
@@ -232,9 +240,9 @@
   .sprout-input-group:has(> [data-align='block-start']) > .sprout-input-group-input {
     padding-bottom: 8px;
   }
-  .sprout-input-group-size-lg > .sprout-input-group-input {
-    font-size: var(--sprout-text-base);
-    line-height: 24px;
+  .sprout-input-group-size-sm > .sprout-input-group-input {
+    font-size: var(--sprout-text-xs);
+    line-height: 16px;
   }
   .sprout-input-group-input[type='search']::-webkit-search-cancel-button,
   .sprout-input-group-input[type='search']::-webkit-search-decoration {

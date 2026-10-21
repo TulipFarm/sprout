@@ -31,10 +31,10 @@ const states: { name: StateName; label: string }[] = [
   { name: 'invalid', label: 'Invalid' },
 ];
 
-/* default sits in settings rows and the model access list. sm sits in dense
+/* md sits in settings rows and the model access list. sm sits in dense
    control strips, such as the avatar studio's motion toggle. */
 const samples: Record<SwitchSize, Record<StateName, string>> = {
-  default: {
+  md: {
     off: 'Quiet hours',
     on: 'Email summaries',
     disabled: 'Allow Kimi K2',
@@ -54,7 +54,7 @@ export function SwitchSizes() {
   return (
     <Example
       title="Sizes and states"
-      description="default is a 32 × 18px track for settings rows. sm is a 24 × 14px track for dense control strips."
+      description="md is a 32 × 18px track for settings rows. sm is a 24 × 14px track for dense control strips."
     >
       <div className="switch-demo-matrix">
         {states.map(state => (

@@ -150,6 +150,7 @@
   }
   .sprout-chat-sources-checked.sprout-button {
     display: inline;
+    height: auto;
     min-height: 0;
     padding: 0;
     font: inherit;

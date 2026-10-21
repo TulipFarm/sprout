@@ -37,8 +37,8 @@ import DocsSelect from './DocsSelect';
 import '../styles/avatar-demo.css';
 import '../styles/workspace-switcher.css';
 
-const sizes: AvatarSize[] = ['xs', 'sm', 'default', 'lg'];
-const entitySizes: EntityAvatarSize[] = ['xs', 'sm', 'default', 'lg', 'xl'];
+const sizes: AvatarSize[] = ['sm', 'md', 'lg'];
+const entitySizes: EntityAvatarSize[] = ['sm', 'md', 'lg'];
 const sample = {
   landscape: '/avatar-samples/landscape.svg',
   person: '/avatar-samples/person.svg',
@@ -202,19 +202,19 @@ export function EntityAvatars() {
       </div>
       <div className="avatar-row avatar-row-top">
         <div className="avatar-cell">
-          <EntityAvatar seed="image-example" name="Garden" image={sample.landscape} size="xl" />
+          <EntityAvatar seed="image-example" name="Garden" image={sample.landscape} size="lg" />
           <span>image</span>
         </div>
         <div className="avatar-cell">
-          <EntityAvatar seed="image-example" name="Garden" image={sample.workspace} size="xl" shape="square" />
+          <EntityAvatar seed="image-example" name="Garden" image={sample.workspace} size="lg" shape="square" />
           <span>square image</span>
         </div>
         <div className="avatar-cell">
-          <EntityAvatar seed="broken-example" name="Robin Field" image={sample.missing} size="xl" />
+          <EntityAvatar seed="broken-example" name="Robin Field" image={sample.missing} size="lg" />
           <span>broken image</span>
         </div>
         <div className="avatar-cell">
-          <EntityAvatar seed="blank-example" name="  " size="xl" />
+          <EntityAvatar seed="blank-example" name="  " size="lg" />
           <span>empty name</span>
         </div>
       </div>
@@ -226,7 +226,7 @@ export function AvatarGroups() {
   return (
     <Frame title="Avatar groups">
       <div className="avatar-row">
-        {(['sm', 'default', 'lg'] as AvatarSize[]).map(size => (
+        {(['sm', 'md', 'lg'] as AvatarSize[]).map(size => (
           <div key={size} className="avatar-cell">
             <AvatarGroup aria-label={`7 people, ${size}`} role="group">
               {['Alex', 'Robin', 'Sam'].map(name => (
@@ -459,7 +459,7 @@ function ImagePicker({
 
   return (
     <div className="avatar-picker">
-      <EntityAvatar seed={seed} name={name} image={image} size="xl" shape={shape} />
+      <EntityAvatar seed={seed} name={name} image={image} size="lg" shape={shape} />
       <input
         ref={chooser}
         type="file"
@@ -613,7 +613,7 @@ export function EntityCompositions() {
                               seed={workspace.id}
                               name={workspace.name}
                               image={workspace.icon}
-                              size="xs"
+                              size="sm"
                               shape="square"
                             />
                           }
@@ -638,7 +638,7 @@ export function EntityCompositions() {
                                   seed={item.id}
                                   name={item.name}
                                   image={item.icon}
-                                  size="xs"
+                                  size="sm"
                                   shape="square"
                                 />
                                 <span className="avatar-truncate">{item.name}</span>
@@ -664,7 +664,7 @@ export function EntityCompositions() {
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     aria-label="Account menu"
-                    icon={<EntityAvatar seed="user-alex" name="Alex Meadow" image={sample.person} size="xs" />}
+                    icon={<EntityAvatar seed="user-alex" name="Alex Meadow" image={sample.person} size="sm" />}
                   >
                     Alex Meadow
                   </SidebarMenuButton>

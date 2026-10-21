@@ -17,7 +17,7 @@
     justify-content: center;
     box-sizing: border-box;
     width: fit-content;
-    height: 32px;
+    height: var(--sprout-control-height);
     padding: 3px;
     border-radius: calc(var(--sprout-radius-control) + 2px);
     color: var(--sprout-muted);
@@ -29,8 +29,6 @@
   }
   .sprout-tabs-list-default {
     gap: 2px;
-    height: 36px;
-    padding: 4px;
     border-radius: calc(var(--sprout-radius-control) + 4px);
     background: var(--sprout-secondary);
   }

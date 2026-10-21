@@ -6,10 +6,10 @@ import { Button, type ButtonProps } from './button.js';
 import { Input, type InputProps } from './input.js';
 import { Textarea, type TextareaProps } from './textarea.js';
 
-export const inputGroupSizeNames = ['default', 'lg'] as const;
+export const inputGroupSizeNames = ['md', 'sm', 'lg'] as const;
 export const inputGroupVariantNames = ['default', 'composer', 'question-composer'] as const;
 export const inputGroupAddonAlignNames = ['inline-start', 'inline-end', 'block-start', 'block-end'] as const;
-export const inputGroupButtonSizeNames = ['xs', 'sm', 'icon-xs', 'icon-sm'] as const;
+export const inputGroupButtonSizeNames = ['md', 'icon'] as const;
 
 export type InputGroupSize = (typeof inputGroupSizeNames)[number];
 export type InputGroupVariant = (typeof inputGroupVariantNames)[number];
@@ -17,7 +17,7 @@ export type InputGroupAddonAlign = (typeof inputGroupAddonAlignNames)[number];
 export type InputGroupButtonSize = (typeof inputGroupButtonSizeNames)[number];
 
 export interface InputGroupProps extends ComponentProps<'div'> {
-  /** `default` is 32px tall with 14px text. `lg` is 44px with 16px text. */
+  /** `sm` is 28px, `md` is 32px (`--sprout-control-height`), and `lg` is 36px. */
   size?: InputGroupSize | null;
   /**
    * `default` is a single field row. `composer` stacks a message box with
@@ -35,7 +35,7 @@ export interface InputGroupProps extends ComponentProps<'div'> {
  * `InputGroupTextarea`, or a rich text editor, drives those states.
  */
 export function InputGroup({ size, variant, className, ...props }: InputGroupProps) {
-  const scale = size ?? 'default';
+  const scale = size ?? 'md';
   const kind = variant ?? 'default';
   return (
     <div
@@ -90,19 +90,19 @@ export function InputGroupAddon({ align, className, onClick, ...props }: InputGr
 }
 
 export interface InputGroupButtonProps extends Omit<ButtonProps, 'size' | 'type'> {
-  /** `xs` and `sm` fit a label; `icon-xs` (24px) and `icon-sm` (28px) are square. */
+  /** `md` fits a label; `icon` is square. Both follow the group height. */
   size?: InputGroupButtonSize | null;
   type?: 'button' | 'submit' | 'reset';
 }
 
 /**
- * A compact Sprout `Button` sized to sit inside an `InputGroup` addon. It is
- * `ghost` and `xs` by default, and a plain `type="button"` so it never
- * submits a form by accident. Use `render` to make it a menu, popover, or
+ * A compact Sprout `Button` sized to sit inside an `InputGroup` addon. Its
+ * height follows the group, 4px in from each edge. It is `ghost` and a plain
+ * `type="button"` by default, so it never submits a form by accident. Use `render` to make it a menu, popover, or
  * combobox trigger.
  */
 export function InputGroupButton({ size, variant, type = 'button', className, ...props }: InputGroupButtonProps) {
-  const scale = size ?? 'xs';
+  const scale = size ?? 'md';
   const kind = variant ?? 'ghost';
   return (
     <Button

@@ -15,7 +15,7 @@ function colorOf(token: string) {
   return value;
 }
 
-const sizes = ['default', 'sm'] as const;
+const sizes = ['md', 'sm'] as const;
 
 function Matrix() {
   return (
@@ -78,7 +78,7 @@ describe('Switch in a real browser', () => {
   });
 
   it.each([
-    ['default', 32, 18, 16, 14],
+    ['md', 32, 18, 16, 14],
     ['sm', 24, 14, 12, 10],
   ] as const)('%s is a %ipx × %ipx pill whose thumb travels', async (size, w, h, thumb, travel) => {
     await render(<Matrix />);
@@ -102,8 +102,8 @@ describe('Switch in a real browser', () => {
 
   it('a disabled switch ignores clicks', async () => {
     await render(<Matrix />);
-    await control('default disabled').click({ force: true });
-    await expect.element(control('default disabled')).toHaveAttribute('aria-checked', 'false');
+    await control('md disabled').click({ force: true });
+    await expect.element(control('md disabled')).toHaveAttribute('aria-checked', 'false');
   });
 
   it('the thumb slides the other way in right-to-left text', async () => {

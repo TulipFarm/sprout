@@ -37,8 +37,8 @@ import {
 </Avatar>`}
     />
     <p>
-      <code>Avatar</code> takes <code>size</code>: <code>"xs"</code>, <code>"sm"</code>, <code>"default"</code>, or{' '}
-      <code>"lg"</code>. The fallback shows while the image loads, when it fails, and when there is no image. Use
+      <code>Avatar</code> takes <code>size</code>: <code>"sm"</code> (24px), <code>"md"</code> (32px, the default), or{' '}
+      <code>"lg"</code> (40px). The fallback shows while the image loads, when it fails, and when there is no image. Use
       <code>delay</code> on <code>AvatarFallback</code> to avoid a flash on fast networks. The image fades in over
       180ms; reduced motion turns this off.
     </p>
@@ -71,13 +71,14 @@ import {
   seed={workspace.id}
   name={workspace.name}
   image={workspace.icon}
-  size="xs"
+  size="sm"
   shape="square"
 />`}
     />
     <p>
       <code>EntityAvatar</code> takes a <code>seed</code>, <code>name</code>, optional <code>image</code>,{' '}
-      <code>size</code> up to <code>"xl"</code>, and <code>shape</code> (<code>"circle"</code> or <code>"square"</code>
+      <code>size</code> (<code>"sm"</code>, <code>"md"</code>, or <code>"lg"</code>), and <code>shape</code> (
+      <code>"circle"</code> or <code>"square"</code>
       ). Without an image it shows the first letter on a gradient. The same seed always gives the same gradient. An
       empty name shows <code>?</code>.
     </p>

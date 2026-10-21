@@ -416,7 +416,7 @@ export function ChatConfirmationTableApproval() {
           {pending && (
             <div className="confirm-demo-details">
               <Collapsible>
-                <CollapsibleTrigger render={<Button variant="ghost" size="xs" />}>Details</CollapsibleTrigger>
+                <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>Details</CollapsibleTrigger>
                 <CollapsibleContent>
                   <p className="confirm-demo-fine">Request revision 3. Expires 18 Oct 2026, 15:30.</p>
                   <p className="confirm-demo-fine">

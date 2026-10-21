@@ -80,7 +80,7 @@ function SizeSample({ variant, size }: { variant: ToggleGroupVariant; size: Togg
 
 const sizes: { size: ToggleGroupSize; label: string; note: string }[] = [
   { size: 'sm', label: 'Small', note: '28px · split by' },
-  { size: 'default', label: 'Default', note: '32px · icon only, one disabled' },
+  { size: 'md', label: 'Default', note: '32px · icon only, one disabled' },
   { size: 'lg', label: 'Large', note: '36px · icon and label' },
 ];
 

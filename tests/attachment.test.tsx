@@ -66,7 +66,7 @@ describe('Attachment', () => {
 
   it('lists every Cloud variant, size, and state', () => {
     expect(attachmentStateNames).toEqual(['idle', 'uploading', 'processing', 'error', 'done']);
-    expect(attachmentSizeNames).toEqual(['default', 'sm', 'xs']);
+    expect(attachmentSizeNames).toEqual(['lg', 'md', 'sm']);
     expect(attachmentOrientationNames).toEqual(['horizontal', 'vertical']);
     expect(attachmentGroupVariantNames).toEqual(['carousel', 'grid', 'inline', 'list']);
     expect(fileAttachmentVariantNames).toEqual(['list', 'grid', 'inline', 'chip']);

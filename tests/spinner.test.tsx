@@ -17,7 +17,7 @@ describe('Spinner', () => {
   it('is exported from the package root and its subpath', () => {
     expect(sprout).toHaveProperty('Spinner');
     expect(sprout).toHaveProperty('spinnerSizeNames');
-    expect(spinnerSizeNames).toEqual(['sm', 'default', 'lg']);
+    expect(spinnerSizeNames).toEqual(['sm', 'md', 'lg']);
     const manifest = JSON.parse(readFileSync(new URL('../packages/sprout/package.json', import.meta.url), 'utf8'));
     expect(manifest.exports['./spinner']).toEqual({
       types: './dist/components/spinner.d.ts',
@@ -32,11 +32,11 @@ describe('Spinner', () => {
     const html = renderToString(<Spinner />);
     expect(html).toMatch(/^<svg/);
     expect(html).toContain('data-slot="spinner"');
-    expect(html).toContain('data-size="default"');
+    expect(html).toContain('data-size="md"');
     expect(html).toContain('role="status"');
     expect(html).toContain('aria-label="Loading"');
     expect(html).toContain('focusable="false"');
-    expect(html).toContain('class="reicon sprout-spinner sprout-spinner-size-default"');
+    expect(html).toContain('class="reicon sprout-spinner sprout-spinner-size-md"');
     expect(html).not.toContain('aria-hidden');
   });
 
@@ -84,7 +84,7 @@ describe('Spinner', () => {
         id="step-spinner"
       />,
     );
-    expect(html).toContain('class="reicon sprout-spinner sprout-spinner-size-default text-sprout-info"');
+    expect(html).toContain('class="reicon sprout-spinner sprout-spinner-size-md text-sprout-info"');
     expect(html).toContain('style="margin-top:2px"');
     expect(html).toContain('data-testid="plan-step"');
     expect(html).toContain('id="step-spinner"');

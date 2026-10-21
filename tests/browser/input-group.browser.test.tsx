@@ -57,14 +57,29 @@ function Gallery() {
       <InputGroup>
         <InputGroupInput aria-label="Invite link" defaultValue="sprout.dev/j/4" />
         <InputGroupAddon align="inline-end">
-          <InputGroupButton data-testid="xs">Copy</InputGroupButton>
-          <InputGroupButton size="sm" variant="secondary" data-testid="sm">
+          <InputGroupButton data-testid="default">Copy</InputGroupButton>
+          <InputGroupButton variant="secondary" data-testid="secondary">
             Share
           </InputGroupButton>
-          <InputGroupButton size="icon-xs" aria-label="Info" data-testid="icon-xs">
+          <InputGroupButton size="icon" aria-label="Info" data-testid="icon">
             <Search />
           </InputGroupButton>
-          <InputGroupButton size="icon-sm" aria-label="More" data-testid="icon-sm">
+        </InputGroupAddon>
+      </InputGroup>
+      <InputGroup size="sm">
+        <InputGroupInput aria-label="Small link" />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton data-testid="sm-default">Copy</InputGroupButton>
+          <InputGroupButton size="icon" aria-label="Small info" data-testid="sm-icon">
+            <Search />
+          </InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
+      <InputGroup size="lg">
+        <InputGroupInput aria-label="Large link" />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton data-testid="lg-default">Copy</InputGroupButton>
+          <InputGroupButton size="icon" aria-label="Large info" data-testid="lg-icon">
             <Search />
           </InputGroupButton>
         </InputGroupAddon>
@@ -86,11 +101,11 @@ function Composer() {
           onChange={event => setMessage(event.target.value)}
         />
         <InputGroupAddon align="block-end">
-          <InputGroupButton size="icon-sm" aria-label="Add a file">
+          <InputGroupButton size="icon" aria-label="Add a file">
             <Search />
           </InputGroupButton>
           <InputGroupButton
-            size="icon-sm"
+            size="icon"
             type="submit"
             variant={message ? 'default' : 'secondary'}
             disabled={!message || tooLong}
@@ -129,18 +144,22 @@ describe('InputGroup in a real browser', () => {
     const small = screen.getByRole('textbox', { name: 'Search chats' }).element();
     const large = screen.getByRole('textbox', { name: 'Search the workspace' }).element();
     expect(groupOf(small).getBoundingClientRect().height).toBe(32);
-    expect(groupOf(large).getBoundingClientRect().height).toBe(44);
+    expect(groupOf(large).getBoundingClientRect().height).toBe(36);
     expect(css(small).fontSize).toBe('14px');
-    expect(css(large).fontSize).toBe('16px');
+    expect(css(large).fontSize).toBe('14px');
     expect(css(small).paddingLeft).toBe('6px');
     expect(css(small).paddingRight).toBe('6px');
     expect(css(small).borderTopWidth).toBe('0px');
     expect(css(screen.getByText('⌘ K').element()).color).toBe(colorOf('--sprout-muted'));
+    // Buttons sit 4px in from each edge of a 28, 32 or 36px group.
     const sizes: Record<string, [number, number]> = {
-      xs: [24, 0],
-      sm: [28, 0],
-      'icon-xs': [24, 24],
-      'icon-sm': [28, 28],
+      default: [24, 0],
+      secondary: [24, 0],
+      icon: [24, 24],
+      'sm-default': [20, 0],
+      'sm-icon': [20, 20],
+      'lg-default': [28, 0],
+      'lg-icon': [28, 28],
     };
     for (const [id, [h, w]] of Object.entries(sizes)) {
       const button = screen.getByTestId(id).element();

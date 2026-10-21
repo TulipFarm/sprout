@@ -47,18 +47,16 @@ it.each(themes)('input-group %s %s', async (theme, mode) => {
       <InputGroup>
         <InputGroupInput aria-label="Link" defaultValue="sprout.dev/j/4" disabled />
         <InputGroupAddon align="inline-end">
-          <InputGroupButton size="sm" variant="secondary">
-            Copy
-          </InputGroupButton>
+          <InputGroupButton variant="secondary">Copy</InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
       <InputGroup variant="composer">
         <InputGroupTextarea aria-label="Message" defaultValue="Summarize the Q3 forecast." />
         <InputGroupAddon align="block-end">
-          <InputGroupButton size="icon-sm" aria-label="Add a file">
+          <InputGroupButton size="icon" aria-label="Add a file">
             <Search />
           </InputGroupButton>
-          <InputGroupButton size="icon-sm" variant="default" aria-label="Send">
+          <InputGroupButton size="icon" variant="default" aria-label="Send">
             <Search />
           </InputGroupButton>
         </InputGroupAddon>

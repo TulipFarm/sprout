@@ -70,7 +70,7 @@ export function PaginationPrevious({ className, text = 'Previous', ...props }: P
   return (
     <PaginationLink
       aria-label="Go to previous page"
-      size="default"
+      size="md"
       className={cn('sprout-pagination-previous', className)}
       {...props}
     >
@@ -84,7 +84,7 @@ export function PaginationNext({ className, text = 'Next', ...props }: Paginatio
   return (
     <PaginationLink
       aria-label="Go to next page"
-      size="default"
+      size="md"
       className={cn('sprout-pagination-next', className)}
       {...props}
     >

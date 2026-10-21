@@ -467,7 +467,7 @@ export function CodeBlockFileExplorer() {
             <li key={item.path}>
               <Button
                 variant="ghost"
-                size="nav"
+                size="md"
                 aria-current={item.path === path ? 'true' : undefined}
                 onClick={() => setPath(item.path)}
               >

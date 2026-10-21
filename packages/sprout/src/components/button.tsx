@@ -6,34 +6,18 @@ import { cn, stateClassName } from '../internal/classes.js';
 import { Pressable } from '../internal/pressable.js';
 import { Spinner } from './spinner.js';
 
-export const buttonVariantNames = ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link', 'scope'] as const;
-
-export const buttonSizeNames = [
+export const buttonVariantNames = [
   'default',
-  'xs',
-  'sm',
-  'lg',
-  'icon',
-  'icon-xs',
-  'icon-sm',
-  'icon-lg',
-  'back',
-  'onboarding',
-  'bud',
-  'bud-labeled',
-  'chat-row',
-  'task-link',
-  'card-title',
-  'result-card',
-  'calendar-title',
-  'calendar',
-  'calendar-icon',
-  'nav',
-  'column-header',
-  'column-header-end',
-  'table-link',
-  'badge',
+  'outline',
+  'secondary',
+  'ghost',
+  'destructive',
+  'ghost-destructive',
+  'link',
+  'scope',
 ] as const;
+
+export const buttonSizeNames = ['md', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'] as const;
 
 export type ButtonVariant = (typeof buttonVariantNames)[number];
 export type ButtonSize = (typeof buttonSizeNames)[number];
@@ -48,7 +32,7 @@ export function buttonVariants({ variant, size, className }: ButtonVariantOption
   return cn(
     'sprout-button',
     `sprout-button-variant-${variant ?? 'default'}`,
-    `sprout-button-size-${size ?? 'default'}`,
+    `sprout-button-size-${size ?? 'md'}`,
     className,
   );
 }
@@ -88,7 +72,7 @@ function ButtonElement({ variant, size, className, ...props }: Omit<ButtonProps,
     <Pressable
       data-slot="button"
       data-variant={variant ?? 'default'}
-      data-size={size ?? 'default'}
+      data-size={size ?? 'md'}
       {...props}
       className={stateClassName<BaseButton.State>(buttonVariants({ variant, size }), className)}
     />
@@ -183,12 +167,12 @@ export function useActionControl(state: ButtonState) {
 function FixButton({ fix }: { fix: ButtonBlockerFix }) {
   if (fix.kind === 'link')
     return (
-      <Button variant="link" size="xs" nativeButton={false} render={fix.link}>
+      <Button variant="link" size="sm" nativeButton={false} render={fix.link}>
         {fix.label}
       </Button>
     );
   return (
-    <Button variant="link" size="xs" onClick={fix.kind === 'jump' ? () => jumpTo(fix.target) : fix.onClick}>
+    <Button variant="link" size="sm" onClick={fix.kind === 'jump' ? () => jumpTo(fix.target) : fix.onClick}>
       {fix.label}
     </Button>
   );

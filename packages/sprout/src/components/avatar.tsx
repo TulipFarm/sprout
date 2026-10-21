@@ -5,15 +5,15 @@ import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
 import { cn, stateClassName } from '../internal/classes.js';
 import { hash } from '../internal/hash.js';
 
-export type AvatarSize = 'xs' | 'sm' | 'default' | 'lg';
-export type EntityAvatarSize = AvatarSize | 'xl';
+export type AvatarSize = 'sm' | 'md' | 'lg';
+export type EntityAvatarSize = AvatarSize;
 export type EntityAvatarShape = 'circle' | 'square';
 
 export interface AvatarProps extends AvatarPrimitive.Root.Props {
   size?: AvatarSize;
 }
 
-export function Avatar({ className, size = 'default', ...props }: AvatarProps) {
+export function Avatar({ className, size = 'md', ...props }: AvatarProps) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
@@ -84,7 +84,7 @@ export function EntityAvatar({
   seed,
   name,
   image,
-  size = 'default',
+  size = 'md',
   shape = 'circle',
   className,
   ...props

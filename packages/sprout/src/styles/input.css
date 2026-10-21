@@ -3,7 +3,7 @@
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: 32px;
+    height: var(--sprout-control-height);
     margin: 0;
     padding: 4px 10px;
     border: 1px solid var(--sprout-input);
@@ -42,7 +42,7 @@
 
   .sprout-input[type='file'] {
     padding-block: 0;
-    line-height: 30px;
+    line-height: calc(var(--sprout-control-height) - 2px);
     cursor: pointer;
   }
   .sprout-input[type='file']:disabled {
@@ -67,14 +67,22 @@
     opacity: 0.7;
   }
 
+  .sprout-input-scale-sm {
+    height: calc(var(--sprout-control-height) - 4px);
+    padding-inline: 8px;
+    border-radius: min(var(--sprout-radius-control), 12px);
+    font-size: var(--sprout-text-xs);
+    line-height: 16px;
+  }
   .sprout-input-scale-lg {
-    height: 44px;
+    height: calc(var(--sprout-control-height) + 4px);
     padding-inline: 12px;
-    font-size: var(--sprout-text-base);
-    line-height: 24px;
+  }
+  .sprout-input-scale-sm[type='file'] {
+    line-height: calc(var(--sprout-control-height) - 6px);
   }
   .sprout-input-scale-lg[type='file'] {
-    line-height: 42px;
+    line-height: calc(var(--sprout-control-height) + 2px);
   }
 
   @media (prefers-reduced-motion: no-preference) {

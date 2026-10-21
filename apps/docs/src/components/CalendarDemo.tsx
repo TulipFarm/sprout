@@ -256,17 +256,12 @@ export function CalendarDatePicker() {
     >
       <Row label="Toolbar title" note="ghost calendar-title trigger · PopoverContent align start · weekStartsOn 1">
         <div className="calendar-demo-toolbar">
-          <Button
-            variant="ghost"
-            size="calendar-icon"
-            aria-label="Previous range"
-            onClick={() => setDay(moveWeek(day, -1))}
-          >
+          <Button variant="ghost" size="icon" aria-label="Previous range" onClick={() => setDay(moveWeek(day, -1))}>
             <ChevronLeft size={16} aria-hidden="true" />
           </Button>
           <Popover open={open} onOpenChange={setOpen}>
             <h2 className="calendar-demo-title" aria-label={title}>
-              <PopoverTrigger render={<Button variant="ghost" size="calendar-title" aria-label="Choose date" />}>
+              <PopoverTrigger render={<Button variant="ghost" size="md" aria-label="Choose date" />}>
                 <span className="calendar-demo-title-full">{title}</span>
                 <span className="calendar-demo-title-short">{monthShort(day)}</span>
                 <ChevronDown size={14} aria-hidden="true" />
@@ -288,7 +283,7 @@ export function CalendarDatePicker() {
               />
             </PopoverContent>
           </Popover>
-          <Button variant="ghost" size="calendar-icon" aria-label="Next range" onClick={() => setDay(moveWeek(day, 1))}>
+          <Button variant="ghost" size="icon" aria-label="Next range" onClick={() => setDay(moveWeek(day, 1))}>
             <ChevronRight size={16} aria-hidden="true" />
           </Button>
         </div>
