@@ -356,9 +356,7 @@ describe('RichTextEditor keywords', () => {
   it('announces several new disconnected apps at once, and again after they come back', async () => {
     const more = [...keywords, { id: 'jira', label: 'Jira', connected: false }];
     const ref = createRef<RichTextEditorHandle>();
-    const view = render(
-      <RichTextEditor ref={ref} value={doc(p(text('hi')))} onChange={() => {}} keywords={more} />,
-    );
+    const view = render(<RichTextEditor ref={ref} value={doc(p(text('hi')))} onChange={() => {}} keywords={more} />);
     await waitFor(() => expect(ref.current?.editor()).toBeTruthy());
     const editor = ref.current!.editor()!;
     act(() => {
@@ -379,7 +377,9 @@ describe('RichTextEditor keywords', () => {
     act(() => {
       editor.commands.focus(7);
     });
-    await waitFor(() => expect(getByRole('status').textContent).toBe("HubSpot isn't connected. Press Tab to connect it."));
+    await waitFor(() =>
+      expect(getByRole('status').textContent).toBe("HubSpot isn't connected. Press Tab to connect it."),
+    );
   });
 
   it('hides the hint shortly after the pointer leaves the chip', async () => {
@@ -402,7 +402,12 @@ describe('RichTextEditor keywords', () => {
     Range.prototype.getClientRects = () => Object.assign([rect], { item: () => rect }) as unknown as DOMRectList;
     const tinted: RichTextKeyword[] = [{ ...keywords[1]!, color: '#e01e5a' }];
     const view = render(
-      <RichTextEditor value={doc(p(text('Slack')))} onChange={() => {}} keywords={tinted} onKeywordAccountChange={vi.fn()} />,
+      <RichTextEditor
+        value={doc(p(text('Slack')))}
+        onChange={() => {}}
+        keywords={tinted}
+        onKeywordAccountChange={vi.fn()}
+      />,
     );
     await waitFor(() => expect(view.container.querySelector('.sprout-rich-text-keyword')).toBeTruthy());
     const chip = view.container.querySelector<HTMLElement>('.sprout-rich-text-keyword')!;
