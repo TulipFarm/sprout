@@ -472,16 +472,17 @@ export function CommandGroup({ heading, forceMount = false, className, children,
   const { store } = useCommandContext('CommandGroup');
   const id = useId();
   const headingId = `${id}-heading`;
-  const score = useStore(store, () => store.groupScores.get(id));
+  const matched = useStore(store, () => store.groupScores.has(id));
   const filtering = useStore(store, () => store.filtering);
-  const hidden = filtering && score === undefined && !forceMount;
+  const order = useStore(store, () => store.order(store.groupScores.get(id)));
+  const hidden = filtering && !matched && !forceMount;
   return (
     <div
       role="presentation"
       data-slot="command-group"
       hidden={hidden || undefined}
       {...props}
-      style={{ order: store.order(score), ...style }}
+      style={{ order, ...style }}
       className={cn('sprout-command-group', className)}
     >
       {heading != null && heading !== false && (
@@ -592,7 +593,8 @@ export function CommandItem({
 
   const visible = useStore(store, () => forceMount || store.isVisible(id));
   const active = useStore(store, () => store.active === id);
-  const score = useStore(store, () => store.scores.get(id));
+  // Subscribe to the order, not the score: a score that stays 1 when filtering starts still moves the item.
+  const order = useStore(store, () => store.order(store.scores.get(id)));
   if (!visible) return null;
 
   return (
@@ -606,7 +608,7 @@ export function CommandItem({
       data-value={resolved}
       data-slot="command-item"
       {...props}
-      style={{ order: store.order(score), ...style }}
+      style={{ order, ...style }}
       className={cn('sprout-command-item', className)}
       onPointerDown={event => {
         onPointerDown?.(event);
