@@ -1,0 +1,76 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import StatusDemo from '../../components/StatusDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="Status" description="A small round mark for the state of a task, run, or step.">
+  <h1 class="docs-title">Status</h1>
+  <p class="docs-lead">
+    Shows where a task, run, or step stands: pending, running, paused, succeeded, warning, failed, stopped, or skipped.
+    Running fills eight segments as a known amount grows, or spins like Spinner when the amount is unknown. For a
+    page-level wait, use Progress or Spinner.
+  </p>
+  <div class="mt-8">
+    <StatusDemo client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Status usage"
+      code={`import { Status } from "@tulipfarm/sprout/status";
+
+<Status state="pending" />
+<Status state="running" />
+<Status state="running" value={40} />
+<Status state="success" />
+<Status state="error" size="lg" />`}
+    />
+    <ul>
+      <li>
+        <code>state</code>: <code>pending</code> (default), <code>running</code>, <code>paused</code>,
+        <code>success</code>, <code>warning</code>, <code>error</code>, <code>stopped</code>, or <code>skipped</code>.
+      </li>
+      <li>
+        <code>value</code>: for <code>running</code>, a number from 0 to 100 fills a ring of eight green segments, one
+        per 12.5%, and the segment being worked on fades in and out. Leave it out (or pass <code>null</code>) while the
+        amount is unknown, and a blue line runs around the ring at the same speed as Spinner.
+      </li>
+      <li>
+        <code>size</code>: <code>sm</code> (12px), <code>md</code> (16px, default), or <code>lg</code> (20px).
+      </li>
+    </ul>
+    <p>
+      The root gets <code>data-state</code>, <code>data-size</code>, and <code>data-determinate</code> while a running
+      amount is known.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Motion</h2>
+    <p>
+      The mark scales in over 280ms when it mounts, and again whenever its state changes; the check, cross, or bar then
+      draws in. A changing amount only fills the next segment, over 180ms. On hover with a mouse, the mark grows a
+      little and its glyph draws again. With reduced motion, the mark only fades in, the line rests at the top, and the
+      active segment stays half lit instead of fading.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Status is an <code>img</code> named after its state, such as “Succeeded” or “Running, 40%”. Pass{' '}
+      <code>aria-label</code> to name it yourself, or <code>aria-hidden="true"</code> when text beside it already says
+      the state. It is not a live region; put a <code>role="status"</code> summary nearby when a change should be
+      announced. Color is never the only signal: each state has its own shape.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Running uses <code>--sprout-info</code>, a known amount and success <code>--sprout-success</code>, warning{' '}
+      <code>--sprout-warning</code>, and error <code>--sprout-danger</code>. Pending, paused, stopped, and skipped use{' '}
+      <code>--sprout-muted</code>. Glyphs on a filled circle use <code>--sprout-surface</code>. In forced colors, the
+      mark uses <code>CanvasText</code>, and running uses <code>Highlight</code>.
+    </p>
+  </section>
+</Docs>

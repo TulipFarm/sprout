@@ -1040,6 +1040,22 @@ import { Skeleton, SkeletonGroup } from '@tulipfarm/sprout/skeleton';
 </SkeletonGroup>;
 ```
 
+### Status
+
+```tsx
+import { Status } from '@tulipfarm/sprout/status';
+
+<Status state="pending" />;
+<Status state="running" />; // amount unknown: a line runs around the ring
+<Status state="running" value={40} />; // amount known: 8 segments fill, the active one fades in and out; named "Running, 40%"
+<Status state="success" size="lg" />;
+```
+
+`state` is `pending` (default), `running`, `paused`, `success`, `warning`, `error`, `stopped`, or `skipped`.
+`size` is `sm` (12px), `md` (16px), or `lg` (20px). It is an `img` named after its state; pass `aria-hidden="true"`
+when text beside it says the state. The mark animates in on mount and on every state change, and replays its glyph on
+hover.
+
 ### Spinner
 
 ```tsx
