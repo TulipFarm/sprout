@@ -1,0 +1,134 @@
+.status-demo {
+  display: grid;
+  gap: 20px;
+}
+.status-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.status-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.status-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.status-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.status-demo-card-body {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.status-demo-card-body > * {
+  max-width: 100%;
+}
+
+.status-demo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+.status-demo-gallery li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+}
+.status-demo-sizes {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+.status-demo-text {
+  display: grid;
+  min-width: 0;
+}
+.status-demo-name {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--sprout-text);
+}
+.status-demo-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sprout-muted);
+}
+
+.status-demo-picker {
+  flex-wrap: wrap;
+}
+.status-demo-stage {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 32px;
+}
+
+.status-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.status-demo-run {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  max-width: 560px;
+  padding: 12px 16px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+}
+.status-demo-summary {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sprout-text);
+}
+.status-demo-run ol {
+  display: grid;
+}
+.status-demo-run li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding-block: 10px;
+}
+.status-demo-run li + li {
+  border-top: 1px solid var(--sprout-line);
+}
+.status-demo-step {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--sprout-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.status-demo-detail {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--sprout-muted);
+}

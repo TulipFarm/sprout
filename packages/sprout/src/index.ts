@@ -85,6 +85,7 @@ export * from './components/slider.js';
 export * from './components/spinner.js';
 export * from './components/state-panel.js';
 export * from './components/state-sample.js';
+export * from './components/status.js';
 export * from './components/switch.js';
 export * from './components/table.js';
 export * from './components/tabs.js';

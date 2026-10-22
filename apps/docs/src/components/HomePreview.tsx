@@ -186,6 +186,7 @@ import {
 import { Skeleton, SkeletonGroup } from '@tulipfarm/sprout/skeleton';
 import { Slider } from '@tulipfarm/sprout/slider';
 import { Spinner } from '@tulipfarm/sprout/spinner';
+import { Status, type StatusState } from '@tulipfarm/sprout/status';
 import { StatePanel } from '@tulipfarm/sprout/state-panel';
 import { SampleIconTile, SampleList, SampleText, SampleWindow } from '@tulipfarm/sprout/state-sample';
 import { Switch } from '@tulipfarm/sprout/switch';
@@ -1195,6 +1196,37 @@ function SpinnerPreview() {
   );
 }
 
+const statusSteps: { state: StatusState; value?: number }[] = [
+  { state: 'pending' },
+  { state: 'running' },
+  { state: 'running', value: 35 },
+  { state: 'running', value: 80 },
+  { state: 'success' },
+];
+
+function StatusPreview() {
+  const [index, setIndex] = useState(1);
+  const step = statusSteps[index]!;
+  return (
+    <Stack>
+      <ul className="home-p-stack home-p-note">
+        <li className="home-p-row">
+          <Status state="success" /> Install dependencies
+        </li>
+        <li className="home-p-row">
+          <Status state={step.state} value={step.value} /> Build web app
+        </li>
+        <li className="home-p-row">
+          <Status state="pending" /> Deploy
+        </li>
+      </ul>
+      <Button size="sm" variant="outline" onClick={() => setIndex((index + 1) % statusSteps.length)}>
+        {index === statusSteps.length - 1 ? 'Restart' : 'Next step'}
+      </Button>
+    </Stack>
+  );
+}
+
 const panelKinds = ['empty', 'loading', 'success', 'error'] as const;
 
 function StatePanelPreview() {
@@ -1723,6 +1755,7 @@ const previews: Record<string, () => ReactNode> = {
   spinner: SpinnerPreview,
   'state-panel': StatePanelPreview,
   'state-sample': StateSamplePreview,
+  status: StatusPreview,
   attachment: AttachmentPreview,
   avatar: AvatarPreview,
   badge: BadgePreview,

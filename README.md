@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **870.2 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **871.5 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -192,6 +192,7 @@ Full library: **870.2 kB** gzip. Each component path is smaller. Sizes are minif
 | `spinner`           |  36.5 kB |  11.6 kB |  10.2 kB |
 | `state-panel`       | 552.5 kB | 180.3 kB | 149.1 kB |
 | `state-sample`      |  33.5 kB |  10.5 kB |   9.2 kB |
+| `status`            |  33.6 kB |  10.8 kB |   9.5 kB |
 | `switch`            |  50.2 kB |  17.3 kB |  15.4 kB |
 | `table`             | 541.1 kB | 173.3 kB | 145.8 kB |
 | `table-nuqs`        |   2.1 kB |   1.1 kB |   1.0 kB |
@@ -217,7 +218,7 @@ CI compares sizes on each pull request. Run `pnpm size` to see them locally.
 | **Forms**               | Field · Form · Label · Input · Input Group · Input OTP · Textarea · Checkbox · Radio Group · Switch · Slider · Select · Combobox · Choice List · Calendar · Search Field · Rich Text Editor · Mention List · Questionnaire · Selection Slot · Reasoning Effort |
 | **Overlays**            | Dialog · Alert Dialog · Sheet · Popover · Hover Card · Tooltip · Dropdown Menu · Context Menu · Menubar · Command · Search Dialog · Toast                                                                                                                      |
 | **Layout & navigation** | Sidebar · Navigation Menu · Breadcrumb · Pagination · Tabs · View Switcher · Accordion · Collapsible · Page Header · Page Content · Settings List · Card · Carousel · Resizable · Scroll Area · Separator · Aspect Ratio · Direction · Canvas                  |
-| **Feedback**            | Alert · Notice Banner · Badge · Progress · Spinner · Skeleton · State Panel · State Sample                                                                                                                                                                     |
+| **Feedback**            | Alert · Notice Banner · Badge · Progress · Spinner · Skeleton · State Panel · State Sample · Status                                                                                                                                                            |
 | **Data display**        | Table · Chart · Code Block · File Viewer · Schema Diagram · Avatar · Agent Avatar · Brand Icon · Attachment · Typed Text · Gradient Banner · Glass Banner                                                                                                      |
 | **Agents & chat**       | Message · Message Actions · Message Response · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity                                                                        |
 

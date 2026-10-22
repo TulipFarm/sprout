@@ -132,6 +132,7 @@ export const componentGroups: NavGroup[] = [
       component('Spinner', 'A spinning loader and a thought orb for AI work.'),
       component('State Panel', 'Empty, loading, success, and error states in one place.'),
       component('State Sample', 'Small pictures of a filled page for empty states.'),
+      component('Status', 'A small round mark for the state of a task, run, or step.'),
       component('Toast', 'Short notices that stack in a corner and dismiss themselves.'),
     ],
   },
