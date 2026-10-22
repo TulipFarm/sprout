@@ -116,7 +116,7 @@
     max-height: var(--available-height);
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: var(--sprout-shadow-overlay);
     font-family: var(--sprout-font);
@@ -184,10 +184,10 @@
     flex-shrink: 0;
     padding: 8px 12px 2px;
     color: var(--sprout-muted);
-    font-size: 0.6875rem;
+    font-size: var(--sprout-text-xs);
     font-weight: 500;
     line-height: 1rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     user-select: none;
   }
@@ -276,7 +276,7 @@
     height: var(--sprout-model-selector-tile);
     border: 1px solid var(--sprout-line);
     border-radius: 7px;
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: var(--sprout-shadow-control);
   }
