@@ -139,6 +139,26 @@ describe('Command in the DOM', () => {
     });
   });
 
+  it('ranks a best match first even when its score did not change', async () => {
+    render(
+      <Command label="Commands">
+        <CommandInput />
+        <CommandList>
+          <CommandGroup heading="Garden">
+            <CommandItem>Fern seed</CommandItem>
+            <CommandItem>Seed tray</CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </Command>,
+    );
+    await flush();
+    fireEvent.change(input(), { target: { value: 'seed' } });
+    await flush();
+    const order = (name: string) => Number(screen.getByText(name).closest<HTMLElement>('[role="option"]')!.style.order);
+    expect(order('Seed tray')).toBeLessThan(order('Fern seed'));
+    expect(active()).toBe('Seed tray');
+  });
+
   it('ignores keys that were handled, composing, or from other controls', async () => {
     render(
       <Palette
