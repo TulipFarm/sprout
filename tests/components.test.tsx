@@ -362,7 +362,7 @@ const reviewCardExports = [
   'reviewCardBadgeVariantNames',
 ];
 
-const richTextEditorExports = ['RichTextEditor', 'richTextEditorSizeNames'];
+const richTextEditorExports = ['RichTextEditor', 'findKeywords', 'richTextEditorSizeNames'];
 
 const aspectRatioExports = ['AspectRatio'];
 

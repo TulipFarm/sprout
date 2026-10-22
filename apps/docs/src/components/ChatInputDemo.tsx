@@ -12,16 +12,17 @@ import { Target } from 'reicon-react/icons/Target';
 import { Telescope } from 'reicon-react/icons/Telescope';
 import { User } from 'reicon-react/icons/User';
 import { FileTypeIcon, type AttachmentFile } from '@tulipfarm/sprout/attachment';
-import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
+import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import {
   ChatInput,
+  type ChatInputIntegration,
   type ChatInputModel,
   type ChatInputOption,
   type ChatInputPrompt,
   type ChatInputStatus,
   type ChatInputSuggestion,
 } from '@tulipfarm/sprout/chat-input';
-import type { RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
+import { findKeywords, type RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
 import { TooltipProvider } from '@tulipfarm/sprout/tooltip';
 import '../styles/chat-input-demo.css';
 
@@ -243,6 +244,86 @@ const ready = (name: string, mediaType: string, size: string): AttachmentFile =>
   state: 'ready',
 });
 
+const integration = (
+  brand: Brand,
+  label: string,
+  options: Partial<ChatInputIntegration> = {},
+): ChatInputIntegration => ({
+  id: brand,
+  label,
+  icon: <BrandIcon brand={brand} size="inline" />,
+  ...options,
+});
+
+const integrationList: ChatInputIntegration[] = [
+  integration('openai', 'ChatGPT', { match: ['ChatGPT', 'OpenAI', 'GPT'] }),
+  integration('claude', 'Claude', { match: ['Claude', 'Anthropic'] }),
+  integration('slack', 'Slack'),
+  integration('gmail', 'Gmail', { match: ['Gmail', 'Google Mail'] }),
+  integration('google-docs', 'Google Docs', { match: ['Google Docs', 'Google Doc', 'GDocs', 'GDoc'] }),
+  integration('google-drive', 'Google Drive', { match: ['Google Drive', 'GDrive', 'Drive'] }),
+  integration('google-sheets', 'Google Sheets', { match: ['Google Sheets', 'Google Sheet', 'GSheets', 'Sheets'] }),
+  integration('google-slides', 'Google Slides', { match: ['Google Slides', 'GSlides', 'Slides'] }),
+  integration('google-calendar', 'Google Calendar', { match: ['Google Calendar', 'GCal'] }),
+  integration('github', 'GitHub'),
+  integration('linear', 'Linear'),
+  integration('notion', 'Notion'),
+  integration('hubspot', 'HubSpot', { connected: false }),
+  integration('jira', 'Jira', { connected: false }),
+];
+
+// Brand tints for the tinted sample, kept only where text passes 4.5:1 and the tint stays visible in light and dark.
+// Black or pale brands (ChatGPT, GitHub, Notion, Drive, Sheets, Slides) stay neutral.
+const tints: Partial<Record<string, string>> = {
+  claude: '#d97757',
+  slack: '#e01e5a',
+  gmail: '#ea4335',
+  'google-docs': '#4285f4',
+  'google-calendar': '#4285f4',
+  linear: '#5e6ad2',
+  hubspot: '#ff7a59',
+  jira: '#0052cc',
+};
+
+// Sample accounts per app; the first one is in use.
+const accountOptions: Record<string, readonly string[]> = {
+  openai: ['dhruv@tulipfarm.ai', 'research@tulipfarm.ai'],
+  claude: ['dhruv@tulipfarm.ai', 'research@tulipfarm.ai'],
+  slack: ['tulipfarm.slack.com', 'acme-partners.slack.com', 'growth-guild.slack.com'],
+  gmail: ['dhruv@tulipfarm.ai', 'sales@tulipfarm.ai', 'dhruv.personal@gmail.com'],
+  'google-docs': ['dhruv@tulipfarm.ai', 'sales@tulipfarm.ai'],
+  'google-drive': ['dhruv@tulipfarm.ai', 'sales@tulipfarm.ai'],
+  'google-sheets': ['dhruv@tulipfarm.ai', 'sales@tulipfarm.ai'],
+  'google-slides': ['dhruv@tulipfarm.ai', 'sales@tulipfarm.ai'],
+  'google-calendar': ['dhruv@tulipfarm.ai', 'sales@tulipfarm.ai'],
+  github: ['TulipFarm', 'maddhruv'],
+  linear: ['TulipFarm', 'Acme'],
+  notion: ['TulipFarm workspace', 'Personal'],
+  hubspot: ['TulipFarm CRM', 'Acme CRM'],
+  jira: ['tulipfarm.atlassian.net', 'acme.atlassian.net'],
+};
+
+function useIntegrations(tinted: boolean) {
+  const [connected, setConnected] = useState<Set<string>>(() => new Set());
+  const [chosen, setChosen] = useState<Record<string, string>>({});
+  const list = integrationList.map(item => {
+    const isConnected = item.connected !== false || connected.has(item.id);
+    const options = accountOptions[item.id] ?? [];
+    return {
+      ...item,
+      connected: isConnected,
+      accounts: options.map(label => ({ id: label, label })),
+      account: isConnected ? (chosen[item.id] ?? options[0]) : undefined,
+      color: tinted ? tints[item.id] : undefined,
+    };
+  });
+  return {
+    list,
+    connect: (item: ChatInputIntegration) => setConnected(current => new Set(current).add(item.id)),
+    choose: (item: ChatInputIntegration, account: string) => setChosen(current => ({ ...current, [item.id]: account })),
+  };
+}
+
 function useChat(initial: RichTextValue, initialFiles: AttachmentFile[] = [], initialStatus: ChatInputStatus = 'idle') {
   const [value, setValue] = useState(initial);
   const [attachments, setAttachments] = useState(initialFiles);
@@ -257,6 +338,7 @@ function useChat(initial: RichTextValue, initialFiles: AttachmentFile[] = [], in
     setAttachments,
     status,
     note,
+    setNote,
     send: () => {
       setValue(emptyDoc());
       setAttachments([]);
@@ -279,12 +361,15 @@ function Composer({
   initial = emptyDoc(),
   initialFiles,
   initialStatus,
+  tinted = false,
 }: {
   initial?: RichTextValue;
   initialFiles?: AttachmentFile[];
   initialStatus?: ChatInputStatus;
+  tinted?: boolean;
 }) {
   const chat = useChat(initial, initialFiles, initialStatus);
+  const integrations = useIntegrations(tinted);
   const [mode, setMode] = useState<string | null>(null);
   const [project, setProject] = useState('onboarding');
   const [model, setModel] = useState('claude-opus');
@@ -310,12 +395,26 @@ function Composer({
         label="Message"
         value={chat.value}
         onValueChange={chat.setValue}
-        onSend={chat.send}
+        onSend={() => {
+          const used = findKeywords(chat.value, integrations.list).map(item => item.label);
+          chat.send();
+          if (used.length) chat.setNote(`Sent with ${used.join(', ')}. The agent is working.`);
+        }}
         onStop={chat.stop}
         status={chat.status}
         agents={search(agents)}
         skills={search(skills)}
         files={search(fileSuggestions)}
+        integrations={integrations.list}
+        onConnectIntegration={item => {
+          integrations.connect(item);
+          chat.setNote(`${item.label} connected.`);
+        }}
+        onIntegrationAccountChange={async (item, account) => {
+          await new Promise(resolve => setTimeout(resolve, 600));
+          integrations.choose(item, account);
+          chat.setNote(`${item.label} now uses ${account}.`);
+        }}
         attachments={chat.attachments}
         onRemoveAttachment={id => chat.setAttachments(current => current.filter(file => file.id !== id))}
         attachActions={[
@@ -355,6 +454,29 @@ function Composer({
       <p role="status" className="chat-input-demo-note">
         {chat.note}
       </p>
+      {tinted ? <TintLegend /> : null}
+    </div>
+  );
+}
+
+function TintLegend() {
+  const neutral = integrationList.filter(item => !tints[item.id]).map(item => item.label);
+  return (
+    <div className="chat-input-demo-tints">
+      <ul aria-label="Brand tints">
+        {integrationList.flatMap(item => {
+          const color = tints[item.id];
+          if (!color) return [];
+          return [
+            <li key={item.id}>
+              <span className="chat-input-demo-swatch" style={{ background: color }} aria-hidden="true" />
+              {item.label}
+              <code>{color}</code>
+            </li>,
+          ];
+        })}
+      </ul>
+      <p>Neutral, since their brand color is black or too pale in one theme: {neutral.join(', ')}.</p>
     </div>
   );
 }
@@ -366,6 +488,22 @@ export function ChatInputComposer() {
       description="Type @ for agents, / for skills, or # for files. ** makes bold, _ makes italic, and links and emails turn into links. + adds files, the sliders pick a mode, and the model sits by send. Starter prompts show under an empty box."
     >
       <Composer />
+    </Example>
+  );
+}
+
+export function ChatInputIntegrations() {
+  return (
+    <Example
+      title="Integrations"
+      description="Type an app's name, such as Slack or ChatGPT, and it shows as a chip with its icon. Hover a chip, or put the caret in it and press Tab, to see or switch its account. HubSpot and Jira aren't connected yet. These chips take a brand color that reads in light and dark."
+    >
+      <Composer
+        tinted
+        initial={textDoc(
+          'Use ChatGPT to find B2B leads, enrich them, export to Slack, and log each contact in HubSpot. Ask Claude to draft the outreach, send it from Gmail, and book calls on Google Calendar. Keep notes in Google Docs and Notion, the list in Google Sheets, decks in Google Slides, and files in Google Drive. Track the work in Linear, Jira, and GitHub.',
+        )}
+      />
     </Example>
   );
 }

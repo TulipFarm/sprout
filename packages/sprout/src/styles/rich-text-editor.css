@@ -1,5 +1,6 @@
 @layer components {
   .sprout-rich-text-editor {
+    position: relative;
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
@@ -127,6 +128,247 @@
     text-underline-offset: 2px;
   }
 
+  /* Keyword chips. The icon and disconnected mark are zero-width widgets drawn into the chip's padding. */
+  .sprout-rich-text-keyword {
+    padding: 0.125em var(--sprout-rich-text-keyword-pad);
+    border-radius: var(--sprout-radius-control);
+    background-color: var(--sprout-hover);
+    color: var(--sprout-text);
+    font-weight: 500;
+    white-space: nowrap;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .sprout-rich-text-keyword[data-icon] {
+    padding-inline-start: calc(
+      var(--sprout-rich-text-keyword-pad) + var(--sprout-rich-text-keyword-icon) + var(--sprout-rich-text-keyword-gap)
+    );
+  }
+  .sprout-rich-text-keyword[data-tinted] {
+    background-color: color-mix(in oklab, var(--sprout-rich-text-keyword-color) 12%, var(--sprout-surface));
+    color: color-mix(in oklab, var(--sprout-rich-text-keyword-color) 62%, var(--sprout-text));
+  }
+  .sprout-rich-text-keyword[data-connected='false'] {
+    padding-inline-end: calc(
+      var(--sprout-rich-text-keyword-pad) + var(--sprout-rich-text-keyword-mark) + var(--sprout-rich-text-keyword-gap)
+    );
+    background-color: var(--sprout-hover);
+    color: var(--sprout-muted);
+  }
+
+  .sprout-rich-text-keyword-icon,
+  .sprout-rich-text-keyword-status {
+    user-select: none;
+  }
+  .sprout-rich-text-keyword-glyph {
+    position: relative;
+  }
+  .sprout-rich-text-keyword-glyph > * {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: var(--sprout-rich-text-keyword-icon);
+    height: var(--sprout-rich-text-keyword-icon);
+  }
+  .sprout-rich-text-keyword-glyph > * > svg,
+  .sprout-rich-text-keyword-glyph > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .sprout-rich-text-keyword-icon .sprout-rich-text-keyword-glyph > * {
+    left: var(--sprout-rich-text-keyword-pad);
+  }
+  /* Widgets sit outside the chip span, so they read its sizes from the editor. */
+  .sprout-rich-text-editor-content {
+    --sprout-rich-text-keyword-pad: 0.4375em;
+    --sprout-rich-text-keyword-gap: 0.5em;
+    --sprout-rich-text-keyword-icon: 1em;
+    --sprout-rich-text-keyword-mark: 0.875em;
+  }
+  .sprout-rich-text-keyword-status {
+    cursor: pointer;
+  }
+  .sprout-rich-text-keyword-status .sprout-rich-text-keyword-glyph > * {
+    right: var(--sprout-rich-text-keyword-pad);
+    width: var(--sprout-rich-text-keyword-mark);
+    height: var(--sprout-rich-text-keyword-mark);
+    color: var(--sprout-muted);
+  }
+  .sprout-rich-text-keyword-icon[data-connected='false'] .sprout-rich-text-keyword-glyph {
+    filter: grayscale(1);
+    opacity: 0.7;
+  }
+
+  .sprout-rich-text-keyword-hint {
+    position: absolute;
+    z-index: 5;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: max-content;
+    max-width: min(20rem, 100%);
+    padding: 4px 4px 4px 10px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-popover);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-xs);
+    font-weight: 400;
+    line-height: 1rem;
+    translate: -50% -100%;
+    white-space: nowrap;
+  }
+  .sprout-rich-text-keyword-hint[data-side='bottom'] {
+    translate: -50% 0;
+  }
+  .sprout-rich-text-keyword-hint:not(:has(button)) {
+    padding-inline-end: 10px;
+  }
+  .sprout-rich-text-keyword-hint > svg {
+    flex-shrink: 0;
+    color: var(--sprout-muted);
+  }
+  .sprout-rich-text-keyword-hint-icon {
+    display: grid;
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-rich-text-keyword-hint-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  .sprout-rich-text-keyword-hint-label {
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+  .sprout-rich-text-keyword-hint[data-menu] {
+    flex-wrap: wrap;
+    min-width: 14rem;
+    padding: 4px;
+    padding-inline-start: 10px;
+  }
+  /* The checked row already names the current account. */
+  .sprout-rich-text-keyword-hint[data-menu] .sprout-rich-text-keyword-hint-account {
+    display: none;
+  }
+  .sprout-rich-text-keyword-hint[data-menu] .sprout-rich-text-keyword-hint-label {
+    flex: 1;
+  }
+  .sprout-rich-text-keyword-menu {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 1px;
+    max-height: min(16rem, var(--sprout-rich-text-keyword-menu-height, 16rem));
+    margin-inline-start: -6px;
+    padding-top: 4px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-top: 1px solid var(--sprout-line);
+  }
+  .sprout-rich-text-keyword-menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 28px;
+    padding: 0 6px;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: var(--sprout-text);
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+  .sprout-rich-text-keyword-menu-item > span:first-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sprout-rich-text-keyword-menu-mark {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-rich-text-keyword-menu-item:focus {
+    outline: 0;
+    background: var(--sprout-hover);
+  }
+  .sprout-rich-text-keyword-menu-item[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .sprout-rich-text-keyword-menu-item[data-pending] {
+    cursor: progress;
+  }
+  .sprout-rich-text-keyword-menu-error {
+    padding: 4px 6px 2px;
+    color: var(--sprout-danger);
+  }
+  @media (pointer: coarse) {
+    .sprout-rich-text-keyword-menu-item {
+      min-height: 44px;
+    }
+  }
+  .sprout-rich-text-keyword-hint-account {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--sprout-muted);
+    text-overflow: ellipsis;
+  }
+  .sprout-rich-text-keyword-connect {
+    position: relative;
+    height: 20px;
+    padding: 0 6px;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-secondary);
+    color: var(--sprout-text);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .sprout-rich-text-keyword-connect:active {
+    background: var(--sprout-active);
+  }
+  .sprout-rich-text-keyword-connect:focus-visible {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 1px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-rich-text-keyword-connect:hover {
+      background: var(--sprout-hover);
+    }
+  }
+  @media (pointer: coarse) {
+    .sprout-rich-text-keyword-connect::after {
+      content: '';
+      position: absolute;
+      inset: -12px -4px;
+    }
+  }
+
+  .sprout-rich-text-editor-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   .sprout-rich-text-editor-toolbar {
     box-sizing: border-box;
     display: flex;
@@ -152,6 +394,36 @@
     .sprout-rich-text-editor-content {
       transition: outline-color var(--sprout-motion-fast, 120ms) ease-out;
     }
+    .sprout-rich-text-keyword {
+      animation: sprout-rich-text-keyword-fill var(--sprout-motion-fast, 120ms) ease-out;
+    }
+    .sprout-rich-text-keyword-glyph > *,
+    .sprout-rich-text-keyword-menu {
+      animation: sprout-rich-text-keyword-fade var(--sprout-motion-fast, 120ms) ease-out;
+    }
+    .sprout-rich-text-keyword-hint {
+      transform-origin: bottom center;
+      animation: sprout-rich-text-keyword-pop var(--sprout-motion-fast, 120ms) var(--sprout-motion-ease, ease-out);
+    }
+    .sprout-rich-text-keyword-hint[data-side='bottom'] {
+      transform-origin: top center;
+    }
+  }
+  @keyframes sprout-rich-text-keyword-fill {
+    from {
+      background-color: transparent;
+    }
+  }
+  @keyframes sprout-rich-text-keyword-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes sprout-rich-text-keyword-pop {
+    from {
+      opacity: 0;
+      scale: 0.97;
+    }
   }
 
   @media (forced-colors: active) {
@@ -163,6 +435,9 @@
     }
     .sprout-rich-text-editor-toolbar-inline {
       border-top: 0;
+    }
+    .sprout-rich-text-keyword {
+      border: 1px solid CanvasText;
     }
   }
 }

@@ -149,7 +149,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@tulipfarm
 import { RecordList } from '@tulipfarm/sprout/record-list';
 import { ResultCard } from '@tulipfarm/sprout/result-card';
 import { ResultNotice } from '@tulipfarm/sprout/result-notice';
-import type { RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
+import type { RichTextKeyword, RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
 import { ScrollArea } from '@tulipfarm/sprout/scroll-area';
 import {
   SearchDialog,
@@ -430,10 +430,16 @@ function InputOTPPreview() {
   );
 }
 
+const richTextKeywords: RichTextKeyword[] = [
+  { id: 'openai', label: 'ChatGPT', icon: <BrandIcon brand="openai" size="inline" /> },
+  { id: 'slack', label: 'Slack', icon: <BrandIcon brand="slack" size="inline" />, account: 'tulipfarm.slack.com' },
+  { id: 'hubspot', label: 'HubSpot', icon: <BrandIcon brand="hubspot" size="inline" />, connected: false },
+];
+
 function RichTextPreview() {
   const [value, setValue] = useState<RichTextValue>({
     type: 'doc',
-    content: [{ type: 'paragraph' }],
+    content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Ask ChatGPT, then post to Slack' }] }],
   });
   return (
     <div className="home-p-wide">
@@ -443,6 +449,7 @@ function RichTextPreview() {
           value={value}
           onChange={setValue}
           placeholder="Write a message… Enter sends"
+          keywords={richTextKeywords}
           onSend={() => {}}
         />
       </Suspense>

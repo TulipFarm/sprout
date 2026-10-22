@@ -111,6 +111,50 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
     </p>
   </section>
   <section class="prose-section">
+    <h2 class="section-title">Keywords</h2>
+    <p>
+      <code>keywords</code> shows matching words as chips while people type, such as Slack or ChatGPT. Each keyword has
+      an
+      <code>id</code>, a <code>label</code>, optional <code>match</code> terms (default: the label), an
+      <code>icon</code> such as <code>&lt;BrandIcon brand="slack" size="inline" /&gt;</code>, an optional
+      <code>color</code> tint, <code>connected</code>, and the <code>account</code> it uses. The text stays plain text,
+      so the value doesn't change. Read the mentioned keywords with <code>findKeywords(value, keywords)</code>, for
+      example when sending.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Integration keywords"
+      code={`const integrations: RichTextKeyword[] = [
+  {
+    id: "slack",
+    label: "Slack",
+    icon: <BrandIcon brand="slack" size="inline" />,
+    accounts: [{ id: "tf", label: "tulipfarm.slack.com" }, { id: "acme", label: "acme.slack.com" }],
+    account: "tf",
+  },
+  { id: "hubspot", label: "HubSpot", icon: <BrandIcon brand="hubspot" size="inline" />, connected: false },
+];
+
+<RichTextEditor value={value} onChange={setValue} onSend={() => send(findKeywords(value, integrations))}
+  keywords={integrations} onKeywordConnect={keyword => connect(keyword.id)}
+  onKeywordAccountChange={(keyword, accountId) => useAccount(keyword.id, accountId)} />`}
+    />
+    <p>
+      Matches ignore case, need whole words, and prefer the longest term, so <code>Google Drive</code> wins over
+      <code>Google</code>. Code and code blocks are skipped. When <code>connected</code> is
+      <code>false</code> the chip is muted with a broken-link mark; hovering it, or putting the caret inside it, shows a
+      hint with a <code>Connect</code> button that calls <code>onKeywordConnect</code>. Without that handler the hint
+      only explains the state. A connected chip with an <code>account</code> shows a tooltip the same way, with its
+      icon, name, and account, and a <code>Switch</code> button when it has two or more <code>accounts</code> and
+      <code>onKeywordAccountChange</code> is set. Switch opens a menu of the accounts with the current one checked;
+      arrow keys move, Enter picks, and Escape goes back to Switch. Return a promise from the handler to keep the menu
+      open with a spinner on the picked account until it settles; a rejection shows an error there. When the caret
+      enters a chip, screen readers hear its account or connection state. <code>account</code> is an{' '}
+      <code>accounts</code> id, or any label when there's nothing to switch to. Pass a stable <code>keywords</code>{' '}
+      array; changing it re-decorates in place.
+    </p>
+  </section>
+  <section class="prose-section">
     <h2 class="section-title">Behavior</h2>
     <p>
       Enter sends unless the caret is in a list item or code block, a suggestion list is open (<code>ariaExpanded</code>
@@ -142,6 +186,11 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
       <code>data-slot="input-group-control"</code>, so the group draws focus and invalid borders instead. Fades take
       120ms and stop when reduced motion is requested. Forced colors mode keeps a system focus outline.
     </p>
+    <p>
+      Keyword icons are decorative, so screen readers read the plain word. A polite status message says when a new
+      disconnected keyword appears. From the caret inside a chip with a tooltip, Tab reaches its <code>Connect</code> or
+      <code>Switch</code> button and Escape returns to the text.
+    </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
@@ -150,7 +199,9 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
       <code>--sprout-muted</code>, code backgrounds
       <code>--sprout-hover</code>, and links <code>--sprout-primary</code>. The toolbar divider is{' '}
       <code>--sprout-line</code> and focus
-      <code>--sprout-focus</code>. The opt-in TulipFarm theme tints links and the send button through these tokens.
+      <code>--sprout-focus</code>. Keyword chips use <code>--sprout-hover</code>, or their <code>color</code> mixed into
+      the surface. Pick a mid-tone color that holds 4.5:1 in light and dark; leave black, white, or pale brands neutral.
+      The opt-in TulipFarm theme tints links and the send button through these tokens.
     </p>
   </section>
 </Docs>

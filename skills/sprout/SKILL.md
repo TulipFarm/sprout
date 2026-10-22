@@ -127,7 +127,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Input OTP        | `input-otp`        | One-time sign-in or verification code, one slot per character.                                      |
 | Label            | `label`            | Name a control. Wrap a checkbox, switch, or radio with it.                                          |
 | Radio Group      | `radio-group`      | Short list where exactly one is chosen.                                                             |
-| Rich Text Editor | `rich-text-editor` | Chat message box: Enter sends, Markdown shortcuts. Tiptap-based.                                    |
+| Rich Text Editor | `rich-text-editor` | Chat message box: Enter sends, Markdown shortcuts, keyword chips. Tiptap-based.                     |
 | Search Field     | `search-field`     | Search input with magnifier and clear button for filtering a list.                                  |
 | Select           | `select`           | Pick one value from a short, fixed list.                                                            |
 | Slider           | `slider`           | Pick a number or a range on a track.                                                                |
@@ -221,20 +221,20 @@ Import path is `@tulipfarm/sprout/<slug>`.
 
 ### AI and chat
 
-| Component         | Slug                | Use when                                                        |
-| ----------------- | ------------------- | --------------------------------------------------------------- |
-| Agent Fanout      | `agent-fanout`      | A live tree of the agents a run started and what each is doing. |
-| Chat Confirmation | `chat-confirmation` | Ask to approve or decline an agent's action.                    |
-| Chat Input        | `chat-input`        | Chat message box: @agents, /skills, #files, model, send.        |
-| Chat Plan         | `chat-plan`         | Agent's proposed plan with per-step progress.                   |
-| Chat Sources      | `chat-sources`      | Inline numbered citations and the source list of a reply.       |
-| Model Selector    | `model-selector`    | Searchable model picker with logos and speed, quality, cost.    |
-| Plan Outline      | `plan-outline`      | Saved plan as a read-only outline of nested tasks.              |
-| Prompt List       | `prompt-list`       | Starter prompts at the start of a chat.                         |
-| Questionnaire     | `questionnaire`     | Ask one question at a time with choices, typed answers, skips.  |
-| Reasoning Effort  | `reasoning-effort`  | Pill slider for how hard a model thinks.                        |
-| Tool Activity     | `tool-activity`     | Live timeline of the tools an agent called.                     |
-| Typed Text        | `typed-text`        | Short text that types itself in when an agent changes it.       |
+| Component         | Slug                | Use when                                                         |
+| ----------------- | ------------------- | ---------------------------------------------------------------- |
+| Agent Fanout      | `agent-fanout`      | A live tree of the agents a run started and what each is doing.  |
+| Chat Confirmation | `chat-confirmation` | Ask to approve or decline an agent's action.                     |
+| Chat Input        | `chat-input`        | Chat message box: @agents, /skills, #files, integrations, model. |
+| Chat Plan         | `chat-plan`         | Agent's proposed plan with per-step progress.                    |
+| Chat Sources      | `chat-sources`      | Inline numbered citations and the source list of a reply.        |
+| Model Selector    | `model-selector`    | Searchable model picker with logos and speed, quality, cost.     |
+| Plan Outline      | `plan-outline`      | Saved plan as a read-only outline of nested tasks.               |
+| Prompt List       | `prompt-list`       | Starter prompts at the start of a chat.                          |
+| Questionnaire     | `questionnaire`     | Ask one question at a time with choices, typed answers, skips.   |
+| Reasoning Effort  | `reasoning-effort`  | Pill slider for how hard a model thinks.                         |
+| Tool Activity     | `tool-activity`     | Live timeline of the tools an agent called.                      |
+| Typed Text        | `typed-text`        | Short text that types itself in when an agent changes it.        |
 
 ### Agent patterns
 
