@@ -31,8 +31,8 @@
     mask-image: linear-gradient(
       to right,
       transparent 0,
-      #000 var(--sprout-view-switcher-fade-start),
-      #000 calc(100% - var(--sprout-view-switcher-fade-end)),
+      oklch(0 0 0) var(--sprout-view-switcher-fade-start),
+      oklch(0 0 0) calc(100% - var(--sprout-view-switcher-fade-end)),
       transparent 100%
     );
   }
@@ -49,8 +49,8 @@
     mask-image: linear-gradient(
       to left,
       transparent 0,
-      #000 var(--sprout-view-switcher-fade-start),
-      #000 calc(100% - var(--sprout-view-switcher-fade-end)),
+      oklch(0 0 0) var(--sprout-view-switcher-fade-start),
+      oklch(0 0 0) calc(100% - var(--sprout-view-switcher-fade-end)),
       transparent 100%
     );
   }
@@ -133,10 +133,10 @@
       translate: 0 -50%;
     }
     .sprout-view-switcher-tab[data-closable]:is(:hover, :focus-visible) .sprout-view-switcher-label {
-      mask-image: linear-gradient(to left, transparent 14px, #000 24px);
+      mask-image: linear-gradient(to left, transparent 14px, oklch(0 0 0) 24px);
     }
     .sprout-view-switcher-tab[data-closable]:is(:hover, :focus-visible) .sprout-view-switcher-label:dir(rtl) {
-      mask-image: linear-gradient(to right, transparent 14px, #000 24px);
+      mask-image: linear-gradient(to right, transparent 14px, oklch(0 0 0) 24px);
     }
   }
 

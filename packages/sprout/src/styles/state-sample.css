@@ -1,11 +1,11 @@
 @layer components {
   .sprout-state-sample,
   .sprout-state-sample-mark {
-    --sprout-state-sample-pdf: #e2463f;
-    --sprout-state-sample-sheet: #1f8f4a;
-    --sprout-state-sample-document: #2b67d1;
-    --sprout-state-sample-slides: #d9622b;
-    --sprout-state-sample-image: #a8d4f7;
+    --sprout-state-sample-pdf: oklch(0.6165 0.1939 27.02);
+    --sprout-state-sample-sheet: oklch(0.5734 0.1422 151.05);
+    --sprout-state-sample-document: oklch(0.5355 0.1755 260.83);
+    --sprout-state-sample-slides: oklch(0.6349 0.1638 42.8);
+    --sprout-state-sample-image: oklch(0.8506 0.0674 242.56);
   }
   .sprout-state-sample {
     display: flex;
@@ -19,12 +19,12 @@
   .dark .sprout-state-sample,
   .dark.sprout-state-sample,
   .dark .sprout-state-sample-mark {
-    --sprout-state-sample-image: #4d7ea8;
+    --sprout-state-sample-image: oklch(0.5761 0.0841 245.81);
   }
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) .sprout-state-sample,
     :root:not(.light):not(.dark) .sprout-state-sample-mark {
-      --sprout-state-sample-image: #4d7ea8;
+      --sprout-state-sample-image: oklch(0.5761 0.0841 245.81);
     }
   }
 

@@ -197,7 +197,7 @@
       linear-gradient(var(--sprout-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--sprout-line) 1px, transparent 1px);
     background-size: 16px 16px;
-    mask-image: radial-gradient(closest-side, #000 30%, transparent 100%);
+    mask-image: radial-gradient(closest-side, oklch(0 0 0) 30%, transparent 100%);
   }
   .sprout-search-empty-tiles {
     display: flex;

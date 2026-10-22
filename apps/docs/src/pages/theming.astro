@@ -83,7 +83,8 @@ const tokens = [
     <h2 class="section-title">Override in your stylesheet</h2>
     <p>
       Place overrides after imports. Use root variables for runtime theme values or Tailwind's{' '}
-      <code>@theme inline</code> for utility mappings. Sprõut does not set global fonts or page styles.
+      <code>@theme inline</code> for utility mappings. Sprõut does not set global fonts or page styles. Built-in
+      themes write colours in OKLCH, so lightness steps look even across hues; do the same in overrides.
     </p>
     <CodeBlock
       lang="css"
@@ -92,9 +93,9 @@ const tokens = [
 @import "@tulipfarm/sprout/styles.css";
 
 :root {
-  --sprout-primary: #285b78;
-  --sprout-primary-hover: #204860;
-  --sprout-on-primary: #f6fbff;
+  --sprout-primary: oklch(0.4496 0.0722 236.42);
+  --sprout-primary-hover: oklch(0.3842 0.0608 237.59);
+  --sprout-on-primary: oklch(0.9855 0.0075 241.66);
   --sprout-radius-control: 0.5rem;
   --sprout-sidebar-width: 16rem;
   --sprout-sidebar-mobile-width: 18rem;
@@ -103,9 +104,9 @@ const tokens = [
 }
 
 .dark {
-  --sprout-primary: #a3d2ec;
-  --sprout-primary-hover: #bee1f4;
-  --sprout-on-primary: #142c3a;
+  --sprout-primary: oklch(0.8394 0.0611 232.64);
+  --sprout-primary-hover: oklch(0.8906 0.0452 231.68);
+  --sprout-on-primary: oklch(0.2807 0.0396 236.14);
 }`}
     />
   </section>

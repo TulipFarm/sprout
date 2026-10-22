@@ -1,60 +1,60 @@
 @layer base {
   :root,
   .light {
-    --sprout-glass-banner-ink: #1d2742;
-    --sprout-glass-banner-ink-soft: #4a5677;
-    --sprout-glass-banner-base-a: #b6d4f7;
-    --sprout-glass-banner-base-b: #e4f0fd;
-    --sprout-glass-banner-glow: #ffffff;
-    --sprout-glass-banner-ring: #ffffffcc;
-    --sprout-glass-banner-edge: #ffffffb3;
-    --sprout-glass-chip-top: #ffffffa6;
-    --sprout-glass-chip-bottom: #ffffff4d;
-    --sprout-glass-chip-edge: #ffffffd9;
-    --sprout-glass-chip-inner: #8fa8e026;
-    --sprout-glass-chip-shadow: #3d5aa840;
-    --sprout-glass-bubble: #ffffff40;
+    --sprout-glass-banner-ink: oklch(0.2778 0.0521 267.56);
+    --sprout-glass-banner-ink-soft: oklch(0.4568 0.0562 268.73);
+    --sprout-glass-banner-base-a: oklch(0.8596 0.0585 252.45);
+    --sprout-glass-banner-base-b: oklch(0.95 0.0217 250.21);
+    --sprout-glass-banner-glow: oklch(1 0 0);
+    --sprout-glass-banner-ring: oklch(1 0 0 / 0.8);
+    --sprout-glass-banner-edge: oklch(1 0 0 / 0.702);
+    --sprout-glass-chip-top: oklch(1 0 0 / 0.651);
+    --sprout-glass-chip-bottom: oklch(1 0 0 / 0.302);
+    --sprout-glass-chip-edge: oklch(1 0 0 / 0.851);
+    --sprout-glass-chip-inner: oklch(0.7336 0.0864 265.72 / 0.149);
+    --sprout-glass-chip-shadow: oklch(0.4862 0.1295 266.33 / 0.251);
+    --sprout-glass-bubble: oklch(1 0 0 / 0.251);
   }
 
   .dark {
-    --sprout-glass-banner-ink: #e3e8f5;
-    --sprout-glass-banner-ink-soft: #9aa6c4;
-    --sprout-glass-banner-base-a: #1a2236;
-    --sprout-glass-banner-base-b: #14171f;
-    --sprout-glass-banner-glow: #ffffff12;
-    --sprout-glass-banner-ring: #ffffff1a;
-    --sprout-glass-banner-edge: #ffffff14;
-    --sprout-glass-chip-top: #ffffff1a;
-    --sprout-glass-chip-bottom: #ffffff08;
-    --sprout-glass-chip-edge: #ffffff24;
-    --sprout-glass-chip-inner: #8fa8e010;
-    --sprout-glass-chip-shadow: #00000080;
-    --sprout-glass-bubble: #ffffff0a;
+    --sprout-glass-banner-ink: oklch(0.931 0.0184 269.08);
+    --sprout-glass-banner-ink-soft: oklch(0.7259 0.0457 268.05);
+    --sprout-glass-banner-base-a: oklch(0.2546 0.0397 266.94);
+    --sprout-glass-banner-base-b: oklch(0.2052 0.0167 268.83);
+    --sprout-glass-banner-glow: oklch(1 0 0 / 0.071);
+    --sprout-glass-banner-ring: oklch(1 0 0 / 0.102);
+    --sprout-glass-banner-edge: oklch(1 0 0 / 0.078);
+    --sprout-glass-chip-top: oklch(1 0 0 / 0.102);
+    --sprout-glass-chip-bottom: oklch(1 0 0 / 0.031);
+    --sprout-glass-chip-edge: oklch(1 0 0 / 0.141);
+    --sprout-glass-chip-inner: oklch(0.7336 0.0864 265.72 / 0.063);
+    --sprout-glass-chip-shadow: oklch(0 0 0 / 0.502);
+    --sprout-glass-bubble: oklch(1 0 0 / 0.039);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) {
-      --sprout-glass-banner-ink: #e3e8f5;
-      --sprout-glass-banner-ink-soft: #9aa6c4;
-      --sprout-glass-banner-base-a: #1a2236;
-      --sprout-glass-banner-base-b: #14171f;
-      --sprout-glass-banner-glow: #ffffff12;
-      --sprout-glass-banner-ring: #ffffff1a;
-      --sprout-glass-banner-edge: #ffffff14;
-      --sprout-glass-chip-top: #ffffff1a;
-      --sprout-glass-chip-bottom: #ffffff08;
-      --sprout-glass-chip-edge: #ffffff24;
-      --sprout-glass-chip-inner: #8fa8e010;
-      --sprout-glass-chip-shadow: #00000080;
-      --sprout-glass-bubble: #ffffff0a;
+      --sprout-glass-banner-ink: oklch(0.931 0.0184 269.08);
+      --sprout-glass-banner-ink-soft: oklch(0.7259 0.0457 268.05);
+      --sprout-glass-banner-base-a: oklch(0.2546 0.0397 266.94);
+      --sprout-glass-banner-base-b: oklch(0.2052 0.0167 268.83);
+      --sprout-glass-banner-glow: oklch(1 0 0 / 0.071);
+      --sprout-glass-banner-ring: oklch(1 0 0 / 0.102);
+      --sprout-glass-banner-edge: oklch(1 0 0 / 0.078);
+      --sprout-glass-chip-top: oklch(1 0 0 / 0.102);
+      --sprout-glass-chip-bottom: oklch(1 0 0 / 0.031);
+      --sprout-glass-chip-edge: oklch(1 0 0 / 0.141);
+      --sprout-glass-chip-inner: oklch(0.7336 0.0864 265.72 / 0.063);
+      --sprout-glass-chip-shadow: oklch(0 0 0 / 0.502);
+      --sprout-glass-bubble: oklch(1 0 0 / 0.039);
     }
   }
 }
 
 @layer components {
   .sprout-glass-banner {
-    --sprout-glass-chip-icon-bg: #ffffffe6;
-    --sprout-glass-chip-icon-ink: #1d2742;
+    --sprout-glass-chip-icon-bg: oklch(1 0 0 / 0.902);
+    --sprout-glass-chip-icon-ink: oklch(0.2778 0.0521 267.56);
 
     position: relative;
     isolation: isolate;

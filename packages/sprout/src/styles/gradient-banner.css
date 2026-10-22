@@ -1,17 +1,17 @@
 @layer components {
   .sprout-gradient-banner {
-    --sprout-gradient-banner-pearl: #fffdf7;
-    --sprout-gradient-banner-ink: #25282d;
-    --sprout-gradient-banner-panel-ink: #25282d;
-    --sprout-gradient-banner-paper: #ffffff;
-    --sprout-gradient-banner-night: #191d20;
-    --sprout-gradient-banner-badge-light: #f1f2f4;
-    --sprout-gradient-banner-badge-dark: #30373b;
-    --sprout-gradient-banner-edge: #ffffff6b;
-    --sprout-gradient-banner-base: #91caf0;
-    --sprout-gradient-banner-shadow: #7777d6;
-    --sprout-gradient-banner-glow: #b4eff4;
-    --sprout-gradient-banner-bloom: #c8a7ef;
+    --sprout-gradient-banner-pearl: oklch(0.9939 0.0082 91.48);
+    --sprout-gradient-banner-ink: oklch(0.2759 0.0102 260.7);
+    --sprout-gradient-banner-panel-ink: oklch(0.2759 0.0102 260.7);
+    --sprout-gradient-banner-paper: oklch(1 0 0);
+    --sprout-gradient-banner-night: oklch(0.2279 0.0084 240.26);
+    --sprout-gradient-banner-badge-light: oklch(0.961 0.0029 264.54);
+    --sprout-gradient-banner-badge-dark: oklch(0.3318 0.0119 232.77);
+    --sprout-gradient-banner-edge: oklch(1 0 0 / 0.42);
+    --sprout-gradient-banner-base: oklch(0.8133 0.0797 238.21);
+    --sprout-gradient-banner-shadow: oklch(0.6128 0.1414 281.39);
+    --sprout-gradient-banner-glow: oklch(0.9138 0.0599 202.68);
+    --sprout-gradient-banner-bloom: oklch(0.7828 0.106 305.05);
     --sprout-gradient-banner-fold-angle: -24deg;
     --sprout-gradient-banner-fold-opacity: 0.85;
     --sprout-gradient-banner-light-angle: 22deg;
@@ -31,42 +31,42 @@
   }
 
   .sprout-gradient-banner[data-variant='citrus'] {
-    --sprout-gradient-banner-base: #fbd65c;
-    --sprout-gradient-banner-shadow: #ec986f;
-    --sprout-gradient-banner-glow: #fff5b5;
-    --sprout-gradient-banner-bloom: #f6b9c8;
+    --sprout-gradient-banner-base: oklch(0.8852 0.1444 92.27);
+    --sprout-gradient-banner-shadow: oklch(0.7558 0.1155 46.51);
+    --sprout-gradient-banner-glow: oklch(0.963 0.0819 100.27);
+    --sprout-gradient-banner-bloom: oklch(0.8454 0.0728 2.47);
     --sprout-gradient-banner-fold-angle: 28deg;
   }
   .sprout-gradient-banner[data-variant='lagoon'] {
-    --sprout-gradient-banner-base: #18bec4;
-    --sprout-gradient-banner-shadow: #007e83;
-    --sprout-gradient-banner-glow: #c8f2a3;
-    --sprout-gradient-banner-bloom: #43bf79;
+    --sprout-gradient-banner-base: oklch(0.7294 0.1209 198.96);
+    --sprout-gradient-banner-shadow: oklch(0.5389 0.0916 199.68);
+    --sprout-gradient-banner-glow: oklch(0.9127 0.112 131.08);
+    --sprout-gradient-banner-bloom: oklch(0.7185 0.1501 154.77);
     --sprout-gradient-banner-fold-angle: -65deg;
   }
   .sprout-gradient-banner[data-variant='iris'] {
-    --sprout-gradient-banner-base: #bca3ef;
-    --sprout-gradient-banner-shadow: #7968d7;
-    --sprout-gradient-banner-glow: #dceffd;
-    --sprout-gradient-banner-bloom: #ecb6ec;
+    --sprout-gradient-banner-base: oklch(0.765 0.1097 298.9);
+    --sprout-gradient-banner-shadow: oklch(0.5874 0.1639 287.27);
+    --sprout-gradient-banner-glow: oklch(0.9423 0.0277 239.66);
+    --sprout-gradient-banner-bloom: oklch(0.8419 0.0941 326.37);
   }
   /* Deep blue art: text placed straight on it switches to pearl. */
   .sprout-gradient-banner[data-variant='cobalt'] {
     --sprout-gradient-banner-ink: var(--sprout-gradient-banner-pearl);
-    --sprout-gradient-banner-base: #2268b7;
-    --sprout-gradient-banner-shadow: #102c6b;
-    --sprout-gradient-banner-glow: #9dc8e8;
-    --sprout-gradient-banner-bloom: #377bbe;
+    --sprout-gradient-banner-base: oklch(0.5167 0.1422 254.44);
+    --sprout-gradient-banner-shadow: oklch(0.3153 0.1153 263.26);
+    --sprout-gradient-banner-glow: oklch(0.8131 0.0642 240.76);
+    --sprout-gradient-banner-bloom: oklch(0.5712 0.1245 250.64);
     --sprout-gradient-banner-fold-angle: 8deg;
     --sprout-gradient-banner-fold-opacity: 0.3;
     --sprout-gradient-banner-light-angle: -8deg;
     --sprout-gradient-banner-light-opacity: 0.35;
   }
   .sprout-gradient-banner[data-variant='mint'] {
-    --sprout-gradient-banner-base: #e0ebce;
-    --sprout-gradient-banner-shadow: #9bcaba;
-    --sprout-gradient-banner-glow: #fcf7d5;
-    --sprout-gradient-banner-bloom: #c1e1cd;
+    --sprout-gradient-banner-base: oklch(0.9241 0.0402 124.13);
+    --sprout-gradient-banner-shadow: oklch(0.8011 0.0544 172);
+    --sprout-gradient-banner-glow: oklch(0.9713 0.0445 100.29);
+    --sprout-gradient-banner-bloom: oklch(0.8809 0.0434 157.96);
     --sprout-gradient-banner-fold-angle: 65deg;
     --sprout-gradient-banner-fold-opacity: 0.35;
   }
@@ -171,7 +171,7 @@
     font-size: var(--sprout-text-base);
     line-height: 1.5;
     overflow-wrap: anywhere;
-    box-shadow: 0 1px 2px rgb(24 24 24 / 0.05);
+    box-shadow: 0 1px 2px oklch(0.209 0 0 / 0.05);
   }
   .sprout-gradient-banner-panel[data-tone='dark'] {
     background: var(--sprout-gradient-banner-night);

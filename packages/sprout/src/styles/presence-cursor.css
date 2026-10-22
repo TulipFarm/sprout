@@ -14,10 +14,10 @@
     width: 18px;
     height: 18px;
     fill: var(--sprout-presence-color);
-    stroke: #fff;
+    stroke: oklch(1 0 0);
     stroke-width: 1.5px;
     stroke-linejoin: round;
-    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.2));
+    filter: drop-shadow(0 1px 1px oklch(0 0 0 / 0.2));
   }
 
   .sprout-presence-cursor-label,
@@ -35,7 +35,7 @@
     overflow: hidden;
     border-radius: var(--sprout-radius-control);
     background: var(--sprout-presence-color);
-    color: #fff;
+    color: oklch(1 0 0);
     font-size: var(--sprout-text-sm);
     font-weight: 500;
     line-height: 1.25rem;
