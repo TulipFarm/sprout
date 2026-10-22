@@ -663,6 +663,14 @@ body {
 .home-p-zoom {
   zoom: 0.8;
 }
+.home-p-fanout {
+  align-self: start;
+  zoom: 0.45;
+}
+.home-p-fanout .sprout-agent-fanout {
+  --sprout-agent-fanout-card: 14rem;
+  --sprout-agent-fanout-gap: 1rem;
+}
 .home-p-board {
   --sprout-board-column-width: 8.5rem;
   --sprout-board-height: 13rem;

@@ -163,7 +163,7 @@ export const componentGroups: NavGroup[] = [
   {
     title: 'AI & chat',
     items: [
-      component('Agent Fanout', 'A parent agent handing one task to subagents, live.'),
+      component('Agent Fanout', 'A live tree of the agents a run started and what each is doing.'),
       component('Chat Confirmation', 'Asks someone to approve or decline an agent’s action.'),
       component('Chat Plan', 'A plan an agent proposed, with each step’s progress.'),
       component('Plan Outline', "A saved plan's nested tasks, marks, and dependencies."),

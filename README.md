@@ -106,7 +106,7 @@ Full library: **866.4 kB** gzip. Each component path is smaller. Sizes are minif
 | Component           |      Raw |     Gzip |   Brotli |
 | ------------------- | -------: | -------: | -------: |
 | `accordion`         |  64.1 kB |  21.9 kB |  19.3 kB |
-| `agent-fanout`      | 260.7 kB |  86.6 kB |  74.5 kB |
+| `agent-fanout`      | 256.4 kB |  90.4 kB |  76.8 kB |
 | `agent-avatar`      | 137.7 kB |  39.9 kB |  34.0 kB |
 | `alert`             |  35.2 kB |  11.5 kB |  10.1 kB |
 | `alert-dialog`      | 168.8 kB |  56.9 kB |  49.7 kB |

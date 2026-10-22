@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import type { ReactNode } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { AgentFanout, type AgentFanoutAgent } from '../../packages/sprout/src/components/agent-fanout.js';
@@ -11,145 +12,189 @@ const agent = (
 ): AgentFanoutAgent => ({
   id,
   name: id,
-  icon: <svg width={16} height={16} />,
+  model: 'Sonnet 5.5',
+  brand: 'claude',
+  tools: ['notion', 'slack'],
   task: `${id} task`,
   status,
+  elapsed: 12_000,
   ...extra,
 });
 
-const mixed = [
-  agent('Researcher', 'done', { result: 'Found 18 sources', duration: 3000 }),
-  agent('Analyst', 'working'),
-  agent('Critic', 'failed', { result: 'Rate limited' }),
-  agent('Writer', 'queued'),
-];
+const run = (extra: AgentFanoutAgent[] = []) =>
+  agent('Orchestrator', 'running', {
+    agents: [
+      agent('Researcher', 'running', {
+        agents: [agent('Scraper', 'done'), agent('Analyst', 'needs-you', { reason: 'Which market?' })],
+      }),
+      agent('Builder', 'running', {
+        agents: [agent('Tester', 'failed', { reason: 'Coupons fail' }), ...extra],
+      }),
+    ],
+  });
 
-const node = (name: string) =>
-  [...document.querySelectorAll<HTMLElement>('[data-slot="agent-fanout-node"]')].find(
-    item => item.textContent === name,
-  )!;
-
-const dot = (name: string) => node(name).querySelector<HTMLElement>('.sprout-agent-fanout-dot')!;
-
+const card = (id: string) =>
+  document.querySelector<HTMLElement>(`[data-slot="agent-fanout-card"][data-agent="${id}"]`)!;
 const box = (element: Element) => element.getBoundingClientRect();
+const wires = () => [
+  ...document.querySelectorAll<SVGPathElement>('[data-slot="agent-fanout-wires"] .sprout-agent-fanout-wire'),
+];
+const ghosts = () => document.querySelectorAll('.sprout-agent-fanout-ghosts > *');
+const root = () => document.querySelector<HTMLElement>('[data-slot="agent-fanout"]')!;
 
-function colorOf(value: string) {
-  const probe = document.createElement('span');
-  probe.style.color = value;
-  document.body.append(probe);
-  const color = getComputedStyle(probe).color;
-  probe.remove();
-  return color;
+async function drawn(count: number) {
+  await expect.poll(() => wires().length).toBe(count);
+  await settle();
 }
 
-async function graph() {
-  await expect.poll(() => document.querySelectorAll('.sprout-agent-fanout-edge').length).toBeGreaterThan(0);
+/** Where a wire ends, in page coordinates. */
+function end(path: SVGPathElement) {
+  const point = path.getPointAtLength(path.getTotalLength());
+  const svg = box(path.ownerSVGElement!);
+  return { x: svg.left + point.x, y: svg.top + point.y };
 }
+
+const sized = (width: number, node: ReactNode) => <div style={{ width, padding: 16 }}>{node}</div>;
 
 describe('AgentFanout in a real browser', () => {
-  it.each(themes)('%s %s passes axe', async (theme, mode) => {
+  it.each(themes)('%s %s passes axe, with the failed list open too', async (theme, mode) => {
     await emulate({ reducedMotion: true });
     setTheme(theme, mode);
-    const screen = await render(<AgentFanout task="Pick a vector store" agents={mixed} defaultOpen />);
-    await graph();
-    await settle();
+    const screen = await render(
+      sized(1100, <AgentFanout agent={run()} onRetry={() => {}} onDismiss={() => {}} onOpen={() => {}} />),
+    );
+    await drawn(5);
     expect(await axeViolations(screen.container)).toEqual([]);
+    await userEvent.click(page.getByRole('button', { name: '1 failed' }));
+    await expect.element(page.getByRole('dialog', { name: 'Agents that failed' })).toBeVisible();
+    await settle();
+    expect(await axeViolations(document.body)).toEqual([]);
   });
 
-  it.each(themes)('%s %s draws a Card frame and colors nodes with tokens', async (theme, mode) => {
-    setTheme(theme, mode);
-    await render(<AgentFanout task="t" agents={mixed} />);
-    await graph();
-    const card = getComputedStyle(document.querySelector('[data-slot="agent-fanout"]')!);
-    expect(card.borderTopWidth).toBe('1px');
-    expect(card.borderTopStyle).toBe('solid');
-    expect(card.borderTopColor).toBe(colorOf('var(--sprout-line)'));
-    expect(card.boxShadow).toBe('none');
-    expect(getComputedStyle(dot('Researcher')).backgroundColor).toBe(colorOf('var(--sprout-chart-1)'));
-    expect(getComputedStyle(dot('Researcher')).color).toBe(
-      mode === 'dark' ? 'rgb(0, 0, 0)' : colorOf('var(--sprout-surface)'),
-    );
-    expect(getComputedStyle(dot('Analyst')).borderColor).toBe(colorOf('var(--sprout-chart-2)'));
-    expect(getComputedStyle(dot('Critic')).color).toBe(colorOf('var(--sprout-danger)'));
-  });
+  it('puts the first agents side by side under a centered root, and wires every card', async () => {
+    await render(sized(1100, <AgentFanout agent={run()} />));
+    await drawn(5);
+    expect(root().dataset.layout).toBe('tree');
+    const [researcher, builder] = [box(card('Researcher')), box(card('Builder'))];
+    expect(researcher.top).toBe(builder.top);
+    expect(builder.left - researcher.right).toBeGreaterThanOrEqual(48);
+    const lead = box(card('Orchestrator'));
+    expect(Math.abs(lead.left + lead.width / 2 - (researcher.left + builder.right) / 2)).toBeLessThan(1);
 
-  it('hides details until the Details button opens them', async () => {
-    await render(<AgentFanout task="t" agents={mixed} />);
-    const details = page.getByRole('button', { name: /Details/ });
-    await expect.element(details).toHaveAttribute('aria-expanded', 'false');
-    await expect.element(page.getByText('2 of 4 finished')).toBeVisible();
-    await expect.element(page.getByRole('list', { name: 'Subagent status' })).not.toBeInTheDocument();
-    await userEvent.click(details);
-    await expect.element(details).toHaveAttribute('aria-expanded', 'true');
-    await expect.element(page.getByRole('list', { name: 'Subagent status' })).toBeVisible();
-    await expect.element(page.getByText('Found 18 sources')).toBeVisible();
-  });
-
-  it('puts each level lower and centers a parent over its helpers', async () => {
-    await render(
-      <AgentFanout
-        task="t"
-        agents={[
-          agent('Lead', 'working', {
-            agents: [agent('Left', 'done'), agent('Right', 'queued')],
-          }),
-          agent('Solo', 'queued'),
-        ]}
-      />,
-    );
-    await graph();
-    const lead = box(dot('Lead'));
-    const left = box(dot('Left'));
-    const right = box(dot('Right'));
-    expect(left.top).toBeGreaterThan(lead.bottom);
-    expect(right.top).toBe(left.top);
-    expect(Math.abs(lead.left + lead.width / 2 - (left.left + right.right) / 2)).toBeLessThanOrEqual(1);
-    expect(getComputedStyle(dot('Left')).backgroundColor).toBe(getComputedStyle(dot('Lead')).borderColor);
-  });
-
-  it('fits six agents inside the card at 390px', async () => {
-    await page.viewport(390, 844);
-    await render(
-      <div style={{ padding: 16 }}>
-        <AgentFanout
-          task="Plan the launch"
-          agents={['One', 'Two', 'Three', 'Four', 'Five', 'Six'].map(id => agent(id, 'working'))}
-          defaultOpen
-        />
-      </div>,
-    );
-    await graph();
-    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
-    const card = box(document.querySelector('[data-slot="agent-fanout"]')!);
-    for (const item of document.querySelectorAll('[data-slot="agent-fanout-node"]')) {
-      expect(box(item).left).toBeGreaterThanOrEqual(card.left);
-      expect(box(item).right).toBeLessThanOrEqual(card.right);
+    const ends = wires().map(end);
+    for (const id of ['Researcher', 'Builder']) {
+      const child = box(card(id));
+      expect(
+        ends.some(({ x, y }) => Math.abs(x - (child.left + child.width / 2)) < 1 && Math.abs(y - child.top) < 1),
+      ).toBe(true);
     }
+    for (const id of ['Scraper', 'Analyst', 'Tester']) {
+      const child = box(card(id));
+      const mark = box(card(id).querySelector('[data-slot="agent-fanout-mark"]')!);
+      expect(
+        ends.some(({ x, y }) => Math.abs(x - child.left) < 1 && Math.abs(y - (mark.top + mark.height / 2)) < 1),
+      ).toBe(true);
+    }
+    expect(document.querySelectorAll('.sprout-agent-fanout-dot')).toHaveLength(3);
   });
 
-  it('sends a pulse when an agent starts and keeps its line mounted', async () => {
+  it('turns into a list that fits 390px without scrolling sideways', async () => {
+    await render(sized(358, <AgentFanout agent={run()} />));
+    await drawn(5);
+    expect(root().dataset.layout).toBe('list');
+    const tree = document.querySelector<HTMLElement>('[data-slot="agent-fanout-tree"]')!;
+    expect(tree.scrollWidth).toBeLessThanOrEqual(tree.clientWidth);
+    expect(box(card('Builder')).top).toBeGreaterThan(box(card('Analyst')).bottom);
+    expect(box(card('Researcher')).left).toBeGreaterThan(box(card('Orchestrator')).left);
+    expect(Math.round(box(card('Researcher')).right)).toBe(Math.round(box(card('Orchestrator')).right));
+  });
+
+  it('hides and shows the agents a card started', async () => {
+    await render(sized(1100, <AgentFanout agent={run()} defaultCollapsed={['Builder']} />));
+    await drawn(4);
+    expect(card('Tester')).not.toBeVisible();
+    const show = page.getByRole('button', { name: 'Show 1 agent started by Builder' });
+    await expect.element(show).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(show);
+    await expect.element(page.getByRole('button', { name: 'Hide 1 agent started by Builder' })).toHaveFocus();
+    await drawn(5);
+    expect(card('Tester')).toBeVisible();
+  });
+
+  it('lists failed agents with Retry and Dismiss, and agents that need you with Open', async () => {
+    const onRetry = vi.fn();
+    const onDismiss = vi.fn();
+    const onOpen = vi.fn();
+    await render(sized(1100, <AgentFanout agent={run()} onRetry={onRetry} onDismiss={onDismiss} onOpen={onOpen} />));
+    await userEvent.click(page.getByRole('button', { name: '1 failed' }));
+    const failed = page.getByRole('dialog', { name: 'Agents that failed' });
+    await expect.element(failed.getByText('Coupons fail')).toBeVisible();
+    await userEvent.click(failed.getByRole('button', { name: 'Dismiss' }));
+    await userEvent.click(failed.getByRole('button', { name: 'Retry' }));
+    expect(onDismiss).toHaveBeenCalledWith(expect.objectContaining({ id: 'Tester' }));
+    expect(onRetry).toHaveBeenCalledWith(expect.objectContaining({ id: 'Tester' }));
+    await userEvent.keyboard('{Escape}');
+    await userEvent.click(page.getByRole('button', { name: '1 needs you' }));
+    await userEvent.click(page.getByRole('button', { name: 'Open Analyst' }));
+    expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ id: 'Analyst' }));
+  });
+
+  it('draws a new agent in, slides its neighbors, and updates the live counts', async () => {
     await emulate({ reducedMotion: false });
-    const screen = await render(<AgentFanout task="t" agents={[agent('a', 'queued')]} />);
-    await graph();
-    const line = document.querySelector('.sprout-agent-fanout-edge')!;
-    expect(document.querySelector('[data-trip]')).toBeNull();
-    await screen.rerender(<AgentFanout task="t" agents={[agent('a', 'working')]} />);
-    await expect
-      .poll(() => document.querySelector<HTMLElement>('.sprout-agent-fanout-comet[data-trip="out"]'))
-      .not.toBeNull();
-    const comet = document.querySelector<HTMLElement>('.sprout-agent-fanout-comet')!;
-    expect(getComputedStyle(comet).animationName).toBe('sprout-agent-fanout-comet-out');
-    await screen.rerender(<AgentFanout task="t" agents={[agent('a', 'working')]} elapsed={100} />);
-    expect(line.isConnected).toBe(true);
-    expect(comet.isConnected).toBe(true);
+    const screen = await render(sized(1100, <AgentFanout agent={run()} />));
+    await drawn(5);
+    await expect.poll(() => root().hasAttribute('data-live')).toBe(true);
+    const status = page.getByRole('status');
+    await expect.element(status).toHaveTextContent('6 agents, 3 running, 1 needs you, 1 failed');
+    await screen.rerender(sized(1100, <AgentFanout agent={run([agent('Linter', 'running')])} />));
+    await expect.poll(() => wires().length).toBe(6);
+    const moving = document
+      .getAnimations()
+      .filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity);
+    expect(moving.length).toBeGreaterThan(0);
+    await expect.element(status).toHaveTextContent('7 agents, 4 running, 1 needs you, 1 failed');
   });
 
-  it('reduced motion skips the pulse', async () => {
+  it('fades out the agents a card hides, retracts their lines, then clears the copies', async () => {
+    await emulate({ reducedMotion: false });
+    await render(sized(1100, <AgentFanout agent={run()} />));
+    await drawn(5);
+    await expect.poll(() => root().hasAttribute('data-live')).toBe(true);
+    await userEvent.click(page.getByRole('button', { name: 'Hide 2 agents started by Researcher' }));
+    expect(wires()).toHaveLength(3);
+    const copies = document.querySelectorAll('.sprout-agent-fanout-ghost');
+    expect(copies).toHaveLength(2);
+    for (const copy of copies) {
+      expect(copy.hasAttribute('data-slot')).toBe(false);
+      expect(copy.closest('[aria-hidden="true"][inert]')).not.toBeNull();
+    }
+    expect(document.querySelectorAll('.sprout-agent-fanout-ghosts .sprout-agent-fanout-wire')).toHaveLength(2);
+    await expect.poll(() => ghosts().length).toBe(0);
+  });
+
+  it('lights only the lines that lead to running agents', async () => {
     await emulate({ reducedMotion: true });
-    const screen = await render(<AgentFanout task="t" agents={[agent('a', 'queued')]} />);
-    await graph();
-    await screen.rerender(<AgentFanout task="t" agents={[agent('a', 'working')]} />);
-    await expect.poll(() => document.querySelector('.sprout-agent-fanout-comet')).not.toBeNull();
-    expect(getComputedStyle(document.querySelector('.sprout-agent-fanout-comet')!).animationName).toBe('none');
+    await render(sized(1100, <AgentFanout agent={run([agent('Linter', 'running')])} />));
+    await drawn(6);
+    const lit = wires().filter(wire => wire.hasAttribute('data-active'));
+    // Root to Researcher and Builder, and Builder to Linter.
+    expect(lit).toHaveLength(3);
+    expect(getComputedStyle(lit[0]!).stroke).not.toBe(
+      getComputedStyle(wires().find(wire => !wire.hasAttribute('data-active'))!).stroke,
+    );
+  });
+
+  it('reduced motion only fades, and nothing moves', async () => {
+    await emulate({ reducedMotion: true });
+    const screen = await render(sized(1100, <AgentFanout agent={run()} />));
+    await drawn(5);
+    await expect.poll(() => root().hasAttribute('data-live')).toBe(true);
+    await screen.rerender(sized(1100, <AgentFanout agent={run([agent('Linter', 'running')])} />));
+    await expect.poll(() => wires().length).toBe(6);
+    const running = document
+      .getAnimations()
+      .filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity);
+    expect(running.length).toBeGreaterThan(0);
+    for (const animation of running) expect((animation as CSSTransition).transitionProperty).toBe('opacity');
   });
 });

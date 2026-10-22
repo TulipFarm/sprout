@@ -614,7 +614,7 @@ const chatConfirmationExports = ['ChatConfirmation', 'chatConfirmationStateNames
 
 const chatPlanExports = ['ChatPlan', 'chatPlanStepStateNames'];
 
-const agentFanoutExports = ['AgentFanout', 'agentFanoutStateNames', 'agentFanoutStatusNames'];
+const agentFanoutExports = ['AgentFanout', 'agentFanoutLayoutNames', 'agentFanoutStatusNames'];
 
 const planOutlineExports = ['PlanOutline', 'planOutlineMarkNames', 'planOutlineToneNames'];
 

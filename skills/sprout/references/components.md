@@ -1496,38 +1496,45 @@ No end, or an empty end: a diamond. End before start: a hollow diamond and an
 import { AgentFanout } from '@tulipfarm/sprout/agent-fanout';
 
 <AgentFanout
-  task="Choose a vector store for the retrieval stack"
-  agents={[
-    {
-      id: 'research',
-      name: 'Researcher',
-      icon: <Globe size={16} />,
-      task: 'Web search',
-      status: 'done',
-      result: 'Found 18 sources',
-      duration: 3000,
-    },
-    {
-      id: 'analyst',
-      name: 'Analyst',
-      icon: <ChartLine size={16} />,
-      task: 'Benchmarks',
-      status: 'working',
-    },
-  ]}
-  elapsed={elapsed}
-  onStop={stop}
+  title="Pricing launch"
+  agent={{
+    id: 'orchestrator',
+    name: 'Orchestrator',
+    model: 'Opus 5.5',
+    brand: 'claude',
+    tools: ['slack', 'notion', 'github'],
+    task: 'Launch the new pricing page by Friday',
+    status: 'running',
+    elapsed: 14000,
+    agents: [
+      {
+        id: 'researcher',
+        name: 'Researcher',
+        model: 'GPT-5.5',
+        brand: 'openai',
+        tools: ['notion'],
+        task: 'Compare the pricing of five competitors',
+        status: 'needs-you',
+        reason: 'Which five competitors?',
+        elapsed: 7000,
+      },
+    ],
+  }}
+  onRetry={retry}
+  onDismiss={dismiss}
+  onOpen={open}
 />;
 ```
 
-- You own the clock. Change each agent's `status` as work moves: `queued` → `working` → `done` or `failed`. Each change sends a pulse along that agent's line: down on `working`, up on `done`.
-- Set `state="done"` once the parent has merged the results, or `"stopped"` after Stop. Mark agents that did not finish as `stopped`.
-- The footer names the phase from the statuses. Pass `label` to replace it.
-- Colors cycle through the ten `--sprout-chart-*` tokens. Pass `color` on an agent to pick one.
-- Statuses and phases that render on first mount do not animate. Only later changes do.
-- Nest `agents` inside an agent for subagents that call their own subagents. Helpers take their parent's color.
-- The per-agent list sits behind a Details button, closed by default. Pass `defaultOpen` to show it.
-- The graph uses React Flow at zoom 1 with no pan or zoom; it re-lays out on resize.
+- `agent` is the root; nest the agents it started in `agents`, as deep as they go. Each agent is a card with its model, tools, task, status, and run time.
+- You own the run. Move `status` through `queued`, `running`, `needs-you`, `done`, `failed`, and `stopped`, and tick `elapsed` in ms.
+- `brand` picks the model logo from Brand Icon (`claude`, `openai`, `deepseek`, `grok`, …) and `model` names it. Pass `icon` for agents that are not a known model. `tools` are Brand Icon names; past four, the rest show as a count.
+- Agents that need you or failed get a header button listing each one's task and `reason`. `onOpen` adds Open to needs-you agents; `onRetry` and `onDismiss` add Retry and Dismiss to failed ones. The component never changes the run itself.
+- `layout`: `auto` (default) puts the root's agents side by side and falls back to `list` when the row does not fit; `tree` always uses a row and scrolls; `list` always stacks under the parent.
+- The footer count shows or hides an agent's subagents. `defaultCollapsed` takes agent ids to start hidden.
+- Lines are neutral; lines leading to running agents turn blue. Needs-you and failed cards get a warning or danger border.
+- New lines draw from the parent and cards fade in; hidden or removed cards fade out and their lines retract. Nothing animates on first mount. Reduced motion keeps only short fades.
+- Tokens: `--sprout-agent-fanout-card` (17.25rem), `--sprout-agent-fanout-gap` (3rem), `--sprout-agent-fanout-indent` (2.5rem), `--sprout-agent-fanout-line`, `--sprout-agent-fanout-line-active`.
 
 ### Chat Confirmation
 

@@ -16,6 +16,7 @@ import { Settings } from 'reicon-react/icons/Settings';
 import { Star } from 'reicon-react/icons/Star';
 import { Underline } from 'reicon-react/icons/Underline';
 import { Upload } from 'reicon-react/icons/Upload';
+import { AgentFanout } from '@tulipfarm/sprout/agent-fanout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@tulipfarm/sprout/accordion';
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '@tulipfarm/sprout/alert';
 import {
@@ -1570,6 +1571,51 @@ function CanvasPreview() {
 }
 
 const previews: Record<string, () => ReactNode> = {
+  'agent-fanout': () => (
+    <div className="home-p-fanout">
+      <AgentFanout
+        layout="tree"
+        agent={{
+          id: 'lead',
+          name: 'Lead',
+          model: 'Opus 5.5',
+          brand: 'claude',
+          task: 'Launch pricing',
+          status: 'running',
+          elapsed: 48_000,
+          agents: [
+            {
+              id: 'research',
+              name: 'Research',
+              model: 'GPT-5.5',
+              brand: 'openai',
+              task: 'Compare plans',
+              status: 'done',
+              elapsed: 21_000,
+            },
+            {
+              id: 'scrape',
+              name: 'Scrape',
+              model: 'DeepSeek',
+              brand: 'deepseek',
+              task: 'Pull prices',
+              status: 'running',
+              elapsed: 12_000,
+            },
+            {
+              id: 'copy',
+              name: 'Copy',
+              model: 'Grok 5',
+              brand: 'grok',
+              task: 'Name the plan',
+              status: 'needs-you',
+              elapsed: 9_000,
+            },
+          ],
+        }}
+      />
+    </div>
+  ),
   button: ButtonPreview,
   'button-group': ButtonGroupPreview,
   toggle: () => (
