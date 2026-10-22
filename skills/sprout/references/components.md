@@ -1650,6 +1650,41 @@ import { ChatSources, InlineCitation } from "@tulipfarm/sprout/chat-sources";
 <ChatSources sources={sources} />
 ```
 
+### Model Selector
+
+Pass raw numbers for `speed`, `quality`, and `cost` (higher is faster, better, and pricier). Each one is rated 1–5 against the min and max of the list, so prices never show. A search field filters by name, description, or vendor. Hovering a column heading shows what it measures and what each bar count means. `ChatInput` uses this picker for `models`.
+
+```tsx
+import { ModelSelector } from '@tulipfarm/sprout/model-selector';
+
+<ModelSelector
+  models={[
+    {
+      id: 'opus',
+      label: 'Claude Opus 5.5',
+      brand: 'claude',
+      description: 'Hardest problems',
+      speed: 40,
+      quality: 95,
+      cost: 25,
+    },
+    {
+      id: 'deepseek',
+      label: 'DeepSeek V4',
+      brand: 'deepseek',
+      description: 'Cheap and capable',
+      speed: 70,
+      quality: 80,
+      cost: 1,
+    },
+  ]}
+  value={model}
+  onValueChange={setModel}
+/>;
+```
+
+Set `--sprout-model-selector-speed`, `-quality`, and `-cost` on `:root` to recolor the meters; the list renders in a portal.
+
 ### Plan Outline
 
 ```tsx

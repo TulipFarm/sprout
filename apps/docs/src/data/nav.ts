@@ -170,6 +170,7 @@ export const componentGroups: NavGroup[] = [
       component('Plan Outline', "A saved plan's nested tasks, marks, and dependencies."),
       component('Task Tree', 'A live list of tasks drawn as a tree, with a status mark on each.'),
       component('Chat Sources', 'Numbered citations and the list of sources a reply used.'),
+      component('Model Selector', 'Pick a chat model by its logo, speed, quality, and cost.'),
       component('Reasoning Effort', 'A pill slider for how hard a model thinks before it replies.'),
       component('Prompt List', 'Starter prompts to pick from, with the apps each one uses.'),
       component('Questionnaire', 'Asks one question at a time, with choices, typed answers, and skips.'),

@@ -240,6 +240,10 @@
       "types": "./dist/components/message-scroller.d.ts",
       "import": "./dist/components/message-scroller.js"
     },
+    "./model-selector": {
+      "types": "./dist/components/model-selector.d.ts",
+      "import": "./dist/components/model-selector.js"
+    },
     "./navigation-menu": {
       "types": "./dist/components/navigation-menu.d.ts",
       "import": "./dist/components/navigation-menu.js"
