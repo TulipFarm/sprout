@@ -60,12 +60,12 @@ describe('TaskTree', () => {
     const root = screen.container;
     await drawn(root);
     expect(row(root, 'Building app').getAttribute('data-state')).toBe('running');
+    const start = performance.now();
     await screen.rerender(<Tree last="success" />);
-    const lines = [...root.querySelectorAll<SVGPathElement>('.sprout-task-tree-flow .sprout-task-tree-path-done')];
-    expect(lines).toHaveLength(2);
-    expect(lines.some(line => line.getAnimations().length > 0)).toBe(true);
-    expect(row(root, 'Building app').getAttribute('data-state')).toBe('running');
+    // The parent waits for the line from the part that just succeeded to reach it.
     await expect.poll(() => row(root, 'Building app').getAttribute('data-state')).toBe('success');
+    expect(performance.now() - start).toBeGreaterThanOrEqual(270);
+    await expect.poll(() => root.querySelectorAll('.sprout-task-tree-flow .sprout-task-tree-path-done').length).toBe(2);
     expect(root.querySelector('.sprout-task-tree-summary')!.textContent).toBe('3 of 3 done');
   });
 
@@ -86,6 +86,6 @@ describe('TaskTree', () => {
     const root = screen.container;
     await drawn(root);
     await screen.rerender(<Tree last="error" />);
-    await expect.poll(() => row(root, 'Building app').getAttribute('data-state'), { timeout: 100 }).toBe('error');
+    await expect.poll(() => row(root, 'Building app').getAttribute('data-state'), { timeout: 250 }).toBe('error');
   });
 });
