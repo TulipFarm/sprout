@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Slider } from '../../packages/sprout/src/components/slider.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, setTheme, settle, srgb, themes } from './support.js';
 
 function Sliders() {
   return (
@@ -43,7 +43,7 @@ describe('Slider in a real browser', () => {
     expect(getComputedStyle(part(single, 'slider-range')).backgroundColor).toBe(colorOf('--sprout-primary'));
     expect(getComputedStyle(part(single, 'slider-track')).backgroundColor).toBe(colorOf('--sprout-input'));
     const knob = getComputedStyle(part(single, 'slider-thumb'));
-    expect(knob.backgroundColor).toBe('rgb(255, 255, 255)');
+    expect(srgb(knob.backgroundColor)).toBe('rgb(255, 255, 255)');
     expect(knob.borderTopColor).toBe(colorOf('--sprout-focus'));
     expect(await axeViolations(screen.container)).toEqual([]);
   });

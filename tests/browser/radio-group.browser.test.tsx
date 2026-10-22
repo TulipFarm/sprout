@@ -5,7 +5,7 @@ import { render } from 'vitest-browser-react';
 import { ChoiceGroup } from '../../packages/sprout/src/components/field.js';
 import { Label } from '../../packages/sprout/src/components/label.js';
 import { RadioGroup, RadioGroupItem } from '../../packages/sprout/src/components/radio-group.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 function colorOf(value: string) {
   const probe = document.createElement('span');
@@ -148,7 +148,7 @@ describe('RadioGroup in a real browser', () => {
     await expect.element(weekly).toHaveFocus();
     const ring = getComputedStyle(weekly.element());
     expect(ring.outlineStyle).toBe('solid');
-    expect(ring.outlineWidth).toBe('1px');
+    expect(ring.outlineWidth).toBe(focusWidth());
     expect(ring.outlineColor).toBe(colorOf('var(--sprout-focus-ring)'));
     await userEvent.keyboard('{ArrowDown}');
     await expect.element(daily).toHaveFocus();

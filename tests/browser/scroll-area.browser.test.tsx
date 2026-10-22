@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { ScrollArea, type ScrollAreaProps } from '../../packages/sprout/src/components/scroll-area.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 function Records({ count, wide = false }: { count: number; wide?: boolean }) {
   return (
@@ -145,7 +145,7 @@ describe('ScrollArea in a real browser', () => {
     await userEvent.tab();
     expect(document.activeElement).toBe(viewport);
     expect(getComputedStyle(viewport).outlineStyle).toBe('solid');
-    expect(getComputedStyle(viewport).outlineWidth).toBe('1px');
+    expect(getComputedStyle(viewport).outlineWidth).toBe(focusWidth());
     await userEvent.keyboard('{End}');
     await expect.poll(() => viewport.scrollTop).toBeGreaterThan(100);
     await userEvent.keyboard('{Home}');

@@ -133,7 +133,7 @@ describe('StatePanel in a real browser', () => {
     expect(document.activeElement).toBe(document.body);
   });
 
-  it('enters with motion, and reduced motion stops it and the spinner', async () => {
+  it('enters with motion, and reduced motion keeps only a fade and stops the spinner', async () => {
     const screen = await render(<Kinds />);
     const panel = part(screen.getByTestId('loading').element(), '[data-slot="state-panel"]');
     const spinner = part(panel, '[data-slot="spinner"]');
@@ -141,7 +141,10 @@ describe('StatePanel in a real browser', () => {
     expect(getComputedStyle(panel).animationDuration).toBe('0.18s');
     expect(getComputedStyle(spinner).animationName).toBe('sprout-spinner-spin');
     await emulate({ reducedMotion: true });
-    expect(getComputedStyle(panel).animationName).toBe('none');
+    expect(getComputedStyle(panel).animationName).toBe('sprout-state-panel-fade');
+    const frames = panel.getAnimations().flatMap(animation => (animation.effect as KeyframeEffect).getKeyframes());
+    expect(frames.length).toBeGreaterThan(0);
+    expect(frames.every(frame => !('transform' in frame) && !('translate' in frame))).toBe(true);
     expect(getComputedStyle(spinner).animationName).toBe('none');
   });
 

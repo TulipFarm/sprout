@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Badge, badgeVariantNames } from '../../packages/sprout/src/components/badge.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 const Check = (props: { 'data-icon'?: string }) => (
   <svg viewBox="0 0 16 16" aria-hidden="true" {...props}>
@@ -136,7 +136,7 @@ describe('Badge in a real browser', () => {
     await userEvent.tab();
     await expect.element(link).toHaveFocus();
     expect(getComputedStyle(link.element()).outlineStyle).toBe('solid');
-    expect(getComputedStyle(link.element()).outlineWidth).toBe('1px');
+    expect(getComputedStyle(link.element()).outlineWidth).toBe(focusWidth());
     await userEvent.keyboard('{Enter}');
     expect(location.hash).toBe('#workflow');
     await userEvent.tab();

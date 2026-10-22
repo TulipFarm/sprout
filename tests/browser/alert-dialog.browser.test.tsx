@@ -175,20 +175,21 @@ describe('AlertDialog in a real browser', () => {
     expect(confirmed).toBe(1);
   });
 
-  it('opens with a 180ms transition and reduced motion removes it', async () => {
+  it('opens with a 180ms transition and reduced motion drops the scale but keeps the fade', async () => {
     const screen = await render(<Confirm />);
     const trigger = screen.getByRole('button', { name: 'Delete file' });
     await trigger.click();
     await expect.element(dialog()).toBeVisible();
+    expect(getComputedStyle(popup()).transitionProperty).toBe('opacity, scale');
     expect(getComputedStyle(popup()).transitionDuration).toBe('0.18s, 0.18s');
     await userEvent.keyboard('{Escape}');
     await expect.element(dialog()).not.toBeInTheDocument();
     await emulate({ reducedMotion: true });
     await trigger.click();
     await expect.element(dialog()).toBeVisible();
-    expect(getComputedStyle(popup()).transitionDuration).toBe('0s');
-    expect(getComputedStyle(document.querySelector('[data-slot="alert-dialog-overlay"]')!).transitionDuration).toBe(
-      '0s',
-    );
+    for (const node of [popup(), document.querySelector('[data-slot="alert-dialog-overlay"]')!]) {
+      expect(getComputedStyle(node).transitionProperty).toBe('opacity');
+      expect(getComputedStyle(node).transitionDuration).toBe('0.18s');
+    }
   });
 });

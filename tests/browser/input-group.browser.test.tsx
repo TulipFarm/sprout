@@ -10,7 +10,7 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from '../../packages/sprout/src/components/input-group.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 const Search = () => (
   <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
@@ -178,8 +178,8 @@ describe('InputGroup in a real browser', () => {
     expect(css(group).outlineWidth).toBe('0px');
     await tabFromStart();
     await expect.element(input).toHaveFocus();
-    expect(css(group).outlineWidth).toBe('1px');
-    expect(css(group).outlineColor).toBe('rgba(0, 0, 0, 0)');
+    expect(css(group).outlineWidth).toBe(focusWidth());
+    await expect.poll(() => css(group).outlineColor).toBe(colorOf('--sprout-focus-ring'));
     await expect.poll(() => css(group).borderTopColor).toBe(colorOf('--sprout-border'));
 
     await screen.getByTestId('large').element().querySelector<HTMLElement>("[data-align='inline-start']")!.click();

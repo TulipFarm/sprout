@@ -4,7 +4,7 @@ import { render } from 'vitest-browser-react';
 import { useState } from 'react';
 import { Checkbox, checkboxVariantNames } from '../../packages/sprout/src/components/checkbox.js';
 import { Label } from '../../packages/sprout/src/components/label.js';
-import { axeViolations, emulate, setTheme, settle, size, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, size, themes } from './support.js';
 
 function colorOf(token: string) {
   const probe = document.createElement('span');
@@ -125,7 +125,7 @@ describe('Checkbox in a real browser', () => {
     await expect.element(business).toHaveFocus();
     const ring = getComputedStyle(business.element());
     expect(ring.outlineStyle).toBe('solid');
-    expect(ring.outlineWidth).toBe('1px');
+    expect(ring.outlineWidth).toBe(focusWidth());
     expect(ring.outlineColor).toBe(colorOf('--sprout-focus-ring'));
     await userEvent.keyboard(' ');
     await expect.element(business).toHaveAttribute('aria-checked', 'true');

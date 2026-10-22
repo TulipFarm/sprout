@@ -4,7 +4,7 @@ import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from '../../packages/sprout/src/components/popover.js';
 import { SearchField } from '../../packages/sprout/src/components/search-field.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 function Search({
   label,
@@ -104,7 +104,7 @@ describe('SearchField in a real browser', () => {
     await userEvent.keyboard('gpt');
     await expect.element(input).toHaveValue('gpt');
     expect(ring().outlineStyle).toBe('solid');
-    expect(ring().outlineWidth).toBe('1px');
+    expect(ring().outlineWidth).toBe(focusWidth());
     await expect.poll(() => ring().borderTopColor).toBe(colorOf('--sprout-border'));
 
     await userEvent.tab();

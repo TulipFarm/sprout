@@ -144,6 +144,7 @@ describe('BrandIcon in a real browser', () => {
     await userEvent.hover(document.querySelector('[data-slot="brand-stack"] .sprout-brand-tile')!);
     const tooltip = () => document.querySelector<HTMLElement>('.sprout-brand-tooltip');
     await expect.poll(() => tooltip()?.textContent).toBe('Google Workspace');
-    expect(getComputedStyle(tooltip()!).transitionDuration).toBe('0s');
+    expect(getComputedStyle(tooltip()!).transitionProperty).toBe('opacity');
+    expect(getComputedStyle(tooltip()!).transitionDuration).toBe('0.12s');
   });
 });

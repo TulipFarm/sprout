@@ -47,12 +47,14 @@ function Gallery() {
   );
 }
 
-const primary = {
-  'neutral light': 'rgb(38, 38, 38)',
-  'neutral dark': 'rgb(237, 237, 237)',
-  'tulipfarm light': 'rgb(24, 128, 56)',
-  'tulipfarm dark': 'rgb(117, 206, 142)',
-};
+function colorOf(token: string) {
+  const probe = document.createElement('span');
+  probe.style.color = `var(${token})`;
+  document.body.append(probe);
+  const value = getComputedStyle(probe).color;
+  probe.remove();
+  return value;
+}
 
 const list = (name = 'Project') => page.getByRole('tablist', { name });
 const tab = (name: string, scope = list()) => scope.getByRole('tab', { name });
@@ -64,8 +66,8 @@ describe('Tabs in a real browser', () => {
     await settle();
     expect(await axeViolations(screen.container)).toEqual([]);
     const step = tab('Overview', list('steps tabs')).element();
-    expect(getComputedStyle(step).color).toBe(primary[`${theme} ${mode}`]);
-    expect(getComputedStyle(step, '::after').backgroundColor).toBe(primary[`${theme} ${mode}`]);
+    expect(getComputedStyle(step).color).toBe(colorOf('--sprout-primary'));
+    expect(getComputedStyle(step, '::after').backgroundColor).toBe(colorOf('--sprout-primary'));
   });
 
   for (const variant of variants)

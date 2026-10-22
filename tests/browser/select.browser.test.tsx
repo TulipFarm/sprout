@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../packages/sprout/src/components/select.js';
-import { axeViolations, emulate, setTheme, settle, size } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, size } from './support.js';
 
 const durations = ['15 minutes', '30 minutes', '1 hour', '2 hours'];
 const repeats = ['Does not repeat', 'Every day', 'Weekdays', 'Every week'];
@@ -40,6 +40,15 @@ function Choice({
       </SelectContent>
     </Select>
   );
+}
+
+function colorOf(token: string) {
+  const probe = document.createElement('span');
+  probe.style.color = `var(${token})`;
+  document.body.append(probe);
+  const value = getComputedStyle(probe).color;
+  probe.remove();
+  return value;
 }
 
 const listbox = () => page.getByRole('listbox');
@@ -173,12 +182,11 @@ describe('Select in a real browser', () => {
       setTheme('neutral', mode);
       const screen = await render(<Choice label="Duration" items={durations} />);
       const trigger = screen.getByRole('combobox');
-      const surface = mode === 'dark' ? 'rgb(29, 29, 29)' : 'rgb(253, 253, 253)';
-      expect(getComputedStyle(trigger.element()).backgroundColor).toBe(surface);
+      expect(getComputedStyle(trigger.element()).backgroundColor).toBe(colorOf('--sprout-surface'));
       await trigger.click();
       await settle();
       const popup = getComputedStyle(content());
-      expect(popup.backgroundColor).toBe(surface);
+      expect(popup.backgroundColor).toBe(colorOf('--sprout-popover'));
       expect(popup.opacity).toBe('1');
       expect(popup.transitionDuration).toBe('0.12s, 0.12s');
       expect(await axeViolations()).toEqual([]);
@@ -191,12 +199,12 @@ describe('Select in a real browser', () => {
     expect(getComputedStyle(content()).transitionDuration).toBe('0s');
   });
 
-  it('keyboard focus shows a 1px solid ring', async () => {
+  it('keyboard focus shows a 2px solid ring', async () => {
     const screen = await render(<Choice label="Calendar" items={['Work']} />);
     await userEvent.tab();
     const trigger = screen.getByRole('combobox').element();
     expect(document.activeElement).toBe(trigger);
     expect(getComputedStyle(trigger).outlineStyle).toBe('solid');
-    expect(getComputedStyle(trigger).outlineWidth).toBe('1px');
+    expect(getComputedStyle(trigger).outlineWidth).toBe(focusWidth());
   });
 });
