@@ -67,7 +67,11 @@
     background: var(--sprout-surface);
     color: var(--sprout-text);
   }
-  .sprout-message-scroller-button[data-variant='secondary']:hover,
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-message-scroller-button[data-variant='secondary']:hover {
+      background: var(--sprout-hover);
+    }
+  }
   .sprout-message-scroller-button[data-variant='secondary']:active {
     background: var(--sprout-hover);
   }

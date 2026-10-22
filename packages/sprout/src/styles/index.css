@@ -186,6 +186,7 @@
 
   :root,
   .light {
+    color-scheme: light;
     --sprout-canvas: oklch(0.9791 0 0);
     --sprout-surface: oklch(0.994 0 0);
     --sprout-hover: oklch(0.9461 0 0);
@@ -202,7 +203,7 @@
     --sprout-on-primary: oklch(0.9851 0 0);
     --sprout-focus: oklch(0.4386 0 0);
     --sprout-focus-ring: oklch(0.6231 0.188 259.81);
-    --sprout-focus-width: 1px;
+    --sprout-focus-width: 2px;
     --sprout-danger: oklch(0.51 0.1702 23.08);
     --sprout-danger-hover: oklch(0.4523 0.1506 23.05);
     --sprout-on-danger: oklch(0.9845 0.0075 17.28);
@@ -219,6 +220,7 @@
   }
 
   .dark {
+    color-scheme: dark;
     --sprout-canvas: oklch(0.1957 0 0);
     --sprout-surface: oklch(0.2308 0 0);
     --sprout-hover: oklch(0.2891 0 0);
@@ -252,7 +254,8 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) {
-        --sprout-canvas: oklch(0.1957 0 0);
+      color-scheme: dark;
+      --sprout-canvas: oklch(0.1957 0 0);
       --sprout-surface: oklch(0.2308 0 0);
       --sprout-hover: oklch(0.2891 0 0);
       --sprout-active: oklch(0.3329 0 0);
@@ -295,5 +298,11 @@
     --sprout-body: var(--sprout-text);
     --sprout-faint: color-mix(in oklab, var(--sprout-muted) 60%, var(--sprout-surface));
     --sprout-primary-text: var(--sprout-primary);
+    accent-color: var(--sprout-primary);
+    caret-color: var(--sprout-primary);
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--sprout-primary) 24%, transparent);
   }
 }

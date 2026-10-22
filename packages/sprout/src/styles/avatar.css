@@ -158,10 +158,4 @@
     width: 1.25rem;
     height: 1.25rem;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .sprout-avatar-image {
-      transition: none;
-    }
-  }
 }

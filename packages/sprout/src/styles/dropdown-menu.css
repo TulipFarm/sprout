@@ -129,6 +129,12 @@
     color: var(--sprout-text);
   }
 
+  @media (pointer: coarse) {
+    .sprout-dropdown-menu-item {
+      min-height: 2.75rem;
+    }
+  }
+
   @media (forced-colors: active) {
     .sprout-dropdown-menu-item[data-highlighted],
     .sprout-dropdown-menu-sub-trigger[data-popup-open] {

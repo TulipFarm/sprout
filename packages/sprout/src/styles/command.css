@@ -208,6 +208,12 @@
     max-height: min(20rem, calc(76dvh - 3rem));
   }
 
+  @media (pointer: coarse) {
+    .sprout-command-item {
+      min-height: 2.75rem;
+    }
+  }
+
   @media (forced-colors: active) {
     .sprout-command-item[data-selected] {
       outline: 2px solid Highlight;

@@ -188,9 +188,13 @@
   .sprout-sql-column[data-join] {
     cursor: pointer;
   }
-  .sprout-sql-column[data-join]:hover,
   .sprout-sql-column[data-active] {
     background: color-mix(in oklab, var(--sprout-primary) 8%, transparent);
+  }
+  @media (hover: hover) {
+    .sprout-sql-column[data-join]:hover {
+      background: color-mix(in oklab, var(--sprout-primary) 8%, transparent);
+    }
   }
   .sprout-sql-column-icon {
     display: flex;
@@ -344,9 +348,11 @@
       transform var(--sprout-motion-fast) var(--sprout-motion-ease),
       border-color var(--sprout-motion-fast) var(--sprout-motion-ease);
   }
-  .sprout-sql-more-button:hover {
-    border-color: var(--sprout-primary);
-    transform: translate(-2px, -2px);
+  @media (hover: hover) {
+    .sprout-sql-more-button:hover {
+      border-color: var(--sprout-primary);
+      transform: translate(-2px, -2px);
+    }
   }
   .sprout-sql-more-button:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -395,7 +401,9 @@
 
   @media (prefers-reduced-motion: reduce) {
     .sprout-sql-table,
-    .sprout-sql-join,
+    .sprout-sql-join {
+      transition: opacity var(--sprout-motion-normal) linear;
+    }
     .sprout-sql-more-button {
       transition: none;
     }

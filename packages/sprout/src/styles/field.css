@@ -222,11 +222,12 @@
     border-radius: var(--sprout-radius-control);
     color: var(--sprout-text);
   }
-  .sprout-choice-option:not([data-disabled]):hover {
-    background-color: var(--sprout-hover);
+  @media (hover: hover) {
+    .sprout-choice-option:not([data-disabled], [data-checked]):hover {
+      background-color: var(--sprout-hover);
+    }
   }
-  .sprout-choice-option[data-checked],
-  .sprout-choice-option[data-checked]:hover {
+  .sprout-choice-option[data-checked] {
     background-color: var(--sprout-primary-subtle);
   }
   .sprout-choice-option[data-disabled] {
@@ -236,8 +237,13 @@
     border: 1px solid var(--sprout-input);
     background-color: var(--sprout-surface);
   }
-  .sprout-choice-group[data-type='radio'] .sprout-choice-option:not([data-disabled]):hover {
-    background-color: var(--sprout-hover);
+  @media (hover: hover) {
+    .sprout-choice-group[data-type='radio'] .sprout-choice-option:not([data-disabled], [data-checked]):hover {
+      background-color: var(--sprout-hover);
+    }
+    .sprout-checkbox-field:not([data-disabled]) .sprout-checkbox-field-label:hover .sprout-field-checkbox:not([data-checked]) {
+      border-color: var(--sprout-border-strong);
+    }
   }
   .sprout-choice-group[data-type='radio'] .sprout-choice-option[data-checked] {
     border-color: color-mix(in oklab, var(--sprout-primary) 50%, transparent);

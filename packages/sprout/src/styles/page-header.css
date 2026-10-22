@@ -104,8 +104,10 @@
     text-decoration: none;
     white-space: nowrap;
   }
-  .sprout-page-header-breadcrumb-link:hover {
-    color: var(--sprout-text);
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-page-header-breadcrumb-link:hover {
+      color: var(--sprout-text);
+    }
   }
   .sprout-page-header-breadcrumb-link:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);

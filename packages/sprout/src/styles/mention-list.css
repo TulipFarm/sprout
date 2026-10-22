@@ -60,8 +60,10 @@
       min-height: 36px;
     }
   }
-  .sprout-mention-option:hover {
-    background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-mention-option:hover {
+      background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
+    }
   }
   .sprout-mention-option[aria-selected='true'] {
     background: var(--sprout-hover);

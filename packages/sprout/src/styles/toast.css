@@ -153,8 +153,10 @@
     inset: -8px;
     content: '';
   }
-  .sprout-toast-close:hover {
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-toast-close:hover {
+      color: var(--sprout-text);
+    }
   }
 
   @media (forced-colors: active) {

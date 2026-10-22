@@ -26,8 +26,10 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
-  .sprout-select-trigger:hover {
-    border-color: var(--sprout-border);
+  @media (hover: hover) {
+    .sprout-select-trigger:hover {
+      border-color: var(--sprout-border);
+    }
   }
   .sprout-select-trigger[data-popup-open] {
     border-color: var(--sprout-border);

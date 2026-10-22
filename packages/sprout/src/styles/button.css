@@ -54,8 +54,10 @@
     color: var(--sprout-on-primary);
     box-shadow: var(--sprout-shadow-control);
   }
-  .sprout-button-variant-default:hover {
-    background: var(--sprout-primary-hover);
+  @media (hover: hover) {
+    .sprout-button-variant-default:hover {
+      background: var(--sprout-primary-hover);
+    }
   }
   .sprout-button-variant-default:active {
     background: var(--sprout-primary-active);
@@ -64,8 +66,10 @@
     border-color: var(--sprout-input);
     background: var(--sprout-surface);
   }
-  .sprout-button-variant-outline:hover {
-    background: var(--sprout-hover);
+  @media (hover: hover) {
+    .sprout-button-variant-outline:hover {
+      background: var(--sprout-hover);
+    }
   }
   .sprout-button-variant-outline:active,
   .sprout-button-variant-outline[aria-expanded='true'] {
@@ -74,16 +78,25 @@
   .sprout-button-variant-secondary {
     background: var(--sprout-hover);
   }
-  .sprout-button-variant-secondary:hover,
   .sprout-button-variant-secondary:active,
   .sprout-button-variant-secondary[aria-expanded='true'] {
     background: var(--sprout-active);
+  }
+  @media (hover: hover) {
+    .sprout-button-variant-secondary:hover {
+      background: var(--sprout-active);
+    }
   }
   .sprout-button-variant-ghost {
     background: transparent;
     color: var(--sprout-muted);
   }
-  .sprout-button-variant-ghost:hover,
+  @media (hover: hover) {
+    .sprout-button-variant-ghost:hover {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
+  }
   .sprout-button-variant-ghost[aria-expanded='true'],
   .sprout-button-variant-ghost[aria-pressed='true'] {
     background: var(--sprout-hover);
@@ -97,7 +110,11 @@
     background: color-mix(in srgb, var(--sprout-danger) 10%, transparent);
     color: var(--sprout-danger);
   }
-  .sprout-button-variant-destructive:hover,
+  @media (hover: hover) {
+    .sprout-button-variant-destructive:hover {
+      background: color-mix(in srgb, var(--sprout-danger) 18%, transparent);
+    }
+  }
   .sprout-button-variant-destructive:active {
     background: color-mix(in srgb, var(--sprout-danger) 18%, transparent);
   }
@@ -108,7 +125,11 @@
     background: transparent;
     color: var(--sprout-danger);
   }
-  .sprout-button-variant-ghost-destructive:hover,
+  @media (hover: hover) {
+    .sprout-button-variant-ghost-destructive:hover {
+      background: color-mix(in srgb, var(--sprout-danger) 10%, transparent);
+    }
+  }
   .sprout-button-variant-ghost-destructive:active {
     background: color-mix(in srgb, var(--sprout-danger) 10%, transparent);
   }
@@ -120,14 +141,20 @@
     color: var(--sprout-primary);
     text-underline-offset: 4px;
   }
-  .sprout-button-variant-link:hover {
-    text-decoration: underline;
+  @media (hover: hover) {
+    .sprout-button-variant-link:hover {
+      text-decoration: underline;
+    }
   }
   .sprout-button-variant-scope {
     background: color-mix(in srgb, var(--sprout-info) 10%, transparent);
     color: var(--sprout-info);
   }
-  .sprout-button-variant-scope:hover,
+  @media (hover: hover) {
+    .sprout-button-variant-scope:hover {
+      background: color-mix(in srgb, var(--sprout-info) 16%, transparent);
+    }
+  }
   .sprout-button-variant-scope:active,
   .sprout-button-variant-scope[aria-expanded='true'] {
     background: color-mix(in srgb, var(--sprout-info) 16%, transparent);

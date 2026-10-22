@@ -22,9 +22,13 @@
     line-height: 1.25rem;
     font-variant-numeric: tabular-nums;
   }
-  .sprout-chat-sources .sprout-chat-sources-trigger:hover,
   .sprout-chat-sources .sprout-chat-sources-trigger[data-panel-open] {
     color: var(--sprout-text);
+  }
+  @media (hover: hover) {
+    .sprout-chat-sources .sprout-chat-sources-trigger:hover {
+      color: var(--sprout-text);
+    }
   }
   .sprout-chat-sources-list {
     display: grid;
@@ -90,8 +94,10 @@
     text-decoration: underline;
     text-underline-offset: 4px;
   }
-  .sprout-chat-sources-link:hover {
-    color: var(--sprout-primary-hover);
+  @media (hover: hover) {
+    .sprout-chat-sources-link:hover {
+      color: var(--sprout-primary-hover);
+    }
   }
   .sprout-chat-sources-link:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -114,10 +120,15 @@
     font-size: var(--sprout-text-xs);
     font-variant-numeric: tabular-nums;
   }
-  .sprout-chat-sources-citation.sprout-button:hover,
   .sprout-chat-sources-citation.sprout-button[data-popup-open] {
     background: var(--sprout-primary-subtle);
     color: var(--sprout-primary);
+  }
+  @media (hover: hover) {
+    .sprout-chat-sources-citation.sprout-button:hover {
+      background: var(--sprout-primary-subtle);
+      color: var(--sprout-primary);
+    }
   }
   .sprout-chat-sources-preview-head {
     display: flex;
@@ -159,9 +170,13 @@
     text-underline-offset: 3px;
     vertical-align: baseline;
   }
-  .sprout-chat-sources-checked.sprout-button:hover,
   .sprout-chat-sources-checked.sprout-button[data-popup-open] {
     text-decoration-thickness: 2px;
+  }
+  @media (hover: hover) {
+    .sprout-chat-sources-checked.sprout-button:hover {
+      text-decoration-thickness: 2px;
+    }
   }
   .sprout-chat-sources-sr-only {
     position: absolute;

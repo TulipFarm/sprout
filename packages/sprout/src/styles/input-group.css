@@ -16,7 +16,7 @@
   }
   .sprout-input-group:has([data-slot='input-group-control']:focus-visible) {
     border-color: var(--sprout-border);
-    outline: var(--sprout-focus-width) solid transparent;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-input-group:has([data-slot='input-group-control'][aria-invalid='true']),
   .sprout-input-group:has([data-slot='input-group-control'][data-invalid]) {
@@ -62,7 +62,7 @@
   .sprout-input-group-variant-composer:has([data-slot='input-group-control']:focus-visible),
   .sprout-input-group-variant-question-composer:has([data-slot='input-group-control']:focus-visible) {
     border-color: var(--sprout-border);
-    outline: var(--sprout-focus-width) solid transparent;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-input-group-variant-composer:has([data-slot='input-group-control'][aria-invalid='true']),
   .sprout-input-group-variant-question-composer:has([data-slot='input-group-control'][aria-invalid='true']) {

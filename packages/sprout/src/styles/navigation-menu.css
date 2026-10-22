@@ -56,17 +56,21 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
-  .sprout-navigation-menu-trigger:hover,
-  .sprout-navigation-menu-list > .sprout-navigation-menu-item > .sprout-navigation-menu-link:hover {
-    background: var(--sprout-hover);
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-navigation-menu-trigger:hover,
+    .sprout-navigation-menu-list > .sprout-navigation-menu-item > .sprout-navigation-menu-link:hover {
+      background: var(--sprout-hover);
+    }
   }
   .sprout-navigation-menu-trigger[data-popup-open],
   .sprout-navigation-menu-list > .sprout-navigation-menu-item > .sprout-navigation-menu-link[data-active] {
     background: var(--sprout-hover);
   }
-  .sprout-navigation-menu-trigger[data-popup-open]:hover,
-  .sprout-navigation-menu-list > .sprout-navigation-menu-item > .sprout-navigation-menu-link[data-active]:hover {
-    background: var(--sprout-active);
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-navigation-menu-trigger[data-popup-open]:hover,
+    .sprout-navigation-menu-list > .sprout-navigation-menu-item > .sprout-navigation-menu-link[data-active]:hover {
+      background: var(--sprout-active);
+    }
   }
   .sprout-navigation-menu-trigger:focus-visible,
   .sprout-navigation-menu-link:focus-visible {
@@ -114,15 +118,19 @@
     width: 16px;
     height: 16px;
   }
-  .sprout-navigation-menu-link:hover {
-    background: var(--sprout-hover);
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-navigation-menu-link:hover {
+      background: var(--sprout-hover);
+    }
   }
   .sprout-navigation-menu-link[data-active] {
     background: var(--sprout-hover);
     font-weight: 500;
   }
-  .sprout-navigation-menu-link[data-active]:hover {
-    background: var(--sprout-active);
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-navigation-menu-link[data-active]:hover {
+      background: var(--sprout-active);
+    }
   }
 
   .sprout-navigation-menu-indicator {

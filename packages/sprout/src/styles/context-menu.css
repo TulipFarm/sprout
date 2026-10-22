@@ -130,6 +130,12 @@
     color: var(--sprout-text);
   }
 
+  @media (pointer: coarse) {
+    .sprout-context-menu-item {
+      min-height: 2.75rem;
+    }
+  }
+
   @media (forced-colors: active) {
     .sprout-context-menu-item[data-highlighted],
     .sprout-context-menu-sub-trigger[data-popup-open] {

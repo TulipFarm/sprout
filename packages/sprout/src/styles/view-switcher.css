@@ -112,13 +112,26 @@
   .sprout-view-switcher-tab:hover .sprout-view-switcher-close {
     opacity: 1;
   }
-  .sprout-view-switcher-close:hover {
-    background: var(--sprout-active);
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-view-switcher-close:hover {
+      background: var(--sprout-active);
+      color: var(--sprout-text);
+    }
   }
   @media (hover: none) {
     .sprout-view-switcher-close {
       opacity: 1;
+    }
+  }
+  /* A 24px hit area around the 16px close mark. */
+  @media (pointer: coarse) {
+    .sprout-view-switcher-close {
+      position: relative;
+    }
+    .sprout-view-switcher-close::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
     }
   }
   /* With a pointer, the close button floats over the tab end instead of taking space, so gaps stay even. */
@@ -155,9 +168,13 @@
     flex: none;
     color: var(--sprout-muted);
   }
-  .sprout-view-switcher-add.sprout-button:hover,
   .sprout-view-switcher-add.sprout-button[data-popup-open] {
     color: var(--sprout-text);
+  }
+  @media (hover: hover) {
+    .sprout-view-switcher-add.sprout-button:hover {
+      color: var(--sprout-text);
+    }
   }
 
   .sprout-view-switcher-actions {

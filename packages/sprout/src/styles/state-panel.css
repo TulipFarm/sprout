@@ -159,8 +159,14 @@
 
   @media (prefers-reduced-motion: reduce) {
     .sprout-state-panel {
-      animation: none;
+      animation-name: sprout-state-panel-fade;
     }
+  }
+}
+
+@keyframes sprout-state-panel-fade {
+  from {
+    opacity: 0;
   }
 }
 

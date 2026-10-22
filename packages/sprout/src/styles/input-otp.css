@@ -80,14 +80,14 @@
   .sprout-input-otp-slot:focus {
     z-index: 1;
     border-color: var(--sprout-border);
-    outline: var(--sprout-focus-width) solid transparent;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
   .sprout-input-otp-slot[aria-invalid='true'] {
     border-color: var(--sprout-danger);
   }
   .sprout-input-otp-slot[aria-invalid='true']:focus {
-    outline-color: color-mix(in oklab, var(--sprout-danger) 40%, transparent);
+    outline-color: var(--sprout-danger);
   }
   .sprout-input-otp-slot:disabled {
     cursor: not-allowed;

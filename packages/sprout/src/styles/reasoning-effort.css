@@ -32,7 +32,7 @@
     position: absolute;
     top: 2px;
     z-index: 2;
-    font-size: 12px;
+    font-size: var(--sprout-text-xs);
     font-weight: 500;
     line-height: 16px;
     white-space: nowrap;

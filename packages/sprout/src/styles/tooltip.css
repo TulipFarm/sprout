@@ -113,4 +113,16 @@
       transition: none;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-tooltip-content {
+      transition: opacity var(--sprout-motion-fast) linear;
+    }
+    .sprout-tooltip-content:is([data-starting-style], [data-ending-style]) {
+      opacity: 0;
+    }
+    .sprout-tooltip-content[data-instant] {
+      transition: none;
+    }
+  }
 }

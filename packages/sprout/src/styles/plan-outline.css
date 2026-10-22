@@ -139,8 +139,10 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .sprout-plan-outline-trigger:hover {
-    background: var(--sprout-hover);
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-plan-outline-trigger:hover {
+      background: var(--sprout-hover);
+    }
   }
   .sprout-plan-outline-trigger:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -330,8 +332,10 @@
     text-underline-offset: 4px;
     overflow-wrap: anywhere;
   }
-  .sprout-plan-outline-link:hover {
-    text-decoration: underline;
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-plan-outline-link:hover {
+      text-decoration: underline;
+    }
   }
   .sprout-plan-outline-link:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);

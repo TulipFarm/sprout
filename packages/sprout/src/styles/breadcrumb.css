@@ -47,8 +47,21 @@
     width: 14px;
     height: 14px;
   }
-  .sprout-breadcrumb-link:is(a[href], button):hover {
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-breadcrumb-link:is(a[href], button):hover {
+      color: var(--sprout-text);
+    }
+  }
+  /* Grow the 20px links to a 32px touch target without overlapping wrapped rows. */
+  @media (pointer: coarse) {
+    .sprout-breadcrumb-link:is(a[href], button) {
+      position: relative;
+    }
+    .sprout-breadcrumb-link:is(a[href], button)::after {
+      content: '';
+      position: absolute;
+      inset: -6px -3px;
+    }
   }
   .sprout-breadcrumb-link:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);

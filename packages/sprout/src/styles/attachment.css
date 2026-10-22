@@ -44,8 +44,10 @@
     color: var(--sprout-text);
     font-family: inherit;
   }
-  .sprout-attachment:has(> a, > button):hover {
-    background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+  @media (hover: hover) {
+    .sprout-attachment:has(> a, > button):hover {
+      background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+    }
   }
   .sprout-attachment:has(> .sprout-attachment-trigger:focus-visible) {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -442,8 +444,16 @@
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
-  .sprout-file-attachment:has(button.sprout-file-attachment-open:not(:disabled)):hover {
-    background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+  @media (hover: hover) {
+    .sprout-file-attachment:has(button.sprout-file-attachment-open:not(:disabled)):hover {
+      background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+    }
+  }
+  /* The chip's open button fills the 36px chip instead of its 20px label line. */
+  @media (pointer: coarse) {
+    .sprout-file-attachment[data-variant='chip'] .sprout-file-attachment-open {
+      align-self: stretch;
+    }
   }
 
   .sprout-file-attachment-name {

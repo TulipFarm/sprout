@@ -336,7 +336,7 @@
     background: var(--sprout-surface);
     color: var(--sprout-muted);
     font-family: var(--sprout-font);
-    font-size: 0.6875rem;
+    font-size: var(--sprout-text-xs);
     line-height: 1rem;
     text-overflow: ellipsis;
     white-space: nowrap;

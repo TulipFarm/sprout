@@ -178,11 +178,13 @@
     width: 1rem;
     height: 1rem;
   }
-  .sprout-board-column-toggle:hover,
-  .sprout-board-grip:hover,
-  .sprout-board-lane-toggle:hover {
-    background: var(--sprout-hover);
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-board-column-toggle:hover,
+    .sprout-board-grip:hover,
+    .sprout-board-lane-toggle:hover {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
   }
 
   .sprout-board-column-title {
@@ -202,10 +204,12 @@
     text-align: start;
     cursor: text;
   }
-  button.sprout-board-column-title:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--sprout-border-strong);
-    text-underline-offset: 0.2em;
+  @media (hover: hover) {
+    button.sprout-board-column-title:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--sprout-border-strong);
+      text-underline-offset: 0.2em;
+    }
   }
 
   .sprout-board-count {
@@ -352,11 +356,13 @@
   .sprout-board-card[data-openable] {
     cursor: pointer;
   }
-  .sprout-board-card:hover {
-    border-color: color-mix(in oklab, var(--sprout-border) 70%, var(--sprout-line));
+  @media (hover: hover) {
+    .sprout-board-card:hover {
+      border-color: color-mix(in oklab, var(--sprout-border) 70%, var(--sprout-line));
+    }
   }
   .sprout-board-card:focus-visible {
-    outline: 2px solid var(--sprout-focus-ring);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 1px;
   }
   .sprout-board-card[data-selected] {
@@ -516,8 +522,10 @@
     color: var(--sprout-muted);
     font-variant-numeric: tabular-nums;
   }
-  .sprout-button.sprout-board-show-all:hover {
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-button.sprout-board-show-all:hover {
+      color: var(--sprout-text);
+    }
   }
   .sprout-board-foot {
     position: sticky;
