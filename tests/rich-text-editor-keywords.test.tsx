@@ -83,6 +83,14 @@ describe('findKeywords', () => {
     expect(hits('docstring')).toEqual([]);
   });
 
+  it('looks inside nested blocks and tolerates text without a value', () => {
+    const value = doc({
+      type: 'bulletList',
+      content: [{ type: 'listItem', content: [p(text('Ask '), { type: 'text' }, text(' Slack'))] }],
+    });
+    expect(ids(value, keywords)).toEqual(['slack']);
+  });
+
   it('ignores empty or missing terms', () => {
     expect(ids(doc(p(text('anything'))), [{ id: 'x', label: '', match: [' '] }])).toEqual([]);
     expect(ids(doc(), keywords)).toEqual([]);
@@ -276,6 +284,175 @@ describe('RichTextEditor keywords', () => {
     fireEvent.pointerOver(container.querySelector('.sprout-rich-text-keyword')!);
     await new Promise(resolve => setTimeout(resolve, 20));
     expect(container.querySelector('.sprout-rich-text-keyword-hint')).toBeNull();
+  });
+
+  it('moves through the menu with arrows, Home, and End, and closes on Tab or an outside press', async () => {
+    const { container, findByRole, getByRole, queryByRole } = await setup(
+      doc(p(text('Post to Slack'))),
+      undefined,
+      vi.fn(),
+    );
+    fireEvent.pointerOver(container.querySelector('.sprout-rich-text-keyword')!);
+    const button = await findByRole('button', { name: 'Switch Slack account' });
+    fireEvent.click(button);
+    const menu = getByRole('menu');
+    const [first, last] = [
+      getByRole('menuitemradio', { name: 'tulipfarm.slack.com' }),
+      getByRole('menuitemradio', { name: 'acme.slack.com' }),
+    ];
+    fireEvent.keyDown(menu, { key: 'ArrowUp' });
+    expect(document.activeElement).toBe(last);
+    fireEvent.keyDown(menu, { key: 'Home' });
+    expect(document.activeElement).toBe(first);
+    fireEvent.keyDown(menu, { key: 'End' });
+    expect(document.activeElement).toBe(last);
+    fireEvent.pointerMove(first, { pointerType: 'mouse' });
+    expect(document.activeElement).toBe(first);
+    fireEvent.keyDown(menu, { key: 'x' });
+    fireEvent.keyDown(menu, { key: 'Tab' });
+    expect(queryByRole('menu')).toBeNull();
+
+    fireEvent.click(button);
+    fireEvent.pointerDown(getByRole('menu'));
+    expect(queryByRole('menu')).toBeTruthy();
+    fireEvent.pointerDown(document.body);
+    expect(queryByRole('menu')).toBeNull();
+  });
+
+  it('closes without a call for the current account, and at once for a sync handler', async () => {
+    const onChange = vi.fn();
+    const { container, findByRole, getByRole, queryByRole } = await setup(
+      doc(p(text('Post to Slack'))),
+      undefined,
+      onChange,
+    );
+    fireEvent.pointerOver(container.querySelector('.sprout-rich-text-keyword')!);
+    const button = await findByRole('button', { name: 'Switch Slack account' });
+    fireEvent.click(button);
+    fireEvent.click(getByRole('menuitemradio', { name: 'tulipfarm.slack.com' }));
+    expect(onChange).not.toHaveBeenCalled();
+    expect(queryByRole('menu')).toBeNull();
+  });
+
+  it('ignores picks while a switch is pending and drops a result after the menu closes', async () => {
+    let resolve!: () => void;
+    const onChange = vi.fn(() => new Promise<void>(done => (resolve = done)));
+    const { container, findByRole, getByRole, queryByRole } = await setup(
+      doc(p(text('Post to Slack'))),
+      undefined,
+      onChange,
+    );
+    fireEvent.pointerOver(container.querySelector('.sprout-rich-text-keyword')!);
+    fireEvent.click(await findByRole('button', { name: 'Switch Slack account' }));
+    fireEvent.click(getByRole('menuitemradio', { name: 'acme.slack.com' }));
+    fireEvent.click(getByRole('menuitemradio', { name: 'acme.slack.com' }));
+    expect(onChange).toHaveBeenCalledTimes(1);
+    fireEvent.keyDown(getByRole('menu'), { key: 'Escape' });
+    expect(queryByRole('menu')).toBeNull();
+    await act(async () => resolve());
+    expect(queryByRole('menu')).toBeNull();
+  });
+
+  it('announces several new disconnected apps at once, and again after they come back', async () => {
+    const more = [...keywords, { id: 'jira', label: 'Jira', connected: false }];
+    const ref = createRef<RichTextEditorHandle>();
+    const view = render(
+      <RichTextEditor ref={ref} value={doc(p(text('hi')))} onChange={() => {}} keywords={more} />,
+    );
+    await waitFor(() => expect(ref.current?.editor()).toBeTruthy());
+    const editor = ref.current!.editor()!;
+    act(() => {
+      editor.commands.setContent(doc(p(text('HubSpot and Jira'))));
+    });
+    expect(view.getByRole('status').textContent).toBe("HubSpot, Jira aren't connected.");
+    act(() => {
+      editor.commands.setContent(doc(p(text('Jira'))));
+    });
+    act(() => {
+      editor.commands.setContent(doc(p(text('Jira and HubSpot'))));
+    });
+    expect(view.getByRole('status').textContent).toBe("HubSpot isn't connected.");
+  });
+
+  it('tells screen readers how to connect from the caret', async () => {
+    const { editor, getByRole } = await setup(doc(p(text('Use HubSpot'))), vi.fn());
+    act(() => {
+      editor.commands.focus(7);
+    });
+    await waitFor(() => expect(getByRole('status').textContent).toBe("HubSpot isn't connected. Press Tab to connect it."));
+  });
+
+  it('hides the hint shortly after the pointer leaves the chip', async () => {
+    const { container } = await setup(doc(p(text('Post to Slack'))));
+    const body = container.querySelector('.sprout-rich-text-editor-body')!;
+    fireEvent.pointerOver(container.querySelector('.sprout-rich-text-keyword')!);
+    await waitFor(() => expect(container.querySelector('.sprout-rich-text-keyword-hint')).toBeTruthy());
+    const hint = container.querySelector('.sprout-rich-text-keyword-hint')!;
+    fireEvent.pointerLeave(body);
+    fireEvent.pointerEnter(hint);
+    expect(container.querySelector('.sprout-rich-text-keyword-hint')).toBeTruthy();
+    fireEvent.pointerLeave(hint);
+    fireEvent.pointerOver(container.querySelector('.ProseMirror p')!);
+    await waitFor(() => expect(container.querySelector('.sprout-rich-text-keyword-hint')).toBeNull());
+  });
+
+  it('opens the hint below a chip near the top and tints chips with a color', async () => {
+    const rect = { left: 0, right: 40, top: 10, bottom: 30, width: 40, height: 20, x: 0, y: 10 } as DOMRect;
+    Range.prototype.getBoundingClientRect = () => rect;
+    Range.prototype.getClientRects = () => Object.assign([rect], { item: () => rect }) as unknown as DOMRectList;
+    const tinted: RichTextKeyword[] = [{ ...keywords[1]!, color: '#e01e5a' }];
+    const view = render(
+      <RichTextEditor value={doc(p(text('Slack')))} onChange={() => {}} keywords={tinted} onKeywordAccountChange={vi.fn()} />,
+    );
+    await waitFor(() => expect(view.container.querySelector('.sprout-rich-text-keyword')).toBeTruthy());
+    const chip = view.container.querySelector<HTMLElement>('.sprout-rich-text-keyword')!;
+    expect(chip.dataset.tinted).toBe('');
+    expect(chip.getAttribute('style')).toContain('--sprout-rich-text-keyword-color: #e01e5a');
+    fireEvent.pointerOver(chip);
+    const button = await view.findByRole('button', { name: 'Switch Slack account' });
+    expect(button.closest<HTMLElement>('.sprout-rich-text-keyword-hint')!.dataset.side).toBe('bottom');
+    fireEvent.click(button);
+    expect(view.getByRole('menu')).toBeTruthy();
+  });
+
+  it('keeps the hint in the editor and opens the menu on the side with room', async () => {
+    vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(400);
+    vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(120);
+    vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(300);
+    const { container, findByRole, getByRole } = await setup(doc(p(text('Post to Slack'))), undefined, vi.fn());
+    fireEvent.pointerOver(container.querySelector('.sprout-rich-text-keyword')!);
+    const button = await findByRole('button', { name: 'Switch Slack account' });
+    const hint = button.closest<HTMLElement>('.sprout-rich-text-keyword-hint')!;
+    expect(hint.style.left).toBe('60px');
+    fireEvent.click(button);
+    expect(getByRole('menu')).toBeTruthy();
+    await waitFor(() => expect(hint.dataset.side).toBe('bottom'));
+    expect(hint.style.getPropertyValue('--sprout-rich-text-keyword-menu-height')).not.toBe('');
+  });
+
+  it('skips inline code and code blocks in the editor', async () => {
+    const { container } = await setup(
+      doc(p(text('Slack', [{ type: 'code' }]), text(' and ChatGPT')), { type: 'codeBlock', content: [text('Slack')] }),
+    );
+    expect(
+      [...container.querySelectorAll<HTMLElement>('.sprout-rich-text-keyword')].map(chip => chip.dataset.keyword),
+    ).toEqual(['openai']);
+  });
+
+  it('offers no Switch while disabled', async () => {
+    const view = render(
+      <RichTextEditor
+        value={doc(p(text('Slack')))}
+        onChange={() => {}}
+        keywords={keywords}
+        onKeywordAccountChange={vi.fn()}
+        disabled
+      />,
+    );
+    await waitFor(() => expect(view.container.querySelector('.sprout-rich-text-keyword')).toBeTruthy());
+    fireEvent.pointerOver(view.container.querySelector('.sprout-rich-text-keyword')!);
+    await waitFor(() => expect(view.container.querySelector('.sprout-rich-text-keyword-hint')).toBeTruthy());
+    expect(view.queryByRole('button', { name: 'Switch Slack account' })).toBeNull();
   });
 
   it('omits the Connect button without a handler', async () => {
