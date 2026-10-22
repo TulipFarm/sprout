@@ -226,6 +226,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Chat Input        | `chat-input`        | Chat message box: @agents, /skills, #files, model, send.        |
 | Chat Plan         | `chat-plan`         | Agent's proposed plan with per-step progress.                   |
 | Chat Sources      | `chat-sources`      | Inline numbered citations and the source list of a reply.       |
+| Model Selector    | `model-selector`    | Searchable model picker with logos and speed, quality, cost.    |
 | Plan Outline      | `plan-outline`      | Saved plan as a read-only outline of nested tasks.              |
 | Prompt List       | `prompt-list`       | Starter prompts at the start of a chat.                         |
 | Questionnaire     | `questionnaire`     | Ask one question at a time with choices, typed answers, skips.  |

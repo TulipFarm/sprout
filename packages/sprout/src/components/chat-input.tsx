@@ -12,7 +12,6 @@ import { Sliders } from 'reicon-react/icons/Sliders';
 import { X } from 'reicon-react/icons/X';
 import { cn } from '../internal/classes.js';
 import { FileAttachment, type AttachmentFile } from './attachment.js';
-import { BrandIcon, type Brand } from './brand-icon.js';
 import { Button } from './button.js';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command.js';
 import {
@@ -27,6 +26,7 @@ import {
 } from './dropdown-menu.js';
 import { InputGroup, InputGroupAddon, InputGroupButton } from './input-group.js';
 import { MentionList, MentionOption, MentionStatus } from './mention-list.js';
+import { ModelSelector, type ModelSelectorModel } from './model-selector.js';
 import { Popover, PopoverContent, PopoverTrigger } from './popover.js';
 import { RichTextEditor, type RichTextEditorHandle, type RichTextValue } from './rich-text-editor.js';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip.js';
@@ -66,15 +66,8 @@ export interface ChatInputOption {
   color?: string | undefined;
 }
 
-export interface ChatInputModel {
-  id: string;
-  label: string;
-  description?: string | undefined;
-  /** Draws the vendor logo. Use `icon` for a mark that isn't a `Brand`. */
-  brand?: Brand | undefined;
-  icon?: ReactNode;
-  disabled?: boolean | undefined;
-}
+/** A model in the picker. Give `speed`, `quality`, and `cost` numbers to show the meters. */
+export type ChatInputModel = ModelSelectorModel;
 
 export interface ChatInputPrompt {
   id: string;
@@ -304,11 +297,6 @@ function textDoc(text: string): RichTextValue {
   };
 }
 
-function ModelMark({ model }: { model: ChatInputModel }) {
-  if (model.brand) return <BrandIcon brand={model.brand} size="inline" />;
-  return model.icon ?? null;
-}
-
 function OptionPicker({
   label,
   search,
@@ -321,11 +309,11 @@ function OptionPicker({
 }: {
   label: string;
   search: string;
-  options: (ChatInputOption | ChatInputModel)[];
+  options: ChatInputOption[];
   value: string | undefined;
   onChange: (id: string) => void;
   disabled: boolean;
-  icon: (option: ChatInputOption | ChatInputModel | undefined) => ReactNode;
+  icon: (option: ChatInputOption | undefined) => ReactNode;
   align: 'start' | 'end';
 }) {
   const [open, setOpen] = useState(false);
@@ -356,7 +344,6 @@ function OptionPicker({
                   key={option.id}
                   value={`${option.label} ${option.description ?? ''}`}
                   data-checked={option.id === value}
-                  disabled={'disabled' in option && !!option.disabled}
                   onSelect={() => {
                     onChange(option.id);
                     setOpen(false);
@@ -634,15 +621,14 @@ export function ChatInput({
                 </div>
                 <div className="sprout-chat-input-bar-end">
                   {models && models.length > 0 && (
-                    <OptionPicker
-                      label="Model"
-                      search="Search models"
-                      options={models}
+                    <ModelSelector
+                      models={models}
                       value={model}
-                      onChange={id => onModelChange?.(id)}
+                      onValueChange={id => onModelChange?.(id)}
                       disabled={disabled}
-                      icon={option => option && <ModelMark model={option as ChatInputModel} />}
+                      side="top"
                       align="end"
+                      render={<InputGroupButton className="sprout-chat-input-picker" />}
                     />
                   )}
                   {streaming ? (

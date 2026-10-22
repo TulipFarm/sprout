@@ -262,6 +262,7 @@ const choiceListExports = ['ChoiceList', 'ChoiceSummary', 'choiceListLayoutNames
 const switchExports = ['Switch', 'switchSizeNames'];
 const sliderExports = ['Slider'];
 const reasoningEffortExports = ['ReasoningEffort'];
+const modelSelectorExports = ['ModelSelector', 'modelSelectorMetricNames', 'rateModels'];
 
 const toggleExports = ['Toggle', 'toggleSizeNames', 'toggleVariantNames', 'toggleVariants'];
 
@@ -749,6 +750,7 @@ describe('Sidebar public surface', () => {
           switchExports.includes(name) ||
           sliderExports.includes(name) ||
           reasoningEffortExports.includes(name) ||
+          modelSelectorExports.includes(name) ||
           toggleExports.includes(name) ||
           toggleGroupExports.includes(name) ||
           tooltipExports.includes(name) ||
@@ -857,6 +859,7 @@ describe('Sidebar public surface', () => {
         ...switchExports,
         ...sliderExports,
         ...reasoningEffortExports,
+        ...modelSelectorExports,
         ...toggleExports,
         ...toggleGroupExports,
         ...tooltipExports,

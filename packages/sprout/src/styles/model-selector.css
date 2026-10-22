@@ -1,0 +1,443 @@
+@layer components {
+  .sprout-model-selector-trigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    height: var(--sprout-control-height);
+    padding: 0 8px 0 4px;
+    border: 0;
+    border-radius: var(--sprout-radius-control);
+    background: transparent;
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-model-selector-trigger[data-popup-open] {
+    background: var(--sprout-hover);
+  }
+  .sprout-model-selector-trigger:active:not(:disabled) {
+    background: var(--sprout-active);
+  }
+  .sprout-model-selector-trigger:focus-visible {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
+  }
+  .sprout-model-selector-trigger:is(:disabled, [data-disabled]) {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .sprout-model-selector-trigger:hover:not(:disabled) {
+      background: var(--sprout-hover);
+    }
+  }
+
+  .sprout-model-selector-mark {
+    box-sizing: border-box;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--sprout-line);
+    border-radius: calc(var(--sprout-radius-control) - 1px);
+    background: var(--sprout-surface);
+    box-shadow: var(--sprout-shadow-control);
+  }
+  .sprout-model-selector-mark > svg {
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-model-selector-value {
+    min-width: 0;
+    max-width: 12rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sprout-model-selector-value[data-empty='true'] {
+    padding-inline-start: 4px;
+    color: var(--sprout-muted);
+  }
+  .sprout-model-selector-trigger > .sprout-model-selector-chevron {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    color: var(--sprout-muted);
+  }
+
+  /* Inside a composer bar the trigger is a ghost button with an inline mark. */
+  .sprout-input-group-button.sprout-model-selector-trigger {
+    gap: 6px;
+    font-weight: 400;
+  }
+  .sprout-input-group-button.sprout-model-selector-trigger .sprout-model-selector-mark {
+    width: auto;
+    height: auto;
+    border: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .sprout-input-group-button.sprout-model-selector-trigger > .sprout-model-selector-chevron {
+    width: 12px;
+    height: 12px;
+    color: inherit;
+  }
+
+  .sprout-model-selector-letter {
+    font-size: var(--sprout-text-xs);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .sprout-model-selector-positioner {
+    z-index: 50;
+    isolation: isolate;
+    outline: none;
+  }
+
+  .sprout-model-selector-content {
+    --sprout-model-selector-tile: 28px;
+    --sprout-model-selector-segment: 8px;
+    --sprout-model-selector-column: 3.25rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: min(18rem, var(--available-width));
+    max-height: var(--available-height);
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-overlay);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: none;
+    overflow: hidden;
+    container-type: inline-size;
+    transform-origin: var(--transform-origin);
+  }
+  .sprout-model-selector-content[data-metered='true'] {
+    width: min(28rem, var(--available-width));
+  }
+
+  .sprout-model-selector-header,
+  .sprout-model-selector-item {
+    display: grid;
+    grid-template-columns: var(--sprout-model-selector-tile) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  .sprout-model-selector-search {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--sprout-line);
+    color: var(--sprout-muted);
+  }
+  .sprout-model-selector-search > svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+  }
+  .sprout-model-selector-input {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--sprout-text);
+    font: inherit;
+    outline: none;
+  }
+  .sprout-model-selector-input::placeholder {
+    color: var(--sprout-muted);
+  }
+  .sprout-model-selector-search:focus-within {
+    color: var(--sprout-text);
+  }
+
+  .sprout-model-selector-empty {
+    padding: 12px;
+    color: var(--sprout-muted);
+    text-align: center;
+  }
+  .sprout-model-selector-empty:empty {
+    display: none;
+  }
+  .sprout-model-selector-header {
+    flex-shrink: 0;
+    padding: 8px 12px 2px;
+    color: var(--sprout-muted);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    user-select: none;
+  }
+  .sprout-model-selector-content[data-metered='true'] :is(.sprout-model-selector-header, .sprout-model-selector-item) {
+    grid-template-columns: var(--sprout-model-selector-tile) minmax(0, 1fr) repeat(
+        3,
+        var(--sprout-model-selector-column)
+      );
+  }
+  .sprout-model-selector-heading-model {
+    grid-column: 1 / 3;
+  }
+  .sprout-model-selector-heading {
+    justify-self: center;
+    white-space: nowrap;
+    cursor: help;
+    text-decoration: underline dotted color-mix(in oklab, currentColor 45%, transparent);
+    text-underline-offset: 3px;
+  }
+
+  /* The heading tooltip: meaning, then a five-row key from one bar to five. */
+  .sprout-tooltip-content.sprout-model-selector-legend {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    width: 13rem;
+    padding: 8px 10px;
+  }
+  .sprout-model-selector-legend-title {
+    font-weight: 600;
+  }
+  .sprout-model-selector-legend-meaning {
+    color: var(--sprout-muted);
+  }
+  .sprout-model-selector-legend-scale {
+    display: grid;
+    gap: 3px;
+    margin-top: 4px;
+  }
+  .sprout-model-selector-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sprout-model-selector-legend .sprout-model-selector-segment {
+    --sprout-model-selector-segment: 8px;
+  }
+  .sprout-model-selector-legend .sprout-model-selector-segment[data-on='true'] {
+    background: var(--sprout-model-selector-color);
+  }
+
+  .sprout-model-selector-list {
+    padding: 2px 4px 4px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    outline: none;
+  }
+
+  .sprout-model-selector-item {
+    box-sizing: border-box;
+    min-height: 2.75rem;
+    padding: 4px 8px;
+    border-radius: calc(var(--sprout-radius-panel) - 4px);
+    color: var(--sprout-text);
+    text-align: start;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    scroll-margin-block: 4px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sprout-model-selector-item[data-highlighted] {
+    background: var(--sprout-hover);
+  }
+  .sprout-model-selector-item[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .sprout-model-selector-tile {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    width: var(--sprout-model-selector-tile);
+    height: var(--sprout-model-selector-tile);
+    border: 1px solid var(--sprout-line);
+    border-radius: 7px;
+    background: var(--sprout-surface);
+    color: var(--sprout-text);
+    box-shadow: var(--sprout-shadow-control);
+  }
+  .sprout-model-selector-tile > :is(svg, .sprout-brand-icon) {
+    width: 16px;
+    height: 16px;
+  }
+  .sprout-model-selector-tile > .sprout-model-selector-letter {
+    font-size: var(--sprout-text-sm);
+  }
+
+  .sprout-model-selector-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+  }
+  .sprout-model-selector-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    font-weight: 500;
+  }
+  .sprout-model-selector-name-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .sprout-model-selector-check {
+    display: flex;
+    flex-shrink: 0;
+    color: var(--sprout-text);
+  }
+  .sprout-model-selector-description {
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+    overflow-wrap: anywhere;
+  }
+
+  .sprout-model-selector-meter {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+  }
+  .sprout-model-selector-segment {
+    width: var(--sprout-model-selector-segment);
+    height: 5px;
+    border-radius: 1.5px;
+    background: color-mix(in oklab, var(--sprout-text) 10%, transparent);
+  }
+  .sprout-model-selector-meter[data-metric='speed'] {
+    --sprout-model-selector-color: var(--sprout-model-selector-speed, var(--sprout-green));
+  }
+  .sprout-model-selector-meter[data-metric='quality'] {
+    --sprout-model-selector-color: var(--sprout-model-selector-quality, var(--sprout-blue));
+  }
+  .sprout-model-selector-meter[data-metric='cost'] {
+    --sprout-model-selector-color: var(--sprout-model-selector-cost, var(--sprout-orange));
+  }
+  .sprout-model-selector-segment[data-on='true'] {
+    background: color-mix(in oklab, var(--sprout-model-selector-color) 40%, transparent);
+  }
+  .sprout-model-selector-item:is([data-highlighted], [data-selected]) .sprout-model-selector-segment[data-on='true'] {
+    background: var(--sprout-model-selector-color);
+  }
+  .sprout-model-selector-unknown {
+    color: var(--sprout-muted);
+    line-height: 5px;
+  }
+
+  .sprout-model-selector-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* A container can't query itself, so the narrow sizes go on the rows. */
+  @container (max-width: 24rem) {
+    .sprout-model-selector-header,
+    .sprout-model-selector-item {
+      --sprout-model-selector-tile: 24px;
+      --sprout-model-selector-segment: 6px;
+      --sprout-model-selector-column: 2.75rem;
+      column-gap: 8px;
+    }
+    .sprout-model-selector-header {
+      letter-spacing: 0.02em;
+    }
+    .sprout-model-selector-tile > :is(svg, .sprout-brand-icon) {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @media (pointer: coarse) {
+    .sprout-model-selector-trigger {
+      min-height: 2.75rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-model-selector-content {
+      border-color: CanvasText;
+    }
+    .sprout-model-selector-item[data-highlighted] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+    .sprout-model-selector-segment {
+      border: 1px solid CanvasText;
+      background: Canvas;
+    }
+    .sprout-model-selector-segment[data-on='true'],
+    .sprout-model-selector-item:is([data-highlighted], [data-selected]) .sprout-model-selector-segment[data-on='true'] {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-model-selector-trigger {
+      transition: background-color var(--sprout-motion-fast) ease-out;
+    }
+    .sprout-model-selector-trigger > .sprout-model-selector-chevron {
+      transition: rotate var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-model-selector-trigger[data-popup-open] > .sprout-model-selector-chevron {
+      rotate: 180deg;
+    }
+    .sprout-model-selector-content {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-model-selector-content:is([data-starting-style], [data-ending-style]) {
+      opacity: 0;
+      scale: 0.96;
+    }
+    .sprout-model-selector-item {
+      transition: background-color var(--sprout-motion-fast) ease-out;
+    }
+    /* The meter fills left to right as a row lights up. */
+    .sprout-model-selector-segment {
+      transition: background-color 160ms ease-out calc(var(--sprout-model-selector-index) * 18ms);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-model-selector-trigger[data-popup-open] > .sprout-model-selector-chevron {
+      rotate: 180deg;
+    }
+    .sprout-model-selector-content {
+      transition: opacity var(--sprout-motion-fast) ease-out;
+    }
+    .sprout-model-selector-content:is([data-starting-style], [data-ending-style]) {
+      opacity: 0;
+    }
+  }
+}

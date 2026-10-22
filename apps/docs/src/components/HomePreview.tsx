@@ -17,6 +17,7 @@ import { Star } from 'reicon-react/icons/Star';
 import { Underline } from 'reicon-react/icons/Underline';
 import { Upload } from 'reicon-react/icons/Upload';
 import { AgentFanout } from '@tulipfarm/sprout/agent-fanout';
+import { ModelSelector, type ModelSelectorModel } from '@tulipfarm/sprout/model-selector';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@tulipfarm/sprout/accordion';
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '@tulipfarm/sprout/alert';
 import {
@@ -1602,7 +1603,44 @@ function CanvasPreview() {
   );
 }
 
+const previewModels: ModelSelectorModel[] = [
+  {
+    id: 'opus',
+    label: 'Claude Opus 5.5',
+    description: 'Hardest problems',
+    brand: 'claude',
+    speed: 45,
+    quality: 92,
+    cost: 75,
+  },
+  {
+    id: 'gpt',
+    label: 'GPT-5.5',
+    description: 'Writing and analysis',
+    brand: 'openai',
+    speed: 70,
+    quality: 90,
+    cost: 30,
+  },
+  { id: 'grok', label: 'Grok 5', description: 'Fast answers', brand: 'grok', speed: 110, quality: 84, cost: 15 },
+  {
+    id: 'deepseek',
+    label: 'DeepSeek V4',
+    description: 'Cheap and capable',
+    brand: 'deepseek',
+    speed: 60,
+    quality: 82,
+    cost: 1.1,
+  },
+];
+
+function ModelSelectorPreview() {
+  const [model, setModel] = useState('opus');
+  return <ModelSelector models={previewModels} value={model} onValueChange={setModel} />;
+}
+
 const previews: Record<string, () => ReactNode> = {
+  'model-selector': ModelSelectorPreview,
   'agent-fanout': () => (
     <div className="home-p-fanout">
       <AgentFanout

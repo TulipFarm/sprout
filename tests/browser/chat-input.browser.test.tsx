@@ -152,9 +152,9 @@ describe('ChatInput in a real browser', () => {
 
   it('model, mode and attach menus open, pick and close', async () => {
     const screen = await render(<Composer />);
-    await screen.getByRole('button', { name: 'Model: Claude Opus 5.5' }).click();
+    await screen.getByRole('combobox', { name: 'Model: Claude Opus 5.5' }).click();
     await page.getByRole('option', { name: /GPT-5\.5/ }).click();
-    await expect.element(screen.getByRole('button', { name: 'Model: GPT-5.5' })).toBeVisible();
+    await expect.element(screen.getByRole('combobox', { name: 'Model: GPT-5.5' })).toBeVisible();
     await screen.getByRole('button', { name: 'Mode: Default' }).click();
     await page.getByRole('menuitemradio', { name: /Deep research/ }).click();
     await screen.getByRole('button', { name: 'Turn off Deep research' }).click();
