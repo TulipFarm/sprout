@@ -404,6 +404,10 @@
       "types": "./dist/components/tabs.d.ts",
       "import": "./dist/components/tabs.js"
     },
+    "./task-tree": {
+      "types": "./dist/components/task-tree.d.ts",
+      "import": "./dist/components/task-tree.js"
+    },
     "./textarea": {
       "types": "./dist/components/textarea.d.ts",
       "import": "./dist/components/textarea.js"

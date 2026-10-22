@@ -1056,6 +1056,35 @@ import { Status } from '@tulipfarm/sprout/status';
 when text beside it says the state. The mark animates in on mount and on every state change, and replays its glyph on
 hover.
 
+### Task Tree
+
+```tsx
+import { TaskTree } from '@tulipfarm/sprout/task-tree';
+
+<TaskTree
+  title="Deploy"
+  tasks={[
+    { id: 'install', title: 'Installing dependencies', state: 'success', detail: '4s' },
+    {
+      id: 'build',
+      title: 'Building', // no state: follows its parts, “Running, 50%” here
+      children: [
+        { id: 'web', title: 'Building web', state: 'success' },
+        { id: 'api', title: 'Building API', state: 'running', value: 40 },
+      ],
+    },
+    { id: 'ship', title: 'Shipping' },
+  ]}
+/>;
+```
+
+Each task is `{ id, title, state?, value?, detail?, children? }`; `state` and `value` go to Status. One child continues
+straight down; two or more branch one column in. A task with children and no `state` follows them: error beats running,
+running beats paused, all finished is success (warning if any warned). The header counts finished leaves (“2 of 4
+done”); `summary` replaces it, `null` hides it, `empty` replaces “No tasks yet.” When a task succeeds, a green line grows
+up to its parent over 280ms and the parent changes when it arrives. Lines are drawn with React Flow; screen readers get
+nested lists with named marks.
+
 ### Spinner
 
 ```tsx

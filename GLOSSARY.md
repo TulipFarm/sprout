@@ -93,3 +93,7 @@ _Avoid_: Avatar service, avatar URL
 **Status**:
 A small round mark for where a task, run, or step stands: pending, running, paused, success, warning, error, stopped, or skipped. Running fills eight segments as a known amount grows, and spins when the amount is unknown.
 _Avoid_: Status dot, state icon, step indicator
+
+**Task tree**:
+A live tree of a run's tasks, each with a Status. A task with one part continues straight down; several branch out. A task with parts and no state of its own follows them, and a green line climbs to it when a part succeeds.
+_Avoid_: Todo tree, checklist, step tree

@@ -90,6 +90,7 @@ export * from './components/status.js';
 export * from './components/switch.js';
 export * from './components/table.js';
 export * from './components/tabs.js';
+export * from './components/task-tree.js';
 export * from './components/textarea.js';
 export * from './components/toast.js';
 export * from './components/toggle.js';

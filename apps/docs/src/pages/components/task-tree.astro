@@ -1,0 +1,95 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import TaskTreeDemo from '../../components/TaskTreeDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="Task Tree" description="A live list of tasks drawn as a tree, with a status mark on each.">
+  <h1 class="docs-title">Task Tree</h1>
+  <p class="docs-lead">
+    Shows the tasks of a run and how they break into parts. A task with one part continues straight down; a task with
+    several branches them out. Each row has a Status mark, so the tree updates as your app changes task states. For a
+    saved plan with criteria and dependencies, use Plan Outline. For agents that start other agents, use Agent Fanout.
+  </p>
+  <div class="mt-8">
+    <TaskTreeDemo client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Task Tree usage"
+      code={`import { TaskTree } from "@tulipfarm/sprout/task-tree";
+
+<TaskTree
+  tasks={[
+    {
+      id: "scaffold",
+      title: "Scaffolding project",
+      state: "success",
+      children: [
+        { id: "deps", title: "Installing dependencies", state: "running", value: 40, detail: "40%" },
+        { id: "ignore", title: "Ignoring DB files", state: "success", children: [
+          { id: "readme", title: "Writing README", state: "pending" },
+        ] },
+      ],
+    },
+  ]}
+/>`}
+    />
+    <ul>
+      <li>
+        <code>tasks</code>: <code>{'{ id, title, state?, value?, detail?, children? }'}</code>. <code>state</code> and{' '}
+        <code>value</code> go to Status. <code>detail</code> is short muted text at the end of the row, such as a
+        duration or a count.
+      </li>
+      <li>
+        <code>children</code>: the task's parts. One part stays in the same column with a straight line. Two or more
+        move one column in, each with its own branch.
+      </li>
+      <li>
+        A task with parts and no <code>state</code> follows them: failed if any part failed, running if any is running,
+        succeeded once all have finished. While running, its ring fills with the share of parts done. Set{' '}
+        <code>state</code> to override it.
+      </li>
+      <li>
+        <code>title</code>: the heading, “Tasks” by default. <code>summary</code> replaces the “3 of 8 done” count; pass{' '}
+        <code>null</code> to hide it. The count covers tasks without parts. Succeeded, warning, and skipped tasks count
+        as done.
+      </li>
+      <li>
+        <code>empty</code>: shown when there are no tasks. Defaults to “No tasks yet.”
+      </li>
+    </ul>
+    <p>
+      Lines are drawn with React Flow at a fixed 24px column and 32px row, with panning, zoom, and selection turned off.
+      Long titles end in an ellipsis.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Motion</h2>
+    <p>
+      When a task succeeds, a green line grows from it up to its parent over 280ms. A parent that follows its parts
+      changes only once that line arrives, so the green climbs the tree one level at a time. Other changes show at once.
+      Rows added later fade in over 220ms. The server sends a static drawing of the same tree, which React Flow replaces
+      in place without replaying anything. With reduced motion, lines turn green at once and rows only fade.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The section is named by its heading. Screen readers get the tasks as nested lists, with each Status mark named
+      after its state, such as “Running, 40%”; the drawing is hidden from them. The done count is a polite live region,
+      so progress is announced as tasks finish.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Lines use <code>--sprout-muted</code> mixed 40% into <code>--sprout-surface</code>, and{' '}
+      <code>--sprout-success</code> once the task below them has succeeded. Pending and skipped titles use{' '}
+      <code>--sprout-muted</code>. In forced colors, lines use <code>GrayText</code> and finished lines{' '}
+      <code>CanvasText</code>.
+    </p>
+  </section>
+</Docs>
