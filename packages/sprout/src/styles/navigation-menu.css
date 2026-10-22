@@ -152,7 +152,7 @@
     height: 9px;
     border: 1px solid var(--sprout-line);
     border-radius: 2px 0 0;
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     rotate: 45deg;
   }
 
@@ -186,7 +186,7 @@
     height: var(--popup-height);
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: var(--sprout-shadow-overlay);
     font-family: var(--sprout-font);

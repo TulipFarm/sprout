@@ -1,16 +1,28 @@
-/* TulipFarm: The TulipFarm Cloud palette, cool neutral grays with Google green.
+/* TulipFarm: the TulipFarm palette, cool neutral grays with Google green.
  *
- * One file is the whole theme: font, radius, and every color token for light
- * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
- * data-sprout-theme="tulipfarm" on <html>, or on any element to theme only
- * that subtree. The font is Inter; load it (for example with
- * @fontsource-variable/inter) or the system font is used.
+ * This file is the source of truth for every TulipFarm product: the app,
+ * tulipfarm.ai, the docs and the blog read their colors from these tokens
+ * instead of copying values. Change a TulipFarm color here, then release.
+ *
+ * One file is the whole theme: font, type scale, radius, motion, shadows, and
+ * every color token for light and dark. Import it after
+ * "@tulipfarm/sprout/styles.css", then set data-sprout-theme="tulipfarm" on
+ * <html>, or on any element to theme only that subtree. The font is Inter;
+ * load it (for example with @fontsource-variable/inter) or the system font is
+ * used.
  */
 @layer base {
   [data-sprout-theme='tulipfarm'] {
     --sprout-font: 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
+    --sprout-text-xs: 0.75rem;
+    --sprout-text-sm: 0.8125rem;
+    --sprout-text-base: 0.9375rem;
     --sprout-radius-control: 0.5rem;
     --sprout-radius-panel: 0.75rem;
+    --sprout-sidebar-icon-width: 3rem;
+    --sprout-motion-fast: 150ms;
+    --sprout-motion-normal: 150ms;
+    --sprout-motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   [data-sprout-theme='tulipfarm'],
@@ -44,6 +56,20 @@
     --sprout-primary-subtle: #edf7f0;
     --sprout-secondary: #f0f0f2;
     --sprout-overlay: rgb(32 33 36 / 0.25);
+    --sprout-sidebar: #efeff0;
+    --sprout-popover: #ffffff;
+    --sprout-body: #2f2f31;
+    --sprout-faint: #9c9d9f;
+    --sprout-primary-text: #146c2f;
+    --sprout-card-raised: #fafafb;
+    --sprout-chart-1: #188038;
+    --sprout-chart-2: #245cba;
+    --sprout-chart-3: #8a4b08;
+    --sprout-chart-4: #7c4eb0;
+    --sprout-chart-5: #b42332;
+    --sprout-shadow-control: 0 3px 6px -2px rgb(0 0 0 / 0.02), 0 1px 1px rgb(0 0 0 / 0.04);
+    --sprout-shadow-panel: 0 3px 6px -2px rgb(0 0 0 / 0.02), 0 1px 1px rgb(0 0 0 / 0.04);
+    --sprout-shadow-overlay: 0 16px 48px rgb(32 33 36 / 0.15), 0 2px 8px rgb(32 33 36 / 0.06);
   }
 
   .dark[data-sprout-theme='tulipfarm'],
@@ -76,6 +102,20 @@
     --sprout-primary-subtle: #1b3323;
     --sprout-secondary: #28292e;
     --sprout-overlay: rgb(0 0 0 / 0.5);
+    --sprout-sidebar: #09090b;
+    --sprout-popover: #28292b;
+    --sprout-body: #e3e4e6;
+    --sprout-faint: #565759;
+    --sprout-primary-text: #75ce8e;
+    --sprout-card-raised: #303134;
+    --sprout-chart-1: #75ce8e;
+    --sprout-chart-2: #9cbdff;
+    --sprout-chart-3: #edc17c;
+    --sprout-chart-4: #c6a4ed;
+    --sprout-chart-5: #ff929d;
+    --sprout-shadow-control: 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.08);
+    --sprout-shadow-panel: 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.08);
+    --sprout-shadow-overlay: 0 16px 48px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.2);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -109,6 +149,20 @@
       --sprout-primary-subtle: #1b3323;
       --sprout-secondary: #28292e;
       --sprout-overlay: rgb(0 0 0 / 0.5);
+      --sprout-sidebar: #09090b;
+      --sprout-popover: #28292b;
+      --sprout-body: #e3e4e6;
+      --sprout-faint: #565759;
+      --sprout-primary-text: #75ce8e;
+      --sprout-card-raised: #303134;
+      --sprout-chart-1: #75ce8e;
+      --sprout-chart-2: #9cbdff;
+      --sprout-chart-3: #edc17c;
+      --sprout-chart-4: #c6a4ed;
+      --sprout-chart-5: #ff929d;
+      --sprout-shadow-control: 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.08);
+      --sprout-shadow-panel: 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.08);
+      --sprout-shadow-overlay: 0 16px 48px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.2);
     }
   }
 }

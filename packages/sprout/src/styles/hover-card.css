@@ -35,7 +35,7 @@
     padding: 10px;
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: var(--sprout-shadow-overlay);
     font-family: var(--sprout-font);

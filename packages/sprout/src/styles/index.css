@@ -103,8 +103,12 @@
   --color-sprout-surface: var(--sprout-surface);
   --color-sprout-hover: var(--sprout-hover);
   --color-sprout-active: var(--sprout-active);
+  --color-sprout-sidebar: var(--sprout-sidebar);
+  --color-sprout-popover: var(--sprout-popover);
   --color-sprout-text: var(--sprout-text);
+  --color-sprout-body: var(--sprout-body);
   --color-sprout-muted: var(--sprout-muted);
+  --color-sprout-faint: var(--sprout-faint);
   --color-sprout-line: var(--sprout-line);
   --color-sprout-border: var(--sprout-border);
   --color-sprout-border-strong: var(--sprout-border-strong);
@@ -112,6 +116,7 @@
   --color-sprout-primary: var(--sprout-primary);
   --color-sprout-primary-hover: var(--sprout-primary-hover);
   --color-sprout-primary-active: var(--sprout-primary-active);
+  --color-sprout-primary-text: var(--sprout-primary-text);
   --color-sprout-on-primary: var(--sprout-on-primary);
   --color-sprout-focus: var(--sprout-focus);
   --color-sprout-danger: var(--sprout-danger);
@@ -276,5 +281,18 @@
       --sprout-warning-subtle: #34291b;
       --sprout-overlay: rgb(8 8 8 / 0.65);
     }
+  }
+
+  /* Derived from the tokens above, so a theme only sets them to differ. Also on
+     theme roots, so a nested theme derives from its own colors. */
+  :root,
+  .light,
+  .dark,
+  [data-sprout-theme] {
+    --sprout-sidebar: var(--sprout-canvas);
+    --sprout-popover: var(--sprout-surface);
+    --sprout-body: var(--sprout-text);
+    --sprout-faint: color-mix(in oklab, var(--sprout-muted) 60%, var(--sprout-surface));
+    --sprout-primary-text: var(--sprout-primary);
   }
 }

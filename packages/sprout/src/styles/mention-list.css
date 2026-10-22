@@ -10,7 +10,7 @@
     overflow: hidden;
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: 0 8px 24px -12px rgb(18 18 18 / 0.22);
     font-family: var(--sprout-font);
