@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **874.8 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -128,7 +128,7 @@ Full library: **874.8 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |  76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |  42.3 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      | 206.0 kB |  70.6 kB |  60.3 kB |
-| `chat-input`        | 954.1 kB | 314.0 kB | 259.9 kB |
+| `chat-input`        | 968.9 kB | 319.4 kB | 264.3 kB |
 | `checkbox`          |  60.0 kB |  21.0 kB |  18.6 kB |
 | `choice-list`       |  43.0 kB |  14.5 kB |  12.6 kB |
 | `code-block`        |  74.3 kB |  26.0 kB |  22.3 kB |
@@ -176,7 +176,7 @@ Full library: **874.8 kB** gzip. Each component path is smaller. Sizes are minif
 | `result-card`       | 240.0 kB |  85.2 kB |  72.2 kB |
 | `result-notice`     |  34.3 kB |  11.3 kB |   9.9 kB |
 | `review-card`       |  61.6 kB |  21.0 kB |  18.4 kB |
-| `rich-text-editor`  | 442.5 kB | 140.2 kB | 119.8 kB |
+| `rich-text-editor`  | 464.5 kB | 147.6 kB | 126.1 kB |
 | `schema-diagram`    | 247.7 kB |  82.9 kB |  71.0 kB |
 | `sql-viewer`        | 265.4 kB |  89.2 kB |  76.2 kB |
 | `scroll-area`       |  57.3 kB |  19.7 kB |  17.4 kB |

@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.7.0](https://github.com/TulipFarm/sprout/compare/v0.6.0...v0.7.0) (2026-10-22)
+
+### Features
+
+* **model-selector:** searchable ModelSelector with speed, quality, and cost meters ([#37](https://github.com/TulipFarm/sprout/issues/37)) ([a6524a5](https://github.com/TulipFarm/sprout/commit/a6524a54f04327c33c6ee036c48ce88ef4f5c310)), references [#38](https://github.com/TulipFarm/sprout/issues/38)
+* **rich-text-editor:** integration keyword chips with icons, account tooltips, and a switch menu ([#42](https://github.com/TulipFarm/sprout/issues/42)) ([5dbd29c](https://github.com/TulipFarm/sprout/commit/5dbd29c728b3afded6b18ba32b3091300a2c7746))
+* **status:** add Status, a small round mark for task and step states ([#39](https://github.com/TulipFarm/sprout/issues/39)) ([8e07993](https://github.com/TulipFarm/sprout/commit/8e0799304ca0d124b4cf272db054be24b8ac83a1))
+* **task-tree:** add Task Tree, a live tree of tasks with a Status on each ([#41](https://github.com/TulipFarm/sprout/issues/41)) ([1f07861](https://github.com/TulipFarm/sprout/commit/1f07861855126522adaaeae0f8cd16b81636b899))
+
 ## [0.6.0](https://github.com/TulipFarm/sprout/compare/v0.5.0...v0.6.0) (2026-10-22)
 
 ### ⚠ BREAKING CHANGES
