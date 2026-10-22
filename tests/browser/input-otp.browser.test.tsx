@@ -8,7 +8,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '../../packages/sprout/src/components/input-otp.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 function colorOf(token: string) {
   const probe = document.createElement('span');
@@ -134,7 +134,8 @@ describe('InputOTP in a real browser', () => {
     expect(document.activeElement).toBe(s[2]);
     const focused = getComputedStyle(s[2]!);
     expect(focused.borderTopColor).toBe(colorOf('--sprout-border'));
-    expect(focused.outlineWidth).toBe('1px');
+    expect(focused.outlineWidth).toBe(focusWidth());
+    await expect.poll(() => focused.outlineColor).toBe(colorOf('--sprout-focus-ring'));
     expect(focused.zIndex).toBe('1');
 
     await userEvent.keyboard('3a4');

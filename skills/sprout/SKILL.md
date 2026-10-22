@@ -42,7 +42,9 @@ Presets: `neutral` (default), `tulipfarm`, `claude`, `chatgpt`, `cloudflare`,
 - **Colors and sizes come from tokens.** Use `--sprout-*` variables or their
   Tailwind classes (`text-sprout-muted`, `bg-sprout-surface`,
   `text-sprout-danger`). Do not hard-code hex colors. Theme by overriding
-  tokens in CSS, never with a JS theme object.
+  tokens in CSS, never with a JS theme object. App chrome Sprõut does not
+  draw uses `--sprout-sidebar`, `--sprout-popover`, `--sprout-body`,
+  `--sprout-faint`, and `--sprout-primary-text`.
 - **Color is never the only signal.** Badge and status text must carry the
   meaning in words.
 - **Busy and blocked actions** use `Button`'s `state` instead of hand-made

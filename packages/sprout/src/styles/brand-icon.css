@@ -46,8 +46,10 @@
       background-color var(--sprout-motion-fast) var(--sprout-motion-ease),
       border-color var(--sprout-motion-fast) var(--sprout-motion-ease);
   }
-  .sprout-brand-tile[data-size]:is(button, a):hover:not(:disabled) {
-    background: var(--sprout-hover);
+  @media (hover: hover) {
+    .sprout-brand-tile[data-size]:is(button, a):hover:not(:disabled) {
+      background: var(--sprout-hover);
+    }
   }
   .sprout-brand-tile[data-size]:is(button, a):focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);

@@ -1,6 +1,6 @@
 @layer components {
   .sprout-slider {
-    --sprout-slider-thumb: #fff;
+    --sprout-slider-thumb: oklch(1 0 0);
     --sprout-slider-ring: color-mix(in oklab, var(--sprout-focus) 50%, transparent);
     display: block;
     width: 100%;
@@ -74,7 +74,7 @@
     border: 1px solid var(--sprout-focus);
     border-radius: 999px;
     background-color: var(--sprout-slider-thumb);
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.12);
     outline: 0 solid transparent;
     user-select: none;
   }
@@ -84,12 +84,22 @@
     position: absolute;
     inset: -8px;
   }
-  .sprout-slider-thumb:hover,
   .sprout-slider-thumb:has(:focus-visible),
   .sprout-slider-thumb[data-dragging] {
     box-shadow:
-      0 1px 2px rgb(0 0 0 / 0.12),
+      0 1px 2px oklch(0 0 0 / 0.12),
       0 0 0 3px var(--sprout-slider-ring);
+  }
+  @media (hover: hover) {
+    .sprout-slider-thumb:hover {
+      box-shadow:
+        0 1px 2px oklch(0 0 0 / 0.12),
+        0 0 0 3px var(--sprout-slider-ring);
+    }
+  }
+  .sprout-slider-thumb:has(:focus-visible) {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 2px;
   }
   .sprout-slider-thumb[data-invalid] {
     --sprout-slider-ring: color-mix(in oklab, var(--sprout-danger) 30%, transparent);
@@ -98,7 +108,7 @@
   .sprout-slider-thumb[data-disabled],
   :where(fieldset:disabled) .sprout-slider-thumb {
     pointer-events: none;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.12);
   }
 
   @media (prefers-reduced-motion: no-preference) {

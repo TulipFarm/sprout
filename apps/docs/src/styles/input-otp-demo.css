@@ -2,14 +2,6 @@
   display: grid;
   gap: 20px;
 }
-/* The docs page draws a global focus outline; keep the slot's own ring. */
-.input-otp-demo .sprout-input-otp-slot:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--sprout-focus) 50%, transparent);
-  outline-offset: 0;
-}
-.input-otp-demo .sprout-input-otp-slot[aria-invalid='true']:focus-visible {
-  outline-color: color-mix(in oklab, var(--sprout-danger) 40%, transparent);
-}
 .input-otp-demo-card {
   min-width: 0;
   border: 1px solid var(--sprout-line);

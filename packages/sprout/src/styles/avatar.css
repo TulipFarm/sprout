@@ -77,7 +77,7 @@
     color: var(--sprout-muted);
   }
   .sprout-entity-avatar-fallback {
-    color: #fff;
+    color: oklch(1 0 0);
     font-weight: 600;
   }
 
@@ -157,11 +157,5 @@
   .sprout-avatar-group:has(> [data-size='lg']) > .sprout-avatar-group-count > svg {
     width: 1.25rem;
     height: 1.25rem;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .sprout-avatar-image {
-      transition: none;
-    }
   }
 }

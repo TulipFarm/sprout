@@ -9,9 +9,13 @@
     text-underline-offset: 4px;
     outline: none;
   }
-  :where(a.sprout-hover-card-trigger):hover,
   :where(a.sprout-hover-card-trigger)[data-popup-open] {
     text-decoration-color: currentColor;
+  }
+  @media (hover: hover) {
+    :where(a.sprout-hover-card-trigger):hover {
+      text-decoration-color: currentColor;
+    }
   }
   :where(a.sprout-hover-card-trigger):focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -35,7 +39,7 @@
     padding: 10px;
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: var(--sprout-shadow-overlay);
     font-family: var(--sprout-font);

@@ -58,9 +58,11 @@
     color: var(--sprout-muted);
     cursor: pointer;
   }
-  .sprout-file-explorer-icon-button:hover:not(:disabled) {
-    background: var(--sprout-hover);
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-file-explorer-icon-button:hover:not(:disabled) {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
   }
   .sprout-file-explorer-icon-button:disabled {
     opacity: 0.4;
@@ -97,15 +99,17 @@
     cursor: pointer;
     user-select: none;
   }
-  .sprout-file-explorer-row:hover {
-    background: var(--sprout-hover);
+  @media (hover: hover) {
+    .sprout-file-explorer-row:hover {
+      background: var(--sprout-hover);
+    }
   }
   .sprout-file-explorer-row[aria-selected='true'] {
     background: var(--sprout-active);
     font-weight: 500;
   }
   .sprout-file-explorer-row:focus-visible {
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: -2px;
   }
   .sprout-file-explorer-guide {
@@ -115,8 +119,10 @@
     margin-inline-end: -6px;
     background: linear-gradient(var(--sprout-line), var(--sprout-line)) 5px 0 / 1px 100% no-repeat;
   }
-  .sprout-file-explorer-tree:hover .sprout-file-explorer-guide {
-    background-image: linear-gradient(var(--sprout-input), var(--sprout-input));
+  @media (hover: hover) {
+    .sprout-file-explorer-tree:hover .sprout-file-explorer-guide {
+      background-image: linear-gradient(var(--sprout-input), var(--sprout-input));
+    }
   }
   .sprout-file-explorer-chevron {
     display: inline-grid;
@@ -214,9 +220,11 @@
     white-space: nowrap;
     cursor: pointer;
   }
-  .sprout-file-explorer-result:hover,
-  .sprout-file-explorer-hit:hover {
-    background: var(--sprout-hover);
+  @media (hover: hover) {
+    .sprout-file-explorer-result:hover,
+    .sprout-file-explorer-hit:hover {
+      background: var(--sprout-hover);
+    }
   }
   .sprout-file-explorer-result[aria-current='true'],
   .sprout-file-explorer-hit[aria-current='true'] {
@@ -224,7 +232,7 @@
   }
   .sprout-file-explorer-result:focus-visible,
   .sprout-file-explorer-hit:focus-visible {
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: -2px;
   }
   .sprout-file-explorer-result .sprout-file-explorer-name {
@@ -245,7 +253,7 @@
     border-radius: 999px;
     background: var(--sprout-secondary);
     color: var(--sprout-muted);
-    font-size: 11px;
+    font-size: var(--sprout-text-xs);
     font-variant-numeric: tabular-nums;
     line-height: 16px;
     text-align: center;
@@ -342,17 +350,22 @@
     cursor: pointer;
     opacity: 0;
   }
-  .sprout-file-explorer-tab:is([data-active], :hover, :focus-within) .sprout-file-explorer-tab-close {
+  .sprout-file-explorer-tab:is([data-active], :focus-within) .sprout-file-explorer-tab-close {
     opacity: 1;
   }
-  .sprout-file-explorer-tab-close:hover {
-    background: var(--sprout-hover);
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-file-explorer-tab:hover .sprout-file-explorer-tab-close {
+      opacity: 1;
+    }
+    .sprout-file-explorer-tab-close:hover {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
   }
   .sprout-file-explorer-tab-open:focus-visible,
   .sprout-file-explorer-tab-close:focus-visible,
   .sprout-file-explorer-icon-button:focus-visible {
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: -2px;
   }
 
@@ -399,7 +412,7 @@
     scrollbar-color: var(--sprout-input) transparent;
   }
   .sprout-file-explorer-code:focus-visible {
-    outline: 2px solid var(--sprout-focus);
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: -2px;
   }
   .sprout-file-explorer-pre {

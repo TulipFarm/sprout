@@ -4,7 +4,7 @@ import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Label } from '../../packages/sprout/src/components/label.js';
 import { Switch } from '../../packages/sprout/src/components/switch.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 function colorOf(token: string) {
   const probe = document.createElement('span');
@@ -147,7 +147,7 @@ describe('Switch in a real browser', () => {
     await expect.element(summary).toHaveFocus();
     const style = getComputedStyle(summary.element());
     expect(style.outlineStyle).toBe('solid');
-    expect(style.outlineWidth).toBe('1px');
+    expect(style.outlineWidth).toBe(focusWidth());
     expect(style.outlineColor).toBe(colorOf('--sprout-focus-ring'));
     await userEvent.keyboard(' ');
     await expect.element(summary).toHaveAttribute('aria-checked', 'false');

@@ -114,8 +114,8 @@ describe('Chart', () => {
   });
 
   it('defines a light and dark palette and honors reduced motion data', () => {
-    expect(css).toMatch(/:root,\s*\.light \{\s*--sprout-red: #e11d48;/);
-    expect(css).toMatch(/\.dark \{\s*--sprout-red: #f0506e;/);
+    expect(css).toMatch(/:root,\s*\.light \{\s*--sprout-red: oklch\(0\.5858 0\.222 17\.58\);/);
+    expect(css).toMatch(/\.dark \{\s*--sprout-red: oklch\(0\.6579 0\.1955 13\.34\);/);
     expect(css).toContain('--sprout-chart-10: var(--sprout-tan);');
     expect(css).toContain('prefers-color-scheme: dark');
     expect(css).toContain('.recharts-surface:focus-visible');

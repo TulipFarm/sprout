@@ -200,10 +200,12 @@
     border-radius: 0 999px 999px 0;
     color: var(--sprout-muted);
   }
-  .sprout-table-chip-label:hover,
-  .sprout-table-chip-remove:hover {
-    background: var(--sprout-hover);
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-table-chip-label:hover,
+    .sprout-table-chip-remove:hover {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
   }
   .sprout-table-chip-label:focus-visible,
   .sprout-table-chip-remove:focus-visible {
@@ -280,10 +282,16 @@
     cursor: not-allowed;
     opacity: 0.4;
   }
-  .sprout-table-hint:hover,
-  .sprout-table-handle:not(:disabled):hover,
-  .sprout-table-toggle:hover {
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-table-hint:hover,
+    .sprout-table-handle:not(:disabled):hover,
+    .sprout-table-toggle:hover {
+      color: var(--sprout-text);
+    }
+    .sprout-table-head:hover > .sprout-table-resizer::after {
+      background: var(--sprout-primary);
+      opacity: 1;
+    }
   }
   .sprout-table-hint:focus-visible,
   .sprout-table-handle:focus-visible,
@@ -311,7 +319,6 @@
     background: var(--sprout-input);
     opacity: 0;
   }
-  .sprout-table-head:hover > .sprout-table-resizer::after,
   .sprout-table-resizer[data-resizing]::after,
   .sprout-table-resizer:focus-visible::after {
     background: var(--sprout-primary);
@@ -371,8 +378,15 @@
     font-weight: 500;
   }
   .sprout-table-toggle {
+    position: relative;
     gap: 6px;
     color: inherit;
+  }
+  /* A 36px tall hit area around the 20px toggle. */
+  .sprout-table-toggle::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
   }
   .sprout-table-group-count {
     padding: 0 6px;
@@ -514,6 +528,7 @@
     .sprout-table[data-narrow='stack'] .sprout-table-cell {
       display: block;
     }
+    /* Beats the inline min-width that sized columns set. */
     .sprout-table[data-narrow='stack'] {
       min-width: 0 !important;
     }

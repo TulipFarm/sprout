@@ -84,7 +84,7 @@ describe('Tooltip in a real browser', () => {
     const popup = openTips()[0]!;
     const style = getComputedStyle(popup);
     const probe = document.createElement('span');
-    probe.style.color = 'var(--sprout-surface)';
+    probe.style.color = 'var(--sprout-popover)';
     document.body.append(probe);
     expect(style.backgroundColor).toBe(getComputedStyle(probe).color);
     probe.remove();
@@ -241,14 +241,16 @@ describe('Tooltip in a real browser', () => {
     expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
   });
 
-  it('fades over 120ms, and reduced motion turns the transition off', async () => {
+  it('fades and moves over 120ms, and reduced motion keeps only the fade', async () => {
     await render(<Playground />);
     await trigger('top').hover();
     await expect.poll(() => openTips()).toHaveLength(1);
+    expect(getComputedStyle(openTips()[0]!).transitionProperty).toBe('opacity, scale, translate');
     expect(getComputedStyle(openTips()[0]!).transitionDuration.split(',')[0]!.trim()).toBe('0.12s');
     await settle();
     expect(getComputedStyle(openTips()[0]!).opacity).toBe('1');
     await emulate({ reducedMotion: true });
-    expect(getComputedStyle(openTips()[0]!).transitionDuration).toBe('0s');
+    expect(getComputedStyle(openTips()[0]!).transitionProperty).toBe('opacity');
+    expect(getComputedStyle(openTips()[0]!).transitionDuration).toBe('0.12s');
   });
 });

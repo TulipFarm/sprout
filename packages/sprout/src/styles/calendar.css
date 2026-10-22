@@ -223,16 +223,20 @@
   .sprout-calendar-outside .sprout-calendar-day-button {
     color: var(--sprout-muted);
   }
-  .sprout-calendar-today .sprout-calendar-day-button:hover {
-    background: var(--sprout-active);
+  @media (hover: hover) {
+    .sprout-calendar-today .sprout-calendar-day-button:hover {
+      background: var(--sprout-active);
+    }
   }
   .sprout-calendar-day-button[data-range-middle='true'] {
     border-radius: 0;
     background: var(--sprout-calendar-band);
     color: var(--sprout-text);
   }
-  .sprout-calendar-day-button[data-range-middle='true']:hover {
-    background: var(--sprout-active);
+  @media (hover: hover) {
+    .sprout-calendar-day-button[data-range-middle='true']:hover {
+      background: var(--sprout-active);
+    }
   }
   .sprout-calendar-day-button[data-selected-single='true'],
   .sprout-calendar-day-button[data-range-start='true'],
@@ -240,10 +244,12 @@
     background: var(--sprout-primary);
     color: var(--sprout-on-primary);
   }
-  .sprout-calendar-day-button[data-selected-single='true']:hover,
-  .sprout-calendar-day-button[data-range-start='true']:hover,
-  .sprout-calendar-day-button[data-range-end='true']:hover {
-    background: var(--sprout-primary-hover);
+  @media (hover: hover) {
+    .sprout-calendar-day-button[data-selected-single='true']:hover,
+    .sprout-calendar-day-button[data-range-start='true']:hover,
+    .sprout-calendar-day-button[data-range-end='true']:hover {
+      background: var(--sprout-primary-hover);
+    }
   }
   /* A selected run that wraps a week keeps rounded ends at the row edges. */
   .sprout-calendar-day:last-child[data-selected] .sprout-calendar-day-button {

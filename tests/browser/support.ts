@@ -48,6 +48,30 @@ export async function settle() {
   while (running().length) await Promise.allSettled(running().map(animation => animation.finished));
 }
 
+const pixel = document.createElement('canvas').getContext('2d', { willReadFrequently: true })!;
+
+/**
+ * Any CSS color (`oklch()`, `color-mix()`, a computed style) as the 8-bit sRGB
+ * it paints, written `rgb(r, g, b)` like a hex color's computed style.
+ */
+export function srgb(color: string) {
+  pixel.clearRect(0, 0, 1, 1);
+  pixel.fillStyle = color;
+  pixel.fillRect(0, 0, 1, 1);
+  const [r, g, b, a] = pixel.getImageData(0, 0, 1, 1).data;
+  return a === 255 ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${Math.round((a! / 255) * 100) / 100})`;
+}
+
+/** The computed outline width of `--sprout-focus-width`, the shared focus ring. */
+export function focusWidth() {
+  const probe = document.createElement('span');
+  probe.style.outline = 'var(--sprout-focus-width) solid';
+  document.body.append(probe);
+  const width = getComputedStyle(probe).outlineWidth;
+  probe.remove();
+  return width;
+}
+
 /** The border-box size of `node`, rounded to whole pixels. */
 export function size(node: Element) {
   const box = node.getBoundingClientRect();

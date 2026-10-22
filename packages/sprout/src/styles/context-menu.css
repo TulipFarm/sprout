@@ -27,7 +27,7 @@
     overscroll-behavior: contain;
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: var(--sprout-shadow-overlay);
     font-family: var(--sprout-font);
@@ -128,6 +128,12 @@
   }
   .sprout-context-menu-item[data-highlighted] .sprout-context-menu-shortcut {
     color: var(--sprout-text);
+  }
+
+  @media (pointer: coarse) {
+    .sprout-context-menu-item {
+      min-height: 2.75rem;
+    }
   }
 
   @media (forced-colors: active) {

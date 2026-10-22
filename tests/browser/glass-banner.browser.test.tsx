@@ -3,7 +3,7 @@ import { cdp, page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { BrandIcon } from '../../packages/sprout/src/components/brand-icon.js';
 import { GlassBanner, GlassChip } from '../../packages/sprout/src/components/glass-banner.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, setTheme, settle, srgb, themes } from './support.js';
 
 const Plus = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -99,7 +99,7 @@ describe('GlassBanner in a real browser', () => {
       </div>,
     );
     await settle();
-    expect(getComputedStyle(banner()).color).toBe(mode === 'light' ? 'rgb(29, 39, 66)' : 'rgb(227, 232, 245)');
+    expect(srgb(getComputedStyle(banner()).color)).toBe(mode === 'light' ? 'rgb(29, 39, 66)' : 'rgb(227, 232, 245)');
     expect(await axeViolations(screen.container)).toEqual([]);
   });
 

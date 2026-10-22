@@ -36,8 +36,10 @@
     outline: none;
     -webkit-tap-highlight-color: transparent;
   }
-  .sprout-accordion-trigger-default:hover {
-    text-decoration-line: underline;
+  @media (hover: hover) {
+    .sprout-accordion-trigger-default:hover {
+      text-decoration-line: underline;
+    }
   }
   .sprout-accordion-trigger:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -82,8 +84,10 @@
     text-decoration-line: underline;
     text-underline-offset: 3px;
   }
-  .sprout-accordion-content-inner a:hover {
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-accordion-content-inner a:hover {
+      color: var(--sprout-text);
+    }
   }
   .sprout-accordion-content-inner p:not(:last-child) {
     margin-bottom: 1rem;

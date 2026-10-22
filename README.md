@@ -238,6 +238,10 @@ Presets live in `@tulipfarm/sprout/themes/*`: `neutral`, `tulipfarm`, `github`,
 @import '@tulipfarm/sprout/themes/tulipfarm.css';
 ```
 
+The `tulipfarm` preset is the source of truth for every TulipFarm product. The
+app and tulipfarm.ai read their colors from it, so change TulipFarm colors
+there.
+
 ### shadcn
 
 A shadcn registry item is at `apps/docs/public/r/sprout.json`. It works with

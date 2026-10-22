@@ -55,8 +55,13 @@
     height: 9px;
     transform: translateY(-50%);
   }
-  .sprout-resizable-handle:hover {
-    background: var(--sprout-border);
+  @media (hover: hover) {
+    .sprout-resizable-handle:hover {
+      background: var(--sprout-border);
+    }
+    .sprout-resizable-handle:hover .sprout-resizable-grip {
+      background: var(--sprout-border-strong);
+    }
   }
   .sprout-resizable-handle[data-dragging],
   .sprout-resizable-handle:focus-visible {
@@ -78,9 +83,6 @@
   .sprout-resizable-handle[data-orientation='horizontal'] .sprout-resizable-grip {
     width: 24px;
     height: 6px;
-  }
-  .sprout-resizable-handle:hover .sprout-resizable-grip {
-    background: var(--sprout-border-strong);
   }
   .sprout-resizable-handle[data-dragging] .sprout-resizable-grip,
   .sprout-resizable-handle:focus-visible .sprout-resizable-grip {

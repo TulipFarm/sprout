@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { ReasoningEffort } from '../../packages/sprout/src/components/reasoning-effort.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, srgb, themes } from './support.js';
 
 const levels = ['Quick', 'Balanced', 'Thorough', 'Maximum'];
 
@@ -61,7 +61,7 @@ describe('ReasoningEffort in a real browser', () => {
     const screen = await render(<Effort />);
     await settle();
     expect(getComputedStyle(part('fill')).backgroundColor).toBe(colorOf('--sprout-primary'));
-    expect(getComputedStyle(part('thumb')).backgroundColor).toBe('rgb(255, 255, 255)');
+    expect(srgb(getComputedStyle(part('thumb')).backgroundColor)).toBe('rgb(255, 255, 255)');
     expect(getComputedStyle(part('shell')).stroke).toBe(colorOf('--sprout-line'));
     expect(await axeViolations(screen.container)).toEqual([]);
   });
@@ -86,7 +86,7 @@ describe('ReasoningEffort in a real browser', () => {
     await expect.element(slider).toHaveFocus();
     const style = getComputedStyle(slider.element());
     expect(style.outlineStyle).toBe('solid');
-    expect(style.outlineWidth).toBe('1px');
+    expect(style.outlineWidth).toBe(focusWidth());
     await expect.poll(() => style.outlineColor).toBe(colorOf('--sprout-focus-ring'));
     await userEvent.keyboard('{ArrowRight}');
     await expect.element(status).toHaveTextContent('Selected level: Thorough');

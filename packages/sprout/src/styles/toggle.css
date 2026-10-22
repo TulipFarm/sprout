@@ -61,6 +61,10 @@
       color: var(--sprout-text);
     }
   }
+  .sprout-toggle:not(:disabled, [data-disabled]):active {
+    background-color: var(--sprout-active);
+    color: var(--sprout-text);
+  }
   .sprout-toggle[data-pressed],
   .sprout-toggle[data-pressed]:not(:disabled, [data-disabled]):hover {
     background-color: var(--sprout-primary-subtle);

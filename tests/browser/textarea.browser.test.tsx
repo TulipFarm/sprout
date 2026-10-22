@@ -3,7 +3,7 @@ import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Field } from '../../packages/sprout/src/components/field.js';
 import { Textarea } from '../../packages/sprout/src/components/textarea.js';
-import { axeViolations, emulate, setTheme, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, themes } from './support.js';
 
 function colorOf(value: string) {
   const probe = document.createElement('span');
@@ -125,7 +125,7 @@ describe('Textarea in a real browser', () => {
     expect(style('Request').outlineColor).toBe(colorOf('var(--sprout-danger)'));
   });
 
-  it('shows a 1px focus outline from Tab and keeps Enter for new lines', async () => {
+  it('shows a 2px focus outline from Tab and keeps Enter for new lines', async () => {
     await emulate({ reducedMotion: true });
     await render(
       <form onSubmit={event => event.preventDefault()}>
@@ -137,7 +137,8 @@ describe('Textarea in a real browser', () => {
     await userEvent.tab();
     await expect.element(page.getByLabelText('Query')).toHaveFocus();
     const focused = style('Query');
-    expect(focused.outlineWidth).toBe('1px');
+    expect(focused.outlineWidth).toBe(focusWidth());
+    await expect.poll(() => focused.outlineColor).toBe(colorOf('var(--sprout-focus-ring)'));
     expect(focused.outlineOffset).toBe('0px');
     expect(focused.borderTopColor).toBe(colorOf('var(--sprout-border)'));
     const query = area('Query');

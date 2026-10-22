@@ -25,8 +25,10 @@
     font-weight: 500;
     line-height: 1.25rem;
   }
-  .sprout-activity-panel-trigger:hover {
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-activity-panel-trigger:hover {
+      color: var(--sprout-text);
+    }
   }
   .sprout-activity-panel-status {
     flex-shrink: 0;
@@ -105,9 +107,11 @@
     color: var(--sprout-muted);
     text-align: start;
   }
-  .sprout-tool-activity-trigger:hover {
-    background: var(--sprout-hover);
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-tool-activity-trigger:hover {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
   }
   .sprout-tool-activity-trigger:focus-visible {
     outline-offset: 0;
@@ -249,9 +253,11 @@
     font-size: var(--sprout-text-sm);
     text-decoration: none;
   }
-  a.sprout-tool-activity-source-chip:hover {
-    background: var(--sprout-hover);
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    a.sprout-tool-activity-source-chip:hover {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
   }
   a.sprout-tool-activity-source-chip:active {
     background: var(--sprout-active);

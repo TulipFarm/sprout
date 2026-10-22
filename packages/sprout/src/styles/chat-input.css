@@ -92,8 +92,10 @@
   .sprout-chat-input-bar .sprout-input-group-button[data-variant='ghost'] {
     color: var(--sprout-muted);
   }
-  .sprout-chat-input-bar .sprout-input-group-button[data-variant='ghost']:hover {
-    color: var(--sprout-text);
+  @media (hover: hover) {
+    .sprout-chat-input-bar .sprout-input-group-button[data-variant='ghost']:hover {
+      color: var(--sprout-text);
+    }
   }
   .sprout-chat-input-picker-label {
     min-width: 0;
@@ -114,8 +116,10 @@
     background: color-mix(in oklab, var(--sprout-chat-input-mode) 14%, transparent);
     color: var(--sprout-chat-input-mode);
   }
-  .sprout-chat-input[data-mode-color] .sprout-chat-input-bar .sprout-chat-input-mode:hover {
-    background: color-mix(in oklab, var(--sprout-chat-input-mode) 22%, transparent);
+  @media (hover: hover) {
+    .sprout-chat-input[data-mode-color] .sprout-chat-input-bar .sprout-chat-input-mode:hover {
+      background: color-mix(in oklab, var(--sprout-chat-input-mode) 22%, transparent);
+    }
   }
   .sprout-chat-input-mode-option > :is(svg, .sprout-brand-icon) {
     color: var(--sprout-chat-input-mode);

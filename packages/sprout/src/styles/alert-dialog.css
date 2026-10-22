@@ -155,6 +155,20 @@
     }
   }
 
+  /* Reduced motion keeps the fade and drops the scale. */
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-alert-dialog-overlay,
+    .sprout-alert-dialog-content {
+      transition: opacity var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-alert-dialog-overlay[data-starting-style],
+    .sprout-alert-dialog-overlay[data-ending-style],
+    .sprout-alert-dialog-content[data-starting-style],
+    .sprout-alert-dialog-content[data-ending-style] {
+      opacity: 0;
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .sprout-alert-dialog-overlay {
       transition: opacity var(--sprout-motion-normal) var(--sprout-motion-ease);

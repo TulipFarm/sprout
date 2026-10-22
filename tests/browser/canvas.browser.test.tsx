@@ -10,7 +10,7 @@ import {
   ChatSplit,
   type CanvasTab,
 } from '../../packages/sprout/src/components/canvas.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 const Icon = ({ size = 14 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 16 16" aria-hidden="true">
@@ -144,7 +144,7 @@ describe('Canvas in a real browser', () => {
     await userEvent.tab();
     await expect.element(customers).toHaveFocus();
     expect(css(customers.element()).outlineStyle).toBe('solid');
-    expect(css(customers.element()).outlineWidth).toBe('1px');
+    expect(css(customers.element()).outlineWidth).toBe(focusWidth());
     await userEvent.keyboard('{ArrowRight}');
     await expect.element(tab('Calendar events')).toHaveFocus();
     await expect.element(tab('Calendar events')).toHaveAttribute('aria-selected', 'true');

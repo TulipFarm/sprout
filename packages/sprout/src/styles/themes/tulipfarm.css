@@ -1,114 +1,169 @@
-/* TulipFarm: The TulipFarm Cloud palette, cool neutral grays with Google green.
+/* TulipFarm: the TulipFarm palette, cool neutral grays with Google green.
  *
- * One file is the whole theme: font, radius, and every color token for light
- * and dark. Import it after "@tulipfarm/sprout/styles.css", then set
- * data-sprout-theme="tulipfarm" on <html>, or on any element to theme only
- * that subtree. The font is Inter; load it (for example with
- * @fontsource-variable/inter) or the system font is used.
+ * This file is the source of truth for every TulipFarm product: the app,
+ * tulipfarm.ai, the docs and the blog read their colors from these tokens
+ * instead of copying values. Change a TulipFarm color here, then release.
+ *
+ * One file is the whole theme: font, type scale, radius, motion, shadows, and
+ * every color token for light and dark. Import it after
+ * "@tulipfarm/sprout/styles.css", then set data-sprout-theme="tulipfarm" on
+ * <html>, or on any element to theme only that subtree. The font is Inter;
+ * load it (for example with @fontsource-variable/inter) or the system font is
+ * used.
  */
 @layer base {
   [data-sprout-theme='tulipfarm'] {
     --sprout-font: 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
+    --sprout-text-xs: 0.75rem;
+    --sprout-text-sm: 0.8125rem;
+    --sprout-text-base: 0.9375rem;
     --sprout-radius-control: 0.5rem;
     --sprout-radius-panel: 0.75rem;
+    --sprout-sidebar-icon-width: 3rem;
+    --sprout-motion-fast: 150ms;
+    --sprout-motion-normal: 150ms;
+    --sprout-motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   [data-sprout-theme='tulipfarm'],
   .light[data-sprout-theme='tulipfarm'],
   .light [data-sprout-theme='tulipfarm'] {
-    --sprout-canvas: #f9f9fa;
-    --sprout-surface: #ffffff;
-    --sprout-hover: #f5f5f7;
-    --sprout-active: #ebebed;
-    --sprout-text: #1b1b1b;
-    --sprout-muted: #65666e;
-    --sprout-line: #e8e8e8;
-    --sprout-border: #89898e;
-    --sprout-border-strong: #6e6f75;
-    --sprout-input: #dedee0;
-    --sprout-primary: #188038;
-    --sprout-primary-hover: #146c2f;
-    --sprout-primary-active: #105825;
-    --sprout-on-primary: #ffffff;
-    --sprout-focus: #188038;
-    --sprout-danger: #b42332;
-    --sprout-danger-hover: #9a1d2a;
-    --sprout-on-danger: #ffffff;
-    --sprout-info: #245cba;
-    --sprout-info-subtle: #edf3ff;
-    --sprout-danger-subtle: #fff0f1;
-    --sprout-success: #146c2f;
-    --sprout-success-subtle: #e9f5ec;
-    --sprout-warning: #8a4b08;
-    --sprout-warning-subtle: #fff4df;
-    --sprout-primary-subtle: #edf7f0;
-    --sprout-secondary: #f0f0f2;
-    --sprout-overlay: rgb(32 33 36 / 0.25);
+    --sprout-canvas: oklch(0.9824 0.0013 286.38);
+    --sprout-surface: oklch(1 0 0);
+    --sprout-hover: oklch(0.9707 0.0027 286.35);
+    --sprout-active: oklch(0.9406 0.0027 286.35);
+    --sprout-text: oklch(0.2221 0 0);
+    --sprout-muted: oklch(0.5121 0.0126 280.25);
+    --sprout-line: oklch(0.931 0 0);
+    --sprout-border: oklch(0.6317 0.0074 286.19);
+    --sprout-border-strong: oklch(0.5428 0.0093 278.5);
+    --sprout-input: oklch(0.9012 0.0027 286.35);
+    --sprout-primary: oklch(0.527 0.141 148.39);
+    --sprout-primary-hover: oklch(0.4672 0.1237 148.51);
+    --sprout-primary-active: oklch(0.4052 0.1067 148.3);
+    --sprout-on-primary: oklch(1 0 0);
+    --sprout-focus: oklch(0.527 0.141 148.39);
+    --sprout-danger: oklch(0.5033 0.1793 21.8);
+    --sprout-danger-hover: oklch(0.4491 0.1594 21.67);
+    --sprout-on-danger: oklch(1 0 0);
+    --sprout-info: oklch(0.4928 0.1599 260.23);
+    --sprout-info-subtle: oklch(0.9631 0.0173 264.49);
+    --sprout-danger-subtle: oklch(0.9672 0.0163 12.78);
+    --sprout-success: oklch(0.4672 0.1237 148.51);
+    --sprout-success-subtle: oklch(0.9587 0.0174 153.57);
+    --sprout-warning: oklch(0.4793 0.1104 58.6);
+    --sprout-warning-subtle: oklch(0.9702 0.03 83.63);
+    --sprout-primary-subtle: oklch(0.9667 0.014 155.59);
+    --sprout-secondary: oklch(0.9557 0.0027 286.35);
+    --sprout-overlay: oklch(0.2479 0.0058 271.18 / 0.25);
+    --sprout-sidebar: oklch(0.9524 0.0013 286.37);
+    --sprout-popover: oklch(1 0 0);
+    --sprout-body: oklch(0.306 0.0035 286.19);
+    --sprout-faint: oklch(0.6958 0.0031 264.54);
+    --sprout-primary-text: oklch(0.4672 0.1237 148.51);
+    --sprout-card-raised: oklch(0.9854 0.0013 286.38);
+    --sprout-chart-1: oklch(0.527 0.141 148.39);
+    --sprout-chart-2: oklch(0.4928 0.1599 260.23);
+    --sprout-chart-3: oklch(0.4793 0.1104 58.6);
+    --sprout-chart-4: oklch(0.5214 0.1525 303.17);
+    --sprout-chart-5: oklch(0.5033 0.1793 21.8);
+    --sprout-shadow-control: 0 3px 6px -2px oklch(0 0 0 / 0.02), 0 1px 1px oklch(0 0 0 / 0.04);
+    --sprout-shadow-panel: 0 3px 6px -2px oklch(0 0 0 / 0.02), 0 1px 1px oklch(0 0 0 / 0.04);
+    --sprout-shadow-overlay:
+      0 16px 48px oklch(0.2479 0.0058 271.18 / 0.15), 0 2px 8px oklch(0.2479 0.0058 271.18 / 0.06);
   }
 
   .dark[data-sprout-theme='tulipfarm'],
   .dark [data-sprout-theme='tulipfarm'] {
-    --sprout-canvas: #101113;
-    --sprout-surface: #16171a;
-    --sprout-hover: #202125;
-    --sprout-active: #222327;
-    --sprout-text: #ffffff;
-    --sprout-muted: #a5a6af;
-    --sprout-line: #2d2e31;
-    --sprout-border: #727277;
-    --sprout-border-strong: #9a9ba1;
-    --sprout-input: #26272b;
-    --sprout-primary: #75ce8e;
-    --sprout-primary-hover: #8fd9a3;
-    --sprout-primary-active: #a6e2b6;
-    --sprout-on-primary: #0e2615;
-    --sprout-focus: #75ce8e;
-    --sprout-danger: #ff929d;
-    --sprout-danger-hover: #ffadb5;
-    --sprout-on-danger: #3b1016;
-    --sprout-info: #9cbdff;
-    --sprout-info-subtle: #202e48;
-    --sprout-danger-subtle: #3b2228;
-    --sprout-success: #75ce8e;
-    --sprout-success-subtle: #1b3323;
-    --sprout-warning: #edc17c;
-    --sprout-warning-subtle: #352b1e;
-    --sprout-primary-subtle: #1b3323;
-    --sprout-secondary: #28292e;
-    --sprout-overlay: rgb(0 0 0 / 0.5);
+    --sprout-canvas: oklch(0.1774 0.0044 264.46);
+    --sprout-surface: oklch(0.22 0.0061 271.11);
+    --sprout-hover: oklch(0.2484 0.0077 274.64);
+    --sprout-active: oklch(0.2568 0.0076 274.65);
+    --sprout-text: oklch(0.96 0.003 286);
+    --sprout-muted: oklch(0.7271 0.0129 281);
+    --sprout-line: oklch(0.3013 0.0056 271.23);
+    --sprout-border: oklch(0.5537 0.0076 286.15);
+    --sprout-border-strong: oklch(0.6905 0.0088 278.57);
+    --sprout-input: oklch(0.2733 0.0075 274.68);
+    --sprout-primary: oklch(0.7788 0.1259 151.59);
+    --sprout-primary-hover: oklch(0.8223 0.1061 152.07);
+    --sprout-primary-active: oklch(0.8601 0.0864 152.59);
+    --sprout-on-primary: oklch(0.2435 0.0444 151.34);
+    --sprout-focus: oklch(0.7788 0.1259 151.59);
+    --sprout-danger: oklch(0.7783 0.1315 14.14);
+    --sprout-danger-hover: oklch(0.8287 0.0967 12.97);
+    --sprout-on-danger: oklch(0.2471 0.0678 15.3);
+    --sprout-info: oklch(0.7988 0.101 263.75);
+    --sprout-info-subtle: oklch(0.3019 0.0511 262.14);
+    --sprout-danger-subtle: oklch(0.2864 0.0394 4.26);
+    --sprout-success: oklch(0.7788 0.1259 151.59);
+    --sprout-success-subtle: oklch(0.2959 0.0421 153.88);
+    --sprout-warning: oklch(0.8347 0.1004 77.97);
+    --sprout-warning-subtle: oklch(0.2963 0.0266 73.79);
+    --sprout-primary-subtle: oklch(0.2959 0.0421 153.88);
+    --sprout-secondary: oklch(0.2819 0.0092 276.79);
+    --sprout-overlay: oklch(0 0 0 / 0.5);
+    --sprout-sidebar: oklch(0.1408 0.0044 285.82);
+    --sprout-popover: oklch(0.2807 0.0039 264.5);
+    --sprout-body: oklch(0.9187 0.0029 264.54);
+    --sprout-faint: oklch(0.4566 0.0035 264.53);
+    --sprout-primary-text: oklch(0.7788 0.1259 151.59);
+    --sprout-card-raised: oklch(0.3133 0.0055 271.24);
+    --sprout-chart-1: oklch(0.7788 0.1259 151.59);
+    --sprout-chart-2: oklch(0.7988 0.101 263.75);
+    --sprout-chart-3: oklch(0.8347 0.1004 77.97);
+    --sprout-chart-4: oklch(0.7748 0.1078 305.34);
+    --sprout-chart-5: oklch(0.7783 0.1315 14.14);
+    --sprout-shadow-control: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
+    --sprout-shadow-panel: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
+    --sprout-shadow-overlay: 0 16px 48px oklch(0 0 0 / 0.4), 0 2px 8px oklch(0 0 0 / 0.2);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark)[data-sprout-theme='tulipfarm'],
     :root:not(.light):not(.dark) [data-sprout-theme='tulipfarm'] {
-      --sprout-canvas: #101113;
-      --sprout-surface: #16171a;
-      --sprout-hover: #202125;
-      --sprout-active: #222327;
-      --sprout-text: #ffffff;
-      --sprout-muted: #a5a6af;
-      --sprout-line: #2d2e31;
-      --sprout-border: #727277;
-      --sprout-border-strong: #9a9ba1;
-      --sprout-input: #26272b;
-      --sprout-primary: #75ce8e;
-      --sprout-primary-hover: #8fd9a3;
-      --sprout-primary-active: #a6e2b6;
-      --sprout-on-primary: #0e2615;
-      --sprout-focus: #75ce8e;
-      --sprout-danger: #ff929d;
-      --sprout-danger-hover: #ffadb5;
-      --sprout-on-danger: #3b1016;
-      --sprout-info: #9cbdff;
-      --sprout-info-subtle: #202e48;
-      --sprout-danger-subtle: #3b2228;
-      --sprout-success: #75ce8e;
-      --sprout-success-subtle: #1b3323;
-      --sprout-warning: #edc17c;
-      --sprout-warning-subtle: #352b1e;
-      --sprout-primary-subtle: #1b3323;
-      --sprout-secondary: #28292e;
-      --sprout-overlay: rgb(0 0 0 / 0.5);
+      --sprout-canvas: oklch(0.1774 0.0044 264.46);
+      --sprout-surface: oklch(0.22 0.0061 271.11);
+      --sprout-hover: oklch(0.2484 0.0077 274.64);
+      --sprout-active: oklch(0.2568 0.0076 274.65);
+      --sprout-text: oklch(0.96 0.003 286);
+      --sprout-muted: oklch(0.7271 0.0129 281);
+      --sprout-line: oklch(0.3013 0.0056 271.23);
+      --sprout-border: oklch(0.5537 0.0076 286.15);
+      --sprout-border-strong: oklch(0.6905 0.0088 278.57);
+      --sprout-input: oklch(0.2733 0.0075 274.68);
+      --sprout-primary: oklch(0.7788 0.1259 151.59);
+      --sprout-primary-hover: oklch(0.8223 0.1061 152.07);
+      --sprout-primary-active: oklch(0.8601 0.0864 152.59);
+      --sprout-on-primary: oklch(0.2435 0.0444 151.34);
+      --sprout-focus: oklch(0.7788 0.1259 151.59);
+      --sprout-danger: oklch(0.7783 0.1315 14.14);
+      --sprout-danger-hover: oklch(0.8287 0.0967 12.97);
+      --sprout-on-danger: oklch(0.2471 0.0678 15.3);
+      --sprout-info: oklch(0.7988 0.101 263.75);
+      --sprout-info-subtle: oklch(0.3019 0.0511 262.14);
+      --sprout-danger-subtle: oklch(0.2864 0.0394 4.26);
+      --sprout-success: oklch(0.7788 0.1259 151.59);
+      --sprout-success-subtle: oklch(0.2959 0.0421 153.88);
+      --sprout-warning: oklch(0.8347 0.1004 77.97);
+      --sprout-warning-subtle: oklch(0.2963 0.0266 73.79);
+      --sprout-primary-subtle: oklch(0.2959 0.0421 153.88);
+      --sprout-secondary: oklch(0.2819 0.0092 276.79);
+      --sprout-overlay: oklch(0 0 0 / 0.5);
+      --sprout-sidebar: oklch(0.1408 0.0044 285.82);
+      --sprout-popover: oklch(0.2807 0.0039 264.5);
+      --sprout-body: oklch(0.9187 0.0029 264.54);
+      --sprout-faint: oklch(0.4566 0.0035 264.53);
+      --sprout-primary-text: oklch(0.7788 0.1259 151.59);
+      --sprout-card-raised: oklch(0.3133 0.0055 271.24);
+      --sprout-chart-1: oklch(0.7788 0.1259 151.59);
+      --sprout-chart-2: oklch(0.7988 0.101 263.75);
+      --sprout-chart-3: oklch(0.8347 0.1004 77.97);
+      --sprout-chart-4: oklch(0.7748 0.1078 305.34);
+      --sprout-chart-5: oklch(0.7783 0.1315 14.14);
+      --sprout-shadow-control: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
+      --sprout-shadow-panel: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
+      --sprout-shadow-overlay: 0 16px 48px oklch(0 0 0 / 0.4), 0 2px 8px oklch(0 0 0 / 0.2);
     }
   }
 }

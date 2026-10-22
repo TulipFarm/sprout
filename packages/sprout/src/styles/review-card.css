@@ -30,8 +30,10 @@
     box-sizing: border-box;
     padding: 12px 16px;
   }
-  .sprout-review-card-header:has(.sprout-review-card-trigger:hover) {
-    background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
+  @media (hover: hover) {
+    .sprout-review-card-header:has(.sprout-review-card-trigger:hover) {
+      background: color-mix(in oklab, var(--sprout-hover) 60%, transparent);
+    }
   }
   .sprout-review-card-header:has(.sprout-review-card-trigger:focus-visible) {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);

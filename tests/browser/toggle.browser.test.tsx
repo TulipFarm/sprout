@@ -3,7 +3,7 @@ import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { ToggleGroup } from '../../packages/sprout/src/components/toggle-group.js';
 import { Toggle } from '../../packages/sprout/src/components/toggle.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 const Icon = (props: { 'data-icon'?: string }) => (
   <svg viewBox="0 0 16 16" aria-hidden="true" {...props}>
@@ -137,7 +137,7 @@ describe('Toggle in a real browser', () => {
     await expect.element(bold).toHaveFocus();
     const ring = getComputedStyle(bold.element());
     expect(ring.outlineStyle).toBe('solid');
-    expect(ring.outlineWidth).toBe('1px');
+    expect(ring.outlineWidth).toBe(focusWidth());
     await userEvent.keyboard(' ');
     await expect.element(bold).toHaveAttribute('aria-pressed', 'false');
     await userEvent.tab();

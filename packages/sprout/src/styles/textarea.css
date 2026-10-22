@@ -28,7 +28,7 @@
   }
   .sprout-textarea:focus-visible {
     border-color: var(--sprout-border);
-    outline: var(--sprout-focus-width) solid transparent;
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
   }
   .sprout-textarea:disabled {
     cursor: not-allowed;

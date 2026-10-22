@@ -2,43 +2,43 @@
   /* Graphics need 3:1 against the surface, so light mode takes darker shades. */
   :root,
   .light {
-    --sprout-red: #e11d48;
-    --sprout-orange: #ea580c;
-    --sprout-yellow: #c28000;
-    --sprout-green: #16a34a;
-    --sprout-teal: #0d9488;
-    --sprout-sky: #0284c7;
-    --sprout-blue: #2563eb;
-    --sprout-indigo: #4f46e5;
-    --sprout-purple: #9333ea;
-    --sprout-tan: #a37b45;
+    --sprout-red: oklch(0.5858 0.222 17.58);
+    --sprout-orange: oklch(0.6461 0.1943 41.12);
+    --sprout-yellow: oklch(0.652 0.1388 73.08);
+    --sprout-green: oklch(0.6271 0.1699 149.21);
+    --sprout-teal: oklch(0.6002 0.1038 184.7);
+    --sprout-sky: oklch(0.5876 0.1389 241.97);
+    --sprout-blue: oklch(0.5461 0.2152 262.88);
+    --sprout-indigo: oklch(0.5106 0.2301 276.97);
+    --sprout-purple: oklch(0.5575 0.2525 302.32);
+    --sprout-tan: oklch(0.6106 0.0869 73.23);
   }
 
   .dark {
-    --sprout-red: #f0506e;
-    --sprout-orange: #f5a33d;
-    --sprout-yellow: #f5d547;
-    --sprout-green: #62d26f;
-    --sprout-teal: #5cc8d0;
-    --sprout-sky: #5bb4e5;
-    --sprout-blue: #4a8df8;
-    --sprout-indigo: #7b72f0;
-    --sprout-purple: #b46ee8;
-    --sprout-tan: #c4a981;
+    --sprout-red: oklch(0.6579 0.1955 13.34);
+    --sprout-orange: oklch(0.7798 0.1484 67.74);
+    --sprout-yellow: oklch(0.8759 0.1575 96.07);
+    --sprout-green: oklch(0.775 0.1715 145.98);
+    --sprout-teal: oklch(0.7728 0.0993 201.91);
+    --sprout-sky: oklch(0.7346 0.111 235.16);
+    --sprout-blue: oklch(0.6526 0.1738 259.4);
+    --sprout-indigo: oklch(0.623 0.1832 282.92);
+    --sprout-purple: oklch(0.6645 0.1843 308.71);
+    --sprout-tan: oklch(0.7486 0.0626 77.32);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) {
-      --sprout-red: #f0506e;
-      --sprout-orange: #f5a33d;
-      --sprout-yellow: #f5d547;
-      --sprout-green: #62d26f;
-      --sprout-teal: #5cc8d0;
-      --sprout-sky: #5bb4e5;
-      --sprout-blue: #4a8df8;
-      --sprout-indigo: #7b72f0;
-      --sprout-purple: #b46ee8;
-      --sprout-tan: #c4a981;
+      --sprout-red: oklch(0.6579 0.1955 13.34);
+      --sprout-orange: oklch(0.7798 0.1484 67.74);
+      --sprout-yellow: oklch(0.8759 0.1575 96.07);
+      --sprout-green: oklch(0.775 0.1715 145.98);
+      --sprout-teal: oklch(0.7728 0.0993 201.91);
+      --sprout-sky: oklch(0.7346 0.111 235.16);
+      --sprout-blue: oklch(0.6526 0.1738 259.4);
+      --sprout-indigo: oklch(0.623 0.1832 282.92);
+      --sprout-purple: oklch(0.6645 0.1843 308.71);
+      --sprout-tan: oklch(0.7486 0.0626 77.32);
     }
   }
 
@@ -242,9 +242,9 @@
   .sprout-chart .recharts-cartesian-axis-tick-value {
     fill: var(--sprout-muted);
   }
-  .sprout-chart .recharts-cartesian-grid line[stroke='#ccc'],
-  .sprout-chart .recharts-polar-grid [stroke='#ccc'],
-  .sprout-chart .recharts-reference-line [stroke='#ccc'] {
+  .sprout-chart .recharts-cartesian-grid line[stroke='oklch(0.8452 0 0)'],
+  .sprout-chart .recharts-polar-grid [stroke='oklch(0.8452 0 0)'],
+  .sprout-chart .recharts-reference-line [stroke='oklch(0.8452 0 0)'] {
     stroke: var(--sprout-line);
   }
   .sprout-chart .recharts-curve.recharts-tooltip-cursor {
@@ -256,8 +256,8 @@
   .sprout-chart .recharts-radial-bar-background-sector {
     fill: var(--sprout-secondary);
   }
-  .sprout-chart .recharts-dot[stroke='#fff'],
-  .sprout-chart .recharts-sector[stroke='#fff'] {
+  .sprout-chart .recharts-dot[stroke='oklch(1 0 0)'],
+  .sprout-chart .recharts-sector[stroke='oklch(1 0 0)'] {
     stroke: transparent;
   }
   .sprout-chart .recharts-layer,

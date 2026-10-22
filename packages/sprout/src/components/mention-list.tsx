@@ -65,7 +65,14 @@ export function MentionOption({
 }: MentionOptionProps) {
   const option = useRef<HTMLLIElement>(null);
   useEffect(() => {
-    if (active) option.current?.scrollIntoView?.({ block: 'nearest' });
+    const el = option.current;
+    const list = el?.closest<HTMLElement>('.sprout-mention-list-options');
+    if (!active || !el || !list) return;
+    // Scroll only the listbox; scrollIntoView would also scroll the page.
+    const item = el.getBoundingClientRect();
+    const view = list.getBoundingClientRect();
+    if (item.top < view.top + 4) list.scrollTop -= view.top + 4 - item.top;
+    else if (item.bottom > view.bottom - 4) list.scrollTop += item.bottom - view.bottom + 4;
   }, [active]);
   return (
     <li

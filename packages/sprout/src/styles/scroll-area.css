@@ -54,7 +54,11 @@
     border-radius: 9999px;
     background: color-mix(in oklab, var(--sprout-muted) 40%, transparent);
   }
-  .sprout-scroll-area-thumb:hover,
+  @media (hover: hover) {
+    .sprout-scroll-area-thumb:hover {
+      background: color-mix(in oklab, var(--sprout-muted) 60%, transparent);
+    }
+  }
   .sprout-scroll-area-scrollbar[data-scrolling] > .sprout-scroll-area-thumb,
   .sprout-scroll-area-thumb:active {
     background: color-mix(in oklab, var(--sprout-muted) 60%, transparent);

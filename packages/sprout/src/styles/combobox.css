@@ -42,7 +42,7 @@
     overflow: hidden;
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
-    background: var(--sprout-surface);
+    background: var(--sprout-popover);
     color: var(--sprout-text);
     box-shadow: var(--sprout-shadow-overlay);
     font-family: var(--sprout-font);
@@ -200,6 +200,9 @@
     border-color: var(--sprout-border);
     outline: var(--sprout-focus-width) solid transparent;
   }
+  .sprout-combobox-chips:focus-within:has(:where(.sprout-combobox-chips-input:focus-visible)) {
+    outline-color: var(--sprout-focus-ring);
+  }
   .sprout-combobox-chips:has([aria-invalid='true']),
   .sprout-combobox-chips:has([data-invalid]) {
     border-color: var(--sprout-danger);
@@ -255,9 +258,13 @@
     color: var(--sprout-text);
     opacity: 0.55;
   }
-  .sprout-button.sprout-combobox-chip-remove:hover,
   .sprout-button.sprout-combobox-chip-remove:focus-visible {
     opacity: 1;
+  }
+  @media (hover: hover) {
+    .sprout-button.sprout-combobox-chip-remove:hover {
+      opacity: 1;
+    }
   }
 
   .sprout-combobox-chips-input {

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Input } from '../../packages/sprout/src/components/input.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 function colorOf(token: string) {
   const probe = document.createElement('span');
@@ -86,7 +86,8 @@ describe('Input in a real browser', () => {
     await expect.element(title).toHaveFocus();
     const style = getComputedStyle(title.element());
     expect(style.outlineStyle).toBe('solid');
-    expect(style.outlineWidth).toBe('1px');
+    expect(style.outlineWidth).toBe(focusWidth());
+    await expect.poll(() => style.outlineColor).toBe(colorOf('--sprout-focus-ring'));
     expect(style.outlineOffset).toBe('0px');
     expect(style.borderTopColor).toBe(colorOf('--sprout-border'));
     await userEvent.tab();

@@ -3,7 +3,7 @@ import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Button, buttonSizeNames, buttonVariantNames } from '../../packages/sprout/src/components/button.js';
 import { Input } from '../../packages/sprout/src/components/input.js';
-import { axeViolations, emulate, setTheme, settle, size, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, size, themes } from './support.js';
 
 const Plus = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -96,7 +96,7 @@ describe('Button in a real browser', () => {
     expect(clicks).toBe(2);
     const ring = getComputedStyle(add.element());
     expect(ring.outlineStyle).toBe('solid');
-    expect(ring.outlineWidth).toBe('1px');
+    expect(ring.outlineWidth).toBe(focusWidth());
 
     const busy = screen.getByRole('button', { name: 'Saving…' });
     await expect.element(busy).toHaveAttribute('aria-busy', 'true');

@@ -20,7 +20,7 @@ import {
   ComboboxValue,
   useComboboxAnchor,
 } from '../../packages/sprout/src/components/combobox.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, focusWidth, setTheme, settle, themes } from './support.js';
 
 const fruits = ['Apple', 'Apricot', 'Blueberry', 'Cherry', 'Pear'];
 const channels = ['general', 'launches', 'incidents', 'design-reviews'];
@@ -77,6 +77,15 @@ function Channels({ anchored }: { anchored?: boolean }) {
       </ComboboxContent>
     </Combobox>
   );
+}
+
+function colorOf(token: string) {
+  const probe = document.createElement('span');
+  probe.style.color = `var(${token})`;
+  document.body.append(probe);
+  const value = getComputedStyle(probe).color;
+  probe.remove();
+  return value;
 }
 
 const popup = () => document.querySelector<HTMLElement>('[data-slot="combobox-content"][data-open]');
@@ -280,7 +289,7 @@ describe('Combobox in a real browser', () => {
       await screen.getByRole('combobox').click();
       await expect.poll(popup).not.toBeNull();
       const surface = getComputedStyle(popup()!);
-      expect(surface.backgroundColor).toBe(mode === 'dark' ? 'rgb(29, 29, 29)' : 'rgb(253, 253, 253)');
+      expect(surface.backgroundColor).toBe(colorOf('--sprout-popover'));
       expect(surface.transitionDuration).toMatch(/0\.12s/);
       await settle();
       expect(surface.opacity).toBe('1');
@@ -298,10 +307,11 @@ describe('Combobox in a real browser', () => {
     await userEvent.tab();
     const group = screen.container.querySelector('[data-slot="input-group"]')!;
     expect(getComputedStyle(group).outlineStyle).toBe('solid');
-    expect(getComputedStyle(group).outlineWidth).toBe('1px');
+    expect(getComputedStyle(group).outlineWidth).toBe(focusWidth());
     (screen.getByRole('combobox', { name: 'Channels' }).element() as HTMLElement).focus();
     const chips = screen.container.querySelector('[data-slot="combobox-chips"]')!;
     await expect.poll(() => getComputedStyle(chips).outlineStyle).toBe('solid');
+    await expect.poll(() => getComputedStyle(chips).outlineColor).toBe(colorOf('--sprout-focus-ring'));
   });
 
   it.each(themes)('%s %s passes axe closed and open', async (theme, mode) => {

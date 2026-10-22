@@ -9,7 +9,7 @@ import {
   gradientBannerSizeNames,
   gradientBannerVariantNames,
 } from '../../packages/sprout/src/components/gradient-banner.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, setTheme, settle, srgb, themes } from './support.js';
 
 function Gallery() {
   return (
@@ -69,8 +69,8 @@ describe('GradientBanner in a real browser', () => {
       getComputedStyle(bannerOf(variant)).getPropertyValue('--sprout-gradient-banner-base'),
     );
     expect(new Set(bases).size).toBe(6);
-    expect(getComputedStyle(bannerOf('cobalt').querySelector('p')!).color).toBe('rgb(255, 253, 247)');
-    expect(getComputedStyle(bannerOf('aurora').querySelector('p')!).color).toBe('rgb(37, 40, 45)');
+    expect(srgb(getComputedStyle(bannerOf('cobalt').querySelector('p')!).color)).toBe('rgb(255, 253, 247)');
+    expect(srgb(getComputedStyle(bannerOf('aurora').querySelector('p')!).color)).toBe('rgb(37, 40, 45)');
     const art = bannerOf('aurora').querySelector<HTMLElement>('[data-slot="gradient-banner-art"]')!;
     const box = bannerOf('aurora').getBoundingClientRect();
     const artBox = art.getBoundingClientRect();
@@ -105,14 +105,14 @@ describe('GradientBanner in a real browser', () => {
     await render(<Gallery />);
     const light = document.querySelector<HTMLElement>('[data-tone="light"]')!;
     const dark = document.querySelector<HTMLElement>('[data-tone="dark"]')!;
-    expect(getComputedStyle(light).backgroundColor).toBe('rgb(255, 255, 255)');
-    expect(getComputedStyle(light).color).toBe('rgb(37, 40, 45)');
-    expect(getComputedStyle(dark).backgroundColor).toBe('rgb(25, 29, 32)');
-    expect(getComputedStyle(dark).color).toBe('rgb(255, 255, 255)');
+    expect(srgb(getComputedStyle(light).backgroundColor)).toBe('rgb(255, 255, 255)');
+    expect(srgb(getComputedStyle(light).color)).toBe('rgb(37, 40, 45)');
+    expect(srgb(getComputedStyle(dark).backgroundColor)).toBe('rgb(25, 29, 32)');
+    expect(srgb(getComputedStyle(dark).color)).toBe('rgb(255, 255, 255)');
     const badge = (panel: HTMLElement) =>
       getComputedStyle(panel.querySelector('[data-slot="gradient-banner-badge"]')!).backgroundColor;
-    expect(badge(light)).toBe('rgb(241, 242, 244)');
-    expect(badge(dark)).toBe('rgb(48, 55, 59)');
+    expect(srgb(badge(light))).toBe('rgb(241, 242, 244)');
+    expect(srgb(badge(dark))).toBe('rgb(48, 55, 59)');
   });
 
   it('progress fills its 4px track by value and mirrors in RTL', async () => {

@@ -125,7 +125,7 @@ describe('Avatar in a real browser', () => {
     await expect.poll(() => entityImage.querySelector('img')?.referrerPolicy).toBe('no-referrer');
   });
 
-  it('the image fades in, and reduced motion turns the fade off', async () => {
+  it('the image fades in, and reduced motion keeps only that fade', async () => {
     const screen = await render(
       <Avatar>
         <AvatarImage src={art} alt="Alex Meadow" />
@@ -134,9 +134,11 @@ describe('Avatar in a real browser', () => {
     );
     const image = screen.getByRole('img', { name: 'Alex Meadow' });
     await expect.element(image).toBeVisible();
+    expect(getComputedStyle(image.element()).transitionProperty).toBe('opacity');
     expect(getComputedStyle(image.element()).transitionDuration).toBe('0.18s');
     await emulate({ reducedMotion: true });
-    expect(getComputedStyle(image.element()).transitionDuration).toBe('0s');
+    expect(getComputedStyle(image.element()).transitionProperty).toBe('opacity');
+    expect(getComputedStyle(image.element()).transitionDuration).toBe('0.18s');
   });
 
   it('does not overflow a 390px viewport', async () => {

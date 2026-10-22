@@ -250,6 +250,11 @@
     text-underline-offset: 2px;
     border-radius: 2px;
   }
+  @media (hover: hover) {
+    .sprout-file-google-link a:hover {
+      color: var(--sprout-primary-hover);
+    }
+  }
   .sprout-file-google-link a:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;

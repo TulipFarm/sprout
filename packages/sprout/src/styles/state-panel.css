@@ -122,7 +122,7 @@
     border-top-left-radius: var(--sprout-radius-panel);
     background: var(--sprout-surface);
     box-shadow: var(--sprout-shadow-panel);
-    mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, oklch(0 0 0) 60%, transparent 100%);
   }
 
   @container (min-width: 24rem) {
@@ -159,8 +159,14 @@
 
   @media (prefers-reduced-motion: reduce) {
     .sprout-state-panel {
-      animation: none;
+      animation-name: sprout-state-panel-fade;
     }
+  }
+}
+
+@keyframes sprout-state-panel-fade {
+  from {
+    opacity: 0;
   }
 }
 

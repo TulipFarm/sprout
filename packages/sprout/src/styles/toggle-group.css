@@ -71,6 +71,10 @@
       color: var(--sprout-text);
     }
   }
+  .sprout-toggle-group-item:not([data-disabled]):active {
+    background-color: var(--sprout-active);
+    color: var(--sprout-text);
+  }
   .sprout-toggle-group-item[data-pressed],
   .sprout-toggle-group-item[data-pressed]:not([data-disabled]):hover {
     background-color: var(--sprout-primary-subtle);

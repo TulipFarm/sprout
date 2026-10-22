@@ -1,28 +1,28 @@
 @layer base {
   :root,
   .light {
-    --sprout-file-paper: #ffffff;
-    --sprout-file-edge: #d4d4da;
-    --sprout-file-generic: #8e8f97;
-    --sprout-file-pdf: #e2463f;
-    --sprout-file-sheet: #1f8f4a;
-    --sprout-file-document: #2b67d1;
-    --sprout-file-slides: #d9622b;
-    --sprout-file-image: #a8d4f7;
-    --sprout-file-label: #ffffff;
+    --sprout-file-paper: oklch(1 0 0);
+    --sprout-file-edge: oklch(0.8717 0.0082 286.23);
+    --sprout-file-generic: oklch(0.6518 0.0118 280.36);
+    --sprout-file-pdf: oklch(0.6165 0.1939 27.02);
+    --sprout-file-sheet: oklch(0.5734 0.1422 151.05);
+    --sprout-file-document: oklch(0.5355 0.1755 260.83);
+    --sprout-file-slides: oklch(0.6349 0.1638 42.8);
+    --sprout-file-image: oklch(0.8506 0.0674 242.56);
+    --sprout-file-label: oklch(1 0 0);
   }
 
   .dark {
-    --sprout-file-paper: #2a2b30;
-    --sprout-file-edge: #4a4b52;
-    --sprout-file-image: #4d7ea8;
+    --sprout-file-paper: oklch(0.2901 0.0092 276.8);
+    --sprout-file-edge: oklch(0.4145 0.0116 279.39);
+    --sprout-file-image: oklch(0.5761 0.0841 245.81);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark) {
-      --sprout-file-paper: #2a2b30;
-      --sprout-file-edge: #4a4b52;
-      --sprout-file-image: #4d7ea8;
+      --sprout-file-paper: oklch(0.2901 0.0092 276.8);
+      --sprout-file-edge: oklch(0.4145 0.0116 279.39);
+      --sprout-file-image: oklch(0.5761 0.0841 245.81);
     }
   }
 }
@@ -44,8 +44,10 @@
     color: var(--sprout-text);
     font-family: inherit;
   }
-  .sprout-attachment:has(> a, > button):hover {
-    background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+  @media (hover: hover) {
+    .sprout-attachment:has(> a, > button):hover {
+      background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+    }
   }
   .sprout-attachment:has(> .sprout-attachment-trigger:focus-visible) {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -442,8 +444,16 @@
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
     outline-offset: 0;
   }
-  .sprout-file-attachment:has(button.sprout-file-attachment-open:not(:disabled)):hover {
-    background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+  @media (hover: hover) {
+    .sprout-file-attachment:has(button.sprout-file-attachment-open:not(:disabled)):hover {
+      background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
+    }
+  }
+  /* The chip's open button fills the 36px chip instead of its 20px label line. */
+  @media (pointer: coarse) {
+    .sprout-file-attachment[data-variant='chip'] .sprout-file-attachment-open {
+      align-self: stretch;
+    }
   }
 
   .sprout-file-attachment-name {

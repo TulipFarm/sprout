@@ -186,8 +186,10 @@
     border-radius: 999px;
     background: var(--sprout-input);
   }
-  .sprout-sheet-swipe-handle:hover::after {
-    background: var(--sprout-border);
+  @media (hover: hover) {
+    .sprout-sheet-swipe-handle:hover::after {
+      background: var(--sprout-border);
+    }
   }
   .sprout-sheet-content:is([data-side='top'], [data-side='bottom']) > .sprout-sheet-swipe-handle {
     height: 20px;

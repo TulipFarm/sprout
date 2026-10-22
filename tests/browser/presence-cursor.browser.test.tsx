@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
 import { Avatar, AvatarFallback } from '../../packages/sprout/src/components/avatar.js';
 import { PresenceCursor } from '../../packages/sprout/src/components/presence-cursor.js';
-import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
+import { axeViolations, emulate, setTheme, settle, srgb, themes } from './support.js';
 
 const red = 'rgb(201, 42, 42)';
 
@@ -55,7 +55,7 @@ describe('PresenceCursor in a real browser', () => {
     expect(box.left).toBeGreaterThan(arrow.left);
     expect(box.top).toBeGreaterThan(arrow.top);
     expect(getComputedStyle(label).backgroundColor).toBe(red);
-    expect(getComputedStyle(label).color).toBe('rgb(255, 255, 255)');
+    expect(srgb(getComputedStyle(label).color)).toBe('rgb(255, 255, 255)');
     expect(getComputedStyle(part('path')).fill).toBe(red);
   });
 
