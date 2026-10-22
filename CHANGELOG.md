@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.6.0](https://github.com/TulipFarm/sprout/compare/v0.5.0...v0.6.0) (2026-10-22)
+
+### ⚠ BREAKING CHANGES
+
+* **agent-fanout:** AgentFanout takes one root `agent` with nested `agents`
+  instead of `task`, `agents`, `state`, `elapsed`, and `onStop`. Agent
+  `status` is queued, running, needs-you, done, failed, or stopped
+  (`working` is now `running`). `color`, `result`, `duration`, `label`,
+  and `defaultOpen` are removed. The component no longer uses React Flow.
+
+### Features
+
+* **agent-fanout:** rebuild AgentFanout as an animated tree of agent cards ([204aff6](https://github.com/TulipFarm/sprout/commit/204aff6895dbf45344061701d743340891573104))
+* TulipFarm theme source of truth, OKLCH colours and component polish ([#38](https://github.com/TulipFarm/sprout/issues/38)) ([e1894eb](https://github.com/TulipFarm/sprout/commit/e1894eb5d788857ad977f05e550c428722b61506))
+
 ## [0.5.0](https://github.com/TulipFarm/sprout/compare/v0.4.0...v0.5.0) (2026-10-21)
 
 ### ⚠ BREAKING CHANGES
