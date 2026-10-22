@@ -1,0 +1,265 @@
+@layer components {
+  .sprout-task-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+  }
+  .sprout-task-tree-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+  }
+  .sprout-task-tree-heading {
+    min-width: 0;
+    margin: 0;
+    font-size: var(--sprout-text-sm);
+    font-weight: 500;
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+  .sprout-task-tree-summary,
+  .sprout-task-tree-detail {
+    flex-shrink: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .sprout-task-tree-empty {
+    margin: 0;
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+  }
+
+  /* Nested lists carry the tree for screen readers; the drawing beside them is hidden from assistive tech. */
+  .sprout-task-tree-outline {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .sprout-task-tree-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sprout-task-tree-stage {
+    --sprout-task-tree-line: color-mix(in oklab, var(--sprout-muted) 40%, var(--sprout-surface));
+    --sprout-task-tree-line-done: var(--sprout-success);
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  /* The sketch matches the flow pixel for pixel, so swapping one for the other doesn't move anything. */
+  .sprout-task-tree-sketch,
+  .sprout-task-tree-flow {
+    position: absolute;
+    inset: 0;
+    direction: ltr;
+  }
+  .sprout-task-tree-sketch-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .sprout-task-tree-sketch .sprout-task-tree-row {
+    position: absolute;
+    right: 0;
+  }
+  /* React Flow sets visibility on each node, so opacity hides the flow until it has drawn. */
+  .sprout-task-tree-flow:not([data-drawn]) {
+    opacity: 0;
+  }
+
+  /* React Flow puts a .light or .dark class on its root, which resets Sprout's color tokens. Carry the page's tokens
+     past that element and restore them just inside it, where no theme selector competes. */
+  .sprout-task-tree-flow {
+    --sprout-task-tree-page-canvas: var(--sprout-canvas);
+    --sprout-task-tree-page-surface: var(--sprout-surface);
+    --sprout-task-tree-page-hover: var(--sprout-hover);
+    --sprout-task-tree-page-active: var(--sprout-active);
+    --sprout-task-tree-page-text: var(--sprout-text);
+    --sprout-task-tree-page-muted: var(--sprout-muted);
+    --sprout-task-tree-page-line: var(--sprout-line);
+    --sprout-task-tree-page-border: var(--sprout-border);
+    --sprout-task-tree-page-border-strong: var(--sprout-border-strong);
+    --sprout-task-tree-page-input: var(--sprout-input);
+    --sprout-task-tree-page-primary: var(--sprout-primary);
+    --sprout-task-tree-page-primary-hover: var(--sprout-primary-hover);
+    --sprout-task-tree-page-primary-active: var(--sprout-primary-active);
+    --sprout-task-tree-page-primary-subtle: var(--sprout-primary-subtle);
+    --sprout-task-tree-page-on-primary: var(--sprout-on-primary);
+    --sprout-task-tree-page-focus: var(--sprout-focus);
+    --sprout-task-tree-page-danger: var(--sprout-danger);
+    --sprout-task-tree-page-danger-hover: var(--sprout-danger-hover);
+    --sprout-task-tree-page-danger-subtle: var(--sprout-danger-subtle);
+    --sprout-task-tree-page-on-danger: var(--sprout-on-danger);
+    --sprout-task-tree-page-info: var(--sprout-info);
+    --sprout-task-tree-page-info-subtle: var(--sprout-info-subtle);
+    --sprout-task-tree-page-secondary: var(--sprout-secondary);
+    --sprout-task-tree-page-success: var(--sprout-success);
+    --sprout-task-tree-page-success-subtle: var(--sprout-success-subtle);
+    --sprout-task-tree-page-warning: var(--sprout-warning);
+    --sprout-task-tree-page-warning-subtle: var(--sprout-warning-subtle);
+    --sprout-task-tree-page-overlay: var(--sprout-overlay);
+  }
+  .sprout-task-tree-canvas > .react-flow__renderer {
+    --sprout-canvas: var(--sprout-task-tree-page-canvas);
+    --sprout-surface: var(--sprout-task-tree-page-surface);
+    --sprout-hover: var(--sprout-task-tree-page-hover);
+    --sprout-active: var(--sprout-task-tree-page-active);
+    --sprout-text: var(--sprout-task-tree-page-text);
+    --sprout-muted: var(--sprout-task-tree-page-muted);
+    --sprout-line: var(--sprout-task-tree-page-line);
+    --sprout-border: var(--sprout-task-tree-page-border);
+    --sprout-border-strong: var(--sprout-task-tree-page-border-strong);
+    --sprout-input: var(--sprout-task-tree-page-input);
+    --sprout-primary: var(--sprout-task-tree-page-primary);
+    --sprout-primary-hover: var(--sprout-task-tree-page-primary-hover);
+    --sprout-primary-active: var(--sprout-task-tree-page-primary-active);
+    --sprout-primary-subtle: var(--sprout-task-tree-page-primary-subtle);
+    --sprout-on-primary: var(--sprout-task-tree-page-on-primary);
+    --sprout-focus: var(--sprout-task-tree-page-focus);
+    --sprout-danger: var(--sprout-task-tree-page-danger);
+    --sprout-danger-hover: var(--sprout-task-tree-page-danger-hover);
+    --sprout-danger-subtle: var(--sprout-task-tree-page-danger-subtle);
+    --sprout-on-danger: var(--sprout-task-tree-page-on-danger);
+    --sprout-info: var(--sprout-task-tree-page-info);
+    --sprout-info-subtle: var(--sprout-task-tree-page-info-subtle);
+    --sprout-secondary: var(--sprout-task-tree-page-secondary);
+    --sprout-success: var(--sprout-task-tree-page-success);
+    --sprout-success-subtle: var(--sprout-task-tree-page-success-subtle);
+    --sprout-warning: var(--sprout-task-tree-page-warning);
+    --sprout-warning-subtle: var(--sprout-task-tree-page-warning-subtle);
+    --sprout-overlay: var(--sprout-task-tree-page-overlay);
+  }
+  .sprout-task-tree-flow .react-flow__container,
+  .sprout-task-tree-flow .react-flow__viewport,
+  .sprout-task-tree-flow .react-flow__edges,
+  .sprout-task-tree-flow .react-flow__nodes {
+    position: absolute;
+    inset: 0;
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .sprout-task-tree-flow .react-flow__pane {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .sprout-task-tree-flow .react-flow__viewport {
+    z-index: 2;
+  }
+  .sprout-task-tree-flow .react-flow__edges svg {
+    position: absolute;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .sprout-task-tree-flow .react-flow__node {
+    position: absolute;
+    box-sizing: border-box;
+    transform-origin: 0 0;
+    user-select: text;
+    pointer-events: none;
+  }
+  .sprout-task-tree-handle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    min-width: 0;
+    min-height: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .sprout-task-tree-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    height: 32px;
+    padding-block: 6px;
+    box-sizing: border-box;
+  }
+  .sprout-task-tree-status {
+    margin-top: 2px;
+  }
+  .sprout-task-tree-title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-task-tree-row[data-state='pending'] .sprout-task-tree-title,
+  .sprout-task-tree-row[data-state='skipped'] .sprout-task-tree-title {
+    color: var(--sprout-muted);
+  }
+  .sprout-task-tree-row[data-state='running'] .sprout-task-tree-title {
+    font-weight: 500;
+  }
+
+  /* One continuous path per link, so joins have no seams; the muted line is opaque so shared trunks don't darken. */
+  .sprout-task-tree-path,
+  .sprout-task-tree-path-done {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .sprout-task-tree-path {
+    stroke: var(--sprout-task-tree-line);
+  }
+  .sprout-task-tree-path-done {
+    stroke: var(--sprout-task-tree-line-done);
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-task-tree-row[data-entering] {
+      animation: sprout-task-tree-enter 220ms var(--sprout-motion-ease) backwards;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-task-tree-row[data-entering] {
+      animation: sprout-task-tree-fade 160ms ease-out backwards;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .sprout-task-tree-stage {
+      --sprout-task-tree-line: GrayText;
+      --sprout-task-tree-line-done: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}
+
+@keyframes sprout-task-tree-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes sprout-task-tree-fade {
+  from {
+    opacity: 0;
+  }
+}

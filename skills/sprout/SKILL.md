@@ -89,6 +89,7 @@ Waiting?
   shape of content known ── Skeleton
   short wait, no shape ──── Spinner
   state of a task or step ── Status
+  a run's tasks as a tree ── Task Tree
 
 Show / hide in place?
   one region ──────── Collapsible
@@ -190,6 +191,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | State Panel   | `state-panel`   | Empty, loading, success, unavailable, or error state with a next step.               |
 | State Sample  | `state-sample`  | Small picture of a filled page, passed to an empty State Panel's `sample`.           |
 | Status        | `status`        | Round mark for a task, run, or step: pending, running (with `value`), done, failed.  |
+| Task Tree     | `task-tree`     | Live tree of a run's tasks with a Status on each; parents follow their parts.        |
 | Toast         | `toast`         | Short notice that something just happened. Mount `Toaster` once, call `toast.add()`. |
 
 ### Data display

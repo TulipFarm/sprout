@@ -190,6 +190,7 @@ import { Status, type StatusState } from '@tulipfarm/sprout/status';
 import { StatePanel } from '@tulipfarm/sprout/state-panel';
 import { SampleIconTile, SampleList, SampleText, SampleWindow } from '@tulipfarm/sprout/state-sample';
 import { Switch } from '@tulipfarm/sprout/switch';
+import { TaskTree, type TaskTreeTask } from '@tulipfarm/sprout/task-tree';
 import { Table } from '@tulipfarm/sprout/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tulipfarm/sprout/tabs';
 import { ViewSwitcher } from '@tulipfarm/sprout/view-switcher';
@@ -1227,6 +1228,35 @@ function StatusPreview() {
   );
 }
 
+const taskTreeSteps: { web: StatusState; api: StatusState }[] = [
+  { web: 'running', api: 'pending' },
+  { web: 'success', api: 'running' },
+  { web: 'success', api: 'success' },
+];
+
+function TaskTreePreview() {
+  const [index, setIndex] = useState(0);
+  const step = taskTreeSteps[index]!;
+  const tasks: TaskTreeTask[] = [
+    {
+      id: 'build',
+      title: 'Build',
+      children: [
+        { id: 'web', title: 'Web app', state: step.web },
+        { id: 'api', title: 'API', state: step.api },
+      ],
+    },
+  ];
+  return (
+    <Stack>
+      <TaskTree tasks={tasks} title="Deploy" style={{ width: 200 }} />
+      <Button size="sm" variant="outline" onClick={() => setIndex((index + 1) % taskTreeSteps.length)}>
+        {index === taskTreeSteps.length - 1 ? 'Restart' : 'Next step'}
+      </Button>
+    </Stack>
+  );
+}
+
 const panelKinds = ['empty', 'loading', 'success', 'error'] as const;
 
 function StatePanelPreview() {
@@ -1756,6 +1786,7 @@ const previews: Record<string, () => ReactNode> = {
   'state-panel': StatePanelPreview,
   'state-sample': StateSamplePreview,
   status: StatusPreview,
+  'task-tree': TaskTreePreview,
   attachment: AttachmentPreview,
   avatar: AvatarPreview,
   badge: BadgePreview,

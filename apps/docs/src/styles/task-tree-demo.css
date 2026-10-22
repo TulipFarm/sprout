@@ -1,0 +1,40 @@
+.task-tree-demo {
+  display: grid;
+  gap: 20px;
+}
+.task-tree-demo-card {
+  min-width: 0;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-surface);
+  overflow: hidden;
+}
+.task-tree-demo-card > header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.task-tree-demo-card h3 {
+  font-size: 13px;
+  font-weight: 550;
+}
+.task-tree-demo-card header p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sprout-muted);
+}
+.task-tree-demo-card-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--sprout-canvas);
+}
+.task-tree-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.task-tree-demo-tree {
+  max-width: 560px;
+}
