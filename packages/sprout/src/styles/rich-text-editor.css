@@ -130,7 +130,7 @@
 
   /* Keyword chips. The icon and disconnected mark are zero-width widgets drawn into the chip's padding. */
   .sprout-rich-text-keyword {
-    padding: 0.125em var(--sprout-rich-text-keyword-pad);
+    padding: 0 var(--sprout-rich-text-keyword-pad);
     border-radius: var(--sprout-radius-control);
     background-color: var(--sprout-hover);
     color: var(--sprout-text);

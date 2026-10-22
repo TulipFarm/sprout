@@ -35,7 +35,7 @@
   }
   .sprout-chat-input-editor .sprout-rich-text-editor-content {
     font-size: var(--sprout-text-sm);
-    line-height: 1.25rem;
+    line-height: 1.375rem;
   }
   .sprout-chat-input-reference {
     display: inline-flex;
