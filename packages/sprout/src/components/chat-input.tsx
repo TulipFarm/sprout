@@ -28,7 +28,12 @@ import { InputGroup, InputGroupAddon, InputGroupButton } from './input-group.js'
 import { MentionList, MentionOption, MentionStatus } from './mention-list.js';
 import { ModelSelector, type ModelSelectorModel } from './model-selector.js';
 import { Popover, PopoverContent, PopoverTrigger } from './popover.js';
-import { RichTextEditor, type RichTextEditorHandle, type RichTextValue } from './rich-text-editor.js';
+import {
+  RichTextEditor,
+  type RichTextEditorHandle,
+  type RichTextKeyword,
+  type RichTextValue,
+} from './rich-text-editor.js';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip.js';
 
 export const chatInputReferenceKindNames = ['agent', 'skill', 'file'] as const;
@@ -66,6 +71,9 @@ export interface ChatInputOption {
   color?: string | undefined;
 }
 
+/** An app or service named in the message, such as Slack. Typing its name shows it as a chip. */
+export type ChatInputIntegration = RichTextKeyword;
+
 /** A model in the picker. Give `speed`, `quality`, and `cost` numbers to show the meters. */
 export type ChatInputModel = ModelSelectorModel;
 
@@ -97,6 +105,14 @@ export interface ChatInputProps {
   skills?: ChatInputSource | undefined;
   /** `#` opens these. */
   files?: ChatInputSource | undefined;
+  /** Names typed in the message show as chips with an icon. Read the mentioned ones with `findKeywords`. */
+  integrations?: readonly ChatInputIntegration[] | undefined;
+  /** Adds Connect to a disconnected integration's hint. */
+  onConnectIntegration?: ((integration: ChatInputIntegration) => void) | undefined;
+  /** Runs with the account id picked from an integration's Switch menu. Return a promise to show a pending state. */
+  onIntegrationAccountChange?:
+    | ((integration: ChatInputIntegration, accountId: string) => void | Promise<unknown>)
+    | undefined;
   attachments?: AttachmentFile[] | undefined;
   onRemoveAttachment?: ((id: string) => void) | undefined;
   /** The `+` menu, such as upload from computer, Google Drive, or a URL. */
@@ -384,6 +400,9 @@ export function ChatInput({
   agents,
   skills,
   files,
+  integrations,
+  onConnectIntegration,
+  onIntegrationAccountChange,
   attachments = [],
   onRemoveAttachment,
   attachActions,
@@ -491,6 +510,9 @@ export function ChatInput({
             onChange={onValueChange}
             onSend={send}
             extensions={extensions}
+            keywords={integrations}
+            onKeywordConnect={onConnectIntegration}
+            onKeywordAccountChange={onIntegrationAccountChange}
             placeholder={streaming ? streamingPlaceholder : placeholder}
             disabled={disabled}
             ariaLabel={label}

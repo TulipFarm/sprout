@@ -1,7 +1,12 @@
 ---
 import Docs from '../../layouts/Docs.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
-import { ChatInputAttachments, ChatInputComposer, ChatInputStreaming } from '../../components/ChatInputDemo';
+import {
+  ChatInputAttachments,
+  ChatInputComposer,
+  ChatInputIntegrations,
+  ChatInputStreaming,
+} from '../../components/ChatInputDemo';
 ---
 
 <Docs
@@ -17,6 +22,10 @@ import { ChatInputAttachments, ChatInputComposer, ChatInputStreaming } from '../
   <section class="prose-section" id="chat-input-composer">
     <h2 class="section-title">Chat input</h2>
     <ChatInputComposer client:load />
+  </section>
+  <section class="prose-section" id="chat-input-integrations">
+    <h2 class="section-title">Integrations</h2>
+    <ChatInputIntegrations client:load />
   </section>
   <section class="prose-section" id="chat-input-attachments">
     <h2 class="section-title">With attachments</h2>
@@ -58,6 +67,18 @@ import { ChatInputAttachments, ChatInputComposer, ChatInputStreaming } from '../
   model={model}
   onModelChange={setModel}
   prompts={[{ id: "clarify", label: "Clarify user problem" }]}
+  integrations={[
+    {
+      id: "slack",
+      label: "Slack",
+      icon: <BrandIcon brand="slack" size="inline" />,
+      accounts: [{ id: "tf", label: "tulipfarm.slack.com" }, { id: "acme", label: "acme.slack.com" }],
+      account: "tf",
+    },
+    { id: "hubspot", label: "HubSpot", icon: <BrandIcon brand="hubspot" size="inline" />, connected: false },
+  ]}
+  onConnectIntegration={(integration) => connect(integration.id)}
+  onIntegrationAccountChange={(integration, accountId) => useAccount(integration.id, accountId)}
 />`}
     />
     <p>
@@ -66,6 +87,16 @@ import { ChatInputAttachments, ChatInputComposer, ChatInputStreaming } from '../
       <code>label</code>. A trigger is on only when its source is set. A source may return a promise. Leave out a menu
       or picker and its button goes away. Give a mode a <code>color</code> (any CSS color) to tint the box border, the
       mode chip, and its menu icon while that mode is on.
+    </p>
+    <p>
+      <code>integrations</code> turns app names in the text into chips with their icon, such as Slack or ChatGPT. Give
+      one a <code>match</code> list for aliases, a <code>color</code> tint, or <code>connected: false</code> to mute it
+      with a broken-link mark and offer <code>onConnectIntegration</code>. Set <code>account</code> to show which
+      account an app uses in its tooltip. With two or more <code>accounts</code> and
+      <code>onIntegrationAccountChange</code>, the tooltip's Switch button opens a menu to pick another; return a
+      promise to show a spinner until the switch finishes. The text stays plain; call
+      <code>findKeywords(value, integrations)</code> from <code>@tulipfarm/sprout/rich-text-editor</code> to know which
+      apps a message uses. See the Rich Text Editor's keywords for matching rules.
     </p>
   </section>
   <section class="prose-section">
