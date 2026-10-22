@@ -1,0 +1,93 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import ModelSelectorDemo from '../../components/ModelSelectorDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="Model Selector" description="Pick a chat model by its logo, speed, quality, and cost.">
+  <h1 class="docs-title">Model Selector</h1>
+  <p class="docs-lead">
+    A searchable model picker for chat. The button shows the model's logo and name. The list has a search field and
+    shows each model with its logo, a short description, and three colored meters for speed, quality, and cost, rated
+    against the other models in the list.
+  </p>
+  <div class="mt-8">
+    <ModelSelectorDemo client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Model Selector usage"
+      code={`import { ModelSelector } from "@tulipfarm/sprout/model-selector";
+
+const models = [
+  { id: "opus", label: "Claude Opus 5.5", description: "Hardest problems", brand: "claude", speed: 45, quality: 92, cost: 75 },
+  { id: "gpt", label: "GPT-5.5", description: "Writing and analysis", brand: "openai", speed: 70, quality: 90, cost: 30 },
+  { id: "deepseek", label: "DeepSeek V4", description: "Cheap and capable", brand: "deepseek", speed: 60, quality: 82, cost: 1.1 },
+];
+
+const [model, setModel] = useState("opus");
+
+<ModelSelector models={models} value={model} onValueChange={setModel} />`}
+    />
+    <p>
+      <code>brand</code> draws the vendor logo from Brand Icon. Pass <code>icon</code> for any other mark; with neither,
+      the first letter of <code>label</code> stands in. <code>side</code> and <code>align</code> place the list, and{' '}
+      <code>label</code> (default <code>Model</code>) names the button and heads the first column.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Speed, quality, and cost</h2>
+    <p>
+      Pass raw numbers in any unit, such as tokens per second for <code>speed</code>, an eval score for{' '}
+      <code>quality</code>, and dollars per million tokens for <code>cost</code>. Higher means faster, better, or
+      pricier. Each meter rates the model from 1 to 5 between the lowest number in the list (1) and the highest (5), so
+      prices never show. When every model has the same number, they all get 3.
+    </p>
+    <p>
+      Hover a column heading to see what it measures and what one to five bars mean, from slowest to fastest, weakest to
+      strongest, or cheapest to priciest.
+    </p>
+    <p>
+      A model missing a number shows a dash for it. When no model has numbers, the meters and their headings go away.{' '}
+      <code>rateModels(models)</code> returns the same ratings if you need them elsewhere.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">In Chat Input</h2>
+    <p>
+      Chat Input uses Model Selector for its <code>models</code> picker. Give its models <code>speed</code>,{' '}
+      <code>quality</code>, and <code>cost</code> to show the meters there too. Pass <code>render</code> to use your own
+      button, as Chat Input does with <code>InputGroupButton</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Motion</h2>
+    <p>
+      The list grows from the button and the chevron turns over. On the highlighted and chosen rows the meters take
+      their full color, filling left to right. With reduced motion, the list only fades and the meters change at once.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The button and list are a Base UI combobox with its search field inside the list. Opening moves focus to the
+      search; typing filters by name, description, or vendor, arrow keys move, Enter picks, and Escape closes and
+      returns focus to the button. The button reads “Model: Claude Opus 5.5”. Each option reads its name, description,
+      and ratings, such as “Speed 1 of 5, slowest. Quality 5 of 5, strongest. Cost 5 of 5, priciest.” The column
+      headings and their hover tooltips are hidden from screen readers, since each option names its own ratings. In
+      forced colors, meters draw in system colors.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Set <code>--sprout-model-selector-speed</code>, <code>--sprout-model-selector-quality</code>, and{' '}
+      <code>--sprout-model-selector-cost</code> on <code>:root</code> to recolor the meters, since the list renders in a
+      portal. They default to <code>--sprout-green</code>, <code>--sprout-blue</code>, and <code>--sprout-orange</code>.
+      Other rows show those colors at 40%. The list uses <code>--sprout-surface</code>, <code>--sprout-line</code>, and{' '}
+      <code>--sprout-radius-panel</code>, like Select.
+    </p>
+  </section>
+</Docs>
