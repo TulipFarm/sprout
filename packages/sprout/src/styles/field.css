@@ -241,7 +241,9 @@
     .sprout-choice-group[data-type='radio'] .sprout-choice-option:not([data-disabled], [data-checked]):hover {
       background-color: var(--sprout-hover);
     }
-    .sprout-checkbox-field:not([data-disabled]) .sprout-checkbox-field-label:hover .sprout-field-checkbox:not([data-checked]) {
+    .sprout-checkbox-field:not([data-disabled])
+      .sprout-checkbox-field-label:hover
+      .sprout-field-checkbox:not([data-checked]) {
       border-color: var(--sprout-border-strong);
     }
   }

@@ -69,7 +69,8 @@
     --sprout-chart-5: oklch(0.5033 0.1793 21.8);
     --sprout-shadow-control: 0 3px 6px -2px oklch(0 0 0 / 0.02), 0 1px 1px oklch(0 0 0 / 0.04);
     --sprout-shadow-panel: 0 3px 6px -2px oklch(0 0 0 / 0.02), 0 1px 1px oklch(0 0 0 / 0.04);
-    --sprout-shadow-overlay: 0 16px 48px oklch(0.2479 0.0058 271.18 / 0.15), 0 2px 8px oklch(0.2479 0.0058 271.18 / 0.06);
+    --sprout-shadow-overlay:
+      0 16px 48px oklch(0.2479 0.0058 271.18 / 0.15), 0 2px 8px oklch(0.2479 0.0058 271.18 / 0.06);
   }
 
   .dark[data-sprout-theme='tulipfarm'],
