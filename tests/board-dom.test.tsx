@@ -103,6 +103,8 @@ async function drag(from: Element, to: { x: number; y: number }) {
   await frame();
   fireEvent.pointerUp(document, { ...pointer, clientX: to.x, clientY: to.y });
   await frame();
+  // dnd-kit swallows document clicks until 50ms after a drop. Wait it out, or the next test's clicks can vanish.
+  await act(() => new Promise<void>(resolve => setTimeout(resolve, 60)));
 }
 
 const card = (title: string) =>
