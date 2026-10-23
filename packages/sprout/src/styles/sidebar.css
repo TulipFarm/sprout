@@ -130,7 +130,7 @@
     }
   }
   .sprout-sidebar-menu-button[data-active] {
-    background: var(--sprout-hover);
+    background: var(--sprout-active);
     color: var(--sprout-text);
     font-weight: 550;
   }

@@ -101,11 +101,11 @@
   }
   .sprout-table-head[data-sticky-end] {
     z-index: 20;
-    background: var(--sprout-table-head-bg);
+    background: linear-gradient(var(--sprout-table-head-bg) 0 0) var(--sprout-surface);
   }
   .sprout-table-cell[data-sticky-end] {
     z-index: 1;
-    background: var(--sprout-table-row-bg);
+    background: linear-gradient(var(--sprout-table-row-bg) 0 0) var(--sprout-surface);
   }
   .sprout-table-head[data-sticky-end]::before,
   .sprout-table-cell[data-sticky-end]::before {
@@ -131,7 +131,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--sprout-table-head-bg);
+    background: linear-gradient(var(--sprout-table-head-bg) 0 0) var(--sprout-surface);
   }
   .sprout-table[data-variant='grid'] > .sprout-table-header > .sprout-table-row {
     border-bottom: 0;
@@ -336,11 +336,11 @@
   .sprout-table-cell[data-pinned] {
     position: sticky;
     z-index: 1;
-    background: var(--sprout-table-row-bg, var(--sprout-surface));
+    background: linear-gradient(var(--sprout-table-row-bg, transparent) 0 0) var(--sprout-surface);
   }
   .sprout-table-head[data-pinned] {
     z-index: 20;
-    background: var(--sprout-table-head-bg);
+    background: linear-gradient(var(--sprout-table-head-bg) 0 0) var(--sprout-surface);
   }
   .sprout-table-head[data-pinned='start'],
   .sprout-table-cell[data-pinned='start'] {
@@ -353,11 +353,11 @@
   .sprout-table[data-pin-start] :is(.sprout-table-head, .sprout-table-cell)[data-selection] {
     position: sticky;
     z-index: 1;
-    background: var(--sprout-table-row-bg, var(--sprout-surface));
+    background: linear-gradient(var(--sprout-table-row-bg, transparent) 0 0) var(--sprout-surface);
   }
   .sprout-table[data-pin-start] .sprout-table-head[data-selection] {
     z-index: 20;
-    background: var(--sprout-table-head-bg);
+    background: linear-gradient(var(--sprout-table-head-bg) 0 0) var(--sprout-surface);
   }
   .sprout-table[data-pin-start] [data-selection]:first-child {
     inset-inline-start: 0;
@@ -508,7 +508,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--sprout-table-head-bg);
+    background: linear-gradient(var(--sprout-table-head-bg) 0 0) var(--sprout-surface);
   }
 
   .sprout-table-sr-only {
