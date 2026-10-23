@@ -128,7 +128,7 @@ Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |  76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |  42.3 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      | 206.0 kB |  70.6 kB |  60.3 kB |
-| `chat-input`        | 968.9 kB | 319.4 kB | 264.3 kB |
+| `chat-input`        | 968.9 kB | 319.4 kB | 264.1 kB |
 | `checkbox`          |  60.0 kB |  21.0 kB |  18.6 kB |
 | `choice-list`       |  43.0 kB |  14.5 kB |  12.6 kB |
 | `code-block`        |  74.3 kB |  26.0 kB |  22.3 kB |
@@ -180,7 +180,7 @@ Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `schema-diagram`    | 247.7 kB |  82.9 kB |  71.0 kB |
 | `sql-viewer`        | 265.4 kB |  89.2 kB |  76.2 kB |
 | `scroll-area`       |  57.3 kB |  19.7 kB |  17.4 kB |
-| `search-dialog`     | 190.0 kB |  64.5 kB |  55.3 kB |
+| `search-dialog`     | 190.1 kB |  64.5 kB |  55.4 kB |
 | `search-field`      | 122.0 kB |  41.3 kB |  35.4 kB |
 | `select`            | 230.4 kB |  79.3 kB |  67.9 kB |
 | `selection-slot`    |  31.5 kB |  10.2 kB |   8.9 kB |

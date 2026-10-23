@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.0](https://github.com/TulipFarm/sprout/compare/v0.7.0...v0.8.0) (2026-10-23)
+
+### Features
+
+* **theme:** give tulipfarm Linear-style depth ([#44](https://github.com/TulipFarm/sprout/issues/44)) ([4826a33](https://github.com/TulipFarm/sprout/commit/4826a337ee6d0f4572c819bf78c58e8d4d2328d0))
+
+### Bug Fixes
+
+* **command:** reorder items whose score is unchanged when search starts ([#43](https://github.com/TulipFarm/sprout/issues/43)) ([7a71e18](https://github.com/TulipFarm/sprout/commit/7a71e1807f0508c0b4c93a58ec4fda662c2ba981))
+
 ## [0.7.0](https://github.com/TulipFarm/sprout/compare/v0.6.0...v0.7.0) (2026-10-22)
 
 ### Features
