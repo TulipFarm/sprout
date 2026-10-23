@@ -30,14 +30,14 @@
   .light [data-sprout-theme='tulipfarm'] {
     --sprout-canvas: oklch(0.9824 0.0013 286.38);
     --sprout-surface: oklch(1 0 0);
-    --sprout-hover: oklch(0.9707 0.0027 286.35);
-    --sprout-active: oklch(0.9406 0.0027 286.35);
+    --sprout-hover: oklch(0 0 0 / 0.04);
+    --sprout-active: oklch(0 0 0 / 0.07);
     --sprout-text: oklch(0.2221 0 0);
-    --sprout-muted: oklch(0.5121 0.0126 280.25);
-    --sprout-line: oklch(0.931 0 0);
+    --sprout-muted: oklch(0.4755 0.0032 286.3);
+    --sprout-line: oklch(0.9006 0 0);
     --sprout-border: oklch(0.6317 0.0074 286.19);
     --sprout-border-strong: oklch(0.5428 0.0093 278.5);
-    --sprout-input: oklch(0.9012 0.0027 286.35);
+    --sprout-input: oklch(0.8669 0 0);
     --sprout-primary: oklch(0.527 0.141 148.39);
     --sprout-primary-hover: oklch(0.4672 0.1237 148.51);
     --sprout-primary-active: oklch(0.4052 0.1067 148.3);
@@ -54,14 +54,14 @@
     --sprout-warning: oklch(0.4793 0.1104 58.6);
     --sprout-warning-subtle: oklch(0.9702 0.03 83.63);
     --sprout-primary-subtle: oklch(0.9667 0.014 155.59);
-    --sprout-secondary: oklch(0.9557 0.0027 286.35);
+    --sprout-secondary: var(--sprout-active);
     --sprout-overlay: oklch(0.2479 0.0058 271.18 / 0.25);
     --sprout-sidebar: oklch(0.9524 0.0013 286.37);
     --sprout-popover: oklch(1 0 0);
     --sprout-body: oklch(0.306 0.0035 286.19);
     --sprout-faint: oklch(0.6958 0.0031 264.54);
     --sprout-primary-text: oklch(0.4672 0.1237 148.51);
-    --sprout-card-raised: oklch(0.9854 0.0013 286.38);
+    --sprout-card-raised: oklch(1 0 0);
     --sprout-chart-1: oklch(0.527 0.141 148.39);
     --sprout-chart-2: oklch(0.4928 0.1599 260.23);
     --sprout-chart-3: oklch(0.4793 0.1104 58.6);
@@ -70,21 +70,21 @@
     --sprout-shadow-control: 0 3px 6px -2px oklch(0 0 0 / 0.02), 0 1px 1px oklch(0 0 0 / 0.04);
     --sprout-shadow-panel: 0 3px 6px -2px oklch(0 0 0 / 0.02), 0 1px 1px oklch(0 0 0 / 0.04);
     --sprout-shadow-overlay:
-      0 16px 48px oklch(0.2479 0.0058 271.18 / 0.15), 0 2px 8px oklch(0.2479 0.0058 271.18 / 0.06);
+      0 9px 48px oklch(0 0 0 / 0.08), 0 6px 24px oklch(0 0 0 / 0.1), 0 1px 1px oklch(0 0 0 / 0.04);
   }
 
   .dark[data-sprout-theme='tulipfarm'],
   .dark [data-sprout-theme='tulipfarm'] {
-    --sprout-canvas: oklch(0.1774 0.0044 264.46);
-    --sprout-surface: oklch(0.22 0.0061 271.11);
-    --sprout-hover: oklch(0.2484 0.0077 274.64);
-    --sprout-active: oklch(0.2568 0.0076 274.65);
-    --sprout-text: oklch(0.96 0.003 286);
-    --sprout-muted: oklch(0.7271 0.0129 281);
-    --sprout-line: oklch(0.3013 0.0056 271.23);
+    --sprout-canvas: oklch(0.1826 0.002 264.5);
+    --sprout-surface: oklch(0.2006 0.002 264.5);
+    --sprout-hover: oklch(1 0 0 / 0.05);
+    --sprout-active: oklch(1 0 0 / 0.08);
+    --sprout-text: oklch(1 0 0);
+    --sprout-muted: oklch(0.6705 0.003 264.5);
+    --sprout-line: oklch(0.2601 0.0045 272);
     --sprout-border: oklch(0.5537 0.0076 286.15);
     --sprout-border-strong: oklch(0.6905 0.0088 278.57);
-    --sprout-input: oklch(0.2733 0.0075 274.68);
+    --sprout-input: oklch(0.3212 0.006 271);
     --sprout-primary: oklch(0.7788 0.1259 151.59);
     --sprout-primary-hover: oklch(0.8223 0.1061 152.07);
     --sprout-primary-active: oklch(0.8601 0.0864 152.59);
@@ -101,37 +101,38 @@
     --sprout-warning: oklch(0.8347 0.1004 77.97);
     --sprout-warning-subtle: oklch(0.2963 0.0266 73.79);
     --sprout-primary-subtle: oklch(0.2959 0.0421 153.88);
-    --sprout-secondary: oklch(0.2819 0.0092 276.79);
+    --sprout-secondary: var(--sprout-active);
     --sprout-overlay: oklch(0 0 0 / 0.5);
-    --sprout-sidebar: oklch(0.1408 0.0044 285.82);
-    --sprout-popover: oklch(0.2807 0.0039 264.5);
+    --sprout-sidebar: oklch(0.1403 0.002 264.5);
+    --sprout-popover: oklch(0.2482 0.003 271);
     --sprout-body: oklch(0.9187 0.0029 264.54);
     --sprout-faint: oklch(0.4566 0.0035 264.53);
     --sprout-primary-text: oklch(0.7788 0.1259 151.59);
-    --sprout-card-raised: oklch(0.3133 0.0055 271.24);
+    --sprout-card-raised: oklch(0.2182 0.002 264.5);
     --sprout-chart-1: oklch(0.7788 0.1259 151.59);
     --sprout-chart-2: oklch(0.7988 0.101 263.75);
     --sprout-chart-3: oklch(0.8347 0.1004 77.97);
     --sprout-chart-4: oklch(0.7748 0.1078 305.34);
     --sprout-chart-5: oklch(0.7783 0.1315 14.14);
-    --sprout-shadow-control: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
-    --sprout-shadow-panel: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
-    --sprout-shadow-overlay: 0 16px 48px oklch(0 0 0 / 0.4), 0 2px 8px oklch(0 0 0 / 0.2);
+    --sprout-shadow-control: 0 0.5px 1px oklch(0 0 0 / 0.3);
+    --sprout-shadow-panel: 0 0.5px 1px 1px oklch(0 0 0 / 0.3);
+    --sprout-shadow-overlay:
+      0 4px 40px oklch(0 0 0 / 0.1), 0 8px 16px -4px oklch(0 0 0 / 0.125), 0 2px 6px oklch(0 0 0 / 0.125);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light):not(.dark)[data-sprout-theme='tulipfarm'],
     :root:not(.light):not(.dark) [data-sprout-theme='tulipfarm'] {
-      --sprout-canvas: oklch(0.1774 0.0044 264.46);
-      --sprout-surface: oklch(0.22 0.0061 271.11);
-      --sprout-hover: oklch(0.2484 0.0077 274.64);
-      --sprout-active: oklch(0.2568 0.0076 274.65);
-      --sprout-text: oklch(0.96 0.003 286);
-      --sprout-muted: oklch(0.7271 0.0129 281);
-      --sprout-line: oklch(0.3013 0.0056 271.23);
+      --sprout-canvas: oklch(0.1826 0.002 264.5);
+      --sprout-surface: oklch(0.2006 0.002 264.5);
+      --sprout-hover: oklch(1 0 0 / 0.05);
+      --sprout-active: oklch(1 0 0 / 0.08);
+      --sprout-text: oklch(1 0 0);
+      --sprout-muted: oklch(0.6705 0.003 264.5);
+      --sprout-line: oklch(0.2601 0.0045 272);
       --sprout-border: oklch(0.5537 0.0076 286.15);
       --sprout-border-strong: oklch(0.6905 0.0088 278.57);
-      --sprout-input: oklch(0.2733 0.0075 274.68);
+      --sprout-input: oklch(0.3212 0.006 271);
       --sprout-primary: oklch(0.7788 0.1259 151.59);
       --sprout-primary-hover: oklch(0.8223 0.1061 152.07);
       --sprout-primary-active: oklch(0.8601 0.0864 152.59);
@@ -148,22 +149,23 @@
       --sprout-warning: oklch(0.8347 0.1004 77.97);
       --sprout-warning-subtle: oklch(0.2963 0.0266 73.79);
       --sprout-primary-subtle: oklch(0.2959 0.0421 153.88);
-      --sprout-secondary: oklch(0.2819 0.0092 276.79);
+      --sprout-secondary: var(--sprout-active);
       --sprout-overlay: oklch(0 0 0 / 0.5);
-      --sprout-sidebar: oklch(0.1408 0.0044 285.82);
-      --sprout-popover: oklch(0.2807 0.0039 264.5);
+      --sprout-sidebar: oklch(0.1403 0.002 264.5);
+      --sprout-popover: oklch(0.2482 0.003 271);
       --sprout-body: oklch(0.9187 0.0029 264.54);
       --sprout-faint: oklch(0.4566 0.0035 264.53);
       --sprout-primary-text: oklch(0.7788 0.1259 151.59);
-      --sprout-card-raised: oklch(0.3133 0.0055 271.24);
+      --sprout-card-raised: oklch(0.2182 0.002 264.5);
       --sprout-chart-1: oklch(0.7788 0.1259 151.59);
       --sprout-chart-2: oklch(0.7988 0.101 263.75);
       --sprout-chart-3: oklch(0.8347 0.1004 77.97);
       --sprout-chart-4: oklch(0.7748 0.1078 305.34);
       --sprout-chart-5: oklch(0.7783 0.1315 14.14);
-      --sprout-shadow-control: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
-      --sprout-shadow-panel: 0 3px 6px -2px oklch(0 0 0 / 0.04), 0 1px 1px oklch(0 0 0 / 0.08);
-      --sprout-shadow-overlay: 0 16px 48px oklch(0 0 0 / 0.4), 0 2px 8px oklch(0 0 0 / 0.2);
+      --sprout-shadow-control: 0 0.5px 1px oklch(0 0 0 / 0.3);
+      --sprout-shadow-panel: 0 0.5px 1px 1px oklch(0 0 0 / 0.3);
+      --sprout-shadow-overlay:
+        0 4px 40px oklch(0 0 0 / 0.1), 0 8px 16px -4px oklch(0 0 0 / 0.125), 0 2px 6px oklch(0 0 0 / 0.125);
     }
   }
 }

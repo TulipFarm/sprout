@@ -125,6 +125,7 @@
   .sprout-message-response-table[data-bounded] th {
     position: sticky;
     top: 0;
+    background: linear-gradient(var(--sprout-hover) 0 0) var(--sprout-canvas);
   }
 
   .sprout-message-response .contains-task-list {

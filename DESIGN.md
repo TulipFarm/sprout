@@ -92,6 +92,26 @@ Rules:
 - Never make color the only signal. Status always carries words.
 - Never hard-code hex values in components. Use a token, or add one.
 - 15 presets in `src/styles/themes/*.css` are selected with `data-sprout-theme="<name>"` on `<html>` or any subtree. The presets are tulipfarm, claude, chatgpt, cloudflare, discord, github, grok, linear, notion, perplexity, raycast, spotify, stripe, supabase, and vercel. Each preset overrides only tokens: font, radii, and colors.
+- `--sprout-hover`, `--sprout-active` and `--sprout-secondary` may be translucent in a preset. A fill that must hide what scrolls beneath it (sticky headers, pinned columns, floating pills) layers the tint over an opaque base: `background: linear-gradient(<tint> 0 0) var(--sprout-surface)`. `color-mix()` with a translucent token is not opaque.
+
+### Color (tulipfarm preset)
+
+Depth comes from hairline borders, translucent overlays and soft shadows, not from large lightness steps. Five solid backgrounds, named by role, with near-zero chroma (about 0.002, hue 264 to 272):
+
+| Token                  | Light (L) | Dark (L) | Use                           |
+| ---------------------- | --------- | -------- | ----------------------------- |
+| `--sprout-sidebar`     | .9524     | .1403    | navigation rail               |
+| `--sprout-canvas`      | .9824     | .1826    | page                          |
+| `--sprout-surface`     | 1         | .2006    | cards, panels, tables         |
+| `--sprout-card-raised` | 1         | .2182    | raised card (light: shadow)   |
+| `--sprout-popover`     | 1         | .2482    | menus, dialogs, tooltips      |
+| `--sprout-hover`       | black 4%  | white 5% | hover overlay                 |
+| `--sprout-active`      | black 7%  | white 8% | pressed and selected overlay  |
+| `--sprout-secondary`   | = active  | = active | deprecated alias              |
+| `--sprout-line`        | .9006     | .2601    | hairlines and dividers        |
+| `--sprout-input`       | .8669     | .3212    | button, table and group edges |
+
+Text has four levels: `text`, `body`, `muted`, `faint` (`faint` is for placeholders and decoration only). `--sprout-border` and `--sprout-border-strong` keep 3:1 against the surface for form controls. Dark steps: canvas → surface +.018, surface → raised +.018, raised → popover +.030.
 
 ### Typography
 
