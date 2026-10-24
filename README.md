@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **880.6 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **885.3 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -111,7 +111,7 @@ Full library: **880.6 kB** gzip. Each component path is smaller. Sizes are minif
 | `alert`             |  35.2 kB |  11.5 kB |  10.1 kB |
 | `alert-dialog`      | 168.8 kB |  56.9 kB |  49.7 kB |
 | `aspect-ratio`      |  30.2 kB |   9.7 kB |   8.5 kB |
-| `attachment`        | 351.9 kB | 118.6 kB |  97.9 kB |
+| `attachment`        | 351.9 kB | 118.6 kB |  97.8 kB |
 | `avatar`            |  44.0 kB |  14.6 kB |  12.9 kB |
 | `badge`             |  34.9 kB |  11.4 kB |  10.0 kB |
 | `board`             | 452.2 kB | 148.3 kB | 125.2 kB |
@@ -128,10 +128,11 @@ Full library: **880.6 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |  76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |  42.3 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      | 206.0 kB |  70.6 kB |  60.3 kB |
-| `chat-input`        | 968.9 kB | 319.4 kB | 264.0 kB |
+| `chat-input`        | 968.9 kB | 319.5 kB | 264.2 kB |
+| `chat-window`       | 286.8 kB |  94.9 kB |  80.0 kB |
 | `checkbox`          |  60.0 kB |  21.0 kB |  18.6 kB |
 | `choice-list`       |  43.0 kB |  14.5 kB |  12.6 kB |
-| `code-block`        |  74.3 kB |  26.0 kB |  22.3 kB |
+| `code-block`        |  74.3 kB |  26.0 kB |  22.2 kB |
 | `collapsible`       |  55.5 kB |  18.7 kB |  16.5 kB |
 | `combobox`          | 268.4 kB |  90.9 kB |  77.6 kB |
 | `command`           | 181.7 kB |  61.5 kB |  53.3 kB |
@@ -191,7 +192,7 @@ Full library: **880.6 kB** gzip. Each component path is smaller. Sizes are minif
 | `skeleton`          |  35.1 kB |  11.5 kB |  10.1 kB |
 | `slider`            |  83.6 kB |  29.5 kB |  25.9 kB |
 | `spinner`           |  36.5 kB |  11.6 kB |  10.2 kB |
-| `state-panel`       | 552.5 kB | 180.3 kB | 149.4 kB |
+| `state-panel`       | 552.5 kB | 180.3 kB | 149.1 kB |
 | `state-sample`      |  33.5 kB |  10.5 kB |   9.2 kB |
 | `status`            |  34.2 kB |  11.1 kB |   9.7 kB |
 | `switch`            |  50.2 kB |  17.3 kB |  15.4 kB |

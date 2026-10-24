@@ -40,7 +40,7 @@ function Example({ title, description, children }: { title: string; description:
   );
 }
 
-const icon = (Icon: typeof Map) => <Icon size={16} aria-hidden="true" />;
+export const icon = (Icon: typeof Map) => <Icon size={16} aria-hidden="true" />;
 
 const emptyDoc = (): RichTextValue => ({
   type: 'doc',
@@ -51,7 +51,7 @@ const textDoc = (text: string): RichTextValue => ({
   content: [{ type: 'paragraph', content: [{ type: 'text', text }] }],
 });
 
-const agents: ChatInputSuggestion[] = [
+export const agents: ChatInputSuggestion[] = [
   {
     id: 'researcher',
     label: 'Researcher',
@@ -71,7 +71,7 @@ const agents: ChatInputSuggestion[] = [
     media: icon(User),
   },
 ];
-const skills: ChatInputSuggestion[] = [
+export const skills: ChatInputSuggestion[] = [
   {
     id: 'usability-review',
     label: 'usability-review',
@@ -101,17 +101,17 @@ const savedFiles = [
   },
   { name: 'pricing-2026.pdf', mediaType: 'application/pdf', size: '920 KB' },
 ];
-const fileSuggestions: ChatInputSuggestion[] = savedFiles.map(file => ({
+export const fileSuggestions: ChatInputSuggestion[] = savedFiles.map(file => ({
   id: file.name,
   label: file.name,
   description: file.size,
   media: <FileTypeIcon name={file.name} mediaType={file.mediaType} />,
 }));
 
-const search = (items: ChatInputSuggestion[]) => (query: string) =>
+export const search = (items: ChatInputSuggestion[]) => (query: string) =>
   items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()));
 
-const modes: ChatInputOption[] = [
+export const modes: ChatInputOption[] = [
   {
     id: 'plan',
     label: 'Plan',
@@ -141,14 +141,14 @@ const modes: ChatInputOption[] = [
     color: '#f97316',
   },
 ];
-const projects: ChatInputOption[] = [
+export const projects: ChatInputOption[] = [
   { id: 'none', label: 'No project' },
   { id: 'onboarding', label: 'Onboarding redesign' },
   { id: 'billing', label: 'Billing revamp' },
   { id: 'q3', label: 'Q3 research' },
 ];
 /** Sample numbers: output tokens per second, a 0–100 eval score, and dollars per million output tokens. */
-const models: ChatInputModel[] = [
+export const models: ChatInputModel[] = [
   {
     id: 'claude-opus',
     label: 'Claude Opus 5.5',
@@ -236,7 +236,7 @@ const prompts: ChatInputPrompt[] = [
   },
 ];
 
-const ready = (name: string, mediaType: string, size: string): AttachmentFile => ({
+export const ready = (name: string, mediaType: string, size: string): AttachmentFile => ({
   id: `${name}-${Math.random().toString(36).slice(2, 8)}`,
   name,
   mediaType,
@@ -303,7 +303,7 @@ const accountOptions: Record<string, readonly string[]> = {
   jira: ['tulipfarm.atlassian.net', 'acme.atlassian.net'],
 };
 
-function useIntegrations(tinted: boolean) {
+export function useIntegrations(tinted: boolean) {
   const [connected, setConnected] = useState<Set<string>>(() => new Set());
   const [chosen, setChosen] = useState<Record<string, string>>({});
   const list = integrationList.map(item => {

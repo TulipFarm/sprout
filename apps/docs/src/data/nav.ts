@@ -185,6 +185,7 @@ export const componentGroups: NavGroup[] = [
       component('Canvas', 'A resizable side panel that shows chat results in tabs.'),
       component('Message', 'Chat messages with bubbles, reactions, avatars, names, and reply status.'),
       component('Chat Input', 'A rich chat message box with @ agents, / skills, # files, and model picks.'),
+      component('Chat Window', 'A quick chat over any page that switches to a side drawer or a full page.'),
       component('Mention List', 'The @ and / suggestion panel a message box drives.'),
       component('Message Actions', 'Copy, rate, regenerate, and step through versions of a chat message.'),
       component('Message Response', "Renders an assistant's Markdown reply with tables, code, and links."),

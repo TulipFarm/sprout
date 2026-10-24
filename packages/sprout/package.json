@@ -128,6 +128,10 @@
       "types": "./dist/components/chat-input.d.ts",
       "import": "./dist/components/chat-input.js"
     },
+    "./chat-window": {
+      "types": "./dist/components/chat-window.d.ts",
+      "import": "./dist/components/chat-window.js"
+    },
     "./checkbox": {
       "types": "./dist/components/checkbox.d.ts",
       "import": "./dist/components/checkbox.js"

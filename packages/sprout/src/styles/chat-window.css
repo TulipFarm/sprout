@@ -1,0 +1,253 @@
+@layer components {
+  /* Read with fallbacks so a parent can set them; the window is portaled, so set them on :root or a theme scope. */
+  .sprout-chat-window-content {
+    --_inset: var(--sprout-chat-window-inset, 16px);
+    --_bezel: 6px;
+
+    position: fixed;
+    z-index: 50;
+    display: flex;
+    box-sizing: border-box;
+    min-width: 0;
+    color: var(--sprout-text);
+    font-family: inherit;
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    outline: none;
+  }
+  .sprout-chat-window-content[hidden] {
+    display: none;
+  }
+
+  .sprout-chat-window-panel {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--sprout-surface);
+  }
+
+  /* Window: a framed card in its corner. The bezel separates it from busy pages. */
+  .sprout-chat-window-content[data-layout='window'] {
+    width: min(var(--sprout-chat-window-width, 34rem), calc(100% - 2 * var(--_inset)));
+    height: min(var(--sprout-chat-window-height, 44rem), calc(100% - 2 * var(--_inset)));
+    padding: var(--_bezel);
+    border: 1px solid var(--sprout-line);
+    border-radius: calc(var(--sprout-radius-panel) + var(--_bezel));
+    background: var(--sprout-canvas);
+    box-shadow: var(--sprout-shadow-overlay);
+  }
+  .sprout-chat-window-content[data-layout='window'] > .sprout-chat-window-panel {
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+  }
+  .sprout-chat-window-content[data-layout='window'][data-corner^='bottom'] {
+    bottom: var(--_inset);
+  }
+  .sprout-chat-window-content[data-layout='window'][data-corner^='top'] {
+    top: var(--_inset);
+  }
+  .sprout-chat-window-content[data-layout='window'][data-corner$='right'] {
+    right: var(--_inset);
+    transform-origin: bottom right;
+  }
+  .sprout-chat-window-content[data-layout='window'][data-corner$='left'] {
+    left: var(--_inset);
+    transform-origin: bottom left;
+  }
+  .sprout-chat-window-content[data-layout='window'][data-corner='top-right'] {
+    transform-origin: top right;
+  }
+  .sprout-chat-window-content[data-layout='window'][data-corner='top-left'] {
+    transform-origin: top left;
+  }
+
+  /* Drawer: a full-height panel on the corner's side. The page stays usable beside it. */
+  .sprout-chat-window-content[data-layout='drawer'] {
+    top: 0;
+    bottom: 0;
+    width: min(var(--sprout-chat-window-drawer-width, 28rem), 100%);
+    background: var(--sprout-surface);
+    box-shadow: var(--sprout-shadow-overlay);
+  }
+  .sprout-chat-window-content[data-layout='drawer'][data-corner$='right'] {
+    right: 0;
+    border-left: 1px solid var(--sprout-line);
+  }
+  .sprout-chat-window-content[data-layout='drawer'][data-corner$='left'] {
+    left: 0;
+    border-right: 1px solid var(--sprout-line);
+  }
+
+  /* Page: covers the viewport. Body and footer keep a readable column. */
+  .sprout-chat-window-content[data-layout='page'] {
+    inset: 0;
+    background: var(--sprout-surface);
+  }
+  .sprout-chat-window-content:is([data-layout='drawer'], [data-layout='page']) {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .sprout-chat-window-content[data-layout='page'] :is(.sprout-chat-window-body, .sprout-chat-window-footer) {
+    width: 100%;
+    max-width: var(--sprout-chat-window-measure, 48rem);
+    margin-inline: auto;
+  }
+
+  .sprout-chat-window-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    height: 48px;
+    padding-inline: 16px 8px;
+    border-bottom: 1px solid var(--sprout-line);
+  }
+  .sprout-chat-window-header > :first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .sprout-chat-window-header .sprout-breadcrumb-list {
+    flex-wrap: nowrap;
+  }
+  .sprout-chat-window-header .sprout-breadcrumb-item:not(:last-child) {
+    flex-shrink: 0;
+  }
+
+  .sprout-chat-window-title {
+    margin: 0;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--sprout-text);
+    font-size: var(--sprout-text-sm);
+    font-weight: 550;
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-chat-window-title[tabindex='-1']:focus {
+    outline: none;
+  }
+
+  .sprout-chat-window-actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 4px;
+    margin-inline-start: auto;
+  }
+  .sprout-chat-window-actions > .sprout-separator[data-orientation='vertical'] {
+    align-self: center;
+    height: 16px;
+    margin-inline: 4px;
+  }
+
+  .sprout-chat-window-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .sprout-chat-window-footer {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 0 12px 12px;
+  }
+
+  /* The launcher hides while the window is open and returns when it closes. */
+  .sprout-chat-window-launcher {
+    position: fixed;
+    z-index: 40;
+    border-radius: 999px;
+    box-shadow: var(--sprout-shadow-panel);
+  }
+  .sprout-chat-window-launcher[data-corner^='bottom'] {
+    bottom: var(--sprout-chat-window-inset, 16px);
+  }
+  .sprout-chat-window-launcher[data-corner^='top'] {
+    top: var(--sprout-chat-window-inset, 16px);
+  }
+  .sprout-chat-window-launcher[data-corner$='right'] {
+    right: var(--sprout-chat-window-inset, 16px);
+  }
+  .sprout-chat-window-launcher[data-corner$='left'] {
+    left: var(--sprout-chat-window-inset, 16px);
+  }
+  .sprout-chat-window-launcher[data-popup-open] {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Below 640px every layout fills the screen, so only Full page and Minimize are offered. */
+  @media (max-width: 39.999rem) {
+    .sprout-chat-window-content:is([data-layout='window'], [data-layout='drawer']) {
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+      border: 0;
+      border-radius: 0;
+      background: var(--sprout-surface);
+      box-shadow: none;
+    }
+    .sprout-chat-window-content[data-layout='window'] > .sprout-chat-window-panel {
+      border: 0;
+      border-radius: 0;
+    }
+    .sprout-chat-window-layout-menu :is([data-layout-option='window'], [data-layout-option='drawer']) {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-chat-window-content {
+      transition:
+        opacity var(--sprout-motion-normal) var(--sprout-motion-ease),
+        scale var(--sprout-motion-normal) var(--sprout-motion-ease),
+        translate var(--sprout-motion-normal) var(--sprout-motion-ease);
+    }
+    .sprout-chat-window-content[data-ending-style] {
+      transition-duration: var(--sprout-motion-fast);
+    }
+    .sprout-chat-window-content:is([data-starting-style], [data-ending-style]) {
+      opacity: 0;
+    }
+    /* The window grows out of the launcher's corner and shrinks back into it. */
+    .sprout-chat-window-content[data-layout='window']:is([data-starting-style], [data-ending-style]) {
+      scale: 0.96;
+    }
+    .sprout-chat-window-content[data-layout='drawer'][data-corner$='right']:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: 2.5rem 0;
+    }
+    .sprout-chat-window-content[data-layout='drawer'][data-corner$='left']:is(
+        [data-starting-style],
+        [data-ending-style]
+      ) {
+      translate: -2.5rem 0;
+    }
+    .sprout-chat-window-launcher {
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease),
+        visibility 0s;
+    }
+    .sprout-chat-window-launcher[data-popup-open] {
+      scale: 0.9;
+      transition:
+        opacity var(--sprout-motion-fast) var(--sprout-motion-ease),
+        scale var(--sprout-motion-fast) var(--sprout-motion-ease),
+        visibility 0s linear var(--sprout-motion-fast);
+    }
+  }
+}
