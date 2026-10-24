@@ -1,10 +1,28 @@
 import { expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
 import { WebSource } from '../../packages/sprout/src/components/web-source.js';
+import { brandGlyphs } from '../../packages/sprout/src/internal/brand-glyphs.js';
 import { setTheme, settle, themes } from './support.js';
 
-const icon = () =>
-  `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" rx="4" fill="#146c2f"/></svg>')}`;
+// Real site marks from the bundled brand glyphs, so the shot needs no network.
+const sites: Record<string, { brand: keyof typeof brandGlyphs; color: string }> = {
+  'docs.stripe.com': { brand: 'stripe', color: '#635BFF' },
+  'linear.app': { brand: 'linear', color: '#5E6AD2' },
+  'www.figma.com': { brand: 'figma', color: '#000000' },
+};
+
+const icon = (url: string) => {
+  const site = sites[new URL(url).hostname];
+  if (!site) return null;
+  const glyph = brandGlyphs[site.brand];
+  const paths = glyph.paths
+    .map(path => {
+      const rule = 'evenOdd' in path && path.evenOdd ? ' fill-rule="evenodd" clip-rule="evenodd"' : '';
+      return `<path d="${path.d}" fill="${'fill' in path && path.fill ? path.fill : site.color}"${rule}/>`;
+    })
+    .join('');
+  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${glyph.viewBox}" width="20" height="20">${paths}</svg>`)}`;
+};
 
 it.each(themes)('web source %s %s', async (theme, mode) => {
   setTheme(theme, mode);
@@ -21,20 +39,21 @@ it.each(themes)('web source %s %s', async (theme, mode) => {
       }}
     >
       <WebSource
-        url="https://developer.mozilla.org/en-US/docs/Web/Accessibility"
-        title="Accessibility | MDN"
+        url="https://docs.stripe.com/payments/checkout"
+        title="Stripe Checkout | Stripe Documentation"
         icon={icon}
       />
-      <WebSource url="https://www.w3.org/WAI/standards-guidelines/wcag/" icon={() => null} />
-      <WebSource url="https://www.ft.com/content/inflation" title="Inflation outlook" icon={() => null} failed />
+      <WebSource url="https://linear.app/docs/triage" title="Triage – Linear Docs" icon={icon} />
+      <WebSource url="https://www.w3.org/WAI/standards-guidelines/wcag/" icon={icon} />
       <WebSource
-        url="https://example.com/a/very/long/path"
-        title="A very long page title that is cut off with an ellipsis"
+        url="https://www.figma.com/best-practices/components-styles-and-shared-libraries/"
+        title="Components, styles, and shared libraries"
         icon={icon}
+        failed
       />
     </div>,
   );
-  await expect.poll(() => document.querySelectorAll('[data-status="loaded"]').length).toBe(2);
+  await expect.poll(() => document.querySelectorAll('[data-status="loaded"]').length).toBe(3);
   await settle();
   await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`web-source-${theme}-${mode}`);
 });
