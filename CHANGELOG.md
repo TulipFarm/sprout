@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/TulipFarm/sprout/compare/v0.8.0...v0.9.0) (2026-10-24)
+
+### Features
+
+* **tool-activity:** status marks, icon row actions, and quieter web sources ([#46](https://github.com/TulipFarm/sprout/issues/46)) ([40a5a83](https://github.com/TulipFarm/sprout/commit/40a5a83e59ced6e1fb3e073d1c58cec195a7b412))
+* **web-source:** add WebSource, a favicon and title chip for web pages ([#45](https://github.com/TulipFarm/sprout/issues/45)) ([6369076](https://github.com/TulipFarm/sprout/commit/636907658519a14e362e01a1306ba20c86300f31))
+
 ## [0.8.0](https://github.com/TulipFarm/sprout/compare/v0.7.0...v0.8.0) (2026-10-23)
 
 ### Features

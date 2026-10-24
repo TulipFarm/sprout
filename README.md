@@ -193,22 +193,22 @@ Full library: **880.6 kB** gzip. Each component path is smaller. Sizes are minif
 | `spinner`           |  36.5 kB |  11.6 kB |  10.2 kB |
 | `state-panel`       | 552.5 kB | 180.3 kB | 149.4 kB |
 | `state-sample`      |  33.5 kB |  10.5 kB |   9.2 kB |
-| `status`            |  33.6 kB |  10.8 kB |   9.5 kB |
+| `status`            |  34.2 kB |  11.1 kB |   9.7 kB |
 | `switch`            |  50.2 kB |  17.3 kB |  15.4 kB |
 | `table`             | 541.1 kB | 173.3 kB | 145.8 kB |
 | `table-nuqs`        |   2.1 kB |   1.1 kB |   1.0 kB |
 | `tabs`              |  80.3 kB |  27.6 kB |  24.5 kB |
-| `task-tree`         | 247.2 kB |  81.8 kB |  70.4 kB |
+| `task-tree`         | 247.8 kB |  82.1 kB |  70.7 kB |
 | `textarea`          |  98.2 kB |  34.2 kB |  29.6 kB |
 | `toast`             | 189.3 kB |  65.1 kB |  56.6 kB |
 | `toggle`            |  46.1 kB |  15.7 kB |  13.8 kB |
 | `toggle-group`      |  67.1 kB |  23.0 kB |  20.4 kB |
-| `tool-activity`     |  87.2 kB |  29.6 kB |  25.3 kB |
+| `tool-activity`     |  89.5 kB |  30.3 kB |  26.0 kB |
 | `toolbar-status`    | 189.1 kB |  64.2 kB |  55.5 kB |
 | `tooltip`           | 164.7 kB |  56.7 kB |  49.5 kB |
 | `typed-text`        |  31.2 kB |  10.1 kB |   8.8 kB |
 | `view-switcher`     | 270.0 kB |  90.6 kB |  77.0 kB |
-| `web-source`        |  40.7 kB |  14.1 kB |  12.1 kB |
+| `web-source`        |  40.8 kB |  14.2 kB |  12.1 kB |
 
 </details>
 <!-- bundle-size:end -->
