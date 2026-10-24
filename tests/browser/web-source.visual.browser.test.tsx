@@ -51,9 +51,15 @@ it.each(themes)('web source %s %s', async (theme, mode) => {
         icon={icon}
         failed
       />
+      <p style={{ margin: 0, color: 'var(--sprout-text)', fontSize: 15, lineHeight: 1.7 }}>
+        Checkout handles payments{' '}
+        <WebSource variant="inline" url="https://docs.stripe.com/payments/checkout" title="Stripe Docs" icon={icon} />,
+        and triage keeps the queue small{' '}
+        <WebSource variant="inline" url="https://linear.app/docs/triage" title="Linear" icon={icon} />.
+      </p>
     </div>,
   );
-  await expect.poll(() => document.querySelectorAll('[data-status="loaded"]').length).toBe(3);
+  await expect.poll(() => document.querySelectorAll('[data-status="loaded"]').length).toBe(5);
   await settle();
   await expect.element(screen.getByTestId('shot')).toMatchScreenshot(`web-source-${theme}-${mode}`);
 });

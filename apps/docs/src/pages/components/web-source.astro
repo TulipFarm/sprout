@@ -24,6 +24,11 @@ import CodeBlock from '../../components/CodeBlock.astro';
 // No title: shows the address without https://www.
 <WebSource url="https://www.w3.org/WAI/standards-guidelines/wcag/" />
 
+// Within a paragraph: follows the text's size
+<p>
+  WCAG asks for text alternatives <WebSource variant="inline" url={wcagUrl} title="WCAG 2 Overview" />.
+</p>
+
 // The page could not be read
 <WebSource url="https://www.ft.com/content/inflation" failed />
 
@@ -41,6 +46,11 @@ import CodeBlock from '../../components/CodeBlock.astro';
       The favicon comes from <code>webSourceIcon</code>, which asks icon.horse for the page's site. Pass
       <code>icon</code> to use another service. It returns an image address for a page, or nothing for a globe. A globe
       shows while the icon loads and stays if it fails.
+    </p>
+    <p>
+      <code>variant</code> is <code>block</code> by default: a chip for a row or list of sources. Use
+      <code>inline</code> to cite a page within a sentence; it takes the paragraph's font and size and sits on the text
+      baseline.
     </p>
     <p>
       <code>failed</code> adds a warning icon for a page that could not be read.
@@ -64,8 +74,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <h2 class="section-title">Theme tokens</h2>
     <p>
       The chip uses <code>--sprout-secondary</code>, <code>--sprout-hover</code> and <code>--sprout-active</code>. The
-      icon tile uses <code>--sprout-surface</code>; the warning uses <code>--sprout-danger</code>. Radius follows
-      <code>--sprout-radius-control</code>.
+      title uses <code>--sprout-text</code>, a missing icon <code>--sprout-muted</code> and the warning
+      <code>--sprout-danger</code>.
     </p>
   </section>
 </Docs>

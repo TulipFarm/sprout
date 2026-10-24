@@ -4,15 +4,27 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    min-height: 32px;
+    min-height: 28px;
     max-width: 100%;
-    padding: 4px 8px 4px 4px;
-    border-radius: var(--sprout-radius-control);
+    padding: 4px 8px 4px 6px;
+    border-radius: 6px;
     background: var(--sprout-secondary);
-    color: color-mix(in srgb, var(--sprout-text) 78%, var(--sprout-muted));
+    color: var(--sprout-text);
     font-family: var(--sprout-font);
     font-size: var(--sprout-text-sm);
+    line-height: 1.25;
     text-decoration: none;
+    vertical-align: middle;
+  }
+  .sprout-web-source[data-variant='inline'] {
+    gap: 0.3em;
+    min-height: 0;
+    padding: 0.05em 0.4em 0.05em 0.3em;
+    border-radius: 0.3em;
+    font-family: inherit;
+    font-size: 0.9em;
+    line-height: 1.35;
+    vertical-align: baseline;
   }
   @media (hover: hover) {
     a.sprout-web-source:hover {
@@ -32,17 +44,27 @@
     display: grid;
     flex-shrink: 0;
     place-items: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    background: var(--sprout-surface);
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
     color: var(--sprout-muted);
   }
   .sprout-web-source-favicon > img {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
     object-fit: contain;
+  }
+  .sprout-web-source-favicon > svg {
+    width: 100%;
+    height: 100%;
+  }
+  [data-variant='inline'] > .sprout-web-source-favicon {
+    width: 1em;
+    height: 1em;
+    align-self: center;
   }
   .sprout-web-source-favicon[data-status='loading'] > img {
     opacity: 0;
@@ -54,9 +76,16 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  [data-variant='inline'] > .sprout-web-source-title {
+    max-width: 16em;
+  }
   .sprout-web-source-failed {
     flex-shrink: 0;
     color: var(--sprout-danger);
+  }
+  [data-variant='inline'] > .sprout-web-source-failed {
+    width: 1em;
+    height: 1em;
   }
   .sprout-web-source-sr-only {
     position: absolute;
@@ -71,7 +100,7 @@
   }
 
   @media (pointer: coarse) {
-    .sprout-web-source {
+    .sprout-web-source:not([data-variant='inline']) {
       min-height: 44px;
     }
   }

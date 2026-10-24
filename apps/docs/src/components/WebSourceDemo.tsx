@@ -17,6 +17,13 @@ export default function WebSourceDemo() {
           </li>
         ))}
       </ul>
+      <p className="m-0 max-w-prose text-[15px] leading-7">
+        WCAG asks for text alternatives on every image{' '}
+        <WebSource variant="inline" url={sources[1]!.url} title="WCAG 2 Overview" />, and MDN explains how screen
+        readers announce them <WebSource variant="inline" url={sources[0]!.url} title="Accessibility | MDN" />.
+        Playwright can check the result in a real browser{' '}
+        <WebSource variant="inline" url={sources[2]!.url} title="Playwright" />.
+      </p>
       <ul aria-label="Other states" className="m-0 flex list-none flex-wrap gap-1.5 p-0">
         <li className="min-w-0 max-w-full">
           <WebSource url="https://www.ft.com/content/inflation" title="Inflation outlook" failed />

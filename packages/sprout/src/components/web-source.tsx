@@ -36,13 +36,13 @@ function WebSourceFavicon({ src }: { src: string | null }) {
       aria-hidden="true"
       className="sprout-web-source-favicon"
     >
-      {status !== 'loaded' && <Globe size={18} />}
+      {status !== 'loaded' && <Globe size={16} />}
       {src && status !== 'failed' && (
         <img
           src={src}
           alt=""
-          width={20}
-          height={20}
+          width={16}
+          height={16}
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
           onLoad={() => setState({ src, status: 'loaded' })}
@@ -62,6 +62,8 @@ export interface WebSourceProps extends Omit<ComponentProps<'a'>, 'href' | 'titl
   icon?: WebSourceIcon | undefined;
   /** The page could not be read. Shows a warning. */
   failed?: boolean | undefined;
+  /** `block` is a chip for lists of sources; `inline` sits within a line of text and follows its size. */
+  variant?: 'block' | 'inline' | undefined;
 }
 
 /**
@@ -69,7 +71,15 @@ export interface WebSourceProps extends Omit<ComponentProps<'a'>, 'href' | 'titl
  * tab. Icons load without cookies or a referrer; until one loads, or if it
  * fails, the chip shows a globe.
  */
-export function WebSource({ url, title, icon = webSourceIcon, failed = false, className, ...props }: WebSourceProps) {
+export function WebSource({
+  url,
+  title,
+  icon = webSourceIcon,
+  failed = false,
+  variant = 'block',
+  className,
+  ...props
+}: WebSourceProps) {
   const href = webUrl(url)?.href ?? null;
   const label = title?.trim() || url.replace(/^https?:\/\/(?:www\.)?/, '');
   const content = (
@@ -87,6 +97,7 @@ export function WebSource({ url, title, icon = webSourceIcon, failed = false, cl
   const shared = {
     'data-slot': 'source-chip',
     'data-failed': failed || undefined,
+    'data-variant': variant,
     title: `${label}\n${url}`,
     className: cn('sprout-web-source', className),
   };

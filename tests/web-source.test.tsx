@@ -32,6 +32,11 @@ describe('WebSource', () => {
     expect(html).toContain('data-status="failed"');
   });
 
+  it('renders as a block chip by default and inline on request', () => {
+    expect(renderToString(<WebSource url="https://a.test" />)).toContain('data-variant="block"');
+    expect(renderToString(<WebSource url="https://a.test" variant="inline" />)).toContain('data-variant="inline"');
+  });
+
   it('marks a page that could not be read', () => {
     const html = renderToString(<WebSource url="https://a.test" failed />);
     expect(html).toContain('data-failed="true"');
