@@ -5,12 +5,12 @@ import { Check } from 'reicon-react/icons/Check';
 import { ChevronDown } from 'reicon-react/icons/ChevronDown';
 import { Command } from 'reicon-react/icons/Command';
 import { Danger } from 'reicon-react/icons/Danger';
-import { Globe } from 'reicon-react/icons/Globe';
 import { Stop3 } from 'reicon-react/icons/Stop3';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
 import { Spinner } from './spinner.js';
+import { WebSource, type WebSourceIcon } from './web-source.js';
 
 export const toolActivityStatusNames = [
   'queued',
@@ -54,7 +54,7 @@ export interface ToolActivityItem {
 }
 
 /** Returns an image address for a page's icon, or nothing to show a globe. */
-export type ToolActivitySourceIcon = (url: string) => string | null | undefined;
+export type ToolActivitySourceIcon = WebSourceIcon;
 
 const statusText: Record<ToolActivityStatus, string> = {
   queued: 'Pending',
@@ -145,45 +145,6 @@ export function ActivityPanel({
   );
 }
 
-function webUrl(url: string) {
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? parsed.href : null;
-  } catch {
-    return null;
-  }
-}
-
-function SourceFavicon({ url, sourceIcon }: { url: string; sourceIcon: ToolActivitySourceIcon | undefined }) {
-  const src = (webUrl(url) && sourceIcon?.(url)) || null;
-  const [state, setState] = useState<{
-    src: string | null;
-    status: 'loading' | 'loaded' | 'failed';
-  }>({ src, status: 'loading' });
-  const status = state.src === src ? state.status : 'loading';
-  return (
-    <span
-      data-slot="source-favicon"
-      data-status={src ? status : 'failed'}
-      aria-hidden="true"
-      className="sprout-tool-activity-favicon"
-    >
-      {status !== 'loaded' && <Globe size={18} />}
-      {src && status !== 'failed' && (
-        <img
-          src={src}
-          alt=""
-          width={20}
-          height={20}
-          referrerPolicy="no-referrer"
-          onLoad={() => setState({ src, status: 'loaded' })}
-          onError={() => setState({ src, status: 'failed' })}
-        />
-      )}
-    </span>
-  );
-}
-
 function ToolSources({ item, sourceIcon }: { item: ToolActivityItem; sourceIcon: ToolActivitySourceIcon | undefined }) {
   const [expanded, setExpanded] = useState(false);
   const urls = [...new Set([...(item.urls ?? []), ...(item.failedUrls ?? [])])];
@@ -193,49 +154,16 @@ function ToolSources({ item, sourceIcon }: { item: ToolActivityItem; sourceIcon:
   return (
     <div data-slot="tool-sources" className="sprout-tool-activity-sources">
       <ul aria-label="Web sources" className="sprout-tool-activity-source-list">
-        {visible.map(url => {
-          const failed = item.failedUrls?.includes(url) ?? false;
-          const title = titles.get(url) || url.replace(/^https?:\/\/(?:www\.)?/, '');
-          const href = webUrl(url);
-          const chip = (
-            <>
-              <SourceFavicon url={url} sourceIcon={sourceIcon} />
-              <span className="sprout-tool-activity-source-title">{title}</span>
-              {failed && (
-                <>
-                  <Danger size={14} aria-hidden="true" className="sprout-tool-activity-source-failed" />
-                  <span className="sprout-tool-activity-sr-only">Page unavailable. Retry or paste the text.</span>
-                </>
-              )}
-            </>
-          );
-          return (
-            <li key={url} className="sprout-tool-activity-source">
-              {href ? (
-                <a
-                  data-slot="source-chip"
-                  data-failed={failed || undefined}
-                  href={href}
-                  title={`${title}\n${url}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sprout-tool-activity-source-chip"
-                >
-                  {chip}
-                </a>
-              ) : (
-                <span
-                  data-slot="source-chip"
-                  data-failed={failed || undefined}
-                  title={`${title}\n${url}`}
-                  className="sprout-tool-activity-source-chip"
-                >
-                  {chip}
-                </span>
-              )}
-            </li>
-          );
-        })}
+        {visible.map(url => (
+          <li key={url} className="sprout-tool-activity-source">
+            <WebSource
+              url={url}
+              title={titles.get(url)}
+              failed={item.failedUrls?.includes(url) ?? false}
+              icon={sourceIcon}
+            />
+          </li>
+        ))}
       </ul>
       {urls.length > visibleSourceCount && (
         <Button
@@ -308,7 +236,7 @@ export interface ToolActivityProps {
   hasOlder?: boolean | undefined;
   loadingOlder?: boolean | undefined;
   olderError?: boolean | undefined;
-  /** Resolves an icon image for a source chip. Without it chips show a globe. */
+  /** Resolves an icon image for a source chip. Defaults to `webSourceIcon`. */
   sourceIcon?: ToolActivitySourceIcon | undefined;
   className?: string | undefined;
 }

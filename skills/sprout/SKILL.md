@@ -235,6 +235,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Reasoning Effort  | `reasoning-effort`  | Pill slider for how hard a model thinks.                         |
 | Tool Activity     | `tool-activity`     | Live timeline of the tools an agent called.                      |
 | Typed Text        | `typed-text`        | Short text that types itself in when an agent changes it.        |
+| Web Source        | `web-source`        | A web page as a chip: favicon and title, linking to the page.    |
 
 ### Agent patterns
 

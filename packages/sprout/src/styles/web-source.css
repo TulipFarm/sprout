@@ -1,0 +1,89 @@
+@layer components {
+  .sprout-web-source {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    max-width: 100%;
+    padding: 4px 8px 4px 4px;
+    border-radius: var(--sprout-radius-control);
+    background: var(--sprout-secondary);
+    color: color-mix(in srgb, var(--sprout-text) 78%, var(--sprout-muted));
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    text-decoration: none;
+  }
+  @media (hover: hover) {
+    a.sprout-web-source:hover {
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
+    }
+  }
+  a.sprout-web-source:active {
+    background: var(--sprout-active);
+  }
+  .sprout-web-source:focus-visible {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
+  }
+  .sprout-web-source-favicon {
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--sprout-surface);
+    color: var(--sprout-muted);
+  }
+  .sprout-web-source-favicon > img {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+  .sprout-web-source-favicon[data-status='loading'] > img {
+    opacity: 0;
+  }
+  .sprout-web-source-title {
+    min-width: 0;
+    max-width: 13rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-web-source-failed {
+    flex-shrink: 0;
+    color: var(--sprout-danger);
+  }
+  .sprout-web-source-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (pointer: coarse) {
+    .sprout-web-source {
+      min-height: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-web-source {
+      transition:
+        color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-web-source-favicon > img {
+      transition: opacity var(--sprout-motion-fast) ease-out;
+    }
+  }
+}

@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **880.5 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -128,7 +128,7 @@ Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |  76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |  42.3 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      | 206.0 kB |  70.6 kB |  60.3 kB |
-| `chat-input`        | 968.9 kB | 319.4 kB | 264.1 kB |
+| `chat-input`        | 968.9 kB | 319.4 kB | 264.0 kB |
 | `checkbox`          |  60.0 kB |  21.0 kB |  18.6 kB |
 | `choice-list`       |  43.0 kB |  14.5 kB |  12.6 kB |
 | `code-block`        |  74.3 kB |  26.0 kB |  22.3 kB |
@@ -155,7 +155,7 @@ Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `menubar`           | 244.9 kB |  82.1 kB |  70.7 kB |
 | `message`           |  36.2 kB |  11.7 kB |  10.3 kB |
 | `message-actions`   |  71.2 kB |  24.8 kB |  20.8 kB |
-| `message-response`  | 232.6 kB |  74.2 kB |  64.1 kB |
+| `message-response`  | 232.6 kB |  74.2 kB |  64.2 kB |
 | `message-scroller`  |  68.8 kB |  22.0 kB |  19.5 kB |
 | `model-selector`    | 271.8 kB |  96.6 kB |  82.5 kB |
 | `navigation-menu`   | 182.3 kB |  63.0 kB |  54.7 kB |
@@ -191,7 +191,7 @@ Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `skeleton`          |  35.1 kB |  11.5 kB |  10.1 kB |
 | `slider`            |  83.6 kB |  29.5 kB |  25.9 kB |
 | `spinner`           |  36.5 kB |  11.6 kB |  10.2 kB |
-| `state-panel`       | 552.5 kB | 180.3 kB | 149.2 kB |
+| `state-panel`       | 552.5 kB | 180.3 kB | 149.4 kB |
 | `state-sample`      |  33.5 kB |  10.5 kB |   9.2 kB |
 | `status`            |  33.6 kB |  10.8 kB |   9.5 kB |
 | `switch`            |  50.2 kB |  17.3 kB |  15.4 kB |
@@ -203,11 +203,12 @@ Full library: **880.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `toast`             | 189.3 kB |  65.1 kB |  56.6 kB |
 | `toggle`            |  46.1 kB |  15.7 kB |  13.8 kB |
 | `toggle-group`      |  67.1 kB |  23.0 kB |  20.4 kB |
-| `tool-activity`     |  86.5 kB |  29.2 kB |  25.1 kB |
+| `tool-activity`     |  86.9 kB |  29.5 kB |  25.4 kB |
 | `toolbar-status`    | 189.1 kB |  64.2 kB |  55.5 kB |
 | `tooltip`           | 164.7 kB |  56.7 kB |  49.5 kB |
 | `typed-text`        |  31.2 kB |  10.1 kB |   8.8 kB |
 | `view-switcher`     | 270.0 kB |  90.6 kB |  77.0 kB |
+| `web-source`        |  40.5 kB |  14.0 kB |  11.9 kB |
 
 </details>
 <!-- bundle-size:end -->
@@ -222,7 +223,7 @@ CI compares sizes on each pull request. Run `pnpm size` to see them locally.
 | **Layout & navigation** | Sidebar · Navigation Menu · Breadcrumb · Pagination · Tabs · View Switcher · Accordion · Collapsible · Page Header · Page Content · Settings List · Card · Carousel · Resizable · Scroll Area · Separator · Aspect Ratio · Direction · Canvas                  |
 | **Feedback**            | Alert · Notice Banner · Badge · Progress · Spinner · Skeleton · State Panel · State Sample · Status · Task Tree                                                                                                                                                |
 | **Data display**        | Table · Chart · Code Block · File Viewer · Schema Diagram · Avatar · Agent Avatar · Brand Icon · Attachment · Typed Text · Gradient Banner · Glass Banner                                                                                                      |
-| **Agents & chat**       | Message · Message Actions · Message Response · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Model Selector · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity                                                       |
+| **Agents & chat**       | Message · Message Actions · Message Response · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Model Selector · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity · Web Source                                          |
 
 ## Theming
 

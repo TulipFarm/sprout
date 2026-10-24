@@ -1800,6 +1800,19 @@ import { TypedText } from '@tulipfarm/sprout/typed-text';
 </h1>;
 ```
 
+### Web Source
+
+```tsx
+import { WebSource } from '@tulipfarm/sprout/web-source';
+
+<WebSource url="https://developer.mozilla.org/en-US/docs/Web/Accessibility" title="Accessibility | MDN" />;
+<WebSource url={url} failed />; // no title: shows the address
+<WebSource url={url} icon={() => null} />; // globe instead of the favicon
+```
+
+A chip for a web page: its favicon (from icon.horse by default, loaded without cookies or a referrer) and its title,
+linking to the page in a new tab. Only `http` and `https` addresses become links. Tool Activity uses it for source chips.
+
 ## Agent patterns
 
 ### Canvas

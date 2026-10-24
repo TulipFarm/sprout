@@ -1,0 +1,71 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import WebSourceDemo from '../../components/WebSourceDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="Web Source" description="A chip for a web page: its favicon and title, linking to the page.">
+  <h1 class="docs-title">Web Source</h1>
+  <p class="docs-lead">
+    Shows a web page an agent searched or read: the site's favicon and the page title, linking to the page in a new tab.
+  </p>
+  <div class="mt-8">
+    <WebSourceDemo client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Web Source usage"
+      code={`import { WebSource } from "@tulipfarm/sprout/web-source";
+
+<WebSource url="https://developer.mozilla.org/en-US/docs/Web/Accessibility" title="Accessibility | MDN" />
+
+// No title: shows the address without https://www.
+<WebSource url="https://www.w3.org/WAI/standards-guidelines/wcag/" />
+
+// The page could not be read
+<WebSource url="https://www.ft.com/content/inflation" failed />
+
+// Your own icon service, or () => null for a globe
+<WebSource url={url} icon={(page) => \`/api/favicon?url=\${encodeURIComponent(page)}\`} />`}
+    />
+    <p>
+      <code>url</code> is the page's address. Only <code>http</code> and <code>https</code> addresses become links,
+      which open in a new tab; other addresses show a plain chip with a globe. <code>title</code> is the page title,
+      usually from a search result or a page read. A browser cannot read another site's title itself. Without one, the
+      chip shows the address without <code>https://www.</code>. Long titles are cut off with an ellipsis; the full title
+      and address show on hover.
+    </p>
+    <p>
+      The favicon comes from <code>webSourceIcon</code>, which asks icon.horse for the page's site. Pass
+      <code>icon</code> to use another service. It returns an image address for a page, or nothing for a globe. A globe
+      shows while the icon loads and stays if it fails.
+    </p>
+    <p>
+      <code>failed</code> adds a warning icon for a page that could not be read.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Privacy</h2>
+    <p>
+      Icons load without cookies or a referrer, so the icon service learns the site's name but not who asked or from
+      which page. The service must allow cross-origin requests; icon.horse does.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The chip is a link named by its title. The icon is decorative. A failed page also says “Page unavailable. Retry or
+      paste the text.” to screen readers. On touch screens the chip is at least 44px tall.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The chip uses <code>--sprout-secondary</code>, <code>--sprout-hover</code> and <code>--sprout-active</code>. The
+      icon tile uses <code>--sprout-surface</code>; the warning uses <code>--sprout-danger</code>. Radius follows
+      <code>--sprout-radius-control</code>.
+    </p>
+  </section>
+</Docs>

@@ -176,6 +176,7 @@ export const componentGroups: NavGroup[] = [
       component('Questionnaire', 'Asks one question at a time, with choices, typed answers, and skips.'),
       component('Tool Activity', 'A live timeline of the tools an agent used, with sources.'),
       component('Typed Text', 'Text that types itself in when an agent changes it.'),
+      component('Web Source', 'A web page an agent used, shown with its favicon and title.'),
     ],
   },
   {

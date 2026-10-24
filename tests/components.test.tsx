@@ -663,8 +663,10 @@ const typedTextExports = ['TypedText', 'typedTextCharacterDuration', 'typedTextM
 
 const viewSwitcherExports = ['ViewSwitcher', 'viewSwitcherTabId'];
 
+const webSourceExports = ['WebSource', 'webSourceIcon'];
+
 describe('Sidebar public surface', () => {
-  it('exports only Accordion, Agent Avatar, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Label, Menubar, Message, Message Actions, Message Response, Message Scroller, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Status, Switch, Table, Tables Feedback, Tabs, Task Tree, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, and View Switcher parts', () => {
+  it('exports only Accordion, Agent Avatar, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Label, Menubar, Message, Message Actions, Message Response, Message Scroller, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Status, Switch, Table, Tables Feedback, Tabs, Task Tree, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, View Switcher, and Web Source parts', () => {
     const names = Object.keys(sprout);
     const buttonExports = [
       'Button',
@@ -789,6 +791,7 @@ describe('Sidebar public surface', () => {
           resultNoticeExports.includes(name) ||
           recordListExports.includes(name) ||
           viewSwitcherExports.includes(name) ||
+          webSourceExports.includes(name) ||
           presenceCursorExports.includes(name) ||
           menubarExports.includes(name) ||
           navigationMenuExports.includes(name) ||
@@ -899,6 +902,7 @@ describe('Sidebar public surface', () => {
         ...resultNoticeExports,
         ...recordListExports,
         ...viewSwitcherExports,
+        ...webSourceExports,
         ...presenceCursorExports,
         ...menubarExports,
         ...navigationMenuExports,
