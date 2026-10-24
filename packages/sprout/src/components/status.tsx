@@ -1,8 +1,10 @@
 'use client';
 
-import type { ComponentProps, PointerEvent, ReactNode } from 'react';
+import { lazy, Suspense, useRef, useState, type ComponentProps, type PointerEvent, type ReactNode } from 'react';
 import { cn } from '../internal/classes.js';
-import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip.js';
+
+// Loaded on first hover or focus, so a page of marks doesn't pay for the tooltip until it is used.
+const StatusTooltip = lazy(() => import('./status-tooltip.js'));
 
 export const statusStateNames = [
   'pending',
@@ -32,8 +34,10 @@ export interface StatusProps extends Omit<ComponentProps<'span'>, 'children' | '
   /** `"sm"` is 12px, `"md"` 16px, and `"lg"` 20px, the same as Spinner. */
   size?: StatusSize | undefined;
   /**
-   * Shown on hover and focus. Defaults to the state's name, such as
-   * “Succeeded” or “Running, 40%”. Pass `false` to show no tooltip.
+   * Shown on mouse hover, and on keyboard focus if you make the mark
+   * focusable. Defaults to the state's name, such as “Succeeded” or
+   * “Running, 40%”. Pass `false` to show no tooltip. The tooltip code loads
+   * on first use.
    */
   tooltip?: ReactNode;
 }
@@ -72,15 +76,29 @@ export function Status({
   'aria-label': label,
   'aria-hidden': hidden,
   tooltip,
+  ref,
   onPointerEnter,
+  onPointerLeave,
+  onFocus,
+  onBlur,
   ...rest
 }: StatusProps) {
+  const anchor = useRef<HTMLSpanElement | null>(null);
+  const [tipOpen, setTipOpen] = useState(false);
+  const [tipLoaded, setTipLoaded] = useState(false);
   const amount = state === 'running' ? clampValue(value) : null;
   const determinate = amount !== null;
   const decorative = hidden === true || hidden === 'true';
   const name = label ?? (determinate ? `${stateLabels.running}, ${Math.round(amount)}%` : stateLabels[state]);
   // A new key replays the entrance whenever the mark itself changes, but not when only the amount moves.
   const mark = determinate ? 'progress' : state;
+  const tip = tooltip === undefined ? name : tooltip;
+  const hasTip = tip != null && tip !== false && tip !== '';
+  const showTip = (open: boolean) => {
+    if (!hasTip) return;
+    if (open) setTipLoaded(true);
+    setTipOpen(open);
+  };
   const glyph = (
     <span
       data-slot="status"
@@ -89,11 +107,29 @@ export function Status({
       {...(determinate ? { 'data-determinate': '' } : {})}
       {...(decorative ? { 'aria-hidden': 'true' as const } : { role, 'aria-label': name })}
       className={cn('sprout-status', `sprout-status-size-${size}`, className)}
+      {...rest}
+      ref={node => {
+        anchor.current = node;
+        if (typeof ref === 'function') return ref(node);
+        if (ref) ref.current = node;
+      }}
       onPointerEnter={event => {
         onPointerEnter?.(event);
         replayGlyph(event);
+        if (event.pointerType === 'mouse') showTip(true);
       }}
-      {...rest}
+      onPointerLeave={event => {
+        onPointerLeave?.(event);
+        showTip(false);
+      }}
+      onFocus={event => {
+        onFocus?.(event);
+        if (event.currentTarget.matches(':focus-visible')) showTip(true);
+      }}
+      onBlur={event => {
+        onBlur?.(event);
+        showTip(false);
+      }}
     >
       <svg
         key={mark}
@@ -108,13 +144,17 @@ export function Status({
       </svg>
     </span>
   );
-  const tip = tooltip === undefined ? name : tooltip;
-  if (tip == null || tip === false || tip === '') return glyph;
   return (
-    <Tooltip>
-      <TooltipTrigger render={glyph} />
-      <TooltipContent>{tip}</TooltipContent>
-    </Tooltip>
+    <>
+      {glyph}
+      {hasTip && tipLoaded && (
+        <Suspense fallback={null}>
+          <StatusTooltip anchor={anchor} open={tipOpen} onOpenChange={setTipOpen}>
+            {tip}
+          </StatusTooltip>
+        </Suspense>
+      )}
+    </>
   );
 }
 
