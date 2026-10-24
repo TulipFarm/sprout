@@ -1,0 +1,74 @@
+.chat-window-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.chat-window-demo-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.chat-window-demo-state {
+  margin: 0;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-sm);
+}
+/* `contain: layout` makes the stage the box the fixed window and launcher sit in. */
+.chat-window-demo-stage {
+  position: relative;
+  contain: layout paint;
+  height: 48rem;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-panel);
+  background: var(--sprout-canvas);
+}
+.chat-window-demo-page {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 28rem;
+  padding: 32px;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-sm);
+}
+.chat-window-demo-page h3 {
+  margin: 0;
+  color: var(--sprout-text);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.chat-window-demo-page p {
+  margin: 0;
+}
+.chat-window-demo-eyebrow {
+  font-size: var(--sprout-text-xs);
+}
+.chat-window-demo-rows {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+.chat-window-demo-rows > div {
+  padding: 12px;
+  border: 1px solid var(--sprout-line);
+  border-radius: var(--sprout-radius-control);
+  background: var(--sprout-surface);
+  color: var(--sprout-text);
+}
+.chat-window-demo-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+}
+[data-filled] {
+  fill: currentColor;
+}
+@media (max-width: 40rem) {
+  .chat-window-demo-stage {
+    height: 40rem;
+  }
+}

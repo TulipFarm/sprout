@@ -1656,6 +1656,52 @@ import { ChatSources, InlineCitation } from "@tulipfarm/sprout/chat-sources";
 <ChatSources sources={sources} />
 ```
 
+### Chat Window
+
+The shell around a quick chat that floats over the app. Put your own chat parts inside it.
+
+```tsx
+import {
+  ChatWindow,
+  ChatWindowActions,
+  ChatWindowBody,
+  ChatWindowClose,
+  ChatWindowContent,
+  ChatWindowFooter,
+  ChatWindowHeader,
+  ChatWindowLauncher,
+  ChatWindowLayoutMenu,
+  ChatWindowTitle,
+} from '@tulipfarm/sprout/chat-window';
+
+<ChatWindow onLayoutChange={layout => layout === 'page' && navigate(`/chat/${id}`)}>
+  <ChatWindowLauncher>Ask Bud</ChatWindowLauncher>
+  <ChatWindowContent>
+    <ChatWindowHeader>
+      <ChatWindowTitle>{chat.title}</ChatWindowTitle>
+      <ChatWindowActions>
+        <ChatWindowLayoutMenu />
+        <ChatWindowClose />
+      </ChatWindowActions>
+    </ChatWindowHeader>
+    <ChatWindowBody>
+      <MessageScroller>{messages}</MessageScroller>
+    </ChatWindowBody>
+    <ChatWindowFooter>
+      <ChatInput {...input} />
+    </ChatWindowFooter>
+  </ChatWindowContent>
+</ChatWindow>;
+```
+
+- Layouts are `window` (default), `drawer`, and `page`. Control them with `layout` and `onLayoutChange`. To send Full page to a chat route, pass `layouts={['drawer', 'window']}` to the menu and add your own link, or navigate in `onLayoutChange`.
+- It is non-modal: the page behind stays usable, and clicking outside never closes it. Escape, Close, and Minimize do.
+- Minimize closes the window back into `ChatWindowLauncher`, which hides while the window is open. Keep the chat state outside the window so it persists.
+- `corner` places the window and launcher: `bottom-right` (default), `bottom-left`, `top-right`, `top-left`.
+- Opening focuses the window itself, not the composer, so no focus ring shows until someone clicks or tabs in. Pass `initialFocus` to change that.
+- Below 640px every layout fills the screen and the menu offers only Full page and Minimize.
+- Tune size with `--sprout-chat-window-width`, `-height`, `-drawer-width`, `-measure`, and `-inset`.
+
 ### Model Selector
 
 Pass raw numbers for `speed`, `quality`, and `cost` (higher is faster, better, and pricier). Each one is rated 1–5 against the min and max of the list, so prices never show. A search field filters by name, description, or vendor. Hovering a column heading shows what it measures and what each bar count means. `ChatInput` uses this picker for `models`.

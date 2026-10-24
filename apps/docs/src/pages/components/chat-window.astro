@@ -1,0 +1,161 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { ChatWindowPlayground } from '../../components/ChatWindowDemo';
+---
+
+<Docs
+  title="Chat Window"
+  description="A chat that opens from a corner launcher over any page, and switches to a side drawer or a full page."
+>
+  <h1 class="docs-title">Chat Window</h1>
+  <p class="docs-lead">
+    The frame for a quick chat that opens over any page without leaving it. It holds a header, your chat, and a message
+    box. Switch it to a side drawer or a full page, or minimize it back into its launcher. The page behind stays usable
+    the whole time.
+  </p>
+  <div class="mt-8" id="chat-window-demo">
+    <ChatWindowPlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Chat Window usage"
+      code={`import {
+  ChatWindow,
+  ChatWindowActions,
+  ChatWindowBody,
+  ChatWindowClose,
+  ChatWindowContent,
+  ChatWindowFooter,
+  ChatWindowHeader,
+  ChatWindowLauncher,
+  ChatWindowLayoutMenu,
+  ChatWindowTitle,
+} from "@tulipfarm/sprout/chat-window";
+
+<ChatWindow open={open} onOpenChange={setOpen} layout={layout} onLayoutChange={setLayout}>
+  <ChatWindowLauncher>
+    <AgentAvatar agentId="bud" name="Bud" size="sm" />
+    Bud
+  </ChatWindowLauncher>
+  <ChatWindowContent>
+    <ChatWindowHeader>
+      <ChatWindowTitle>Late supplier deliveries</ChatWindowTitle>
+      <ChatWindowActions>
+        <ChatWindowLayoutMenu />
+        <ChatWindowClose />
+      </ChatWindowActions>
+    </ChatWindowHeader>
+    <ChatWindowBody>
+      <MessageScrollerProvider>…</MessageScrollerProvider>
+    </ChatWindowBody>
+    <ChatWindowFooter>
+      <ChatInput … />
+    </ChatWindowFooter>
+  </ChatWindowContent>
+</ChatWindow>`}
+    />
+    <p>
+      Chat Window is only the frame. Put your existing chat in it: a <code>MessageScroller</code> in{' '}
+      <code>ChatWindowBody</code> and a <code>ChatInput</code> in <code>ChatWindowFooter</code>. It works controlled
+      with <code>open</code> and <code>layout</code>, or uncontrolled with <code>defaultOpen</code> and{' '}
+      <code>defaultLayout</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Layouts</h2>
+    <p>
+      <code>layout</code> is <code>"window"</code> (default), <code>"drawer"</code>, or <code>"page"</code>. A window
+      floats in its corner at 34rem by 44rem and shrinks to fit. A drawer is 28rem wide and fills the height of the
+      corner's side. A full page covers the viewport and keeps the thread and message box in a 48rem column. Below 640px
+      every layout fills the screen, so the menu offers only Full page and Minimize.
+    </p>
+    <p>
+      Your chat stays mounted while the window is minimized, so drafts, scroll position, and a running reply survive.
+      Set <code>keepMounted={'{false}'}</code> on <code>ChatWindowContent</code> to unmount it instead.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Open the full chat page</h2>
+    <p>
+      If your app has its own chat page, go there when someone picks Full page, and leave the layout as it was. When
+      they come back, the window is where they left it.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      title="Full page opens a route"
+      code={`<ChatWindow
+  open={open}
+  onOpenChange={setOpen}
+  layout={layout}
+  onLayoutChange={next => {
+    if (next === "page") navigate(\`/chat/\${chatId}\`);
+    else setLayout(next);
+  }}
+>`}
+    />
+    <p>
+      To offer fewer layouts, pass them to the menu:{' '}
+      <code>{'<ChatWindowLayoutMenu layouts={["window", "page"]} />'}</code>.<code>labels</code> renames any item, and{' '}
+      <code>showMinimize={'{false}'}</code> removes Minimize.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Corners and your own launcher</h2>
+    <p>
+      <code>corner</code> is <code>"bottom-right"</code> (default), <code>"bottom-left"</code>, <code>"top-right"</code>
+      , or <code>"top-left"</code>. The launcher and window sit in that corner, the window grows out of it, and a drawer
+      fills that side. <code>ChatWindowLauncher</code> is an outline pill that hides while the window is open. To open
+      the window from a header button or a draggable launcher of your own, use <code>ChatWindowTrigger</code> with{' '}
+      <code>render</code>.
+    </p>
+    <p>
+      To keep the window inside one region of the page, as this demo does, pass that region as <code>container</code>{' '}
+      and give it <code>contain: layout</code>. The window and launcher then sit in the region's corner instead of the
+      viewport's.
+    </p>
+  </section>
+  <section class="prose-section" id="chat-window-api">
+    <h2 class="section-title">API</h2>
+    <p>
+      <code>ChatWindow</code> wraps a non-modal Base UI dialog and takes its props, plus <code>layout</code>,{' '}
+      <code>defaultLayout</code>, <code>onLayoutChange</code>, and <code>corner</code>. It always sets{' '}
+      <code>modal={'{false}'}</code> and ignores clicks outside, so the window only closes from its own controls or
+      Escape.
+    </p>
+    <p>
+      <code>ChatWindowContent</code> takes <code>keepMounted</code> (default <code>true</code>), <code>container</code>,
+      and every Base UI popup prop. It sets <code>data-slot="chat-window-content"</code>, <code>data-layout</code>, and{' '}
+      <code>data-corner</code>. <code>ChatWindowHeader</code>, <code>ChatWindowActions</code>,{' '}
+      <code>ChatWindowBody</code>, and <code>ChatWindowFooter</code> render a <code>div</code> and accept{' '}
+      <code>render</code>. <code>ChatWindowTitle</code> renders an <code>h2</code>. Inside a breadcrumb, wrap only the
+      current page and pass <code>{'render={<span />}'}</code>. <code>ChatWindowClose</code> takes <code>label</code>{' '}
+      (default <code>"Close"</code>).
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The window has <code>role="dialog"</code> and is named by <code>ChatWindowTitle</code>. It does not trap focus or
+      hide the page, so people can keep working beside it. When it opens, focus goes to the window itself, so the
+      composer shows no focus ring and no phone keyboard pops up until someone clicks or tabs into it. Pass{' '}
+      <code>initialFocus</code> to focus something else. Escape, Minimize, and Close return focus to the launcher. The
+      layout button's name includes the current layout, and every icon button has a tooltip.
+    </p>
+    <p>
+      A window grows from its corner and fades in over 180ms, and shrinks back in 120ms. A drawer slides 2.5rem from its
+      side. Motion turns off when reduced motion is requested.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      Chat Window uses <code>--sprout-canvas</code> for the window's frame, <code>--sprout-surface</code>,{' '}
+      <code>--sprout-line</code>, <code>--sprout-shadow-overlay</code>, and <code>--sprout-radius-panel</code>. Set{' '}
+      <code>--sprout-chat-window-width</code>, <code>-height</code>, <code>-drawer-width</code>, <code>-measure</code>,
+      and <code>-inset</code> on <code>:root</code> to change its size and distance from the corner.
+    </p>
+  </section>
+</Docs>
