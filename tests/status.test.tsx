@@ -111,4 +111,11 @@ describe('Status', () => {
     expect(css).toContain('forced-colors: active');
     expect(css).toContain('sprout-status-spin 1s linear infinite');
   });
+  it('renders only the mark until its tooltip is first used', () => {
+    const html = renderToString(<Status state="success" />);
+    expect(html).toMatch(/^<span[^>]*data-slot="status"/);
+    expect(html).toContain('aria-label="Succeeded"');
+    expect(html).not.toContain('tabindex');
+    expect(html).toBe(renderToString(<Status state="success" tooltip={false} />));
+  });
 });

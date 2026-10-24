@@ -29,6 +29,21 @@
     /* The title, not the text-less favicon, sets the baseline so the chip sits on the line. */
     align-items: baseline;
   }
+  .sprout-web-source[data-size='sm'] {
+    gap: 5px;
+    min-height: 24px;
+    padding: 3px 7px 3px 5px;
+    border-radius: 5px;
+    font-size: var(--sprout-text-xs);
+  }
+  [data-size='sm'] > .sprout-web-source-favicon {
+    width: 14px;
+    height: 14px;
+  }
+  [data-size='sm'] > .sprout-web-source-failed {
+    width: 12px;
+    height: 12px;
+  }
   @media (hover: hover) {
     a.sprout-web-source:hover {
       background: var(--sprout-active);
@@ -115,11 +130,14 @@
   }
 
   @media (pointer: coarse) {
-    /* A 44px tap area around the 28px chip; inline citations are exempt like text links. */
+    /* A 44px tap area around the chip; inline citations are exempt like text links. */
     .sprout-web-source:not([data-variant='inline'])::after {
       content: '';
       position: absolute;
       inset: -8px 0;
+    }
+    .sprout-web-source[data-size='sm']::after {
+      inset-block: -10px;
     }
   }
 

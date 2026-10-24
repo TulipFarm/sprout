@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
 import { ChevronDown } from 'reicon-react/icons/ChevronDown';
 import { Command } from 'reicon-react/icons/Command';
-import { Danger } from 'reicon-react/icons/Danger';
-import { Stop3 } from 'reicon-react/icons/Stop3';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
 import { Spinner } from './spinner.js';
+import { Status, type StatusState } from './status.js';
 import { WebSource, type WebSourceIcon } from './web-source.js';
 
 export const toolActivityStatusNames = [
@@ -41,8 +39,10 @@ export interface ToolActivityItem {
   visual: ReactNode;
   /** One line under the label. Red when the item is `failed` or `blocked`. */
   detail?: string | undefined;
-  /** Extra content under the row, lined up with the label, such as a retry button or a details toggle. */
+  /** Extra content under the row, lined up with the label, such as a details toggle. */
   details?: ReactNode;
+  /** A compact control on the label line, such as an icon button with an `aria-label` and tooltip. */
+  action?: ReactNode;
   /** Web pages the tool read. Shown as source chips. */
   urls?: readonly string[] | undefined;
   /** Pages that could not be read. Their chips show a warning. */
@@ -121,12 +121,14 @@ export function ActivityPanel({
         className="sprout-activity-panel-trigger"
       >
         {working && <Spinner aria-hidden="true" />}
-        <span role="status" className="sprout-activity-panel-status">
-          {working ? 'Working…' : 'Worked'}
-        </span>
+        <span className="sprout-activity-panel-status">{working ? 'Working…' : 'Worked'}</span>
         {working && activityLabel && <span className="sprout-activity-panel-label">{activityLabel}</span>}
         <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
       </CollapsibleTrigger>
+      {/* Button children are presentational, so the live region sits beside the trigger. */}
+      <span role="status" className="sprout-tool-activity-sr-only">
+        {working ? 'Working…' : 'Worked'}
+      </span>
       <CollapsibleContent keepMounted className="sprout-activity-panel-content">
         <div className="sprout-activity-panel-frame" data-scrolled={scrolled || undefined}>
           <div
@@ -161,6 +163,7 @@ function ToolSources({ item, sourceIcon }: { item: ToolActivityItem; sourceIcon:
               title={titles.get(url)}
               failed={item.failedUrls?.includes(url) ?? false}
               icon={sourceIcon}
+              size="sm"
             />
           </li>
         ))}
@@ -180,38 +183,16 @@ function ToolSources({ item, sourceIcon }: { item: ToolActivityItem; sourceIcon:
   );
 }
 
-function StatusMark({ status }: { status: ToolActivityStatus }) {
-  if (status === 'running')
-    return (
-      <svg aria-hidden="true" viewBox="0 0 16 16" className="sprout-tool-activity-mark-running">
-        <circle cx="8" cy="8" r="6" className="sprout-tool-activity-mark-track" />
-        <circle
-          cx="8"
-          cy="8"
-          r="6"
-          strokeLinecap="round"
-          strokeDasharray="14 24"
-          className="sprout-tool-activity-mark-arc"
-        />
-      </svg>
-    );
-  if (status === 'completed')
-    return (
-      <span className="sprout-tool-activity-mark-completed">
-        <Check size={12} aria-hidden="true" />
-      </span>
-    );
-  if (status === 'waiting')
-    return (
-      <svg aria-hidden="true" viewBox="0 0 16 16" className="sprout-tool-activity-mark-waiting">
-        <circle cx="8" cy="8" r="6" strokeDasharray="3 2" />
-      </svg>
-    );
-  if (status === 'queued') return <span aria-hidden="true" className="sprout-tool-activity-mark-queued" />;
-  if (status === 'cancelled')
-    return <Stop3 size={14} aria-hidden="true" className="sprout-tool-activity-mark-cancelled" />;
-  return <Danger size={14} aria-hidden="true" className="sprout-tool-activity-mark-problem" />;
-}
+const statusStates = {
+  queued: 'pending',
+  running: 'running',
+  waiting: 'paused',
+  completed: 'success',
+  blocked: 'error',
+  failed: 'error',
+  cancelled: 'stopped',
+  unknown: 'warning',
+} as const satisfies Record<ToolActivityStatus, StatusState>;
 
 export interface ToolActivityProps {
   items: ToolActivityItem[];
@@ -374,13 +355,16 @@ export function ToolActivity({
       className={cn('sprout-tool-activity', className)}
     >
       {variant !== 'stepper' && (
-        <CollapsibleTrigger aria-label={title} className="sprout-tool-activity-trigger">
-          {working ? <Spinner aria-hidden="true" /> : <Command size={14} aria-hidden="true" />}
-          <span role="status" className="sprout-tool-activity-title">
+        <>
+          <CollapsibleTrigger aria-label={title} className="sprout-tool-activity-trigger">
+            {working ? <Spinner aria-hidden="true" /> : <Command size={14} aria-hidden="true" />}
+            <span className="sprout-tool-activity-title">{title}</span>
+            <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+          </CollapsibleTrigger>
+          <span role="status" className="sprout-tool-activity-sr-only">
             {title}
           </span>
-          <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
-        </CollapsibleTrigger>
+        </>
       )}
       <CollapsibleContent>
         {variant === 'stepper' && loadingOlder && (
@@ -408,7 +392,7 @@ export function ToolActivity({
               )}
               <div className="sprout-tool-activity-head">
                 <span data-slot="tool-status-mark" className="sprout-tool-activity-mark">
-                  <StatusMark status={item.status} />
+                  <Status state={statusStates[item.status]} tooltip={statusText[item.status]} aria-hidden="true" />
                 </span>
                 <span aria-hidden="true" className="sprout-tool-activity-visual">
                   {item.visual}
@@ -423,6 +407,11 @@ export function ToolActivity({
                     {statusText[item.status]}
                   </span>
                 </span>
+                {item.action != null && item.action !== false && (
+                  <span data-slot="tool-action" className="sprout-tool-activity-action">
+                    {item.action}
+                  </span>
+                )}
               </div>
               {item.query && (
                 <p data-slot="web-search-query" className="sprout-tool-activity-query">

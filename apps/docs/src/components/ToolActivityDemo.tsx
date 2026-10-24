@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowRotate } from 'reicon-react/icons/ArrowRotate';
 import { BookOpen } from 'reicon-react/icons/BookOpen';
 import { Command } from 'reicon-react/icons/Command';
 import { Database } from 'reicon-react/icons/Database';
+import { Document } from 'reicon-react/icons/Document';
 import { Globe } from 'reicon-react/icons/Globe';
 import { Plug } from 'reicon-react/icons/Plug';
 import { Sparkle } from 'reicon-react/icons/Sparkle';
@@ -12,6 +14,7 @@ import { CanvasSection } from '@tulipfarm/sprout/canvas';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@tulipfarm/sprout/collapsible';
 import { ResultAppActions, ResultCard, type ResultApp } from '@tulipfarm/sprout/result-card';
 import { Switch } from '@tulipfarm/sprout/switch';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
 import {
   ActivityPanel,
   ToolActivity,
@@ -67,6 +70,7 @@ const icons = {
   knowledge: <BookOpen size={14} />,
   page: <BookOpen size={14} />,
   web: <Globe size={14} />,
+  fetch: <Document size={14} />,
   agent: <Users size={14} />,
   mcp: <Plug size={14} />,
   skill: <Sparkle size={14} />,
@@ -198,6 +202,42 @@ export function ToolActivityStatuses() {
       visual: brand('gmail'),
     },
     {
+      id: 'search',
+      label: 'Searched the web',
+      status: 'completed',
+      visual: icons.web,
+      query: 'UK inflation September 2026',
+      urls: [
+        'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026',
+        'https://www.bls.gov/news.release/cpi.nr0.htm',
+        'https://en.wikipedia.org/wiki/Inflation_in_the_United_Kingdom',
+      ],
+      sources: [
+        {
+          url: 'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026',
+          title: 'Consumer price inflation, UK: September 2026',
+        },
+        { url: 'https://www.bls.gov/news.release/cpi.nr0.htm', title: 'Consumer Price Index Summary' },
+        {
+          url: 'https://en.wikipedia.org/wiki/Inflation_in_the_United_Kingdom',
+          title: 'Inflation in the United Kingdom',
+        },
+      ],
+    },
+    {
+      id: 'fetch',
+      label: 'Read the inflation bulletin',
+      status: 'completed',
+      visual: icons.fetch,
+      urls: ['https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026'],
+      sources: [
+        {
+          url: 'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026',
+          title: 'Consumer price inflation, UK: September 2026',
+        },
+      ],
+    },
+    {
       id: 'forecast',
       label: 'Reading the Q4 forecast table',
       status: 'running',
@@ -208,7 +248,7 @@ export function ToolActivityStatuses() {
       label: 'Send the follow-up to Northwind',
       status: 'waiting',
       visual: brand('gmail'),
-      detail: 'Waiting for approval or another action. Review the action details below.',
+      detail: 'Waiting for your approval before it sends.',
     },
     {
       id: 'slides',
@@ -229,10 +269,17 @@ export function ToolActivityStatuses() {
       status: retried ? 'completed' : 'failed',
       visual: brand('hubspot'),
       detail: retried ? 'Retried locally. Nothing was sent.' : 'The action failed. Retry, or check the app connection.',
-      details: retried ? undefined : (
-        <Button variant="outline" size="sm" onClick={() => setRetried(true)}>
-          Retry update
-        </Button>
+      action: retried ? undefined : (
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button variant="ghost" size="icon-xs" aria-label="Retry update" onClick={() => setRetried(true)}>
+                <ArrowRotate aria-hidden="true" />
+              </Button>
+            }
+          />
+          <TooltipContent>Retry update</TooltipContent>
+        </Tooltip>
       ),
     },
     {
@@ -278,6 +325,7 @@ export function ToolActivityStatuses() {
               )
         }
         active={active}
+        sourceIcon={sourceIcon}
       />
     </Frame>
   );

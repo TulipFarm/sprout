@@ -40,6 +40,10 @@ import CodeBlock from '../../components/CodeBlock.astro';
       <li>
         <code>size</code>: <code>sm</code> (12px), <code>md</code> (16px, default), or <code>lg</code> (20px).
       </li>
+      <li>
+        <code>tooltip</code>: shown on hover. Defaults to the state’s name, such as “Succeeded” or “Running, 40%”. Pass
+        your own words, such as <code>tooltip="Access denied"</code>, or <code>false</code> for none.
+      </li>
     </ul>
     <p>
       The root gets <code>data-state</code>, <code>data-size</code>, and <code>data-determinate</code> while a running

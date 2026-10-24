@@ -166,6 +166,35 @@ describe('ToolActivity', () => {
     ).toContain('aria-label="Agent steps"');
   });
 
+  it('announces the summary from a live region outside the trigger button', () => {
+    for (const html of [
+      renderToString(<ToolActivity active items={[item('a', 'running')]} />),
+      renderToString(
+        <ActivityPanel working activityLabel="Reading">
+          <p>Body</p>
+        </ActivityPanel>,
+      ),
+    ]) {
+      const button = html.match(/<button[\s\S]*?<\/button>/)?.[0] ?? '';
+      expect(button).not.toContain('role="status"');
+      expect(html.replace(button, '')).toMatch(
+        /role="status" class="sprout-tool-activity-sr-only">(Using 1 tool|Working…)</,
+      );
+    }
+  });
+
+  it('puts a row action on the label line', () => {
+    const html = renderToString(
+      <ToolActivity
+        variant="stepper"
+        items={[item('a', 'failed', { action: <button aria-label="Retry">R</button> })]}
+      />,
+    );
+    expect(html).toMatch(
+      /class="sprout-tool-activity-head">[\s\S]*data-slot="tool-action"[^>]*><button aria-label="Retry">R<\/button><\/span><\/div>/,
+    );
+  });
+
   it('renders web search query and source chips', () => {
     const urls = [
       'https://www.a.test/1',
@@ -194,6 +223,7 @@ describe('ToolActivity', () => {
     expect(html).toContain('services inflation');
     expect(html).toContain('aria-label="Web sources"');
     expect(html.split('data-slot="source-chip"').length - 1).toBe(4);
+    expect(html.match(/data-slot="source-chip"[^>]*data-size="sm"/g)).toHaveLength(4);
     expect(html).toContain('2 more');
     expect(html).toContain('>ONS inflation<');
     expect(html).toContain('>b.test/2<');

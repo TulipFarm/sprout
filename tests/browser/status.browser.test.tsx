@@ -123,4 +123,20 @@ describe('Status', () => {
     }
     void page;
   });
+  it('names its state in a tooltip on hover, with words of your own or none', async () => {
+    const screen = await render(
+      <div style={{ display: 'flex', gap: 48, padding: 48 }}>
+        <Status state="success" data-testid="named" />
+        <Status state="error" tooltip="Access denied" data-testid="custom" />
+        <Status state="paused" tooltip={false} data-testid="none" />
+      </div>,
+    );
+    const tip = () => document.querySelector('[role="tooltip"][data-open]')?.textContent;
+    await screen.getByTestId('named').hover();
+    await expect.poll(tip).toBe('Succeeded');
+    await screen.getByTestId('custom').hover();
+    await expect.poll(tip).toBe('Access denied');
+    await screen.getByTestId('none').hover();
+    await expect.poll(tip).toBeUndefined();
+  });
 });

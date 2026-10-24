@@ -29,8 +29,11 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <CodeBlock
       lang="tsx"
       title="Tools behind a reply"
-      code={`import { BrandIcon } from "@tulipfarm/sprout/brand-icon";
+      code={`import { ArrowRotate } from "reicon-react/icons/ArrowRotate";
+import { BrandIcon } from "@tulipfarm/sprout/brand-icon";
+import { Button } from "@tulipfarm/sprout/button";
 import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@tulipfarm/sprout/tooltip";
 
 <ToolActivity
   active={replyIsWorking}
@@ -47,7 +50,18 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
       status: "failed",
       visual: <BrandIcon brand="hubspot" size="inline" />,
       detail: "The action failed. Retry, or check the app connection.",
-      details: <Button variant="outline" size="sm" onClick={retry}>Retry update</Button>,
+      action: (
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button variant="ghost" size="icon-xs" aria-label="Retry update" onClick={retry}>
+                <ArrowRotate aria-hidden="true" />
+              </Button>
+            }
+          />
+          <TooltipContent>Retry update</TooltipContent>
+        </Tooltip>
+      ),
     },
   ]}
 />`}
@@ -56,7 +70,8 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
       <li>
         <code>status</code>: <code>"queued"</code>, <code>"running"</code>,<code>"waiting"</code>,{' '}
         <code>"completed"</code>,<code>"blocked"</code>, <code>"failed"</code>,<code>"cancelled"</code>, or{' '}
-        <code>"unknown"</code>. Each has its own mark and a spoken name, such as “In progress” or “Outcome unknown”.
+        <code>"unknown"</code>. Each shows a <code>Status</code> mark. Its name, such as “In progress” or “Outcome
+        unknown”, shows in the mark’s tooltip and is read by screen readers.
       </li>
       <li>
         <code>visual</code>: a 14px icon or an inline
@@ -67,7 +82,11 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
         <code>blocked</code>.
       </li>
       <li>
-        <code>details</code>: extra content lined up with the label, such as a retry button or a “Details” toggle.
+        <code>action</code>: one compact control on the label line, such as a retry icon button. Give it an
+        <code>aria-label</code> and a matching tooltip.
+      </li>
+      <li>
+        <code>details</code>: extra content under the row, lined up with the label, such as a “Details” toggle.
       </li>
       <li>
         <code>active</code>: the reply is still working even when no step is running, so the trigger shows a spinner.
@@ -203,10 +222,10 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
   <section class="prose-section">
     <h2 class="section-title">Accessibility</h2>
     <p>
-      The trigger is a button named by its summary, and the summary is a live <code>status</code>. Steps are an ordered
-      list named “Tool activity” (set <code>label</code> to rename it). Each step says its status, such as “Failed”; a
-      running step’s status is announced outside the transcript. Source chips sit in a list named “Web sources”, and
-      failed pages say “Page unavailable”.
+      The trigger is a button named by its summary, and a live <code>status</code> beside the button announces the
+      summary when it changes. Steps are an ordered list named “Tool activity” (set <code>label</code> to rename it).
+      Each step says its status, such as “Failed”; a running step’s status is announced outside the transcript. Source
+      chips sit in a list named “Web sources”, and failed pages say “Page unavailable”.
     </p>
     <p>
       <code>ActivityPanel</code> is a region named “Chat activity”. Its timeline is a focusable region named “Activity
@@ -220,10 +239,10 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Rows use <code>--sprout-text</code> and <code>--sprout-muted</code>. Marks use <code>--sprout-success</code>{' '}
-      (running),
-      <code>--sprout-primary</code> (completed), <code>--sprout-info</code>
-      (waiting), and <code>--sprout-danger</code>. Chips use
+      Rows use <code>--sprout-text</code> and <code>--sprout-muted</code>. Marks are <code>Status</code> marks: running
+      uses <code>--sprout-info</code>, completed
+      <code>--sprout-success</code>, unknown <code>--sprout-warning</code>, and blocked and failed
+      <code>--sprout-danger</code>. Chips use
       <code>--sprout-secondary</code> and <code>--sprout-hover</code>. Set
       <code>--sprout-activity-panel-fade</code> to the panel’s background when it is not <code>--sprout-surface</code>.
     </p>
