@@ -71,6 +71,8 @@ export interface WebSourceProps extends Omit<ComponentProps<'a'>, 'href' | 'titl
   failed?: boolean | undefined;
   /** `block` is a chip for lists of sources; `inline` sits within a line of text and follows its size. */
   variant?: 'block' | 'inline' | undefined;
+  /** For `block` chips: `default` is 28px tall; `sm` is 24px with smaller text, for dense lists. */
+  size?: 'default' | 'sm' | undefined;
 }
 
 /**
@@ -84,6 +86,7 @@ export function WebSource({
   icon = webSourceIcon,
   failed = false,
   variant = 'block',
+  size = 'default',
   className,
   ...props
 }: WebSourceProps) {
@@ -111,6 +114,7 @@ export function WebSource({
     'data-slot': 'source-chip',
     'data-failed': failed || undefined,
     'data-variant': variant,
+    'data-size': variant === 'block' && size === 'sm' ? 'sm' : undefined,
     title: `${label}\n${url}`,
     className: cn('sprout-web-source', className),
   };

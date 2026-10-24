@@ -111,4 +111,14 @@ describe('Status', () => {
     expect(css).toContain('forced-colors: active');
     expect(css).toContain('sprout-status-spin 1s linear infinite');
   });
+  it('is a tooltip trigger named after its state unless told otherwise', () => {
+    const html = renderToString(<Status state="success" />);
+    expect(html).toMatch(/^<span[^>]*data-slot="status"/);
+    expect(html).toContain('aria-label="Succeeded"');
+    expect(html).toMatch(/data-popup-open|aria-describedby|data-state="success"/);
+    expect(html).not.toContain('tabindex');
+    expect(renderToString(<Status state="success" tooltip={false} />)).toBe(
+      renderToString(<Status state="success" tooltip={null} />),
+    );
+  });
 });

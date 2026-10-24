@@ -172,6 +172,17 @@ describe('ToolActivity in a real browser', () => {
     expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(320);
   });
 
+  it('keeps marks on the first line of a wrapped label', async () => {
+    await page.viewport(320, 800);
+    await render(<ToolActivity items={everyStatus} />);
+    for (const head of document.querySelectorAll('.sprout-tool-activity-head')) {
+      const mark = head.querySelector('.sprout-tool-activity-mark')!.getBoundingClientRect();
+      const label = head.querySelector('.sprout-tool-activity-label')!.getBoundingClientRect();
+      expect(label.height).toBeGreaterThan(30);
+      expect(Math.abs(mark.top - label.top)).toBeLessThanOrEqual(1);
+    }
+  });
+
   it('fades rows in and spins the running mark, and stops under reduced motion', async () => {
     await render(<ToolActivity items={everyStatus} />);
     const row = document.querySelector('.sprout-tool-activity-row')!;

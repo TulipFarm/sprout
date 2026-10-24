@@ -169,11 +169,12 @@
     border-radius: 1px;
     background: color-mix(in srgb, var(--sprout-border) 45%, transparent);
   }
+  /* Marks sit on the first line, so a wrapped label never shifts them off the connector. */
   .sprout-tool-activity-head {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
-    min-height: 24px;
+    padding-block: 2px;
   }
   .sprout-tool-activity-mark,
   .sprout-tool-activity-visual {
@@ -182,7 +183,7 @@
     flex-shrink: 0;
     place-items: center;
     width: 16px;
-    height: 16px;
+    height: 20px;
     color: var(--sprout-muted);
   }
   .sprout-tool-activity-visual > svg {
@@ -190,10 +191,16 @@
     max-height: 16px;
   }
   .sprout-tool-activity-label {
-    flex: 1;
+    flex: 0 1 auto;
     min-width: 0;
     color: var(--sprout-muted);
     overflow-wrap: anywhere;
+  }
+  /* A 24px control on the 20px label line; negative margins keep the row height. */
+  .sprout-tool-activity-action {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-block: -2px;
   }
   .sprout-tool-activity-row[data-status='running'] .sprout-tool-activity-label-text {
     color: var(--sprout-text);
@@ -206,10 +213,18 @@
     margin-inline-start: 48px;
     min-width: 0;
   }
+  /* The search text sits under its step like a detail, quoted so it reads as a query. */
   .sprout-tool-activity-query {
-    margin-top: 2px;
-    color: color-mix(in srgb, var(--sprout-text) 78%, var(--sprout-muted));
+    color: var(--sprout-muted);
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
     overflow-wrap: anywhere;
+  }
+  .sprout-tool-activity-query::before {
+    content: '“';
+  }
+  .sprout-tool-activity-query::after {
+    content: '”';
   }
   .sprout-tool-activity-detail {
     color: var(--sprout-muted);
@@ -239,50 +254,8 @@
     min-width: 0;
     max-width: 100%;
   }
-  .sprout-tool-activity-mark-problem {
-    flex-shrink: 0;
-    color: var(--sprout-danger);
-  }
   .sprout-tool-activity-more {
     margin-top: 4px;
-  }
-
-  .sprout-tool-activity-mark-running,
-  .sprout-tool-activity-mark-waiting {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-  }
-  .sprout-tool-activity-mark-track {
-    color: var(--sprout-input);
-  }
-  .sprout-tool-activity-mark-arc {
-    color: var(--sprout-success);
-    transform-origin: center;
-  }
-  .sprout-tool-activity-mark-waiting {
-    color: var(--sprout-info);
-  }
-  .sprout-tool-activity-mark-completed {
-    display: grid;
-    place-items: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 999px;
-    background: var(--sprout-primary);
-    color: var(--sprout-on-primary);
-  }
-  .sprout-tool-activity-mark-queued {
-    box-sizing: border-box;
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--sprout-muted);
-    border-radius: 999px;
-  }
-  .sprout-tool-activity-mark-cancelled {
-    color: var(--sprout-muted);
   }
 
   .sprout-tool-activity-sr-only {
@@ -320,9 +293,6 @@
     .sprout-tool-activity-row {
       animation: sprout-tool-activity-in var(--sprout-motion-normal) ease-out both;
     }
-    .sprout-tool-activity-mark-arc {
-      animation: sprout-tool-activity-spin 1s linear infinite;
-    }
   }
 }
 
@@ -330,11 +300,5 @@
   from {
     opacity: 0;
     transform: translateY(-2px);
-  }
-}
-
-@keyframes sprout-tool-activity-spin {
-  to {
-    transform: rotate(360deg);
   }
 }

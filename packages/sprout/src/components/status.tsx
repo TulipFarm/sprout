@@ -1,7 +1,8 @@
 'use client';
 
-import type { ComponentProps, PointerEvent } from 'react';
+import type { ComponentProps, PointerEvent, ReactNode } from 'react';
 import { cn } from '../internal/classes.js';
+import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip.js';
 
 export const statusStateNames = [
   'pending',
@@ -30,6 +31,11 @@ export interface StatusProps extends Omit<ComponentProps<'span'>, 'children' | '
   value?: number | null | undefined;
   /** `"sm"` is 12px, `"md"` 16px, and `"lg"` 20px, the same as Spinner. */
   size?: StatusSize | undefined;
+  /**
+   * Shown on hover and focus. Defaults to the state's name, such as
+   * “Succeeded” or “Running, 40%”. Pass `false` to show no tooltip.
+   */
+  tooltip?: ReactNode;
 }
 
 const stateLabels = {
@@ -52,7 +58,8 @@ const clampValue = (value: number | null | undefined) =>
  * A small round mark for the state of a task, run, or step: pending, running
  * (with or without a known amount), paused, success, warning, error, stopped,
  * or skipped. It animates in when it mounts and whenever the state changes.
- * It is an `img` named after the state, such as “Running, 40%”. Set
+ * It is an `img` named after the state, such as “Running, 40%”, and shows
+ * that name in a tooltip unless `tooltip` says otherwise. Set
  * `aria-label` to name it, or `aria-hidden="true"` when visible text beside
  * it already says the state.
  */
@@ -64,6 +71,7 @@ export function Status({
   role = 'img',
   'aria-label': label,
   'aria-hidden': hidden,
+  tooltip,
   onPointerEnter,
   ...rest
 }: StatusProps) {
@@ -73,7 +81,7 @@ export function Status({
   const name = label ?? (determinate ? `${stateLabels.running}, ${Math.round(amount)}%` : stateLabels[state]);
   // A new key replays the entrance whenever the mark itself changes, but not when only the amount moves.
   const mark = determinate ? 'progress' : state;
-  return (
+  const glyph = (
     <span
       data-slot="status"
       data-state={state}
@@ -99,6 +107,14 @@ export function Status({
         <StatusMark mark={mark} amount={amount ?? 0} />
       </svg>
     </span>
+  );
+  const tip = tooltip === undefined ? name : tooltip;
+  if (tip == null || tip === false || tip === '') return glyph;
+  return (
+    <Tooltip>
+      <TooltipTrigger render={glyph} />
+      <TooltipContent>{tip}</TooltipContent>
+    </Tooltip>
   );
 }
 

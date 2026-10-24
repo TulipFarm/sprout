@@ -38,6 +38,9 @@ describe('WebSource', () => {
   it('renders as a block chip by default and inline on request', () => {
     expect(renderToString(<WebSource url="https://a.test" />)).toContain('data-variant="block"');
     expect(renderToString(<WebSource url="https://a.test" variant="inline" />)).toContain('data-variant="inline"');
+    expect(renderToString(<WebSource url="https://a.test" />)).not.toContain('data-size');
+    expect(renderToString(<WebSource url="https://a.test" size="sm" />)).toContain('data-size="sm"');
+    expect(renderToString(<WebSource url="https://a.test" variant="inline" size="sm" />)).not.toContain('data-size');
   });
 
   it('marks a page that could not be read', () => {

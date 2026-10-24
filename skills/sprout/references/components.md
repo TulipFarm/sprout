@@ -1052,10 +1052,12 @@ import { Status } from '@tulipfarm/sprout/status';
 <Status state="running" />; // amount unknown: a line runs around the ring
 <Status state="running" value={40} />; // amount known: 8 segments fill, the active one fades in and out; named "Running, 40%"
 <Status state="success" size="lg" />;
+<Status state="error" tooltip="Access denied" />; // tooltip defaults to the state name; false hides it
 ```
 
 `state` is `pending` (default), `running`, `paused`, `success`, `warning`, `error`, `stopped`, or `skipped`.
-`size` is `sm` (12px), `md` (16px), or `lg` (20px). It is an `img` named after its state; pass `aria-hidden="true"`
+`size` is `sm` (12px), `md` (16px), or `lg` (20px). It is an `img` named after its state, and shows that name in a
+tooltip on hover (`tooltip` overrides it; `false` turns it off); pass `aria-hidden="true"`
 when text beside it says the state. The mark animates in on mount and on every state change, and replays its glyph on
 hover.
 
@@ -1815,7 +1817,8 @@ import { WebSource } from '@tulipfarm/sprout/web-source';
 
 A chip for a web page: its favicon (from icon.horse by default, loaded without cookies or a referrer) and its title,
 linking to the page in a new tab. Only `http` and `https` addresses become links. Tool Activity uses it for source chips.
-`variant="inline"` cites a page within a sentence, following the paragraph's font and size.
+`variant="inline"` cites a page within a sentence, following the paragraph's font and size. `size="sm"` makes a block
+chip 24px tall with smaller text for dense lists (Tool Activity uses it).
 
 ## Agent patterns
 
