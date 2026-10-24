@@ -37,7 +37,7 @@
     --sprout-line: oklch(0.9006 0 0);
     --sprout-border: oklch(0.6317 0.0074 286.19);
     --sprout-border-strong: oklch(0.5428 0.0093 278.5);
-    --sprout-input: oklch(0.8669 0 0);
+    --sprout-input: oklch(0.865 0 0);
     --sprout-primary: oklch(0.527 0.141 148.39);
     --sprout-primary-hover: oklch(0.4672 0.1237 148.51);
     --sprout-primary-active: oklch(0.4052 0.1067 148.3);
@@ -84,7 +84,7 @@
     --sprout-line: oklch(0.2601 0.0045 272);
     --sprout-border: oklch(0.5537 0.0076 286.15);
     --sprout-border-strong: oklch(0.6905 0.0088 278.57);
-    --sprout-input: oklch(0.3212 0.006 271);
+    --sprout-input: oklch(0.335 0.006 271);
     --sprout-primary: oklch(0.7788 0.1259 151.59);
     --sprout-primary-hover: oklch(0.8223 0.1061 152.07);
     --sprout-primary-active: oklch(0.8601 0.0864 152.59);
@@ -132,7 +132,7 @@
       --sprout-line: oklch(0.2601 0.0045 272);
       --sprout-border: oklch(0.5537 0.0076 286.15);
       --sprout-border-strong: oklch(0.6905 0.0088 278.57);
-      --sprout-input: oklch(0.3212 0.006 271);
+      --sprout-input: oklch(0.335 0.006 271);
       --sprout-primary: oklch(0.7788 0.1259 151.59);
       --sprout-primary-hover: oklch(0.8223 0.1061 152.07);
       --sprout-primary-active: oklch(0.8601 0.0864 152.59);

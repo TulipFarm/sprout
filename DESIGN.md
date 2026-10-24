@@ -109,9 +109,9 @@ Depth comes from hairline borders, translucent overlays and soft shadows, not fr
 | `--sprout-active`      | black 7%  | white 8% | pressed and selected overlay  |
 | `--sprout-secondary`   | = active  | = active | deprecated alias              |
 | `--sprout-line`        | .9006     | .2601    | hairlines and dividers        |
-| `--sprout-input`       | .8669     | .3212    | button, table and group edges |
+| `--sprout-input`       | .865      | .335     | button, table and group edges |
 
-Text has four levels: `text`, `body`, `muted`, `faint` (`faint` is for placeholders and decoration only). `--sprout-border` and `--sprout-border-strong` keep 3:1 against the surface for form controls. Dark steps: canvas → surface +.018, surface → raised +.018, raised → popover +.030.
+Text has four levels: `text`, `body`, `muted`, `faint` (`faint` is for placeholders and decoration only). `--sprout-border` and `--sprout-border-strong` keep 3:1 against the surface for form controls; the lighter `--sprout-input` group edge keeps at least 1.5:1. Dark steps: canvas → surface +.018, surface → raised +.018, raised → popover +.030.
 
 ### Typography
 
