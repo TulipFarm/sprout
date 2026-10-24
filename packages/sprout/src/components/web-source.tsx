@@ -43,6 +43,12 @@ function WebSourceFavicon({ src }: { src: string | null }) {
           alt=""
           width={16}
           height={16}
+          ref={img => {
+            // A server-rendered image can finish before hydration attaches onLoad.
+            if (img?.complete && status === 'loading') {
+              setState({ src, status: img.naturalWidth > 0 ? 'loaded' : 'failed' });
+            }
+          }}
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
           onLoad={() => setState({ src, status: 'loaded' })}
