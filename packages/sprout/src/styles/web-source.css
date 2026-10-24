@@ -63,6 +63,18 @@
     width: 100%;
     height: 100%;
   }
+  .sprout-web-source-favicon:has(> .sprout-web-source-letter) {
+    background: var(--sprout-active);
+  }
+  .sprout-web-source-letter {
+    color: var(--sprout-muted);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  [data-variant='inline'] .sprout-web-source-letter {
+    font-size: 0.68em;
+  }
   [data-variant='inline'] > .sprout-web-source-favicon {
     width: 1em;
     height: 1em;

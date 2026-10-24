@@ -101,5 +101,5 @@ _Avoid_: Todo tree, checklist, step tree
 ## Sources
 
 **Web source**:
-A web page an agent searched or read, shown as a chip with the site's favicon and the page title, linking to the page. The favicon loads without cookies or a referrer; a globe stands in until it loads or when it can't.
+A web page an agent searched or read, shown as a chip with the site's favicon and the page title, linking to the page. The favicon loads without cookies or a referrer; a quiet tile stands in while it loads, and the site's first letter when it can't.
 _Avoid_: Link chip, source pill, favicon link

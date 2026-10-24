@@ -53,7 +53,7 @@ export interface ToolActivityItem {
   sources?: readonly ToolActivitySource[] | undefined;
 }
 
-/** Returns an image address for a page's icon, or nothing to show a globe. */
+/** Returns an image address for a page's icon, or nothing to show the site's first letter. */
 export type ToolActivitySourceIcon = WebSourceIcon;
 
 const statusText: Record<ToolActivityStatus, string> = {

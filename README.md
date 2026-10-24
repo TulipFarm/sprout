@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **880.5 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **880.6 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -203,12 +203,12 @@ Full library: **880.5 kB** gzip. Each component path is smaller. Sizes are minif
 | `toast`             | 189.3 kB |  65.1 kB |  56.6 kB |
 | `toggle`            |  46.1 kB |  15.7 kB |  13.8 kB |
 | `toggle-group`      |  67.1 kB |  23.0 kB |  20.4 kB |
-| `tool-activity`     |  86.9 kB |  29.5 kB |  25.4 kB |
+| `tool-activity`     |  87.2 kB |  29.6 kB |  25.3 kB |
 | `toolbar-status`    | 189.1 kB |  64.2 kB |  55.5 kB |
 | `tooltip`           | 164.7 kB |  56.7 kB |  49.5 kB |
 | `typed-text`        |  31.2 kB |  10.1 kB |   8.8 kB |
 | `view-switcher`     | 270.0 kB |  90.6 kB |  77.0 kB |
-| `web-source`        |  40.5 kB |  14.0 kB |  11.9 kB |
+| `web-source`        |  40.7 kB |  14.1 kB |  12.1 kB |
 
 </details>
 <!-- bundle-size:end -->

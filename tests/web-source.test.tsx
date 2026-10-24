@@ -23,13 +23,16 @@ describe('WebSource', () => {
     expect(html).toContain('>example.com/guide<');
   });
 
-  it('uses a custom icon and falls back to a globe when there is none', () => {
+  it('uses a custom icon and falls back to the site initial when there is none', () => {
     expect(renderToString(<WebSource url="https://a.test" icon={() => 'data:image/png;base64,AA'} />)).toContain(
       'src="data:image/png;base64,AA"',
     );
     const html = renderToString(<WebSource url="https://a.test" icon={() => null} />);
     expect(html).not.toContain('<img');
     expect(html).toContain('data-status="failed"');
+    expect(html).toContain('sprout-web-source-letter">A<');
+    expect(renderToString(<WebSource url="https://www.wikipedia.org" icon={() => null} />)).toContain('>W<');
+    expect(renderToString(<WebSource url="mailto:a@b.test" />)).not.toContain('sprout-web-source-letter');
   });
 
   it('renders as a block chip by default and inline on request', () => {

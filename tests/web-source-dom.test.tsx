@@ -17,11 +17,12 @@ describe('WebSource favicon', () => {
     unmount();
   });
 
-  it('keeps the globe when the icon fails, and retries for a new page', () => {
+  it('shows the site initial when the icon fails, and retries for a new page', () => {
     const { rerender } = render(<WebSource url="https://a.test" />);
     fireEvent.error(favicon().querySelector('img')!);
     expect(favicon().getAttribute('data-status')).toBe('failed');
     expect(favicon().querySelector('img')).toBeNull();
+    expect(favicon().textContent).toBe('A');
     rerender(<WebSource url="https://b.test" />);
     expect(favicon().getAttribute('data-status')).toBe('loading');
     expect(favicon().querySelector('img')?.getAttribute('src')).toBe('https://icon.horse/icon/b.test');

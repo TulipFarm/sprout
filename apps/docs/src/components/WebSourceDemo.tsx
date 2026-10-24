@@ -10,7 +10,7 @@ const sources = [
 export default function WebSourceDemo() {
   return (
     <div className="flex flex-col gap-6">
-      <ul aria-label="Web sources" className="m-0 flex list-none flex-wrap gap-1.5 p-0">
+      <ul aria-label="Web sources" className="m-0 flex list-none flex-wrap gap-1.5 p-0 pointer-coarse:gap-y-4">
         {sources.map(source => (
           <li key={source.url} className="min-w-0 max-w-full">
             <WebSource url={source.url} title={source.title} />
@@ -24,7 +24,7 @@ export default function WebSourceDemo() {
         Playwright can check the result in a real browser{' '}
         <WebSource variant="inline" url={sources[2]!.url} title="Playwright" />.
       </p>
-      <ul aria-label="Other states" className="m-0 flex list-none flex-wrap gap-1.5 p-0">
+      <ul aria-label="Other states" className="m-0 flex list-none flex-wrap gap-1.5 p-0 pointer-coarse:gap-y-4">
         <li className="min-w-0 max-w-full">
           <WebSource url="https://www.ft.com/content/inflation" title="Inflation outlook" failed />
         </li>

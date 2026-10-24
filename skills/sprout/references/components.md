@@ -1807,7 +1807,7 @@ import { WebSource } from '@tulipfarm/sprout/web-source';
 
 <WebSource url="https://developer.mozilla.org/en-US/docs/Web/Accessibility" title="Accessibility | MDN" />;
 <WebSource url={url} failed />; // no title: shows the address
-<WebSource url={url} icon={() => null} />; // globe instead of the favicon
+<WebSource url={url} icon={() => null} />; // the site's first letter instead of the favicon
 <p>
   See the guidelines <WebSource variant="inline" url={url} title="WCAG 2 Overview" />.
 </p>; // within text

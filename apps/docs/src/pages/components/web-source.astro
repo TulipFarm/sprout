@@ -32,7 +32,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 // The page could not be read
 <WebSource url="https://www.ft.com/content/inflation" failed />
 
-// Your own icon service, or () => null for a globe
+// Your own icon service, or () => null for the site's first letter
 <WebSource url={url} icon={(page) => \`/api/favicon?url=\${encodeURIComponent(page)}\`} />`}
     />
     <p>
@@ -44,8 +44,9 @@ import CodeBlock from '../../components/CodeBlock.astro';
     </p>
     <p>
       The favicon comes from <code>webSourceIcon</code>, which asks icon.horse for the page's site. Pass
-      <code>icon</code> to use another service. It returns an image address for a page, or nothing for a globe. A quiet
-      tile holds the icon's place while it loads, and a globe replaces it if it fails.
+      <code>icon</code> to use another service. It returns an image address for a page, or nothing to show the site's
+      first letter. A quiet tile holds the icon's place while it loads, and the letter replaces it if it fails, matching
+      icon.horse's own tile for sites without a favicon.
     </p>
     <p>
       <code>variant</code> is <code>block</code> by default: a chip for a row or list of sources. Use

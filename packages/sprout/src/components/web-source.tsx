@@ -5,7 +5,7 @@ import { Danger } from 'reicon-react/icons/Danger';
 import { Globe } from 'reicon-react/icons/Globe';
 import { cn } from '../internal/classes.js';
 
-/** Returns an image address for a page's icon, or nothing to show a globe. */
+/** Returns an image address for a page's icon, or nothing to show the site's first letter. */
 export type WebSourceIcon = (url: string) => string | null | undefined;
 
 function webUrl(url: string) {
@@ -23,7 +23,7 @@ export const webSourceIcon: WebSourceIcon = url => {
   return host ? `https://icon.horse/icon/${encodeURIComponent(host)}` : null;
 };
 
-function WebSourceFavicon({ src }: { src: string | null }) {
+function WebSourceFavicon({ src, letter }: { src: string | null; letter: string | null }) {
   const [state, setState] = useState<{ src: string | null; status: 'loading' | 'loaded' | 'failed' }>({
     src,
     status: 'loading',
@@ -36,7 +36,8 @@ function WebSourceFavicon({ src }: { src: string | null }) {
       aria-hidden="true"
       className="sprout-web-source-favicon"
     >
-      {(!src || status === 'failed') && <Globe size={16} />}
+      {(!src || status === 'failed') &&
+        (letter ? <span className="sprout-web-source-letter">{letter}</span> : <Globe size={16} />)}
       {src && status !== 'failed' && (
         <img
           src={src}
@@ -64,7 +65,7 @@ export interface WebSourceProps extends Omit<ComponentProps<'a'>, 'href' | 'titl
   url: string;
   /** The page's title. Without one, the chip shows the address. */
   title?: string | null | undefined;
-  /** Finds the page's icon. Defaults to `webSourceIcon`; return nothing for a globe. */
+  /** Finds the page's icon. Defaults to `webSourceIcon`; return nothing for a letter tile. */
   icon?: WebSourceIcon | undefined;
   /** The page could not be read. Shows a warning. */
   failed?: boolean | undefined;
@@ -75,7 +76,7 @@ export interface WebSourceProps extends Omit<ComponentProps<'a'>, 'href' | 'titl
 /**
  * A chip for a web page: its favicon and title, linking to the page in a new
  * tab. Icons load without cookies or a referrer; a tile holds its place while it loads,
- * and a globe shows if it fails.
+ * and the site's first letter shows if it fails.
  */
 export function WebSource({
   url,
@@ -86,11 +87,17 @@ export function WebSource({
   className,
   ...props
 }: WebSourceProps) {
-  const href = webUrl(url)?.href ?? null;
+  const page = webUrl(url);
+  const href = page?.href ?? null;
+  const letter =
+    page?.hostname
+      .replace(/^www\./, '')
+      .charAt(0)
+      .toUpperCase() || null;
   const label = title?.trim() || url.replace(/^https?:\/\/(?:www\.)?/, '');
   const content = (
     <>
-      <WebSourceFavicon src={(href && icon(url)) || null} />
+      <WebSourceFavicon src={(href && icon(url)) || null} letter={letter} />
       <span className="sprout-web-source-title">{label}</span>
       {failed && (
         <>

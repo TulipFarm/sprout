@@ -301,6 +301,10 @@
     .sprout-tool-activity-trigger {
       min-height: 44px;
     }
+    /* Keeps the 44px tap bands of wrapped source chips from overlapping. */
+    .sprout-tool-activity-source-list {
+      row-gap: 16px;
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {
