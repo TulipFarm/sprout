@@ -8,9 +8,9 @@ import { WebSource } from '../packages/sprout/src/components/web-source.js';
 const favicon = () => document.querySelector("[data-slot='source-favicon']")!;
 
 describe('WebSource favicon', () => {
-  it('swaps the globe for the icon once it loads', () => {
+  it('shows a tile until the icon loads, then the icon', () => {
     const { unmount } = render(<WebSource url="https://a.test" />);
-    expect(favicon().querySelector('svg')).toBeTruthy();
+    expect(favicon().querySelector('svg')).toBeNull();
     fireEvent.load(favicon().querySelector('img')!);
     expect(favicon().getAttribute('data-status')).toBe('loaded');
     expect(favicon().querySelector('svg')).toBeNull();

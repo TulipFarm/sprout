@@ -44,8 +44,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     </p>
     <p>
       The favicon comes from <code>webSourceIcon</code>, which asks icon.horse for the page's site. Pass
-      <code>icon</code> to use another service. It returns an image address for a page, or nothing for a globe. A globe
-      shows while the icon loads and stays if it fails.
+      <code>icon</code> to use another service. It returns an image address for a page, or nothing for a globe. A quiet
+      tile holds the icon's place while it loads, and a globe replaces it if it fails.
     </p>
     <p>
       <code>variant</code> is <code>block</code> by default: a chip for a row or list of sources. Use
@@ -67,14 +67,15 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <h2 class="section-title">Accessibility</h2>
     <p>
       The chip is a link named by its title. The icon is decorative. A failed page also says “Page unavailable. Retry or
-      paste the text.” to screen readers. On touch screens the chip is at least 44px tall.
+      paste the text.” to screen readers. On touch screens the block chip keeps its 28px look but takes taps across a
+      44px band. Inline chips size with the text, like links.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      The chip uses <code>--sprout-secondary</code>, <code>--sprout-hover</code> and <code>--sprout-active</code>. The
-      title uses <code>--sprout-text</code>, a missing icon <code>--sprout-muted</code> and the warning
+      The chip uses <code>--sprout-secondary</code>, with <code>--sprout-active</code> on hover and the loading tile.
+      The title uses <code>--sprout-text</code>, a missing icon <code>--sprout-muted</code> and the warning
       <code>--sprout-danger</code>.
     </p>
   </section>

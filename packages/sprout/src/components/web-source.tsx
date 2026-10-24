@@ -36,7 +36,7 @@ function WebSourceFavicon({ src }: { src: string | null }) {
       aria-hidden="true"
       className="sprout-web-source-favicon"
     >
-      {status !== 'loaded' && <Globe size={16} />}
+      {(!src || status === 'failed') && <Globe size={16} />}
       {src && status !== 'failed' && (
         <img
           src={src}
@@ -74,8 +74,8 @@ export interface WebSourceProps extends Omit<ComponentProps<'a'>, 'href' | 'titl
 
 /**
  * A chip for a web page: its favicon and title, linking to the page in a new
- * tab. Icons load without cookies or a referrer; until one loads, or if it
- * fails, the chip shows a globe.
+ * tab. Icons load without cookies or a referrer; a tile holds its place while it loads,
+ * and a globe shows if it fails.
  */
 export function WebSource({
   url,

@@ -1,5 +1,6 @@
 @layer components {
   .sprout-web-source {
+    position: relative;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -25,15 +26,16 @@
     font-size: 0.9em;
     line-height: 1.35;
     vertical-align: baseline;
+    /* The title, not the text-less favicon, sets the baseline so the chip sits on the line. */
+    align-items: baseline;
   }
   @media (hover: hover) {
     a.sprout-web-source:hover {
-      background: var(--sprout-hover);
-      color: var(--sprout-text);
+      background: var(--sprout-active);
     }
   }
   a.sprout-web-source:active {
-    background: var(--sprout-active);
+    background: color-mix(in srgb, var(--sprout-active) 90%, var(--sprout-text));
   }
   .sprout-web-source:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
@@ -66,8 +68,8 @@
     height: 1em;
     align-self: center;
   }
-  .sprout-web-source-favicon[data-status='loading'] > img {
-    opacity: 0;
+  .sprout-web-source-favicon[data-status='loading'] {
+    background: var(--sprout-active);
   }
   .sprout-web-source-title {
     min-width: 0;
@@ -84,6 +86,7 @@
     color: var(--sprout-danger);
   }
   [data-variant='inline'] > .sprout-web-source-failed {
+    align-self: center;
     width: 1em;
     height: 1em;
   }
@@ -100,8 +103,11 @@
   }
 
   @media (pointer: coarse) {
-    .sprout-web-source:not([data-variant='inline']) {
-      min-height: 44px;
+    /* A 44px tap area around the 28px chip; inline citations are exempt like text links. */
+    .sprout-web-source:not([data-variant='inline'])::after {
+      content: '';
+      position: absolute;
+      inset: -8px 0;
     }
   }
 
@@ -111,8 +117,8 @@
         color var(--sprout-motion-fast) var(--sprout-motion-ease),
         background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
-    .sprout-web-source-favicon > img {
-      transition: opacity var(--sprout-motion-fast) ease-out;
+    .sprout-web-source-favicon {
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
   }
 }
