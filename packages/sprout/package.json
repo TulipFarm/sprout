@@ -444,6 +444,10 @@
       "types": "./dist/components/view-switcher.d.ts",
       "import": "./dist/components/view-switcher.js"
     },
+    "./web-source": {
+      "types": "./dist/components/web-source.d.ts",
+      "import": "./dist/components/web-source.js"
+    },
     "./styles.css": "./dist/styles/index.css",
     "./themes/*": "./dist/styles/themes/*",
     "./package.json": "./package.json"

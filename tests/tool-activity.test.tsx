@@ -201,6 +201,8 @@ describe('ToolActivity', () => {
     expect(html).toContain('target="_blank"');
     expect(html).toContain('rel="noopener noreferrer"');
     expect(html).toContain('data:image/png;base64');
+    expect(html).toContain('crossorigin="anonymous"');
+    expect(html).toContain('referrerPolicy="no-referrer"');
   });
 
   it('only links http sources', () => {

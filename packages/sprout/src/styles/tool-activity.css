@@ -239,61 +239,6 @@
     min-width: 0;
     max-width: 100%;
   }
-  .sprout-tool-activity-source-chip {
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 32px;
-    max-width: 100%;
-    padding: 4px 8px 4px 4px;
-    border-radius: var(--sprout-radius-control);
-    background: var(--sprout-secondary);
-    color: color-mix(in srgb, var(--sprout-text) 78%, var(--sprout-muted));
-    font-size: var(--sprout-text-sm);
-    text-decoration: none;
-  }
-  @media (hover: hover) {
-    a.sprout-tool-activity-source-chip:hover {
-      background: var(--sprout-hover);
-      color: var(--sprout-text);
-    }
-  }
-  a.sprout-tool-activity-source-chip:active {
-    background: var(--sprout-active);
-  }
-  .sprout-tool-activity-source-chip:focus-visible {
-    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
-    outline-offset: 0;
-  }
-  .sprout-tool-activity-favicon {
-    position: relative;
-    display: grid;
-    flex-shrink: 0;
-    place-items: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    background: var(--sprout-surface);
-    color: var(--sprout-muted);
-  }
-  .sprout-tool-activity-favicon > img {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-  }
-  .sprout-tool-activity-favicon[data-status='loading'] > img {
-    opacity: 0;
-  }
-  .sprout-tool-activity-source-title {
-    min-width: 0;
-    max-width: 13rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .sprout-tool-activity-source-failed,
   .sprout-tool-activity-mark-problem {
     flex-shrink: 0;
     color: var(--sprout-danger);
@@ -353,16 +298,18 @@
   }
 
   @media (pointer: coarse) {
-    .sprout-tool-activity-trigger,
-    .sprout-tool-activity-source-chip {
+    .sprout-tool-activity-trigger {
       min-height: 44px;
+    }
+    /* Keeps the 44px tap bands of wrapped source chips from overlapping. */
+    .sprout-tool-activity-source-list {
+      row-gap: 16px;
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
     .sprout-activity-panel-trigger,
-    .sprout-tool-activity-trigger,
-    .sprout-tool-activity-source-chip {
+    .sprout-tool-activity-trigger {
       transition:
         color var(--sprout-motion-fast) var(--sprout-motion-ease),
         background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
@@ -375,9 +322,6 @@
     }
     .sprout-tool-activity-mark-arc {
       animation: sprout-tool-activity-spin 1s linear infinite;
-    }
-    .sprout-tool-activity-favicon > img {
-      transition: opacity var(--sprout-motion-fast) ease-out;
     }
   }
 }

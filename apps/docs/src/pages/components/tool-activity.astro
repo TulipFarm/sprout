@@ -114,7 +114,6 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
   items={tools}
   active={isLatestTurn}
   activityLabel="Searching the web"
-  sourceIcon={(url) => iconFor(new URL(url).hostname)}
   onToggle={() => pauseFollowLatest()}
 />
 
@@ -138,8 +137,9 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
       <code>https</code> addresses become links, which open in a new tab.
     </p>
     <p>
-      Pass <code>sourceIcon</code> to show page icons. It returns an image address for a page, or nothing for a globe;
-      images that fail to load fall back to the globe. Sprõut never calls an icon service itself.
+      Source chips are <a href="/components/web-source/">Web Source</a> chips, so they show each site's favicon. Pass
+      <code>sourceIcon</code> to use another icon service; it returns an image address for a page, or nothing for the
+      site's first letter.
     </p>
     <p>
       With no items, an <code>active</code> transcript shows “Thinking…” or the <code>activityLabel</code>. Other
@@ -214,7 +214,7 @@ import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
     </p>
     <p>
       Steps fade in over 180ms and the chevron turns in 120ms. With reduced motion, steps appear at once and running
-      marks stop spinning. On touch screens the trigger and source chips grow to 44px.
+      marks stop spinning. On touch screens the trigger grows to 44px and source chips take taps across a 44px band.
     </p>
   </section>
   <section class="prose-section">

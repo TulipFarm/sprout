@@ -1,0 +1,136 @@
+@layer components {
+  .sprout-web-source {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
+    max-width: 100%;
+    padding: 4px 8px 4px 6px;
+    border-radius: 6px;
+    background: var(--sprout-secondary);
+    color: var(--sprout-text);
+    font-family: var(--sprout-font);
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25;
+    text-decoration: none;
+    vertical-align: middle;
+  }
+  .sprout-web-source[data-variant='inline'] {
+    gap: 0.3em;
+    min-height: 0;
+    padding: 0.05em 0.4em 0.05em 0.3em;
+    border-radius: 0.3em;
+    font-family: inherit;
+    font-size: 0.9em;
+    line-height: 1.35;
+    vertical-align: baseline;
+    /* The title, not the text-less favicon, sets the baseline so the chip sits on the line. */
+    align-items: baseline;
+  }
+  @media (hover: hover) {
+    a.sprout-web-source:hover {
+      background: var(--sprout-active);
+    }
+  }
+  a.sprout-web-source:active {
+    background: color-mix(in srgb, var(--sprout-active) 90%, var(--sprout-text));
+  }
+  .sprout-web-source:focus-visible {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
+  }
+  .sprout-web-source-favicon {
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    color: var(--sprout-muted);
+  }
+  .sprout-web-source-favicon > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: contain;
+  }
+  .sprout-web-source-favicon > svg {
+    width: 100%;
+    height: 100%;
+  }
+  .sprout-web-source-favicon:has(> .sprout-web-source-letter) {
+    background: var(--sprout-active);
+  }
+  .sprout-web-source-letter {
+    color: var(--sprout-muted);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  [data-variant='inline'] .sprout-web-source-letter {
+    font-size: 0.68em;
+  }
+  [data-variant='inline'] > .sprout-web-source-favicon {
+    width: 1em;
+    height: 1em;
+    align-self: center;
+  }
+  .sprout-web-source-favicon[data-status='loading'] {
+    background: var(--sprout-active);
+  }
+  .sprout-web-source-title {
+    min-width: 0;
+    max-width: 13rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-variant='inline'] > .sprout-web-source-title {
+    max-width: 16em;
+  }
+  .sprout-web-source-failed {
+    flex-shrink: 0;
+    color: var(--sprout-danger);
+  }
+  [data-variant='inline'] > .sprout-web-source-failed {
+    align-self: center;
+    width: 1em;
+    height: 1em;
+  }
+  .sprout-web-source-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (pointer: coarse) {
+    /* A 44px tap area around the 28px chip; inline citations are exempt like text links. */
+    .sprout-web-source:not([data-variant='inline'])::after {
+      content: '';
+      position: absolute;
+      inset: -8px 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-web-source {
+      transition:
+        color var(--sprout-motion-fast) var(--sprout-motion-ease),
+        background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+    .sprout-web-source-favicon {
+      transition: background-color var(--sprout-motion-fast) var(--sprout-motion-ease);
+    }
+  }
+}

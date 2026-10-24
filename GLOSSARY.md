@@ -97,3 +97,9 @@ _Avoid_: Status dot, state icon, step indicator
 **Task tree**:
 A live tree of a run's tasks, each with a Status. A task with one part continues straight down; several branch out. A task with parts and no state of its own follows them, and a green line climbs to it when a part succeeds.
 _Avoid_: Todo tree, checklist, step tree
+
+## Sources
+
+**Web source**:
+A web page an agent searched or read, shown as a chip with the site's favicon and the page title, linking to the page. The favicon loads without cookies or a referrer; a quiet tile stands in while it loads, and the site's first letter when it can't.
+_Avoid_: Link chip, source pill, favicon link

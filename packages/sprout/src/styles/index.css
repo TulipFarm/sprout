@@ -99,6 +99,7 @@
 @import './tooltip.css';
 @import './typed-text.css';
 @import './view-switcher.css';
+@import './web-source.css';
 @source "../**/*.js";
 
 @theme inline {
