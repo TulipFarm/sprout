@@ -177,8 +177,8 @@ importers:
         specifier: 3.8.0
         version: 3.8.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react-is@19.3.1)(react@19.3.1)(redux@5.0.1)
       reicon-react:
-        specifier: 1.2.5
-        version: 1.2.5(react@19.3.1)
+        specifier: 1.2.6
+        version: 1.2.6(react@19.3.1)
       remark-gfm:
         specifier: 4.0.1
         version: 4.0.1
@@ -265,8 +265,8 @@ importers:
         specifier: 3.8.0
         version: 3.8.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react-is@19.3.1)(react@19.3.1)(redux@5.0.1)
       reicon-react:
-        specifier: 1.2.5
-        version: 1.2.5(react@19.3.1)
+        specifier: 1.2.6
+        version: 1.2.6(react@19.3.1)
       remark-gfm:
         specifier: 4.0.1
         version: 4.0.1
@@ -4728,8 +4728,8 @@ packages:
   regex@6.1.0:
     resolution: {integrity: sha512-6VwtthbV4o/7+OaAF9I5L5V3llLEsoPyq9P1JVXkedTP33c7MfCG0/5NOPcSJn0TzXcG9YUrR0gQSWioew3LDg==}
 
-  reicon-react@1.2.5:
-    resolution: {integrity: sha512-+gAKb9k0y/c0t6/l8qiTspxf4RU3omXirr/4/io7Cwp+RCr4FnrxIWKhSSu367BpGyLP745nJ2CmusxWnpOu8g==}
+  reicon-react@1.2.6:
+    resolution: {integrity: sha512-Dh+XZzXLPzcX3ez9jYddK06nD18vJr9XkB8Cg+NGu1xsLBQcyKPyloEmfX2tQTsw22xACnDkel/o/XoqsFEm2w==}
     peerDependencies:
       react: '>=16.8.0'
 
@@ -10160,7 +10160,7 @@ snapshots:
     dependencies:
       regex-utilities: 2.3.0
 
-  reicon-react@1.2.5(react@19.3.1):
+  reicon-react@1.2.6(react@19.3.1):
     dependencies:
       react: 19.3.1
 
