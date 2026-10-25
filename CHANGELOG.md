@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.10.0](https://github.com/TulipFarm/sprout/compare/v0.9.0...v0.10.0) (2026-10-25)
+
+### Features
+
+* **chat-window:** add ChatWindow, a floating chat shell with window, drawer, and full-page layouts ([#48](https://github.com/TulipFarm/sprout/issues/48)) ([99cb79b](https://github.com/TulipFarm/sprout/commit/99cb79b5cf20aafbdd292c451267b77621c0124a))
+
+### Bug Fixes
+
+* **theme:** keep tulipfarm input edges at 1.5:1 contrast ([#47](https://github.com/TulipFarm/sprout/issues/47)) ([c3ca329](https://github.com/TulipFarm/sprout/commit/c3ca3294b9c73ed62e2506bde1eda0977bd0e1ab))
+
 ## [0.9.0](https://github.com/TulipFarm/sprout/compare/v0.8.0...v0.9.0) (2026-10-24)
 
 ### Features
