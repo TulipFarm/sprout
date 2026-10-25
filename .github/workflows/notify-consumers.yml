@@ -1,0 +1,47 @@
+# Tells the apps that use Sprout about a new release. Each one runs its own
+# `sprout-upgrade` workflow, which bumps the pin, has Copilot apply the
+# migrations, and opens a pull request.
+#
+# Needs the SPROUT_UPGRADE_TOKEN secret: a fine-grained token with Contents
+# read and write on every repository in `repos` below. Those repositories also
+# poll for releases every hour, so a missed dispatch only delays the upgrade.
+name: Notify consumers
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Sprout version to announce, for example 0.10.0
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'workflow_dispatch' || !github.event.release.prerelease
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: [TulipFarm/tulipfarm, TulipFarm/tulipfarm.ai]
+    steps:
+      - name: Send sprout-release
+        env:
+          GH_TOKEN: ${{ secrets.SPROUT_UPGRADE_TOKEN }}
+          REPO: ${{ matrix.repo }}
+          VERSION: ${{ inputs.version || github.event.release.tag_name }}
+        run: |
+          version=${VERSION#v}
+          if ! [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Not a release version: $VERSION"
+            exit 1
+          fi
+          gh api "repos/$REPO/dispatches" \
+            -f event_type=sprout-release \
+            -f "client_payload[version]=$version"
+          echo "Sent sprout-release $version to $REPO" >> "$GITHUB_STEP_SUMMARY"
