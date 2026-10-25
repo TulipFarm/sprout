@@ -2,9 +2,10 @@
 # `sprout-upgrade` workflow, which bumps the pin, has Copilot apply the
 # migrations, and opens a pull request.
 #
-# Needs the SPROUT_UPGRADE_TOKEN secret: a fine-grained token with Contents
-# read and write on every repository in `repos` below. Those repositories also
-# poll for releases every hour, so a missed dispatch only delays the upgrade.
+# Needs the SPROUT_UPGRADE_TOKEN secret: a fine-grained token of the
+# tulipfarm-dot bot account, owner TulipFarm, with Contents read and write on
+# every repository in the matrix below. Those repositories also poll for
+# releases every hour, so a missed dispatch only delays the upgrade.
 name: Notify consumers
 
 on:
