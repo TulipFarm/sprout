@@ -1580,11 +1580,11 @@ import { AgentFanout } from '@tulipfarm/sprout/agent-fanout';
 - You own the run. Move `status` through `queued`, `running`, `needs-you`, `done`, `failed`, and `stopped`, and tick `elapsed` in ms.
 - `brand` picks the model logo from Brand Icon (`claude`, `openai`, `deepseek`, `grok`, …) and `model` names it. Pass `icon` for agents that are not a known model. `tools` are Brand Icon names; past four, the rest show as a count.
 - Agents that need you or failed get a header button listing each one's task and `reason`. `onOpen` adds Open to needs-you agents; `onRetry` and `onDismiss` add Retry and Dismiss to failed ones. The component never changes the run itself.
-- `layout`: `auto` (default) puts the root's agents side by side and falls back to `list` when the row does not fit; `tree` always uses a row and scrolls; `list` always stacks under the parent.
+- `layout`: `auto` (default) puts the root's agents side by side; when the row runs out of room it narrows the gaps, then the cards down to `--sprout-agent-fanout-card-min`, and falls back to `list` only below that. Narrow cards move the status to the footer as an icon (the word stays for screen readers) so the name gets the whole header. `tree` always uses a row, shrinks the same way, then scrolls; `list` always stacks under the parent.
 - The footer count shows or hides an agent's subagents. `defaultCollapsed` takes agent ids to start hidden.
 - Lines are neutral; lines leading to running agents turn blue. Needs-you and failed cards get a warning or danger border.
 - New lines draw from the parent and cards fade in; hidden or removed cards fade out and their lines retract. Nothing animates on first mount. Reduced motion keeps only short fades.
-- Tokens: `--sprout-agent-fanout-card` (17.25rem), `--sprout-agent-fanout-gap` (3rem), `--sprout-agent-fanout-indent` (2.5rem), `--sprout-agent-fanout-line`, `--sprout-agent-fanout-line-active`.
+- Tokens: `--sprout-agent-fanout-card` (17.25rem), `--sprout-agent-fanout-gap` (3rem), `--sprout-agent-fanout-card-min` (9.5rem), `--sprout-agent-fanout-gap-min` (1rem), `--sprout-agent-fanout-indent` (2.5rem), `--sprout-agent-fanout-line`, `--sprout-agent-fanout-line-active`.
 
 ### Chat Confirmation
 

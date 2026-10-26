@@ -98,6 +98,36 @@ describe('AgentFanout in a real browser', () => {
     expect(document.querySelectorAll('.sprout-agent-fanout-dot')).toHaveLength(3);
   });
 
+  it('narrows a wide row to keep the tree, with icon-only statuses that still read', async () => {
+    const ids = ['Alpha', 'Bravo', 'Charlie', 'Delta'];
+    await render(
+      sized(
+        800,
+        <AgentFanout
+          agent={agent('Lead', 'running', { agents: ids.map(id => agent(id, id === 'Delta' ? 'queued' : 'running')) })}
+        />,
+      ),
+    );
+    await drawn(4);
+    expect(root().dataset.layout).toBe('tree');
+    const tree = document.querySelector<HTMLElement>('[data-slot="agent-fanout-tree"]')!;
+    expect(tree.scrollWidth).toBeLessThanOrEqual(tree.clientWidth);
+    const boxes = ids.map(id => box(card(id)));
+    for (const child of boxes) {
+      expect(child.top).toBe(boxes[0]!.top);
+      expect(child.width).toBeLessThan(box(card('Lead')).width);
+      expect(child.width).toBeGreaterThanOrEqual(152);
+    }
+    const badge = card('Delta').querySelector('[data-slot="agent-fanout-status"]')!;
+    expect(box(badge).top).toBeGreaterThanOrEqual(
+      box(card('Delta').querySelector('.sprout-agent-fanout-task')!).bottom,
+    );
+    const status = card('Delta').querySelector<HTMLElement>('.sprout-agent-fanout-status-text')!;
+    expect(status.textContent).toBe('Queued');
+    expect(box(status).width).toBeLessThanOrEqual(1);
+    expect(box(card('Lead').querySelector('.sprout-agent-fanout-status-text')!).width).toBeGreaterThan(1);
+  });
+
   it('turns into a list that fits 390px without scrolling sideways', async () => {
     await render(sized(358, <AgentFanout agent={run()} />));
     await drawn(5);
