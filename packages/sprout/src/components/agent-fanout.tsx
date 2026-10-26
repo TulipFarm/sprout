@@ -50,8 +50,9 @@ export interface AgentFanoutProps {
   /** The header title. */
   title?: ReactNode;
   /**
-   * `tree` puts the first agents it starts side by side, `list` stacks every
-   * agent under its parent, and `auto` uses `tree` while it fits the width.
+   * `tree` puts the first agents it starts side by side, narrowing their cards
+   * to fit, `list` stacks every agent under its parent, and `auto` uses `tree`
+   * while the narrowest cards still fit the width.
    */
   layout?: AgentFanoutLayout | undefined;
   /** Agents whose subagents start hidden. */
@@ -190,7 +191,6 @@ function Branch({ agent, depth, row, collapsed, onToggle }: BranchProps) {
   const open = !collapsed.has(agent.id);
   const count = kids.length;
   const model = agent.model ?? (agent.brand && brandNames[agent.brand]);
-  const footer = agent.elapsed !== undefined || count > 0;
   return (
     <li data-slot="agent-fanout-branch" className="sprout-agent-fanout-branch">
       <div
@@ -213,39 +213,35 @@ function Branch({ agent, depth, row, collapsed, onToggle }: BranchProps) {
             className="sprout-agent-fanout-status"
           >
             <StatusIcon status={agent.status} />
-            {statusText[agent.status]}
+            <span className="sprout-agent-fanout-status-text">{statusText[agent.status]}</span>
           </Badge>
         </div>
         <p className="sprout-agent-fanout-task">
           {agent.tools && agent.tools.length > 0 && <Tools tools={agent.tools} />}
           <span className="sprout-agent-fanout-task-text">{agent.task}</span>
         </p>
-        {footer && (
-          <div className="sprout-agent-fanout-foot">
-            {agent.elapsed !== undefined && (
-              <time
-                dateTime={`PT${Math.max(0, Math.floor(agent.elapsed / 1000))}S`}
-                className="sprout-agent-fanout-time"
-              >
-                {formatElapsed(agent.elapsed)}
-              </time>
-            )}
-            {count > 0 && (
-              <button
-                type="button"
-                aria-expanded={open}
-                aria-controls={listId}
-                aria-label={`${open ? 'Hide' : 'Show'} ${plural(count, 'agent', 'agents')} started by ${agent.name}`}
-                data-slot="agent-fanout-toggle"
-                className="sprout-agent-fanout-toggle"
-                onClick={() => onToggle(agent.id)}
-              >
-                {open ? count : `+${count}`}
-                <ChevronDown size={14} aria-hidden="true" data-icon="inline-end" />
-              </button>
-            )}
-          </div>
-        )}
+        {/* Stays in the DOM when empty: narrow cards show the status here. */}
+        <div className="sprout-agent-fanout-foot">
+          {agent.elapsed !== undefined && (
+            <time dateTime={`PT${Math.max(0, Math.floor(agent.elapsed / 1000))}S`} className="sprout-agent-fanout-time">
+              {formatElapsed(agent.elapsed)}
+            </time>
+          )}
+          {count > 0 && (
+            <button
+              type="button"
+              aria-expanded={open}
+              aria-controls={listId}
+              aria-label={`${open ? 'Hide' : 'Show'} ${plural(count, 'agent', 'agents')} started by ${agent.name}`}
+              data-slot="agent-fanout-toggle"
+              className="sprout-agent-fanout-toggle"
+              onClick={() => onToggle(agent.id)}
+            >
+              {open ? count : `+${count}`}
+              <ChevronDown size={14} aria-hidden="true" data-icon="inline-end" />
+            </button>
+          )}
+        </div>
       </div>
       {count > 0 && (
         <ul
@@ -339,6 +335,15 @@ type Dot = { id: string; x: number; y: number; active: boolean };
 type Geometry = { wires: Wire[]; dots: Dot[]; width: number; height: number };
 
 const emptyGeometry: Geometry = { wires: [], dots: [], width: 0, height: 0 };
+
+/** Whether the row fits, and the card width and gap it fits at, in px. */
+interface Fit {
+  fits: boolean;
+  card?: number;
+  gap?: number;
+}
+
+const fullFit: Fit = { fits: true };
 
 /** Position inside `root`, ignoring transforms so running slides don't skew it. */
 function boxIn(element: HTMLElement, root: HTMLElement): Box | null {
@@ -539,7 +544,7 @@ export function AgentFanout({
   const treeRef = useRef<HTMLDivElement>(null);
   const probeRef = useRef<HTMLDivElement>(null);
   const [collapsed, setCollapsed] = useState<ReadonlySet<string>>(() => new Set(defaultCollapsed));
-  const [fits, setFits] = useState(true);
+  const [fit, setFit] = useState<Fit>(fullFit);
   const [geometry, setGeometry] = useState<Geometry>(emptyGeometry);
   // Animations wait for the first drawing, so the first render stays still.
   const [live, setLive] = useState(false);
@@ -556,7 +561,7 @@ export function AgentFanout({
   const needsYou = all.filter(item => item.status === 'needs-you');
   const failed = all.filter(item => item.status === 'failed');
   const nest = Math.max(0, levels(agent) - 2);
-  const row = layout === 'tree' || (layout === 'auto' && fits);
+  const row = layout === 'tree' || (layout === 'auto' && fit.fits);
 
   const toggle = (id: string) =>
     setCollapsed(current => {
@@ -565,21 +570,41 @@ export function AgentFanout({
       return next;
     });
 
-  // `tree` while the row and the stacks hanging off its right edge fit.
+  // The row gives up its gaps first, then card width, before `auto` stacks it.
   const decide = () => {
     const { agent, layout } = latest.current;
     const tree = treeRef.current;
     const probe = probeRef.current;
-    if (layout !== 'auto' || !tree || !probe) return;
+    if (layout === 'list' || !tree || !probe) return;
+    // The probe carries the tokens as resolved px in properties that take no room.
     const style = getComputedStyle(probe);
-    const card = probe.offsetWidth;
-    const gap = parseFloat(style.marginLeft) || 0;
+    const card = parseFloat(style.maxWidth) || probe.offsetWidth;
+    const cardMin = Math.min(card, parseFloat(style.maxHeight) || card);
+    const gap = parseFloat(style.marginRight) || 0;
+    const gapMin = Math.min(gap, parseFloat(style.marginBottom) || gap);
     const indent = parseFloat(style.paddingLeft) || 0;
     // Stacks under the row hang right of their card, into the gap.
     const overhang = indent * Math.max(0, levels(agent) - 2);
     const count = agent.agents?.length ?? 0;
-    const need = count * card + Math.max(0, count - 1) * Math.max(gap, overhang + 16) + overhang;
-    setFits(count === 0 || tree.clientWidth >= need);
+    const gaps = Math.max(0, count - 1);
+    const box = getComputedStyle(tree);
+    const inner = tree.clientWidth - (parseFloat(box.paddingLeft) || 0) - (parseFloat(box.paddingRight) || 0);
+    const room = inner - overhang;
+    let rowGap = Math.max(gap, overhang + 16);
+    let rowCard = card;
+    if (count * rowCard + gaps * rowGap > room) {
+      const tight = Math.max(gapMin, overhang + 16);
+      rowGap = gaps ? Math.max(tight, Math.min(rowGap, (room - count * rowCard) / gaps)) : rowGap;
+      rowCard = Math.min(card, (room - gaps * rowGap) / Math.max(1, count));
+    }
+    const next: Fit = {
+      fits: count === 0 || rowCard >= cardMin,
+      card: Math.floor(Math.max(cardMin, rowCard)),
+      gap: Math.floor(rowGap),
+    };
+    setFit(current =>
+      current.fits === next.fits && current.card === next.card && current.gap === next.gap ? current : next,
+    );
   };
 
   const draw = (animate: boolean) => {
@@ -685,7 +710,13 @@ export function AgentFanout({
         ref={treeRef}
         data-slot="agent-fanout-tree"
         className="sprout-agent-fanout-tree"
-        style={{ '--sprout-agent-fanout-nest': nest } as CSSProperties}
+        style={
+          {
+            '--sprout-agent-fanout-nest': nest,
+            '--sprout-agent-fanout-fit-card': fit.card ? `${fit.card}px` : undefined,
+            '--sprout-agent-fanout-fit-gap': fit.gap ? `${fit.gap}px` : undefined,
+          } as CSSProperties
+        }
       >
         <div ref={probeRef} aria-hidden="true" className="sprout-agent-fanout-probe" />
         <ul aria-label="Agent tree" className="sprout-agent-fanout-root">

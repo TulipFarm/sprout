@@ -288,3 +288,35 @@ export function AgentFanoutList() {
     </div>
   );
 }
+
+const wideRun: AgentFanoutAgent = agent('main', 'Main agent', 'running', 'Audit the checkout flow before launch', {
+  model: 'Opus 5.5',
+  tools: ['github', 'linear', 'slack'],
+  elapsed: 212_000,
+  agents: [
+    agent('ux', 'UX review', 'done', 'Walk every checkout step on mobile', {
+      tools: ['figma'],
+      elapsed: 98_000,
+    }),
+    agent('perf', 'Performance', 'running', 'Profile the payment page load', {
+      model: 'GPT-5.5',
+      brand: 'openai',
+      tools: ['github'],
+      elapsed: 143_000,
+    }),
+    agent('a11y', 'Accessibility', 'needs-you', 'Check forms with a screen reader', {
+      model: 'Haiku 4.5',
+      elapsed: 77_000,
+      reason: 'Is the coupon field in scope for this audit?',
+    }),
+    agent('copy', 'Copy', 'queued', 'Proofread every error message', { model: 'Grok 5', brand: 'grok' }),
+  ],
+});
+
+export function AgentFanoutWide() {
+  return (
+    <div className="fanout-demo-stage">
+      <AgentFanout agent={wideRun} title="Checkout audit" onOpen={() => {}} />
+    </div>
+  );
+}

@@ -1,6 +1,11 @@
 ---
 import Docs from '../../layouts/Docs.astro';
-import { AgentFanoutList, AgentFanoutPlayground, AgentFanoutStates } from '../../components/AgentFanoutDemo';
+import {
+  AgentFanoutList,
+  AgentFanoutPlayground,
+  AgentFanoutStates,
+  AgentFanoutWide,
+} from '../../components/AgentFanoutDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
@@ -75,11 +80,17 @@ import CodeBlock from '../../components/CodeBlock.astro';
   <section class="prose-section">
     <h2 class="section-title">Layout</h2>
     <p>
-      The agents the root starts sit side by side, joined by one line. Deeper agents stack under their parent. With{' '}
-      <code>layout="auto"</code>, the default, the tree turns into a list when the row does not fit, so every agent
-      stacks under its parent. Set <code>layout="list"</code> to always stack, or <code>layout="tree"</code> to always
-      use a row and scroll sideways.
+      The agents the root starts sit side by side, joined by one line. Deeper agents stack under their parent. When the
+      row runs out of room, it first narrows the gaps between cards, then the cards themselves, down to{' '}
+      <code>--sprout-agent-fanout-card-min</code>. Narrow cards give the whole header to the name: the status moves to
+      the footer as an icon, and the tools move above the task when it gets cramped. With <code>layout="auto"</code>,
+      the default, the tree turns into a list only when even narrow cards do not fit, so every agent stacks under its
+      parent. Set <code>layout="list"</code> to always stack, or <code>layout="tree"</code> to always use a row, which
+      narrows the same way and then scrolls sideways.
     </p>
+    <div class="mt-4">
+      <AgentFanoutWide client:visible />
+    </div>
     <p>
       The number in a card's footer shows or hides the agents it started. Pass <code>defaultCollapsed</code> with agent
       ids to start them hidden.
@@ -114,7 +125,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
       <code>--sprout-agent-fanout-line-active</code>, a mix of <code>--sprout-info</code>. Set{' '}
       <code>--sprout-agent-fanout-card</code> (17.25rem), <code>--sprout-agent-fanout-gap</code> (3rem), and{' '}
       <code>--sprout-agent-fanout-indent</code> (2.5rem) to change the card width, the space between side-by-side cards,
-      and how far stacked agents indent.
+      and how far stacked agents indent. <code>--sprout-agent-fanout-card-min</code> (9.5rem) and{' '}
+      <code>--sprout-agent-fanout-gap-min</code> (1rem) set how far the row shrinks before it turns into a list.
     </p>
   </section>
 </Docs>

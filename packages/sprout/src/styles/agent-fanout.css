@@ -1,7 +1,10 @@
 @layer components {
   .sprout-agent-fanout {
     --sprout-agent-fanout-card: 17.25rem;
+    /* The row shrinks its cards and gaps to these before it turns into a list. */
+    --sprout-agent-fanout-card-min: 9.5rem;
     --sprout-agent-fanout-gap: 3rem;
+    --sprout-agent-fanout-gap-min: 1rem;
     --sprout-agent-fanout-indent: 2.5rem;
     --sprout-agent-fanout-line: color-mix(in oklab, var(--sprout-border-strong) 40%, var(--sprout-line));
     --sprout-agent-fanout-line-active: color-mix(in oklab, var(--sprout-info) 70%, var(--sprout-line));
@@ -170,12 +173,18 @@
     padding: 0.25rem;
     overflow-x: auto;
   }
+  /* Zero-size, so it never widens the tree: the tokens ride on properties that take no room. */
   .sprout-agent-fanout-probe {
     position: absolute;
+    top: 0;
+    left: 0;
     box-sizing: border-box;
-    width: var(--sprout-agent-fanout-card);
+    width: 0;
     height: 0;
-    margin-left: var(--sprout-agent-fanout-gap);
+    max-width: var(--sprout-agent-fanout-card);
+    max-height: var(--sprout-agent-fanout-card-min);
+    margin-right: var(--sprout-agent-fanout-gap);
+    margin-bottom: var(--sprout-agent-fanout-gap-min);
     padding-left: var(--sprout-agent-fanout-indent);
     visibility: hidden;
     pointer-events: none;
@@ -211,18 +220,22 @@
     padding-left: var(--sprout-agent-fanout-indent);
   }
   .sprout-agent-fanout-children[data-layout='row'] {
+    --sprout-agent-fanout-row-card: var(--sprout-agent-fanout-fit-card, var(--sprout-agent-fanout-card));
     flex-direction: row;
     align-items: flex-start;
-    gap: max(
-      var(--sprout-agent-fanout-gap),
-      calc(var(--sprout-agent-fanout-indent) * var(--sprout-agent-fanout-nest, 0) + 1rem)
+    gap: var(
+      --sprout-agent-fanout-fit-gap,
+      max(
+        var(--sprout-agent-fanout-gap),
+        calc(var(--sprout-agent-fanout-indent) * var(--sprout-agent-fanout-nest, 0) + 1rem)
+      )
     );
     margin-top: 3rem;
     padding-left: 0;
   }
   .sprout-agent-fanout-children[data-layout='row'] > .sprout-agent-fanout-branch {
     flex: none;
-    width: var(--sprout-agent-fanout-card);
+    width: var(--sprout-agent-fanout-row-card);
   }
   .sprout-agent-fanout-children[hidden] {
     display: none;
@@ -234,9 +247,10 @@
     display: flex;
     flex-direction: column;
     gap: 0.625rem;
-    width: var(--sprout-agent-fanout-card);
+    width: var(--sprout-agent-fanout-row-card, var(--sprout-agent-fanout-card));
     max-width: 100%;
     padding: 0.75rem;
+    container: sprout-agent-fanout-card / inline-size;
     border: 1px solid var(--sprout-line);
     border-radius: var(--sprout-radius-panel);
     background: var(--sprout-surface);
@@ -288,6 +302,43 @@
   .sprout-agent-fanout-status.sprout-badge {
     align-self: flex-start;
     border-radius: calc(var(--sprout-radius-control) - 2px);
+  }
+  .sprout-agent-fanout-foot:empty {
+    display: none;
+  }
+  /*
+   * Narrow cards give the header to the name: the status drops to the
+   * footer as an icon, and its word stays for screen readers. Tools wrap
+   * above a cramped task.
+   */
+  @container sprout-agent-fanout-card (width < 15rem) {
+    .sprout-agent-fanout-head > .sprout-agent-fanout-status.sprout-badge {
+      position: absolute;
+      bottom: calc(0.75rem + 0.125rem);
+      left: 0.75rem;
+      width: 1.25rem;
+      padding: 0;
+    }
+    .sprout-agent-fanout-card > .sprout-agent-fanout-foot {
+      display: flex;
+      gap: 0.5rem;
+      padding-inline-start: 1.75rem;
+    }
+    .sprout-agent-fanout-status-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    .sprout-agent-fanout-task {
+      flex-wrap: wrap;
+      row-gap: 0.375rem;
+    }
+    .sprout-agent-fanout-task-text {
+      flex: 1 1 6rem;
+    }
   }
   .sprout-agent-fanout-arc circle {
     stroke-dasharray: 20 9;
