@@ -134,6 +134,9 @@ describe('ChatWindow in the DOM', () => {
     render(<Bud defaultOpen />);
     await flush();
     await openMenu();
+    await waitFor(() =>
+      expect(document.activeElement?.closest('[data-slot="chat-window-layout-menu"]')).not.toBeNull(),
+    );
     fireEvent.keyDown(document.activeElement!, { key: 'Escape' });
     await flush();
     expect(content()?.hasAttribute('data-open')).toBe(true);

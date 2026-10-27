@@ -35,7 +35,7 @@ jobs:
           echo "exit=$?" >> "$GITHUB_OUTPUT"
           cat "$RUNNER_TEMP/size.md" >> "$GITHUB_STEP_SUMMARY"
       # Fork PRs get a read-only token, so the comment can fail; the job summary still has the table.
-      - uses: marocchino/sticky-pull-request-comment@v2
+      - uses: marocchino/sticky-pull-request-comment@v3
         continue-on-error: true
         with:
           header: bundle-size
