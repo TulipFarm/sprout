@@ -1,3 +1,6 @@
+# Minor and patch updates arrive as one grouped PR per ecosystem and merge
+# themselves once CI passes (see dependabot-auto-merge.yml). Major updates
+# get their own PRs so one breaking upgrade can't hold the rest back.
 version: 2
 updates:
   - package-ecosystem: npm
@@ -7,9 +10,19 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+    ignore:
+      # Must match the peer range of @astrojs/react and @vitejs/plugin-react;
+      # bump it together with them by hand.
+      - dependency-name: oxc-transform-react
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
     commit-message:
       prefix: ci
+    groups:
+      actions:
+        patterns: ['*']
