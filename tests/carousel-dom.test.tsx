@@ -27,7 +27,9 @@ function layout(viewport: HTMLElement, horizontal = true) {
     [p]: {
       configurable: true,
       get: () => state.pos,
-      set: (value: number) => (state.pos = value),
+      set: (value: number) => {
+        state.pos = value;
+      },
     },
     [v]: { configurable: true, value: 100 },
     [s]: { configurable: true, value: 300 },

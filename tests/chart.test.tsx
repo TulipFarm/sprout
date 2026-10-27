@@ -103,7 +103,7 @@ describe('Chart', () => {
       types: './dist/components/chart.d.ts',
       import: './dist/components/chart.js',
     });
-    expect(manifest.dependencies.recharts).toBe('3.8.0');
+    expect(manifest.dependencies.recharts).toBe('3.10.1');
     const index = read('../packages/sprout/src/styles/index.css');
     expect(index).toContain("@import './chart.css';");
     for (let step = 1; step <= 10; step++)
