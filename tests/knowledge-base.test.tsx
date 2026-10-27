@@ -159,4 +159,60 @@ describe('KnowledgeBaseDiagram', () => {
     expect(html).toContain('data-mark=""');
     expect(html).not.toContain('sprout-knowledge-base-doc');
   });
+
+  it('shows empty slots without sources, and the document outline without a mark', () => {
+    const html = render([], <KnowledgeBaseDiagram />);
+    expect(html.match(/data-status="placeholder"/g)).toHaveLength(4);
+    expect(html).toContain('sprout-knowledge-base-doc');
+  });
+
+  it('collapses sources past six into a "+N" satellite, keeping busy ones in view', () => {
+    const many = [
+      ...Array.from({ length: 6 }, (_, index) => source(`Done ${index}`, 'connected', { chunks: 10 })),
+      source('Jira', 'syncing', { progress: 40 }),
+      source('Notion', 'error', { progress: 20 }),
+    ];
+    const html = render(many, <KnowledgeBaseDiagram />);
+    expect(html).toContain('>+3</text>');
+    expect(html).toContain('data-status="syncing"');
+    expect(html).toContain('data-status="error"');
+  });
+
+  it('dashes failed and paused lines, and gives unbranded sources a dot', () => {
+    const html = render(
+      [source('Docs', 'error', { progress: 50 }), source('Wiki', 'paused', { chunks: 4 }), source('Files', 'queued')],
+      <KnowledgeBaseDiagram />,
+    );
+    expect(html).toContain('stroke-dasharray:3 2.5');
+    expect(html).toContain('stroke-dasharray:0.01 2.6');
+    expect(html).toContain('sprout-knowledge-base-satellite-dot');
+  });
+});
+
+describe('KnowledgeBase parts', () => {
+  it('throw outside <KnowledgeBase>', () => {
+    expect(() => renderToString(<KnowledgeBaseFooter />)).toThrow(
+      'KnowledgeBaseFooter must be used inside <KnowledgeBase>.',
+    );
+  });
+
+  it('render their actions', () => {
+    const html = render(
+      [source('Slack', 'connected')],
+      <>
+        <KnowledgeBaseHeader>
+          <button type="button">Close</button>
+        </KnowledgeBaseHeader>
+        <KnowledgeBaseSummary>
+          <button type="button">Upload</button>
+        </KnowledgeBaseSummary>
+        <KnowledgeBaseFooter>
+          <button type="button">Reset</button>
+        </KnowledgeBaseFooter>
+      </>,
+    );
+    expect(html).toContain('sprout-knowledge-base-header-actions"><button type="button">Close');
+    expect(html).toContain('sprout-knowledge-base-summary-actions"><button type="button">Upload');
+    expect(html).toContain('sprout-knowledge-base-footer-actions"><button type="button">Reset');
+  });
 });

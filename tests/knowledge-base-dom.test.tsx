@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   KnowledgeBase,
+  KnowledgeBaseActivity,
   KnowledgeBaseSources,
   type KnowledgeBaseSource,
   type KnowledgeBaseSourcesProps,
@@ -111,5 +112,59 @@ describe('KnowledgeBase announcer', () => {
       view([source('Slack', 'connected', { chunks: 1200 }), source('Drive', 'error', { error: 'Token expired.' })]),
     );
     expect(screen.getByRole('status').textContent).toBe('Slack connected, 1,200 chunks. Drive failed: Token expired.');
+  });
+
+  it('reads out syncs that start, sources that disconnect, and failures without a reason', () => {
+    const view = (sources: readonly KnowledgeBaseSource[]) => (
+      <KnowledgeBase sources={sources}>
+        <KnowledgeBaseSources />
+      </KnowledgeBase>
+    );
+    const { rerender } = render(
+      view([source('Slack', 'connected'), source('Drive', 'connected'), source('Jira', 'syncing')]),
+    );
+    rerender(view([source('Slack', 'syncing'), source('Drive', 'available'), source('Jira', 'error')]));
+    expect(screen.getByRole('status').textContent).toBe('Slack syncing. Drive disconnected. Jira failed to sync');
+    rerender(view([source('Slack', 'connected'), source('Drive', 'available'), source('Jira', 'error')]));
+    expect(screen.getByRole('status').textContent).toBe('Slack connected');
+  });
+});
+
+describe('KnowledgeBaseActivity', () => {
+  const view = (chunks: number) => (
+    <KnowledgeBase sources={[source('Slack', 'connected', { chunks })]}>
+      <KnowledgeBaseActivity />
+    </KnowledgeBase>
+  );
+  const shown = () => screen.getByText(/chunks?$/).textContent;
+
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('rolls the chunk count up to its new value', async () => {
+    let now = 0;
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal('matchMedia', () => ({ matches: false }));
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => frames.push(callback));
+    vi.stubGlobal('cancelAnimationFrame', () => {});
+    const { rerender } = render(view(100));
+    rerender(view(200));
+    const step = (ms: number) =>
+      act(() => {
+        now += ms;
+        frames.splice(0).forEach(frame => frame(now));
+      });
+    step(0);
+    step(100);
+    expect(Number(shown()!.replace(/\D/g, ''))).toBeGreaterThan(100);
+    expect(Number(shown()!.replace(/\D/g, ''))).toBeLessThan(200);
+    step(400);
+    expect(shown()).toBe('200 chunks');
+  });
+
+  it('jumps straight to the new count under reduced motion', () => {
+    vi.stubGlobal('matchMedia', () => ({ matches: true }));
+    const { rerender } = render(view(100));
+    rerender(view(200));
+    expect(shown()).toBe('200 chunks');
   });
 });
