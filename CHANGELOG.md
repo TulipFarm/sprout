@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/TulipFarm/sprout/compare/v0.10.0...v0.11.0) (2026-10-27)
+
+### Features
+
+* **agent-fanout:** keep wide fan-outs as a tree by narrowing cards ([#56](https://github.com/TulipFarm/sprout/issues/56)) ([32f9f37](https://github.com/TulipFarm/sprout/commit/32f9f3796c60fe4539e4561493d67a394c9ab350))
+* **knowledge-base:** add KnowledgeBase, a panel showing which sources feed a knowledge base ([#57](https://github.com/TulipFarm/sprout/issues/57)) ([ad9e16e](https://github.com/TulipFarm/sprout/commit/ad9e16e349bb4759527b8efcf53619bdce2f55a8))
+
 ## [0.10.0](https://github.com/TulipFarm/sprout/compare/v0.9.0...v0.10.0) (2026-10-25)
 
 ### Features
