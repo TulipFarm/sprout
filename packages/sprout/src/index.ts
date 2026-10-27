@@ -44,6 +44,7 @@ export * from './components/input.js';
 export * from './components/input-group.js';
 export * from './components/input-otp.js';
 export * from './components/kbd.js';
+export * from './components/knowledge-base.js';
 export * from './components/label.js';
 export * from './components/mention-list.js';
 export * from './components/menubar.js';

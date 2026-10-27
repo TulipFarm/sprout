@@ -1702,6 +1702,47 @@ import {
 - Below 640px every layout fills the screen and the menu offers only Full page and Minimize.
 - Tune size with `--sprout-chat-window-width`, `-height`, `-drawer-width`, `-measure`, and `-inset`.
 
+### Knowledge Base
+
+Which sources feed a knowledge base, and how each sync is going.
+
+```tsx
+import {
+  KnowledgeBase,
+  KnowledgeBaseActivity,
+  KnowledgeBaseDiagram,
+  KnowledgeBaseFooter,
+  KnowledgeBaseHeader,
+  KnowledgeBaseSources,
+  KnowledgeBaseSummary,
+} from '@tulipfarm/sprout/knowledge-base';
+
+<KnowledgeBase sources={sources}>
+  <KnowledgeBaseHeader subtitle="Acme Assist" />
+  <KnowledgeBaseDiagram mark={<YourLogo />}>
+    <KnowledgeBaseActivity />
+  </KnowledgeBaseDiagram>
+  <KnowledgeBaseSummary />
+  <KnowledgeBaseSources
+    connectHref={source => `/integrations/${source.id}`}
+    onRetry={retry}
+    onSync={sync}
+    onPauseSync={pause}
+    onResumeSync={resume}
+    onCancelSync={cancel}
+    onSettings={openSettings}
+    onDisconnect={disconnect}
+  />
+  <KnowledgeBaseFooter />
+</KnowledgeBase>;
+```
+
+- A source is `{ id, name, brand, icon, detail, status, progress, chunks, newChunks, error, color }`. `status` is `available`, `queued`, `syncing`, `connected`, `paused`, or `error`.
+- The summary title, sentence, and footer are worked out from the sources. Pass `title` or `description` to `KnowledgeBaseSummary` to replace them.
+- `connectHref` makes Connect a link and wins over `onConnect`. Menu items show only for statuses they fit; leave a handler unset to drop its item.
+- Lines use the brand's own color, or a categorical hue without a brand. Set `color` on a source to override it.
+- The diagram is hidden from screen readers. Keep `KnowledgeBaseSources` in the panel so the facts are still there as text.
+
 ### Model Selector
 
 Pass raw numbers for `speed`, `quality`, and `cost` (higher is faster, better, and pricier). Each one is rated 1–5 against the min and max of the list, so prices never show. A search field filters by name, description, or vendor. Hovering a column heading shows what it measures and what each bar count means. `ChatInput` uses this picker for `models`.

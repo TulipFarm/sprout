@@ -1,0 +1,125 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import { KnowledgeBasePlayground } from '../../components/KnowledgeBaseDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="Knowledge Base" description="Which sources feed a knowledge base, and how each sync is going.">
+  <h1 class="docs-title">Knowledge Base</h1>
+  <p class="docs-lead">
+    A panel for the apps a knowledge base reads from, such as Slack, GitHub, and Jira. Each source draws a line into the
+    index as it syncs, and the list beside it says what is connected, syncing, paused, or failed.
+  </p>
+  <div class="mt-8 flex justify-center">
+    <KnowledgeBasePlayground client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Knowledge Base usage"
+      code={`import { Button } from "@tulipfarm/sprout/button";
+import {
+  KnowledgeBase,
+  KnowledgeBaseActivity,
+  KnowledgeBaseDiagram,
+  KnowledgeBaseFooter,
+  KnowledgeBaseHeader,
+  KnowledgeBaseSources,
+  KnowledgeBaseSummary,
+} from "@tulipfarm/sprout/knowledge-base";
+
+<KnowledgeBase
+  sources={[
+    { id: "slack", name: "Slack", brand: "slack", detail: "#support · live", status: "connected", chunks: 1284, newChunks: 36 },
+    { id: "github", name: "GitHub", brand: "github", detail: "acme/platform", status: "syncing", progress: 40, chunks: 380 },
+    { id: "jira", name: "Jira", brand: "jira", status: "error", error: "Token expired. Reconnect to resume." },
+    { id: "notion", name: "Notion", brand: "notion", status: "available" },
+  ]}
+>
+  <KnowledgeBaseHeader subtitle="Acme Assist" />
+  <KnowledgeBaseDiagram mark={<YourLogo />}>
+    <KnowledgeBaseActivity />
+  </KnowledgeBaseDiagram>
+  <KnowledgeBaseSummary>
+    <Button size="sm">Upload files</Button>
+  </KnowledgeBaseSummary>
+  <KnowledgeBaseSources
+    connectHref={source => \`/integrations/\${source.id}\`}
+    onRetry={retry}
+    onSync={sync}
+    onPauseSync={pause}
+    onResumeSync={resume}
+    onCancelSync={cancel}
+    onSettings={openSettings}
+    onDisconnect={disconnect}
+  />
+  <KnowledgeBaseFooter />
+</KnowledgeBase>`}
+    />
+    <ul>
+      <li>
+        <code>KnowledgeBaseSource</code>: <code>{'{ id, name, brand, icon, detail, status }'}</code>, plus
+        <code>progress</code>, <code>chunks</code>, <code>newChunks</code>, <code>error</code>, and
+        <code>color</code>. <code>newChunks</code> shows as “+36 new” beside the count. <code>error</code> replaces the
+        detail on a failed source.
+      </li>
+      <li>
+        <code>KnowledgeBaseDiagram</code>: <code>mark</code> is your logo, laid on top of the index, such as an
+        <code>&lt;svg&gt;</code> with a <code>viewBox</code>. It defaults to a document outline. Children float over the
+        stage's top-left corner.
+      </li>
+      <li>
+        <code>KnowledgeBaseActivity</code>: a small readout of what is indexed. It shows a spinner while sources sync,
+        the chunk and source counts, and the chunks the latest syncs added. With nothing linked it reads “Nothing
+        indexed”. Counts roll up as they change.
+      </li>
+      <li>
+        <code>KnowledgeBaseSources</code>: <code>onConnect</code> shows Connect on available sources;
+        <code>connectHref</code> makes it a link instead, such as to the integration's setup page, and wins over
+        <code>onConnect</code>. <code>onRetry</code> shows Retry on failed sources. The row menu holds
+        <code>onSync</code> (“Sync now”), <code>onPauseSync</code> (“Pause syncing”), <code>onResumeSync</code>
+        (“Resume syncing”), <code>onCancelSync</code> (“Cancel sync”), <code>onSettings</code>, and
+        <code>onDisconnect</code>. Each item appears only for the statuses it fits. Rows without a menu keep its space,
+        so statuses line up.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">States</h2>
+    <p>
+      A source is <code>available</code>, <code>queued</code>, <code>syncing</code> (with <code>progress</code> from 0
+      to 100), <code>connected</code>, <code>paused</code>, or <code>error</code>. The panel works out its own state
+      from them: empty, syncing, attention, partial, or ready. The summary heading, its sentence, and the footer follow
+      it unless you pass <code>title</code> or <code>description</code>. The diagram shows up to six sources; the rest
+      are counted on the last tile, syncing and failed sources first.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Motion</h2>
+    <p>
+      A syncing source's line draws toward the index as its progress grows, with data moving along it, and its share of
+      the embedding dots lights up. Connected lines hold still and send one packet every few seconds. Failed lines turn
+      red and dashed. With reduced motion, lines and dots change without moving and no packets run.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The diagram is hidden from screen readers; the list carries the same facts as text, and every status has a word,
+      not only a color. Syncing rows are progress bars. Buttons name their source, such as “Connect Slack”. A polite
+      live region reads out sources as they finish or fail.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The panel uses <code>--sprout-surface</code>, <code>--sprout-line</code>, and <code>--sprout-radius-panel</code>.
+      Each line takes its app's own color, such as Slack's or Jira's, and black marks like GitHub follow the text color.
+      On dark surfaces, brand colors mix toward the text color by
+      <code>--sprout-knowledge-base-brand-mix</code> so deep blues stay visible. Sources without a brand take
+      categorical hues (<code>--sprout-sky</code>, <code>--sprout-teal</code>, …). Pass <code>color</code> on a source
+      to choose its own. <code>--sprout-knowledge-base-stage</code> sets the diagram background.
+    </p>
+  </section>
+</Docs>

@@ -229,6 +229,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | Chat Plan         | `chat-plan`         | Agent's proposed plan with per-step progress.                    |
 | Chat Sources      | `chat-sources`      | Inline numbered citations and the source list of a reply.        |
 | Chat Window       | `chat-window`       | Floating chat shell: window, side drawer, full page, minimize.   |
+| Knowledge Base    | `knowledge-base`    | Sources feeding a knowledge base and how each sync is going.     |
 | Model Selector    | `model-selector`    | Searchable model picker with logos and speed, quality, cost.     |
 | Plan Outline      | `plan-outline`      | Saved plan as a read-only outline of nested tasks.               |
 | Prompt List       | `prompt-list`       | Starter prompts at the start of a chat.                          |
