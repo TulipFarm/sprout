@@ -1,0 +1,36 @@
+# Squash-merges a grouped Dependabot PR after the CI workflow passes on it.
+# Bundle size is intentionally not a gate (see bundle-size.yml).
+name: Dependabot auto-merge
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          pr=$(gh pr list --head "$BRANCH" --state open --author app/dependabot --json number,headRefOid \
+            --jq ".[] | select(.headRefOid == \"$SHA\") | .number")
+          if [ -z "$pr" ]; then
+            echo "No open Dependabot PR at $SHA; skipping."
+            exit 0
+          fi
+          case "$BRANCH" in
+            dependabot/*/npm-minor-patch-*|dependabot/github_actions/actions-*) ;;
+            *) echo "#$pr is not a grouped update; leaving it for review."; exit 0 ;;
+          esac
+          gh pr merge "$pr" --squash --delete-branch --match-head-commit "$SHA"
