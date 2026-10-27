@@ -216,6 +216,10 @@
       "types": "./dist/components/kbd.d.ts",
       "import": "./dist/components/kbd.js"
     },
+    "./knowledge-base": {
+      "types": "./dist/components/knowledge-base.d.ts",
+      "import": "./dist/components/knowledge-base.js"
+    },
     "./label": {
       "types": "./dist/components/label.d.ts",
       "import": "./dist/components/label.js"
