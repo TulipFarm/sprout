@@ -165,7 +165,7 @@ Full library: **903.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `page-content`      |  30.2 kB |   9.6 kB |   8.5 kB |
 | `page-header`       |  54.4 kB |  17.6 kB |  15.4 kB |
 | `pagination`        |  55.1 kB |  17.8 kB |  15.6 kB |
-| `plan-outline`      |  79.9 kB |  26.5 kB |  22.9 kB |
+| `plan-outline`      |  80.1 kB |  26.5 kB |  23.0 kB |
 | `popover`           | 178.0 kB |  60.7 kB |  52.7 kB |
 | `presence-cursor`   |  30.8 kB |   9.9 kB |   8.6 kB |
 | `progress`          |  39.8 kB |  13.2 kB |  11.6 kB |

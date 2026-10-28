@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.11.1](https://github.com/TulipFarm/sprout/compare/v0.11.0...v0.11.1) (2026-10-28)
+
+### Features
+
+* **plan-outline:** add accessible resource type icons ([#61](https://github.com/TulipFarm/sprout/issues/61)) ([ceed896](https://github.com/TulipFarm/sprout/commit/ceed896ecccbeceb9b69988168a0b14cf0970475))
+
 ## [0.11.0](https://github.com/TulipFarm/sprout/compare/v0.10.0...v0.11.0) (2026-10-27)
 
 ### Features
