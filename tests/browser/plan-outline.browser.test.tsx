@@ -123,6 +123,38 @@ function panelOf(trigger: Element) {
 }
 
 describe('PlanOutline in a real browser', () => {
+  it('exposes resource types separately from pending and completed status without affecting untyped rows', async () => {
+    await render(
+      <Plan
+        items={[
+          {
+            id: 'pending',
+            title: 'Create records',
+            mark: 'pending',
+            label: 'Not started',
+            brief: 'Prepare records.',
+            typeIcon: { icon: <svg />, label: 'Table' },
+          },
+          {
+            id: 'done',
+            title: 'Save records',
+            mark: 'done',
+            label: 'Verified',
+            typeIcon: { icon: <svg />, label: 'Table' },
+          },
+          { id: 'plain', title: 'Read back', mark: 'pending', label: 'Not started' },
+        ]}
+      />,
+    );
+    await expect.element(page.getByRole('button', { name: 'Table Create records Not started' })).toBeVisible();
+    expect(page.getByRole('img', { name: 'Table', exact: true }).elements()).toHaveLength(2);
+    const rows = [...document.querySelectorAll('[data-slot="plan-outline-task"]')];
+    expect(rows.map(row => row.getAttribute('data-mark'))).toEqual(['pending', 'done', 'pending']);
+    expect(rows[1]?.textContent).toContain('Verified');
+    expect(rows[2]?.querySelector('[data-slot="plan-outline-type-icon"]')).toBeNull();
+    expect(rows.every(row => row.querySelector('.sprout-plan-outline-mark'))).toBe(true);
+  });
+
   it('marks and rail segments use their status tokens; cancelled is struck and skipped', async () => {
     const screen = await render(<Plan />);
     const plan = screen.container;

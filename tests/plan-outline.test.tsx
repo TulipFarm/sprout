@@ -62,6 +62,21 @@ const rows = (html: string) =>
   );
 
 describe('PlanOutline', () => {
+  it('labels an optional resource icon independently of task status and leaves other rows unchanged', () => {
+    for (const mark of ['pending', 'done'] as const) {
+      const task: PlanOutlineTask = { id: 'record', title: 'Create records', mark, label: labels[mark] };
+      const plain = render([task]);
+      const typed = render([{ ...task, typeIcon: { icon: <svg />, label: 'Table' } }]);
+      expect(typed).toMatch(/data-slot="plan-outline-type-icon"[^>]*role="img"[^>]*aria-label="Table"/);
+      expect(typed).toMatch(/aria-label="Table"[^>]*><span aria-hidden="true"><svg/);
+      expect(rows(typed)).toEqual(rows(plain));
+      expect(typed).toContain(`>${labels[mark]}<`);
+      expect(typed).toContain('sprout-plan-outline-mark');
+      expect(plain).not.toContain('plan-outline-type-icon');
+      expect(plain).not.toContain('aria-label="Table"');
+    }
+  });
+
   it('is exported from the package root, subpath, CSS entry, and docs nav', () => {
     expect(sprout.PlanOutline).toBe(PlanOutline);
     expect(sprout.planOutlineMarkNames).toBe(planOutlineMarkNames);

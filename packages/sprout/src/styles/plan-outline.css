@@ -162,6 +162,23 @@
     width: 14px;
     height: 14px;
   }
+  .sprout-plan-outline-type-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    color: var(--sprout-muted);
+  }
+  .sprout-plan-outline-type-icon > span {
+    display: inline-flex;
+  }
+  .sprout-plan-outline-type-icon svg {
+    width: 16px;
+    height: 16px;
+  }
   [data-mark='running'] > .sprout-plan-outline-row .sprout-plan-outline-mark {
     color: var(--sprout-info);
   }
