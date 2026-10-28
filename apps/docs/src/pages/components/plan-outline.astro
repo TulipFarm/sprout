@@ -30,12 +30,14 @@ import CodeBlock from '../../components/CodeBlock.astro';
       lang="tsx"
       title="A running plan with one group"
       code={`import { PlanOutline, type PlanOutlineTask } from "@tulipfarm/sprout/plan-outline";
+import { Database } from "reicon-react/icons/Database";
 
 const tasks: PlanOutlineTask[] = [
   {
     id: "research", title: "Research", mark: "running", label: "1 of 2 done",
     children: [
-      { id: "audit", title: "Audit last spring's catalog", mark: "done", label: "Done", assignee: "Main agent" },
+      { id: "audit", title: "Audit last spring's catalog", mark: "done", label: "Done", assignee: "Main agent",
+        typeIcon: { icon: <Database />, label: "Table" } },
       {
         id: "suppliers", title: "Confirm supplier stock", mark: "running", label: "Working",
         criteria: ["Each variety has a confirmed count."],
@@ -73,11 +75,18 @@ const tasks: PlanOutlineTask[] = [
       <li>
         <code>tasks</code>:{' '}
         <code>
-          {'{ id, title, mark, label, assignee?, brief?, criteria?, dependencies?, reason?, action?, children? }[]'}
+          {
+            '{ id, title, mark, label, typeIcon?, assignee?, brief?, criteria?, dependencies?, reason?, action?, children? }[]'
+          }
         </code>
         . A task with <code>children</code> is a group.
       </li>
     </ul>
+    <p>
+      Optional <code>typeIcon: {'{ icon, label }'}</code> identifies the resource type beside its independent status
+      mark. Supply a decorative icon and a plain type name such as “Table”. The type name is available to screen readers
+      and as a native tooltip. It is not the task's assignee. Without this field, row layout is unchanged.
+    </p>
     <p>
       Plan Outline has one look and one size. Map your own plan data to tasks in an adapter, as the examples here do. It
       never ticks, edits, reorders, or assigns tasks.

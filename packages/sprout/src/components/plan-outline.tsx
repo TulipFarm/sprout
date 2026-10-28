@@ -46,6 +46,8 @@ export type PlanOutlineTask = {
   mark: PlanOutlineMark;
   /** The state in words, shown at the end of the row. */
   label: string;
+  /** The resource type, separate from status and assignee. Use a decorative icon and a readable type name. */
+  typeIcon?: { icon: ReactNode; label: string } | undefined;
   /** Who does the task. Shown under the title with a person icon. */
   assignee?: string | undefined;
   /** What the task is about. Groups show it above their tasks. */
@@ -193,6 +195,17 @@ function TaskRow({ task, level }: { task: PlanOutlineTask; level: number }) {
   const head = (
     <>
       <Mark mark={task.mark} />
+      {task.typeIcon && (
+        <span
+          data-slot="plan-outline-type-icon"
+          className="sprout-plan-outline-type-icon"
+          role="img"
+          aria-label={task.typeIcon.label}
+          title={task.typeIcon.label}
+        >
+          <span aria-hidden="true">{task.typeIcon.icon}</span>
+        </span>
+      )}
       <span className="sprout-plan-outline-text">
         <span className="sprout-plan-outline-task-title">{task.title}</span>
         {task.assignee && (
