@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.0](https://github.com/TulipFarm/sprout/compare/v0.11.1...v0.12.0) (2026-10-28)
+
+### Features
+
+* **a2ui:** add an A2UI catalog, surface renderer and Metric component ([#62](https://github.com/TulipFarm/sprout/issues/62)) ([3cad1d6](https://github.com/TulipFarm/sprout/commit/3cad1d65240885e8f47f024b3d08579e15cc4b91))
+
 ## [0.11.1](https://github.com/TulipFarm/sprout/compare/v0.11.0...v0.11.1) (2026-10-28)
 
 ### Features
