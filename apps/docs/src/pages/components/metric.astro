@@ -1,0 +1,63 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import MetricDemo from '../../components/MetricDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs title="Metric" description="One key number with its label, a change, and an optional trend.">
+  <h1 class="docs-title">Metric</h1>
+  <p class="docs-lead">
+    Shows one number that matters, such as memory used or weekly signups, with how it changed and a small trend. Put a
+    few in a row for a summary. For many numbers, use Table.
+  </p>
+  <div class="mt-8">
+    <MetricDemo client:load />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Metric usage"
+      code={`import { Metric } from "@tulipfarm/sprout/metric";
+import { Sparkline } from "@tulipfarm/sprout/chart";
+
+<Metric
+  label="Memory used"
+  value="11.2 GB"
+  change={{ value: "0.4 GB", direction: "up", tone: "negative", label: "vs 5 min ago" }}
+  trend={<Sparkline values={samples} title="Memory used trend" area />}
+  caption="Of 16 GB"
+/>`}
+    />
+    <ul>
+      <li>
+        <code>label</code> and <code>value</code>: what is measured and its formatted value.
+      </li>
+      <li>
+        <code>change</code>: <code>value</code> as text, <code>direction</code> (<code>up</code>, <code>down</code> or
+        <code>flat</code>), an optional <code>tone</code> (<code>positive</code>, <code>negative</code> or
+        <code>neutral</code>) and an optional <code>label</code> such as “vs last week”.
+      </li>
+      <li>
+        <code>trend</code>: any small chart, usually a <code>Sparkline</code>.
+      </li>
+      <li>
+        <code>caption</code>: a line under the value, such as when it was read.
+      </li>
+    </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      The direction is an arrow and a word. The arrow is hidden from screen readers, which hear “Up 0.4 GB” instead. A
+      flat change reads “No change”. The tone only tints the change, so color is never the only signal.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Theme tokens</h2>
+    <p>
+      The label and caption use <code>--sprout-muted</code>, the value <code>--sprout-text</code> with tabular figures.
+      A positive change uses <code>--sprout-success</code> and a negative one <code>--sprout-danger</code>.
+    </p>
+  </section>
+</Docs>

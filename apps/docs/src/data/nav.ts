@@ -152,6 +152,7 @@ export const componentGroups: NavGroup[] = [
       component('File Viewer', 'Open local, linked, and Google files in a viewer.'),
       component('Glass Banner', 'A frosted banner with glass chips you can fling.'),
       component('Gradient Banner', 'Gradient art with readable panels on top.'),
+      component('Metric', 'One key number with its label, a change, and a small trend.'),
       component('Presence Cursor', "Other people's pointers with a name tag or an avatar."),
       component('Record List', 'Rows of records to read and triage, with values, badges, and row actions.'),
       component('Result Card', 'A compact card for something an agent produced.'),
@@ -183,6 +184,7 @@ export const componentGroups: NavGroup[] = [
   {
     title: 'Agent patterns',
     items: [
+      component('A2UI Surface', 'Draws agent-made layouts from a safe catalog of Sprõut components.'),
       component('Canvas', 'A resizable side panel that shows chat results in tabs.'),
       component('Message', 'Chat messages with bubbles, reactions, avatars, names, and reply status.'),
       component('Chat Input', 'A rich chat message box with @ agents, / skills, # files, and model picks.'),

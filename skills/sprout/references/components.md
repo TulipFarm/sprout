@@ -1378,6 +1378,23 @@ import { GradientBanner, GradientBannerBadge, GradientBannerPanel } from '@tulip
 </GradientBanner>;
 ```
 
+### Metric
+
+```tsx
+import { Metric } from '@tulipfarm/sprout/metric';
+import { Sparkline } from '@tulipfarm/sprout/chart';
+
+<Metric
+  label="Memory used"
+  value="11.2 GB"
+  change={{ value: '0.4 GB', direction: 'up', tone: 'negative', label: 'in 10 min' }}
+  caption="Of 16 GB"
+  trend={<Sparkline values={points} title="Memory trend" area />}
+/>;
+```
+
+One key number. `change.direction` (`up`, `down`, `flat`) shows an arrow and says "Up" or "Down" to screen readers; `flat` shows "No change". `tone` (`positive`, `negative`, `neutral`) only tints the change, so a rise can be good or bad. Put several in a row for a summary strip.
+
 ### Presence Cursor
 
 ```tsx
@@ -1908,6 +1925,27 @@ linking to the page in a new tab. Only `http` and `https` addresses become links
 chip 24px tall with smaller text for dense lists (Tool Activity uses it).
 
 ## Agent patterns
+
+### A2UI Surface
+
+```tsx
+import { A2uiSurface, checkSurface, sproutCatalog } from '@tulipfarm/sprout/a2ui';
+import { promptSnippet, surfaceText } from '@tulipfarm/sprout/a2ui/catalog'; // no React; safe on a server
+
+const result = checkSurface(messages, { catalog: sproutCatalog });
+if (!result.ok) return retryWith(result.errors); // A2UI VALIDATION_FAILED errors with JSON Pointers
+
+<A2uiSurface surface={result.surface} size="compact" onAction={action => send(action)} />;
+```
+
+Draws an [A2UI](https://a2ui.org) v0.9 surface from the `sprout/basic@1` catalog: Text, Heading, Section, Row, Column, Card, Divider, Tabs, Details, Metric, Badge, List, Table, Chart (line, area, bar, pie, donut), Progress, Callout, Code, Image and Button. The agent picks components and data; it cannot set colors, fonts, spacing or class names, and raw JSON is never shown.
+
+- `@tulipfarm/sprout/a2ui/catalog` has no React: `checkSurface` (shapes, known components and props, missing children, cycles, orphans, limits, links), `readSurface` (lenient, for streaming), `surfaceText` (Markdown for copy, search and model history), `catalogDefinition` (A2UI JSON Schema) and `promptSnippet` (one line per component for a system prompt). Needs `zod` 4.
+- `size="compact"` fits a chat message: 240px charts and the first 10 table rows with "Show all". `full` is for a canvas.
+- `onAction` gets `{ type: 'send', text }` from a Button and `{ type: 'expand', componentId }` from "Show all"; without it, Buttons are disabled and tables expand in place.
+- `streaming` shows placeholders for parts that have not arrived; a broken part shows "This part couldn't be displayed." and the rest still draws.
+- `allowUrl(url, kind)` decides which links are live and which images load. By default links may use http, https and mailto, and images are refused.
+- Extend the catalog with `defineCatalog({ id, extends: sproutCatalog, components: { Embed: defineComponent({...}) } })` and pass `adapters={{ ...sproutAdapters, Embed }}`. Tighten limits with `checkSurface(messages, { catalog, limits: { tableRows: 200 } })`.
 
 ### Canvas
 

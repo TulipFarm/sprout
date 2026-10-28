@@ -98,119 +98,122 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **903.3 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **902.3 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
 
-| Component           |      Raw |     Gzip |   Brotli |
-| ------------------- | -------: | -------: | -------: |
-| `accordion`         |  64.2 kB |  22.0 kB |  19.4 kB |
-| `agent-fanout`      | 257.0 kB |  90.7 kB |  77.0 kB |
-| `agent-avatar`      | 137.8 kB |  39.9 kB |  34.2 kB |
-| `alert`             |  35.2 kB |  11.5 kB |  10.1 kB |
-| `alert-dialog`      | 168.9 kB |  56.9 kB |  49.7 kB |
-| `aspect-ratio`      |  30.3 kB |   9.7 kB |   8.5 kB |
-| `attachment`        | 351.9 kB | 118.6 kB |  97.9 kB |
-| `avatar`            |  44.0 kB |  14.6 kB |  12.9 kB |
-| `badge`             |  35.0 kB |  11.5 kB |  10.0 kB |
-| `board`             | 452.4 kB | 148.4 kB | 125.3 kB |
-| `brand-icon`        | 195.2 kB |  70.2 kB |  61.2 kB |
-| `breadcrumb`        |  40.5 kB |  13.4 kB |  11.7 kB |
-| `button`            |  50.3 kB |  16.7 kB |  14.7 kB |
-| `button-group`      |  38.0 kB |  12.1 kB |  10.7 kB |
-| `calendar`          | 311.9 kB | 103.4 kB |  88.3 kB |
-| `canvas`            | 234.9 kB |  80.7 kB |  69.1 kB |
-| `card`              |  35.4 kB |  11.6 kB |  10.2 kB |
-| `carousel`          |  60.3 kB |  19.8 kB |  17.5 kB |
-| `chart`             | 589.2 kB | 167.6 kB | 137.7 kB |
-| `timeline`          | 647.4 kB | 187.9 kB | 154.7 kB |
-| `chat-confirmation` |  76.5 kB |  26.0 kB |  22.3 kB |
-| `chat-plan`         |  42.4 kB |  13.4 kB |  11.7 kB |
-| `chat-sources`      | 206.0 kB |  70.6 kB |  60.4 kB |
-| `chat-input`        | 968.9 kB | 319.5 kB | 264.2 kB |
-| `chat-window`       | 286.8 kB |  94.9 kB |  80.0 kB |
-| `checkbox`          |  60.0 kB |  21.0 kB |  18.6 kB |
-| `choice-list`       |  43.0 kB |  14.5 kB |  12.6 kB |
-| `code-block`        |  74.4 kB |  26.0 kB |  22.2 kB |
-| `collapsible`       |  55.5 kB |  18.7 kB |  16.5 kB |
-| `combobox`          | 268.4 kB |  90.9 kB |  77.6 kB |
-| `command`           | 181.7 kB |  61.6 kB |  53.4 kB |
-| `context-menu`      | 242.8 kB |  81.0 kB |  69.8 kB |
-| `dialog`            | 170.5 kB |  57.5 kB |  50.1 kB |
-| `direction`         |   1.5 kB |   0.8 kB |   0.7 kB |
-| `dropdown-menu`     | 239.6 kB |  80.0 kB |  69.1 kB |
-| `field`             |  98.0 kB |  34.1 kB |  29.6 kB |
-| `file-explorer`     | 175.6 kB |  61.5 kB |  51.4 kB |
-| `file-viewer`       | 320.6 kB | 108.1 kB |  90.7 kB |
-| `form`              | 109.5 kB |  37.2 kB |  32.1 kB |
-| `glass-banner`      |  33.0 kB |  10.7 kB |   9.4 kB |
-| `gradient-banner`   |  32.2 kB |  10.3 kB |   9.1 kB |
-| `hover-card`        | 163.2 kB |  56.3 kB |  49.1 kB |
-| `input`             | 108.2 kB |  37.4 kB |  32.4 kB |
-| `input-group`       | 118.9 kB |  40.4 kB |  34.7 kB |
-| `input-otp`         |  65.4 kB |  23.0 kB |  20.4 kB |
-| `kbd`               |  30.4 kB |   9.7 kB |   8.5 kB |
-| `knowledge-base`    | 312.1 kB | 107.1 kB |  91.6 kB |
-| `label`             |  30.2 kB |   9.6 kB |   8.4 kB |
-| `mention-list`      |  52.6 kB |  17.3 kB |  15.2 kB |
-| `menubar`           | 244.9 kB |  82.2 kB |  70.8 kB |
-| `message`           |  36.2 kB |  11.7 kB |  10.4 kB |
-| `message-actions`   |  71.2 kB |  24.9 kB |  20.8 kB |
-| `message-response`  | 232.6 kB |  74.2 kB |  64.1 kB |
-| `message-scroller`  |  68.8 kB |  22.0 kB |  19.5 kB |
-| `model-selector`    | 271.8 kB |  96.6 kB |  82.6 kB |
-| `navigation-menu`   | 182.4 kB |  63.0 kB |  54.7 kB |
-| `notice-banner`     |  30.5 kB |   9.7 kB |   8.5 kB |
-| `page-content`      |  30.2 kB |   9.6 kB |   8.5 kB |
-| `page-header`       |  54.4 kB |  17.6 kB |  15.4 kB |
-| `pagination`        |  55.1 kB |  17.8 kB |  15.6 kB |
-| `plan-outline`      |  80.1 kB |  26.5 kB |  23.0 kB |
-| `popover`           | 178.0 kB |  60.7 kB |  52.7 kB |
-| `presence-cursor`   |  30.8 kB |   9.9 kB |   8.6 kB |
-| `progress`          |  39.8 kB |  13.2 kB |  11.6 kB |
-| `prompt-list`       | 199.1 kB |  71.9 kB |  62.7 kB |
-| `questionnaire`     |  69.3 kB |  23.3 kB |  20.3 kB |
-| `radio-group`       |  80.9 kB |  27.9 kB |  24.8 kB |
-| `reasoning-effort`  |  35.5 kB |  12.0 kB |  10.6 kB |
-| `record-list`       |  65.6 kB |  22.2 kB |  18.9 kB |
-| `resizable`         |  39.4 kB |  13.4 kB |  11.8 kB |
-| `result-card`       | 240.1 kB |  85.2 kB |  72.1 kB |
-| `result-notice`     |  34.4 kB |  11.3 kB |   9.9 kB |
-| `review-card`       |  61.7 kB |  21.0 kB |  18.4 kB |
-| `rich-text-editor`  | 464.5 kB | 147.6 kB | 126.1 kB |
-| `schema-diagram`    | 247.7 kB |  82.9 kB |  71.1 kB |
-| `sql-viewer`        | 265.4 kB |  89.2 kB |  76.4 kB |
-| `scroll-area`       |  57.4 kB |  19.7 kB |  17.4 kB |
-| `search-dialog`     | 190.1 kB |  64.5 kB |  55.5 kB |
-| `search-field`      | 122.0 kB |  41.3 kB |  35.4 kB |
-| `select`            | 230.4 kB |  79.3 kB |  67.9 kB |
-| `selection-slot`    |  31.5 kB |  10.2 kB |   8.9 kB |
-| `separator`         |  37.0 kB |  11.9 kB |  10.5 kB |
-| `settings-list`     |  31.1 kB |   9.9 kB |   8.7 kB |
-| `sheet`             | 213.2 kB |  72.9 kB |  63.1 kB |
-| `sidebar`           | 251.1 kB |  85.7 kB |  73.0 kB |
-| `skeleton`          |  35.2 kB |  11.6 kB |  10.1 kB |
-| `slider`            |  83.6 kB |  29.5 kB |  26.0 kB |
-| `spinner`           |  36.6 kB |  11.6 kB |  10.1 kB |
-| `state-panel`       | 552.5 kB | 180.3 kB | 149.2 kB |
-| `state-sample`      |  33.5 kB |  10.5 kB |   9.2 kB |
-| `status`            |  34.2 kB |  11.2 kB |   9.8 kB |
-| `switch`            |  50.3 kB |  17.3 kB |  15.3 kB |
-| `table`             | 541.2 kB | 173.4 kB | 145.7 kB |
-| `table-nuqs`        |   2.1 kB |   1.1 kB |   1.0 kB |
-| `tabs`              |  80.3 kB |  27.6 kB |  24.5 kB |
-| `task-tree`         | 247.8 kB |  82.1 kB |  70.7 kB |
-| `textarea`          |  98.2 kB |  34.2 kB |  29.6 kB |
-| `toast`             | 189.4 kB |  65.1 kB |  56.6 kB |
-| `toggle`            |  46.2 kB |  15.7 kB |  13.9 kB |
-| `toggle-group`      |  67.2 kB |  23.1 kB |  20.4 kB |
-| `tool-activity`     |  89.6 kB |  30.4 kB |  26.0 kB |
-| `toolbar-status`    | 189.1 kB |  64.2 kB |  55.5 kB |
-| `tooltip`           | 164.7 kB |  56.7 kB |  49.5 kB |
-| `typed-text`        |  31.2 kB |  10.1 kB |   8.9 kB |
-| `view-switcher`     | 270.0 kB |  90.6 kB |  76.9 kB |
-| `web-source`        |  40.8 kB |  14.2 kB |  12.1 kB |
+| Component           |       Raw |     Gzip |   Brotli |
+| ------------------- | --------: | -------: | -------: |
+| `a2ui`              | 1334.3 kB | 406.7 kB | 335.3 kB |
+| `a2ui/catalog`      |   19.3 kB |   7.2 kB |   6.4 kB |
+| `accordion`         |   64.2 kB |  22.0 kB |  19.4 kB |
+| `agent-fanout`      |  257.0 kB |  90.5 kB |  77.1 kB |
+| `agent-avatar`      |  137.8 kB |  39.9 kB |  34.2 kB |
+| `alert`             |   35.2 kB |  11.5 kB |  10.1 kB |
+| `alert-dialog`      |  168.9 kB |  56.9 kB |  49.8 kB |
+| `aspect-ratio`      |   30.3 kB |   9.7 kB |   8.5 kB |
+| `attachment`        |  351.9 kB | 117.2 kB |  97.8 kB |
+| `avatar`            |   44.0 kB |  14.6 kB |  12.9 kB |
+| `badge`             |   35.0 kB |  11.5 kB |  10.0 kB |
+| `board`             |  452.4 kB | 149.3 kB | 125.6 kB |
+| `brand-icon`        |  195.2 kB |  70.2 kB |  61.2 kB |
+| `breadcrumb`        |   40.5 kB |  13.4 kB |  11.7 kB |
+| `button`            |   50.3 kB |  16.7 kB |  14.7 kB |
+| `button-group`      |   38.0 kB |  12.1 kB |  10.7 kB |
+| `calendar`          |  311.9 kB | 103.3 kB |  88.2 kB |
+| `canvas`            |  234.9 kB |  80.6 kB |  69.2 kB |
+| `card`              |   35.4 kB |  11.6 kB |  10.2 kB |
+| `carousel`          |   60.3 kB |  19.8 kB |  17.5 kB |
+| `chart`             |  589.2 kB | 167.6 kB | 137.7 kB |
+| `timeline`          |  647.4 kB | 188.5 kB | 155.0 kB |
+| `chat-confirmation` |   76.5 kB |  26.0 kB |  22.3 kB |
+| `chat-plan`         |   42.4 kB |  13.4 kB |  11.7 kB |
+| `chat-sources`      |  206.0 kB |  70.8 kB |  60.3 kB |
+| `chat-input`        |  968.9 kB | 319.4 kB | 264.2 kB |
+| `chat-window`       |  286.8 kB |  95.3 kB |  80.1 kB |
+| `checkbox`          |   60.0 kB |  21.0 kB |  18.6 kB |
+| `choice-list`       |   43.0 kB |  14.5 kB |  12.7 kB |
+| `code-block`        |   74.4 kB |  26.0 kB |  22.3 kB |
+| `collapsible`       |   55.5 kB |  18.7 kB |  16.5 kB |
+| `combobox`          |  268.4 kB |  90.9 kB |  77.5 kB |
+| `command`           |  181.7 kB |  61.4 kB |  53.4 kB |
+| `context-menu`      |  242.8 kB |  81.0 kB |  69.9 kB |
+| `dialog`            |  170.5 kB |  57.5 kB |  50.2 kB |
+| `direction`         |    1.5 kB |   0.8 kB |   0.7 kB |
+| `dropdown-menu`     |  239.6 kB |  80.0 kB |  69.1 kB |
+| `field`             |   98.0 kB |  34.1 kB |  29.6 kB |
+| `file-explorer`     |  175.6 kB |  60.8 kB |  51.5 kB |
+| `file-viewer`       |  320.6 kB | 108.1 kB |  90.5 kB |
+| `form`              |  109.5 kB |  37.2 kB |  32.1 kB |
+| `glass-banner`      |   33.0 kB |  10.7 kB |   9.4 kB |
+| `gradient-banner`   |   32.2 kB |  10.3 kB |   9.1 kB |
+| `hover-card`        |  163.2 kB |  56.3 kB |  49.1 kB |
+| `input`             |  108.2 kB |  37.4 kB |  32.3 kB |
+| `input-group`       |  118.9 kB |  40.4 kB |  34.7 kB |
+| `input-otp`         |   65.4 kB |  23.0 kB |  20.4 kB |
+| `kbd`               |   30.4 kB |   9.7 kB |   8.5 kB |
+| `knowledge-base`    |  312.1 kB | 107.5 kB |  90.9 kB |
+| `label`             |   30.2 kB |   9.6 kB |   8.4 kB |
+| `mention-list`      |   52.6 kB |  17.3 kB |  15.2 kB |
+| `menubar`           |  244.9 kB |  82.2 kB |  70.8 kB |
+| `message`           |   36.2 kB |  11.7 kB |  10.4 kB |
+| `message-actions`   |   71.2 kB |  24.9 kB |  20.8 kB |
+| `message-response`  |  232.6 kB |  74.2 kB |  64.2 kB |
+| `message-scroller`  |   68.8 kB |  22.0 kB |  19.5 kB |
+| `metric`            |   31.2 kB |   9.9 kB |   8.8 kB |
+| `model-selector`    |  271.8 kB |  96.6 kB |  82.5 kB |
+| `navigation-menu`   |  182.4 kB |  62.9 kB |  54.7 kB |
+| `notice-banner`     |   30.5 kB |   9.7 kB |   8.5 kB |
+| `page-content`      |   30.2 kB |   9.6 kB |   8.5 kB |
+| `page-header`       |   54.4 kB |  17.6 kB |  15.4 kB |
+| `pagination`        |   55.1 kB |  17.8 kB |  15.6 kB |
+| `plan-outline`      |   80.1 kB |  26.5 kB |  23.0 kB |
+| `popover`           |  178.0 kB |  60.7 kB |  52.7 kB |
+| `presence-cursor`   |   30.8 kB |   9.9 kB |   8.6 kB |
+| `progress`          |   39.8 kB |  13.2 kB |  11.6 kB |
+| `prompt-list`       |  199.1 kB |  71.9 kB |  62.7 kB |
+| `questionnaire`     |   69.3 kB |  23.3 kB |  20.3 kB |
+| `radio-group`       |   80.9 kB |  27.9 kB |  24.7 kB |
+| `reasoning-effort`  |   35.5 kB |  12.0 kB |  10.6 kB |
+| `record-list`       |   65.6 kB |  22.1 kB |  18.9 kB |
+| `resizable`         |   39.4 kB |  13.4 kB |  11.8 kB |
+| `result-card`       |  240.1 kB |  84.8 kB |  72.3 kB |
+| `result-notice`     |   34.4 kB |  11.3 kB |   9.9 kB |
+| `review-card`       |   61.7 kB |  21.0 kB |  18.4 kB |
+| `rich-text-editor`  |  464.5 kB | 147.6 kB | 126.1 kB |
+| `schema-diagram`    |  247.7 kB |  82.9 kB |  71.1 kB |
+| `sql-viewer`        |  265.4 kB |  89.2 kB |  76.4 kB |
+| `scroll-area`       |   57.4 kB |  19.7 kB |  17.4 kB |
+| `search-dialog`     |  190.1 kB |  64.3 kB |  55.4 kB |
+| `search-field`      |  122.0 kB |  41.3 kB |  35.5 kB |
+| `select`            |  230.4 kB |  79.4 kB |  67.9 kB |
+| `selection-slot`    |   31.5 kB |  10.2 kB |   8.9 kB |
+| `separator`         |   37.0 kB |  11.9 kB |  10.5 kB |
+| `settings-list`     |   31.1 kB |   9.9 kB |   8.7 kB |
+| `sheet`             |  213.2 kB |  72.8 kB |  63.1 kB |
+| `sidebar`           |  251.1 kB |  85.7 kB |  72.9 kB |
+| `skeleton`          |   35.2 kB |  11.6 kB |  10.1 kB |
+| `slider`            |   83.6 kB |  29.5 kB |  25.9 kB |
+| `spinner`           |   36.6 kB |  11.6 kB |  10.1 kB |
+| `state-panel`       |  552.5 kB | 181.5 kB | 148.9 kB |
+| `state-sample`      |   33.5 kB |  10.5 kB |   9.2 kB |
+| `status`            |   34.2 kB |  11.2 kB |   9.8 kB |
+| `switch`            |   50.3 kB |  17.3 kB |  15.3 kB |
+| `table`             |  541.2 kB | 172.7 kB | 145.8 kB |
+| `table-nuqs`        |    2.1 kB |   1.1 kB |   1.0 kB |
+| `tabs`              |   80.3 kB |  27.6 kB |  24.5 kB |
+| `task-tree`         |  247.8 kB |  82.1 kB |  70.7 kB |
+| `textarea`          |   98.2 kB |  34.2 kB |  29.6 kB |
+| `toast`             |  189.4 kB |  65.1 kB |  56.6 kB |
+| `toggle`            |   46.2 kB |  15.7 kB |  13.9 kB |
+| `toggle-group`      |   67.2 kB |  23.1 kB |  20.4 kB |
+| `tool-activity`     |   89.6 kB |  30.4 kB |  26.0 kB |
+| `toolbar-status`    |  189.1 kB |  64.2 kB |  55.4 kB |
+| `tooltip`           |  164.7 kB |  56.7 kB |  49.5 kB |
+| `typed-text`        |   31.2 kB |  10.1 kB |   8.9 kB |
+| `view-switcher`     |  270.0 kB |  90.6 kB |  76.9 kB |
+| `web-source`        |   40.8 kB |  14.2 kB |  12.1 kB |
 
 </details>
 <!-- bundle-size:end -->
@@ -224,8 +227,8 @@ CI compares sizes on each pull request. Run `pnpm size` to see them locally.
 | **Overlays**            | Dialog · Alert Dialog · Sheet · Popover · Hover Card · Tooltip · Dropdown Menu · Context Menu · Menubar · Command · Search Dialog · Toast                                                                                                                      |
 | **Layout & navigation** | Sidebar · Navigation Menu · Breadcrumb · Pagination · Tabs · View Switcher · Accordion · Collapsible · Page Header · Page Content · Settings List · Card · Carousel · Resizable · Scroll Area · Separator · Aspect Ratio · Direction · Canvas                  |
 | **Feedback**            | Alert · Notice Banner · Badge · Progress · Spinner · Skeleton · State Panel · State Sample · Status · Task Tree                                                                                                                                                |
-| **Data display**        | Table · Chart · Code Block · File Viewer · Schema Diagram · Avatar · Agent Avatar · Brand Icon · Attachment · Typed Text · Gradient Banner · Glass Banner                                                                                                      |
-| **Agents & chat**       | Message · Message Actions · Message Response · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Knowledge Base · Model Selector · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity · Web Source                         |
+| **Data display**        | Table · Chart · Metric · Code Block · File Viewer · Schema Diagram · Avatar · Agent Avatar · Brand Icon · Attachment · Typed Text · Gradient Banner · Glass Banner                                                                                             |
+| **Agents & chat**       | A2UI Surface · Message · Message Actions · Message Response · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Knowledge Base · Model Selector · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity · Web Source          |
 
 ## Theming
 

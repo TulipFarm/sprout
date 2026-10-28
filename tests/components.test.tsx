@@ -611,6 +611,8 @@ const messageScrollerExports = [
   'useMessageScrollerVisibility',
 ];
 
+const metricExports = ['Metric', 'metricDirectionNames', 'metricToneNames'];
+
 const chatInputExports = ['ChatInput', 'chatInputReferenceKindNames', 'chatInputStatusNames'];
 
 const chatConfirmationExports = ['ChatConfirmation', 'chatConfirmationStateNames'];
@@ -830,6 +832,7 @@ describe('Sidebar public surface', () => {
           messageResponseExports.includes(name) ||
           messageActionsExports.includes(name) ||
           messageScrollerExports.includes(name) ||
+          metricExports.includes(name) ||
           toolbarStatusExports.includes(name) ||
           mentionListExports.includes(name) ||
           toolActivityExports.includes(name) ||
@@ -943,6 +946,7 @@ describe('Sidebar public surface', () => {
         ...messageResponseExports,
         ...messageActionsExports,
         ...messageScrollerExports,
+        ...metricExports,
         ...toolActivityExports,
         ...chatConfirmationExports,
         ...chatInputExports,
