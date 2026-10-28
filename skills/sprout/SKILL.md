@@ -211,6 +211,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 | File Viewer     | `file-viewer`     | Open images, PDF, text, code, Google files in a viewer.                          |
 | Glass Banner    | `glass-banner`    | Frosted hero banner with draggable chips.                                        |
 | Gradient Banner | `gradient-banner` | Decorative gradient art with readable panels on top.                             |
+| Metric          | `metric`          | One key number with its label, a change in words, a caption and a small trend.   |
 | Presence Cursor | `presence-cursor` | Other people's pointers on a shared surface, with a name tag or avatar.          |
 | Record List     | `record-list`     | List view of records: title, four labelled values, badges, row actions, paging.  |
 | Result Card     | `result-card`     | Something an agent made, with apps used, status, one action.                     |
@@ -243,6 +244,7 @@ Import path is `@tulipfarm/sprout/<slug>`.
 
 | Component        | Slug               | Use when                                                   |
 | ---------------- | ------------------ | ---------------------------------------------------------- |
+| A2UI Surface     | `a2ui`             | Draw an agent's A2UI layout from approved components.      |
 | Canvas           | `canvas`           | Resizable side panel next to chat showing results in tabs. |
 | Mention List     | `mention-list`     | `@` and `/` suggestion panel driven by a message box.      |
 | Message          | `message`          | One chat message: avatar, bubbles, name line, status line. |

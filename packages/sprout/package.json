@@ -32,6 +32,14 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./a2ui": {
+      "types": "./dist/a2ui/surface.d.ts",
+      "import": "./dist/a2ui/surface.js"
+    },
+    "./a2ui/catalog": {
+      "types": "./dist/a2ui/catalog.d.ts",
+      "import": "./dist/a2ui/catalog.js"
+    },
     "./accordion": {
       "types": "./dist/components/accordion.d.ts",
       "import": "./dist/components/accordion.js"
@@ -247,6 +255,10 @@
     "./message-scroller": {
       "types": "./dist/components/message-scroller.d.ts",
       "import": "./dist/components/message-scroller.js"
+    },
+    "./metric": {
+      "types": "./dist/components/metric.d.ts",
+      "import": "./dist/components/metric.js"
     },
     "./model-selector": {
       "types": "./dist/components/model-selector.d.ts",
@@ -472,7 +484,8 @@
     "nuqs": "^2.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "zod": "^4.0.0"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",
@@ -504,10 +517,14 @@
     "nuqs": "2.10.2",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "tailwindcss": "4.3.3"
+    "tailwindcss": "4.3.3",
+    "zod": "4.6.6"
   },
   "peerDependenciesMeta": {
     "nuqs": {
+      "optional": true
+    },
+    "zod": {
       "optional": true
     }
   }

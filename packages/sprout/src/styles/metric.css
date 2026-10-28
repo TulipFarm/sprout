@@ -1,0 +1,68 @@
+@layer components {
+  .sprout-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    font-family: var(--sprout-font);
+    color: var(--sprout-text);
+  }
+
+  .sprout-metric-label {
+    font-size: var(--sprout-text-sm);
+    line-height: 1.25rem;
+    color: var(--sprout-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .sprout-metric-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2rem;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+
+  .sprout-metric-change {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
+    font-size: var(--sprout-text-xs);
+    font-weight: 500;
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--sprout-muted);
+  }
+  .sprout-metric-change[data-tone='positive'] {
+    color: var(--sprout-success);
+  }
+  .sprout-metric-change[data-tone='negative'] {
+    color: var(--sprout-danger);
+  }
+
+  .sprout-metric-change-label,
+  .sprout-metric-caption {
+    font-weight: 400;
+    color: var(--sprout-muted);
+  }
+
+  .sprout-metric-caption {
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+
+  .sprout-metric-trend {
+    margin-top: 4px;
+  }
+
+  .sprout-metric-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
