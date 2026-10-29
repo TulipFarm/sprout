@@ -142,4 +142,9 @@ describe('Canvas in the DOM', () => {
     rerender(split(false));
     expect(mounts).toBe(1);
   });
+
+  it('opens the canvas at the requested share of the split', () => {
+    render(<ChatSplit open onOpenChange={() => {}} canvasSize={65} chat={<p>Chat</p>} canvas={<p>Result</p>} />);
+    expect(screen.getByRole('separator', { name: 'Resize canvas' }).getAttribute('aria-valuenow')).toBe('35');
+  });
 });

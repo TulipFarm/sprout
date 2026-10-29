@@ -7,6 +7,7 @@ import {
   useMemo,
   useState,
   type ComponentType,
+  type CSSProperties,
   type ErrorInfo,
   type ReactNode,
 } from 'react';
@@ -456,25 +457,33 @@ const ChartAdapter: Adapter<'Chart'> = ({ props, context }) => {
     color: chartPalette[index % chartPalette.length]!,
   }));
   const unit = props.unit;
-  const valueFormatter = unit ? (value: number) => `${value.toLocaleString()} ${unit}` : undefined;
+  const unitGap = unit && /^[/%]/u.test(unit) ? '' : ' ';
+  const valueFormatter = unit ? (value: number) => `${value.toLocaleString()}${unitGap}${unit}` : undefined;
   const common = { rows, category: props.category, title: props.title, valueFormatter };
+  const horizontal = props.horizontal ?? rows.some(row => String(row[props.category] ?? '').length > 12);
+  // Horizontal bars get taller with each bar, so grouped comparisons keep bars thick enough to read.
+  const barRows = props.type === 'bar' && horizontal ? rows.length * (props.stack ? 1 : series.length) : 0;
+  const style = barRows
+    ? ({ '--sprout-a2ui-chart-height': `${Math.max(256, barRows * 18 + rows.length * 16 + 72)}px` } as CSSProperties)
+    : undefined;
   const chart =
     props.type === 'bar' ? (
       <CategoryChart
         {...common}
         series={series}
-        horizontal={props.horizontal}
+        horizontal={horizontal}
+        max={props.max}
         stack={props.stack ? 'stacked' : 'none'}
       />
     ) : props.type === 'line' ? (
-      <TrendChart {...common} series={series} />
+      <TrendChart {...common} series={series} max={props.max} />
     ) : props.type === 'area' ? (
-      <AreaTrendChart {...common} series={series} stack={props.stack ? 'stacked' : 'none'} />
+      <AreaTrendChart {...common} series={series} max={props.max} stack={props.stack ? 'stacked' : 'none'} />
     ) : (
       <DonutChart {...common} value={series[0]!.key} variant={props.type} />
     );
   return (
-    <figure className="sprout-a2ui-chart">
+    <figure className="sprout-a2ui-chart" style={style}>
       <figcaption className="sprout-a2ui-chart-header">
         <span className="sprout-a2ui-chart-title">{props.title}</span>
         <Button variant="ghost" size="sm" aria-pressed={showData} onClick={() => setShowData(value => !value)}>

@@ -15,6 +15,8 @@ import {
   formatNumber,
   formatPercent,
   quietAxis,
+  valueDomain,
+  valueTicks,
   rowFillShape,
   seriesConfig,
   stackOffset,
@@ -80,6 +82,8 @@ export interface CategoryChartProps extends ReadyChartProps {
   horizontal?: boolean;
   /** `stacked` piles series in one bar; `percent` stacks them to 100%. */
   stack?: ChartStack;
+  /** Ends the value axis here, such as 10 for scores out of 10. */
+  max?: number;
 }
 
 const hasNegative = (rows: ChartRow[], series: ChartSeries[]) =>
@@ -95,6 +99,7 @@ export function CategoryChart({
   series,
   horizontal = false,
   stack = 'none',
+  max,
   title,
   valueFormatter = formatNumber,
   className,
@@ -105,7 +110,12 @@ export function CategoryChart({
   const end = horizontal ? [0, 3, 3, 0] : [3, 3, 0, 0];
   const tick = stack === 'percent' ? formatPercent : valueFormatter;
   const categoryAxis = { dataKey: category, ...quietAxis };
-  const valueAxis = { ...quietAxis, tickFormatter: tick };
+  const valueAxis = {
+    ...quietAxis,
+    tickFormatter: tick,
+    domain: stack === 'percent' ? undefined : valueDomain(max),
+    ticks: stack === 'percent' ? undefined : valueTicks(max),
+  };
   return (
     <ChartContainer data-variant="category" className={cn('sprout-chart-category', className)} config={config}>
       <BarChart
@@ -140,6 +150,7 @@ export function CategoryChart({
             stackId={stacked ? 'category' : undefined}
             fill={chartColor(item.key)}
             radius={!stacked || index === series.length - 1 ? (end as [number, number, number, number]) : 0}
+            maxBarSize={56}
             isAnimationActive={false}
           />
         ))}

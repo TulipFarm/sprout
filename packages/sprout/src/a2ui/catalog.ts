@@ -211,7 +211,7 @@ export const sproutComponents = {
   }),
   Chart: defineComponent({
     description:
-      'A chart. line, area and bar plot each series against the category; pie and donut use the first series. Rows hold the category and one number per series key.',
+      'A chart. line, area and bar plot each series against the category; pie and donut use the first series. Rows hold the category and one number per series key. Set max to the top of a fixed scale, such as 10 for scores out of 10 or 100 for percentages.',
     props: z.strictObject({
       type: z.enum(chartTypeNames),
       title: z.string().min(1).max(200),
@@ -221,6 +221,7 @@ export const sproutComponents = {
       stack: z.boolean().optional(),
       horizontal: z.boolean().optional(),
       unit: z.string().max(20).optional(),
+      max: z.number().positive().optional(),
     }),
     text: (props, { resolve }) =>
       [
@@ -235,6 +236,8 @@ export const sproutComponents = {
         context.report('rows', `The chart has ${points} points; the limit is ${context.limits.chartPoints}.`);
       if ((props.type === 'pie' || props.type === 'donut') && props.series.length !== 1)
         context.report('series', `A ${props.type} chart has exactly one series.`);
+      if (rows.some(row => !(props.category in row)))
+        context.report('category', `Every row needs the category key "${props.category}"; keys are case-sensitive.`);
       if (rows.some(row => props.series.some(series => typeof row[series.key] !== 'number')))
         context.report('rows', 'Every row needs a number for each series key.');
     },
