@@ -32,7 +32,7 @@ describe('Canvas', () => {
     const closed = renderToString(<CanvasToggle open={false} count={0} onToggle={noop} />);
     expect(closed).toContain('aria-label="Show canvas"');
     expect(closed).toContain('aria-pressed="false"');
-    expect(closed).toContain('View results');
+    expect(closed).toContain('>Show canvas<');
     expect(closed).not.toContain('sprout-canvas-toggle-count');
 
     const counted = renderToString(<CanvasToggle open={false} count={3} onToggle={noop} />);
@@ -42,7 +42,7 @@ describe('Canvas', () => {
     const open = renderToString(<CanvasToggle open count={1} onToggle={noop} />);
     expect(open).toContain('aria-label="Hide canvas"');
     expect(open).toContain('aria-pressed="true"');
-    expect(open).toContain('Hide results');
+    expect(open).toContain('>Hide canvas<');
   });
 
   it('renders sections with and without a header', () => {
