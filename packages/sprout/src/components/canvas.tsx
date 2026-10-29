@@ -381,12 +381,12 @@ export function CanvasToggle({ open, count, onToggle, className }: CanvasToggleP
       data-slot="canvas-toggle"
       aria-pressed={open}
       aria-label={open ? 'Hide canvas' : count ? `Show canvas, ${count} open` : 'Show canvas'}
-      title="Open detailed results without leaving your chat"
+      title="Show detailed results beside your chat"
       onClick={onToggle}
       className={cn('sprout-canvas-toggle', className)}
     >
       <SidebarRight size={16} aria-hidden="true" />
-      <span className="sprout-canvas-toggle-label">{open ? 'Hide results' : 'View results'}</span>
+      <span className="sprout-canvas-toggle-label">{open ? 'Hide canvas' : 'Show canvas'}</span>
       {count > 0 && (
         <span aria-hidden="true" className="sprout-canvas-toggle-count">
           {count}
