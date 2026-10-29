@@ -98,15 +98,15 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **902.3 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **902.6 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
 
 | Component           |       Raw |     Gzip |   Brotli |
 | ------------------- | --------: | -------: | -------: |
-| `a2ui`              | 1334.3 kB | 406.7 kB | 335.3 kB |
-| `a2ui/catalog`      |   19.3 kB |   7.2 kB |   6.4 kB |
+| `a2ui`              | 1335.4 kB | 407.2 kB | 335.5 kB |
+| `a2ui/catalog`      |   19.6 kB |   7.3 kB |   6.5 kB |
 | `accordion`         |   64.2 kB |  22.0 kB |  19.4 kB |
 | `agent-fanout`      |  257.0 kB |  90.5 kB |  77.1 kB |
 | `agent-avatar`      |  137.8 kB |  39.9 kB |  34.2 kB |
@@ -122,11 +122,11 @@ Full library: **902.3 kB** gzip. Each component path is smaller. Sizes are minif
 | `button`            |   50.3 kB |  16.7 kB |  14.7 kB |
 | `button-group`      |   38.0 kB |  12.1 kB |  10.7 kB |
 | `calendar`          |  311.9 kB | 103.3 kB |  88.2 kB |
-| `canvas`            |  234.9 kB |  80.6 kB |  69.2 kB |
+| `canvas`            |  235.0 kB |  80.6 kB |  69.2 kB |
 | `card`              |   35.4 kB |  11.6 kB |  10.2 kB |
 | `carousel`          |   60.3 kB |  19.8 kB |  17.5 kB |
-| `chart`             |  589.2 kB | 167.6 kB | 137.7 kB |
-| `timeline`          |  647.4 kB | 188.5 kB | 155.0 kB |
+| `chart`             |  589.7 kB | 167.8 kB | 137.8 kB |
+| `timeline`          |  647.7 kB | 188.6 kB | 155.1 kB |
 | `chat-confirmation` |   76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |   42.4 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      |  206.0 kB |  70.8 kB |  60.3 kB |

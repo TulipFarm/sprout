@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.13.0](https://github.com/TulipFarm/sprout/compare/v0.12.0...v0.13.0) (2026-10-29)
+
+### Features
+
+* **a2ui:** make canvas reports scannable ([#65](https://github.com/TulipFarm/sprout/issues/65)) ([d93dc1d](https://github.com/TulipFarm/sprout/commit/d93dc1d7d3c055aac2e528ebf1c450aab460eef5))
+
+### Bug Fixes
+
+* **canvas:** label the toggle Show canvas and Hide canvas ([#64](https://github.com/TulipFarm/sprout/issues/64)) ([43bdd23](https://github.com/TulipFarm/sprout/commit/43bdd238dd6e3b04565fb49db1fb77d15afa6029))
+
 ## [0.12.0](https://github.com/TulipFarm/sprout/compare/v0.11.1...v0.12.0) (2026-10-28)
 
 ### Features
