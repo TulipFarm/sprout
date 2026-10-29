@@ -13,6 +13,8 @@ import {
   formatNumber,
   formatPercent,
   quietAxis,
+  valueDomain,
+  valueTicks,
   seriesConfig,
   stackOffset,
   tooltipCursor,
@@ -50,6 +52,7 @@ interface SeriesPlotProps extends ReadyChartProps {
   stack: ChartStack;
   categoryFormatter?: (value: unknown) => string;
   rightValueFormatter?: ValueFormatter;
+  max?: number;
 }
 
 function SeriesPlot({
@@ -65,6 +68,7 @@ function SeriesPlot({
   valueFormatter = formatNumber,
   rightValueFormatter = valueFormatter,
   categoryFormatter,
+  max,
   className,
 }: SeriesPlotProps) {
   const config = useMemo(() => seriesConfig(series), [series]);
@@ -97,7 +101,14 @@ function SeriesPlot({
         </defs>
         <CartesianGrid vertical={false} />
         <XAxis dataKey={category} tickFormatter={categoryFormatter} {...quietAxis} minTickGap={16} />
-        <YAxis yAxisId="left" width="auto" tickFormatter={tick} {...quietAxis} />
+        <YAxis
+          yAxisId="left"
+          width="auto"
+          tickFormatter={tick}
+          domain={stack === 'percent' ? undefined : valueDomain(max)}
+          ticks={stack === 'percent' ? undefined : valueTicks(max)}
+          {...quietAxis}
+        />
         {right ? (
           <YAxis yAxisId="right" orientation="right" width="auto" tickFormatter={rightValueFormatter} {...quietAxis} />
         ) : null}
@@ -183,6 +194,8 @@ interface TrendBaseProps extends ReadyChartProps {
   dots?: boolean;
   /** Formats x axis ticks and the tooltip label, for example dates. */
   categoryFormatter?: (value: unknown) => string;
+  /** Ends the value axis here, such as 100 for percentages. */
+  max?: number;
 }
 
 export type TrendChartProps = TrendBaseProps;

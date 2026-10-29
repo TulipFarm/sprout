@@ -30,7 +30,7 @@ import {
   type UsageSeries,
 } from '../packages/sprout/src/components/chart.js';
 import { TimelineChart } from '../packages/sprout/src/components/timeline.js';
-import { dayLabel, foldParts } from '../packages/sprout/src/internal/chart-kit.js';
+import { dayLabel, foldParts, valueTicks } from '../packages/sprout/src/internal/chart-kit.js';
 import * as sprout from '../packages/sprout/src/index.js';
 
 const read = (path: string) => readFileSync(new URL(path, import.meta.url), 'utf8');
@@ -382,5 +382,16 @@ describe('Chart', () => {
     expect(html).toContain('background-color:var(--sprout-secondary)');
     expect(html).toContain('var(--sprout-chart-1) 100%');
     expect(html).toContain('var(--sprout-chart-1) 40%');
+  });
+});
+
+describe('valueTicks', () => {
+  it('spaces ticks evenly from zero to a fixed maximum', () => {
+    expect(valueTicks(undefined)).toBeUndefined();
+    expect(valueTicks(10)).toEqual([0, 2, 4, 6, 8, 10]);
+    expect(valueTicks(100)).toEqual([0, 20, 40, 60, 80, 100]);
+    expect(valueTicks(5)).toEqual([0, 1, 2, 3, 4, 5]);
+    expect(valueTicks(12)).toEqual([0, 3, 6, 9, 12]);
+    expect(valueTicks(7)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
   });
 });

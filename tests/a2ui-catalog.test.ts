@@ -206,6 +206,9 @@ describe('checkSurface', () => {
     expect(errors(chart({ rows: [{ name: 'a', gb: '1' }] }))).toEqual([
       '/1/updateComponents/components/0/rows Every row needs a number for each series key.',
     ]);
+    expect(errors(chart({ category: 'Name' }))).toEqual([
+      '/1/updateComponents/components/0/category Every row needs the category key "Name"; keys are case-sensitive.',
+    ]);
     expect(
       errors(
         chart({

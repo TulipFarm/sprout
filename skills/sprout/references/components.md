@@ -1942,6 +1942,7 @@ Draws an [A2UI](https://a2ui.org) v0.9 surface from the `sprout/basic@1` catalog
 
 - `@tulipfarm/sprout/a2ui/catalog` has no React: `checkSurface` (shapes, known components and props, missing children, cycles, orphans, limits, links), `readSurface` (lenient, for streaming), `surfaceText` (Markdown for copy, search and model history), `catalogDefinition` (A2UI JSON Schema) and `promptSnippet` (one line per component for a system prompt). Needs `zod` 4.
 - `size="compact"` fits a chat message: 240px charts and the first 10 table rows with "Show all". `full` is for a canvas.
+- A Chart's `max` fixes the top of its value axis, such as 10 for scores out of 10, with evenly spaced ticks. Bar charts turn horizontal when a category label is long, and grouped horizontal bars grow taller instead of thinner.
 - `onAction` gets `{ type: 'send', text }` from a Button and `{ type: 'expand', componentId }` from "Show all"; without it, Buttons are disabled and tables expand in place.
 - `streaming` shows placeholders for parts that have not arrived; a broken part shows "This part couldn't be displayed." and the rest still draws.
 - `allowUrl(url, kind)` decides which links are live and which images load. By default links may use http, https and mailto, and images are refused.
@@ -1957,6 +1958,7 @@ import { CanvasPanel, CanvasSection, CanvasToggle, ChatSplit } from "@tulipfarm/
   open={open}
   onOpenChange={setOpen}
   layoutId="chat"
+  canvasSize={65} // canvas share when it first opens; defaults to 45
   chat={<Conversation />}
   canvas={
     <CanvasPanel tabs={tabs} activeId={activeId} onSelect={setActiveId} onCloseTab={close} onClose={() => setOpen(false)}>

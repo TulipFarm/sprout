@@ -373,6 +373,23 @@ export const tooltipCursor = { fill: 'var(--sprout-hover)' };
 /** Axis props every ready chart shares: no tick marks, no axis line. */
 export const quietAxis = { tickLine: false, axisLine: false } as const;
 
+/** Value axis bounds: from zero, or below it for negatives, up to `max` when given. */
+export const valueDomain = (max: number | undefined) =>
+  max === undefined ? undefined : ([(low: number) => Math.min(0, low), max] as [(low: number) => number, number]);
+
+/** Evenly spaced value ticks from zero to `max`, such as 0, 2, 4, 6, 8, 10. */
+export const valueTicks = (max: number | undefined) => {
+  if (max === undefined) return undefined;
+  const scale = 10 ** Math.floor(Math.log10(max / 5));
+  const steps = (bases: number[]) => [scale, scale * 10].flatMap(size => bases.map(base => base * size));
+  const find = (bases: number[], most: number) =>
+    steps(bases).find(item => max / item <= most && Number.isInteger(+(max / item).toFixed(9)));
+  const round = [1, 2, 2.5, 5];
+  const other = [3, 4, 6, 8];
+  const step = find(round, 5) ?? find(other, 5) ?? find(round, 8) ?? find(other, 8);
+  return step ? Array.from({ length: Math.round(max / step) + 1 }, (_, index) => +(index * step).toFixed(9)) : [0, max];
+};
+
 /** How series pile up: side by side, stacked, or stacked to 100%. */
 export type ChartStack = 'none' | 'stacked' | 'percent';
 

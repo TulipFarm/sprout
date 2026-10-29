@@ -61,6 +61,8 @@ export interface ChatSplitProps {
   canvas: ReactNode;
   /** Saves the person's split sizes under this key. Use one per screen. */
   layoutId?: string | undefined;
+  /** The canvas share of the split when it first opens, as a percentage. Defaults to 45. */
+  canvasSize?: number | undefined;
   className?: string | undefined;
 }
 
@@ -70,7 +72,16 @@ export interface ChatSplitProps {
  * sheet. The canvas moves between both without remounting, so drafts,
  * reviews, and scroll survive.
  */
-export function ChatSplit({ open, onOpenChange, chat, canvas, layoutId = 'chat-canvas', className }: ChatSplitProps) {
+export function ChatSplit({
+  open,
+  onOpenChange,
+  chat,
+  canvas,
+  layoutId = 'chat-canvas',
+  canvasSize = 45,
+  className,
+}: ChatSplitProps) {
+  const canvasShare = Math.min(Math.max(canvasSize, 20), 75);
   const viewportMobile = useViewportMobile();
   const container = useRef<HTMLDivElement>(null);
   const [availableWidth, setAvailableWidth] = useState<number | null>(null);
@@ -118,13 +129,17 @@ export function ChatSplit({ open, onOpenChange, chat, canvas, layoutId = 'chat-c
           defaultLayout={layout.defaultLayout}
           onLayoutChanged={layout.onLayoutChanged}
         >
-          <ResizablePanel id="chat" minSize="40%" defaultSize={split ? '55%' : '100%'}>
+          <ResizablePanel
+            id="chat"
+            minSize={`${Math.min(40, 100 - canvasShare)}%`}
+            defaultSize={split ? `${100 - canvasShare}%` : '100%'}
+          >
             <div className="sprout-chat-split-pane">{chat}</div>
           </ResizablePanel>
           {split && (
             <>
               <ResizableHandle withHandle aria-label="Resize canvas" />
-              <ResizablePanel id="canvas" minSize="320px" defaultSize="45%">
+              <ResizablePanel id="canvas" minSize="320px" defaultSize={`${canvasShare}%`}>
                 <div ref={setDesktopHost} className="sprout-chat-split-pane" />
               </ResizablePanel>
             </>

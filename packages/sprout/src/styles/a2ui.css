@@ -47,6 +47,22 @@
     align-items: flex-end;
   }
 
+  /* Full-size surfaces are reports: a larger body, and headings that clearly outrank it. */
+  .sprout-a2ui[data-size='full'] {
+    gap: 16px;
+    font-size: var(--sprout-text-base);
+    line-height: 1.6;
+  }
+
+  /* Markdown text matches the surface instead of the larger chat-message size. */
+  .sprout-a2ui .sprout-message-response {
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .sprout-a2ui .sprout-message-response > * + * {
+    margin-top: 0.5em;
+  }
+
   .sprout-a2ui-caption {
     font-size: var(--sprout-text-xs);
     color: var(--sprout-muted);
@@ -68,6 +84,19 @@
   .sprout-a2ui-section-title {
     font-size: var(--sprout-text-sm);
   }
+  .sprout-a2ui[data-size='full'] .sprout-a2ui-heading[data-level='1'] {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  .sprout-a2ui[data-size='full'] .sprout-a2ui-heading[data-level='2'],
+  .sprout-a2ui[data-size='full'] .sprout-a2ui-section-title {
+    margin-top: 8px;
+    font-size: 1.125rem;
+  }
+  .sprout-a2ui[data-size='full'] :is(.sprout-a2ui-heading[data-level='3'], .sprout-a2ui-card .sprout-card-title) {
+    font-size: var(--sprout-text-base);
+    font-weight: 600;
+  }
 
   .sprout-a2ui-section {
     display: flex;
@@ -82,6 +111,20 @@
     gap: 4px;
     margin: 0;
     padding-inline-start: 1.25rem;
+  }
+  .sprout-a2ui-card .sprout-a2ui-list {
+    padding-inline-start: 1rem;
+  }
+  .sprout-a2ui[data-size='full'] .sprout-a2ui-card {
+    font-size: var(--sprout-text-sm);
+    line-height: 1.5;
+  }
+  .sprout-a2ui-card .sprout-card-content[data-gap] {
+    gap: 8px;
+  }
+  /* Badges keep their label width inside stacks and cards instead of stretching. */
+  .sprout-a2ui-stack > .sprout-a2ui-badge {
+    align-self: flex-start;
   }
 
   .sprout-a2ui-chart {
@@ -105,6 +148,14 @@
     :is(.sprout-chart-category, .sprout-chart-trend, .sprout-chart-area, .sprout-chart-donut) {
     height: 15rem;
   }
+  .sprout-a2ui .sprout-a2ui-chart[style] .sprout-chart-category {
+    height: var(--sprout-a2ui-chart-height);
+  }
+  .sprout-a2ui[data-size='full'] .sprout-a2ui-chart {
+    padding: 16px;
+    border: 1px solid var(--sprout-line);
+    border-radius: var(--sprout-radius-panel);
+  }
 
   .sprout-a2ui-table {
     display: flex;
@@ -116,12 +167,33 @@
   .sprout-a2ui-table > :first-child {
     align-self: stretch;
   }
+  /* Report tables hold sentences, so cells wrap to fit the surface instead of scrolling sideways. */
+  .sprout-a2ui-table :is(.sprout-table-head, .sprout-table-cell) {
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+  .sprout-a2ui-table .sprout-table-cell {
+    vertical-align: top;
+  }
 
   .sprout-a2ui-image {
     display: block;
     max-width: 100%;
     height: auto;
     border-radius: var(--sprout-radius-panel);
+  }
+
+  .sprout-a2ui-callout .sprout-alert-title {
+    font-weight: 600;
+  }
+
+  /* Model-written badge labels can be long; wrap them instead of clipping. */
+  .sprout-a2ui .sprout-badge {
+    height: auto;
+    min-height: 20px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: start;
   }
 
   .sprout-a2ui-callout[data-tone='success'] {
