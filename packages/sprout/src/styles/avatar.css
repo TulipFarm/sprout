@@ -72,8 +72,10 @@
     height: 100%;
     border-radius: inherit;
   }
+  /* Themes may make --sprout-hover translucent; paint it over the ring colour so overlapped avatars never show through. */
   .sprout-avatar-fallback {
-    background: var(--sprout-hover);
+    background: linear-gradient(var(--sprout-hover), var(--sprout-hover))
+      var(--sprout-avatar-ring, var(--sprout-canvas));
     color: var(--sprout-muted);
   }
   .sprout-entity-avatar-fallback {
@@ -119,7 +121,7 @@
   .sprout-avatar-group > * + * {
     margin-inline-start: -0.5rem;
   }
-  .sprout-avatar-group > :is(.sprout-avatar, .sprout-avatar-group-count) {
+  .sprout-avatar-group > :is(.sprout-avatar, .sprout-entity-avatar, .sprout-avatar-group-count) {
     box-shadow: 0 0 0 2px var(--sprout-avatar-ring, var(--sprout-canvas));
   }
   .sprout-avatar-group-count {
@@ -131,7 +133,8 @@
     width: 2rem;
     height: 2rem;
     border-radius: 9999px;
-    background: var(--sprout-hover);
+    background: linear-gradient(var(--sprout-hover), var(--sprout-hover))
+      var(--sprout-avatar-ring, var(--sprout-canvas));
     color: var(--sprout-muted);
     font-family: var(--sprout-font);
     font-size: var(--sprout-text-sm);

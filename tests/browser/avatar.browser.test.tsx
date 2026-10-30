@@ -60,6 +60,11 @@ function Gallery() {
           <AvatarGroupCount>+4</AvatarGroupCount>
         </AvatarGroup>
       ))}
+      <AvatarGroup role="group" aria-label="5 people, entity">
+        <EntityAvatar seed="m" name="Meadow" size="sm" />
+        <EntityAvatar seed="r" name="Robin" size="sm" />
+        <AvatarGroupCount>+3</AvatarGroupCount>
+      </AvatarGroup>
     </div>
   );
 }
@@ -97,6 +102,21 @@ describe('Avatar in a real browser', () => {
       expect(size(count)).toEqual([px, px]);
       const [first, second] = [...group.element().children].map(child => child.getBoundingClientRect());
       expect(first!.right - second!.left).toBe(8);
+    }
+    // Entity avatars get the same surface ring as plain avatars, so overlapping initials stay separate.
+    const entities = screen.getByRole('group', { name: '5 people, entity' }).element();
+    for (const child of entities.children) expect(getComputedStyle(child).boxShadow).toMatch(/ 0px 0px 0px 2px$/);
+    expect(size(entities.lastElementChild!)).toEqual([24, 24]);
+  });
+
+  it.each(themes)('%s %s group counts and fallbacks are opaque over overlapped avatars', async (theme, mode) => {
+    setTheme(theme, mode);
+    const screen = await render(<Gallery />);
+    const group = screen.getByRole('group', { name: '7 people, md' }).element();
+    for (const child of [group.lastElementChild!, group.querySelector('[data-slot="avatar-fallback"]')!]) {
+      const style = getComputedStyle(child);
+      expect(style.backgroundColor).not.toMatch(/\/ 0?\.|rgba\(.*, 0(\.\d+)?\)$|transparent/);
+      expect(style.backgroundImage).toContain('linear-gradient');
     }
   });
 
