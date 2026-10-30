@@ -1519,6 +1519,8 @@ const columns: TableColumn<Order>[] = [
 />;
 ```
 
+Every table renders one grid look: a bordered scroll region capped at 60dvh,
+column dividers, and a pinned header. There is no `variant` prop.
 `narrow="stack"` turns rows into cards on phones. Share view state by URL with
 `state` / `onStateChange` and `@tulipfarm/sprout/table-nuqs`.
 

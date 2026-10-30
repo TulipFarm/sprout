@@ -420,7 +420,6 @@ function DataTable({
         columns={tableColumns}
         getRowId={row => ids.get(row) ?? ''}
         caption={caption || undefined}
-        variant="plain"
         narrow="scroll"
       />
       {limited ? (

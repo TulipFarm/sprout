@@ -124,31 +124,32 @@
     color: var(--sprout-muted);
   }
 
-  .sprout-table[data-variant='grid'] .sprout-table-row {
+  /* Grid look. [data-slot] keeps these above the pinned and empty-row rules below. */
+  .sprout-table[data-slot='table'] .sprout-table-row {
     border-color: var(--sprout-input);
   }
-  .sprout-table[data-variant='grid'] > .sprout-table-header {
+  .sprout-table[data-slot='table'] > .sprout-table-header {
     position: sticky;
     top: 0;
     z-index: 10;
     background: linear-gradient(var(--sprout-table-head-bg) 0 0) var(--sprout-surface);
   }
-  .sprout-table[data-variant='grid'] > .sprout-table-header > .sprout-table-row {
+  .sprout-table[data-slot='table'] > .sprout-table-header > .sprout-table-row {
     border-bottom: 0;
   }
-  .sprout-table[data-variant='grid'] .sprout-table-head {
+  .sprout-table[data-slot='table'] .sprout-table-head {
     padding: 0 12px;
     box-shadow: inset 0 -1px var(--sprout-input);
   }
-  .sprout-table[data-variant='grid'] .sprout-table-cell {
+  .sprout-table[data-slot='table'] .sprout-table-cell {
     padding: 10px 12px;
   }
-  .sprout-table[data-variant='grid'] .sprout-table-head,
-  .sprout-table[data-variant='grid'] .sprout-table-cell {
+  .sprout-table[data-slot='table'] .sprout-table-head,
+  .sprout-table[data-slot='table'] .sprout-table-cell {
     border-inline-end: 1px solid var(--sprout-input);
   }
-  .sprout-table[data-variant='grid'] .sprout-table-head:last-child,
-  .sprout-table[data-variant='grid'] .sprout-table-cell:last-child {
+  .sprout-table[data-slot='table'] .sprout-table-head:last-child,
+  .sprout-table[data-slot='table'] .sprout-table-cell:last-child {
     border-inline-end: 0;
   }
 
@@ -158,6 +159,9 @@
     gap: 12px;
     min-width: 0;
     container: sprout-table / inline-size;
+  }
+  .sprout-table-root > .sprout-scroll-area {
+    box-sizing: border-box;
   }
 
   .sprout-table-toolbar {
@@ -532,7 +536,7 @@
     .sprout-table[data-narrow='stack'] {
       min-width: 0 !important;
     }
-    .sprout-table[data-narrow='stack'] > thead {
+    .sprout-table[data-narrow='stack'] > .sprout-table-header {
       position: absolute;
       width: 1px;
       height: 1px;

@@ -30,7 +30,6 @@ it.each(themes)('table %s %s', async (theme, mode) => {
       }}
     >
       <Table
-        variant="grid"
         aria-label="Customers"
         data={customers}
         getRowId={row => row.id}

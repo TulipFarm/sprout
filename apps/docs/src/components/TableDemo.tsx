@@ -169,7 +169,6 @@ function RowsGrid() {
         {selected.length ? `${selected.length} selected` : ''}
       </p>
       <Table
-        variant="grid"
         aria-label="Customers"
         data={rows}
         getRowId={row => row.id}
@@ -359,7 +358,6 @@ function FiltersAndGroups() {
   const [grouping, setGrouping] = useState(['crop']);
   return (
     <Table
-      variant="grid"
       aria-label="Orders"
       data={orders}
       columns={orderColumns}
@@ -375,7 +373,6 @@ function FiltersAndGroups() {
 function ColumnLayout() {
   return (
     <Table
-      variant="grid"
       aria-label="Orders layout"
       data={orders}
       columns={orderColumns.map(c => (c.key === 'customer' ? { ...c, pin: 'left', width: 200 } : { ...c, width: 130 }))}
@@ -403,7 +400,6 @@ function VirtualRows() {
   const [beds, setBeds] = useState(firstBeds);
   return (
     <Table
-      variant="grid"
       aria-label="Beds"
       data={beds}
       getRowId={row => row.id}
@@ -617,14 +613,14 @@ export default function TableDemo() {
   return (
     <div id="table-demo" className="table-demo">
       <Example
-        title="Plain"
+        title="Basic"
         description="Sortable headings, right-aligned numbers, and rows that link with getRowHref."
       >
         <TableList />
       </Example>
       <Example
-        title="Grid"
-        description='variant="grid" with selection (Shift+click picks a range), pinned columns, a pinned actions column, and Row edit from onRowSave.'
+        title="Selection and Row edit"
+        description="Selection (Shift+click picks a range), pinned columns, a pinned actions column, and Row edit from onRowSave."
       >
         <RowsGrid />
       </Example>

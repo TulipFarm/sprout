@@ -393,19 +393,6 @@ describe('Table in the DOM', () => {
     expect(due.style.insetInlineEnd).toBe('40px');
   });
 
-  it('makes the plain container focusable when it overflows', () => {
-    vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(500);
-    vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(100);
-    setup();
-    expect(screen.getByRole('region', { name: 'Items' }).tabIndex).toBe(0);
-  });
-
-  it('skips overflow tracking without ResizeObserver', () => {
-    vi.stubGlobal('ResizeObserver', undefined);
-    setup();
-    expect(screen.queryByRole('region')).toBeNull();
-  });
-
   it('links rows, opens rows, and accepts dropped files', () => {
     const onRowClick = vi.fn();
     const onRowDrop = vi.fn();
@@ -487,8 +474,8 @@ describe('Table in the DOM', () => {
     expect(group.closest('tr')?.getAttribute('aria-rowindex')).toBeTruthy();
   });
 
-  it('stacks rows with ARIA roles and a grid variant', () => {
-    setup({ narrow: 'stack', variant: 'grid', caption: 'All items' });
+  it('stacks rows with ARIA roles', () => {
+    setup({ narrow: 'stack', caption: 'All items' });
     expect(screen.getByRole('table').getAttribute('role')).toBe('table');
     expect(screen.getByText('All items').tagName).toBe('CAPTION');
   });

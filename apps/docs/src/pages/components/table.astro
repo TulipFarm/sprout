@@ -40,8 +40,7 @@ const columns: TableColumn<Order>[] = [
 />`}
     />
     <p>
-      <code>variant</code> is <code>"plain"</code> (default) or
-      <code>"grid"</code>. Grid tables sit in a bordered scroll region capped at <code>60dvh</code>, with a pinned
+      Every table has one look: a bordered scroll region capped at <code>60dvh</code>, with column dividers and a pinned
       header. <code>narrow</code> is
       <code>"scroll"</code> (default) or <code>"stack"</code>, which turns rows into cards when the table is narrower
       than 36rem.
@@ -117,8 +116,8 @@ const url = useTableUrlState({ prefix: "orders-" });
   <section class="prose-section">
     <h2 class="section-title">Theme tokens</h2>
     <p>
-      Row dividers use <code>--sprout-line</code>; grid dividers and the frame use <code>--sprout-input</code>. Hover
-      and grid header tints are
+      Row and column dividers and the frame use <code>--sprout-input</code>; the footer divider uses
+      <code>--sprout-line</code>. Hover and header tints are
       <code>--sprout-table-hover</code> and <code>--sprout-table-head-bg</code>. Selected rows use{' '}
       <code>--sprout-primary-subtle</code>.
     </p>

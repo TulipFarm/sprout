@@ -21,4 +21,6 @@ if (typeof window !== 'undefined') {
     unobserve() {}
     disconnect() {}
   };
+
+  Element.prototype.getAnimations ??= () => [];
 }

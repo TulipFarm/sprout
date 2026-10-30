@@ -46,7 +46,6 @@ const orderColumns: TableColumn<Order>[] = [
 function Grid() {
   return (
     <Table
-      variant="grid"
       aria-label="Customers"
       data={orders}
       columns={orderColumns}
@@ -66,7 +65,6 @@ function Grid() {
 function Layout() {
   return (
     <Table
-      variant="grid"
       aria-label="Orders layout"
       data={orders}
       columns={orderColumns.map(c =>
@@ -93,7 +91,6 @@ function Beds() {
   );
   return (
     <Table
-      variant="grid"
       aria-label="Beds"
       data={beds}
       getRowId={row => row.id}

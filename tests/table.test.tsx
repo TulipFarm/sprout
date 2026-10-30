@@ -1,12 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { renderToString } from 'react-dom/server';
-import {
-  Table,
-  tableLayoutKeys,
-  tableNarrowNames,
-  tableVariantNames,
-  type TableColumn,
-} from '../packages/sprout/src/components/table.js';
+import { Table, tableLayoutKeys, tableNarrowNames, type TableColumn } from '../packages/sprout/src/components/table.js';
 import * as sprout from '../packages/sprout/src/index.js';
 
 type Item = {
@@ -62,15 +56,13 @@ describe('Table', () => {
   it('is exported from the package root', () => {
     expect(sprout).toHaveProperty('Table');
     expect(sprout).not.toHaveProperty('DataList');
-    expect(tableVariantNames).toEqual(['plain', 'grid']);
     expect(tableNarrowNames).toEqual(['scroll', 'stack']);
     expect(tableLayoutKeys).toEqual(['columnSizing', 'columnOrder', 'columnPinning', 'columnVisibility']);
   });
 
   it('renders headers, rows, and the old classes', () => {
     const html = render();
-    expect(html).toContain('class="sprout-table-container"');
-    expect(html).toContain('data-variant="plain"');
+    expect(html).toContain('data-slot="table-container"');
     expect(html).toContain('aria-label="Sort by Name"');
     expect(html).toContain('aria-label="About Name"');
     expect(html).toContain('>Alpha</span></td>');
