@@ -98,14 +98,14 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **902.6 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
 
 | Component           |       Raw |     Gzip |   Brotli |
 | ------------------- | --------: | -------: | -------: |
-| `a2ui`              | 1335.4 kB | 407.2 kB | 335.5 kB |
+| `a2ui`              | 1334.8 kB | 407.1 kB | 335.7 kB |
 | `a2ui/catalog`      |   19.6 kB |   7.3 kB |   6.5 kB |
 | `accordion`         |   64.2 kB |  22.0 kB |  19.4 kB |
 | `agent-fanout`      |  257.0 kB |  90.5 kB |  77.1 kB |
@@ -200,7 +200,7 @@ Full library: **902.6 kB** gzip. Each component path is smaller. Sizes are minif
 | `state-sample`      |   33.5 kB |  10.5 kB |   9.2 kB |
 | `status`            |   34.2 kB |  11.2 kB |   9.8 kB |
 | `switch`            |   50.3 kB |  17.3 kB |  15.3 kB |
-| `table`             |  541.2 kB | 172.7 kB | 145.8 kB |
+| `table`             |  540.6 kB | 172.6 kB | 145.4 kB |
 | `table-nuqs`        |    2.1 kB |   1.1 kB |   1.0 kB |
 | `tabs`              |   80.3 kB |  27.6 kB |  24.5 kB |
 | `task-tree`         |  247.8 kB |  82.1 kB |  70.7 kB |

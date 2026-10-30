@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.14.0](https://github.com/TulipFarm/sprout/compare/v0.13.0...v0.14.0) (2026-10-30)
+
+### ⚠ BREAKING CHANGES
+
+* **table:** render every table in the grid style ([#67](https://github.com/TulipFarm/sprout/issues/67))
+
+### Features
+
+* **table:** render every table in the grid style ([#67](https://github.com/TulipFarm/sprout/issues/67)) ([d7c4bf8](https://github.com/TulipFarm/sprout/commit/d7c4bf8a0b3a89983697174e509e6ca3df58acb5))
+
+### Bug Fixes
+
+* **avatar:** ring entity avatars and keep group counts opaque ([#66](https://github.com/TulipFarm/sprout/issues/66)) ([c9c0d45](https://github.com/TulipFarm/sprout/commit/c9c0d4509d62a53c37f2c4bebf21bc60a6308b11))
+
 ## [0.13.0](https://github.com/TulipFarm/sprout/compare/v0.12.0...v0.13.0) (2026-10-29)
 
 ### Features
