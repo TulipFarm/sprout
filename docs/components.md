@@ -165,9 +165,8 @@ level (`h1`–`h4`), optional icon, and action children. Empty panels can show a
 decorative `sample` preview in a container-responsive split card. Errors
 require a recovery child and are announced as alerts.
 
-Table (`@tulipfarm/sprout/table`) builds native tables in a `plain` or `grid`
-variant. Grid tables scroll inside a named region with a pinned header,
-dividers, a `selection` column, and `stickyEnd` actions. `TableSortHead` adds
+Table (`@tulipfarm/sprout/table`) builds native tables in one grid style: a
+bordered, named scroll region with a pinned header, column dividers, a `selection` column, and `stickyEnd` actions. `TableSortHead` adds
 sort buttons with `aria-sort`; rows can be `interactive` or selected, and the
 table can carry a caption and a totals footer.
 

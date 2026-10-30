@@ -117,14 +117,12 @@ import { SearchField } from './search-field.js';
 import { Skeleton } from './skeleton.js';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip.js';
 
-export const tableVariantNames = ['plain', 'grid'] as const;
 export const tableNarrowNames = ['scroll', 'stack'] as const;
 export const tableAlignNames = ['left', 'right'] as const;
 export const tableFilterNames = ['text', 'number', 'select', 'date', 'boolean'] as const;
 export const tableEditNames = ['text', 'number', 'select', 'date', 'checkbox'] as const;
 export const tableAggregateNames = ['sum', 'count', 'min', 'max', 'mean'] as const;
 
-export type TableVariant = (typeof tableVariantNames)[number];
 export type TableNarrow = (typeof tableNarrowNames)[number];
 export type TableAlign = (typeof tableAlignNames)[number];
 export type TableFilter = (typeof tableFilterNames)[number];
@@ -194,11 +192,6 @@ export interface TableProps<Row> {
   getRowId: (row: Row) => string;
   /** Names a row in control labels, like "Select Invoices". Defaults to the row id. */
   rowLabel?: (row: Row) => string;
-  /**
-   * `"plain"` is borderless. `"grid"` frames the table in a bordered
-   * `ScrollArea` capped at 60dvh, with column dividers and a pinned header.
-   */
-  variant?: TableVariant;
   /** On narrow containers, `"scroll"` scrolls sideways and `"stack"` turns rows into cards. */
   narrow?: TableNarrow;
   caption?: ReactNode;
@@ -363,7 +356,6 @@ export function Table<R extends RowData>(props: TableProps<R>) {
     columns,
     getRowId,
     rowLabel = getRowId,
-    variant = 'plain',
     narrow = 'scroll',
     caption,
     manual = false,
@@ -797,7 +789,6 @@ export function Table<R extends RowData>(props: TableProps<R>) {
   const tableElement = (
     <table
       data-slot="table"
-      data-variant={variant}
       data-narrow={narrow}
       data-sized={sized || undefined}
       data-pin-start={pinsStart || undefined}
@@ -854,12 +845,10 @@ export function Table<R extends RowData>(props: TableProps<R>) {
           >
             {tableElement}
           </div>
-        ) : variant === 'grid' ? (
+        ) : (
           <ScrollArea variant="table" orientation="both" viewportLabel={label} data-slot="table-container">
             {tableElement}
           </ScrollArea>
-        ) : (
-          <PlainContainer label={label}>{tableElement}</PlainContainer>
         )}
         {pageSize && pageCount > 1 && (
           <nav className="sprout-table-pages" aria-label={`${label} pages`}>
@@ -927,35 +916,6 @@ function pinStyle<R extends RowData>(
 function formatAggregate<R extends RowData>(config: TableColumn<R>, value: unknown): ReactNode {
   if (typeof value !== 'number') return null;
   return config.formatAggregate ? config.formatAggregate(value) : value.toLocaleString();
-}
-
-/** Joins the Tab order only while the table is wider than its container, so keyboard users can scroll it. */
-function PlainContainer({ label, children }: { label: string; children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [overflowing, setOverflowing] = useState(false);
-  useEffect(() => {
-    const element = ref.current;
-    if (!element || typeof ResizeObserver === 'undefined') return;
-    const measure = () => setOverflowing(element.scrollWidth > element.clientWidth);
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(element);
-    if (element.firstElementChild) observer.observe(element.firstElementChild);
-    return () => observer.disconnect();
-  }, []);
-  return (
-    <div
-      ref={ref}
-      data-slot="table-container"
-      data-overflowing={overflowing || undefined}
-      className="sprout-table-container"
-      tabIndex={overflowing ? 0 : undefined}
-      role={overflowing ? 'region' : undefined}
-      aria-label={overflowing ? label : undefined}
-    >
-      {children}
-    </div>
-  );
 }
 
 function HeadCell<R extends RowData>({

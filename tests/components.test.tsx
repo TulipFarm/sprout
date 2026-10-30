@@ -29,7 +29,6 @@ const tableExports = [
   'tableFilterNames',
   'tableLayoutKeys',
   'tableNarrowNames',
-  'tableVariantNames',
 ];
 
 const statePanelSampleExports = [
