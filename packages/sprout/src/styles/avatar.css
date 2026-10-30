@@ -72,8 +72,10 @@
     height: 100%;
     border-radius: inherit;
   }
+  /* Themes may make --sprout-hover translucent; paint it over the ring colour so overlapped avatars never show through. */
   .sprout-avatar-fallback {
-    background: var(--sprout-hover);
+    background: linear-gradient(var(--sprout-hover), var(--sprout-hover))
+      var(--sprout-avatar-ring, var(--sprout-canvas));
     color: var(--sprout-muted);
   }
   .sprout-entity-avatar-fallback {
@@ -131,7 +133,8 @@
     width: 2rem;
     height: 2rem;
     border-radius: 9999px;
-    background: var(--sprout-hover);
+    background: linear-gradient(var(--sprout-hover), var(--sprout-hover))
+      var(--sprout-avatar-ring, var(--sprout-canvas));
     color: var(--sprout-muted);
     font-family: var(--sprout-font);
     font-size: var(--sprout-text-sm);

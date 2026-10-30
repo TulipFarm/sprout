@@ -109,6 +109,17 @@ describe('Avatar in a real browser', () => {
     expect(size(entities.lastElementChild!)).toEqual([24, 24]);
   });
 
+  it.each(themes)('%s %s group counts and fallbacks are opaque over overlapped avatars', async (theme, mode) => {
+    setTheme(theme, mode);
+    const screen = await render(<Gallery />);
+    const group = screen.getByRole('group', { name: '7 people, md' }).element();
+    for (const child of [group.lastElementChild!, group.querySelector('[data-slot="avatar-fallback"]')!]) {
+      const style = getComputedStyle(child);
+      expect(style.backgroundColor).not.toMatch(/\/ 0?\.|rgba\(.*, 0(\.\d+)?\)$|transparent/);
+      expect(style.backgroundImage).toContain('linear-gradient');
+    }
+  });
+
   it('images load, fail, and fall back to initials', async () => {
     const screen = await render(
       <div style={{ display: 'flex', gap: 8 }}>
