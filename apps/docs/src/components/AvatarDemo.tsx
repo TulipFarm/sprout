@@ -240,6 +240,15 @@ export function AvatarGroups() {
           </div>
         ))}
         <div className="avatar-cell">
+          <AvatarGroup aria-label="5 people" role="group">
+            {['Meadow', 'Robin'].map(name => (
+              <EntityAvatar key={name} seed={name} name={name} size="sm" />
+            ))}
+            <AvatarGroupCount>+3</AvatarGroupCount>
+          </AvatarGroup>
+          <span>entity</span>
+        </div>
+        <div className="avatar-cell">
           <AvatarGroup aria-label="Team members" role="group">
             <Avatar>
               <AvatarImage src={sample.person} alt="Alex Meadow" />
