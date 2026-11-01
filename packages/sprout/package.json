@@ -494,12 +494,12 @@
     "@dnd-kit/utilities": "3.2.2",
     "@tanstack/react-table": "9.3.1",
     "@tanstack/react-virtual": "3.14.23",
-    "@tiptap/core": "3.32.0",
-    "@tiptap/extension-placeholder": "3.32.0",
-    "@tiptap/pm": "3.32.0",
-    "@tiptap/react": "3.32.0",
-    "@tiptap/starter-kit": "3.32.0",
-    "@tiptap/suggestion": "3.32.0",
+    "@tiptap/core": "3.32.1",
+    "@tiptap/extension-placeholder": "3.32.1",
+    "@tiptap/pm": "3.32.1",
+    "@tiptap/react": "3.32.1",
+    "@tiptap/starter-kit": "3.32.1",
+    "@tiptap/suggestion": "3.32.1",
     "@xyflow/react": "12.12.0",
     "clsx": "^2.1.1",
     "react-day-picker": "10.0.2",
@@ -518,7 +518,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "tailwindcss": "4.3.3",
-    "zod": "4.6.6"
+    "zod": "4.6.7"
   },
   "peerDependenciesMeta": {
     "nuqs": {
