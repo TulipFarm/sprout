@@ -1,0 +1,8 @@
+---
+import Demo from '../../layouts/Demo.astro';
+import { ChatPageDemo } from '../../components/ChatPageDemo';
+---
+
+<Demo title="Chat demo" description="A full chat page built from Sprõut's chat components.">
+  <ChatPageDemo client:only="react" />
+</Demo>

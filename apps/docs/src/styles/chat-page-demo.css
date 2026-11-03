@@ -1,0 +1,131 @@
+.chat-page {
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  height: 100dvh;
+  background: var(--sprout-canvas);
+  color: var(--sprout-text);
+}
+
+.chat-page-history {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 12px;
+  border-right: 1px solid var(--sprout-line);
+  overflow-y: auto;
+}
+.chat-page-history ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chat-page-history li button {
+  display: flex;
+  width: 100%;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--sprout-radius-control, 6px);
+  color: var(--sprout-text);
+  font-size: var(--sprout-text-sm);
+  text-decoration: none;
+}
+.chat-page-history li button span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chat-page-history li button:hover,
+.chat-page-history li button[aria-current='page'] {
+  background: var(--sprout-surface);
+}
+.chat-page-history-when {
+  flex: none;
+  color: var(--sprout-muted);
+  font-size: var(--sprout-text-xs, 0.75rem);
+}
+
+.chat-page-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.chat-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 52px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.chat-page-header-title,
+.chat-page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.chat-page-header h1 {
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--sprout-text-sm);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-page-scroller {
+  flex: 1;
+  min-height: 0;
+}
+.chat-page-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+}
+
+.chat-page-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20vh;
+}
+.chat-page-empty h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.chat-page-composer {
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 0 16px 16px;
+}
+
+@media (max-width: 900px) {
+  .chat-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chat-page-history {
+    display: none;
+  }
+}
