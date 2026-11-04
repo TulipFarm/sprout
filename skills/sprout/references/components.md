@@ -2060,7 +2060,7 @@ const accounts = keywordAccounts(value, integrations);
 </MessageBubble>;
 ```
 
-Renders the Chat Input value with the composer's chips. `resolveReference` returns a suggestion; its `file` makes a `#` chip preview on hover and open in the File Viewer.
+Renders the Chat Input value with the composer's chips. `resolveReference` returns a suggestion; its `file` makes a `#` chip preview on hover and open in the File Viewer. `renderNode` draws an app's own inline nodes, such as its file chips; without it they are left out.
 
 ### Message Scroller
 

@@ -126,6 +126,20 @@ describe('MessageActions in the DOM', () => {
     expect((await card()).querySelector('dl')).toBeNull();
   });
 
+  it('opens the stats card away from the edge the message sits on', async () => {
+    const createdAt = new Date().toISOString();
+    for (const [author, align] of [
+      ['assistant', 'start'],
+      ['human', 'end'],
+    ] as const) {
+      const { unmount } = render(<MessageActions text="Hi" author={author} createdAt={createdAt} stats={{}} />);
+      fireEvent.focus(document.querySelector('time')!);
+      const card = (await screen.findByText(/\d{4}/, { selector: 'p' })).closest('.sprout-message-actions-stats')!;
+      expect(card.getAttribute('data-align')).toBe(align);
+      unmount();
+    }
+  });
+
   it('steps between response versions', () => {
     const onChange = vi.fn();
     render(<MessageBranch index={1} total={3} onChange={onChange} />);

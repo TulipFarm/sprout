@@ -1,4 +1,4 @@
-import { useState, type ComponentProps, type CSSProperties, type ReactNode } from 'react';
+import { Fragment, useState, type ComponentProps, type CSSProperties, type ReactNode } from 'react';
 import { LinkOff } from 'reicon-react/icons/LinkOff';
 import { chatReferenceChars } from '../internal/chat-reference.js';
 import { cn } from '../internal/classes.js';
@@ -38,6 +38,11 @@ export interface MessageRichTextProps extends Omit<ComponentProps<'div'>, 'child
   resolveReference?:
     | ((reference: MessageRichTextReference) => MessageRichTextResolvedReference | undefined)
     | undefined;
+  /**
+   * Draws an inline node the component doesn't know, such as an app's own file or link chip. Keyword matching
+   * treats it as one character, so a keyword never spans it. Unknown nodes are left out without it.
+   */
+  renderNode?: ((node: RichTextValue) => ReactNode) | undefined;
 }
 
 /** A tagged agent, skill, or file in a sent message. */
@@ -130,7 +135,7 @@ function plainChild(child: RichTextValue) {
   return child.type === 'text' && !child.marks?.some(mark => mark.type === 'code');
 }
 
-type ReferenceResolver = MessageRichTextProps['resolveReference'];
+type Renderers = Pick<MessageRichTextProps, 'resolveReference' | 'renderNode'>;
 
 function Reference({ reference, resolved }: { reference: ChatReferenceDetail; resolved?: ChatReferenceResolved }) {
   const [open, setOpen] = useState(false);
@@ -169,7 +174,7 @@ function Reference({ reference, resolved }: { reference: ChatReferenceDetail; re
 function renderInline(
   content: readonly RichTextValue[],
   pattern: KeywordPattern | null,
-  resolveReference: ReferenceResolver,
+  renderers: Renderers,
   key: string,
 ) {
   const hits: KeywordHit[] = [];
@@ -208,8 +213,8 @@ function renderInline(
     if (child.type === 'hardBreak') out.push(<br key={childKey} />);
     else if (child.type === 'chatReference') {
       const reference = referenceDetail(child.attrs);
-      out.push(<Reference key={childKey} reference={reference} resolved={resolveReference?.(reference)} />);
-    }
+      out.push(<Reference key={childKey} reference={reference} resolved={renderers.resolveReference?.(reference)} />);
+    } else if (renderers.renderNode) out.push(<Fragment key={childKey}>{renderers.renderNode(child)}</Fragment>);
   });
   return out;
 }
@@ -217,13 +222,13 @@ function renderInline(
 function renderBlock(
   node: RichTextValue,
   pattern: KeywordPattern | null,
-  resolveReference: ReferenceResolver,
+  renderers: Renderers,
   key: string,
 ): ReactNode {
   const children = (node.content ?? []).map((child, index) =>
-    renderBlock(child, pattern, resolveReference, `${key}.${index}`),
+    renderBlock(child, pattern, renderers, `${key}.${index}`),
   );
-  const inline = () => renderInline(node.content ?? [], pattern, resolveReference, key);
+  const inline = () => renderInline(node.content ?? [], pattern, renderers, key);
   switch (node.type) {
     case 'doc':
       return children;
@@ -265,6 +270,7 @@ export function MessageRichText({
   keywords,
   accounts,
   resolveReference,
+  renderNode,
   className,
   ...props
 }: MessageRichTextProps) {
@@ -276,7 +282,7 @@ export function MessageRichText({
   const pattern = sent?.length ? keywordPattern(sent) : null;
   return (
     <div data-slot="message-rich-text" className={cn('sprout-message-rich-text', className)} {...props}>
-      {renderBlock(value, pattern, resolveReference, 'n')}
+      {renderBlock(value, pattern, { resolveReference, renderNode }, 'n')}
     </div>
   );
 }
