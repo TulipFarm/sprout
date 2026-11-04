@@ -108,6 +108,23 @@ describe('ModelSelector', () => {
     expect(filled.length).toBeGreaterThan(0);
   });
 
+  it('keeps a scrolled-off list from growing the page', async () => {
+    const many = Array.from({ length: 16 }, (_, index) => ({
+      ...models[index % models.length]!,
+      id: `model-${index}`,
+    }));
+    const screen = await render(
+      <div style={{ paddingTop: '60vh' }}>
+        <ModelSelector models={many} value="model-0" onValueChange={() => {}} />
+      </div>,
+    );
+    const pageHeight = document.documentElement.scrollHeight;
+    await screen.getByRole('combobox', { name: /^Model:/ }).click();
+    await expect.element(page.getByRole('listbox')).toBeVisible();
+    await settle();
+    expect(document.documentElement.scrollHeight).toBe(pageHeight);
+  });
+
   it.each(themes)('has no axe violations open in %s %s', async (theme, mode) => {
     setTheme(theme, mode);
     const screen = await render(<Picker />);
