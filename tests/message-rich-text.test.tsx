@@ -47,6 +47,20 @@ describe('MessageRichText', () => {
     expect(html).not.toContain('javascript:');
   });
 
+  it('draws unknown inline nodes with renderNode, and keywords never span them', () => {
+    const value = doc(text('sla'), { type: 'appFile', attrs: { id: 'f1' } }, text('ck and slack'));
+    const html = renderToString(
+      <MessageRichText
+        value={value}
+        keywords={[slack]}
+        renderNode={node => <i data-app-file={String(node.attrs?.id)} />}
+      />,
+    );
+    expect(html).toContain('<i data-app-file="f1"></i>');
+    expect(html.match(/class="sprout-rich-text-keyword" data-keyword="slack"/g)).toHaveLength(1);
+    expect(renderToString(<MessageRichText value={value} />)).not.toContain('data-app-file');
+  });
+
   it('shows keywords with the composer chip markup, and the sent account wins over the current one', () => {
     const value = doc(text('Ask slack and github'));
     const html = renderToString(<MessageRichText value={value} keywords={[slack, github]} />);

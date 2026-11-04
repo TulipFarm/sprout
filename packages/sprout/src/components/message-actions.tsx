@@ -116,7 +116,15 @@ function statRows(stats: MessageActionsStats) {
   return rows;
 }
 
-function MessageTime({ createdAt, stats }: { createdAt: string; stats?: MessageActionsStats | undefined }) {
+function MessageTime({
+  createdAt,
+  stats,
+  align,
+}: {
+  createdAt: string;
+  stats?: MessageActionsStats | undefined;
+  align: 'start' | 'end';
+}) {
   const rows = stats ? statRows(stats) : [];
   return (
     <HoverCard>
@@ -127,7 +135,7 @@ function MessageTime({ createdAt, stats }: { createdAt: string; stats?: MessageA
       >
         {messageTime(createdAt)}
       </HoverCardTrigger>
-      <HoverCardContent side="top" align="end" className="sprout-message-actions-stats">
+      <HoverCardContent side="top" align={align} className="sprout-message-actions-stats">
         <p className="sprout-message-actions-stats-date">
           {formatDate({ dateStyle: 'full', timeStyle: 'medium' }, new Date(createdAt))}
         </p>
@@ -244,7 +252,10 @@ export function MessageActions({
             <RotateRight size={16} aria-hidden="true" />
           </ActionButton>
         )}
-        {createdAt && <MessageTime createdAt={createdAt} stats={stats} />}
+        {createdAt && (
+          // The card grows away from the screen edge the message sits on.
+          <MessageTime createdAt={createdAt} stats={stats} align={author === 'human' ? 'end' : 'start'} />
+        )}
       </div>
       {copy === 'error' && (
         <p role="alert" className="sprout-message-actions-error">
