@@ -91,21 +91,19 @@ export const skills: ChatInputSuggestion[] = [
     media: icon(BookOpen),
   },
 ];
+const sample = (name: string) => `/file-viewer-samples/${name.toLowerCase()}`;
 const savedFiles = [
-  { name: 'financial-dashboard.png', mediaType: 'image/png', size: '412 KB' },
-  { name: 'messaging-dashboard.png', mediaType: 'image/png', size: '388 KB' },
-  {
-    name: 'Q3-forecast.xlsx',
-    mediaType: 'application/vnd.ms-excel',
-    size: '182 KB',
-  },
-  { name: 'pricing-2026.pdf', mediaType: 'application/pdf', size: '920 KB' },
+  { name: 'Q3-forecast.csv', mediaType: 'text/csv', size: '1 KB' },
+  { name: 'greenhouse-layout.png', mediaType: 'image/png', size: '4 KB' },
+  { name: 'harvest-log.txt', mediaType: 'text/plain', size: '1 KB' },
+  { name: 'returns-policy.pdf', mediaType: 'application/pdf', size: '1 KB' },
 ];
 export const fileSuggestions: ChatInputSuggestion[] = savedFiles.map(file => ({
   id: file.name,
   label: file.name,
   description: file.size,
   media: <FileTypeIcon name={file.name} mediaType={file.mediaType} />,
+  file: { name: file.name, mediaType: file.mediaType, source: { kind: 'remote', url: sample(file.name) } },
 }));
 
 export const search = (items: ChatInputSuggestion[]) => (query: string) =>

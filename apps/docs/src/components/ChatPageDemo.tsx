@@ -21,8 +21,10 @@ import {
   DropdownMenuTrigger,
 } from '@tulipfarm/sprout/dropdown-menu';
 import { Message, MessageBubble, MessageContent } from '@tulipfarm/sprout/message';
-import { MessageActions, type MessageFeedback } from '@tulipfarm/sprout/message-actions';
+import { MessageActions, type MessageActionsStats, type MessageFeedback } from '@tulipfarm/sprout/message-actions';
 import { MessageResponse } from '@tulipfarm/sprout/message-response';
+import { MessageRichText, type MessageRichTextReference } from '@tulipfarm/sprout/message-rich-text';
+import { FileRenderersProvider } from '@tulipfarm/sprout/file-viewer';
 import {
   MessageScroller,
   MessageScrollerButton,
@@ -32,10 +34,11 @@ import {
   MessageScrollerViewport,
 } from '@tulipfarm/sprout/message-scroller';
 import { PromptList } from '@tulipfarm/sprout/prompt-list';
-import type { RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
+import { keywordAccounts, type RichTextKeyword, type RichTextValue } from '@tulipfarm/sprout/rich-text-editor';
 import { ToolActivity, type ToolActivityItem } from '@tulipfarm/sprout/tool-activity';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
 import { agents, fileSuggestions, icon, models, modes, ready, search, skills, useIntegrations } from './ChatInputDemo';
+import { renderers } from './FileViewerDemo';
 import HeaderTools from './HeaderTools';
 import '../styles/chat-page-demo.css';
 
@@ -45,13 +48,22 @@ const referenceChars: Record<string, string> = { agent: '@', skill: '/', file: '
 
 const emptyDoc = (): RichTextValue => ({ type: 'doc', content: [{ type: 'paragraph' }] });
 const text = (value: string): Node => ({ type: 'text', text: value });
+const referenceSources = { agent: agents, skill: skills, file: fileSuggestions };
+const suggestionFor = (kind: string, id: string) =>
+  referenceSources[kind as keyof typeof referenceSources]?.find(item => item.id === id);
+const resolveReference = ({ kind, id }: MessageRichTextReference) => suggestionFor(kind, id);
 const reference = (kind: 'agent' | 'skill' | 'file', id: string, label: string): Node => ({
   type: 'chatReference',
-  attrs: { kind, id, label },
+  attrs: { kind, id, label, description: suggestionFor(kind, id)?.description ?? null },
 });
 const paragraph = (...content: Node[]): RichTextValue => ({ type: 'doc', content: [{ type: 'paragraph', content }] });
 
-// What the app sends today: the composer's rich content flattened to plain text.
+const forecastFile: AttachmentFile = {
+  ...ready('Q3-forecast.csv', 'text/csv', '1 KB'),
+  url: '/file-viewer-samples/q3-forecast.csv',
+};
+
+// The message as plain text, for copying.
 function plainText(node: Node | RichTextValue): string {
   if (node.type === 'text') return node.text ?? '';
   if (node.type === 'chatReference') {
@@ -67,6 +79,8 @@ interface HumanTurn {
   id: string;
   author: 'human';
   value: RichTextValue;
+  /** The account each mentioned integration used when sent. */
+  accounts?: Record<string, string>;
   attachments: AttachmentFile[];
   createdAt: string;
 }
@@ -80,6 +94,7 @@ interface AssistantTurn {
   sources?: ChatSource[];
   streaming?: boolean;
   createdAt: string;
+  stats?: MessageActionsStats;
 }
 
 type Turn = HumanTurn | AssistantTurn;
@@ -138,10 +153,10 @@ const initialTurns: Turn[] = [
       text(
         ' what changed in the Q3 forecast this week? Check the Slack #ops channel and the GitHub issues, and compare against ',
       ),
-      reference('file', 'Q3-forecast.xlsx', 'Q3-forecast.xlsx'),
+      reference('file', 'Q3-forecast.csv', 'Q3-forecast.csv'),
       text('.'),
     ),
-    attachments: [ready('Q3-forecast.xlsx', 'application/vnd.ms-excel', '182 KB')],
+    attachments: [forecastFile],
     createdAt: minutesAgo(14),
   },
   {
@@ -163,13 +178,21 @@ const initialTurns: Turn[] = [
       },
       {
         id: 'sheet',
-        label: 'Read Q3-forecast.xlsx',
+        label: 'Read Q3-forecast.csv',
         status: 'completed',
         visual: <Database size={14} />,
       },
     ],
     sources,
     createdAt: minutesAgo(13),
+    stats: {
+      model: 'Claude Opus 5.5',
+      firstTokenMs: 2140,
+      durationMs: 9820,
+      inputTokens: 18_432,
+      outputTokens: 412,
+      traceId: '4bf92f3577b34da6a3ce929d0e0e4736',
+    },
   },
   {
     id: 'h2',
@@ -195,6 +218,14 @@ const initialTurns: Turn[] = [
       ],
     },
     createdAt: minutesAgo(8),
+    stats: {
+      model: 'Claude Opus 5.5',
+      firstTokenMs: 1480,
+      durationMs: 6310,
+      inputTokens: 19_105,
+      outputTokens: 286,
+      traceId: '00f067aa0ba902b7c4e1f9a3d2b8e615',
+    },
   },
 ];
 
@@ -229,15 +260,22 @@ function citationLink(turnSources: ChatSource[] | undefined) {
   };
 }
 
-function HumanMessage({ turn }: { turn: HumanTurn }) {
+function HumanMessage({ turn, keywords }: { turn: HumanTurn; keywords: readonly RichTextKeyword[] }) {
   const message = plainText(turn.value);
   return (
     <Message align="end">
       <MessageContent>
         {turn.attachments.map(file => (
-          <FileAttachment key={file.id} file={file} variant="chip" />
+          <FileAttachment key={file.id} file={file} variant="chip" viewable />
         ))}
-        <MessageBubble variant="secondary">{message}</MessageBubble>
+        <MessageBubble variant="secondary">
+          <MessageRichText
+            value={turn.value}
+            keywords={keywords}
+            accounts={turn.accounts}
+            resolveReference={resolveReference}
+          />
+        </MessageBubble>
         <MessageActions text={message} author="human" createdAt={turn.createdAt} hover />
       </MessageContent>
     </Message>
@@ -270,6 +308,7 @@ function AssistantMessage({
           <MessageActions
             text={turn.text}
             createdAt={turn.createdAt}
+            stats={turn.stats}
             feedback={feedback}
             onFeedback={onFeedback}
             onRetry={onRetry}
@@ -377,6 +416,8 @@ export function ChatPageDemo() {
 
   const reply = () => {
     const id = `a${Date.now()}`;
+    const started = performance.now();
+    const label = models.find(option => option.id === model)?.label ?? model;
     setStatus('streaming');
     setTurns(current => [
       ...current,
@@ -400,7 +441,19 @@ export function ChatPageDemo() {
         );
         timers.current.push(
           setTimeout(() => {
-            updateLast(turn => ({ ...turn, streaming: false }));
+            const durationMs = Math.round(performance.now() - started);
+            updateLast(turn => ({
+              ...turn,
+              streaming: false,
+              stats: {
+                model: label,
+                firstTokenMs: 900,
+                durationMs,
+                inputTokens: 19_870,
+                outputTokens: Math.round(words.length * 1.3),
+                traceId: crypto.randomUUID().replaceAll('-', ''),
+              },
+            }));
             setStatus('idle');
           }, words.length * 40),
         );
@@ -412,7 +465,14 @@ export function ChatPageDemo() {
     if (!plainText(sent).trim() && attachments.length === 0) return;
     setTurns(current => [
       ...current,
-      { id: `h${Date.now()}`, author: 'human', value: sent, attachments, createdAt: new Date().toISOString() },
+      {
+        id: `h${Date.now()}`,
+        author: 'human',
+        value: sent,
+        accounts: keywordAccounts(sent, integrations.list),
+        attachments,
+        createdAt: new Date().toISOString(),
+      },
     ]);
     setAttachments([]);
     setValue(emptyDoc());
@@ -436,114 +496,117 @@ export function ChatPageDemo() {
 
   const addAttachment = (file: AttachmentFile) => setAttachments(current => [...current, file]);
 
+  const lastHuman = turns.findLastIndex(turn => turn.author === 'human');
   return (
-    <TooltipProvider>
-      <div className="chat-page">
-        <ChatHistory onNewChat={newChat} />
-        <main className="chat-page-main">
-          <ChatHeader />
-          <MessageScrollerProvider>
-            <MessageScroller className="chat-page-scroller">
-              <MessageScrollerViewport>
-                <MessageScrollerContent className="chat-page-thread">
-                  {turns.length === 0 && (
-                    <div className="chat-page-empty">
-                      <AgentAvatar agentId="bud" name="Bud" size="lg" />
-                      <h2>What should we work on?</h2>
-                    </div>
-                  )}
-                  {turns.map((turn, index) => (
-                    <MessageScrollerItem key={turn.id} messageId={turn.id} scrollAnchor={index === turns.length - 1}>
-                      {turn.author === 'human' ? (
-                        <HumanMessage turn={turn} />
-                      ) : (
-                        <AssistantMessage
-                          turn={turn}
-                          feedback={feedback[turn.id] ?? null}
-                          onFeedback={next => setFeedback(current => ({ ...current, [turn.id]: next }))}
-                          onRetry={() => {
-                            setTurns(current => current.filter(item => item.id !== turn.id));
-                            reply();
-                          }}
-                        />
-                      )}
-                    </MessageScrollerItem>
-                  ))}
-                  {status === 'idle' && turns.length > 0 && (
-                    <PromptList
-                      title="Suggestions"
-                      items={suggestions}
-                      onSelect={id => {
-                        const label = suggestions.find(item => item.id === id)?.label;
-                        if (label) send(paragraph(text(label)));
-                      }}
-                    />
-                  )}
-                </MessageScrollerContent>
-              </MessageScrollerViewport>
-              <MessageScrollerButton aria-label="Scroll to newest message" />
-            </MessageScroller>
-          </MessageScrollerProvider>
-          <div className="chat-page-composer">
-            <input
-              ref={picker}
-              type="file"
-              multiple
-              hidden
-              onChange={event => {
-                for (const file of event.currentTarget.files ?? [])
-                  addAttachment({
-                    ...ready(file.name, file.type, `${Math.ceil(file.size / 1024)} KB`),
-                    source: { kind: 'local', file },
-                  });
-                event.currentTarget.value = '';
-              }}
-            />
-            <ChatInput
-              label="Message Bud"
-              placeholder="Ask Bud anything…"
-              value={value}
-              onValueChange={setValue}
-              onSend={() => send(value)}
-              onStop={stop}
-              status={status}
-              agents={search(agents)}
-              skills={search(skills)}
-              files={search(fileSuggestions)}
-              integrations={integrations.list}
-              onConnectIntegration={integrations.connect}
-              onIntegrationAccountChange={integrations.choose}
-              attachments={attachments}
-              onRemoveAttachment={id => setAttachments(current => current.filter(file => file.id !== id))}
-              attachActions={[
-                {
-                  id: 'computer',
-                  label: 'Upload from computer',
-                  description: 'Files and images from this device',
-                  icon: icon(Laptop),
-                  onSelect: () => picker.current?.click(),
-                },
-                {
-                  id: 'drive',
-                  label: 'Add from Google Drive',
-                  description: 'Docs, sheets, and slides',
-                  icon: <BrandIcon brand="google-drive" size="inline" />,
-                  onSelect: () =>
-                    addAttachment(
-                      ready('Supplier contracts.gdoc', 'application/vnd.google-apps.document', 'Google Drive'),
-                    ),
-                },
-              ]}
-              modes={modes}
-              mode={mode}
-              onModeChange={setMode}
-              models={models}
-              model={model}
-              onModelChange={setModel}
-            />
-          </div>
-        </main>
-      </div>
-    </TooltipProvider>
+    <FileRenderersProvider renderers={renderers}>
+      <TooltipProvider>
+        <div className="chat-page">
+          <ChatHistory onNewChat={newChat} />
+          <main className="chat-page-main">
+            <ChatHeader />
+            <MessageScrollerProvider>
+              <MessageScroller className="chat-page-scroller">
+                <MessageScrollerViewport>
+                  <MessageScrollerContent className="chat-page-thread">
+                    {turns.length === 0 && (
+                      <div className="chat-page-empty">
+                        <AgentAvatar agentId="bud" name="Bud" size="lg" />
+                        <h2>What should we work on?</h2>
+                      </div>
+                    )}
+                    {turns.map((turn, index) => (
+                      <MessageScrollerItem key={turn.id} messageId={turn.id} scrollAnchor={index === lastHuman}>
+                        {turn.author === 'human' ? (
+                          <HumanMessage turn={turn} keywords={integrations.list} />
+                        ) : (
+                          <AssistantMessage
+                            turn={turn}
+                            feedback={feedback[turn.id] ?? null}
+                            onFeedback={next => setFeedback(current => ({ ...current, [turn.id]: next }))}
+                            onRetry={() => {
+                              setTurns(current => current.filter(item => item.id !== turn.id));
+                              reply();
+                            }}
+                          />
+                        )}
+                      </MessageScrollerItem>
+                    ))}
+                    {status === 'idle' && turns.length > 0 && (
+                      <PromptList
+                        title="Suggestions"
+                        items={suggestions}
+                        onSelect={id => {
+                          const label = suggestions.find(item => item.id === id)?.label;
+                          if (label) send(paragraph(text(label)));
+                        }}
+                      />
+                    )}
+                  </MessageScrollerContent>
+                </MessageScrollerViewport>
+                <MessageScrollerButton aria-label="Scroll to newest message" />
+              </MessageScroller>
+            </MessageScrollerProvider>
+            <div className="chat-page-composer">
+              <input
+                ref={picker}
+                type="file"
+                multiple
+                hidden
+                onChange={event => {
+                  for (const file of event.currentTarget.files ?? [])
+                    addAttachment({
+                      ...ready(file.name, file.type, `${Math.ceil(file.size / 1024)} KB`),
+                      source: { kind: 'local', file },
+                    });
+                  event.currentTarget.value = '';
+                }}
+              />
+              <ChatInput
+                label="Message Bud"
+                placeholder="Ask Bud anything…"
+                value={value}
+                onValueChange={setValue}
+                onSend={() => send(value)}
+                onStop={stop}
+                status={status}
+                agents={search(agents)}
+                skills={search(skills)}
+                files={search(fileSuggestions)}
+                integrations={integrations.list}
+                onConnectIntegration={integrations.connect}
+                onIntegrationAccountChange={integrations.choose}
+                attachments={attachments}
+                onRemoveAttachment={id => setAttachments(current => current.filter(file => file.id !== id))}
+                attachActions={[
+                  {
+                    id: 'computer',
+                    label: 'Upload from computer',
+                    description: 'Files and images from this device',
+                    icon: icon(Laptop),
+                    onSelect: () => picker.current?.click(),
+                  },
+                  {
+                    id: 'drive',
+                    label: 'Add from Google Drive',
+                    description: 'Docs, sheets, and slides',
+                    icon: <BrandIcon brand="google-drive" size="inline" />,
+                    onSelect: () =>
+                      addAttachment(
+                        ready('Supplier contracts.gdoc', 'application/vnd.google-apps.document', 'Google Drive'),
+                      ),
+                  },
+                ]}
+                modes={modes}
+                mode={mode}
+                onModeChange={setMode}
+                models={models}
+                model={model}
+                onModelChange={setModel}
+              />
+            </div>
+          </main>
+        </div>
+      </TooltipProvider>
+    </FileRenderersProvider>
   );
 }

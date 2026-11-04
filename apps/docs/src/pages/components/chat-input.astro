@@ -98,6 +98,14 @@ import {
       <code>findKeywords(value, integrations)</code> from <code>@tulipfarm/sprout/rich-text-editor</code> to know which
       apps a message uses. See the Rich Text Editor's keywords for matching rules.
     </p>
+    <p>
+      A tag's chip shows its suggestion's <code>media</code>, and hovering or focusing it shows the
+      <code>description</code>. Give a <code>#</code> file suggestion a <code>file</code> (name, media type, and source)
+      and its chip previews CSV, TSV, text, and image files on hover and opens the File Viewer on click. A restored
+      draft has tags that were never picked in this session; <code>resolveReference</code> looks those up and returns
+      the same shape. Show the sent message with
+      <a href="/components/message-rich-text/">Message Rich Text</a> so it keeps the same chips.
+    </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Keyboard</h2>

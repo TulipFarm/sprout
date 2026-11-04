@@ -129,10 +129,11 @@
   }
 
   /* Keyword chips. The icon and disconnected mark are zero-width widgets drawn into the chip's padding. */
+  /* Translucent fills, so chips show on the composer and on a sent message's bubble alike. */
   .sprout-rich-text-keyword {
     padding: 0 var(--sprout-rich-text-keyword-pad);
     border-radius: var(--sprout-radius-control);
-    background-color: var(--sprout-hover);
+    background-color: color-mix(in oklab, var(--sprout-text) 8%, transparent);
     color: var(--sprout-text);
     font-weight: 500;
     white-space: nowrap;
@@ -145,14 +146,14 @@
     );
   }
   .sprout-rich-text-keyword[data-tinted] {
-    background-color: color-mix(in oklab, var(--sprout-rich-text-keyword-color) 12%, var(--sprout-surface));
+    background-color: color-mix(in oklab, var(--sprout-rich-text-keyword-color) 14%, transparent);
     color: color-mix(in oklab, var(--sprout-rich-text-keyword-color) 62%, var(--sprout-text));
   }
   .sprout-rich-text-keyword[data-connected='false'] {
     padding-inline-end: calc(
       var(--sprout-rich-text-keyword-pad) + var(--sprout-rich-text-keyword-mark) + var(--sprout-rich-text-keyword-gap)
     );
-    background-color: var(--sprout-hover);
+    background-color: color-mix(in oklab, var(--sprout-text) 8%, transparent);
     color: var(--sprout-muted);
   }
 
@@ -181,8 +182,9 @@
   .sprout-rich-text-keyword-icon .sprout-rich-text-keyword-glyph > * {
     left: var(--sprout-rich-text-keyword-pad);
   }
-  /* Widgets sit outside the chip span, so they read its sizes from the editor. */
-  .sprout-rich-text-editor-content {
+  /* Widgets sit outside the chip span, so they read its sizes from the editor or the sent message. */
+  .sprout-rich-text-editor-content,
+  .sprout-message-rich-text {
     --sprout-rich-text-keyword-pad: 0.4375em;
     --sprout-rich-text-keyword-gap: 0.5em;
     --sprout-rich-text-keyword-icon: 1em;
@@ -230,7 +232,8 @@
   .sprout-rich-text-keyword-hint:not(:has(button)) {
     padding-inline-end: 10px;
   }
-  .sprout-rich-text-keyword-hint > svg {
+  /* Sent messages show the same hint in a tooltip. */
+  :is(.sprout-rich-text-keyword-hint, .sprout-message-rich-text-hint) > svg {
     flex-shrink: 0;
     color: var(--sprout-muted);
   }
@@ -240,7 +243,14 @@
     width: 14px;
     height: 14px;
   }
-  .sprout-rich-text-keyword-hint-icon svg {
+  /* Beats icon components' own fixed sizes, such as BrandIcon's 16px. */
+  :is(.sprout-rich-text-keyword-hint, .sprout-message-rich-text-hint)
+    .sprout-rich-text-keyword-hint-icon[aria-hidden]
+    > *,
+  :is(.sprout-rich-text-keyword-hint, .sprout-message-rich-text-hint)
+    .sprout-rich-text-keyword-hint-icon[aria-hidden]
+    svg {
+    display: block;
     width: 100%;
     height: 100%;
   }

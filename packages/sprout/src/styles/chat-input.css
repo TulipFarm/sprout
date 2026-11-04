@@ -34,19 +34,22 @@
     min-height: 4.5rem;
   }
   .sprout-chat-input-editor .sprout-rich-text-editor-content {
-    font-size: var(--sprout-text-sm);
-    line-height: 1.375rem;
+    font-size: var(--sprout-text-base);
+    line-height: 1.625;
   }
+  /* Inline like a keyword chip, so @ and # chips share its height, padding, and type size. */
   .sprout-chat-input-reference {
-    display: inline-flex;
-    align-items: center;
-    padding: 0 6px;
+    padding: 0 0.4375em;
     border-radius: var(--sprout-radius-control);
-    background: var(--sprout-hover);
+    background: color-mix(in oklab, var(--sprout-text) 8%, transparent);
     color: var(--sprout-text);
-    font-size: 0.9375em;
     font-weight: 500;
     white-space: nowrap;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .sprout-chat-input-reference[data-openable] {
+    cursor: pointer;
   }
   .sprout-chat-input-reference[data-chat-reference='agent'] {
     background: var(--sprout-info-subtle);

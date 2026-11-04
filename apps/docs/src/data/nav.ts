@@ -191,6 +191,7 @@ export const componentGroups: NavGroup[] = [
       component('Chat Window', 'A quick chat over any page that switches to a side drawer or a full page.'),
       component('Mention List', 'The @ and / suggestion panel a message box drives.'),
       component('Message Actions', 'Copy, rate, regenerate, and step through versions of a chat message.'),
+      component('Message Rich Text', 'Shows a sent message with the app, agent, and file chips from the Chat Input.'),
       component('Message Response', "Renders an assistant's Markdown reply with tables, code, and links."),
       component('Message Scroller', 'A chat history that follows new replies and pins each new turn.'),
       component('Review Card', 'Asks someone to review a draft or action before it runs.'),

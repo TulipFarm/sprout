@@ -1,0 +1,79 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import { MessageRichTextAccounts, MessageRichTextPlayground } from '../../components/MessageRichTextDemo';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<Docs
+  title="Message Rich Text"
+  description="Shows a sent chat message with the same app, agent, skill, and file chips the Chat Input drew while it was written."
+>
+  <h1 class="docs-title">Message Rich Text</h1>
+  <p class="docs-lead">
+    Renders the rich text a Chat Input sends, so a sent message looks the way it did in the composer. Apps, tagged
+    agents, skills, and files keep their chips, hints, and previews, and a tagged file opens in the File Viewer.
+  </p>
+  <div class="mt-8">
+    <MessageRichTextPlayground client:only="react" />
+  </div>
+  <section class="prose-section">
+    <h2 class="section-title">Usage</h2>
+    <CodeBlock
+      lang="tsx"
+      title="A sent message"
+      code={`import { ChatInput } from "@tulipfarm/sprout/chat-input";
+import { MessageRichText } from "@tulipfarm/sprout/message-rich-text";
+import { keywordAccounts } from "@tulipfarm/sprout/rich-text-editor";
+
+function send() {
+  addMessage({ value, accounts: keywordAccounts(value, integrations) });
+}
+
+<MessageBubble variant="secondary">
+  <MessageRichText
+    value={message.value}
+    keywords={integrations}
+    accounts={message.accounts}
+    resolveReference={({ kind, id }) => lookup(kind, id)}
+  />
+</MessageBubble>`}
+    />
+    <p>
+      <code>value</code> is the Chat Input value. <code>keywords</code> takes the same list as Chat Input’s
+      <code>integrations</code>, so app names become the same chips. Paragraphs, headings, lists, quotes, code blocks,
+      bold, italics, underline, strikethrough, inline code, and links are kept; a link is shown only when it is{' '}
+      <code>http</code>, <code>https</code>, or
+      <code>mailto</code>.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accounts</h2>
+    <p>
+      An app chip names the account it used. Call <code>keywordAccounts(value, integrations)</code> when the message is
+      sent and store the result with it. Pass it back as <code>accounts</code> and the chip keeps that account, even
+      after the person switches accounts or disconnects the app. Without it, chips show the current account, and a
+      disconnected app shows the same warning as the composer.
+    </p>
+    <div class="mt-6">
+      <MessageRichTextAccounts client:only="react" />
+    </div>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Agents, skills, and files</h2>
+    <p>
+      Tags keep their <code>@</code>, <code>/</code>, or <code>#</code> prefix. <code>resolveReference</code> returns
+      the tagged item, the same shape as a Chat Input suggestion: <code>media</code> becomes the chip icon, and
+      <code>file</code> makes a file chip a button that opens the File Viewer. Hovering a CSV, TSV, text, or image file
+      shows a preview. Return nothing for a file that no longer exists and its chip stays plain text. Agents and skills
+      show their description on hover or focus.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Accessibility</h2>
+    <p>
+      Hints open on hover and on keyboard focus, and every chip with a hint can be reached with Tab. A file chip is a
+      button named after the file and opens the viewer with Enter or Space. Chips use the composer’s colours, so their
+      contrast is the same in every theme.
+    </p>
+  </section>
+</Docs>

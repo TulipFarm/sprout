@@ -252,6 +252,10 @@
       "types": "./dist/components/message-response.d.ts",
       "import": "./dist/components/message-response.js"
     },
+    "./message-rich-text": {
+      "types": "./dist/components/message-rich-text.d.ts",
+      "import": "./dist/components/message-rich-text.js"
+    },
     "./message-scroller": {
       "types": "./dist/components/message-scroller.d.ts",
       "import": "./dist/components/message-scroller.js"

@@ -1,0 +1,96 @@
+@layer components {
+  .sprout-message-rich-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  /* Chips reuse the composer's classes; only the tooltip trigger around them is new. */
+  .sprout-message-rich-text-keyword {
+    outline: none;
+  }
+  .sprout-message-rich-text-keyword:focus-visible > .sprout-rich-text-keyword {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 1px;
+  }
+  .sprout-message-rich-text-file {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  @media (hover: hover) {
+    .sprout-message-rich-text-file:hover > .sprout-chat-input-reference {
+      background-color: color-mix(in oklab, var(--sprout-text) 14%, transparent);
+    }
+  }
+  .sprout-message-rich-text .sprout-rich-text-keyword-status {
+    cursor: inherit;
+  }
+  .sprout-message-rich-text > * {
+    margin-block: 0;
+  }
+  .sprout-message-rich-text > * + * {
+    margin-top: 0.5em;
+  }
+  .sprout-message-rich-text :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 1em;
+    font-weight: 600;
+  }
+  .sprout-message-rich-text :is(ul, ol) {
+    padding-left: 1.25em;
+  }
+  .sprout-message-rich-text ul {
+    list-style: disc;
+  }
+  .sprout-message-rich-text ol {
+    list-style: decimal;
+  }
+  .sprout-message-rich-text li > p {
+    margin: 0;
+  }
+  .sprout-message-rich-text blockquote {
+    margin-inline: 0;
+    padding-left: 0.75em;
+    border-left: 2px solid var(--sprout-border);
+    color: var(--sprout-muted);
+  }
+  .sprout-message-rich-text code {
+    padding: 0.125em 0.3em;
+    border-radius: var(--sprout-radius-control);
+    background-color: color-mix(in oklab, var(--sprout-text) 8%, transparent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.875em;
+  }
+  .sprout-message-rich-text pre {
+    overflow-x: auto;
+    padding: 0.5em 0.75em;
+    border-radius: var(--sprout-radius-control);
+    background-color: color-mix(in oklab, var(--sprout-text) 8%, transparent);
+  }
+  .sprout-message-rich-text pre code {
+    padding: 0;
+    background-color: transparent;
+    white-space: pre;
+  }
+  .sprout-message-rich-text a {
+    color: var(--sprout-info);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .sprout-message-rich-text hr {
+    border: 0;
+    border-top: 1px solid var(--sprout-border);
+  }
+  /* Matches the composer's keyword hint, so a chip explains itself the same way before and after sending. */
+  .sprout-tooltip-content.sprout-message-rich-text-hint {
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--sprout-radius-panel);
+    box-shadow: var(--sprout-shadow-overlay);
+    white-space: nowrap;
+  }
+  .sprout-message-rich-text-hint > .sprout-tooltip-arrow {
+    display: none;
+  }
+}
