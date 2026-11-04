@@ -1,7 +1,11 @@
 // @vitest-environment jsdom
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { MessageActions, MessageBranch } from '../packages/sprout/src/components/message-actions.js';
+import {
+  MessageActions,
+  MessageBranch,
+  type MessageActionsStats,
+} from '../packages/sprout/src/components/message-actions.js';
 
 function clipboard(fail = false) {
   const value = {
@@ -80,6 +84,46 @@ describe('MessageActions in the DOM', () => {
     expect(times[1]).toMatch(/^Yesterday /);
     expect(times[3]).toContain(String(now.getFullYear() - 2));
     expect(times[4]).toContain('Invalid Date');
+  });
+
+  it('shows reply stats when the send time gets focus', async () => {
+    const createdAt = new Date().toISOString();
+    const stats = (value: MessageActionsStats) => {
+      const { unmount } = render(<MessageActions text="Hi" createdAt={createdAt} stats={value} />);
+      fireEvent.focus(document.querySelector('time')!);
+      return { unmount };
+    };
+    const card = async () =>
+      (await screen.findByText(/\d{4}/, { selector: 'p' })).closest('.sprout-message-actions-stats')!;
+
+    let view = stats({
+      model: 'Opus',
+      firstTokenMs: 420,
+      durationMs: 3_420,
+      inputTokens: 1_200,
+      outputTokens: 600,
+      traceId: 'abc123',
+    });
+    let text = (await card()).textContent;
+    for (const part of ['Opus', '420 ms', '3.4 s', '1,200 in · 600 out', '200 tokens/s', 'abc123'])
+      expect(text).toContain(part);
+    view.unmount();
+
+    view = stats({ durationMs: 125_000, outputTokens: 10 });
+    text = (await card()).textContent;
+    expect(text).toContain('2 min 5 s');
+    expect(text).toContain('10 out');
+    expect(text).not.toContain(' in');
+    view.unmount();
+
+    view = stats({ inputTokens: 5, outputTokens: 0, firstTokenMs: 500 });
+    text = (await card()).textContent;
+    expect(text).toContain('5 in · 0 out');
+    expect(text).not.toContain('Speed');
+    view.unmount();
+
+    stats({});
+    expect((await card()).querySelector('dl')).toBeNull();
   });
 
   it('steps between response versions', () => {
