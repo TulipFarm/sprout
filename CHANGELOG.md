@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.15.0](https://github.com/TulipFarm/sprout/compare/v0.14.0...v0.15.0) (2026-11-04)
+
+### Features
+
+* chat experience overhaul with a full-page chat demo ([#69](https://github.com/TulipFarm/sprout/issues/69)) ([bbdfd15](https://github.com/TulipFarm/sprout/commit/bbdfd1576ed4d05c9497469af2e141bc6c4f74dd))
+
 ## [0.14.0](https://github.com/TulipFarm/sprout/compare/v0.13.0...v0.14.0) (2026-10-30)
 
 ### ⚠ BREAKING CHANGES
