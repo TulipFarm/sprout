@@ -744,11 +744,54 @@ const previewTextKinds: readonly ViewableFileKind[] = ['text', 'code', 'json', '
 const previewBytes = 16 * 1024;
 const previewLines = 24;
 
-/** Whether `FilePreview` can show this file: images, text, code, JSON, and Markdown, but not Google shortcuts. */
+const previewRows = 8;
+const previewColumns = 6;
+
+/** CSV and TSV are plain text, so a preview can show their first rows without a sheet renderer. */
+function delimiterFor(file: ViewableFile) {
+  const extension = file.name.split('.').pop()?.toLowerCase();
+  if (extension === 'csv' || file.mediaType === 'text/csv') return ',';
+  if (extension === 'tsv' || file.mediaType === 'text/tab-separated-values') return '\t';
+  return null;
+}
+
+function parseDelimited(text: string, delimiter: string) {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = '';
+  let quoted = false;
+  for (let index = 0; index < text.length && rows.length < previewRows; index++) {
+    const char = text[index]!;
+    if (quoted) {
+      if (char === '"' && text[index + 1] === '"') {
+        cell += '"';
+        index++;
+      } else if (char === '"') quoted = false;
+      else cell += char;
+    } else if (char === '"' && !cell) quoted = true;
+    else if (char === delimiter) {
+      row.push(cell);
+      cell = '';
+    } else if (char === '\n' || char === '\r') {
+      if (char === '\r' && text[index + 1] === '\n') index++;
+      row.push(cell);
+      if (row.some(Boolean)) rows.push(row);
+      row = [];
+      cell = '';
+    } else cell += char;
+  }
+  if ((cell || row.length) && rows.length < previewRows) {
+    row.push(cell);
+    if (row.some(Boolean)) rows.push(row);
+  }
+  return rows;
+}
+
+/** Whether `FilePreview` can show this file: images, text, code, JSON, Markdown, CSV, and TSV, but not Google shortcuts. */
 export function isPreviewableFile(file: ViewableFile) {
   if (file.source.kind === 'remote' && googleDocument(file.source.url)) return false;
   const kind = fileKind(file.name, file.mediaType);
-  return kind === 'image' || previewTextKinds.includes(kind);
+  return kind === 'image' || previewTextKinds.includes(kind) || delimiterFor(file) !== null;
 }
 
 export interface FilePreviewProps extends HTMLAttributes<HTMLDivElement> {
@@ -756,8 +799,9 @@ export interface FilePreviewProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * A small, non-interactive peek at a file: the image, or the first lines
- * of text and code with syntax colors. Made for hover cards and thumbnails.
+ * A small, non-interactive peek at a file: the image, the first rows of a
+ * CSV or TSV, or the first lines of text and code with syntax colors. Made
+ * for hover cards and thumbnails.
  * Renders nothing for files `isPreviewableFile` rejects.
  */
 export function FilePreview({ file, className, ...props }: FilePreviewProps) {
@@ -776,11 +820,16 @@ export function FilePreview({ file, className, ...props }: FilePreviewProps) {
 
 function LoadedPreview({ file, kind }: { file: ViewableFile; kind: ViewableFileKind }) {
   const loaded = useFileContent(file);
-  const text = useMemo(() => {
-    if (loaded.kind !== 'ready' || kind === 'image') return null;
-    const head = new TextDecoder().decode(loaded.bytes.slice(0, previewBytes));
-    return head.split('\n').slice(0, previewLines).join('\n');
-  }, [loaded, kind]);
+  const delimiter = delimiterFor(file);
+  const head = useMemo(
+    () =>
+      loaded.kind !== 'ready' || kind === 'image'
+        ? null
+        : new TextDecoder().decode(loaded.bytes.slice(0, previewBytes)),
+    [loaded, kind],
+  );
+  const table = useMemo(() => (head !== null && delimiter ? parseDelimited(head, delimiter) : null), [head, delimiter]);
+  const text = head === null ? null : head.split('\n').slice(0, previewLines).join('\n');
   if (loaded.kind === 'loading')
     return (
       <span className="sprout-file-preview-state">
@@ -791,6 +840,31 @@ function LoadedPreview({ file, kind }: { file: ViewableFile; kind: ViewableFileK
   if (loaded.kind === 'error') return <span className="sprout-file-preview-state">Preview unavailable</span>;
   if (text === null) return <img src={loaded.url} alt={file.name} className="sprout-file-preview-image" />;
   if (!text.trim()) return <span className="sprout-file-preview-state">This file is empty</span>;
+  if (table?.length) {
+    const [header = [], ...rows] = table;
+    const width = Math.min(previewColumns, Math.max(...table.map(row => row.length)));
+    const cells = (row: string[]) => Array.from({ length: width }, (_, index) => row[index] ?? '');
+    return (
+      <table className="sprout-file-preview-table">
+        <thead>
+          <tr>
+            {cells(header).map((cell, index) => (
+              <th key={index}>{cell}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {cells(row).map((cell, index) => (
+                <td key={index}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
   return (
     <CodeBlock
       code={text}

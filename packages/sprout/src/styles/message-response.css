@@ -4,7 +4,7 @@
     color: var(--sprout-text);
     font-family: var(--sprout-font);
     font-size: var(--sprout-text-base);
-    line-height: 1.75rem;
+    line-height: 1.625;
     overflow-wrap: anywhere;
   }
   .sprout-message-response > * {
@@ -21,13 +21,13 @@
     letter-spacing: normal;
   }
   .sprout-message-response h1 {
-    font-size: 1.25rem;
+    font-size: 1.25em;
   }
   .sprout-message-response h2 {
-    font-size: 1.125rem;
+    font-size: 1.125em;
   }
   .sprout-message-response :is(h3, h4, h5, h6) {
-    font-size: 1rem;
+    font-size: 1em;
   }
   .sprout-message-response p {
     margin-block: 0;

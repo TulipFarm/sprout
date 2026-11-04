@@ -51,6 +51,7 @@ export * from './components/menubar.js';
 export * from './components/message.js';
 export * from './components/message-actions.js';
 export * from './components/message-response.js';
+export * from './components/message-rich-text.js';
 export * from './components/message-scroller.js';
 export * from './components/metric.js';
 export * from './components/model-selector.js';

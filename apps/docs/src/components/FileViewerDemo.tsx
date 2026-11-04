@@ -250,7 +250,7 @@ function SampleOffice({ bytes, kind, name, onRetry }: FileOfficeRendererProps) {
   );
 }
 
-const renderers: FileRenderers = {
+export const renderers: FileRenderers = {
   markdown: props => <SampleMarkdown {...props} />,
   sheet: props => <SampleSheet {...props} />,
   office: props => <SampleOffice {...props} />,

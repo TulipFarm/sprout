@@ -217,6 +217,15 @@ export function MessageActionsPlayground() {
 
 /* Private conversation ------------------------------------------------------- */
 
+const replyStats = {
+  model: 'Claude Opus 5.5',
+  firstTokenMs: 640,
+  durationMs: 4200,
+  inputTokens: 3_812,
+  outputTokens: 214,
+  traceId: '4bf92f3577b34da6a3ce929d0e0e4736',
+};
+
 export function MessageActionsConversation() {
   const human = useRef<HTMLDivElement>(null);
   const assistant = useRef<HTMLDivElement>(null);
@@ -224,7 +233,7 @@ export function MessageActionsConversation() {
     <Frame
       id="conversation"
       title="Conversation"
-      note="Actions appear when you hover a message or tab into it. Copy keeps the formatting from the bubble."
+      note="Actions appear when you hover a message or tab into it. Copy keeps the formatting from the bubble. Hover the reply\u2019s time for its stats."
     >
       <div className="ma-demo-chat" data-testid="conversation">
         <MessageGroup>
@@ -248,6 +257,7 @@ export function MessageActionsConversation() {
                 text={ordersReply}
                 author="assistant"
                 createdAt={at(0, 9, 41)}
+                stats={replyStats}
                 hover
                 html={() => bubbleHtml(assistant.current)}
               />

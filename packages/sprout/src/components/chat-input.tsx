@@ -1,6 +1,15 @@
 'use client';
 
-import { useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import { Extension, Node, mergeAttributes, type Extensions } from '@tiptap/core';
 import { PluginKey } from '@tiptap/pm/state';
 import Suggestion, { exitSuggestion, type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion';
@@ -10,8 +19,19 @@ import { Folder } from 'reicon-react/icons/Folder';
 import { Plus } from 'reicon-react/icons/Plus';
 import { Sliders } from 'reicon-react/icons/Sliders';
 import { X } from 'reicon-react/icons/X';
+import { chatReferenceChars } from '../internal/chat-reference.js';
 import { cn } from '../internal/classes.js';
+import {
+  ReferenceHintBody,
+  ReferencePeek,
+  referenceDetail,
+  referenceHover,
+  type ChatReferenceDetail,
+  type ChatReferenceResolved,
+} from '../internal/reference-hint.js';
 import { FileAttachment, type AttachmentFile } from './attachment.js';
+import { FileViewer, type ViewableFile } from './file-viewer.js';
+import { HoverCard } from './hover-card.js';
 import { Button } from './button.js';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command.js';
 import {
@@ -41,6 +61,10 @@ export const chatInputStatusNames = ['idle', 'streaming'] as const;
 
 export type ChatInputReferenceKind = (typeof chatInputReferenceKindNames)[number];
 export type ChatInputStatus = (typeof chatInputStatusNames)[number];
+/** A tagged agent, skill, or file as stored in the message. */
+export type ChatInputReference = ChatReferenceDetail;
+/** What the app knows about a tagged item: its `media`, and for files, the `file` to peek at and open. */
+export type ChatInputResolvedReference = ChatReferenceResolved;
 
 /** One row in the `@`, `/`, or `#` panel. Picking it drops a chip into the message. */
 export interface ChatInputSuggestion {
@@ -49,6 +73,8 @@ export interface ChatInputSuggestion {
   description?: string | undefined;
   /** A 16px icon, file icon, brand glyph, or small avatar. */
   media?: ReactNode;
+  /** For `#` files. Its chip peeks at the file on hover and opens it in `FileViewer` on click. */
+  file?: ViewableFile | undefined;
 }
 
 /** Returns the rows that match what follows the trigger. It may be async. */
@@ -107,6 +133,11 @@ export interface ChatInputProps {
   files?: ChatInputSource | undefined;
   /** Names typed in the message show as chips with an icon. Read the mentioned ones with `findKeywords`. */
   integrations?: readonly ChatInputIntegration[] | undefined;
+  /**
+   * Looks up a tagged agent, skill, or file the user didn't pick in this session, such as one in a restored
+   * draft. Picked items already use their suggestion's `media` and `file`.
+   */
+  resolveReference?: ((reference: ChatInputReference) => ChatInputResolvedReference | undefined) | undefined;
   /** Adds Connect to a disconnected integration's hint. */
   onConnectIntegration?: ((integration: ChatInputIntegration) => void) | undefined;
   /** Runs with the account id picked from an integration's Switch menu. Return a promise to show a pending state. */
@@ -134,9 +165,9 @@ export interface ChatInputProps {
 }
 
 const triggers = {
-  agent: { char: '@', label: 'Agents', empty: 'No agents match.' },
-  skill: { char: '/', label: 'Skills', empty: 'No skills match.' },
-  file: { char: '#', label: 'Files', empty: 'No files match.' },
+  agent: { char: chatReferenceChars.agent, label: 'Agents', empty: 'No agents match.' },
+  skill: { char: chatReferenceChars.skill, label: 'Skills', empty: 'No skills match.' },
+  file: { char: chatReferenceChars.file, label: 'Files', empty: 'No files match.' },
 } as const satisfies Record<ChatInputReferenceKind, { char: string; label: string; empty: string }>;
 
 type PanelState = {
@@ -169,6 +200,11 @@ const referenceNode = Node.create({
         rendered: false,
         parseHTML: el => el.getAttribute('data-label'),
       },
+      description: {
+        default: null,
+        rendered: false,
+        parseHTML: el => el.getAttribute('data-description'),
+      },
     };
   },
   parseHTML() {
@@ -182,6 +218,7 @@ const referenceNode = Node.create({
         'data-chat-reference': kind,
         'data-id': node.attrs.id,
         'data-label': node.attrs.label,
+        'data-description': node.attrs.description ?? undefined,
         class: 'sprout-chat-input-reference',
       }),
       `${triggers[kind]?.char ?? ''}${node.attrs.label}`,
@@ -219,6 +256,7 @@ function triggerExtension(
   kind: ChatInputReferenceKind,
   source: { current: ChatInputSource | undefined },
   onState: (state: PanelState) => void,
+  picked: Map<string, ChatInputSuggestion>,
 ) {
   const key = new PluginKey(`chatInput-${kind}`);
   return Extension.create({
@@ -231,18 +269,20 @@ function triggerExtension(
           char: triggers[kind].char,
           allowSpaces: false,
           items: async ({ query }) => (await source.current?.(query)) ?? [],
-          command: ({ editor, range, props }) =>
-            editor
+          command: ({ editor, range, props }) => {
+            picked.set(`${kind}:${props.id}`, props);
+            return editor
               .chain()
               .focus()
               .insertContentAt(range, [
                 {
                   type: 'chatReference',
-                  attrs: { kind, id: props.id, label: props.label },
+                  attrs: { kind, id: props.id, label: props.label, description: props.description ?? null },
                 },
                 { type: 'text', text: ' ' },
               ])
-              .run(),
+              .run();
+          },
           render: () => {
             let current: SuggestionProps<ChatInputSuggestion> | null = null;
             let active = 0;
@@ -298,6 +338,11 @@ function triggerExtension(
       ];
     },
   });
+}
+
+/** A chip that wraps onto two lines anchors its card to the first line, not the box around both. */
+function firstLine(element: HTMLElement) {
+  return { getBoundingClientRect: () => element.getClientRects()[0] ?? element.getBoundingClientRect() };
 }
 
 function hasContent(node: RichTextValue): boolean {
@@ -401,6 +446,7 @@ export function ChatInput({
   skills,
   files,
   integrations,
+  resolveReference,
   onConnectIntegration,
   onIntegrationAccountChange,
   attachments = [],
@@ -424,6 +470,53 @@ export function ChatInput({
   const listId = useId();
   const [panel, setPanel] = useState<PanelState>(null);
   const [panelBelow, setPanelBelow] = useState(false);
+  const picked = useRef(new Map<string, ChatInputSuggestion>()).current;
+  type ReferenceHint = {
+    anchor: HTMLElement;
+    reference: ChatReferenceDetail;
+    resolved: ChatReferenceResolved | undefined;
+  };
+  const [referenceHint, setReferenceHint] = useState<ReferenceHint | null>(null);
+  const [viewing, setViewing] = useState<{ file: ViewableFile; open: boolean } | null>(null);
+  const referenceTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(referenceTimer.current), []);
+  const referenceAt = (target: EventTarget | null): ReferenceHint | null => {
+    const anchor =
+      target instanceof Element
+        ? target.closest<HTMLElement>('.sprout-rich-text-editor-content .sprout-chat-input-reference')
+        : null;
+    if (!anchor) return null;
+    const reference = referenceDetail({
+      kind: anchor.dataset.chatReference,
+      id: anchor.dataset.id,
+      label: anchor.dataset.label,
+      description: anchor.dataset.description,
+    });
+    const resolved = picked.get(`${reference.kind}:${reference.id}`) ?? resolveReference?.(reference);
+    // Only a file the app can open looks clickable.
+    if (reference.kind === 'file') anchor.toggleAttribute('data-openable', !!resolved?.file);
+    return { anchor, reference, resolved };
+  };
+  const hoverReference = (target: EventTarget | null) => {
+    const next = referenceAt(target);
+    clearTimeout(referenceTimer.current);
+    if (next && referenceHover(next.reference, next.resolved)) {
+      const show = () => setReferenceHint(current => (current?.anchor === next.anchor ? current : next));
+      // A file peek loads the file, so it waits for the pointer to settle, like an attachment chip.
+      if (referenceHover(next.reference, next.resolved) === 'peek' && referenceHint?.anchor !== next.anchor)
+        referenceTimer.current = setTimeout(show, 300);
+      else show();
+    }
+    // A short delay lets the pointer move between neighbouring chips without a flicker.
+    else referenceTimer.current = setTimeout(() => setReferenceHint(null), 80);
+  };
+  const openReference = (target: EventTarget | null) => {
+    const file = referenceAt(target)?.resolved?.file;
+    if (!file) return;
+    clearTimeout(referenceTimer.current);
+    setReferenceHint(null);
+    setViewing({ file, open: true });
+  };
   const sources = {
     agent: useRef(agents),
     skill: useRef(skills),
@@ -439,7 +532,7 @@ export function ChatInput({
       linkShortcut,
       ...chatInputReferenceKindNames
         .filter(kind => sources[kind].current)
-        .map(kind => triggerExtension(kind, sources[kind], setPanel)),
+        .map(kind => triggerExtension(kind, sources[kind], setPanel, picked)),
     ],
     // Sources are refs, so only adding or removing a trigger rebuilds the editor.
     [enabled],
@@ -484,6 +577,9 @@ export function ChatInput({
         ref={form}
         aria-label={label}
         className="sprout-chat-input-form"
+        onPointerOver={event => hoverReference(event.target)}
+        onClick={event => openReference(event.target)}
+        onPointerLeave={() => hoverReference(null)}
         onSubmit={event => {
           event.preventDefault();
           send();
@@ -507,7 +603,10 @@ export function ChatInput({
           <RichTextEditor
             ref={editor}
             value={value}
-            onChange={onValueChange}
+            onChange={next => {
+              setReferenceHint(null);
+              onValueChange(next);
+            }}
             onSend={send}
             extensions={extensions}
             keywords={integrations}
@@ -711,6 +810,44 @@ export function ChatInput({
           </div>
         )}
       </form>
+      <HoverCard
+        open={
+          !!referenceHint?.resolved?.file && referenceHover(referenceHint.reference, referenceHint.resolved) === 'peek'
+        }
+        onOpenChange={open => !open && setReferenceHint(null)}
+      >
+        {referenceHint?.resolved?.file && (
+          <ReferencePeek
+            file={referenceHint.resolved.file}
+            anchor={firstLine(referenceHint.anchor)}
+            onPointerEnter={() => clearTimeout(referenceTimer.current)}
+            onPointerLeave={() => hoverReference(null)}
+          />
+        )}
+      </HoverCard>
+      {viewing && (
+        <FileViewer
+          file={viewing.file}
+          open={viewing.open}
+          onOpenChange={open => setViewing(current => current && { ...current, open })}
+        />
+      )}
+      <Tooltip
+        open={!!referenceHint && referenceHover(referenceHint.reference, referenceHint.resolved) === 'hint'}
+        onOpenChange={open => !open && setReferenceHint(null)}
+      >
+        {referenceHint && referenceHover(referenceHint.reference, referenceHint.resolved) === 'hint' && (
+          <TooltipContent
+            anchor={referenceHint.anchor}
+            className="sprout-message-rich-text-hint"
+            data-slot="chat-input-reference-hint"
+            onPointerEnter={() => clearTimeout(referenceTimer.current)}
+            onPointerLeave={() => hoverReference(null)}
+          >
+            <ReferenceHintBody reference={referenceHint.reference} media={referenceHint.resolved?.media} />
+          </TooltipContent>
+        )}
+      </Tooltip>
       {prompts && prompts.length > 0 && !filled && !streaming && (
         <div role="group" aria-label="Suggested prompts" className="sprout-chat-input-prompts">
           {prompts.map(prompt => (

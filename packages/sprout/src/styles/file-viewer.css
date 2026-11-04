@@ -343,6 +343,29 @@
     border-radius: calc(var(--sprout-radius-panel) - 4px);
     object-fit: contain;
   }
+  .sprout-file-preview-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: var(--sprout-text-xs);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+  }
+  .sprout-file-preview-table :is(th, td) {
+    overflow: hidden;
+    padding: 4px 6px;
+    border-bottom: 1px solid var(--sprout-border);
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sprout-file-preview-table th {
+    color: var(--sprout-muted);
+    font-weight: 500;
+  }
+  .sprout-file-preview-table tr:last-child td {
+    border-bottom: 0;
+  }
   .sprout-file-preview-state {
     display: flex;
     align-items: center;

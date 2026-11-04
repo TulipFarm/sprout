@@ -120,6 +120,37 @@ function Growing() {
   );
 }
 
+function Replacing() {
+  const [done, setDone] = useState(false);
+  const turns = script().slice(0, done ? 9 : 8);
+  return (
+    <MessageScrollerProvider>
+      <button type="button" onClick={() => setDone(true)}>
+        Finish reply
+      </button>
+      <div style={{ position: 'relative', height: 384, overflow: 'hidden' }}>
+        <MessageScroller>
+          <MessageScrollerViewport aria-label="Conversation history">
+            <MessageScrollerContent>
+              {turns.map((turn, index) => (
+                <MessageScrollerItem key={turn.id} messageId={turn.id} scrollAnchor={index === turns.length - 1}>
+                  <Bubble index={index} text={turn.text} />
+                </MessageScrollerItem>
+              ))}
+              {done ? null : (
+                <>
+                  <MessageScrollerItem key="thinking">Thinking…</MessageScrollerItem>
+                  <MessageScrollerItem key="steps">Reading the export</MessageScrollerItem>
+                </>
+              )}
+            </MessageScrollerContent>
+          </MessageScrollerViewport>
+        </MessageScroller>
+      </div>
+    </MessageScrollerProvider>
+  );
+}
+
 const viewport = () => document.querySelector<HTMLElement>('[data-slot="message-scroller-viewport"]')!;
 const button = (direction: 'end' | 'start' = 'end') =>
   document.querySelector<HTMLElement>(`[data-slot="message-scroller-button"][data-direction="${direction}"]`)!;
@@ -196,6 +227,14 @@ describe('MessageScroller in a real browser', () => {
     await expect.poll(() => offsetIn('m9')).toBe(64);
     await page.getByRole('button', { name: 'Add message' }).click();
     await expect.poll(() => offsetIn('m10')).toBe(64);
+  });
+
+  it('pins a new message even when more trailing status items leave than messages arrive', async () => {
+    await emulate({ reducedMotion: true });
+    await render(<Replacing />);
+    await ready();
+    await page.getByRole('button', { name: 'Finish reply' }).click();
+    await expect.poll(() => offsetIn('m9')).toBe(64);
   });
 
   it('the jump button appears when scrolled up and returns by pointer and keyboard', async () => {

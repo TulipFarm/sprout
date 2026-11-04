@@ -98,14 +98,14 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **908.8 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
 
 | Component           |       Raw |     Gzip |   Brotli |
 | ------------------- | --------: | -------: | -------: |
-| `a2ui`              | 1334.8 kB | 407.1 kB | 335.7 kB |
+| `a2ui`              | 1334.7 kB | 407.0 kB | 335.6 kB |
 | `a2ui/catalog`      |   19.6 kB |   7.3 kB |   6.5 kB |
 | `accordion`         |   64.2 kB |  22.0 kB |  19.4 kB |
 | `agent-fanout`      |  257.0 kB |  90.5 kB |  77.1 kB |
@@ -113,7 +113,7 @@ Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `alert`             |   35.2 kB |  11.5 kB |  10.1 kB |
 | `alert-dialog`      |  168.9 kB |  56.9 kB |  49.8 kB |
 | `aspect-ratio`      |   30.3 kB |   9.7 kB |   8.5 kB |
-| `attachment`        |  351.9 kB | 117.2 kB |  97.8 kB |
+| `attachment`        |  352.9 kB | 117.6 kB |  98.2 kB |
 | `avatar`            |   44.0 kB |  14.6 kB |  12.9 kB |
 | `badge`             |   35.0 kB |  11.5 kB |  10.0 kB |
 | `board`             |  452.4 kB | 149.3 kB | 125.6 kB |
@@ -130,11 +130,11 @@ Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |   76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |   42.4 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      |  206.0 kB |  70.8 kB |  60.3 kB |
-| `chat-input`        |  968.9 kB | 319.4 kB | 264.2 kB |
+| `chat-input`        |  985.7 kB | 327.1 kB | 269.0 kB |
 | `chat-window`       |  286.8 kB |  95.3 kB |  80.1 kB |
 | `checkbox`          |   60.0 kB |  21.0 kB |  18.6 kB |
 | `choice-list`       |   43.0 kB |  14.5 kB |  12.7 kB |
-| `code-block`        |   74.4 kB |  26.0 kB |  22.3 kB |
+| `code-block`        |   74.3 kB |  25.9 kB |  22.3 kB |
 | `collapsible`       |   55.5 kB |  18.7 kB |  16.5 kB |
 | `combobox`          |  268.4 kB |  90.9 kB |  77.5 kB |
 | `command`           |  181.7 kB |  61.4 kB |  53.4 kB |
@@ -144,7 +144,7 @@ Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `dropdown-menu`     |  239.6 kB |  80.0 kB |  69.1 kB |
 | `field`             |   98.0 kB |  34.1 kB |  29.6 kB |
 | `file-explorer`     |  175.6 kB |  60.8 kB |  51.5 kB |
-| `file-viewer`       |  320.6 kB | 108.1 kB |  90.5 kB |
+| `file-viewer`       |  321.6 kB | 108.5 kB |  91.0 kB |
 | `form`              |  109.5 kB |  37.2 kB |  32.1 kB |
 | `glass-banner`      |   33.0 kB |  10.7 kB |   9.4 kB |
 | `gradient-banner`   |   32.2 kB |  10.3 kB |   9.1 kB |
@@ -158,9 +158,10 @@ Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `mention-list`      |   52.6 kB |  17.3 kB |  15.2 kB |
 | `menubar`           |  244.9 kB |  82.2 kB |  70.8 kB |
 | `message`           |   36.2 kB |  11.7 kB |  10.4 kB |
-| `message-actions`   |   71.2 kB |  24.9 kB |  20.8 kB |
-| `message-response`  |  232.6 kB |  74.2 kB |  64.2 kB |
-| `message-scroller`  |   68.8 kB |  22.0 kB |  19.5 kB |
+| `message-actions`   |  209.9 kB |  73.3 kB |  61.8 kB |
+| `message-response`  |  232.5 kB |  74.2 kB |  64.2 kB |
+| `message-rich-text` |  364.3 kB | 122.4 kB | 101.8 kB |
+| `message-scroller`  |   68.9 kB |  22.1 kB |  19.6 kB |
 | `metric`            |   31.2 kB |   9.9 kB |   8.8 kB |
 | `model-selector`    |  271.8 kB |  96.6 kB |  82.5 kB |
 | `navigation-menu`   |  182.4 kB |  62.9 kB |  54.7 kB |
@@ -181,7 +182,7 @@ Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `result-card`       |  240.1 kB |  84.8 kB |  72.3 kB |
 | `result-notice`     |   34.4 kB |  11.3 kB |   9.9 kB |
 | `review-card`       |   61.7 kB |  21.0 kB |  18.4 kB |
-| `rich-text-editor`  |  464.5 kB | 147.6 kB | 126.1 kB |
+| `rich-text-editor`  |  468.7 kB | 149.0 kB | 127.4 kB |
 | `schema-diagram`    |  247.7 kB |  82.9 kB |  71.1 kB |
 | `sql-viewer`        |  265.4 kB |  89.2 kB |  76.4 kB |
 | `scroll-area`       |   57.4 kB |  19.7 kB |  17.4 kB |
@@ -196,7 +197,7 @@ Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minif
 | `skeleton`          |   35.2 kB |  11.6 kB |  10.1 kB |
 | `slider`            |   83.6 kB |  29.5 kB |  25.9 kB |
 | `spinner`           |   36.6 kB |  11.6 kB |  10.1 kB |
-| `state-panel`       |  552.5 kB | 181.5 kB | 148.9 kB |
+| `state-panel`       |  553.6 kB | 181.8 kB | 149.3 kB |
 | `state-sample`      |   33.5 kB |  10.5 kB |   9.2 kB |
 | `status`            |   34.2 kB |  11.2 kB |   9.8 kB |
 | `switch`            |   50.3 kB |  17.3 kB |  15.3 kB |
@@ -220,15 +221,15 @@ Full library: **902.4 kB** gzip. Each component path is smaller. Sizes are minif
 
 CI compares sizes on each pull request. Run `pnpm size` to see them locally.
 
-| Group                   | Components                                                                                                                                                                                                                                                     |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Actions**             | Button · Button Group · Toggle · Toggle Group · Toolbar Status · Kbd                                                                                                                                                                                           |
-| **Forms**               | Field · Form · Label · Input · Input Group · Input OTP · Textarea · Checkbox · Radio Group · Switch · Slider · Select · Combobox · Choice List · Calendar · Search Field · Rich Text Editor · Mention List · Questionnaire · Selection Slot · Reasoning Effort |
-| **Overlays**            | Dialog · Alert Dialog · Sheet · Popover · Hover Card · Tooltip · Dropdown Menu · Context Menu · Menubar · Command · Search Dialog · Toast                                                                                                                      |
-| **Layout & navigation** | Sidebar · Navigation Menu · Breadcrumb · Pagination · Tabs · View Switcher · Accordion · Collapsible · Page Header · Page Content · Settings List · Card · Carousel · Resizable · Scroll Area · Separator · Aspect Ratio · Direction · Canvas                  |
-| **Feedback**            | Alert · Notice Banner · Badge · Progress · Spinner · Skeleton · State Panel · State Sample · Status · Task Tree                                                                                                                                                |
-| **Data display**        | Table · Chart · Metric · Code Block · File Viewer · Schema Diagram · Avatar · Agent Avatar · Brand Icon · Attachment · Typed Text · Gradient Banner · Glass Banner                                                                                             |
-| **Agents & chat**       | A2UI Surface · Message · Message Actions · Message Response · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Knowledge Base · Model Selector · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity · Web Source          |
+| Group                   | Components                                                                                                                                                                                                                                                                |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Actions**             | Button · Button Group · Toggle · Toggle Group · Toolbar Status · Kbd                                                                                                                                                                                                      |
+| **Forms**               | Field · Form · Label · Input · Input Group · Input OTP · Textarea · Checkbox · Radio Group · Switch · Slider · Select · Combobox · Choice List · Calendar · Search Field · Rich Text Editor · Mention List · Questionnaire · Selection Slot · Reasoning Effort            |
+| **Overlays**            | Dialog · Alert Dialog · Sheet · Popover · Hover Card · Tooltip · Dropdown Menu · Context Menu · Menubar · Command · Search Dialog · Toast                                                                                                                                 |
+| **Layout & navigation** | Sidebar · Navigation Menu · Breadcrumb · Pagination · Tabs · View Switcher · Accordion · Collapsible · Page Header · Page Content · Settings List · Card · Carousel · Resizable · Scroll Area · Separator · Aspect Ratio · Direction · Canvas                             |
+| **Feedback**            | Alert · Notice Banner · Badge · Progress · Spinner · Skeleton · State Panel · State Sample · Status · Task Tree                                                                                                                                                           |
+| **Data display**        | Table · Chart · Metric · Code Block · File Viewer · Schema Diagram · Avatar · Agent Avatar · Brand Icon · Attachment · Typed Text · Gradient Banner · Glass Banner                                                                                                        |
+| **Agents & chat**       | A2UI Surface · Message · Message Actions · Message Response · Message Rich Text · Message Scroller · Chat Confirmation · Chat Plan · Chat Sources · Knowledge Base · Model Selector · Plan Outline · Prompt List · Result Card · Review Card · Tool Activity · Web Source |
 
 ## Theming
 

@@ -195,6 +195,22 @@ describe('Attachment in a real browser', () => {
     expect(calls).toEqual(['open', 'remove', 'retry']);
   });
 
+  it('a chip opens from anywhere on it, padding included, while remove stays its own target', async () => {
+    const calls: string[] = [];
+    const screen = await render(
+      <FileAttachment
+        variant="chip"
+        file={file('garden-notes.txt')}
+        onOpen={() => calls.push('open')}
+        onRemove={() => calls.push('remove')}
+      />,
+    );
+    const chip = page.elementLocator(screen.container.querySelector('[data-variant="chip"]')!);
+    await chip.click({ position: { x: 3, y: 3 } });
+    await page.getByRole('button', { name: 'Remove garden-notes.txt' }).click();
+    expect(calls).toEqual(['open', 'remove']);
+  });
+
   it('the carousel scrolls with arrows and keys and reveals focused chips', async () => {
     await emulate({ reducedMotion: true });
     await page.viewport(390, 700);

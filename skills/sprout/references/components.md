@@ -1650,6 +1650,7 @@ import { ChatInput } from '@tulipfarm/sprout/chat-input';
 - `description` on actions and modes shows as a second line in the menu.
 - `prompts` show only while the message is empty.
 - `integrations` turns app names into chips with brand icons (the editor's `keywords`). Mark unconnected apps `connected: false` and pass `onConnectIntegration`. Set `accounts` and `account` per app and pass `onIntegrationAccountChange(integration, accountId)` to show and switch the account from the chip's tooltip (return a promise for a pending spinner). Use `findKeywords(value, integrations)` on send to know which apps the message uses.
+- A suggestion's `media` is its chip icon and `description` its hover hint. Give `#` files a `file` (a `ViewableFile`) so the chip previews and opens in the File Viewer. `resolveReference` looks up tags in a restored draft. Show sent messages with Message Rich Text.
 - On touch screens, bar buttons grow to 44px tap targets. The send fill stays at 28px. Do not override these sizes.
 
 ### Chat Plan
@@ -2031,8 +2032,11 @@ import { MessageActions } from '@tulipfarm/sprout/message-actions';
   feedback={m.feedback}
   onFeedback={v => rate(m.id, v)}
   onRetry={() => regenerate(m.id)}
+  stats={{ model: m.model, firstTokenMs: 640, durationMs: 4200, inputTokens: 3812, outputTokens: 214, traceId }}
 />;
 ```
+
+The time sits at the end of the row; hovering or focusing it shows the full date and any `stats`.
 
 ### Message Response
 
@@ -2041,6 +2045,22 @@ import { MessageResponse } from '@tulipfarm/sprout/message-response';
 
 <MessageResponse streaming={m.status === 'streaming'}>{m.text}</MessageResponse>;
 ```
+
+### Message Rich Text
+
+```tsx
+import { MessageRichText } from '@tulipfarm/sprout/message-rich-text';
+import { keywordAccounts } from '@tulipfarm/sprout/rich-text-editor';
+
+// On send: store the accounts each app used.
+const accounts = keywordAccounts(value, integrations);
+
+<MessageBubble variant="secondary">
+  <MessageRichText value={m.value} keywords={integrations} accounts={m.accounts} resolveReference={lookup} />
+</MessageBubble>;
+```
+
+Renders the Chat Input value with the composer's chips. `resolveReference` returns a suggestion; its `file` makes a `#` chip preview on hover and open in the File Viewer.
 
 ### Message Scroller
 

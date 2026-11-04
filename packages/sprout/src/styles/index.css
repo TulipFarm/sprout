@@ -50,6 +50,7 @@
 @import './message.css';
 @import './message-actions.css';
 @import './message-response.css';
+@import './message-rich-text.css';
 @import './message-scroller.css';
 @import './metric.css';
 @import './model-selector.css';

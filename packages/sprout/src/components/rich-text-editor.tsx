@@ -23,6 +23,16 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { Check } from 'reicon-react/icons/Check';
 import { LinkOff } from 'reicon-react/icons/LinkOff';
 import { cn } from '../internal/classes.js';
+import { KeywordHintBody } from '../internal/keyword-hint.js';
+import {
+  accountLabel,
+  hasHint,
+  keywordPattern,
+  objectReplacement,
+  scanText,
+  type KeywordHit,
+  type KeywordPattern,
+} from '../internal/keywords.js';
 import { Spinner } from './spinner.js';
 
 export const richTextEditorSizeNames = ['md', 'sm'] as const;
@@ -239,8 +249,6 @@ function within(state: EditorState, name: string) {
   return false;
 }
 
-type KeywordHit = { keyword: RichTextKeyword; from: number; to: number };
-type KeywordPattern = { regex: RegExp; terms: Map<string, RichTextKeyword> };
 type KeywordSource = {
   pattern: KeywordPattern | null;
   signature: string;
@@ -250,35 +258,8 @@ type KeywordSource = {
 };
 type KeywordState = { hits: KeywordHit[]; decorations: DecorationSet };
 
-const objectReplacement = '\ufffc';
 const statusTemplate = 'sprout-status';
 const keywordKey = new PluginKey<KeywordState>('richTextKeywords');
-
-const normalizeTerm = (term: string) => term.trim().toLowerCase().replace(/\s+/g, ' ');
-
-function keywordPattern(keywords: readonly RichTextKeyword[]): KeywordPattern | null {
-  const terms = new Map<string, RichTextKeyword>();
-  for (const keyword of keywords)
-    for (const term of keyword.match?.length ? keyword.match : [keyword.label]) {
-      const key = normalizeTerm(term);
-      if (key && !terms.has(key)) terms.set(key, keyword);
-    }
-  if (!terms.size) return null;
-  const alternatives = [...terms.keys()]
-    .sort((a, b) => b.length - a.length)
-    .map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+'));
-  return {
-    regex: new RegExp(`(?<![\\p{L}\\p{N}_])(?:${alternatives.join('|')})(?![\\p{L}\\p{N}_])`, 'giu'),
-    terms,
-  };
-}
-
-function scanText(text: string, pattern: KeywordPattern, offset: number, hits: KeywordHit[]) {
-  for (const match of text.matchAll(pattern.regex)) {
-    const keyword = pattern.terms.get(normalizeTerm(match[0]));
-    if (keyword) hits.push({ keyword, from: offset + match.index, to: offset + match.index + match[0].length });
-  }
-}
 
 // Code, inline nodes, and line breaks become one placeholder character each, so positions still line up and words don't join across them.
 function docKeywords(doc: ProseMirrorNode, pattern: KeywordPattern | null) {
@@ -319,6 +300,18 @@ export function findKeywords(value: RichTextValue, keywords: readonly RichTextKe
   };
   visit(value);
   return [...new Set(hits.map(hit => hit.keyword))];
+}
+
+/**
+ * The account each mentioned keyword uses, by keyword id. Save it with a sent message and pass it to
+ * `MessageRichText` as `accounts`, so the message keeps naming the account it was sent with.
+ */
+export function keywordAccounts(value: RichTextValue, keywords: readonly RichTextKeyword[]): Record<string, string> {
+  return Object.fromEntries(
+    findKeywords(value, keywords)
+      .filter(keyword => keyword.connected !== false && keyword.account)
+      .map(keyword => [keyword.id, keyword.account!]),
+  );
 }
 
 function keywordWidget(kind: 'icon' | 'status', keyword: RichTextKeyword, glyph: Element | null) {
@@ -401,11 +394,6 @@ function keywordExtension(source: KeywordSource) {
 }
 
 type KeywordHint = { keyword: RichTextKeyword; left: number; top: number; bottom: number; below: boolean };
-
-const accountLabel = (keyword: RichTextKeyword) =>
-  keyword.accounts?.find(account => account.id === keyword.account)?.label ?? keyword.account;
-
-const hasHint = (keyword: RichTextKeyword) => keyword.connected === false || !!keyword.account;
 
 const noKeywords: readonly RichTextKeyword[] = [];
 
@@ -872,22 +860,7 @@ export function RichTextEditor({
             editor?.commands.focus();
           }}
         >
-          {hint.keyword.connected === false ? (
-            <>
-              <LinkOff size={14} aria-hidden="true" />
-              <span>{hint.keyword.label} isn't connected</span>
-            </>
-          ) : (
-            <>
-              {hint.keyword.icon != null && (
-                <span className="sprout-rich-text-keyword-hint-icon" aria-hidden="true">
-                  {hint.keyword.icon}
-                </span>
-              )}
-              <span className="sprout-rich-text-keyword-hint-label">{hint.keyword.label}</span>
-              <span className="sprout-rich-text-keyword-hint-account">{accountLabel(hint.keyword)}</span>
-            </>
-          )}
+          <KeywordHintBody keyword={hint.keyword} />
           {canSwitch(hint.keyword) && (
             <>
               <button

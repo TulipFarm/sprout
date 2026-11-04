@@ -242,13 +242,14 @@ Import path is `@tulipfarm/sprout/<slug>`.
 
 ### Agent patterns
 
-| Component        | Slug               | Use when                                                   |
-| ---------------- | ------------------ | ---------------------------------------------------------- |
-| A2UI Surface     | `a2ui`             | Draw an agent's A2UI layout from approved components.      |
-| Canvas           | `canvas`           | Resizable side panel next to chat showing results in tabs. |
-| Mention List     | `mention-list`     | `@` and `/` suggestion panel driven by a message box.      |
-| Message          | `message`          | One chat message: avatar, bubbles, name line, status line. |
-| Message Actions  | `message-actions`  | Copy, rate, regenerate, and version steps under a message. |
-| Message Response | `message-response` | Render an assistant's Markdown reply safely.               |
-| Message Scroller | `message-scroller` | Chat history column that follows new replies.              |
-| Review Card      | `review-card`      | Ask someone to review a draft or change before it runs.    |
+| Component         | Slug                | Use when                                                       |
+| ----------------- | ------------------- | -------------------------------------------------------------- |
+| A2UI Surface      | `a2ui`              | Draw an agent's A2UI layout from approved components.          |
+| Canvas            | `canvas`            | Resizable side panel next to chat showing results in tabs.     |
+| Mention List      | `mention-list`      | `@` and `/` suggestion panel driven by a message box.          |
+| Message           | `message`           | One chat message: avatar, bubbles, name line, status line.     |
+| Message Actions   | `message-actions`   | Copy, rate, regenerate, and version steps under a message.     |
+| Message Rich Text | `message-rich-text` | A sent message with the composer's app, agent, and file chips. |
+| Message Response  | `message-response`  | Render an assistant's Markdown reply safely.                   |
+| Message Scroller  | `message-scroller`  | Chat history column that follows new replies.                  |
+| Review Card       | `review-card`       | Ask someone to review a draft or change before it runs.        |

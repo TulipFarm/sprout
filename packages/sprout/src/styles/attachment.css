@@ -435,7 +435,7 @@
     gap: 8px;
     padding: 0;
   }
-  .sprout-file-attachment-peek {
+  .sprout-hover-card-content.sprout-file-attachment-peek {
     width: 22rem;
     padding: 4px;
   }
@@ -449,11 +449,23 @@
       background: color-mix(in oklab, var(--sprout-hover) 50%, var(--sprout-surface));
     }
   }
-  /* The chip's open button fills the 36px chip instead of its 20px label line. */
-  @media (pointer: coarse) {
-    .sprout-file-attachment[data-variant='chip'] .sprout-file-attachment-open {
-      align-self: stretch;
-    }
+  /* The open button's hit area covers the whole chip, padding included; retry and remove stay above it. */
+  .sprout-file-attachment[data-variant='chip'] button.sprout-file-attachment-open::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .sprout-file-attachment[data-variant='chip'] > :not(.sprout-file-attachment-open) {
+    position: relative;
+    z-index: 1;
+  }
+  .sprout-file-attachment[data-variant='chip'] .sprout-file-attachment-open:focus-visible {
+    outline: none;
+  }
+  .sprout-file-attachment[data-variant='chip']:has(> .sprout-file-attachment-open:focus-visible) {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
   }
 
   .sprout-file-attachment-name {

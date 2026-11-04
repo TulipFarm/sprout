@@ -193,4 +193,29 @@ describe('FileViewer in the DOM', () => {
     rerender(<FilePreview file={remote('r.md', 'https://x.test/r')} />);
     await screen.findByText('Preview unavailable');
   });
+
+  it('previews the first rows of a CSV or TSV as a table, keeping quoted cells whole', async () => {
+    const csv = [
+      'Region,Note',
+      'North,"Up 8%, steady"',
+      'South,"Said ""hold"""',
+      '',
+      ...Array.from({ length: 12 }, (_, i) => `R${i},n`),
+    ];
+    const { container, rerender } = render(<FilePreview file={local('q3.csv', csv.join('\r\n'), 'text/csv')} />);
+    const table = await waitFor(() => {
+      const found = container.querySelector('table.sprout-file-preview-table');
+      expect(found).not.toBeNull();
+      return found!;
+    });
+    const rows = [...table.querySelectorAll('tr')].map(row => [...row.cells].map(cell => cell.textContent));
+    expect(rows[0]).toEqual(['Region', 'Note']);
+    expect(rows[1]).toEqual(['North', 'Up 8%, steady']);
+    expect(rows[2]).toEqual(['South', 'Said "hold"']);
+    expect(rows).toHaveLength(8);
+    expect(table.querySelectorAll('thead th')).toHaveLength(2);
+
+    rerender(<FilePreview file={local('log.tsv', 'Day\tKg\nMon\t14', '')} />);
+    await waitFor(() => expect(container.querySelector('td')?.textContent).toBe('Mon'));
+  });
 });
