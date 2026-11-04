@@ -248,6 +248,8 @@
   }
 
   .sprout-model-selector-item {
+    /* Holds the hidden meter labels, so rows scrolled out of the list can't grow the page. */
+    position: relative;
     box-sizing: border-box;
     min-height: 2.75rem;
     padding: 4px 8px;
