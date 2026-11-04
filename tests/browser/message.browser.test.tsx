@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Button } from '../../packages/sprout/src/components/button.js';
+import { ChatInput } from '../../packages/sprout/src/components/chat-input.js';
+import { MessageResponse } from '../../packages/sprout/src/components/message-response.js';
 import {
   Message,
   MessageAvatar,
@@ -180,7 +182,7 @@ describe('Message in a real browser', () => {
     );
     const bubble = css(screen.getByTestId('bubble').element());
     expect(bubble.padding).toBe('8px 12px');
-    expect(bubble.fontSize).toBe('14px');
+    expect(bubble.fontSize).toBe('16px');
     expect(bubble.borderTopLeftRadius).toBe('12px');
     const width = box(screen.getByTestId('content').element()).width;
     const node = screen.getByTestId('long').element();
@@ -189,6 +191,30 @@ describe('Message in a real browser', () => {
     const name = screen.getByTestId('name').element();
     expect(name.scrollWidth).toBeGreaterThan(name.clientWidth);
     expect(box(name).right).toBeLessThanOrEqual(box(node).left + width + 1);
+  });
+
+  it('gives sent messages, replies and the composer the same type in every theme', async () => {
+    const screen = await render(
+      <div style={{ width: 640 }}>
+        <MessageBubble data-testid="sent">Which orders are missing?</MessageBubble>
+        <MessageResponse>Three orders are missing.</MessageResponse>
+        <ChatInput
+          value={{ type: 'doc', content: [{ type: 'paragraph' }] }}
+          onValueChange={() => {}}
+          onSend={() => {}}
+        />
+      </div>,
+    );
+    await settle();
+    for (const [theme, mode] of themes) {
+      setTheme(theme, mode);
+      const type = [
+        screen.getByTestId('sent').element(),
+        screen.container.querySelector('.sprout-message-response')!,
+        screen.container.querySelector('.sprout-rich-text-editor-content')!,
+      ].map(node => `${css(node).fontSize}/${css(node).lineHeight}`);
+      expect(new Set(type).size, `${theme} ${mode}: ${type.join(', ')}`).toBe(1);
+    }
   });
 
   it('a ghost bubble drops the meta inset, a ghost button does not', async () => {
