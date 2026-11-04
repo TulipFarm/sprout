@@ -141,6 +141,7 @@ export class MessageScrollerController {
   private mode: Mode;
   private itemCount = 0;
   private firstItem: HTMLElement | null = null;
+  private knownItems = new WeakSet<HTMLElement>();
   private lastScrollTop = 0;
   private autoscrolling = false;
   private autoscrollTimer: number | null = null;
@@ -290,7 +291,9 @@ export class MessageScrollerController {
     const previousFirst = this.firstItem;
     this.itemCount = items.length;
     this.firstItem = items[0] ?? null;
-    this.applyContentChange(items, previousCount, previousFirst);
+    const added = items.filter(item => !this.knownItems.has(item));
+    for (const item of added) this.knownItems.add(item);
+    this.applyContentChange(items, added, previousCount, previousFirst);
     this.captureFirstVisible();
   };
 
@@ -363,7 +366,12 @@ export class MessageScrollerController {
     this.pendingDefaultStore.setSnapshot(false);
   }
 
-  private applyContentChange(items: HTMLElement[], previousCount: number, previousFirst: HTMLElement | null) {
+  private applyContentChange(
+    items: HTMLElement[],
+    added: HTMLElement[],
+    previousCount: number,
+    previousFirst: HTMLElement | null,
+  ) {
     if (this.flushPendingMessage()) return;
     if (previousCount === 0) {
       if (this.applyDefault() || (items.length > 0 && this.options.autoScroll && this.scrollToEnd())) return;
@@ -376,22 +384,19 @@ export class MessageScrollerController {
       this.restorePrepend();
       return;
     }
-    if (items.length > previousCount) {
-      const anchor = items.slice(previousCount).find(item => isAnchor(item));
-      if (anchor) {
-        const following = this.options.autoScroll && this.mode === 'following-bottom';
-        if (following && items.slice(previousCount).filter(item => isAnchor(item)).length > 1) {
-          this.scrollToEnd();
-          return;
-        }
-        this.pinAnchor(anchor);
-        return;
-      }
+    // Diff by identity, not count: trailing non-message content can leave as messages arrive.
+    const addedAnchors = added.filter(item => isAnchor(item));
+    const [anchor] = addedAnchors;
+    if (anchor) {
+      const following = this.options.autoScroll && this.mode === 'following-bottom';
+      if (following && addedAnchors.length > 1) this.scrollToEnd();
+      else this.pinAnchor(anchor);
+      return;
     }
     if (items.length === previousCount) {
-      const anchor = items.find(item => isAnchor(item) && !this.handledAnchors.has(item));
-      if (anchor) {
-        this.pinAnchor(anchor);
+      const unhandled = items.find(item => isAnchor(item) && !this.handledAnchors.has(item));
+      if (unhandled) {
+        this.pinAnchor(unhandled);
         return;
       }
     }
