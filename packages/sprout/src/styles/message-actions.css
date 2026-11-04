@@ -32,6 +32,10 @@
       opacity: 1;
     }
   }
+  /* A hover row sits close under its message, so the space it keeps while hidden stays small. */
+  .sprout-message-content > .sprout-message-actions[data-hover] {
+    margin-top: calc(4px - var(--sprout-message-content-gap));
+  }
   @media (prefers-reduced-motion: reduce) {
     .sprout-message-actions-row[data-hover] {
       transition: none;

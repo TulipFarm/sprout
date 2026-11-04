@@ -7,7 +7,7 @@ import {
   MessageBranch,
   type MessageFeedback,
 } from '../../packages/sprout/src/components/message-actions.js';
-import { Message, MessageContent, MessageGroup } from '../../packages/sprout/src/components/message.js';
+import { Message, MessageBubble, MessageContent, MessageGroup } from '../../packages/sprout/src/components/message.js';
 import { axeViolations, emulate, setTheme, settle, themes } from './support.js';
 
 const reply =
@@ -200,6 +200,32 @@ describe('MessageActions in a real browser', () => {
     await expect.element(screen.getByRole('link')).toHaveFocus();
     await expect.poll(() => opacity('Response actions')).toBe('1');
     await expect.poll(() => opacity('Message actions')).toBe('0');
+  });
+
+  it('a hover row sits 4px under its bubble, while a shown row keeps the message gap', async () => {
+    await render(
+      <MessageGroup style={{ padding: 16, maxWidth: 480 }}>
+        <Message align="end" data-testid="hover">
+          <MessageContent>
+            <MessageBubble>{question}</MessageBubble>
+            <MessageActions text={question} author="human" hover />
+          </MessageContent>
+        </Message>
+        <Message data-testid="shown">
+          <MessageContent>
+            <MessageBubble>{reply}</MessageBubble>
+            <MessageActions text={reply} />
+          </MessageContent>
+        </Message>
+      </MessageGroup>,
+    );
+    const gap = (id: string) => {
+      const message = page.getByTestId(id).element();
+      const bubble = message.querySelector('[data-slot="message-bubble"]')!.getBoundingClientRect();
+      return Math.round(message.querySelector('[role="group"]')!.getBoundingClientRect().top - bubble.bottom);
+    };
+    expect(gap('hover')).toBe(4);
+    expect(gap('shown')).toBe(10);
   });
 
   it('fades hover rows, and reduced motion turns the fade off', async () => {

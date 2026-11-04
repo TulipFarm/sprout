@@ -196,7 +196,12 @@ export function MessageActions({
   }, [copy]);
   const rate = (value: MessageFeedback) => onFeedback?.(feedback === value ? null : value);
   return (
-    <div data-slot="message-actions" data-author={author} className={cn('sprout-message-actions', className)}>
+    <div
+      data-slot="message-actions"
+      data-author={author}
+      data-hover={hover ? '' : undefined}
+      className={cn('sprout-message-actions', className)}
+    >
       <div
         role="group"
         aria-label={`${Noun} actions`}
