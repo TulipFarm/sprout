@@ -65,7 +65,7 @@ describe('MessageActions in the DOM', () => {
     render(<MessageActions text="hi" feedback="up" onFeedback={onFeedback} onRetry={onRetry} />);
     fireEvent.click(screen.getByRole('button', { name: 'Helpful response' }));
     fireEvent.click(screen.getByRole('button', { name: 'Unhelpful response' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Regenerate' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Regenerate response' }));
     expect(onFeedback.mock.calls).toEqual([[null], ['down']]);
     expect(onRetry).toHaveBeenCalled();
   });

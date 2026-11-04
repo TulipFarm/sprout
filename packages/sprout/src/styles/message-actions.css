@@ -38,13 +38,78 @@
     }
   }
 
+  .sprout-message-actions-row {
+    gap: 2px;
+  }
+  .sprout-message-actions-row > .sprout-button {
+    color: var(--sprout-muted);
+  }
+  .sprout-message-actions-row > .sprout-button:hover,
+  .sprout-message-actions-row > .sprout-button[aria-pressed='true'] {
+    color: var(--sprout-text);
+  }
+  .sprout-message-actions-row > .sprout-button[aria-pressed='true'] {
+    background: color-mix(in oklab, var(--sprout-text) 8%, transparent);
+  }
+
   .sprout-message-actions-time {
-    padding-inline: 4px;
+    margin-inline-start: 4px;
+    padding: 2px 4px;
+    border-radius: 6px;
     color: var(--sprout-muted);
     font-size: var(--sprout-text-xs);
     line-height: 1rem;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+    cursor: default;
+  }
+  .sprout-message-actions-time:hover,
+  .sprout-message-actions-time[data-popup-open] {
+    color: var(--sprout-text);
+  }
+  .sprout-message-actions-time:focus-visible {
+    outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);
+    outline-offset: 0;
+  }
+
+  .sprout-hover-card-content.sprout-message-actions-stats {
+    width: auto;
+    min-width: 14rem;
+    max-width: min(22rem, var(--available-width));
+    padding: 10px 12px;
+    font-size: var(--sprout-text-xs);
+    line-height: 1rem;
+  }
+  .sprout-message-actions-stats-date {
+    margin: 0;
+    color: var(--sprout-text);
+    font-weight: 500;
+  }
+  .sprout-message-actions-stats dl {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 4px 16px;
+    margin: 8px 0 0;
+    padding-top: 8px;
+    border-top: 1px solid var(--sprout-line);
+  }
+  .sprout-message-actions-stats dl > div {
+    display: contents;
+  }
+  .sprout-message-actions-stats dt {
+    color: var(--sprout-muted);
+  }
+  .sprout-message-actions-stats dd {
+    margin: 0;
+    color: var(--sprout-text);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    overflow-wrap: anywhere;
+  }
+  .sprout-message-actions-trace {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: inherit;
+    user-select: all;
   }
 
   .sprout-message-actions-error {

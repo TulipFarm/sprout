@@ -25,7 +25,6 @@ describe('MessageActions', () => {
     expect(html).toContain('data-author="assistant"');
     expect(html).toContain('role="group" aria-label="Response actions"');
     expect(html).toContain('aria-label="Copy response"');
-    expect(html).toContain('title="Copy response"');
     expect(html).toContain('data-variant="ghost" data-size="icon-sm"');
     expect(html).not.toContain('<time');
     expect(html).not.toContain('Helpful');
@@ -44,7 +43,8 @@ describe('MessageActions', () => {
     expect(html).toContain('aria-label="Copy message"');
     expect(html).toContain('data-hover=""');
     expect(html).toContain(`dateTime="${createdAt}"`);
-    expect(html).toMatch(/<time class="sprout-message-actions-time"[^>]*title="[^"]+"[^>]*>[^<]*41/);
+    expect(html).toMatch(/<time[^>]*class="[^"]*sprout-message-actions-time[^"]*"[^>]*>[^<]*41/);
+    expect(html).toMatch(/aria-label="Copy message"[\s\S]*<time/);
   });
 
   it('shows yesterday and dated send times', () => {
@@ -57,9 +57,9 @@ describe('MessageActions', () => {
 
   it('shows feedback toggles with the given rating pressed, and Regenerate', () => {
     const html = renderToString(<MessageActions text="Reply" feedback="up" onFeedback={() => {}} onRetry={() => {}} />);
-    expect(html).toMatch(/data-variant="secondary"[^>]*aria-label="Helpful response" aria-pressed="true"/);
-    expect(html).toMatch(/data-variant="ghost"[^>]*aria-label="Unhelpful response" aria-pressed="false"/);
-    expect(html).toMatch(/data-variant="ghost" data-size="sm"[^>]*>Regenerate</);
+    expect(html).toMatch(/aria-label="Helpful response" aria-pressed="true"/);
+    expect(html).toMatch(/aria-label="Unhelpful response" aria-pressed="false"/);
+    expect(html).toMatch(/data-variant="ghost" data-size="icon-sm"[^>]*aria-label="Regenerate response"/);
   });
 
   it('disables every button', () => {

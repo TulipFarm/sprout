@@ -37,15 +37,15 @@ import CodeBlock from '../../components/CodeBlock.astro';
   feedback={message.feedback}
   onFeedback={(value) => rate(message.id, value)}
   onRetry={() => regenerate(message.id)}
+  stats={{ model: message.model, firstTokenMs: 640, durationMs: 4200, outputTokens: 214 }}
 />`}
     />
     <p>
       Only <code>text</code> is required, which shows a single Copy button. Each other prop adds one part:{' '}
-      <code>createdAt</code> the time,
-      <code>onFeedback</code> the Helpful and Unhelpful toggles, and
-      <code>onRetry</code> a Regenerate button. There are no visual variants; icon buttons are ghost{' '}
-      <code>icon-sm</code> and Regenerate is a ghost
-      <code>sm</code> button. A given rating uses the secondary fill.
+      <code>createdAt</code> the time at the end of the row,
+      <code>onFeedback</code> the Helpful and Unhelpful toggles,
+      <code>onRetry</code> a Regenerate button, and <code>stats</code> reply details on the time. There are no visual
+      variants; every action is a ghost <code>icon-sm</code> button with a tooltip, and a given rating is tinted.
     </p>
     <p>
       <code>author</code> names the controls: <code>"assistant"</code> (the default) says “response”,{' '}
@@ -89,8 +89,9 @@ import CodeBlock from '../../components/CodeBlock.astro';
   <section class="prose-section">
     <h2 class="section-title">Send time</h2>
     <p>
-      <code>createdAt</code> is an ISO time shown in the reader’s locale and time zone. Its title gives the full date
-      and time.
+      <code>createdAt</code> is an ISO time shown in the reader’s locale and time zone. Hovering or focusing it opens a
+      card with the full date and time. Pass <code>stats</code> to add the reply’s model, time to first token, total
+      time, tokens in and out, speed, and trace ID. Every field is optional and a missing one is left out.
     </p>
     <div class="mt-6">
       <MessageActionsTimes client:only="react" />
@@ -138,7 +139,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <h2 class="section-title">Accessibility</h2>
     <p>
       Actions sit in a group named “Response actions” or “Message actions”; versions in a group named “Response
-      versions”. Icon buttons have labels and titles, and the ratings are toggle buttons with
+      versions”. Icon buttons have labels and tooltips, the time is focusable and opens its card on focus, and the
+      ratings are toggle buttons with
       <code>aria-pressed</code>. A successful copy is announced through a status region and a failed one as an alert.
       The version count is a polite live region. A hover row becomes visible as soon as keyboard focus enters the
       message. It fades in over 120ms, or appears at once when reduced motion is set.

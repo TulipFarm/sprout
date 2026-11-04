@@ -105,7 +105,6 @@ describe('MessageActions in a real browser', () => {
     await expect.element(helpful).toHaveFocus();
     await userEvent.keyboard('{Enter}');
     await expect.element(helpful).toHaveAttribute('aria-pressed', 'true');
-    await expect.element(helpful).toHaveAttribute('data-variant', 'secondary');
     await userEvent.tab();
     await expect.element(unhelpful).toHaveFocus();
     await userEvent.keyboard(' ');
@@ -114,7 +113,9 @@ describe('MessageActions in a real browser', () => {
     await userEvent.keyboard(' ');
     await expect.element(unhelpful).toHaveAttribute('aria-pressed', 'false');
     await userEvent.tab();
-    await expect.element(screen.getByRole('button', { name: 'Regenerate' })).toHaveFocus();
+    await expect.element(screen.getByRole('button', { name: 'Regenerate response' })).toHaveFocus();
+    await userEvent.tab();
+    expect(document.activeElement?.tagName).toBe('TIME');
   });
 
   it('copy keeps focus on the relabelled button and shows a failure', async () => {
@@ -130,10 +131,43 @@ describe('MessageActions in a real browser', () => {
     await expect.element(screen.getByRole('button', { name: 'Response copied' })).toHaveFocus();
     await expect.element(screen.getByRole('status').first()).toHaveTextContent('Response copied to clipboard.');
     expect(written[0]).toContain('the reconciliation sheet (https://example.com/sheets/march-recon)');
+    await expect.element(screen.getByRole('button', { name: 'Copy response' }), { timeout: 3000 }).toHaveFocus();
     await screen.getByRole('button', { name: 'Copy message' }).click();
     const alert = screen.getByRole('alert');
     await expect.element(alert).toHaveTextContent("Couldn't copy. Select the message text or try again.");
     expect(getComputedStyle(alert.element()).color).toBe(colorOf('--sprout-danger'));
+  });
+
+  it('shows the full date and response stats from the send time', async () => {
+    const screen = await render(
+      <MessageActions
+        text={reply}
+        createdAt={now}
+        stats={{
+          model: 'Claude Opus',
+          firstTokenMs: 400,
+          durationMs: 72_400,
+          inputTokens: 18_432,
+          outputTokens: 360,
+          traceId: '4bf92f3577b34da6',
+        }}
+      />,
+    );
+    await userEvent.hover(screen.container.querySelector('time')!);
+    await expect.element(page.getByText('Total time')).toBeVisible();
+    const text = document.querySelector('.sprout-message-actions-stats')!.textContent;
+    expect(text).toContain(String(new Date(now).getFullYear()));
+    for (const part of ['Claude Opus', '400 ms', '1 min 12 s', '18,432 in · 360 out', '5 tokens/s', '4bf92f3577b34da6'])
+      expect(text).toContain(part);
+  });
+
+  it('opens the send time details from the keyboard, with the date alone when there are no stats', async () => {
+    const screen = await render(<MessageActions text={reply} createdAt={now} />);
+    screen.getByRole('button', { name: 'Copy response' }).element().focus();
+    await userEvent.tab();
+    expect(document.activeElement?.tagName).toBe('TIME');
+    await expect.element(page.getByText(String(new Date(now).getFullYear()), { exact: false })).toBeVisible();
+    expect(document.querySelector('.sprout-message-actions-stats dl')).toBeNull();
   });
 
   it('branch steps by keyboard and disables the ends', async () => {
