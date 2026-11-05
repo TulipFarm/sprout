@@ -1,6 +1,6 @@
 'use client';
 
-import { Panel, useNodesInitialized, useReactFlow, useStore, type FitViewOptions, type Node } from '@xyflow/react';
+import { Panel, useReactFlow, useStore, type FitViewOptions, type Node, type ReactFlowState } from '@xyflow/react';
 import { useEffect, useSyncExternalStore, type KeyboardEvent } from 'react';
 import { Add } from 'reicon-react/icons/Add';
 import { Minus } from 'reicon-react/icons/Minus';
@@ -32,6 +32,20 @@ export const motion = (ms: number) =>
   typeof window !== 'undefined' && window.matchMedia(motionQuery).matches ? 0 : ms;
 
 /**
+ * Reads measurement from React Flow's internal nodes. `useNodesInitialized`
+ * stays false for controlled nodes without `onNodesChange`, because measured
+ * sizes never reach the caller's node objects.
+ */
+function nodesMeasured(state: ReactFlowState) {
+  if (state.nodeLookup.size === 0) return false;
+  for (const node of state.nodeLookup.values()) {
+    if (node.hidden) continue;
+    if (!node.measured.width || !node.measured.height || !node.internals.handleBounds) return false;
+  }
+  return true;
+}
+
+/**
  * Refits whenever the pane resizes or the nodes change. The canvas panel
  * animates open, so the first fit sees a narrower pane than the final one.
  */
@@ -39,7 +53,7 @@ export function FitOnResize({ nodes, fit }: { nodes: readonly Node[]; fit: FitVi
   const { fitView } = useReactFlow();
   const width = useStore(state => state.width);
   const height = useStore(state => state.height);
-  const measured = useNodesInitialized();
+  const measured = useStore(nodesMeasured);
   useEffect(() => {
     if (!measured) return;
     const frame = requestAnimationFrame(() => void fitView(fit));
