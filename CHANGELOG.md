@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.15.3](https://github.com/TulipFarm/sprout/compare/v0.15.2...v0.15.3) (2026-11-05)
+
+### Bug Fixes
+
+* **schema-diagram:** refit when controlled nodes are measured ([#73](https://github.com/TulipFarm/sprout/issues/73)) ([a2ff1f0](https://github.com/TulipFarm/sprout/commit/a2ff1f0d484af1170b3bec14d13781199a48dce8))
+
 ## [0.15.2](https://github.com/TulipFarm/sprout/compare/v0.15.1...v0.15.2) (2026-11-05)
 
 ### Bug Fixes

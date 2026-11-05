@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **908.8 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **908.9 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -183,8 +183,8 @@ Full library: **908.8 kB** gzip. Each component path is smaller. Sizes are minif
 | `result-notice`     |   34.4 kB |  11.3 kB |   9.9 kB |
 | `review-card`       |   61.7 kB |  21.0 kB |  18.4 kB |
 | `rich-text-editor`  |  468.7 kB | 149.0 kB | 127.4 kB |
-| `schema-diagram`    |  247.7 kB |  82.9 kB |  71.1 kB |
-| `sql-viewer`        |  265.4 kB |  89.2 kB |  76.4 kB |
+| `schema-diagram`    |  247.9 kB |  83.0 kB |  71.1 kB |
+| `sql-viewer`        |  265.6 kB |  89.3 kB |  76.2 kB |
 | `scroll-area`       |   57.4 kB |  19.7 kB |  17.4 kB |
 | `search-dialog`     |  190.1 kB |  64.3 kB |  55.4 kB |
 | `search-field`      |  122.0 kB |  41.3 kB |  35.5 kB |
@@ -204,7 +204,7 @@ Full library: **908.8 kB** gzip. Each component path is smaller. Sizes are minif
 | `table`             |  540.6 kB | 172.6 kB | 145.4 kB |
 | `table-nuqs`        |    2.1 kB |   1.1 kB |   1.0 kB |
 | `tabs`              |   80.3 kB |  27.6 kB |  24.5 kB |
-| `task-tree`         |  247.8 kB |  82.1 kB |  70.7 kB |
+| `task-tree`         |  248.0 kB |  82.1 kB |  70.8 kB |
 | `textarea`          |   98.2 kB |  34.2 kB |  29.6 kB |
 | `toast`             |  189.4 kB |  65.1 kB |  56.6 kB |
 | `toggle`            |   46.2 kB |  15.7 kB |  13.9 kB |
