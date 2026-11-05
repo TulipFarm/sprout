@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.15.1](https://github.com/TulipFarm/sprout/compare/v0.15.0...v0.15.1) (2026-11-05)
+
+### Features
+
+* **message-rich-text:** render custom inline nodes and open stats away from the edge ([#71](https://github.com/TulipFarm/sprout/issues/71)) ([60c14bf](https://github.com/TulipFarm/sprout/commit/60c14bfad323b23e861c75f7fa6e0fc29e2d5011))
+
+### Bug Fixes
+
+* **model-selector:** stop an open list from growing the page ([#70](https://github.com/TulipFarm/sprout/issues/70)) ([a3bbf22](https://github.com/TulipFarm/sprout/commit/a3bbf22c378f59b882a5cf009ad1f98c2075b824))
+
 ## [0.15.0](https://github.com/TulipFarm/sprout/compare/v0.14.0...v0.15.0) (2026-11-04)
 
 ### Features

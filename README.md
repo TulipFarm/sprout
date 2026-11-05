@@ -160,7 +160,7 @@ Full library: **908.8 kB** gzip. Each component path is smaller. Sizes are minif
 | `message`           |   36.2 kB |  11.7 kB |  10.4 kB |
 | `message-actions`   |  210.0 kB |  73.3 kB |  61.8 kB |
 | `message-response`  |  232.5 kB |  74.2 kB |  64.2 kB |
-| `message-rich-text` |  364.3 kB | 122.4 kB | 101.8 kB |
+| `message-rich-text` |  364.4 kB | 122.4 kB | 101.9 kB |
 | `message-scroller`  |   68.9 kB |  22.1 kB |  19.6 kB |
 | `metric`            |   31.2 kB |   9.9 kB |   8.8 kB |
 | `model-selector`    |  271.8 kB |  96.6 kB |  82.5 kB |
