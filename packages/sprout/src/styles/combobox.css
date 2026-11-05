@@ -267,9 +267,12 @@
     }
   }
 
+  /* The input fills the rest of the row, but drops to a new row when the
+     text being typed no longer fits beside the chips. */
   .sprout-combobox-chips-input {
-    flex: 1 1 4rem;
-    min-width: 4rem;
+    flex: 1 1 10rem;
+    min-width: min(6rem, 100%);
+    max-width: 100%;
     height: 22px;
     margin: 0;
     padding: 0 2px;
@@ -278,6 +281,12 @@
     color: var(--sprout-text);
     font: inherit;
     outline: none;
+  }
+  @supports (field-sizing: content) {
+    .sprout-combobox-chips-input {
+      flex-basis: auto;
+      field-sizing: content;
+    }
   }
   .sprout-combobox-chips-input::placeholder {
     color: var(--sprout-muted);
