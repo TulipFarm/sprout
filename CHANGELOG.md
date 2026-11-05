@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.15.2](https://github.com/TulipFarm/sprout/compare/v0.15.1...v0.15.2) (2026-11-05)
+
+### Bug Fixes
+
+* **combobox:** wrap the chips input to a new row when typed text does not fit ([#72](https://github.com/TulipFarm/sprout/issues/72)) ([11de3b9](https://github.com/TulipFarm/sprout/commit/11de3b9f719651ea3591cdc1282a781f768072b7))
+
 ## [0.15.1](https://github.com/TulipFarm/sprout/compare/v0.15.0...v0.15.1) (2026-11-05)
 
 ### Features
