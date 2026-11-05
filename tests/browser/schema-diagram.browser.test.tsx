@@ -130,6 +130,19 @@ describe('SchemaDiagram in a real browser', () => {
         expect(header.scrollWidth).toBeLessThanOrEqual(header.clientWidth + 1);
     });
 
+  it('refits when a pane that opened narrow grows', async () => {
+    await page.viewport(1440, 720);
+    await render(
+      <div data-testid="pane" style={{ width: 40, height: 480 }}>
+        <SchemaDiagram tables={tables} links={links} label="Project tracker schema" />
+      </div>,
+    );
+    await ready();
+    const narrow = zoom();
+    document.querySelector<HTMLElement>('[data-testid="pane"]')!.style.width = '1200px';
+    await expect.poll(zoom).toBeGreaterThan(narrow * 2);
+  });
+
   it('tints changed fields and truncates long names inside their card', async () => {
     await render(<Diagram />);
     await ready();
