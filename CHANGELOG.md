@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.15.4](https://github.com/TulipFarm/sprout/compare/v0.15.3...v0.15.4) (2026-11-06)
+
+### Features
+
+* **rich-text-editor:** minRows lets a reply box start at one line ([#74](https://github.com/TulipFarm/sprout/issues/74)) ([cff34c4](https://github.com/TulipFarm/sprout/commit/cff34c4b0c9386d116aba0704c917c8b62053160))
+
 ## [0.15.3](https://github.com/TulipFarm/sprout/compare/v0.15.2...v0.15.3) (2026-11-05)
 
 ### Bug Fixes
