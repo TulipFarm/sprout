@@ -446,6 +446,7 @@ function RichTextPreview() {
       <Suspense fallback={<Skeleton />}>
         <RichTextEditor
           size="sm"
+          minRows={1}
           value={value}
           onChange={setValue}
           placeholder="Write a message… Enter sends"

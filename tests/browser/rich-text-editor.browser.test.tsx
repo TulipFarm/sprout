@@ -139,6 +139,17 @@ describe('RichTextEditor in a real browser', () => {
     expect(full.scrollHeight).toBeGreaterThan(full.clientHeight);
   });
 
+  it('minRows starts a reply box at one line and still grows to its cap', async () => {
+    await render(<Editor ariaLabel="Reply" minRows={1} />);
+    const reply = await mounted('Reply');
+    const line = Number.parseFloat(getComputedStyle(reply).lineHeight);
+    expect(reply.getBoundingClientRect().height).toBeLessThan(line * 2 + 16);
+    await box('Reply').click();
+    for (let row = 0; row < 16; row++) await userEvent.keyboard('{Shift>}{Enter}{/Shift}');
+    expect(reply.getBoundingClientRect().height).toBeGreaterThan(80);
+    expect(reply.getBoundingClientRect().height).toBeLessThanOrEqual(256);
+  });
+
   it('Enter sends, Shift+Enter breaks, lists keep Enter, and Cmd+Enter sends from a list', async () => {
     let sent = 0;
     await render(<Editor onSend={() => sent++} />);

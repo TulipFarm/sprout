@@ -86,7 +86,9 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
     <p>
       <code>size</code> is <code>md</code> (80px to 256px, 16px text, a toolbar row below) or <code>sm</code> (40px to
       128px, 14px text, the toolbar inline at the end). <code>condensed</code> shrinks a default editor to the same
-      single row, such as while an agent question waits. Past the maximum height the editor scrolls.
+      single row, such as while an agent question waits. <code>minRows</code> sets how many lines the empty editor
+      shows, such as <code>1</code> for a reply box once a conversation has started, so the messages keep the room; it
+      still grows as people type. Past the maximum height the editor scrolls.
     </p>
     <p>
       <code>toolbarAddon</code> holds buttons and pickers.
