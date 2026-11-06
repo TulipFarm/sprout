@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
   type Ref,
@@ -87,6 +88,11 @@ export interface RichTextEditorProps {
   size?: RichTextEditorSize | null | undefined;
   /** Shrinks a default editor to one compact row with an inline toolbar, such as while an agent question waits. */
   condensed?: boolean | undefined;
+  /**
+   * Lines of text the empty editor shows before it grows, such as `1` for a reply box under a
+   * conversation. It still grows to the size's cap as people type. Defaults to the size's height.
+   */
+  minRows?: number | undefined;
   value: RichTextValue;
   onChange: (value: RichTextValue) => void;
   /** Runs on Enter (outside lists and code) and on Cmd or Ctrl+Enter. */
@@ -426,6 +432,7 @@ export function RichTextEditor({
   ref,
   size,
   condensed = false,
+  minRows,
   value,
   onChange,
   onSend,
@@ -446,6 +453,7 @@ export function RichTextEditor({
 }: RichTextEditorProps) {
   const scale = size ?? 'md';
   const inline = condensed || scale === 'sm';
+  const rows = minRows === undefined ? undefined : Math.max(1, Math.round(minRows));
   const onSendRef = useRef(onSend);
   const onChangeRef = useRef(onChange);
   const placeholderRef = useRef(placeholder);
@@ -797,7 +805,9 @@ export function RichTextEditor({
       data-slot="rich-text-editor"
       data-size={scale}
       data-condensed={condensed || undefined}
+      data-min-rows={rows}
       data-disabled={disabled || undefined}
+      style={rows === undefined ? undefined : ({ '--sprout-rich-text-editor-min-rows': rows } as CSSProperties)}
       className={cn(
         'sprout-rich-text-editor',
         `sprout-rich-text-editor-size-${scale}`,

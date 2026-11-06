@@ -122,6 +122,8 @@ export interface ChatInputProps {
   status?: ChatInputStatus | undefined;
   placeholder?: string | undefined;
   streamingPlaceholder?: string | undefined;
+  /** Lines the empty message shows before it grows. Pass `1` once a conversation has started to give the messages more room. */
+  minRows?: number | undefined;
   disabled?: boolean | undefined;
   /** Accessible name of the form. Defaults to `Message`. */
   label?: string | undefined;
@@ -440,6 +442,7 @@ export function ChatInput({
   status = 'idle',
   placeholder = 'Ask anything, @agents, /skills, #files…',
   streamingPlaceholder = 'Working on your request…',
+  minRows,
   disabled = false,
   label = 'Message',
   agents,
@@ -602,6 +605,7 @@ export function ChatInput({
           )}
           <RichTextEditor
             ref={editor}
+            minRows={minRows}
             value={value}
             onChange={next => {
               setReferenceHint(null);

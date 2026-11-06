@@ -52,6 +52,15 @@
     min-height: 2.5rem;
     max-height: 8rem;
   }
+  .sprout-rich-text-editor[data-min-rows] > .sprout-rich-text-editor-body {
+    min-height: calc(var(--sprout-rich-text-editor-min-rows) * 1.5 * var(--sprout-text-base) + 16px);
+  }
+  .sprout-rich-text-editor-size-sm[data-min-rows] > .sprout-rich-text-editor-body {
+    min-height: calc(var(--sprout-rich-text-editor-min-rows) * 20px + 16px);
+  }
+  .sprout-rich-text-editor[data-min-rows] .sprout-rich-text-editor-content {
+    min-height: calc(var(--sprout-rich-text-editor-min-rows) * 1lh + 16px);
+  }
   .sprout-rich-text-editor-content:focus-visible {
     outline: 0 solid transparent;
   }

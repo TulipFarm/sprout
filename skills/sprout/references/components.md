@@ -313,6 +313,7 @@ const [value, setValue] = useState<RichTextValue>({
 </InputGroup>;
 ```
 
+- `minRows` sets the empty editor's height in lines. Pass `1` for a reply box under a started conversation so messages keep the room; it still grows to the size's cap. `ChatInput` forwards it.
 - `keywords` shows matching words as chips with an icon while people type, such as `{ id: 'slack', label: 'Slack', icon: <BrandIcon brand="slack" size="inline" /> }`. Add `match` for aliases, `color` for a tint (mid-tones only; leave black, white, or pale brands neutral so it reads in light and dark), and `connected: false` to mute it with a broken-link mark; `onKeywordConnect` adds a Connect button to its hint. `account` (an `accounts` id, or a plain label) shows which account a connected chip uses in a hover/caret tooltip. With two or more `accounts` and `onKeywordAccountChange(keyword, accountId)`, a Switch button there opens a menu to pick one; return a promise to keep it open with a spinner until it settles (a rejection shows an error).
 - The text stays plain. Read the mentioned keywords with `findKeywords(value, keywords)`. Matches ignore case, need whole words, prefer the longest term, and skip code.
 
