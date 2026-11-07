@@ -121,7 +121,9 @@ const [value, setValue] = useState<RichTextValue>({ type: "doc", content: [{ typ
       <code>icon</code> such as <code>&lt;BrandIcon brand="slack" size="inline" /&gt;</code>, an optional
       <code>color</code> tint, <code>connected</code>, and the <code>account</code> it uses. The text stays plain text,
       so the value doesn't change. Read the mentioned keywords with <code>findKeywords(value, keywords)</code>, for
-      example when sending.
+      example when sending. A term counts only as a whole word: inside a URL, path, or name such as
+      <code>github.com</code>, <code>slack-bot</code>, or <code>@slack</code> it stays plain, and so does linked text.
+      The word being typed becomes a chip once you type a space, move the caret away, or leave the editor.
     </p>
     <CodeBlock
       lang="tsx"
