@@ -54,6 +54,13 @@ describe('findKeywords', () => {
     expect(ids(doc(p(text('(Slack)'))), keywords)).toEqual(['slack']);
   });
 
+  it('skips terms glued into URLs, paths, and identifiers, and links', () => {
+    for (const glued of ['https://slack.com/x', 'slack-bot-test', 'ops/slack', '@slack', '#slack', 'my_slack'])
+      expect(ids(doc(p(text(glued))), keywords), glued).toEqual([]);
+    expect(ids(doc(p(text('Use Slack. Then slack: done, or "slack"?'))), keywords)).toEqual(['slack']);
+    expect(ids(doc(p(text('Slack', [{ type: 'link', attrs: { href: 'https://slack.com' } }]))), keywords)).toEqual([]);
+  });
+
   it('prefers the longest term and allows any whitespace inside multi-word terms', () => {
     expect(ids(doc(p(text('Save to Google  Drive'))), keywords)).toEqual(['google-drive']);
     expect(ids(doc(p(text('Search Google'))), keywords)).toEqual(['google']);
@@ -162,6 +169,33 @@ describe('RichTextEditor keywords', () => {
         [...container.querySelectorAll<HTMLElement>('.sprout-rich-text-keyword')].map(chip => chip.dataset.keyword),
       ).toEqual(['google-drive']),
     );
+  });
+
+  it('holds the chip for the word being typed until a space, moving away, or blur', async () => {
+    const { container, editor } = await setup(doc(p(text('Use ChatGPT'))));
+    const chips = () =>
+      [...container.querySelectorAll<HTMLElement>('.sprout-rich-text-keyword')].map(chip => chip.textContent);
+    act(() => void editor.commands.focus('end'));
+    await waitFor(() => expect(editor.isFocused).toBe(true));
+    act(() => void editor.commands.insertContent(' and slack'));
+    expect(chips()).toEqual(['ChatGPT']);
+    act(() => void editor.commands.insertContent('-'));
+    expect(chips()).toEqual(['ChatGPT']);
+    act(
+      () =>
+        void editor.commands.deleteRange({ from: editor.state.selection.from - 1, to: editor.state.selection.from }),
+    );
+    act(() => void editor.commands.insertContent(' '));
+    expect(chips()).toEqual(['ChatGPT', 'slack']);
+    act(() => void editor.commands.insertContent('google'));
+    expect(chips()).toEqual(['ChatGPT', 'slack']);
+    act(() => void editor.commands.setTextSelection(2));
+    expect(chips()).toEqual(['ChatGPT', 'slack', 'google']);
+    act(() => void editor.commands.setTextSelection(editor.state.doc.content.size - 1));
+    act(() => void editor.commands.insertContent(' Slack'));
+    expect(chips()).toEqual(['ChatGPT', 'slack', 'google']);
+    act(() => void editor.commands.blur());
+    await waitFor(() => expect(chips()).toEqual(['ChatGPT', 'slack', 'google', 'Slack']));
   });
 
   it('marks disconnected keywords, announces them, and connects from the hint', async () => {
