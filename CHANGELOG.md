@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.16.0](https://github.com/TulipFarm/sprout/compare/v0.15.4...v0.16.0) (2026-11-11)
+
+### Features
+
+* **monster-avatar:** animated monster avatars mixed from parts ([#77](https://github.com/TulipFarm/sprout/issues/77)) ([d53998d](https://github.com/TulipFarm/sprout/commit/d53998d8820a5dbe1debb35da6392384726ab22d))
+
 ## [0.15.4](https://github.com/TulipFarm/sprout/compare/v0.15.3...v0.15.4) (2026-11-06)
 
 ### Features
