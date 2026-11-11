@@ -5,6 +5,7 @@ import {
   monsterAvatarPresets,
   type MonsterAvatarConfig,
 } from '@tulipfarm/sprout/monster-avatar';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@tulipfarm/sprout/select';
 import '../styles/avatar-demo.css';
 import '../styles/monster-avatar-demo.css';
 
@@ -179,16 +180,25 @@ export function MonsterAvatarBuilder() {
         </div>
         <div className="monster-controls">
           {order.map(part => (
-            <label key={part} className="monster-control">
-              <span>{label(part)}</span>
-              <select value={config[part]} onChange={event => setConfig({ ...config, [part]: event.target.value })}>
-                {(monsterAvatarParts[part] as readonly string[]).map(option => (
-                  <option key={option} value={option}>
-                    {label(option)}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div key={part} className="monster-control">
+              <span id={`monster-${part}`}>{label(part)}</span>
+              <Select
+                items={(monsterAvatarParts[part] as readonly string[]).map(value => ({ value, label: label(value) }))}
+                value={config[part]}
+                onValueChange={value => value && setConfig({ ...config, [part]: value })}
+              >
+                <SelectTrigger aria-labelledby={`monster-${part}`}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {(monsterAvatarParts[part] as readonly string[]).map(option => (
+                    <SelectItem key={option} value={option}>
+                      {label(option)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           ))}
         </div>
       </div>

@@ -35,14 +35,6 @@
   font-size: 12px;
   color: var(--sprout-muted);
 }
-.monster-control select {
-  padding: 6px 8px;
-  border: 1px solid var(--sprout-line);
-  border-radius: var(--sprout-radius-control);
-  background: var(--sprout-surface);
-  color: var(--sprout-text);
-  font-size: 13px;
-}
 .monster-code {
   font-size: 11px;
   word-break: break-all;
