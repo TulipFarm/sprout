@@ -144,12 +144,10 @@ function layers(config: MonsterAvatarConfig): Layers {
     body:
       `<path d="${body.path}" fill="${palette.body}" stroke-width="3"/>` +
       body.toes +
-      bodyTexture(config.body, config.pattern, config.pattern === 'fur' ? ink : palette.shade) +
+      bodyTexture(config.body, config.pattern, palette.shade) +
       body.arm(palette.body) +
       (body.wave || holding ? '' : body.armRight(palette.body)) +
-      `<g ${face}><ellipse cx="47" cy="68" rx="4.5" ry="2.6" fill="#ff7f9e" opacity=".35" stroke="none"/>` +
-      `<ellipse cx="81" cy="68" rx="4.5" ry="2.6" fill="#ff7f9e" opacity=".35" stroke="none"/>` +
-      `${mouthParts[config.mouth](palette)}</g>`,
+      `<g transform="translate(${fx} ${fy + 2})">${mouthParts[config.mouth](palette)}</g>`,
     eyes: `<g ${face}>${eyeParts[config.eyes](palette)}</g>`,
     hat: `<g ${head}>${hat.art(palette)}</g>`,
     item: holding
