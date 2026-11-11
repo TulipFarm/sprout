@@ -1,0 +1,179 @@
+@layer components {
+  .sprout-monster {
+    --sprout-monster-size: 4rem;
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: var(--sprout-monster-size);
+    height: var(--sprout-monster-size);
+    vertical-align: middle;
+    user-select: none;
+  }
+  .sprout-monster-figure,
+  .sprout-monster-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .sprout-monster-layer {
+    overflow: visible;
+  }
+
+  /* Only transform and opacity animate, so the compositor runs every loop. */
+  @media (prefers-reduced-motion: no-preference) {
+    .sprout-monster[data-animated] .sprout-monster-figure {
+      transform-origin: 50% 92.6%;
+      animation: sprout-monster-breathe 3.4s ease-in-out var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] .sprout-monster-eyes {
+      animation: sprout-monster-blink var(--sm-blink) linear var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] [data-motion='bob'] {
+      animation: sprout-monster-bob 2.8s ease-in-out var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] [data-motion='sway'] {
+      animation: sprout-monster-sway 3.6s ease-in-out var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] [data-motion='wave'] {
+      animation: sprout-monster-wave 2.4s ease-in-out var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] [data-motion='float'] {
+      animation: sprout-monster-float 2.6s ease-in-out var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] [data-motion='pulse'] {
+      animation: sprout-monster-pulse 1.8s ease-in-out var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] [data-motion='ring'] {
+      animation: sprout-monster-ring 3.2s ease-in-out var(--sm-delay) infinite;
+    }
+    .sprout-monster[data-animated] .sm-dot {
+      animation: sprout-monster-dot 1.2s ease-in-out infinite;
+    }
+    .sprout-monster[data-animated] .sm-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .sprout-monster[data-animated] .sm-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    .sprout-monster[data-animated] .sm-steam {
+      animation: sprout-monster-steam 2s ease-in-out infinite;
+    }
+    .sprout-monster[data-offscreen],
+    .sprout-monster[data-offscreen] * {
+      animation-play-state: paused !important;
+    }
+  }
+
+  @keyframes sprout-monster-breathe {
+    0%,
+    100% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(0.985, 1.03);
+    }
+  }
+  @keyframes sprout-monster-blink {
+    0%,
+    93%,
+    99%,
+    100% {
+      transform: scaleY(1);
+    }
+    96% {
+      transform: scaleY(0.08);
+    }
+  }
+  @keyframes sprout-monster-bob {
+    0%,
+    100% {
+      transform: rotate(0deg) translateY(0);
+    }
+    50% {
+      transform: rotate(-4deg) translateY(-1.5%);
+    }
+  }
+  @keyframes sprout-monster-sway {
+    0%,
+    100% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(4deg);
+    }
+  }
+  /* A quick double wave, then a rest. */
+  @keyframes sprout-monster-wave {
+    0%,
+    50%,
+    100% {
+      transform: rotate(0deg);
+    }
+    12%,
+    37% {
+      transform: rotate(-10deg);
+    }
+    25% {
+      transform: rotate(4deg);
+    }
+  }
+  @keyframes sprout-monster-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4%);
+    }
+  }
+  @keyframes sprout-monster-pulse {
+    0%,
+    60%,
+    100% {
+      transform: scale(1);
+    }
+    30% {
+      transform: scale(1.08);
+    }
+  }
+  @keyframes sprout-monster-ring {
+    0%,
+    66%,
+    92%,
+    100% {
+      transform: rotate(0deg);
+    }
+    72% {
+      transform: rotate(-10deg);
+    }
+    78% {
+      transform: rotate(9deg);
+    }
+    84% {
+      transform: rotate(-6deg);
+    }
+    88% {
+      transform: rotate(3deg);
+    }
+  }
+  @keyframes sprout-monster-dot {
+    0%,
+    60%,
+    100% {
+      opacity: 0.25;
+    }
+    30% {
+      opacity: 1;
+    }
+  }
+  @keyframes sprout-monster-steam {
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}

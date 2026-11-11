@@ -1185,6 +1185,21 @@ agentAvatar(agent.id); // { object, color, src }
 - The same `agentId` always gets the same picture. `object` and `color` choose it yourself; `src` uses your own image with an initial fallback.
 - Decorative (`alt=""`): keep the agent's name in nearby text.
 
+### Monster Avatar
+
+```tsx
+import { MonsterAvatar, monsterAvatar, monsterAvatarPresets } from '@tulipfarm/sprout/monster-avatar';
+
+<MonsterAvatar agentId={agent.id} size={48} label={agent.name} />;
+<MonsterAvatar config={monsterAvatarPresets[0].config} item="headphones" />;
+monsterAvatar(agent.id); // { body, color, pattern, ears, eyes, mouth, hat, item }
+```
+
+- Mix a character from parts: body, color, pattern, ears, eyes, mouth, hat and held item. Part props override `agentId` or `config`.
+- The same `agentId` always gets the same character. 74 presets cover common kinds of agent.
+- Inline SVG with CSS-only motion (breathing, blinking, item motion). Pauses off screen and stays still for reduced motion; `animated={false}` turns it off.
+- Decorative unless `label` is set. `monsterAvatarSrc(config)` gives a still `data:` URL.
+
 ### Badge
 
 ```tsx

@@ -153,6 +153,7 @@ export const componentGroups: NavGroup[] = [
       component('Glass Banner', 'A frosted banner with glass chips you can fling.'),
       component('Gradient Banner', 'Gradient art with readable panels on top.'),
       component('Metric', 'One key number with its label, a change, and a small trend.'),
+      component('Monster Avatar', 'Animated monster characters for agents, mixed from swappable parts.'),
       component('Presence Cursor', "Other people's pointers with a name tag or an avatar."),
       component('Record List', 'Rows of records to read and triage, with values, badges, and row actions.'),
       component('Result Card', 'A compact card for something an agent produced.'),

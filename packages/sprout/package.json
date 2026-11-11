@@ -52,6 +52,10 @@
       "types": "./dist/components/agent-avatar.d.ts",
       "import": "./dist/components/agent-avatar.js"
     },
+    "./monster-avatar": {
+      "types": "./dist/components/monster-avatar.d.ts",
+      "import": "./dist/components/monster-avatar.js"
+    },
     "./alert": {
       "types": "./dist/components/alert.d.ts",
       "import": "./dist/components/alert.js"
