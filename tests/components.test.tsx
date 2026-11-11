@@ -92,6 +92,15 @@ const agentAvatarExports = [
   'agentAvatarSrc',
 ];
 
+const monsterAvatarExports = [
+  'MonsterAvatar',
+  'monsterAvatar',
+  'monsterAvatarParts',
+  'monsterAvatarPresets',
+  'monsterAvatarSrc',
+  'monsterAvatarSvg',
+];
+
 const avatarExports = [
   'Avatar',
   'AvatarBadge',
@@ -696,7 +705,7 @@ const viewSwitcherExports = ['ViewSwitcher', 'viewSwitcherTabId'];
 const webSourceExports = ['WebSource', 'webSourceIcon'];
 
 describe('Sidebar public surface', () => {
-  it('exports only Accordion, Agent Avatar, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Chat Window, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Knowledge Base, Label, Menubar, Message, Message Actions, Message Response, Message Rich Text, Message Scroller, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Status, Switch, Table, Tables Feedback, Tabs, Task Tree, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, View Switcher, and Web Source parts', () => {
+  it('exports only Accordion, Agent Avatar, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Chat Window, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Knowledge Base, Label, Menubar, Message, Message Actions, Message Response, Message Rich Text, Message Scroller, Monster Avatar, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Status, Switch, Table, Tables Feedback, Tabs, Task Tree, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, View Switcher, and Web Source parts', () => {
     const names = Object.keys(sprout);
     const buttonExports = [
       'Button',
@@ -750,6 +759,7 @@ describe('Sidebar public surface', () => {
           name === 'useSidebar' ||
           alertExports.includes(name) ||
           agentAvatarExports.includes(name) ||
+          monsterAvatarExports.includes(name) ||
           alertDialogExports.includes(name) ||
           avatarExports.includes(name) ||
           badgeExports.includes(name) ||
@@ -861,6 +871,7 @@ describe('Sidebar public surface', () => {
       expect.arrayContaining([
         ...alertExports,
         ...agentAvatarExports,
+        ...monsterAvatarExports,
         ...chartExports,
         ...timelineExports,
         ...alertDialogExports,
