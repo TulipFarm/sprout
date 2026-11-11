@@ -1,7 +1,7 @@
 // Monster avatar artwork. Every part is drawn on one 128 × 128 grid, so any
 // body, ears, eyes, mouth, hat and held item combine into one character.
 
-export const ink = '#2b2433';
+export const ink = '#1b1722';
 
 export interface Palette {
   body: string;
@@ -115,12 +115,12 @@ export interface BodyGeometry {
 const toeMarks = (feet: [number, number][], count: number) =>
   feet
     .flatMap(([x0, x1]) => {
-      const step = (x1 - x0) / count;
-      return Array.from({ length: count }, (_, i) => x0 + step * (i + 0.5));
+      const half = Math.min((x1 - x0) / count / 2, 3.8);
+      return Array.from({ length: count }, (_, i) => [(x0 + x1) / 2 + (i - (count - 1) / 2) * half * 2, half]);
     })
     .map(
-      x =>
-        `<path d="M${r1(x - 2.5)} ${bottom}Q${r1(x - 2.5)} ${bottom - 4.2} ${r1(x)} ${bottom - 4.2}Q${r1(x + 2.5)} ${bottom - 4.2} ${r1(x + 2.5)} ${bottom}" fill="#e4eaf5" stroke-width="1.8"/>`,
+      ([x, half]) =>
+        `<path d="M${r1(x! - half!)} ${bottom}C${r1(x! - half!)} ${bottom - 8} ${r1(x! + half!)} ${bottom - 8} ${r1(x! + half!)} ${bottom}" fill="#cfe9fb" stroke-width="1.8"/>`,
     )
     .join('');
 
@@ -220,7 +220,7 @@ export function bodyGeometry(kind: MonsterBody): BodyGeometry {
       lengths.push(lengths[i - 1]! + Math.hypot(dense[i]![0] - dense[i - 1]![0], dense[i]![1] - dense[i - 1]![1]));
     }
     const total = lengths.at(-1)!;
-    const tufts = Math.round(total / 7.5);
+    const tufts = Math.round(total / 11);
     const at = (distance: number): Point => {
       let i = lengths.findIndex(length => length >= distance);
       if (i <= 0) return dense[Math.max(0, i)]!;
@@ -239,12 +239,12 @@ export function bodyGeometry(kind: MonsterBody): BodyGeometry {
       const length = Math.hypot(tx, ty) || 1;
       const nx = ty / length;
       const ny = -tx / length;
-      const depth = 3.2 + next() * 1.6;
-      // Tips lean the way the fur falls: outwards and down.
-      const tip: Point = [p0[0] + tx * 0.75 + nx * depth, p0[1] + ty * 0.75 + ny * depth + 0.6];
+      const depth = 3 + next() * 1.4;
+      // Round clumps whose tips lean the way the fur falls: outwards and down.
+      const tip: Point = [p0[0] + tx * 0.82 + nx * depth * 0.8, p0[1] + ty * 0.82 + ny * depth * 0.8 + 0.5];
       upper +=
-        `Q${r1(p0[0] + tx * 0.25 + nx * depth * 0.9)} ${r1(p0[1] + ty * 0.25 + ny * depth * 0.9)} ${r1(tip[0])} ${r1(tip[1])}` +
-        `Q${r1(p0[0] + tx * 0.85 + nx * 0.6)} ${r1(p0[1] + ty * 0.85 + ny * 0.6)} ${r1(p1[0])} ${r1(p1[1])}`;
+        `Q${r1(p0[0] + tx * 0.3 + nx * depth * 1.5)} ${r1(p0[1] + ty * 0.3 + ny * depth * 1.5)} ${r1(tip[0])} ${r1(tip[1])}` +
+        `Q${r1(p0[0] + tx * 0.92 + nx * 0.4)} ${r1(p0[1] + ty * 0.92 + ny * 0.4)} ${r1(p1[0])} ${r1(p1[1])}`;
     }
   } else {
     const ends: Point[] = [[outline[0]![0], hip + 8], ...outline, [outline.at(-1)![0], hip + 8]];
@@ -252,13 +252,13 @@ export function bodyGeometry(kind: MonsterBody): BodyGeometry {
   }
 
   // Legs: flat feet with a rounded notch between them.
-  const gap = 4.5;
-  const notch = 10;
+  const gap = 5;
+  const notch = 13;
   const path =
     `M${r1(64 - w)} ${hip}` +
     upper +
     `C${r1(64 + w + 0.6)} ${hip + 6} ${r1(64 + w - 0.5)} ${bottom} ${r1(64 + w - 5)} ${bottom}` +
-    `L${64 + gap} ${bottom}C${64 + gap} ${bottom - notch} ${64 - gap} ${bottom - notch} ${64 - gap} ${bottom}` +
+    `L${64 + gap} ${bottom}V${bottom - notch + gap}A${gap} ${gap} 0 0 0 ${64 - gap} ${bottom - notch + gap}V${bottom}` +
     `L${r1(64 - w + 5)} ${bottom}C${r1(64 - w + 0.5)} ${bottom} ${r1(64 - w - 0.6)} ${hip + 6} ${r1(64 - w)} ${hip}Z`;
 
   const toes = toeMarks(
@@ -341,7 +341,7 @@ export function bodyTexture(kind: MonsterBody, pattern: MonsterPattern, color: s
         marks += `<path d="M${r1(x0)} ${y}Q${r1((x0 + mid) / 2)} ${y + 3} ${r1(mid)} ${y}T${r1(x1)} ${y}" fill="none" stroke-width="4"/>`;
       }
     } else {
-      const step = pattern === 'fur' ? 7.5 : 11;
+      const step = pattern === 'fur' ? 10.5 : 11;
       for (let y = top + 6; y < hip; y += step) {
         for (let x = 22; x < 120; x += step) {
           const px = x + (next() - 0.5) * step * 0.8;
@@ -349,19 +349,19 @@ export function bodyTexture(kind: MonsterBody, pattern: MonsterPattern, color: s
           if (!inside(px, py, 4) || face(px, py)) continue;
           if (pattern === 'fur') {
             const lean = (px - 64) / 14;
-            marks += `M${r1(px)} ${r1(py)}l${r1(lean * 0.5)} 4.2`;
+            marks += `M${r1(px)} ${r1(py)}q${r1(lean * 0.2 - 0.7)} 2.4 ${r1(lean * 0.5)} 4.8`;
           } else {
             marks += `<circle cx="${r1(px)}" cy="${r1(py)}" r="${r1(1.4 + next() * 2.4)}"/>`;
           }
         }
       }
-      if (pattern === 'fur') marks = `<path d="${marks}" fill="none" stroke-width="1.5"/>`;
+      if (pattern === 'fur') marks = `<path d="${marks}" fill="none" stroke-width="1.7"/>`;
     }
     textures.set(key, marks);
   }
   return pattern === 'spots'
     ? `<g fill="${color}" stroke="none" opacity=".75">${marks}</g>`
-    : `<g stroke="${color}" opacity="${pattern === 'fur' ? 0.5 : 0.7}">${marks}</g>`;
+    : `<g stroke="${color}" opacity="${pattern === 'fur' ? 0.9 : 0.7}">${marks}</g>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -411,10 +411,11 @@ export const ears = Object.keys(earParts) as MonsterEars[];
 // Eyes sit close together near the top of the head, like the hand-drawn set.
 const L = 56;
 const R = 72;
-const eye = (cx: number, r = 6, pupil = 3) =>
-  `<circle cx="${cx}" cy="60" r="${r}" fill="#fff" stroke-width="2"/>` +
-  `<circle cx="${cx + 0.8}" cy="60.6" r="${pupil}" fill="${ink}" stroke="none"/>` +
-  `<circle cx="${cx + 1.8}" cy="59.4" r="${r1(pupil / 3)}" fill="#fff" stroke="none"/>`;
+const eye = (cx: number, r = 7.6, pupil = 3.3) =>
+  `<circle cx="${cx}" cy="60" r="${r}" fill="#fff" stroke-width="2.2"/>` +
+  `<circle cx="${cx + 0.9}" cy="60.8" r="${pupil}" fill="${ink}" stroke="none"/>`;
+const brow = (cx: number, side: 1 | -1, y = 49) =>
+  `<path d="M${cx - side * 6.5} ${y + 1.6}Q${cx - side * 1.5} ${y - 2.4} ${cx + side * 4.5} ${y - 0.4}" fill="none" stroke-width="2"/>`;
 const arc = (cx: number, up: boolean) =>
   up
     ? `<path d="M${cx - 5} 62Q${cx} 55 ${cx + 5} 62" fill="none" stroke-width="2.8"/>`
@@ -425,26 +426,28 @@ const shade = (cx: number) =>
 
 export const eyeParts = record<Part>()({
   round: () => eye(L) + eye(R),
-  wide: () => eye(L - 1, 7.4, 3.6) + eye(R + 1, 7.4, 3.6),
+  wide: () => eye(L - 1, 8.7, 3.9) + eye(R + 1, 8.7, 3.9) + brow(L - 1, -1, 47.6) + brow(R + 1, 1, 47.6),
   sleepy: p =>
-    [L, R]
+    ([L, R] as const)
       .map(
-        cx =>
-          `<circle cx="${cx}" cy="60" r="6" fill="#fff" stroke-width="2"/><circle cx="${cx + 0.6}" cy="62" r="2.8" fill="${ink}" stroke="none"/>` +
-          `<path d="M${cx - 6} 60.4A6 6 0 0 1 ${cx + 6} 60.4Z" fill="${p.shade}" stroke-width="2"/>`,
+        (cx, i) =>
+          `<circle cx="${cx}" cy="60" r="7.6" fill="#fff" stroke-width="2.2"/>` +
+          `<path d="M${cx - 2.6} 60a3.3 3.3 0 0 0 6.6 0Z" fill="${ink}" stroke="none"/>` +
+          `<path d="M${cx - 7.6} 60a7.6 7.6 0 0 1 15.2 0Z" fill="${p.body}" stroke-width="2.2"/>` +
+          brow(cx, i ? 1 : -1),
       )
       .join(''),
   content: () => arc(L, false) + arc(R, false),
   happy: () => arc(L, true) + arc(R, true),
   wink: () => eye(L) + arc(R, true),
   glasses: () =>
-    eye(L, 5.4, 2.7) +
-    eye(R, 5.4, 2.7) +
+    eye(L, 5.6, 2.8) +
+    eye(R, 5.6, 2.8) +
     `<g fill="none" stroke-width="2.6"><circle cx="${L}" cy="60" r="8"/><circle cx="${R}" cy="60" r="8"/><path d="M63 59Q64 57.5 65 59"/></g>`,
   shades: () => `${shade(L)}${shade(R)}<path d="M63 56.5H65" stroke-width="2.6"/>`,
   cyclops: () =>
-    `<circle cx="64" cy="59" r="10" fill="#fff"/><circle cx="65.4" cy="60" r="4.6" fill="${ink}" stroke="none"/>` +
-    `<circle cx="67" cy="58" r="1.6" fill="#fff" stroke="none"/>`,
+    `<circle cx="64" cy="59" r="11" fill="#fff"/><circle cx="65.2" cy="60" r="4.8" fill="${ink}" stroke="none"/>` +
+    `<path d="M54.5 46.6Q64 41.4 73.5 46.6" fill="none" stroke-width="2"/>`,
 });
 
 export type MonsterEyes = keyof typeof eyeParts;
@@ -463,7 +466,7 @@ export const mouthParts = record<Part>()({
   flat: () => `<path d="M59.5 73H68.5" stroke-width="2.6"/>`,
   cat: () => `<path d="M58 71Q61 75 64 72Q67 75 70 71" fill="none" stroke-width="2.6"/>`,
   lips: () =>
-    `<rect x="53" y="69" width="22" height="7.6" rx="3.8" fill="#ff9aae"/><path d="M56 72.8H72" stroke-width="2"/>`,
+    `<rect x="50.5" y="68" width="27" height="10.6" rx="5.3" fill="#ff94b8"/><path d="M55 73.3H73" stroke-width="1.8"/>`,
   tongue: () =>
     `<path d="M58 71Q64 76 70 71" fill="none" stroke-width="2.6"/>` +
     `<path d="M62 74.4Q62 80 65.4 80Q68.4 80 68 73.4" fill="#ff7a90" stroke-width="2"/>`,
