@@ -2,6 +2,7 @@
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import { z } from 'zod';
+import { useEffect } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   A2uiSurface,
@@ -518,5 +519,387 @@ describe('Metric', () => {
     expect(metric.className).toBe('sprout-metric x');
     expect(metric.querySelector('.sprout-metric-trend svg')).toBeTruthy();
     expect(metric.querySelector('.sprout-metric-caption')!.textContent).toBe('Just now');
+  });
+});
+
+describe('A2uiSurface defaults and variants', () => {
+  it('draws components with their optional parts left out', () => {
+    const { container } = render(
+      <A2uiSurface
+        messages={messages(
+          [
+            {
+              id: 'root',
+              component: 'Section',
+              children: ['heading', 'card', 'list', 'progress', 'callout', 'code', 'table'],
+            },
+            { id: 'heading', component: 'Heading', text: 'Plain' },
+            { id: 'card', component: 'Card', children: ['count'] },
+            { id: 'count', component: 'Text', text: { '@path': '/count' } },
+            { id: 'list', component: 'List', children: ['badge'] },
+            { id: 'badge', component: 'Badge', text: 'Draft' },
+            { id: 'progress', component: 'Progress', label: 'Load', value: { '@path': '/missing' } },
+            { id: 'callout', component: 'Callout', tone: 'info', text: 'Heads up' },
+            { id: 'code', component: 'Code', code: 'select 1', language: 'sql' },
+            {
+              id: 'table',
+              component: 'Table',
+              label: 'Mixed',
+              caption: 'Cells',
+              columns: [
+                { key: 'n', label: 'N', align: 'end' },
+                { key: 'o', label: 'O' },
+                { key: 'e', label: 'E' },
+              ],
+              rows: [{ n: 1200, o: { a: 1 } }],
+            },
+          ],
+          { count: 1234 },
+        )}
+      />,
+    );
+    expect(container.querySelector('section')!.hasAttribute('aria-label')).toBe(false);
+    expect(screen.getByRole('heading', { name: 'Plain' }).getAttribute('aria-level')).toBe('3');
+    expect(container.querySelector('[data-slot="card-header"]')).toBeNull();
+    expect(screen.getByText((1234).toLocaleString())).toBeTruthy();
+    expect(container.querySelector('ul.sprout-a2ui-list')).toBeTruthy();
+    expect(screen.getByRole('note', { name: '' }).textContent).toContain('Heads up');
+    expect(screen.getByText('{"a":1}')).toBeTruthy();
+    expect(screen.getByText((1200).toLocaleString())).toBeTruthy();
+  });
+
+  it('turns long category names into horizontal bars', () => {
+    const { container } = render(
+      <A2uiSurface
+        messages={messages([
+          {
+            id: 'root',
+            component: 'Chart',
+            type: 'bar',
+            title: 'Share',
+            category: 'name',
+            series: [
+              { key: 'a', label: 'A' },
+              { key: 'b', label: 'B' },
+            ],
+            rows: [{ name: 'A very long application name', a: 1, b: 2 }],
+            unit: '%',
+          },
+        ])}
+      />,
+    );
+    expect(container.querySelector('figure')!.getAttribute('style')).toContain('--sprout-a2ui-chart-height: 256px');
+    fireEvent.click(screen.getByRole('button', { name: 'Show data' }));
+    expect(screen.getByRole('table', { name: 'Share' })).toBeTruthy();
+  });
+});
+
+describe('A2uiSurface form fields', () => {
+  const fields = [
+    { id: 'root', component: 'Column', children: ['bio', 'age', 'fixed', 'tags', 'level', 'at', 'time', 'send'] },
+    {
+      id: 'bio',
+      component: 'TextField',
+      label: 'Bio',
+      variant: 'longText',
+      placeholder: 'About you',
+      value: { '@path': '/bio' },
+    },
+    { id: 'age', component: 'TextField', label: 'Age', variant: 'number', value: { '@path': '/age' } },
+    { id: 'fixed', component: 'TextField', label: 'Fixed', value: 'literal' },
+    {
+      id: 'tags',
+      component: 'ChoicePicker',
+      label: 'Tags',
+      variant: 'multipleSelection',
+      filterable: true,
+      displayStyle: 'chips',
+      options: [
+        { label: 'Red', value: 'red' },
+        { label: 'Blue', value: 'blue' },
+      ],
+      value: { '@path': '/tags' },
+    },
+    {
+      id: 'level',
+      component: 'Slider',
+      label: 'Level',
+      min: 0,
+      max: 10,
+      steps: 5,
+      value: { '@path': '/level' },
+      '@checks': [
+        { condition: { '@call': 'numeric', args: { value: { '@path': '/level' }, min: 4 } }, message: 'Too low.' },
+      ],
+    },
+    {
+      id: 'at',
+      component: 'DateTimeInput',
+      label: 'At',
+      enableDate: true,
+      enableTime: true,
+      min: '2026-01-01T09:00:00Z',
+      value: { '@path': '/at' },
+    },
+    {
+      id: 'time',
+      component: 'DateTimeInput',
+      label: 'Time',
+      enableTime: true,
+      max: '18:00',
+      value: { '@path': '/time' },
+    },
+    {
+      id: 'send',
+      component: 'Button',
+      label: 'Save',
+      action: {
+        event: {
+          name: 'save',
+          context: { bio: { '@path': '/bio' }, age: { '@path': '/age' }, tags: { '@path': '/tags' } },
+        },
+      },
+    },
+  ];
+  const data = { bio: '', age: '', tags: [], level: 2, at: '2026-05-01T10:30:00Z', time: '2026-05-01T08:15:00Z' };
+
+  it('writes typed values from every field', () => {
+    const onMessage = vi.fn();
+    const { container } = render(<A2uiSurface messages={messages(fields, data)} onMessage={onMessage} />);
+    const bio = screen.getByRole('textbox', { name: /Bio/ }) as HTMLTextAreaElement;
+    expect(bio.tagName).toBe('TEXTAREA');
+    expect(bio.placeholder).toBe('About you');
+    fireEvent.change(bio, { target: { value: 'Hi' } });
+    fireEvent.change(screen.getByRole('spinbutton', { name: /Age/ }), { target: { value: '42' } });
+    expect((screen.getByRole('textbox', { name: /Fixed/ }) as HTMLInputElement).disabled).toBe(true);
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Filter Tags' }), { target: { value: 'bl' } });
+    expect(screen.queryByRole('checkbox', { name: 'Red' })).toBeNull();
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Blue' }));
+    const at = container.querySelector('input[type="datetime-local"]') as HTMLInputElement;
+    expect([at.value, at.min]).toEqual(['2026-05-01T10:30', '2026-01-01T09:00']);
+    const time = container.querySelector('input[type="time"]') as HTMLInputElement;
+    expect([time.value, time.max]).toEqual(['08:15', '18:00']);
+    expect(container.querySelector('input[type="range"]')!.getAttribute('step')).toBe('2');
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    expect(onMessage.mock.calls[0]![0].action.context).toEqual({ bio: 'Hi', age: 42, tags: ['blue'] });
+  });
+
+  it('shows a slider check once the value is committed', () => {
+    const { container } = render(<A2uiSurface messages={messages(fields, data)} onMessage={vi.fn()} />);
+    const slider = () => container.querySelector('input[type="range"]')!;
+    fireEvent.keyDown(slider(), { key: 'ArrowRight' });
+    expect(slider().getAttribute('aria-valuenow')).toBe('4');
+    fireEvent.keyDown(slider(), { key: 'ArrowLeft' });
+    expect(screen.getAllByText('Too low.').length).toBeGreaterThan(0);
+    expect(slider().closest('[data-invalid]')).toBeTruthy();
+  });
+
+  it('keeps text that is not a number in a number field', () => {
+    const onMessage = vi.fn();
+    render(<A2uiSurface messages={messages(fields, data)} onMessage={onMessage} />);
+    fireEvent.change(screen.getByRole('spinbutton', { name: /Age/ }), { target: { value: '' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    expect(onMessage.mock.calls[0]![0].action.context.age).toBe('');
+  });
+});
+
+describe('A2uiSurface actions and function results', () => {
+  const app = defineCatalog({
+    id: 'app/more@1',
+    functions: {
+      later: defineFunction({ description: 'Async.', returnType: 'string' }),
+      remote: defineFunction({ description: 'On the agent.', returnType: 'string' }),
+      plain: defineFunction({
+        description: 'Agent or renderer.',
+        args: z.strictObject({ name: z.string() }),
+        returnType: 'string',
+        allowedCallers: 'rendererOrAgent',
+      }),
+      quiet: defineFunction({ description: 'Returns nothing.', returnType: 'void', allowedCallers: 'rendererOrAgent' }),
+      fails: defineFunction({ description: 'Throws.', returnType: 'string', allowedCallers: 'rendererOrAgent' }),
+      failsText: defineFunction({
+        description: 'Throws text.',
+        returnType: 'string',
+        allowedCallers: 'rendererOrAgent',
+      }),
+      missing: defineFunction({ description: 'Not here.', returnType: 'string', allowedCallers: 'rendererOrAgent' }),
+      waits: defineFunction({
+        description: 'Needs an agent answer.',
+        args: z.strictObject({ name: z.unknown() }),
+        returnType: 'string',
+        allowedCallers: 'rendererOrAgent',
+      }),
+    },
+  });
+  const catalogs = [sproutCatalog, app];
+  const text = (id: string, value: unknown) => ({ id, component: 'Text', text: value });
+
+  it('draws async results and marks failed ones', async () => {
+    let resolve!: (value: string) => void;
+    const promise = new Promise<string>(done => (resolve = done));
+    const { container } = render(
+      <A2uiSurface
+        messages={messages([
+          { id: 'root', component: 'Column', children: ['a', 'b', 'c'] },
+          text('a', { '@call': 'later', catalogId: app.id }),
+          text('b', { '@call': 'fails', catalogId: app.id }),
+          text('c', { '@call': 'nope' }),
+        ])}
+        catalogs={catalogs}
+        functions={{
+          [app.id]: {
+            later: () => promise,
+            fails: () => Promise.reject(new Error('down')),
+          },
+        }}
+      />,
+    );
+    expect(container.querySelectorAll('.sprout-a2ui-pending')).toHaveLength(2);
+    await act(async () => resolve('Later text'));
+    expect(screen.getByText('Later text')).toBeTruthy();
+    expect(screen.getAllByText("This part couldn't be displayed.")).toHaveLength(2);
+  });
+
+  it('treats an agent error as a failed part', () => {
+    const sent: A2uiOutgoingMessage[] = [];
+    const list = messages([text('root', { '@call': 'remote', catalogId: app.id })]);
+    const { rerender } = render(<A2uiSurface messages={list} catalogs={catalogs} onMessage={m => sent.push(m)} />);
+    const { functionCallId } = (sent[0] as Extract<A2uiOutgoingMessage, { callAgentFunction: unknown }>)
+      .callAgentFunction;
+    rerender(
+      <A2uiSurface
+        messages={[
+          ...list,
+          { version, agentFunctionResponse: { functionCallId, error: { code: 'X', message: 'no' } } },
+        ]}
+        catalogs={catalogs}
+        onMessage={m => sent.push(m)}
+      />,
+    );
+    expect(screen.getByText("This part couldn't be displayed.")).toBeTruthy();
+  });
+
+  it('reports a failed button function and skips actions that are not ready', () => {
+    const onMessage = vi.fn();
+    render(
+      <A2uiSurface
+        messages={messages([
+          { id: 'root', component: 'Row', children: ['bad', 'wait', 'blank'] },
+          {
+            id: 'bad',
+            component: 'Button',
+            label: 'Bad',
+            action: { functionCall: { '@call': 'fails', catalogId: app.id } },
+          },
+          {
+            id: 'wait',
+            component: 'Button',
+            label: 'Wait',
+            action: { event: { name: 'go', context: { v: { '@call': 'later', catalogId: app.id } } } },
+          },
+          {
+            id: 'blank',
+            component: 'Button',
+            label: 'Blank',
+            action: { event: { name: 'go', userMessage: { '@call': 'later', catalogId: app.id } } },
+          },
+        ])}
+        catalogs={catalogs}
+        functions={{
+          [app.id]: {
+            fails: () => {
+              throw new Error('nope');
+            },
+            later: () => new Promise(() => {}),
+          },
+        }}
+        onMessage={onMessage}
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Bad' }));
+    expect(onMessage).toHaveBeenCalledWith(
+      { version, error: { code: 'EXPRESSION_ERROR', surfaceId: 's1', message: 'nope' } },
+      undefined,
+    );
+    onMessage.mockClear();
+    fireEvent.click(screen.getByRole('button', { name: 'Wait' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Blank' }));
+    expect(onMessage).not.toHaveBeenCalled();
+  });
+
+  it('lets adapters act only when someone listens and the surface is editable', () => {
+    const results: boolean[] = [];
+    const Probe: A2uiAdapter = ({ context }) => {
+      useEffect(() => {
+        results.push(context.act({ event: { name: 'probe' } }));
+        context.write('not a binding', 1);
+      }, []);
+      return <span>probe</span>;
+    };
+    const list = messages([{ id: 'root', component: 'Text', text: 'x' }]);
+    const adapters = { [sproutCatalog.id]: { ...sproutAdapters, Text: Probe } };
+    render(<A2uiSurface messages={list} adapters={adapters} />);
+    render(<A2uiSurface messages={list} adapters={adapters} onMessage={vi.fn()} readOnly />);
+    expect(results).toEqual([false, false]);
+  });
+
+  it('answers every kind of failed callRendererFunction', async () => {
+    const sent: A2uiOutgoingMessage[] = [];
+    const call = (functionCallId: string, callFunction: Record<string, unknown>) => ({
+      version,
+      callRendererFunction: { functionCallId, callFunction: { catalogId: app.id, ...callFunction } },
+    });
+    const coded = Object.assign(new Error('Too many'), { code: 'RATE_LIMITED' });
+    render(
+      <A2uiSurface
+        messages={[
+          ...messages([text('root', 'x')], { who: 'Ada' }),
+          call('ok', { '@call': 'plain', args: { name: { '@path': '/who' } } }),
+          call('badArgs', { '@call': 'plain', args: { name: 1 } }),
+          call('void', { '@call': 'quiet' }),
+          call('coded', { '@call': 'fails' }),
+          call('text', { '@call': 'failsText' }),
+          call('none', { '@call': 'missing' }),
+          call('pending', { '@call': 'waits', args: { name: { '@call': 'remote', catalogId: app.id } } }),
+          call('broken', { '@call': 'waits', args: { name: { '@call': 'nope', catalogId: app.id } } }),
+          call('elsewhere', { '@call': 'plain', catalogId: 'other@1' }),
+        ]}
+        catalogs={catalogs}
+        functions={{
+          [app.id]: {
+            plain: ({ name }) => `Hi ${name}`,
+            quiet: () => undefined,
+            fails: () => {
+              throw coded;
+            },
+            failsText: () => {
+              throw 'bad';
+            },
+            waits: () => 'never',
+          },
+        }}
+        onMessage={message => sent.push(message)}
+      />,
+    );
+    await waitFor(() => expect(sent).toHaveLength(9));
+    const responses = Object.fromEntries(
+      sent.map(message => {
+        const { functionCallId, ...rest } = (
+          message as Extract<A2uiOutgoingMessage, { rendererFunctionResponse: unknown }>
+        ).rendererFunctionResponse;
+        return [functionCallId, rest];
+      }),
+    );
+    expect(responses).toMatchObject({
+      ok: { value: 'Hi Ada' },
+      badArgs: { error: { code: 'INVALID_FUNCTION_CALL', message: expect.stringContaining("don't match") } },
+      void: { value: null },
+      coded: { error: { code: 'RATE_LIMITED', message: 'Too many' } },
+      text: { error: { code: 'EXECUTION_ERROR', message: 'bad' } },
+      none: { error: { message: '"missing" has no implementation in this renderer.' } },
+      pending: { error: { code: 'EXECUTION_ERROR', message: 'Argument "name" is not ready.' } },
+      broken: { error: { code: 'EXPRESSION_ERROR' } },
+      elsewhere: { error: { message: 'Unknown function "plain" in "other@1".' } },
+    });
   });
 });

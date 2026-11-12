@@ -216,8 +216,7 @@ function propsState(value: unknown, options: EvaluateOptions, key?: string): Eva
 const hasRequiredCheck = (checks: readonly CheckRule[] | undefined) =>
   (checks ?? []).some(rule => isFunctionCall(rule.condition) && rule.condition['@call'] === 'required');
 
-const failureMessage = (checks: ChecksResult) =>
-  checks.failures.length ? (checks.failures[0]!.message ?? 'Check this value.') : undefined;
+const failureMessage = (checks: ChecksResult) => checks.failures[0]?.message;
 
 function A2uiNode({
   id,
@@ -277,7 +276,9 @@ function A2uiNode({
   const key = `${id}|${scope}`;
   const next = [...trail, key];
   const shown = value.attempted || value.touched.has(key);
-  const canAct = !value.readOnly && value.send !== undefined;
+  const { send } = value;
+  const sendAction = value.readOnly ? undefined : send;
+  const canAct = sendAction !== undefined;
   const context: A2uiRenderContext = {
     id,
     size: value.size,
@@ -308,7 +309,7 @@ function A2uiNode({
     checks,
     canAct,
     act: action => {
-      if (!canAct) return false;
+      if (!sendAction) return false;
       if (!checks.valid) {
         value.attempt();
         return false;
@@ -318,7 +319,7 @@ function A2uiNode({
         const result = evaluate(action.functionCall, { ...activated, fresh: true });
         value.flush();
         if (result.status === 'error')
-          value.send?.({
+          sendAction({
             version: a2uiVersion,
             error: { code: result.code, surfaceId: surface.surfaceId, message: result.message },
           });
@@ -333,7 +334,7 @@ function A2uiNode({
         context[name] = result.value ?? null;
       }
       if (userMessage.status !== 'done') return false;
-      value.send?.({
+      sendAction({
         version: a2uiVersion,
         action: {
           name: event.name,
@@ -346,7 +347,7 @@ function A2uiNode({
       });
       return true;
     },
-    expand: value.send ? () => value.send?.({ type: 'expand', componentId: id }) : undefined,
+    expand: send ? () => send({ type: 'expand', componentId: id }) : undefined,
   };
   return (
     <NodeBoundary>
@@ -387,12 +388,6 @@ async function runRendererCall(
   if (!implementation)
     return errorResponse(functionCallId, 'INVALID_FUNCTION_CALL', `"${name}" has no implementation in this renderer.`);
   const rawArgs = (callFunction.args ?? {}) as Record<string, unknown>;
-  if (definition.args && !definition.args.safeParse(rawArgs).success)
-    return errorResponse(
-      functionCallId,
-      'INVALID_FUNCTION_CALL',
-      `The arguments for "${name}" don't match its catalog.`,
-    );
   const options: EvaluateOptions = { catalogs, data, catalogId: catalog.id, ...(functions ? { functions } : {}) };
   const args: Record<string, unknown> = {};
   for (const [key, item] of Object.entries(rawArgs)) {
@@ -405,6 +400,12 @@ async function runRendererCall(
       );
     args[key] = result.value;
   }
+  if (definition.args && !definition.args.safeParse(args).success)
+    return errorResponse(
+      functionCallId,
+      'INVALID_FUNCTION_CALL',
+      `The arguments for "${name}" don't match its catalog.`,
+    );
   try {
     const value = await implementation(args, {
       catalogId: catalog.id,
