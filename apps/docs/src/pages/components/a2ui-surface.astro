@@ -43,31 +43,43 @@ import CodeBlock from '../../components/CodeBlock.astro';
   surfaceText,
 } from "@tulipfarm/sprout/a2ui/catalog";
 
+const catalogs = [sproutCatalog, appCatalog];
+
 // 1. Tell the model what it can use.
-const system = \`\${instructions}\\n\\n\${promptSnippet(sproutCatalog)}\`;
+const system = [instructions, ...catalogs.map(promptSnippet)].join("\\n\\n");
 
 // 2. Check what it sent.
-const result = checkSurface(messages, { catalog: sproutCatalog });
+const result = checkSurface(messages, { catalogs });
 if (!result.ok) {
   // A2UI errors: { code: "VALIDATION_FAILED", surfaceId, path, message }.
   return retryWith(result.errors);
 }
 
 // 3. Keep a text version for copy, search and the model's history.
-const text = surfaceText(result.surface, sproutCatalog);`}
+const text = surfaceText(result.surface, catalogs);`}
     />
     <ul>
       <li>
-        <code>checkSurface</code> refuses unknown components and props, missing or repeated IDs, children that do not
-        exist, cycles, parts not reachable from <code>root</code>, and links other than HTTP, HTTPS and mailto.
+        Messages use A2UI 1.0: every message has <code>version: "1.0"</code>. Older versions are refused.
+      </li>
+      <li>
+        <code>checkSurface</code> refuses unknown components, props and functions, missing or repeated IDs, children
+        that do not exist, cycles, parts not reachable from <code>root</code>, components in a parent they don’t allow,
+        and links other than HTTP, HTTPS and mailto. Each error has an A2UI code such as
+        <code>VALIDATION_FAILED</code>, <code>INVALID_RESERVED_KEY</code>, <code>INVALID_FUNCTION_CALL</code>,
+        <code>EXPRESSION_ERROR</code>, <code>UNALLOWED_PARENT</code> or <code>UNALLOWED_CHILD</code>.
+      </li>
+      <li>
+        Component names, function names, prop names and component IDs are Unicode identifiers: letters, digits and
+        underscores, with no hyphens.
       </li>
       <li>
         Default limits: 300 components, 256 KB, 1,000 table rows and 2,000 chart points. Pass
-        <code>limits</code> to change them and <code>allowUrl</code> to change which links and images are allowed.
-        Images are refused by default.
+        <code>limits</code> to change them and <code>allowUrl</code> to change which links are allowed.
       </li>
       <li>
-        <code>catalogDefinition(catalog)</code> returns the catalog as an A2UI JSON Schema, for tools that take one.
+        <code>catalogDefinition(catalog)</code> returns the catalog as an A2UI 1.0 catalog document, and
+        <code>surfaceSchema</code> and <code>rendererMessageSchema</code> describe the messages in each direction.
       </li>
     </ul>
   </section>
@@ -76,46 +88,90 @@ const text = surfaceText(result.surface, sproutCatalog);`}
     <CodeBlock
       lang="tsx"
       title="Draw a reply"
-      code={`import { A2uiSurface } from "@tulipfarm/sprout/a2ui";
+      code={`import { A2uiSurface, sproutAdapters, sproutCatalog } from "@tulipfarm/sprout/a2ui";
 
 <A2uiSurface
-  messages={messages}
+  messages={messages} // append the agent's agentFunctionResponse here
+  catalogs={[sproutCatalog, appCatalog]}
+  adapters={{ [sproutCatalog.id]: sproutAdapters, [appCatalog.id]: appAdapters }}
+  functions={{ [appCatalog.id]: { localTime } }}
   size="compact" // "full" in a side panel
   streaming={isStreaming}
-  onAction={action => {
-    if (action.type === "send") sendMessage(action.text);
-    if (action.type === "expand") openInCanvas(action.componentId);
+  readOnly={alreadySent}
+  onMessage={(message, metadata) => {
+    if ("type" in message) openInCanvas(message.componentId); // "Show all"
+    else sendToAgent(message, metadata); // action, callAgentFunction, rendererFunctionResponse, error
   }}
 />`}
     />
     <ul>
       <li>
         <code>size="compact"</code> fits a chat message: charts are 240px tall and tables show 10 rows with a “Show all”
-        button. That button calls <code>onAction</code> with <code>expand</code>, or expands in place without a handler.
+        button. That button calls <code>onMessage</code> with <code>{'{ type: "expand", componentId }'}</code>, or
+        expands in place without a handler.
       </li>
       <li>
-        While <code>streaming</code>, parts that have not arrived show a placeholder. Afterwards, a part that is missing
-        or fails to draw shows “This part couldn’t be displayed” and the rest of the reply still shows.
+        While <code>streaming</code>, parts that have not arrived, and values still waiting for a function, show a
+        placeholder. Afterwards, a part that is missing or fails to draw shows “This part couldn’t be displayed” and the
+        rest of the reply still shows.
       </li>
       <li>Every chart has a “Show data” button that swaps it for a table of the same numbers.</li>
       <li>
-        <code>Button</code> calls <code>onAction</code> with <code>send</code> and its message. Without a handler it is
-        disabled.
+        A <code>Button</code> sends an A2UI <code>action</code> with its event name, its <code>userMessage</code> and
+        its resolved <code>context</code>. If the surface asks for it, the data model comes as the second argument.
+        Without a handler, or with <code>readOnly</code>, buttons and fields are disabled.
       </li>
     </ul>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Forms and checks</h2>
+    <p>
+      <code>TextField</code>, <code>CheckBox</code>, <code>ChoicePicker</code>, <code>Slider</code> and
+      <code>DateTimeInput</code> bind their <code>value</code> to the data model with{' '}
+      <code>{'{ "@path": "/name" }'}</code>. There are no password or secret fields. A component’s <code>@checks</code>{' '}
+      list holds conditions and messages. A field shows its first failing message after it loses focus, and every
+      message shows when someone tries to send. A button whose checks fail stays focusable but won’t send.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Functions</h2>
+    <p>
+      A value can be a function call:{' '}
+      <code>{'{ "@call": "formatNumber", args: { value: { "@path": "/total" } } }'}</code>. Catalogs declare their
+      functions and who may call them with <code>allowedCallers</code>:
+    </p>
+    <ul>
+      <li>
+        <code>rendererOnly</code> (the default) runs in the browser. If the app has no implementation, the surface sends{' '}
+        <code>callAgentFunction</code> to the agent and waits for <code>agentFunctionResponse</code> in
+        <code>messages</code>.
+      </li>
+      <li>
+        <code>agentOnly</code> and <code>rendererOrAgent</code> functions may be called by the agent with
+        <code>callRendererFunction</code>. The surface always answers with a <code>rendererFunctionResponse</code>.
+      </li>
+      <li>
+        A function with <code>requiresUserActivation</code>, such as <code>openUrl</code>, only runs from a click.
+      </li>
+    </ul>
+    <p>
+      <code>sprout/basic@2</code> includes <code>formatString</code>, <code>formatNumber</code>,
+      <code>formatCurrency</code>, <code>formatDate</code>, <code>pluralize</code>, <code>openUrl</code>, the logic
+      functions <code>and</code>, <code>or</code> and <code>not</code>, and the checks <code>required</code>,
+      <code>regex</code>, <code>length</code>, <code>numeric</code> and <code>email</code>.
+    </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Add your own components</h2>
     <CodeBlock
       lang="tsx"
-      title="Extend the catalog"
+      title="Add an app catalog"
       code={`import { z } from "zod";
-import { defineCatalog, defineComponent, sproutCatalog } from "@tulipfarm/sprout/a2ui/catalog";
-import { sproutAdapters, type A2uiAdapter } from "@tulipfarm/sprout/a2ui";
+import { defineCatalog, defineComponent, defineFunction } from "@tulipfarm/sprout/a2ui/catalog";
+import type { A2uiAdapter } from "@tulipfarm/sprout/a2ui";
 
 export const appCatalog = defineCatalog({
   id: "acme/chat@1",
-  extends: sproutCatalog,
   components: {
     Weather: defineComponent({
       description: "Today's weather for one city.",
@@ -123,21 +179,32 @@ export const appCatalog = defineCatalog({
       text: props => \`Weather in \${props.city}\`,
     }),
   },
+  functions: {
+    localTime: defineFunction({
+      description: "The current time in a time zone.",
+      args: z.strictObject({ zone: z.string() }),
+      returnType: "string",
+    }),
+  },
 });
 
 const Weather: A2uiAdapter<{ city: string }> = ({ props }) => <WeatherCard city={props.city} />;
-
-export const appAdapters = { ...sproutAdapters, Weather };`}
+export const appAdapters = { Weather };`}
     />
     <p>
-      Give each catalog a versioned ID. Within one ID, only add components and optional props, so stored replies still
-      draw. Change the ID for anything else.
+      Pass every catalog the agent may use. A surface names its default with <code>createSurface.catalogId</code>, and a
+      component or function call from another catalog sets <code>@catalogId</code> (or <code>catalogId</code> on a
+      call). There is no fallback: a name the chosen catalog doesn’t have is an error.
+    </p>
+    <p>
+      Give each catalog a versioned ID. Within one ID, only add components, functions and optional props, so stored
+      replies still draw. Change the ID for anything else.
     </p>
   </section>
   <section class="prose-section">
     <h2 class="section-title">Catalog</h2>
     <p>
-      <code>sprout/basic@1</code> has these components:
+      <code>sprout/basic@2</code> has these components:
     </p>
     <ul>
       <li>
@@ -153,12 +220,14 @@ export const appAdapters = { ...sproutAdapters, Weather };`}
         <code>Progress</code>.
       </li>
       <li>
-        Other: <code>Image</code> (only where the app allows it) and <code>Button</code>.
+        Input: <code>Button</code>, <code>TextField</code>, <code>CheckBox</code>, <code>ChoicePicker</code>,{' '}
+        <code>Slider</code>, <code>DateTimeInput</code>.
       </li>
     </ul>
     <p>
-      Values such as table rows can be literal or <code>{'{ path }'}</code> into the surface’s data model. A child list
-      can be a template, <code>{'{ componentId, path }'}</code>, that repeats once per item of a list.
+      Values such as table rows can be literal, a function call, or <code>{'{ "@path" }'}</code> into the surface’s data
+      model. A child list can be a template, <code>{'{ componentId, path }'}</code>, that repeats once per item of a
+      list. Text that starts with <code>@</code> is written <code>@@</code>.
     </p>
   </section>
   <section class="prose-section">
@@ -166,7 +235,9 @@ export const appAdapters = { ...sproutAdapters, Weather };`}
     <p>
       Headings start at level 2, so they sit under the page’s own heading. Charts name themselves with their title and
       can switch to a table. Badges, callouts and metric changes always say their meaning in words; tone only tints
-      them. Placeholders are hidden from screen readers, and the surface is <code>aria-busy</code> while it streams.
+      them. Placeholders are hidden from screen readers, and the surface is <code>aria-busy</code> while it streams. A
+      component’s <code>@accessibility</code> sets its label, description, live region or hides it. Fields have visible
+      labels, their check messages are announced, and keyboard order follows the reply’s order.
     </p>
   </section>
 </Docs>

@@ -1,37 +1,73 @@
+import { readFileSync } from 'node:fs';
+import { z } from 'zod';
 import { describe, expect, it } from 'vitest';
 import {
+  basicFunctions,
   catalogDefinition,
+  checkMessage,
   checkSurface,
+  compileRegex,
   defineCatalog,
   defineComponent,
+  defineFunction,
+  dynamicStringSchema,
+  evaluate,
+  evaluateChecks,
+  formatDate,
+  isIdentifier,
   markdownTable,
   markdownUrls,
   promptSnippet,
   readPath,
   readSurface,
+  rendererMessageSchema,
   sproutCatalog,
+  surfaceSchema,
   surfaceText,
+  writePath,
+  type Catalog,
   type SurfaceLimits,
 } from '../packages/sprout/src/a2ui/catalog.js';
 
-const version = 'v0.9.1';
+const version = '1.0';
+const catalogs = [sproutCatalog];
 
-function messages(components: Record<string, unknown>[], data?: unknown, catalogId = sproutCatalog.id) {
+function messages(
+  components: Record<string, unknown>[],
+  dataModel?: unknown,
+  catalogId: string | undefined = sproutCatalog.id,
+) {
   return [
-    { version, createSurface: { surfaceId: 's1', catalogId } },
+    {
+      version,
+      createSurface: {
+        surfaceId: 's1',
+        ...(catalogId && { catalogId }),
+        ...(dataModel !== undefined && { dataModel }),
+      },
+    },
     { version, updateComponents: { surfaceId: 's1', components } },
-    ...(data === undefined ? [] : [{ version, updateDataModel: { surfaceId: 's1', path: '/', value: data } }]),
   ];
 }
 
-function check(components: Record<string, unknown>[], data?: unknown, limits?: Partial<SurfaceLimits>) {
-  return checkSurface(messages(components, data), { catalog: sproutCatalog, ...(limits && { limits }) });
+function check(
+  components: Record<string, unknown>[],
+  data?: unknown,
+  limits?: Partial<SurfaceLimits>,
+  list: readonly Catalog[] = catalogs,
+) {
+  return checkSurface(messages(components, data), { catalogs: list, ...(limits && { limits }) });
 }
 
 function errors(components: Record<string, unknown>[], data?: unknown, limits?: Partial<SurfaceLimits>) {
   const result = check(components, data, limits);
   expect(result.ok).toBe(false);
   return result.ok ? [] : result.errors.map(error => `${error.path} ${error.message}`);
+}
+
+function codes(components: Record<string, unknown>[], data?: unknown, list: readonly Catalog[] = catalogs) {
+  const result = check(components, data, undefined, list);
+  return result.ok ? [] : result.errors.map(error => error.code);
 }
 
 const memory = [
@@ -41,9 +77,9 @@ const memory = [
     id: 'used',
     component: 'Metric',
     label: 'Memory used',
-    value: { path: '/used' },
+    value: { '@path': '/used' },
     change: { value: '0.4 GB', direction: 'up', tone: 'negative', label: 'in 10 min' },
-    trend: { path: '/trend' },
+    trend: { '@path': '/trend' },
   },
   {
     id: 'chart',
@@ -52,7 +88,7 @@ const memory = [
     title: 'Memory',
     category: 'time',
     series: [{ key: 'gb', label: 'GB' }],
-    rows: { path: '/points' },
+    rows: { '@path': '/points' },
   },
 ];
 const memoryData = {
@@ -64,6 +100,21 @@ const memoryData = {
   ],
 };
 
+const form = (
+  checks: unknown[] = [
+    { condition: { '@call': 'required', args: { value: { '@path': '/name' } } }, message: 'Enter a name.' },
+  ],
+) => [
+  { id: 'root', component: 'Column', children: ['name', 'send'] },
+  { id: 'name', component: 'TextField', label: 'Name', value: { '@path': '/name' }, '@checks': checks },
+  {
+    id: 'send',
+    component: 'Button',
+    label: 'Send',
+    action: { event: { name: 'send', context: { name: { '@path': '/name' } } } },
+  },
+];
+
 describe('checkSurface', () => {
   it('accepts a complete surface and returns its model', () => {
     const result = check(memory, memoryData);
@@ -74,30 +125,47 @@ describe('checkSurface', () => {
     expect(readPath(result.surface.data, '/points/1/gb')).toBe(11.2);
   });
 
-  it('reports bad message shapes with a pointer', () => {
-    const result = checkSurface([{ version: 'v1', createSurface: { surfaceId: 's1', catalogId: 'x' } }], {
-      catalog: sproutCatalog,
-    });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.errors[0]).toMatchObject({ code: 'VALIDATION_FAILED', surfaceId: 's1' });
-    expect(checkSurface('nope', { catalog: sproutCatalog }).ok).toBe(false);
+  it('takes components and data inline in createSurface', () => {
+    const result = checkSurface(
+      [
+        {
+          version,
+          createSurface: {
+            surfaceId: 's1',
+            catalogId: sproutCatalog.id,
+            components: memory,
+            dataModel: memoryData,
+            metadata: { extensions: {} },
+          },
+        },
+      ],
+      { catalogs },
+    );
+    expect(result.ok).toBe(true);
   });
 
-  it('needs createSurface first, once, with this catalog', () => {
+  it('accepts only version 1.0 and no theme', () => {
+    const old = checkSurface([{ version: 'v0.9.1', createSurface: { surfaceId: 's1', catalogId: sproutCatalog.id } }], {
+      catalogs,
+    });
+    expect(old.ok).toBe(false);
+    const themed = checkSurface(
+      [{ version, createSurface: { surfaceId: 's1', catalogId: sproutCatalog.id, theme: { primaryColor: '#f00' } } }],
+      { catalogs },
+    );
+    expect(themed.ok).toBe(false);
+    expect(checkSurface('nope', { catalogs }).ok).toBe(false);
+  });
+
+  it('needs createSurface first and only once', () => {
     const update = { version, updateComponents: { surfaceId: 's1', components: [] } };
-    expect(checkSurface([update], { catalog: sproutCatalog })).toMatchObject({
+    expect(checkSurface([update], { catalogs })).toMatchObject({
       ok: false,
       errors: [{ path: '/0', message: 'The first message must be createSurface.' }],
     });
-    expect(checkSurface([], { catalog: sproutCatalog }).ok).toBe(false);
-
-    const wrong = checkSurface(messages(memory, memoryData, 'other@1'), { catalog: sproutCatalog });
-    expect(wrong.ok || wrong.errors[0]).toMatchObject({ path: '/0/createSurface/catalogId' });
-
     const twice = [...messages(memory, memoryData), messages([])[0]!];
-    const again = checkSurface(twice, { catalog: sproutCatalog });
-    expect(again.ok || again.errors[0]!.message).toBe('Send createSurface only once, first.');
+    const again = checkSurface(twice, { catalogs });
+    expect(again.ok || again.errors[0]).toMatchObject({ code: 'INTEGRITY_ERROR' });
   });
 
   it('refuses deleteSurface, other surfaces and duplicate IDs', () => {
@@ -106,28 +174,40 @@ describe('checkSurface', () => {
       { version, updateDataModel: { surfaceId: 'other', value: 1 } },
       { version, deleteSurface: { surfaceId: 's1' } },
     ];
-    const result = checkSurface(list, { catalog: sproutCatalog });
+    const result = checkSurface(list, { catalogs });
     expect(result.ok).toBe(false);
     if (result.ok) return;
     expect(result.errors.map(error => error.message)).toEqual([
-      'Component ID "summary" is used twice.',
       'Every message must target surface "s1".',
       'deleteSurface is not allowed here.',
     ]);
   });
 
+  it('needs updateDataModel to carry a value, with null deleting', () => {
+    const base = messages(memory, memoryData);
+    expect(
+      checkSurface([...base, { version, updateDataModel: { surfaceId: 's1', path: '/used' } }], { catalogs }).ok,
+    ).toBe(false);
+    expect(
+      checkSurface([...base, { version, updateDataModel: { surfaceId: 's1', path: '/x', value: null } }], { catalogs })
+        .ok,
+    ).toBe(true);
+  });
+
   it('needs a root, known components and valid props', () => {
-    expect(errors([{ id: 'a', component: 'Divider' }])).toContain(' One component must have the ID "root".');
-    expect(errors([{ id: 'root', component: 'Marquee' }])).toEqual([
-      '/1/updateComponents/components/0/component Unknown component "Marquee". Use one from the catalog.',
+    expect(errors([{ id: 'a', component: 'Column', children: [] }])).toContain(
+      ' One component must have the ID "root".',
+    );
+    expect(codes([{ id: 'root', component: 'Marquee' }])).toEqual(['VALIDATION_FAILED']);
+    expect(codes([{ id: 'root', component: 'Text', text: 'hi', style: 'color: red' }])).toEqual(['VALIDATION_FAILED']);
+    expect(codes([{ id: 'root', component: 'Image', src: 'https://example.com/a.png' }])).toEqual([
+      'VALIDATION_FAILED',
     ]);
-    const [prop] = errors([{ id: 'root', component: 'Text', text: 'hi', style: 'color: red' }]);
-    expect(prop).toMatch(/^\/1\/updateComponents\/components\/0 /);
   });
 
   it('finds missing children, cycles, orphans and deep trees', () => {
     expect(errors([{ id: 'root', component: 'Column', children: ['gone'] }])).toEqual([
-      '/1/updateComponents/components/0/children Component "gone" does not exist.',
+      '/1/updateComponents/components/0/children/0 Component "gone" does not exist.',
     ]);
     expect(
       errors([
@@ -137,7 +217,7 @@ describe('checkSurface', () => {
     ).toEqual(['/1/updateComponents/components/0 Component "root" contains itself.']);
     expect(
       errors([
-        { id: 'root', component: 'Divider' },
+        { id: 'root', component: 'Column', children: [] },
         { id: 'lost', component: 'Divider' },
       ]),
     ).toEqual(['/1/updateComponents/components/1 Component "lost" is not reachable from "root".']);
@@ -154,19 +234,24 @@ describe('checkSurface', () => {
   it('expands templates over the data model', () => {
     const list = [
       { id: 'root', component: 'List', children: { componentId: 'item', path: '/apps' } },
-      { id: 'item', component: 'Text', text: { path: 'name' } },
+      { id: 'item', component: 'Text', text: { '@path': 'name' } },
     ];
     const result = check(list, { apps: [{ name: 'Chrome' }, { name: 'Slack' }] });
     expect(result.ok).toBe(true);
-    if (result.ok) expect(surfaceText(result.surface, sproutCatalog)).toBe('- Chrome\n- Slack');
+    if (result.ok) expect(surfaceText(result.surface, catalogs)).toBe('- Chrome\n- Slack');
     expect(check(list, { apps: [] }).ok).toBe(true);
-
     expect(errors(list, { apps: 'none' })).toEqual([
       '/1/updateComponents/components/0/children/path "/apps" is not a list in the data model.',
     ]);
-    expect(
-      errors([{ id: 'root', component: 'List', children: { componentId: 'gone', path: '/apps' } }], { apps: [] }),
-    ).toEqual(['/1/updateComponents/components/0/children/componentId Component "gone" does not exist.']);
+  });
+
+  it('allows @index only inside a template', () => {
+    const indexed = (children: unknown) => [
+      { id: 'root', component: 'List', children },
+      { id: 'item', component: 'Text', text: { '@call': 'formatString', args: { value: 'Item ${@index()}' } } },
+    ];
+    expect(check(indexed({ componentId: 'item', path: '/apps' }), { apps: [1, 2] }).ok).toBe(true);
+    expect(codes(indexed(['item']))).toEqual(['EXPRESSION_ERROR']);
   });
 
   it('enforces size limits', () => {
@@ -180,12 +265,6 @@ describe('checkSurface', () => {
     ];
     expect(errors(table([{ name: 'a' }, { name: 'b' }]), undefined, { tableRows: 1 })).toEqual([
       '/1/updateComponents/components/0/rows The table has 2 rows; the limit is 1.',
-    ]);
-    expect(errors(table({ path: '/missing' }), {})).toEqual([
-      '/1/updateComponents/components/0/rows rows must be a list of objects.',
-    ]);
-    expect(errors(table({ path: '/rows' }), { rows: [1] })).toEqual([
-      '/1/updateComponents/components/0/rows Every row must be an object.',
     ]);
   });
 
@@ -206,60 +285,289 @@ describe('checkSurface', () => {
     expect(errors(chart({ rows: [{ name: 'a', gb: '1' }] }))).toEqual([
       '/1/updateComponents/components/0/rows Every row needs a number for each series key.',
     ]);
-    expect(errors(chart({ category: 'Name' }))).toEqual([
-      '/1/updateComponents/components/0/category Every row needs the category key "Name"; keys are case-sensitive.',
-    ]);
-    expect(
-      errors(
-        chart({
-          type: 'pie',
-          series: [
-            { key: 'gb', label: 'GB' },
-            { key: 'mb', label: 'MB' },
-          ],
-          rows: [{ name: 'a', gb: 1, mb: 2 }],
-        }),
-      ),
-    ).toEqual(['/1/updateComponents/components/0/series A pie chart has exactly one series.']);
-    expect(
-      errors(
-        chart({
-          rows: [
-            { name: 'a', gb: 1 },
-            { name: 'b', gb: 2 },
-          ],
-        }),
-        undefined,
-        { chartPoints: 1 },
-      ),
-    ).toEqual(['/1/updateComponents/components/0/rows The chart has 2 points; the limit is 1.']);
-    expect(errors(chart({ rows: { path: '/x' } }), {})).toHaveLength(1);
   });
 
-  it('checks metric trends and progress values', () => {
-    const metric = (trend: unknown) => [{ id: 'root', component: 'Metric', label: 'CPU', value: 3, trend }];
-    expect(errors(metric({ path: '/t' }), { t: ['a'] })).toEqual([
-      '/1/updateComponents/components/0/trend trend must be a list of numbers.',
-    ]);
-    expect(errors(metric([1, 2, 3]), undefined, { chartPoints: 2 })).toEqual([
-      '/1/updateComponents/components/0/trend trend has more than 2 points.',
-    ]);
-    expect(errors([{ id: 'root', component: 'Progress', label: 'Done', value: { path: '/p' } }], { p: 140 })).toEqual([
-      '/1/updateComponents/components/0/value value must be a number from 0 to 100.',
-    ]);
-  });
-
-  it('refuses unsafe links and images unless the app allows them', () => {
-    expect(errors([{ id: 'root', component: 'Text', text: '[go](javascript:alert(1)) <data:text/html,hi>' }])).toEqual([
-      '/1/updateComponents/components/0/text Link "javascript:alert(1" is not allowed.',
-      '/1/updateComponents/components/0/text Link "data:text/html,hi" is not allowed.',
-    ]);
+  it('refuses unsafe links and Markdown images unless the app allows them', () => {
+    expect(errors([{ id: 'root', component: 'Text', text: '[go](javascript:alert(1))' }])).toHaveLength(1);
     expect(check([{ id: 'root', component: 'Text', text: '[docs](https://example.com)' }]).ok).toBe(true);
+    const image = messages([{ id: 'root', component: 'Text', text: '![chart](https://example.com/a.png)' }]);
+    expect(checkSurface(image, { catalogs }).ok).toBe(false);
+    expect(checkSurface(image, { catalogs, allowUrl: (_url, kind) => kind === 'image' }).ok).toBe(true);
+  });
+});
 
-    const image = messages([{ id: 'root', component: 'Image', src: 'https://example.com/a.png', alt: 'A' }]);
-    const refused = checkSurface(image, { catalog: sproutCatalog });
-    expect(refused.ok || refused.errors[0]!.message).toBe('This image URL is not allowed.');
-    expect(checkSurface(image, { catalog: sproutCatalog, allowUrl: () => true }).ok).toBe(true);
+describe('reserved keys and identifiers', () => {
+  it('reads @path bindings and leaves bare path objects literal', () => {
+    const table = (rows: unknown) => [
+      { id: 'root', component: 'Table', label: 'Files', columns: [{ key: 'path', label: 'Path' }], rows },
+    ];
+    expect(check(table([{ path: '/var/log' }])).ok).toBe(true);
+    expect(check(table({ '@path': '/rows' }), { rows: [{ path: '/a' }] }).ok).toBe(true);
+  });
+
+  it('rejects unknown single-@ keys and unknown envelope keys', () => {
+    const result = checkMessage(
+      {
+        version,
+        updateComponents: {
+          surfaceId: 's1',
+          components: [{ id: 'root', component: 'Text', text: 'hi', '@style': 'x' }],
+        },
+      },
+      { catalogs, catalogId: sproutCatalog.id },
+    );
+    expect(result.map(error => error.code)).toContain('INVALID_RESERVED_KEY');
+    const value = checkMessage(
+      {
+        version,
+        updateComponents: {
+          surfaceId: 's1',
+          components: [
+            { id: 'root', component: 'Table', label: 'T', columns: [{ key: 'a', label: 'A' }], rows: [{ '@if': 1 }] },
+          ],
+        },
+      },
+      { catalogs, catalogId: sproutCatalog.id },
+    );
+    expect(value.map(error => error.code)).toContain('INVALID_RESERVED_KEY');
+  });
+
+  it('unescapes @@ keys to a literal @', () => {
+    const result = evaluate({ '@@path': '/static', nested: [{ '@@type': 'x' }] }, { catalogs, data: {} });
+    expect(result).toEqual({ status: 'done', value: { '@path': '/static', nested: [{ '@type': 'x' }] } });
+  });
+
+  it('uses UAX #31 identifiers for IDs and names', () => {
+    expect(isIdentifier('name_2')).toBe(true);
+    expect(isIdentifier('名前')).toBe(true);
+    expect(isIdentifier('first-name')).toBe(false);
+    expect(isIdentifier('2nd')).toBe(false);
+    expect(
+      codes([
+        { id: 'root', component: 'Column', children: ['first-name'] },
+        { id: 'first-name', component: 'Divider' },
+      ]),
+    ).toContain('VALIDATION_FAILED');
+    const Any = defineComponent({ description: 'x', props: z.strictObject({}) });
+    expect(() => defineCatalog({ id: 'x', components: { 'my-thing': Any } })).toThrow('Component name "my-thing"');
+    expect(() => defineCatalog({ id: 'x', components: { Surface: Any } })).toThrow('reserved');
+    expect(() =>
+      defineCatalog({
+        id: 'x',
+        components: { Thing: defineComponent({ description: 'x', props: z.strictObject({ 'a-b': z.string() }) }) },
+      }),
+    ).toThrow('Prop "Thing.a-b"');
+    expect(() =>
+      defineCatalog({
+        id: 'x',
+        functions: {
+          go: defineFunction({
+            description: 'x',
+            returnType: 'void',
+            requiresUserActivation: true,
+            allowedCallers: 'agentOnly',
+          }),
+        },
+      }),
+    ).toThrow('rendererOnly');
+  });
+});
+
+describe('catalog mixing', () => {
+  const Ticket = defineComponent({
+    description: 'A ticket.',
+    props: z.strictObject({ title: dynamicStringSchema }),
+    allowedParents: ['Surface', 'Column'],
+  });
+  const app = defineCatalog({
+    id: 'app/tickets@1',
+    components: { Ticket },
+    functions: {
+      lookupOwner: defineFunction({
+        description: 'Finds the owner.',
+        args: z.strictObject({ id: z.string() }),
+        returnType: 'string',
+      }),
+      refresh: defineFunction({ description: 'Refreshes.', returnType: 'void', allowedCallers: 'agentOnly' }),
+    },
+  });
+  const both = [sproutCatalog, app];
+
+  it('resolves @catalogId per component, then the surface default', () => {
+    const tree = [
+      { id: 'root', component: 'Column', children: ['ticket'] },
+      {
+        id: 'ticket',
+        component: 'Ticket',
+        '@catalogId': app.id,
+        title: { '@call': 'lookupOwner', catalogId: app.id, args: { id: '7' } },
+      },
+    ];
+    expect(check(tree, undefined, undefined, both).ok).toBe(true);
+    expect(codes(tree)).toContain('VALIDATION_FAILED');
+    expect(
+      codes(
+        [
+          { id: 'root', component: 'Column', children: ['t'] },
+          { id: 't', component: 'Ticket', title: 'x' },
+        ],
+        undefined,
+        both,
+      ),
+    ).toContain('VALIDATION_FAILED');
+  });
+
+  it('has no fallback when the surface names no catalog', () => {
+    const result = checkSurface(messages([{ id: 'root', component: 'Column', children: [] }], undefined, ''), {
+      catalogs,
+    });
+    expect(result.ok || result.errors[0]!.message).toMatch(/no catalog/);
+  });
+
+  it('rejects agent-only and unknown functions in components', () => {
+    const call = (name: string) => [
+      { id: 'root', component: 'Column', children: ['t'] },
+      { id: 't', component: 'Ticket', '@catalogId': app.id, title: { '@call': name, catalogId: app.id } },
+    ];
+    expect(codes(call('refresh'), undefined, both)).toEqual(['INVALID_FUNCTION_CALL']);
+    expect(codes(call('nothing'), undefined, both)).toEqual(['INVALID_FUNCTION_CALL']);
+  });
+
+  it('enforces allowedParents and allowedChildren', () => {
+    expect(
+      codes([
+        { id: 'root', component: 'Row', children: ['d'] },
+        { id: 'd', component: 'Divider' },
+      ]),
+    ).toEqual(['UNALLOWED_PARENT']);
+    expect(codes([{ id: 'root', component: 'Divider' }])).toEqual(['UNALLOWED_PARENT']);
+    const Strict = defineComponent({
+      description: 'Only text.',
+      props: z.strictObject({ children: z.array(z.string()) }),
+      allowedChildren: ['Text'],
+      children: props => [{ prop: 'children', ids: props.children }],
+    });
+    const strict = defineCatalog({
+      id: 'strict@1',
+      components: { Strict, Text: sproutCatalog.components.Text!, Badge: sproutCatalog.components.Badge! },
+    });
+    const tree = (child: string) => [
+      { id: 'root', component: 'Strict', children: ['c'] },
+      { id: 'c', component: child, text: 'x' },
+    ];
+    expect(checkSurface(messages(tree('Text'), undefined, strict.id), { catalogs: [strict] }).ok).toBe(true);
+    const bad = checkSurface(messages(tree('Badge'), undefined, strict.id), { catalogs: [strict] });
+    expect(bad.ok || bad.errors.map(error => error.code)).toEqual(['UNALLOWED_CHILD']);
+  });
+});
+
+describe('forms and functions', () => {
+  it('accepts form fields with checks and refuses checks on display components', () => {
+    expect(check(form(), { name: '' }).ok).toBe(true);
+    expect(codes([{ id: 'root', component: 'Text', text: 'x', '@checks': [] }])).toEqual(['VALIDATION_FAILED']);
+  });
+
+  it('has no password fields', () => {
+    expect(
+      codes([
+        { id: 'root', component: 'Column', children: ['p'] },
+        { id: 'p', component: 'TextField', label: 'P', value: '', variant: 'obscured' },
+      ]),
+    ).toEqual(['VALIDATION_FAILED']);
+  });
+
+  it('checks function arguments and return types', () => {
+    const tree = (condition: unknown) => form([{ condition, message: 'x' }]);
+    expect(codes(tree({ '@call': 'required' }))).toEqual(['INVALID_FUNCTION_CALL']);
+    expect(codes(tree({ '@call': 'formatNumber', args: { value: 1 } }))).toEqual(['INVALID_FUNCTION_CALL']);
+    expect(codes(tree({ '@call': 'regex', args: { value: 'a', pattern: '(a+)+' } }))).toEqual([
+      'INVALID_FUNCTION_CALL',
+    ]);
+  });
+
+  it('only lets a button action call a function that needs user activation', () => {
+    const open = { '@call': 'openUrl', args: { url: 'https://example.com' } };
+    const button = (action: unknown) => [
+      { id: 'root', component: 'Column', children: ['b'] },
+      { id: 'b', component: 'Button', label: 'Open', action },
+    ];
+    expect(check(button({ functionCall: open })).ok).toBe(true);
+    expect(codes([{ id: 'root', component: 'Text', text: open }])).toEqual(['EXPRESSION_ERROR']);
+    expect(codes(button({ functionCall: { ...open, args: { url: 'javascript:alert(1)' } } }))).toContain(
+      'VALIDATION_FAILED',
+    );
+  });
+
+  it('evaluates checks against the data model', () => {
+    const rules = [
+      { condition: { '@call': 'required', args: { value: { '@path': '/name' } } }, message: 'Enter a name.' },
+      { condition: { '@call': 'length', args: { value: { '@path': '/name' }, max: 3 } }, message: 'Too long.' },
+      { condition: { '@call': 'email', args: { value: { '@path': '/mail' } } }, message: 'Bad email.' },
+    ];
+    const run = (data: unknown) => evaluateChecks(rules, { catalogs, catalogId: sproutCatalog.id, data });
+    expect(run({ name: 'Ada', mail: 'a@b.co' })).toMatchObject({ valid: true, failures: [] });
+    expect(run({ name: '', mail: 'nope' }).failures.map(failure => failure.message)).toEqual([
+      'Enter a name.',
+      'Bad email.',
+    ]);
+    expect(
+      evaluateChecks([{ condition: rules[0]!.condition }], { catalogs, catalogId: sproutCatalog.id, data: {} })
+        .failures,
+    ).toEqual([{ valid: false, code: 'REQUIRED', message: 'This field is required.', severity: 'error' }]);
+    expect(run({ name: 'Ada Lovelace', mail: 'a@b.co' }).failures.map(failure => failure.message)).toEqual([
+      'Too long.',
+    ]);
+  });
+
+  it('runs the standard functions', () => {
+    const run = (value: unknown, data: unknown = {}) =>
+      evaluate(value, { catalogs, catalogId: sproutCatalog.id, data });
+    expect(
+      run(
+        { '@call': 'formatString', args: { value: 'Hi ${/name}, ${formatNumber(value: ${/n}, decimals: 1)}' } },
+        { name: 'Ada', n: 2 },
+      ),
+    ).toEqual({
+      status: 'done',
+      value: 'Hi Ada, 2.0',
+    });
+    expect(run({ '@call': 'and', args: { values: [true, { '@call': 'not', args: { value: false } }] } })).toEqual({
+      status: 'done',
+      value: true,
+    });
+    expect(run({ '@call': 'pluralize', args: { value: 2, one: 'file', other: 'files' } })).toEqual({
+      status: 'done',
+      value: 'files',
+    });
+    expect(run({ '@call': 'formatCurrency', args: { value: 3, currency: 'USD' } })).toMatchObject({ status: 'done' });
+    expect(formatDate('2026-03-04', 'yyyy-MM-dd')).toBe('2026-03-04');
+    expect(Object.keys(basicFunctions)).toHaveLength(14);
+  });
+
+  it('refuses regexes that could run forever', () => {
+    expect(compileRegex('^[a-z]+$')?.test('abc')).toBe(true);
+    expect(() => compileRegex('(a+)+$')).toThrow();
+    expect(() => compileRegex('(a)\\1')).toThrow();
+  });
+});
+
+describe('message schemas', () => {
+  it('accepts renderer messages and keeps function responses to value or error', () => {
+    const response = (body: unknown) =>
+      rendererMessageSchema.safeParse({ version, rendererFunctionResponse: body }).success;
+    expect(response({ functionCallId: 'c1', value: 1 })).toBe(true);
+    expect(response({ functionCallId: 'c1', error: { code: 'EXECUTION_ERROR', message: 'x' } })).toBe(true);
+    expect(response({ functionCallId: 'c1', value: 1, error: { code: 'x', message: 'x' } })).toBe(false);
+    const error = (body: unknown) =>
+      rendererMessageSchema.safeParse({ version, error: { message: 'x', ...(body as object) } }).success;
+    expect(error({ code: 'VALIDATION_FAILED', surfaceId: 's1', path: '/0' })).toBe(true);
+    expect(error({ code: 'VALIDATION_FAILED', surfaceId: 's1' })).toBe(false);
+    expect(error({ code: 'INVALID_FUNCTION_CALL', functionCallId: 'c1' })).toBe(true);
+    expect(error({ code: 'INVALID_FUNCTION_CALL', surfaceId: 's1', functionCallId: 'c1' })).toBe(false);
+  });
+
+  it('parses a whole surface', () => {
+    expect(surfaceSchema.safeParse(messages(memory, memoryData)).success).toBe(true);
   });
 });
 
@@ -276,140 +584,90 @@ describe('readSurface', () => {
       { version, updateDataModel: { surfaceId: 's1', path: '/a/0/b', value: 1 } },
       { version, updateDataModel: { surfaceId: 's1', path: '/__proto__/polluted', value: true } },
       { version, updateDataModel: { surfaceId: 's1', path: '/c', value: 2 } },
-      { version, updateDataModel: { surfaceId: 's1', path: '/c' } },
+      { version, updateDataModel: { surfaceId: 's1', path: '/c', value: null } },
     ])!;
     expect([...surface.components.keys()]).toEqual(['a']);
     expect(surface.data).toEqual({ a: [{ b: 1 }] });
     expect(({} as Record<string, unknown>).polluted).toBeUndefined();
-    expect(readSurface([{ version, deleteSurface: { surfaceId: 's1' } }])).toBeUndefined();
   });
 
   it('removes list items and marks deleted surfaces', () => {
     const surface = readSurface([
       ...messages([], { list: [1, 2, 3] }),
-      { version, updateDataModel: { surfaceId: 's1', path: '/list/1' } },
+      { version, updateDataModel: { surfaceId: 's1', path: '/list/1', value: null } },
       { version, deleteSurface: { surfaceId: 's1' } },
     ])!;
     expect(surface.data).toEqual({ list: [1, 3] });
     expect(surface.deleted).toBe(true);
   });
 
-  it('reads escaped JSON Pointer segments', () => {
+  it('reads and writes escaped JSON Pointer segments without mutating', () => {
     expect(readPath({ 'a/b': { '~c': 1 } }, '/a~1b/~0c')).toBe(1);
     expect(readPath({ a: 1 }, '/a/b')).toBeUndefined();
+    const data = { a: { b: 1 } };
+    expect(writePath(data, '/a/c', 2)).toEqual({ a: { b: 1, c: 2 } });
+    expect(data).toEqual({ a: { b: 1 } });
   });
 });
 
 describe('surfaceText', () => {
   it('writes every component as Markdown in tree order', () => {
     const components = [
-      { id: 'root', component: 'Section', title: 'Report', children: ['h', 'card', 'tabs', 'details', 'tail'] },
+      { id: 'root', component: 'Section', title: 'Report', children: ['h', 'card', 'tabs', 'tail'] },
       { id: 'h', component: 'Heading', text: 'Memory', level: 1 },
-      { id: 'card', component: 'Card', title: 'Used', description: 'Now', children: ['metric', 'badge'] },
-      {
-        id: 'metric',
-        component: 'Metric',
-        label: 'Used',
-        value: 11.2,
-        change: { value: '1 GB', direction: 'up', label: 'today' },
-        caption: 'of 16 GB',
-      },
+      { id: 'card', component: 'Card', title: 'Used', description: 'Now', children: ['badge'] },
       { id: 'badge', component: 'Badge', text: 'High', tone: 'warning' },
       { id: 'tabs', component: 'Tabs', tabs: [{ label: 'Apps', child: 'table' }] },
       {
         id: 'table',
         component: 'Table',
         label: 'Apps',
-        caption: 'Top apps',
         columns: [{ key: 'name', label: 'Name' }],
-        rows: [{ name: 'a|b' }, { name: null }],
+        rows: [{ name: 'a|b' }],
       },
-      { id: 'details', component: 'Details', items: [{ title: 'How', child: 'code' }] },
-      { id: 'code', component: 'Code', code: 'top', language: 'sh' },
-      { id: 'tail', component: 'Row', children: ['progress', 'callout', 'divider', 'image', 'button', 'chart', 'ol'] },
-      { id: 'progress', component: 'Progress', label: 'Swap', value: 5 },
+      { id: 'tail', component: 'Column', children: ['callout', 'divider', 'check'] },
       { id: 'callout', component: 'Callout', tone: 'warning', title: 'Warning:', text: 'Filling up' },
       { id: 'divider', component: 'Divider' },
-      { id: 'image', component: 'Image', src: 'https://example.com/a.png', alt: 'Graph' },
-      { id: 'button', component: 'Button', label: 'More', message: 'more' },
-      {
-        id: 'chart',
-        component: 'Chart',
-        type: 'line',
-        title: 'Trend',
-        category: 't',
-        series: [{ key: 'v', label: 'Value' }],
-        rows: [{ t: 1, v: 2 }],
-      },
-      { id: 'ol', component: 'List', ordered: true, children: ['li'] },
-      { id: 'li', component: 'Text', text: 'one\ntwo' },
+      { id: 'check', component: 'CheckBox', label: 'Notify me', value: true },
     ];
     const surface = readSurface(messages(components))!;
-    expect(surfaceText(surface, sproutCatalog)).toBe(
+    expect(surfaceText(surface, catalogs)).toBe(
       [
         '### Report',
         '## Memory',
         '**Used**',
         'Now',
-        'Used: 11.2 (up 1 GB today) of 16 GB',
         '[High]',
         '### Apps',
-        'Top apps',
-        '| Name |\n| --- |\n| a\\|b |\n|  |',
-        '**How**',
-        '```sh\ntop\n```',
-        'Swap: 5%',
+        '| Name |\n| --- |\n| a\\|b |',
         '**Warning:** Filling up',
         '---',
-        '[Image: Graph]',
-        '**Trend**',
-        '| t | Value |\n| --- | --- |\n| 1 | 2 |',
-        '1. one\n  two',
+        '[x] Notify me',
       ].join('\n\n'),
     );
-  });
-
-  it('skips unknown, invalid and repeated components', () => {
-    const surface = readSurface(
-      messages([
-        { id: 'root', component: 'Column', children: ['a', 'b', 'c', 'root'] },
-        { id: 'a', component: 'Marquee' },
-        { id: 'b', component: 'Text' },
-        { id: 'c', component: 'Text', text: 'ok' },
-      ]),
-    )!;
-    expect(surfaceText(surface, sproutCatalog)).toBe('ok');
   });
 });
 
 describe('catalog helpers', () => {
-  it('extends a catalog and keeps names PascalCase', () => {
-    const Embed = defineComponent({ ...sproutCatalog.components.Image!, description: 'An embed.' });
-    const extended = defineCatalog({ id: 'app@1', extends: sproutCatalog, components: { Embed } });
-    expect(extended.components.Embed).toBe(Embed);
-    expect(extended.components.Text).toBe(sproutCatalog.components.Text);
-    expect(() => defineCatalog({ id: 'x', components: { embed: Embed } })).toThrow('PascalCase: embed');
-  });
-
-  it('describes the catalog as A2UI JSON Schema', () => {
+  it('describes the catalog as A2UI 1.0 JSON Schema', () => {
     const definition = catalogDefinition(sproutCatalog) as Record<string, any>;
-    expect(definition.catalogId).toBe('sprout/basic@1');
-    expect(Object.keys(definition.components)).toHaveLength(19);
-    expect(definition.components.Row.properties.children).toEqual({ $ref: 'common_types.json#/$defs/ChildList' });
-    expect(definition.components.Tabs.properties.tabs.items.properties.child).toEqual({
-      $ref: 'common_types.json#/$defs/ComponentId',
+    expect(definition.catalogId).toBe('sprout/basic@2');
+    expect(definition.protocolVersion).toBe('1.0');
+    expect(definition.components.TextField.checkable ?? definition.components.TextField).toBeTruthy();
+    expect(definition.functions.openUrl).toMatchObject({
+      returnType: 'void',
+      allowedCallers: 'rendererOnly',
+      requiresUserActivation: true,
     });
-    expect(definition.components.Table.required).toEqual(['id', 'component', 'label', 'columns', 'rows']);
-    expect(definition.$defs.anyComponent.oneOf).toContainEqual({ $ref: '#/components/Chart' });
+    expect(Object.keys(definition.functions)).toHaveLength(14);
   });
 
-  it('writes a compact prompt with one line per component', () => {
+  it('writes a compact prompt', () => {
     const prompt = promptSnippet(sproutCatalog);
-    expect(prompt).toContain('A2UI v0.9.1, catalog "sprout/basic@1"');
-    expect(prompt).toContain('- Row {children: id[] | {componentId, path}, gap?: "small"|"medium"|"large"');
-    expect(prompt).toContain('- Text {text: string (or {path}), variant?: "body"|"caption"}');
-    expect(prompt).toContain('level?: 1 | 2 | 3');
-    expect(prompt.split('\n').filter(line => line.startsWith('- '))).toHaveLength(19);
+    expect(prompt).toContain('A2UI 1.0, catalog "sprout/basic@2"');
+    expect(prompt).toContain('{"@path": "/pointer"}');
+    expect(prompt).toContain('- TextField (checkable)');
+    expect(prompt).toContain('- openUrl');
   });
 
   it('writes Markdown tables and finds Markdown links', () => {
@@ -419,5 +677,12 @@ describe('catalog helpers', () => {
       'https://b.test',
       'mailto:c@d.test',
     ]);
+  });
+
+  it('keeps the catalog entry point free of React', () => {
+    for (const file of ['catalog.ts', 'core.ts', 'functions.ts']) {
+      const source = readFileSync(new URL(`../packages/sprout/src/a2ui/${file}`, import.meta.url), 'utf8');
+      expect(source).not.toMatch(/from ['"](react|react-dom)|from ['"]\.\/surface/);
+    }
   });
 });

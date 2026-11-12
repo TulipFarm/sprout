@@ -176,11 +176,48 @@
     vertical-align: top;
   }
 
-  .sprout-a2ui-image {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--sprout-radius-panel);
+  .sprout-a2ui-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  .sprout-a2ui-filter {
+    max-width: 240px;
+  }
+  .sprout-a2ui-slider-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .sprout-a2ui-slider-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--sprout-muted);
+  }
+
+  .sprout-a2ui-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  /* Blocked by checks: looks disabled but stays focusable, so pressing it shows what to fix. */
+  .sprout-a2ui-button[data-blocked] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .sprout-a2ui-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .sprout-a2ui-callout .sprout-alert-title {

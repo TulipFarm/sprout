@@ -5,13 +5,20 @@ import {
   defineCatalog,
   defineComponent,
   dynamic,
+  dynamicBooleanSchema,
+  dynamicNumberSchema,
+  dynamicStringListSchema,
+  markdownLinksWithKind,
   markdownTable,
-  markdownUrls,
+  actionSchema,
   type CheckContext,
+  type TextContext,
   type DynamicValue,
 } from './core.js';
+import { basicFunctions } from './functions.js';
 
 export * from './core.js';
+export { basicFunctions, compileRegex, formatDate, openLink } from './functions.js';
 
 const text = (max: number) => dynamic(z.string().max(max));
 const label = text(200);
@@ -33,8 +40,9 @@ const textLength = (value: unknown) => (typeof value === 'string' ? value.length
 function checkMarkdown(prop: string, value: unknown, context: CheckContext) {
   if (typeof value !== 'string') return;
   context.countText(value.length);
-  for (const url of markdownUrls(value))
-    if (!context.allowUrl(url, 'link')) context.report(prop, `Link "${url.slice(0, 80)}" is not allowed.`);
+  for (const { url, kind } of markdownLinksWithKind(value))
+    if (!context.allowUrl(url, kind))
+      context.report(prop, `${kind === 'image' ? 'Image' : 'Link'} "${url.slice(0, 80)}" is not allowed.`);
 }
 
 function checkRows(rows: DynamicValue<unknown>, context: CheckContext): Record<string, unknown>[] | undefined {
@@ -59,6 +67,16 @@ const asText = (value: unknown) =>
 
 const children = z.strictObject({ children: childListSchema });
 
+// Where blocks may go. Components without allowedParents may go anywhere.
+const blocks = ['Surface', 'Column', 'Section', 'Card', 'Tabs', 'Details'] as const;
+const inline = [...blocks, 'Row', 'List'] as const;
+
+const fieldLabel = text(200);
+const fieldText = (props: { label: DynamicValue<string>; value: unknown }, { resolve }: TextContext) =>
+  `${asText(resolve(props.label))}: ${asText(resolve(props.value as DynamicValue<unknown>))}`;
+const choiceOption = z.strictObject({ label: text(200), value: z.string().min(1).max(200) });
+const choiceOptions = z.array(z.strictObject({ label: z.unknown(), value: z.string() }));
+
 const tableColumn = z.strictObject({
   key: z.string().min(1).max(64),
   label: z.string().max(100),
@@ -67,7 +85,7 @@ const tableColumn = z.strictObject({
 
 const chartSeries = z.strictObject({ key: z.string().min(1).max(64), label: z.string().max(100) });
 
-/** Every component in `sprout/basic@1`, by name. */
+/** Every component in `sprout/basic@2`, by name. */
 export const sproutComponents = {
   Text: defineComponent({
     description: 'Markdown text: paragraphs, emphasis, links, inline code and short lists.',
@@ -84,6 +102,7 @@ export const sproutComponents = {
   Section: defineComponent({
     description: 'A titled group of components, for the parts of a report.',
     props: z.strictObject({ title: label.optional(), children: childListSchema }),
+    allowedParents: ['Surface', 'Column', 'Section', 'Tabs', 'Details'],
     children: props => [{ prop: 'children', ids: props.children }],
     text: (props, context) =>
       [props.title ? `### ${asText(context.resolve(props.title))}` : '', ...context.children(props.children)]
@@ -116,10 +135,12 @@ export const sproutComponents = {
   Divider: defineComponent({
     description: 'A horizontal rule between groups.',
     props: z.strictObject({}),
+    allowedParents: ['Column', 'Section', 'Card'],
     text: () => '---',
   }),
   Tabs: defineComponent({
     description: 'Tabs; each tab shows one child component.',
+    allowedParents: ['Surface', 'Column', 'Section', 'Card'],
     props: z.strictObject({
       tabs: z
         .array(z.strictObject({ label: z.string().min(1).max(60), child: componentIdSchema }))
@@ -265,23 +286,112 @@ export const sproutComponents = {
     text: (props, { resolve }) => `\`\`\`${props.language ?? ''}\n${asText(resolve(props.code))}\n\`\`\``,
     check: (props, context) => context.countText(textLength(context.resolve(props.code))),
   }),
-  Image: defineComponent({
-    description: 'An image with alt text. Only shown when the app allows its URL.',
-    props: z.strictObject({ src: z.string().min(1).max(2048), alt: z.string().min(1).max(300) }),
-    text: props => `[Image: ${props.alt}]`,
+  Button: defineComponent({
+    description:
+      "A button. Its action sends an event, with userMessage shown as the person's message and context holding the values to send.",
+    props: z.strictObject({
+      label: z.string().min(1).max(60),
+      action: actionSchema,
+      variant: z.enum(['default', 'primary', 'borderless']).optional(),
+    }),
+    allowedParents: inline,
+    checkable: true,
+    text: () => '',
+  }),
+  TextField: defineComponent({
+    description: 'A text input with a visible label. Bind value to the data model.',
+    props: z.strictObject({
+      label: fieldLabel,
+      value: text(20_000),
+      placeholder: text(200).optional(),
+      variant: z.enum(['shortText', 'longText', 'number']).optional(),
+    }),
+    allowedParents: inline,
+    checkable: true,
+    text: fieldText,
+  }),
+  CheckBox: defineComponent({
+    description: 'A checkbox with a visible label. Bind value to a boolean in the data model.',
+    props: z.strictObject({ label: fieldLabel, value: dynamicBooleanSchema }),
+    allowedParents: inline,
+    checkable: true,
+    text: (props, { resolve }) => `[${resolve(props.value) === true ? 'x' : ' '}] ${asText(resolve(props.label))}`,
+  }),
+  ChoicePicker: defineComponent({
+    description:
+      'Choose one option (mutuallyExclusive) or several (multipleSelection). value is a list of the chosen option values. options may come from a function call.',
+    props: z.strictObject({
+      label: fieldLabel,
+      variant: z.enum(['mutuallyExclusive', 'multipleSelection']).optional(),
+      options: dynamic(z.array(choiceOption).min(1).max(200)),
+      value: dynamicStringListSchema,
+      displayStyle: z.enum(['checkbox', 'chips']).optional(),
+      filterable: z.boolean().optional(),
+    }),
+    allowedParents: inline,
+    checkable: true,
+    text: (props, { resolve }) => {
+      const chosen = resolve(props.value);
+      return `${asText(resolve(props.label))}: ${Array.isArray(chosen) ? chosen.join(', ') : ''}`;
+    },
     check: (props, context) => {
-      if (!context.allowUrl(props.src, 'image')) context.report('src', 'This image URL is not allowed.');
+      const options = context.resolve(props.options);
+      if (options !== undefined && !choiceOptions.safeParse(options).success)
+        context.report('options', 'options must be a list of { label, value }.');
     },
   }),
-  Button: defineComponent({
-    description: "A button that sends `message` as the user's next message.",
-    props: z.strictObject({ label: z.string().min(1).max(60), message: z.string().min(1).max(2000) }),
-    text: () => '',
+  Slider: defineComponent({
+    description: 'A number picked on a range from min (default 0) to max. steps snaps to that many divisions.',
+    props: z.strictObject({
+      label: fieldLabel,
+      min: z.number().optional(),
+      max: z.number(),
+      value: dynamicNumberSchema,
+      steps: z.number().int().min(1).max(1000).optional(),
+    }),
+    allowedParents: inline,
+    checkable: true,
+    text: fieldText,
+    check: (props, context) => {
+      if ((props.min ?? 0) >= props.max) context.report('max', 'max must be greater than min.');
+    },
+  }),
+  DateTimeInput: defineComponent({
+    description: 'A date and/or time input. value is ISO 8601, or "" when empty. Set enableDate, enableTime or both.',
+    props: z.strictObject({
+      label: fieldLabel,
+      value: text(40),
+      enableDate: z.boolean().optional(),
+      enableTime: z.boolean().optional(),
+      min: text(40).optional(),
+      max: text(40).optional(),
+    }),
+    allowedParents: inline,
+    checkable: true,
+    text: fieldText,
+    check: (props, context) => {
+      if (!props.enableDate && !props.enableTime) context.report('enableDate', 'Set enableDate, enableTime or both.');
+    },
   }),
 };
 
-/** The base Sprout catalog. Extend it with `defineCatalog({ extends: sproutCatalog, ... })`. */
-export const sproutCatalog = defineCatalog({ id: 'sprout/basic@1', components: sproutComponents });
+const instructions = `Build the reply from the root component "root"; component IDs use letters, digits and _.
+Bind values with {"@path": "/key"} and put shared data in the data model. Inside a template, paths without a leading / are relative to the item.
+Use Section and Heading for the parts of a report; Row for a few metrics or cards side by side.
+Tables and charts take rows from the data model. Colors, fonts and spacing come from the theme.
+Every form field has a visible label and binds value to the data model. Never ask for passwords, API keys, one-time codes or card numbers.
+Add @checks to fields and to the button that sends them; the button stays disabled until they pass. Checks are advice, not security.
+A button's action.event names the action, its userMessage is shown as the person's message and its context lists the values to send.`;
+
+/** Sprout's catalog, `sprout/basic@2`: report components, form fields and A2UI's basic functions. */
+export const sproutCatalog = defineCatalog({
+  id: 'sprout/basic@2',
+  title: 'Sprout',
+  description: "Reports, data views and simple forms drawn with Sprout's components.",
+  instructions,
+  components: sproutComponents,
+  functions: basicFunctions,
+});
 
 export type SproutComponentName = keyof typeof sproutComponents;
 export type SproutComponentProps<Name extends SproutComponentName> = z.output<(typeof sproutComponents)[Name]['props']>;

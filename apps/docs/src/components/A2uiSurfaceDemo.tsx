@@ -1,25 +1,46 @@
 import { useMemo, useState } from 'react';
-import { A2uiSurface, checkSurface, sproutCatalog, type A2uiAction, type A2uiSize } from '@tulipfarm/sprout/a2ui';
+import {
+  A2uiSurface,
+  checkSurface,
+  sproutCatalog,
+  type A2uiOutgoingMessage,
+  type A2uiSize,
+} from '@tulipfarm/sprout/a2ui';
 import { CodeBlock } from '@tulipfarm/sprout/code-block';
 import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
-import { brokenExample, dateExample, memoryExample, reportExample, streamingExample } from '../data/a2ui-examples';
+import {
+  brokenExample,
+  dateExample,
+  formExample,
+  memoryExample,
+  reportExample,
+  streamingExample,
+} from '../data/a2ui-examples';
 import '../styles/a2ui-demo.css';
 
 const examples = {
   date: { label: 'Date and week', messages: dateExample, size: 'compact', streaming: false },
   memory: { label: 'Memory with chart', messages: memoryExample, size: 'compact', streaming: false },
   report: { label: 'Report', messages: reportExample, size: 'full', streaming: false },
+  form: { label: 'Form', messages: formExample, size: 'compact', streaming: false },
   streaming: { label: 'Streaming', messages: streamingExample, size: 'compact', streaming: true },
   broken: { label: 'Broken part', messages: brokenExample, size: 'compact', streaming: false },
 } as const satisfies Record<string, { label: string; messages: unknown[]; size: A2uiSize; streaming: boolean }>;
 
 type ExampleName = keyof typeof examples;
 
+function describe(message: A2uiOutgoingMessage) {
+  if ('type' in message) return `Opens ${message.componentId} in full`;
+  if ('action' in message)
+    return `Sends “${message.action.userMessage ?? message.action.name}” with ${JSON.stringify(message.action.context)}`;
+  return `Sends ${Object.keys(message).find(key => key !== 'version')} to the agent`;
+}
+
 export default function A2uiSurfaceDemo() {
   const [name, setName] = useState<ExampleName>('memory');
   const [action, setAction] = useState<string>();
   const example = examples[name];
-  const check = useMemo(() => checkSurface(example.messages, { catalog: sproutCatalog }), [example]);
+  const check = useMemo(() => checkSurface(example.messages, { catalogs: [sproutCatalog] }), [example]);
   return (
     <div className="a2ui-demo" data-testid="a2ui-demo">
       <ToggleGroup
@@ -47,9 +68,7 @@ export default function A2uiSurfaceDemo() {
           messages={example.messages}
           size={example.size}
           streaming={example.streaming}
-          onAction={(next: A2uiAction) =>
-            setAction(next.type === 'send' ? `Sends “${next.text}”` : `Opens ${next.componentId} in full`)
-          }
+          onMessage={next => setAction(describe(next))}
         />
         {action ? (
           <p className="a2ui-demo-action" role="status">

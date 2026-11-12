@@ -1,11 +1,14 @@
-const version = 'v0.9.1';
+const version = '1.0';
 
-/** Builds the A2UI messages for one surface in `sprout/basic@1`. */
-export function surfaceMessages(surfaceId: string, components: Record<string, unknown>[], data?: unknown) {
+/** Builds the A2UI 1.0 messages for one surface in `sprout/basic@2`. */
+export function surfaceMessages(
+  surfaceId: string,
+  components: Record<string, unknown>[],
+  dataModel?: Record<string, unknown>,
+) {
   return [
-    { version, createSurface: { surfaceId, catalogId: 'sprout/basic@1' } },
+    { version, createSurface: { surfaceId, catalogId: 'sprout/basic@2', ...(dataModel ? { dataModel } : {}) } },
     { version, updateComponents: { surfaceId, components } },
-    ...(data === undefined ? [] : [{ version, updateDataModel: { surfaceId, path: '/', value: data } }]),
   ];
 }
 
@@ -33,7 +36,7 @@ export const memoryExample = surfaceMessages(
       label: 'Memory used',
       value: '11.2 GB',
       change: { value: '0.4 GB', direction: 'up', tone: 'negative', label: 'in 10 min' },
-      trend: { path: '/trend' },
+      trend: { '@path': '/trend' },
     },
     {
       id: 'chart',
@@ -42,7 +45,7 @@ export const memoryExample = surfaceMessages(
       title: 'Memory in the last 10 minutes',
       category: 'time',
       series: [{ key: 'used', label: 'Used' }],
-      rows: { path: '/samples' },
+      rows: { '@path': '/samples' },
       unit: 'GB',
     },
   ],
@@ -122,7 +125,7 @@ export const reportExample = surfaceMessages(
       title: 'Memory by app',
       category: 'app',
       series: [{ key: 'memory', label: 'Memory' }],
-      rows: { path: '/apps' },
+      rows: { '@path': '/apps' },
       horizontal: true,
       unit: 'GB',
     },
@@ -133,7 +136,7 @@ export const reportExample = surfaceMessages(
       title: 'Share of memory',
       category: 'app',
       series: [{ key: 'share', label: 'Share (%)' }],
-      rows: { path: '/apps' },
+      rows: { '@path': '/apps' },
     },
     {
       id: 'table',
@@ -144,7 +147,7 @@ export const reportExample = surfaceMessages(
         { key: 'memory', label: 'Memory (GB)', align: 'end' },
         { key: 'share', label: 'Share (%)', align: 'end' },
       ],
-      rows: { path: '/apps' },
+      rows: { '@path': '/apps' },
     },
     {
       id: 'details',
@@ -160,12 +163,122 @@ export const reportExample = surfaceMessages(
       text: 'Sampled every minute from `vm_stat`. See [Apple’s guide](https://support.apple.com/guide/activity-monitor/).',
     },
     { id: 'processes', component: 'List', ordered: true, children: { componentId: 'process', path: '/apps' } },
-    { id: 'process', component: 'Text', text: { path: 'app' } },
+    { id: 'process', component: 'Text', text: { '@path': 'app' } },
     { id: 'actions', component: 'Row', align: 'start', children: ['quit', 'watch'] },
-    { id: 'quit', component: 'Button', label: 'How do I free memory?', message: 'How do I free memory?' },
-    { id: 'watch', component: 'Button', label: 'Alert me at 90%', message: 'Alert me when memory passes 90%.' },
+    {
+      id: 'quit',
+      component: 'Button',
+      label: 'How do I free memory?',
+      action: { event: { name: 'ask', userMessage: 'How do I free memory?' } },
+    },
+    {
+      id: 'watch',
+      component: 'Button',
+      label: 'Alert me at 90%',
+      action: {
+        event: { name: 'createAlert', userMessage: 'Alert me when memory passes 90%.', context: { threshold: 90 } },
+      },
+    },
   ],
   { apps },
+);
+
+/** A short form: the button sends the values once the checks pass. */
+export const formExample = surfaceMessages(
+  'alert',
+  [
+    { id: 'root', component: 'Card', title: 'Memory alert', children: ['fields'] },
+    {
+      id: 'fields',
+      component: 'Column',
+      children: ['name', 'email', 'threshold', 'channels', 'start', 'pause', 'save'],
+    },
+    {
+      id: 'name',
+      component: 'TextField',
+      label: 'Alert name',
+      value: { '@path': '/name' },
+      '@checks': [
+        { condition: { '@call': 'required', args: { value: { '@path': '/name' } } }, message: 'Name the alert.' },
+        {
+          condition: { '@call': 'length', args: { value: { '@path': '/name' }, max: 40 } },
+          message: 'Use 40 characters or fewer.',
+        },
+      ],
+    },
+    {
+      id: 'email',
+      component: 'TextField',
+      label: 'Email',
+      value: { '@path': '/email' },
+      '@checks': [
+        { condition: { '@call': 'email', args: { value: { '@path': '/email' } } }, message: 'Enter an email address.' },
+      ],
+    },
+    {
+      id: 'threshold',
+      component: 'Slider',
+      label: 'Alert at (%)',
+      min: 50,
+      max: 100,
+      steps: 10,
+      value: { '@path': '/threshold' },
+    },
+    {
+      id: 'channels',
+      component: 'ChoicePicker',
+      label: 'Notify by',
+      variant: 'multipleSelection',
+      options: [
+        { label: 'Email', value: 'email' },
+        { label: 'Push notification', value: 'push' },
+      ],
+      value: { '@path': '/channels' },
+      '@checks': [
+        {
+          condition: { '@call': 'length', args: { value: { '@path': '/channels' }, min: 1 } },
+          message: 'Choose at least one way.',
+        },
+      ],
+    },
+    { id: 'start', component: 'DateTimeInput', label: 'Start on', enableDate: true, value: { '@path': '/start' } },
+    { id: 'pause', component: 'CheckBox', label: 'Pause at night', value: { '@path': '/pause' } },
+    {
+      id: 'save',
+      component: 'Button',
+      label: 'Create alert',
+      variant: 'primary',
+      '@checks': [
+        {
+          condition: {
+            '@call': 'and',
+            args: {
+              values: [
+                { '@call': 'required', args: { value: { '@path': '/name' } } },
+                { '@call': 'email', args: { value: { '@path': '/email' } } },
+              ],
+            },
+          },
+          message: 'Fill in the name and email first.',
+        },
+      ],
+      action: {
+        event: {
+          name: 'createAlert',
+          userMessage: { '@call': 'formatString', args: { value: 'Create the alert “${/name}” at ${/threshold}%.' } },
+          context: {
+            name: { '@path': '/name' },
+            email: { '@path': '/email' },
+            threshold: { '@path': '/threshold' },
+            channels: { '@path': '/channels' },
+            start: { '@path': '/start' },
+            pause: { '@path': '/pause' },
+          },
+        },
+      },
+    },
+  ],
+  { name: '', email: '', threshold: 90, channels: ['email'], start: '', pause: false },
 );
 
 /** The memory reply cut off mid-stream: the chart and its data have not arrived yet. */
