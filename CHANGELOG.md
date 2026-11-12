@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.17.1](https://github.com/TulipFarm/sprout/compare/v0.16.0...v0.17.1) (2026-11-12)
+
+### ⚠ BREAKING CHANGES
+
+* **a2ui:** move to A2UI 1.0 with forms, functions and catalog mixing ([#79](https://github.com/TulipFarm/sprout/issues/79))
+
+### Features
+
+* **a2ui:** move to A2UI 1.0 with forms, functions and catalog mixing ([#79](https://github.com/TulipFarm/sprout/issues/79)) ([6f3f490](https://github.com/TulipFarm/sprout/commit/6f3f490a7486ffaaab09136be50181e30c6130ff)), references [#31](https://github.com/TulipFarm/sprout/issues/31)
+* **monster-avatar:** bolder, flatter artwork ([#78](https://github.com/TulipFarm/sprout/issues/78)) ([2cae09e](https://github.com/TulipFarm/sprout/commit/2cae09ee193c80a5e88a492b79cd1122709d0753))
+
 ## [0.17.0](https://github.com/TulipFarm/sprout/compare/v0.16.0...v0.17.0) (2026-11-12)
 
 ### ⚠ BREAKING CHANGES

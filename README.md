@@ -105,7 +105,7 @@ Full library: **922.9 kB** gzip. Each component path is smaller. Sizes are minif
 
 | Component           |       Raw |     Gzip |   Brotli |
 | ------------------- | --------: | -------: | -------: |
-| `a2ui`              | 1400.4 kB | 429.5 kB | 354.4 kB |
+| `a2ui`              | 1400.3 kB | 429.5 kB | 354.3 kB |
 | `a2ui/catalog`      |   52.3 kB |  18.3 kB |  16.4 kB |
 | `accordion`         |   64.2 kB |  22.0 kB |  19.4 kB |
 | `agent-fanout`      |  257.0 kB |  90.5 kB |  77.2 kB |
