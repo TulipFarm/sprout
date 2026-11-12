@@ -98,26 +98,26 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **923.0 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **922.9 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
 
 | Component           |       Raw |     Gzip |   Brotli |
 | ------------------- | --------: | -------: | -------: |
-| `a2ui`              | 1338.9 kB | 408.5 kB | 336.5 kB |
-| `a2ui/catalog`      |   19.6 kB |   7.3 kB |   6.5 kB |
+| `a2ui`              | 1400.4 kB | 429.5 kB | 354.4 kB |
+| `a2ui/catalog`      |   52.3 kB |  18.3 kB |  16.4 kB |
 | `accordion`         |   64.2 kB |  22.0 kB |  19.4 kB |
 | `agent-fanout`      |  257.0 kB |  90.5 kB |  77.2 kB |
 | `agent-avatar`      |  137.9 kB |  40.0 kB |  34.1 kB |
-| `monster-avatar`    |   68.5 kB |  22.5 kB |  19.5 kB |
+| `monster-avatar`    |   68.4 kB |  22.6 kB |  19.6 kB |
 | `alert`             |   35.2 kB |  11.5 kB |  10.1 kB |
 | `alert-dialog`      |  168.9 kB |  56.9 kB |  49.8 kB |
 | `aspect-ratio`      |   30.3 kB |   9.7 kB |   8.5 kB |
 | `attachment`        |  352.9 kB | 117.6 kB |  98.2 kB |
 | `avatar`            |   44.0 kB |  14.6 kB |  12.9 kB |
 | `badge`             |   35.0 kB |  11.5 kB |  10.0 kB |
-| `board`             |  452.8 kB | 149.6 kB | 125.6 kB |
+| `board`             |  452.8 kB | 149.6 kB | 125.5 kB |
 | `brand-icon`        |  195.2 kB |  70.2 kB |  61.2 kB |
 | `breadcrumb`        |   40.5 kB |  13.4 kB |  11.7 kB |
 | `button`            |   50.3 kB |  16.7 kB |  14.7 kB |
@@ -131,7 +131,7 @@ Full library: **923.0 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |   76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |   42.4 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      |  206.0 kB |  70.8 kB |  60.4 kB |
-| `chat-input`        |  986.1 kB | 327.3 kB | 269.1 kB |
+| `chat-input`        |  986.1 kB | 327.3 kB | 269.2 kB |
 | `chat-window`       |  286.8 kB |  95.4 kB |  80.2 kB |
 | `checkbox`          |   60.0 kB |  21.0 kB |  18.5 kB |
 | `choice-list`       |   43.0 kB |  14.5 kB |  12.7 kB |

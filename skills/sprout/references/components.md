@@ -1948,24 +1948,35 @@ chip 24px tall with smaller text for dense lists (Tool Activity uses it).
 ### A2UI Surface
 
 ```tsx
-import { A2uiSurface, checkSurface, sproutCatalog } from '@tulipfarm/sprout/a2ui';
+import { A2uiSurface, checkSurface, sproutAdapters, sproutCatalog } from '@tulipfarm/sprout/a2ui';
 import { promptSnippet, surfaceText } from '@tulipfarm/sprout/a2ui/catalog'; // no React; safe on a server
 
-const result = checkSurface(messages, { catalog: sproutCatalog });
-if (!result.ok) return retryWith(result.errors); // A2UI VALIDATION_FAILED errors with JSON Pointers
+const catalogs = [sproutCatalog, appCatalog];
+const result = checkSurface(messages, { catalogs });
+if (!result.ok) return retryWith(result.errors); // A2UI errors with codes and JSON Pointers
 
-<A2uiSurface surface={result.surface} size="compact" onAction={action => send(action)} />;
+<A2uiSurface
+  surface={result.surface}
+  catalogs={catalogs}
+  adapters={{ [sproutCatalog.id]: sproutAdapters, [appCatalog.id]: appAdapters }}
+  functions={{ [appCatalog.id]: { localTime } }}
+  size="compact"
+  onMessage={(message, metadata) => ('type' in message ? expand(message.componentId) : sendToAgent(message, metadata))}
+/>;
 ```
 
-Draws an [A2UI](https://a2ui.org) v0.9 surface from the `sprout/basic@1` catalog: Text, Heading, Section, Row, Column, Card, Divider, Tabs, Details, Metric, Badge, List, Table, Chart (line, area, bar, pie, donut), Progress, Callout, Code, Image and Button. The agent picks components and data; it cannot set colors, fonts, spacing or class names, and raw JSON is never shown.
+Draws an [A2UI](https://a2ui.org) 1.0 surface. Every message has `version: "1.0"`; older versions are refused. The `sprout/basic@2` catalog has Text, Heading, Section, Row, Column, Card, Divider, Tabs, Details, Metric, Badge, List, Table, Chart (line, area, bar, pie, donut), Progress, Callout, Code, Button, and the fields TextField, CheckBox, ChoicePicker, Slider and DateTimeInput (no password or secret fields). The agent picks components and data; it cannot set colors, fonts, spacing or class names, and raw JSON is never shown.
 
-- `@tulipfarm/sprout/a2ui/catalog` has no React: `checkSurface` (shapes, known components and props, missing children, cycles, orphans, limits, links), `readSurface` (lenient, for streaming), `surfaceText` (Markdown for copy, search and model history), `catalogDefinition` (A2UI JSON Schema) and `promptSnippet` (one line per component for a system prompt). Needs `zod` 4.
+- `@tulipfarm/sprout/a2ui/catalog` has no React: `checkSurface(messages, { catalogs })` (shapes, reserved keys, identifiers, known components, props and functions, parents and children, missing children, cycles, orphans, limits, links), `readSurface` (lenient, for streaming), `surfaceText` (Markdown for copy, search and model history), `catalogDefinition` (A2UI 1.0 catalog document), `promptSnippet` (one line per component and function for a system prompt), `surfaceSchema` and `rendererMessageSchema`. Needs `zod` 4.
+- Reserved keys: `{ "@path": "/x" }` binds to the data model, `{ "@call": "name", args }` calls a function, and `@index` is a template row's index. Components may set `@accessibility`, `@checks` and `@catalogId`. Text starting with `@` is written `@@`; other `@` keys fail with `INVALID_RESERVED_KEY`. Names and IDs are Unicode identifiers without hyphens.
+- `createSurface` takes an optional `catalogId` (the surface default), `components`, `dataModel` and `metadata`. A component or call from another catalog sets `@catalogId`; there is no fallback.
+- `defineCatalog({ id, components, functions })` makes a catalog. Functions declare `returnType` and `allowedCallers`: `rendererOnly` (default; without a browser implementation the surface sends `callAgentFunction` and waits for `agentFunctionResponse` in `messages`), `agentOnly` or `rendererOrAgent` (the agent may send `callRendererFunction`, which is always answered with `rendererFunctionResponse`). `requiresUserActivation` functions, such as `openUrl`, only run from a click.
+- `@checks` on a field or button lists conditions such as `required`, `regex`, `length`, `numeric` and `email` with messages. Messages show after a field loses focus or someone tries to send; a failing button won't send.
+- `onMessage` gets A2UI `action`, `callAgentFunction`, `rendererFunctionResponse` and `error` messages for the agent, and `{ type: 'expand', componentId }` from "Show all". `readOnly` disables every field and button.
 - `size="compact"` fits a chat message: 240px charts and the first 10 table rows with "Show all". `full` is for a canvas.
 - A Chart's `max` fixes the top of its value axis, such as 10 for scores out of 10, with evenly spaced ticks. Bar charts turn horizontal when a category label is long, and grouped horizontal bars grow taller instead of thinner.
-- `onAction` gets `{ type: 'send', text }` from a Button and `{ type: 'expand', componentId }` from "Show all"; without it, Buttons are disabled and tables expand in place.
 - `streaming` shows placeholders for parts that have not arrived; a broken part shows "This part couldn't be displayed." and the rest still draws.
-- `allowUrl(url, kind)` decides which links are live and which images load. By default links may use http, https and mailto, and images are refused.
-- Extend the catalog with `defineCatalog({ id, extends: sproutCatalog, components: { Embed: defineComponent({...}) } })` and pass `adapters={{ ...sproutAdapters, Embed }}`. Tighten limits with `checkSurface(messages, { catalog, limits: { tableRows: 200 } })`.
+- `allowUrl(url, kind)` decides which links are live. By default links may use http, https and mailto.
 
 ### Canvas
 

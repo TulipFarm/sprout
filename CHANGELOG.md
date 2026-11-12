@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.17.0](https://github.com/TulipFarm/sprout/compare/v0.16.0...v0.17.0) (2026-11-12)
+
+### ⚠ BREAKING CHANGES
+
+* **a2ui:** A2UI Surface speaks A2UI 1.0 only. Messages must use `version: "1.0"`; 0.9 messages are refused.
+* **a2ui:** data bindings are `{ "@path": "/x" }` and function calls `{ "@call": "name", args }`. Other keys starting with `@` are refused unless escaped as `@@`.
+* **a2ui:** the catalog is now `sprout/basic@2`; `sprout/basic@1` and the `Image` component are gone. Component names, prop names, function names and component IDs must be identifiers without hyphens.
+* **a2ui:** `defineCatalog` no longer takes `extends`. Pass several catalogs instead and pick one per component with `@catalogId`.
+* **a2ui:** `checkSurface(messages, { catalog })` is now `checkSurface(messages, { catalogs })`, and errors carry A2UI 1.0 codes.
+* **a2ui:** `A2uiSurface` replaces `onAction` with `onMessage`, which receives A2UI `action`, `callAgentFunction`, `rendererFunctionResponse` and `error` messages, plus `{ type: "expand" }` from "Show all".
+
+### Features
+
+* **a2ui:** form fields: TextField, CheckBox, ChoicePicker, Slider and DateTimeInput, with `@checks` messages and `readOnly`
+* **a2ui:** catalog functions with `allowedCallers`, routed to the agent when the browser has no implementation, and answered when the agent calls them
+* **a2ui:** standard functions for formatting, logic and checks, including `formatString`, `formatNumber`, `formatCurrency`, `formatDate`, `pluralize` and `openUrl`
+* **a2ui:** `@accessibility` labels, descriptions, live regions and hiding; `allowedParents` and `allowedChildren` composition rules
+* **a2ui:** `surfaceSchema` and `rendererMessageSchema` for both directions of the protocol
+* **monster-avatar:** bolder, flatter artwork ([#78](https://github.com/TulipFarm/sprout/issues/78)) ([2cae09e](https://github.com/TulipFarm/sprout/commit/2cae09ee193c80a5e88a492b79cd1122709d0753))
+
 ## [0.16.0](https://github.com/TulipFarm/sprout/compare/v0.15.4...v0.16.0) (2026-11-11)
 
 ### Features
