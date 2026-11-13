@@ -128,7 +128,10 @@
     transform-origin: var(--transform-origin);
   }
   .sprout-model-selector-content[data-metered='true'] {
-    width: min(28rem, var(--available-width));
+    width: min(
+      calc(18.25rem + var(--sprout-model-selector-columns, 3) * var(--sprout-model-selector-column)),
+      var(--available-width)
+    );
   }
 
   .sprout-model-selector-header,
@@ -193,7 +196,7 @@
   }
   .sprout-model-selector-content[data-metered='true'] :is(.sprout-model-selector-header, .sprout-model-selector-item) {
     grid-template-columns: var(--sprout-model-selector-tile) minmax(0, 1fr) repeat(
-        3,
+        var(--sprout-model-selector-columns, 3),
         var(--sprout-model-selector-column)
       );
   }

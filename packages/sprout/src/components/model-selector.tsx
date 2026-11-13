@@ -190,7 +190,11 @@ export function ModelSelector({
   className,
 }: ModelSelectorProps) {
   const ratings = rateModels(models);
-  const metered = [...ratings.values()].some(rating => modelSelectorMetricNames.some(m => rating[m] !== null));
+  // A metric no model has a number for gets no column.
+  const metrics = modelSelectorMetricNames.filter(metric =>
+    [...ratings.values()].some(rating => rating[metric] !== null),
+  );
+  const metered = metrics.length > 0;
   const selected = models.find(model => model.id === value) ?? null;
 
   return (
@@ -234,6 +238,7 @@ export function ModelSelector({
             data-slot="model-selector-content"
             data-metered={metered}
             className="sprout-model-selector-content"
+            style={{ '--sprout-model-selector-columns': metrics.length } as CSSProperties}
           >
             <div data-slot="model-selector-search" className="sprout-model-selector-search">
               <Search aria-hidden="true" />
@@ -247,7 +252,7 @@ export function ModelSelector({
               <span className="sprout-model-selector-heading-model">{label}</span>
               {metered && (
                 <TooltipProvider delay={200}>
-                  {modelSelectorMetricNames.map(metric => (
+                  {metrics.map(metric => (
                     <Heading key={metric} metric={metric} />
                   ))}
                 </TooltipProvider>
@@ -279,10 +284,7 @@ export function ModelSelector({
                         <span className="sprout-model-selector-description">{model.description}</span>
                       )}
                     </span>
-                    {metered &&
-                      modelSelectorMetricNames.map(metric => (
-                        <Meter key={metric} metric={metric} level={rating[metric]} />
-                      ))}
+                    {metered && metrics.map(metric => <Meter key={metric} metric={metric} level={rating[metric]} />)}
                   </ComboboxPrimitive.Item>
                 );
               }}

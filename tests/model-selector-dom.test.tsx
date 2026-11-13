@@ -68,6 +68,24 @@ describe('ModelSelector (dom)', () => {
     expect(list.querySelector('[data-slot="model-selector-meter"]')).toBeNull();
   });
 
+  it('drops a metric column that no model has a number for', async () => {
+    render(
+      <Picker
+        list={[
+          { id: 'opus', label: 'Opus', cost: 25 },
+          { id: 'b', label: 'Bravo', cost: 3 },
+          { id: 'c', label: 'Charlie' },
+        ]}
+      />,
+    );
+    const list = await open();
+    const metrics = [...list.querySelectorAll('[data-slot="model-selector-meter"]')].map(meter =>
+      meter.getAttribute('data-metric'),
+    );
+    expect(metrics).toEqual(['cost', 'cost', 'cost']);
+    expect(document.querySelector('[data-metric="speed"]')).toBeNull();
+  });
+
   it('filters by name, description, or vendor and says when nothing matches', async () => {
     render(<Picker />);
     await open();
