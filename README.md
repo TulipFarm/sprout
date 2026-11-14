@@ -131,7 +131,7 @@ Full library: **922.9 kB** gzip. Each component path is smaller. Sizes are minif
 | `chat-confirmation` |   76.5 kB |  26.0 kB |  22.3 kB |
 | `chat-plan`         |   42.4 kB |  13.4 kB |  11.7 kB |
 | `chat-sources`      |  206.0 kB |  70.8 kB |  60.4 kB |
-| `chat-input`        |  986.1 kB | 327.3 kB | 269.2 kB |
+| `chat-input`        |  986.2 kB | 327.3 kB | 269.2 kB |
 | `chat-window`       |  286.8 kB |  95.4 kB |  80.2 kB |
 | `checkbox`          |   60.0 kB |  21.0 kB |  18.5 kB |
 | `choice-list`       |   43.0 kB |  14.5 kB |  12.7 kB |
@@ -164,7 +164,7 @@ Full library: **922.9 kB** gzip. Each component path is smaller. Sizes are minif
 | `message-rich-text` |  364.4 kB | 122.4 kB | 101.9 kB |
 | `message-scroller`  |   68.9 kB |  22.1 kB |  19.6 kB |
 | `metric`            |   31.2 kB |   9.9 kB |   8.8 kB |
-| `model-selector`    |  271.8 kB |  96.6 kB |  82.5 kB |
+| `model-selector`    |  271.9 kB |  96.6 kB |  82.6 kB |
 | `navigation-menu`   |  182.4 kB |  62.9 kB |  54.7 kB |
 | `notice-banner`     |   30.5 kB |   9.7 kB |   8.5 kB |
 | `page-content`      |   30.2 kB |   9.6 kB |   8.5 kB |

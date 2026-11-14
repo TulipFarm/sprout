@@ -1,6 +1,6 @@
 {
   "name": "@tulipfarm/sprout",
-  "version": "0.17.1",
+  "version": "0.17.2",
   "description": "Considered React controls. Built with Base UI and Tailwind CSS.",
   "license": "MIT",
   "type": "module",

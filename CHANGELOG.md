@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.2](https://github.com/TulipFarm/sprout/compare/v0.17.1...v0.17.2) (2026-11-14)
+
+### Bug Fixes
+
+* **model-selector:** show only metric columns that have values ([#80](https://github.com/TulipFarm/sprout/issues/80)) ([b95df78](https://github.com/TulipFarm/sprout/commit/b95df786a20c5ac3b5aa26aca37b60422d6e502f))
+
 ## [0.17.1](https://github.com/TulipFarm/sprout/compare/v0.16.0...v0.17.1) (2026-11-12)
 
 ### ⚠ BREAKING CHANGES
