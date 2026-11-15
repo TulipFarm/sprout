@@ -45,13 +45,11 @@
     box-sizing: border-box;
     min-height: var(--sprout-bar-height);
     padding-block: 0;
-    border-bottom: 1px solid var(--sprout-line);
   }
   .sprout-input.sprout-sidebar-input:not(:disabled) {
     background-color: var(--sprout-canvas);
   }
   .sprout-sidebar-footer {
-    border-top: 1px solid var(--sprout-line);
     margin-top: auto;
   }
   .sprout-sidebar-content {
@@ -62,7 +60,7 @@
     scrollbar-width: thin;
   }
   .sprout-sidebar-group {
-    padding: 16px 8px 0;
+    padding: 20px 8px 0;
   }
   .sprout-separator.sprout-sidebar-separator {
     width: auto;
@@ -76,14 +74,14 @@
     padding-bottom: 16px;
   }
   .sprout-sidebar-group-label {
-    padding: 0 10px 8px;
+    padding: 0 12px 6px;
     color: var(--sprout-muted);
-    font-size: var(--sprout-text-xs);
+    font-size: 0.875rem;
     line-height: 20px;
   }
   .sprout-sidebar-menu {
     display: grid;
-    gap: 3px;
+    gap: 2px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -111,10 +109,10 @@
     gap: 10px;
     min-width: 0;
     width: 100%;
-    min-height: var(--sprout-control-height);
-    padding: 6px 10px;
-    font-size: var(--sprout-text-sm);
-    font-weight: 450;
+    min-height: 34px;
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    font-weight: 400;
     line-height: 20px;
     text-align: start;
     text-decoration: none;
@@ -132,7 +130,7 @@
   .sprout-sidebar-menu-button[data-active] {
     background: var(--sprout-active);
     color: var(--sprout-text);
-    font-weight: 550;
+    font-weight: 500;
   }
   .sprout-sidebar-menu-button:focus-visible,
   .sprout-sidebar-menu-action:focus-visible,

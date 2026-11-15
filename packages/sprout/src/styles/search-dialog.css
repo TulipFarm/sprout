@@ -94,9 +94,10 @@
   }
 
   .sprout-search-item.sprout-command-item {
-    gap: 12px;
-    min-height: 40px;
-    padding: 6px 8px;
+    gap: 10px;
+    min-height: 34px;
+    padding: 6px 12px;
+    font-size: 0.875rem;
     border-radius: calc(var(--sprout-radius-panel) - 4px);
     overflow-wrap: normal;
   }
@@ -109,11 +110,17 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
   }
   .sprout-search-item-icon {
     color: var(--sprout-muted);
+    width: 18px;
+    height: 20px;
+  }
+  .sprout-search-item-icon svg {
+    width: 18px;
+    height: 18px;
   }
   .sprout-search-item-media svg {
     flex-shrink: 0;
