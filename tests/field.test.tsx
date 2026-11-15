@@ -56,18 +56,17 @@ describe('Field', () => {
     expect(attr(html, 'input', 'id')).toBe('name');
     expect(attr(html, 'input', 'aria-required')).toBe('true');
     expect(attr(html, 'input', 'aria-describedby')).toBeUndefined();
-    expect(html).toMatch(/aria-hidden="true"[^>]*>Required</);
+    expect(html).toMatch(/aria-hidden="true"[^>]*>\*</);
   });
 
-  it('describes with the helper, optional marker, then counter', () => {
+  it('describes with the helper, then counter, and shows no optional marker', () => {
     const html = renderToString(
       <Field id="notes" label="Notes" optional helper="Shown to the agent." counter="12 / 8,000">
         <Textarea />
       </Field>,
     );
-    expect(attr(html, 'textarea', 'aria-describedby')).toBe('notes-helper notes-requirement notes-counter');
-    expect(html).toContain('id="notes-requirement"');
-    expect(html).toContain('>Optional<');
+    expect(attr(html, 'textarea', 'aria-describedby')).toBe('notes-helper notes-counter');
+    expect(html).not.toContain('>Optional<');
     expect(html).toContain('id="notes-counter"');
     expect(attr(html, 'textarea', 'aria-required')).toBeUndefined();
   });
@@ -94,7 +93,7 @@ describe('Field', () => {
       </Field>,
     );
     expect(attr(html, 'textarea', 'id')).toBe('query');
-    expect(attr(html, 'textarea', 'aria-describedby')).toBe('query-helper query-requirement query-hint');
+    expect(attr(html, 'textarea', 'aria-describedby')).toBe('query-helper query-hint');
   });
 
   it('joins a SelectTrigger to the field', () => {
@@ -108,7 +107,7 @@ describe('Field', () => {
       </Field>,
     );
     expect(html).toMatch(/id="model"[^>]*data-slot="select-trigger"|data-slot="select-trigger"[^>]*id="model"/);
-    expect(html).toMatch(/aria-describedby="model-error model-requirement"/);
+    expect(html).toMatch(/aria-describedby="model-error"/);
   });
 
   it('hides the label row visually when asked', () => {
@@ -186,7 +185,7 @@ describe('ChoiceGroup', () => {
     );
     expect(html).toContain('role="group"');
     expect(html).toContain('aria-labelledby="tools-legend"');
-    expect(html).toContain('aria-describedby="tools-error tools-helper tools-requirement"');
+    expect(html).toContain('aria-describedby="tools-error tools-helper"');
     expect(html).toContain('data-layout="columns"');
     expect(html).toContain('Changes data');
     expect(html).toContain('id="tools-option-0-description"');

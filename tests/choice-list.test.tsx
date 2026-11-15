@@ -24,7 +24,7 @@ describe('ChoiceList', () => {
     expect(choiceListLayoutNames).toEqual(['stacked', 'compact']);
   });
 
-  it('strips a (Recommended) suffix into an info badge, or reads the recommended flag', () => {
+  it('strips a (Recommended) suffix into a success badge, or reads the recommended flag', () => {
     const html = renderToString(
       <ChoiceList
         legend="Reply style"
@@ -35,7 +35,7 @@ describe('ChoiceList', () => {
     );
     expect(html).toContain('Short answers<span');
     expect(html).not.toContain('(Recommended)');
-    expect(html.match(/sprout-badge-info/g)).toHaveLength(2);
+    expect(html.match(/sprout-badge-success/g)).toHaveLength(2);
     expect(html.match(/data-recommended="true"/g)).toHaveLength(2);
   });
 
@@ -161,6 +161,6 @@ describe('Choice List packaging', () => {
     expect(readFileSync(new URL('src/styles/index.css', root), 'utf8')).toContain("@import './choice-list.css';");
     const css = readFileSync(new URL('src/styles/choice-list.css', root), 'utf8');
     expect(css).toContain('prefers-reduced-motion: no-preference');
-    expect(css).toContain('var(--sprout-primary-subtle)');
+    expect(css).toContain('var(--sprout-hover)');
   });
 });

@@ -59,7 +59,7 @@ describe('Checkbox in a real browser', () => {
     for (const variant of checkboxVariantNames) {
       const off = screen.getByTestId(`${variant}-unchecked`).element();
       expect(size(off)).toEqual([16, 16]);
-      expect(css(`${variant}-unchecked`).borderTopColor).toBe(colorOf('--sprout-border'));
+      expect(css(`${variant}-unchecked`).borderTopColor).toBe(colorOf('--sprout-input'));
       expect(css(`${variant}-unchecked`).borderRadius).toBe('4px');
       const check = screen.getByTestId(`${variant}-checked`).element().querySelector('svg')!;
       expect(getComputedStyle(check).width).toBe('14px');

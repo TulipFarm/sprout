@@ -95,7 +95,7 @@
   }
   .sprout-questionnaire-choice[data-checked] {
     border-color: var(--sprout-focus);
-    background: var(--sprout-primary-subtle);
+    background: var(--sprout-hover);
   }
   .sprout-questionnaire-choice[data-invalid] {
     border-color: var(--sprout-danger);

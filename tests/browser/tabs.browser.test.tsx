@@ -66,7 +66,7 @@ describe('Tabs in a real browser', () => {
     await settle();
     expect(await axeViolations(screen.container)).toEqual([]);
     const step = tab('Overview', list('steps tabs')).element();
-    expect(getComputedStyle(step).color).toBe(colorOf('--sprout-primary'));
+    expect(getComputedStyle(step).color).toBe(colorOf('--sprout-text'));
     expect(getComputedStyle(step, '::after').backgroundColor).toBe(colorOf('--sprout-primary'));
   });
 

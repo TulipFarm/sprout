@@ -65,4 +65,7 @@
         opacity var(--sprout-motion-fast) var(--sprout-motion-ease);
     }
   }
+  .sprout-label:has([aria-invalid='true']) {
+    color: var(--sprout-danger);
+  }
 }

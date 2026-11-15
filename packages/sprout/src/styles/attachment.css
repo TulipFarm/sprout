@@ -603,7 +603,7 @@
   }
   .sprout-attachment-dropzone[data-dragging] {
     border-color: var(--sprout-focus);
-    background: var(--sprout-primary-subtle);
+    background: var(--sprout-hover);
   }
   .sprout-attachment-dropzone[data-disabled] {
     cursor: not-allowed;

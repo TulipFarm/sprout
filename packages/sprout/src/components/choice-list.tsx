@@ -121,7 +121,7 @@ export function ChoiceList({
               <span className="sprout-choice-list-label">
                 {label}
                 {recommended && (
-                  <Badge variant="info" className="sprout-choice-list-badge">
+                  <Badge variant="success" className="sprout-choice-list-badge">
                     Recommended
                   </Badge>
                 )}

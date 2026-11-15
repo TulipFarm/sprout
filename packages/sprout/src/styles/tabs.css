@@ -182,7 +182,7 @@
     bottom: 0;
   }
   .sprout-tabs-list-steps > .sprout-tabs-trigger[data-active] {
-    color: var(--sprout-primary);
+    color: var(--sprout-text);
   }
   .sprout-tabs-list-steps > .sprout-tabs-trigger[data-active]::after {
     opacity: 1;

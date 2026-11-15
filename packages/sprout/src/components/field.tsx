@@ -73,10 +73,18 @@ function ids(...values: (string | false | undefined)[]) {
 }
 
 function RequirementMarker({ required, id }: { required: boolean; id: string | undefined }) {
+  if (!required) return null;
   return (
-    <span id={id} aria-hidden={id ? undefined : true} data-slot="requirement" className="sprout-field-requirement">
-      {required ? 'Required' : 'Optional'}
-    </span>
+    <>
+      <span aria-hidden data-slot="requirement" className="sprout-field-requirement">
+        *
+      </span>
+      {id && (
+        <span id={id} className="sprout-field-sr-only">
+          Required
+        </span>
+      )}
+    </>
   );
 }
 
@@ -117,11 +125,10 @@ export function Field({
   const controlId = id ?? generatedId;
   const locked = useContext(FieldsDisabled) || disabled === true;
   const lineId = error ? `${controlId}-error` : helper ? `${controlId}-helper` : undefined;
-  const markerId = required ? undefined : `${controlId}-requirement`;
   const counterId = counter ? `${controlId}-counter` : undefined;
   const control: FieldControl = {
     id: controlId,
-    describedBy: ids(lineId, markerId, counterId),
+    describedBy: ids(lineId, counterId),
     invalid: Boolean(error),
     required: required === true,
     disabled: locked,
@@ -141,7 +148,7 @@ export function Field({
           <label data-slot="label" htmlFor={controlId} className="sprout-field-label">
             {label}
           </label>
-          <RequirementMarker required={required === true} id={markerId} />
+          <RequirementMarker required={required === true} id={undefined} />
         </div>
         {counter && (
           <p id={counterId} data-slot="field-counter" className="sprout-field-counter">
@@ -235,8 +242,8 @@ export function ChoiceGroup<V extends string>(props: ChoiceGroupProps<V>) {
   const legendId = `${groupId}-legend`;
   const errorId = error ? `${groupId}-error` : undefined;
   const helperId = helper ? `${groupId}-helper` : undefined;
-  // A radiogroup carries aria-required; a checkbox group cannot, so it describes its marker either way.
-  const markerId = radio && required ? undefined : `${groupId}-requirement`;
+  // A radiogroup carries aria-required; a checkbox group cannot, so it describes a hidden "Required" instead.
+  const markerId = !radio && required ? `${groupId}-requirement` : undefined;
   const labelling = {
     id: groupId,
     'aria-labelledby': legendId,

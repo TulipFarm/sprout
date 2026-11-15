@@ -44,8 +44,8 @@
   }
   .sprout-table-row[data-state='selected'],
   .sprout-table-body > .sprout-table-row[data-state='selected']:hover {
-    --sprout-table-row-bg: var(--sprout-primary-subtle);
-    background-color: var(--sprout-primary-subtle);
+    --sprout-table-row-bg: var(--sprout-hover);
+    background-color: var(--sprout-hover);
   }
   .sprout-table-row[data-state='selected'] > td:first-child {
     position: relative;
@@ -126,31 +126,23 @@
 
   /* Grid look. [data-slot] keeps these above the pinned and empty-row rules below. */
   .sprout-table[data-slot='table'] .sprout-table-row {
-    border-color: var(--sprout-input);
+    border-color: var(--sprout-line);
   }
   .sprout-table[data-slot='table'] > .sprout-table-header {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: linear-gradient(var(--sprout-table-head-bg) 0 0) var(--sprout-surface);
+    background: var(--sprout-surface);
   }
   .sprout-table[data-slot='table'] > .sprout-table-header > .sprout-table-row {
     border-bottom: 0;
   }
   .sprout-table[data-slot='table'] .sprout-table-head {
     padding: 0 12px;
-    box-shadow: inset 0 -1px var(--sprout-input);
+    box-shadow: inset 0 -1px var(--sprout-line);
   }
   .sprout-table[data-slot='table'] .sprout-table-cell {
     padding: 10px 12px;
-  }
-  .sprout-table[data-slot='table'] .sprout-table-head,
-  .sprout-table[data-slot='table'] .sprout-table-cell {
-    border-inline-end: 1px solid var(--sprout-input);
-  }
-  .sprout-table[data-slot='table'] .sprout-table-head:last-child,
-  .sprout-table[data-slot='table'] .sprout-table-cell:last-child {
-    border-inline-end: 0;
   }
 
   .sprout-table-root {

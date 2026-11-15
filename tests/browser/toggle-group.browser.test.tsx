@@ -95,13 +95,13 @@ function TextStyle() {
 }
 
 describe('ToggleGroup in a real browser', () => {
-  it.each(themes)('%s %s presses with the primary tokens', async (theme, mode) => {
+  it.each(themes)('%s %s presses with the hover tokens', async (theme, mode) => {
     await emulate({ reducedMotion: true });
     setTheme(theme, mode);
     await render(<Single />);
     expect(el('Model')).toHaveAttribute('aria-pressed', 'true');
-    expect(css('Model').color).toBe(colorOf('var(--sprout-primary)'));
-    expect(css('Model').backgroundColor).toBe(colorOf('var(--sprout-primary-subtle)'));
+    expect(css('Model').color).toBe(colorOf('var(--sprout-text)'));
+    expect(css('Model').backgroundColor).toBe(colorOf('var(--sprout-hover)'));
   });
 
   it('sizes, variants, and spacing render at Cloud dimensions', async () => {

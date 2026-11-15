@@ -141,7 +141,7 @@
   background: var(--sprout-primary);
 }
 .docs-theme-swatches i:nth-child(2) {
-  background: var(--sprout-primary-subtle);
+  background: var(--sprout-hover);
 }
 .docs-theme-swatches i:nth-child(3) {
   background: var(--sprout-canvas);

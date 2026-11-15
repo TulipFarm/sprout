@@ -233,8 +233,8 @@
     outline: none;
   }
   .sprout-message-reactions > button[aria-pressed='true'] {
-    background: var(--sprout-primary-subtle);
-    color: var(--sprout-primary);
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
   }
   .sprout-message-reactions > button:focus-visible {
     outline: var(--sprout-focus-width) solid var(--sprout-focus-ring);

@@ -51,9 +51,9 @@
   line-height: 18px;
 }
 .select-demo-marker {
-  color: var(--sprout-muted);
-  font-size: 12px;
-  font-weight: 400;
+  margin-inline-start: 4px;
+  color: var(--sprout-danger);
+  font-weight: 500;
 }
 .select-demo-helper,
 .select-demo-error {
