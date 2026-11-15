@@ -259,10 +259,12 @@ type KeywordSource = {
   pattern: KeywordPattern | null;
   signature: string;
   revision: number;
+  focused: boolean;
   glyph: (id: string) => Element | null;
   connect: (id: string) => void;
 };
-type KeywordState = { hits: KeywordHit[]; decorations: DecorationSet };
+/** `hits` are the chips shown: every match in `all` but the one still being typed, which starts at `pending`. */
+type KeywordState = { all: KeywordHit[]; hits: KeywordHit[]; pending: number | null; decorations: DecorationSet };
 
 const statusTemplate = 'sprout-status';
 const keywordKey = new PluginKey<KeywordState>('richTextKeywords');
@@ -277,7 +279,7 @@ function docKeywords(doc: ProseMirrorNode, pattern: KeywordPattern | null) {
     let text = '';
     node.forEach(child => {
       text +=
-        child.isText && !child.marks.some(mark => mark.type.spec.code)
+        child.isText && !child.marks.some(mark => mark.type.spec.code || mark.type.name === 'link')
           ? child.text!
           : objectReplacement.repeat(child.nodeSize);
     });
@@ -297,7 +299,7 @@ export function findKeywords(value: RichTextValue, keywords: readonly RichTextKe
     if (!node.content.some(child => child.type === 'text')) return node.content.forEach(visit);
     const text = node.content
       .map(child =>
-        child.type === 'text' && !child.marks?.some(mark => mark.type === 'code')
+        child.type === 'text' && !child.marks?.some(mark => mark.type === 'code' || mark.type === 'link')
           ? (child.text ?? '')
           : objectReplacement,
       )
@@ -377,10 +379,20 @@ function keywordDecorations(doc: ProseMirrorNode, hits: KeywordHit[], source: Ke
   return DecorationSet.create(doc, decorations);
 }
 
+// The caret is still in the word a match starts, so the person may be typing on (github-, slack-bot).
+function stillTyping(state: EditorState, hit: KeywordHit) {
+  const { $from, empty, from } = state.selection;
+  if (!empty || from <= hit.from || $from.start() !== state.doc.resolve(hit.from).start()) return false;
+  return from <= hit.to || /^\S*$/.test(state.doc.textBetween(hit.to, from, '\n', objectReplacement));
+}
+
 function keywordExtension(source: KeywordSource) {
-  const build = (doc: ProseMirrorNode): KeywordState => {
-    const hits = docKeywords(doc, source.pattern);
-    return { hits, decorations: keywordDecorations(doc, hits, source) };
+  const build = (state: EditorState, all: KeywordHit[], typed: boolean, previous?: KeywordState, settle = false) => {
+    const candidates = settle ? [] : typed ? all : all.filter(hit => hit.from === previous?.pending);
+    const pending = candidates.find(hit => stillTyping(state, hit));
+    if (previous && previous.all === all && previous.pending === (pending?.from ?? null)) return previous;
+    const hits = pending ? all.filter(hit => hit !== pending) : all;
+    return { all, hits, pending: pending?.from ?? null, decorations: keywordDecorations(state.doc, hits, source) };
   };
   return Extension.create({
     name: 'richTextKeywords',
@@ -389,8 +401,13 @@ function keywordExtension(source: KeywordSource) {
         new Plugin<KeywordState>({
           key: keywordKey,
           state: {
-            init: (_, state) => build(state.doc),
-            apply: (tr, previous) => (tr.docChanged || tr.getMeta(keywordKey) ? build(tr.doc) : previous),
+            init: (_, state): KeywordState => build(state, docKeywords(state.doc, source.pattern), false),
+            apply: (tr, previous, _, state) => {
+              if (tr.getMeta(keywordKey) === 'settle') return build(state, previous.all, false, previous, true);
+              const rescan = tr.docChanged || tr.getMeta(keywordKey);
+              const all = rescan ? docKeywords(state.doc, source.pattern) : previous.all;
+              return build(state, all, tr.docChanged && source.focused, previous);
+            },
           },
           props: { decorations: state => keywordKey.getState(state)?.decorations },
         }),
@@ -492,6 +509,7 @@ export function RichTextEditor({
       pattern: null,
       signature: '',
       revision: 0,
+      focused: false,
       glyph: id => template(id)?.firstElementChild ?? null,
       connect: id => {
         const keyword = keywordById.current.get(id);
@@ -632,6 +650,7 @@ export function RichTextEditor({
 
   useEffect(() => {
     if (!editor) return;
+    source.focused = editor.isFocused;
     const onTransaction = ({ transaction }: { transaction: { docChanged: boolean } }) => {
       if (transaction.docChanged) {
         hovered.current = null;
@@ -650,9 +669,15 @@ export function RichTextEditor({
     };
     const onBlur = ({ event }: { event: FocusEvent }) => {
       if (bubble.current?.contains(event.relatedTarget as Node | null)) bubbleFocused.current = true;
+      source.focused = false;
+      // Leaving the editor finishes the word, so its chip shows.
+      if (!editor.isDestroyed) editor.view.dispatch(editor.state.tr.setMeta(keywordKey, 'settle'));
       updateHintRef.current();
     };
-    const onFocus = () => updateHintRef.current();
+    const onFocus = () => {
+      source.focused = true;
+      updateHintRef.current();
+    };
     const onScroll = () => updateHintRef.current();
     editor.on('transaction', onTransaction);
     editor.on('focus', onFocus);

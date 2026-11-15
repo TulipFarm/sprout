@@ -132,7 +132,7 @@ function Keyword({ keyword, children }: { keyword: RichTextKeyword; children: Re
 }
 
 function plainChild(child: RichTextValue) {
-  return child.type === 'text' && !child.marks?.some(mark => mark.type === 'code');
+  return child.type === 'text' && !child.marks?.some(mark => mark.type === 'code' || mark.type === 'link');
 }
 
 type Renderers = Pick<MessageRichTextProps, 'resolveReference' | 'renderNode'>;

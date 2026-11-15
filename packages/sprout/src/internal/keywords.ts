@@ -25,8 +25,12 @@ export function keywordPattern(keywords: readonly RichTextKeyword[]): KeywordPat
   const alternatives = [...terms.keys()]
     .sort((a, b) => b.length - a.length)
     .map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+'));
+  // A term glued to a word by URL, path, or identifier punctuation (github.com, slack-bot, @slack) is part of
+  // that token, not a mention. Trailing punctuation that ends a sentence ("Use Slack.") still counts.
+  const word = '[\\p{L}\\p{N}_]';
+  const joiner = '[-./\\\\@:#~+=&?%]';
   return {
-    regex: new RegExp(`(?<![\\p{L}\\p{N}_])(?:${alternatives.join('|')})(?![\\p{L}\\p{N}_])`, 'giu'),
+    regex: new RegExp(`(?<!${word}|${joiner})(?:${alternatives.join('|')})(?!${word}|${joiner}${word})`, 'giu'),
     terms,
   };
 }
