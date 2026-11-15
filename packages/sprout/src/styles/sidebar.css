@@ -176,7 +176,7 @@
     place-items: center;
     position: absolute;
     inset-inline-end: 4px;
-    top: 4px;
+    top: 5px;
     width: calc(var(--sprout-control-height) - 8px);
     height: calc(var(--sprout-control-height) - 8px);
   }

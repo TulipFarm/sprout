@@ -141,16 +141,16 @@ describe('Sidebar in a real browser', () => {
     expect(await axeViolations(screen.container)).toEqual([]);
   });
 
-  it('rows are 32px, sub rows 28px, and the section action sits 4px inside its row', async () => {
+  it('rows are 34px, sub rows 28px, and the section action is centred in its row', async () => {
     await page.viewport(1280, 720);
     const screen = await render(<App />);
     const height = (el: Element) => el.getBoundingClientRect().height;
-    expect(height(screen.getByRole('link', { name: 'Overview', exact: true }).element())).toBe(32);
+    expect(height(screen.getByRole('link', { name: 'Overview', exact: true }).element())).toBe(34);
     expect(height(screen.getByRole('link', { name: 'Garden plan' }).element())).toBe(28);
     expect(height(document.querySelector('.sprout-sidebar-trigger')!)).toBe(32);
     const row = document.querySelector('.sprout-sidebar-section-heading')!.getBoundingClientRect();
     const action = document.querySelector('.sprout-sidebar-menu-action')!.getBoundingClientRect();
-    expect([action.height, action.top - row.top, row.bottom - action.bottom]).toEqual([24, 4, 4]);
+    expect([action.height, action.top - row.top, row.bottom - action.bottom]).toEqual([24, 5, 5]);
   });
 
   it('sections disclose independently and rotate the chevron', async () => {
@@ -183,7 +183,7 @@ describe('Sidebar in a real browser', () => {
     expect(tip.left - files.element().getBoundingClientRect().right).toBeCloseTo(8, 0);
     await userEvent.keyboard('{Escape}');
     await screen.getByRole('button', { name: 'Toggle sidebar' }).click();
-    await expect.poll(() => getComputedStyle(panel()).width).toBe('244px');
+    await expect.poll(() => getComputedStyle(panel()).width).toBe('280px');
     await expect.element(project).toBeVisible();
   });
 
@@ -204,11 +204,11 @@ describe('Sidebar in a real browser', () => {
     await screen.getByRole('button', { name: 'Toggle sidebar' }).click();
     const width = await sampleTransition(panel(), 'width');
     expect(width.rect.width).toBeGreaterThan(56);
-    expect(width.rect.width).toBeLessThan(244);
+    expect(width.rect.width).toBeLessThan(280);
     width.resume();
     await expect.poll(() => getComputedStyle(panel()).width).toBe('56px');
     await screen.getByRole('button', { name: 'Toggle sidebar' }).click();
-    await expect.poll(() => getComputedStyle(panel()).width).toBe('244px');
+    await expect.poll(() => getComputedStyle(panel()).width).toBe('280px');
 
     const project = screen.getByRole('link', { name: 'Website refresh' });
     await screen.getByRole('button', { name: 'Collapse Projects' }).click();
