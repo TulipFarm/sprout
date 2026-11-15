@@ -7,6 +7,3 @@ allowBuilds:
 onlyBuiltDependencies:
   - esbuild
   - sharp
-overrides:
-  # Astro 7.1 requires the OXC peer used by React plugin 6.1.0.
-  '@astrojs/react>@vitejs/plugin-react': '6.1.0'
