@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.18.0](https://github.com/TulipFarm/sprout/compare/v0.17.3...v0.18.0) (2026-11-15)
+
+### Features
+
+* add pill buttons, 40px brand tiles and compact notice banners ([#90](https://github.com/TulipFarm/sprout/issues/90)) ([065d3c1](https://github.com/TulipFarm/sprout/commit/065d3c1b9e2d1ef76e066366f872dc4f63de676d))
+
+### Bug Fixes
+
+* **rich-text-editor:** keep keyword chips out of URLs, names, links, and the word being typed ([#75](https://github.com/TulipFarm/sprout/issues/75)) ([7a9d31b](https://github.com/TulipFarm/sprout/commit/7a9d31b0f8c1c78fef74da31d4d4e4e96be8c8b1))
+* **sidebar:** center the section action and refresh sidebar tests and baselines ([#84](https://github.com/TulipFarm/sprout/issues/84)) ([fb3fa72](https://github.com/TulipFarm/sprout/commit/fb3fa72f6b54fc5dad9672a8a5034c877a56b9d5))
+
 ## [0.17.3](https://github.com/TulipFarm/sprout/compare/v0.17.2...v0.17.3) (2026-11-15)
 
 ### Features
