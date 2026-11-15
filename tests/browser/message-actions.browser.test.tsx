@@ -90,7 +90,7 @@ describe('MessageActions in a real browser', () => {
     const human = screen.container.querySelector('[data-author="human"] [role="group"]')!;
     const copy = human.querySelector('button')!.getBoundingClientRect();
     expect(human.getBoundingClientRect().right - copy.right).toBeLessThan(80);
-    expect(getComputedStyle(human).justifyContent).toBe('flex-end');
+    expect(getComputedStyle(human).justifyContent).toBe('flow-end');
     for (const button of screen.container.querySelectorAll('[data-slot="message-actions"]:nth-child(3) button'))
       expect((button as HTMLButtonElement).disabled).toBe(true);
   });

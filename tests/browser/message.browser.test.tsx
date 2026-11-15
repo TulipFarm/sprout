@@ -159,7 +159,7 @@ describe('Message in a real browser', () => {
     const right = box(end).right;
     for (const node of you.querySelectorAll('.sprout-message-bubble'))
       expect(Math.round(box(node).right)).toBe(Math.round(right));
-    expect(css(slot('message-footer', you)).justifyContent).toBe('flex-end');
+    expect(css(slot('message-footer', you)).justifyContent).toBe('flow-end');
     expect(Math.round(box(slot('message-header', you)).right)).toBe(Math.round(right));
   });
 

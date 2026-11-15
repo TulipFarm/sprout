@@ -91,7 +91,7 @@ describe('PageHeader in a real browser', () => {
     const usage = screen.getByRole('heading', { name: 'Usage' }).element();
     expect(getComputedStyle(usage).fontSize).toBe('24px');
     const inline = screen.container.querySelector('[data-slot="page-actions"][data-placement="inline"]')!;
-    expect(getComputedStyle(inline).justifyContent).toBe('flex-end');
+    expect(getComputedStyle(inline).justifyContent).toBe('flow-end');
     const action = screen.getByRole('button', { name: 'Local page action' }).element();
     expect(Math.round(box(inline).right - box(action).right)).toBe(0);
     const separator = screen.container.querySelector('.sprout-page-header-breadcrumb-separator svg')!;
