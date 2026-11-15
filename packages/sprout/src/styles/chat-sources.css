@@ -121,13 +121,13 @@
     font-variant-numeric: tabular-nums;
   }
   .sprout-chat-sources-citation.sprout-button[data-popup-open] {
-    background: var(--sprout-primary-subtle);
-    color: var(--sprout-primary);
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
   }
   @media (hover: hover) {
     .sprout-chat-sources-citation.sprout-button:hover {
-      background: var(--sprout-primary-subtle);
-      color: var(--sprout-primary);
+      background: var(--sprout-hover);
+      color: var(--sprout-text);
     }
   }
   .sprout-chat-sources-preview-head {
@@ -148,8 +148,8 @@
     height: 18px;
     padding-inline: 4px;
     border-radius: 6px;
-    background: var(--sprout-primary-subtle);
-    color: var(--sprout-primary);
+    background: var(--sprout-hover);
+    color: var(--sprout-text);
     font-weight: 500;
     font-variant-numeric: tabular-nums;
   }

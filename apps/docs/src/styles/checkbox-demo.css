@@ -206,7 +206,7 @@
   border-bottom: 0;
 }
 .checkbox-demo-table tr[data-selected] td {
-  background: var(--sprout-primary-subtle);
+  background: var(--sprout-hover);
 }
 .checkbox-demo-table .checkbox-demo-select-cell {
   width: 40px;
@@ -239,7 +239,7 @@
   color: var(--sprout-text);
 }
 .checkbox-demo-file[data-selected] {
-  background: var(--sprout-primary-subtle);
+  background: var(--sprout-hover);
 }
 .checkbox-demo-file-select {
   position: relative;

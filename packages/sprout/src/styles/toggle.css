@@ -13,7 +13,7 @@
     margin: 0;
     padding: 0 10px;
     border: 1px solid transparent;
-    border-radius: var(--sprout-radius-control);
+    border-radius: 10px;
     background: transparent;
     background-clip: padding-box;
     color: var(--sprout-muted);
@@ -67,8 +67,8 @@
   }
   .sprout-toggle[data-pressed],
   .sprout-toggle[data-pressed]:not(:disabled, [data-disabled]):hover {
-    background-color: var(--sprout-primary-subtle);
-    color: var(--sprout-primary);
+    background-color: var(--sprout-hover);
+    color: var(--sprout-text);
   }
   .sprout-toggle[aria-invalid='true'] {
     border-color: var(--sprout-danger);
@@ -79,8 +79,7 @@
 
   .sprout-toggle-variant-outline {
     border-color: var(--sprout-input);
-    background-color: var(--sprout-surface);
-    box-shadow: var(--sprout-shadow-control);
+    background-color: transparent;
   }
 
   .sprout-toggle-size-sm {

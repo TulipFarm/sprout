@@ -147,7 +147,7 @@ describe('Toggle', () => {
       ':focus-visible',
       'prefers-reduced-motion: no-preference',
       'forced-colors: active',
-      'var(--sprout-primary-subtle)',
+      'var(--sprout-hover)',
     ]) {
       expect(css).toContain(rule);
     }

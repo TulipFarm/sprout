@@ -366,8 +366,8 @@
     outline-offset: 1px;
   }
   .sprout-board-card[data-selected] {
-    border-color: var(--sprout-primary);
-    background: color-mix(in oklab, var(--sprout-primary-subtle) 60%, var(--sprout-card-raised));
+    border-color: color-mix(in oklab, var(--sprout-text) 35%, transparent);
+    background: color-mix(in oklab, var(--sprout-hover) 60%, var(--sprout-card-raised));
   }
   .sprout-board-card[data-custom] {
     display: block;

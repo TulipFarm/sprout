@@ -43,12 +43,10 @@ function DemoField({
       <div className="input-demo-field-head">
         <div className="input-demo-field-label">
           <Field.Label className="input-demo-label">{label}</Field.Label>
-          {required ? (
+          {required && (
             <span className="input-demo-requirement" aria-hidden="true">
-              Required
+              *
             </span>
-          ) : (
-            <Field.Description className="input-demo-requirement">Optional</Field.Description>
           )}
         </div>
         {counter && <Field.Description className="input-demo-counter">{counter}</Field.Description>}

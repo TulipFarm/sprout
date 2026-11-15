@@ -10,7 +10,7 @@
     height: var(--sprout-control-height);
     padding: 0 10px;
     border: 1px solid transparent;
-    border-radius: var(--sprout-radius-control);
+    border-radius: 10px;
     background-clip: padding-box;
     color: var(--sprout-text);
     font-family: inherit;
@@ -52,7 +52,6 @@
   .sprout-button-variant-default {
     background: var(--sprout-primary);
     color: var(--sprout-on-primary);
-    box-shadow: var(--sprout-shadow-control);
   }
   @media (hover: hover) {
     .sprout-button-variant-default:hover {
@@ -112,14 +111,14 @@
   }
   @media (hover: hover) {
     .sprout-button-variant-destructive:hover {
-      background: color-mix(in srgb, var(--sprout-danger) 18%, transparent);
+      background: color-mix(in srgb, var(--sprout-danger) 20%, transparent);
     }
   }
   .sprout-button-variant-destructive:active {
-    background: color-mix(in srgb, var(--sprout-danger) 18%, transparent);
+    background: color-mix(in srgb, var(--sprout-danger) 20%, transparent);
   }
   .sprout-button-variant-destructive:focus-visible {
-    outline-color: var(--sprout-danger);
+    outline-color: color-mix(in srgb, var(--sprout-danger) 40%, transparent);
   }
   .sprout-button-variant-ghost-destructive {
     background: transparent;

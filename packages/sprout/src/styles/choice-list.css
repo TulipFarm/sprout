@@ -71,8 +71,8 @@
   }
   .sprout-choice-list-option[data-checked],
   .sprout-choice-list-text[data-checked] {
-    border-color: var(--sprout-focus);
-    background: var(--sprout-primary-subtle);
+    border-color: color-mix(in oklab, var(--sprout-text) 35%, transparent);
+    background: var(--sprout-hover);
   }
   .sprout-choice-list-option[data-disabled] {
     cursor: not-allowed;
@@ -127,8 +127,19 @@
     height: 13px;
   }
   :is(.sprout-choice-list-option, .sprout-choice-list-text)[data-checked] .sprout-choice-list-mark {
-    border-color: var(--sprout-focus);
-    background: var(--sprout-primary-subtle);
+    border-color: var(--sprout-primary);
+    background: var(--sprout-primary);
+    color: var(--sprout-primary-foreground, #fff);
+  }
+  .sprout-choice-list:not([data-multiple]) .sprout-choice-list-option[data-checked] .sprout-choice-list-mark svg {
+    display: none;
+  }
+  .sprout-choice-list:not([data-multiple]) .sprout-choice-list-option[data-checked] .sprout-choice-list-mark::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--sprout-primary-foreground, #fff);
   }
   .sprout-choice-list-option[data-disabled] .sprout-choice-list-mark {
     border-color: var(--sprout-border);
@@ -200,7 +211,7 @@
     border-radius: var(--sprout-radius-control);
   }
   .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option[data-checked] {
-    border-color: var(--sprout-focus);
+    border-color: transparent;
   }
   .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option[data-disabled][data-checked] {
     border-color: var(--sprout-input);
@@ -232,8 +243,19 @@
     color: var(--sprout-muted);
   }
   .sprout-choice-list[data-layout='compact'] .sprout-choice-list-option[data-checked] .sprout-choice-list-mark {
-    background: var(--sprout-primary-subtle);
-    color: var(--sprout-primary);
+    background: var(--sprout-primary);
+    color: var(--sprout-primary-foreground, #fff);
+  }
+  .sprout-choice-list[data-layout='compact']:not([data-multiple])
+    .sprout-choice-list-option[data-checked]
+    .sprout-choice-list-mark
+    svg {
+    display: block;
+  }
+  .sprout-choice-list[data-layout='compact']:not([data-multiple])
+    .sprout-choice-list-option[data-checked]
+    .sprout-choice-list-mark::after {
+    content: none;
   }
   @media (any-pointer: coarse) {
     .sprout-choice-list[data-layout='compact'] .sprout-choice-list-options {

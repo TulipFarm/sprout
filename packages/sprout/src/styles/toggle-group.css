@@ -77,14 +77,13 @@
   }
   .sprout-toggle-group-item[data-pressed],
   .sprout-toggle-group-item[data-pressed]:not([data-disabled]):hover {
-    background-color: var(--sprout-primary-subtle);
-    color: var(--sprout-primary);
+    background-color: var(--sprout-hover);
+    color: var(--sprout-text);
   }
 
   .sprout-toggle-group-item-outline {
     border-color: var(--sprout-input);
-    background-color: var(--sprout-surface);
-    box-shadow: var(--sprout-shadow-control);
+    background-color: transparent;
   }
 
   .sprout-toggle-group-item-size-sm {

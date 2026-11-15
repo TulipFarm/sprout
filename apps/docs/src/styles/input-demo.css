@@ -87,7 +87,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px 8px;
+  gap: 4px;
   min-width: 0;
 }
 .input-demo-label {
@@ -99,7 +99,12 @@
 .input-demo-field[data-disabled] .input-demo-label {
   color: var(--sprout-muted);
 }
-.input-demo-requirement,
+.input-demo-requirement {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--sprout-danger);
+}
 .input-demo-counter {
   font-size: 12px;
   line-height: 16px;

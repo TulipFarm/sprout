@@ -83,8 +83,11 @@ function DemoField({
     <div className="select-demo-field" data-invalid={error ? '' : undefined}>
       <label htmlFor={id} className={srOnlyLabel ? 'select-demo-sr-only' : 'select-demo-label'}>
         {label}
-        {marker === 'required' && <span className="select-demo-marker">Required</span>}
-        {marker === 'optional' && <span className="select-demo-marker">Optional</span>}
+        {marker === 'required' && (
+          <span className="select-demo-marker" aria-hidden="true">
+            *
+          </span>
+        )}
       </label>
       {children}
       {error ? (

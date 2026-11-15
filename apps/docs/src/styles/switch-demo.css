@@ -110,7 +110,7 @@
   width: 64px;
   height: 64px;
   border-radius: 999px;
-  background: var(--sprout-primary-subtle);
+  background: var(--sprout-hover);
 }
 .switch-demo-bud span {
   width: 24px;

@@ -111,7 +111,7 @@ describe('Textarea', () => {
       </Field>,
     );
     expect(optional).toContain('disabled=""');
-    expect(optional).toContain('aria-describedby="notes-helper notes-requirement"');
+    expect(optional).toContain('aria-describedby="notes-helper"');
     const locked = renderToString(
       <FieldsDisabled value>
         <Field id="memory" label="Your preferences" optional>
