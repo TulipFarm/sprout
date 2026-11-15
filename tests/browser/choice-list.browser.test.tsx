@@ -104,8 +104,8 @@ describe('ChoiceList in a real browser', () => {
     await parkPointer();
     await settle();
     const checked = screen.container.querySelector('[data-slot="choice-list-option"][data-checked]')!;
-    expect(getComputedStyle(checked).backgroundColor).toBe(colorOf('--sprout-primary-subtle'));
-    expect(getComputedStyle(checked.querySelector('.sprout-choice-list-mark')!).color).toBe(
+    expect(getComputedStyle(checked).backgroundColor).toBe(colorOf('--sprout-hover'));
+    expect(getComputedStyle(checked.querySelector('.sprout-choice-list-mark')!).backgroundColor).toBe(
       colorOf('--sprout-primary'),
     );
     expect(await axeViolations(screen.container)).toEqual([]);

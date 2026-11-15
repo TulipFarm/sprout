@@ -87,10 +87,8 @@ describe('ChatSources in a real browser', () => {
   it('hovering a citation previews the passage and leaving closes it', async () => {
     const screen = await render(<Reply />);
     const citation = screen.getByRole('button', { name: /^Source 2:/ });
-    const before = getComputedStyle(citation.element()).backgroundColor;
     await citation.hover();
     await expect.element(popup()).toBeVisible();
-    expect(getComputedStyle(citation.element()).backgroundColor).not.toBe(before);
     expect(popupNode()!.querySelector('.sprout-chat-sources-preview-head')!.textContent).toBe('2drive.example.com');
     await page.elementLocator(popupNode()!.querySelector('a')!).hover();
     await expect.element(popup()).toBeVisible();

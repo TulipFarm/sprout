@@ -88,7 +88,7 @@ describe('Questionnaire in a real browser', () => {
     const screen = await render(<Survey invalid />);
     await settle();
     const checked = document.querySelector<HTMLElement>('[data-slot="questionnaire-choice"][data-checked]')!;
-    expect(getComputedStyle(checked).backgroundColor).toBe(colorOf('--sprout-primary-subtle'));
+    expect(getComputedStyle(checked).backgroundColor).toBe(colorOf('--sprout-hover'));
     expect(getComputedStyle(slot('choice-indicator', checked)).backgroundColor).toBe(colorOf('--sprout-primary'));
     expect(getComputedStyle(slot('error')).color).toBe(colorOf('--sprout-danger'));
     expect(await axeViolations(screen.container)).toEqual([]);

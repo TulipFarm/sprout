@@ -50,7 +50,7 @@ describe('Input in a real browser', () => {
   });
 
   it.each([
-    ['md', '32px', '14px', '10px'],
+    ['md', '32px', '14px', '12px'],
     ['lg', '36px', '14px', '12px'],
   ] as const)('%s scale renders at Cloud dimensions', async (scale, height, font, padding) => {
     const screen = await render(<States scale={scale} />);

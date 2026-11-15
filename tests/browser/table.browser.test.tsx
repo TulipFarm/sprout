@@ -170,12 +170,12 @@ describe('Table in a real browser', () => {
     expect(await axeViolations(screen.container)).toEqual([]);
   });
 
-  it('a selected row takes the subtle primary background', async () => {
+  it('a selected row takes the hover background', async () => {
     await emulate({ reducedMotion: true });
     const screen = await render(<Grid />);
     await screen.getByRole('checkbox', { name: 'Select Lisse Bulb Co.' }).click();
     const row = screen.container.querySelector('tr[data-state="selected"]')!;
-    expect(getComputedStyle(row).backgroundColor).toBe(backgroundOf('--sprout-primary-subtle'));
+    expect(getComputedStyle(row).backgroundColor).toBe(backgroundOf('--sprout-hover'));
   });
 
   it('keyboard resizing changes the drawn column width', async () => {

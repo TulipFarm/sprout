@@ -59,8 +59,8 @@ describe('Toggle in a real browser', () => {
     const screen = await render(<Gallery />);
     await settle();
     const pressed = screen.getByRole('button', { name: 'outline bold on' }).element();
-    expect(getComputedStyle(pressed).color).toBe(colorOf('--sprout-primary'));
-    expect(getComputedStyle(pressed).backgroundColor).toBe(colorOf('--sprout-primary-subtle'));
+    expect(getComputedStyle(pressed).color).toBe(colorOf('--sprout-text'));
+    expect(getComputedStyle(pressed).backgroundColor).toBe(colorOf('--sprout-hover'));
     expect(await axeViolations(screen.container)).toEqual([]);
   });
 
