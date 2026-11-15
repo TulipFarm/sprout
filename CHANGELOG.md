@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.3](https://github.com/TulipFarm/sprout/compare/v0.17.2...v0.17.3) (2026-11-15)
+
+### Features
+
+* **sidebar:** tighter spacing, 14px text, 34px rows; align search palette ([#83](https://github.com/TulipFarm/sprout/issues/83)) ([f30143c](https://github.com/TulipFarm/sprout/commit/f30143cf50c1181d57b6d9485e171303d1af89ad))
+
 ## [0.17.2](https://github.com/TulipFarm/sprout/compare/v0.17.1...v0.17.2) (2026-11-14)
 
 ### Bug Fixes
