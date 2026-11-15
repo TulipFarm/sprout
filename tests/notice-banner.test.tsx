@@ -52,6 +52,20 @@ describe('NoticeBanner', () => {
     }
   });
 
+  it('marks compact banners, always or below a breakpoint', () => {
+    const always = renderToString(
+      <NoticeBanner compact aria-label="Integration authorization" actions={<button type="button">Fix</button>}>
+        <p role="status">Slack needs reauthorization</p>
+      </NoticeBanner>,
+    );
+    expect(always).toMatch(/^<section data-slot="notice-banner" data-compact="" class="sprout-notice-banner"/);
+    expect(always).toContain('<p role="status">Slack needs reauthorization</p>');
+    for (const below of ['sm', 'md', 'lg'] as const)
+      expect(renderToString(<NoticeBanner compact={below}>Text</NoticeBanner>)).toContain(`data-compact="${below}"`);
+    expect(renderToString(<NoticeBanner compact={false}>Text</NoticeBanner>)).not.toContain('data-compact');
+    expect(renderToString(<NoticeBanner>Text</NoticeBanner>)).not.toContain('data-compact');
+  });
+
   it('merges classes and passes props to the section', () => {
     const html = renderToString(
       <NoticeBanner className="rounded" id="notice" data-x="1" actions="Act">

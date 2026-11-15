@@ -67,8 +67,8 @@ describe('Brand catalog', () => {
   });
 
   it('lists every size', () => {
-    expect(brandIconSizeNames).toEqual(['inline', 'glyph', 'fill', 'sm', 'md', 'lg', 'xl']);
-    expect(brandTileSizeNames).toEqual(['sm', 'md', 'lg', 'xl', 'action']);
+    expect(brandIconSizeNames).toEqual(['inline', 'glyph', 'fill', 'sm', 'md', 'md-lg', 'lg', 'xl', 'row']);
+    expect(brandTileSizeNames).toEqual(['sm', 'md', 'md-lg', 'lg', 'xl', 'action', 'row']);
   });
 
   it('lets near-black marks follow the text color and keeps brand colors', () => {
@@ -99,7 +99,7 @@ describe('BrandIcon', () => {
     expect(renderToString(<BrandIcon brand="notion" />)).toMatch(
       /data-slot="brand-tile"[^>]*data-size="md"|data-size="md"[^>]*data-slot="brand-tile"/,
     );
-    for (const size of ['sm', 'md', 'lg', 'xl'] as const) {
+    for (const size of ['sm', 'md', 'md-lg', 'lg', 'xl', 'row'] as const) {
       const html = renderToString(<BrandIcon brand="github" size={size} className="extra" />);
       expect(html).toContain(`data-size="${size}"`);
       expect(html).toContain('data-brand="github"');

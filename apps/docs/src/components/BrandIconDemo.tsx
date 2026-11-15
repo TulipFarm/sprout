@@ -113,12 +113,30 @@ const sizeSamples: Record<BrandIconSize, ReactNode> = {
       </span>
     </span>
   ),
+  'md-lg': (
+    <span className="brand-demo-row-inline">
+      <BrandIcon brand="slack" size="md-lg" />
+      <span>
+        <strong>Slack</strong>
+        <small>Post updates to channels</small>
+      </span>
+    </span>
+  ),
   lg: (
     <span className="brand-demo-row-inline">
       <BrandIcon brand="linear" size="lg" />
       <span>
         <strong>Linear</strong>
         <small>Coming soon</small>
+      </span>
+    </span>
+  ),
+  row: (
+    <span className="brand-demo-row-inline">
+      <BrandIcon brand="jira" size="row" />
+      <span>
+        <strong>Jira</strong>
+        <small>40px on phones, 48px from 640px</small>
       </span>
     </span>
   ),

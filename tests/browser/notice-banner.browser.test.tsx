@@ -19,14 +19,17 @@ function Reauthorize({
   pickerWidth = '100%',
   busy = false,
   message = '3 integrations need authorization. Approve the updated permissions to continue.',
+  compact,
 }: {
   picker?: boolean;
   pickerWidth?: string;
   busy?: boolean;
   message?: string;
+  compact?: 'sm' | 'md' | 'lg';
 }) {
   return (
     <NoticeBanner
+      compact={compact}
       aria-label="Integration authorization"
       actions={
         <>
@@ -137,6 +140,47 @@ describe('NoticeBanner in a real browser', () => {
     expect(getComputedStyle(banner()).animationDuration).toBe('0.18s');
     await emulate({ reducedMotion: true });
     expect(getComputedStyle(banner()).animationName).toBe('none');
+  });
+
+  it('compact keeps one truncated line and a trailing action, with the full text in the accessibility tree', async () => {
+    await page.viewport(320, 900);
+    const text = 'Google Calendar (robin.greenhouse.operations@greenhouse-northwind.example) needs reauthorization';
+    const screen = await render(
+      <NoticeBanner
+        compact
+        aria-label="Integration authorization"
+        actions={
+          <Button variant="link" size="sm" aria-haspopup="dialog">
+            Fix
+          </Button>
+        }
+      >
+        <p role="status">{text}</p>
+      </NoticeBanner>,
+    );
+    const status = screen.getByRole('status').element() as HTMLElement;
+    const fix = screen.getByRole('button', { name: 'Fix' }).element();
+    expect(getComputedStyle(banner()).flexDirection).toBe('row');
+    expect(getComputedStyle(status).textOverflow).toBe('ellipsis');
+    expect(status.scrollWidth).toBeGreaterThan(status.clientWidth);
+    expect(status.getBoundingClientRect().height).toBe(20);
+    expect(Math.abs(fix.getBoundingClientRect().top - status.getBoundingClientRect().top)).toBeLessThan(8);
+    expect(fix.getBoundingClientRect().right).toBeLessThanOrEqual(banner().getBoundingClientRect().right);
+    await expect.element(screen.getByRole('status')).toHaveTextContent(text);
+    await expect.element(screen.getByRole('region', { name: 'Integration authorization' })).toBeVisible();
+    expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(320);
+    expect(await axeViolations(screen.container)).toEqual([]);
+  });
+
+  it('compact="lg" is compact only below 1024px', async () => {
+    await page.viewport(390, 900);
+    await render(<Reauthorize picker={false} compact="lg" />);
+    expect(getComputedStyle(banner()).flexDirection).toBe('row');
+    expect(getComputedStyle(slot('content')).whiteSpace).toBe('nowrap');
+    await page.viewport(1280, 900);
+    expect(getComputedStyle(banner()).flexDirection).toBe('row');
+    expect(getComputedStyle(slot('content')).whiteSpace).toBe('normal');
+    expect(getComputedStyle(banner()).columnGap).toBe('16px');
   });
 
   it('long names wrap without overflow at 320px', async () => {

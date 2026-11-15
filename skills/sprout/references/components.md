@@ -25,7 +25,9 @@ import { Button } from "@tulipfarm/sprout/button";
 ```
 
 Variants: `default`, `outline`, `secondary`, `ghost`, `destructive`, `link`,
-`scope`. `buttonVariants()` returns the classes for other elements.
+`scope`. `shape="pill"` fully rounds any variant and size (icon sizes become
+circles), such as `<Button variant="secondary" shape="pill" size="sm">Connect</Button>`.
+`buttonVariants()` returns the classes for other elements.
 
 ### Button Group
 
@@ -1000,6 +1002,10 @@ import { NoticeBanner } from '@tulipfarm/sprout/notice-banner';
 </NoticeBanner>;
 ```
 
+`compact` keeps one line, cut off with an ellipsis, and one trailing action:
+`<NoticeBanner compact actions={<Button variant="link" size="sm">Fix</Button>}>`.
+`compact="sm" | "md" | "lg"` is compact only below 640px, 768px or 1024px.
+
 ### Result Notice
 
 ```tsx
@@ -1249,6 +1255,8 @@ A Kanban board. Columns go across, optional `lanes` (swimlanes) go down, and a c
 import { BrandIcon, BrandStack, brandNames } from "@tulipfarm/sprout/brand-icon";
 
 <BrandIcon brand="slack" size="sm" />
+<BrandIcon brand="slack" size="md-lg" /> {/* 40px */}
+<BrandIcon brand="slack" size="row" /> {/* 40px below 640px, 48px from 640px */}
 <BrandStack brands={[{ brand: "gmail", name: brandNames.gmail }]} />
 ```
 

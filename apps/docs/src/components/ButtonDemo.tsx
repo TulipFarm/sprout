@@ -753,6 +753,32 @@ export default function ButtonDemo() {
         </div>
       </Preview>
 
+      <Preview
+        id="pill"
+        title="Pill"
+        description='shape="pill" fully rounds any variant and size. Icon sizes become circles.'
+      >
+        <div className="button-demo-row">
+          <Button variant="secondary" shape="pill" size="sm">
+            Connect
+          </Button>
+          <Button variant="ghost" shape="pill" size="sm">
+            <PlusIcon data-icon="inline-start" />
+            Add
+          </Button>
+          <Button variant="outline" shape="pill">
+            Browse apps
+          </Button>
+          <Button shape="pill">Install</Button>
+          <Button variant="ghost" shape="pill" size="icon-sm" aria-label="Add app">
+            <PlusIcon />
+          </Button>
+          <Button variant="outline" shape="pill" size="icon" aria-label="Add another app">
+            <PlusIcon />
+          </Button>
+        </div>
+      </Preview>
+
       <Preview id="states" title="States" description="Disabled, busy, invalid, pressed, expanded, and inline icons.">
         <div className="button-demo-row">
           <Button disabled>Disabled</Button>

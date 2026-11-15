@@ -86,6 +86,27 @@ describe('BrandIcon in a real browser', () => {
     expect(getComputedStyle(screen.getByTestId('sm').element()).padding).toBe('4px');
   });
 
+  it('md-lg is 40px, and row is 40px on phones and 48px from 640px', async () => {
+    await page.viewport(390, 800);
+    const screen = await render(
+      <div>
+        <BrandIcon brand="slack" size="md-lg" data-testid="md-lg" />
+        <BrandIcon brand="slack" size="row" data-testid="row" />
+      </div>,
+    );
+    const fixed = screen.getByTestId('md-lg').element();
+    const row = screen.getByTestId('row').element();
+    expect(size(fixed)).toEqual([40, 40]);
+    expect(getComputedStyle(fixed).padding).toBe('8px');
+    expect(getComputedStyle(fixed).borderRadius).toBe('10px');
+    expect(size(row)).toEqual([40, 40]);
+    await page.viewport(1024, 800);
+    expect(size(fixed)).toEqual([40, 40]);
+    expect(size(row)).toEqual([48, 48]);
+    expect(getComputedStyle(row).padding).toBe('10px');
+    expect(getComputedStyle(row).borderRadius).toBe('12px');
+  });
+
   it('near-black logos follow the text color in dark mode', async () => {
     const screen = await render(
       <>

@@ -28,16 +28,16 @@ classes for custom elements.
 
 Brand Icon (`@tulipfarm/sprout/brand-icon`) draws logos for 33 connected apps
 and models (`brandNames` maps each to its display name). `BrandIcon` sizes are
-bare `inline`, `glyph`, and `fill` glyphs or framed `sm`, `md`, `lg`, and `xl`
-tiles. `BrandTile` frames any icon and renders as a button or popover trigger in
+bare `inline`, `glyph`, and `fill` glyphs or framed `sm`, `md`, `md-lg` (40px),
+`lg`, and `xl` tiles, plus `row` (40px below 640px, 48px from 640px). `BrandTile` frames any icon and renders as a button or popover trigger in
 a touch-sized `action` size. `BrandStack` overlaps tiles as one labelled image
 with a name tooltip on hover. Near-black logos follow the text color in dark
 mode.
 
 Button (`@tulipfarm/sprout/button`) provides seven variants (`default`,
 `outline`, `secondary`, `ghost`, `destructive`, `link`, `scope`), text and icon
-sizes, and pattern sizes for common rows, cards, calendars, trees, and floating
-launchers. It renders real links with `nativeButton={false}`, styles disabled,
+sizes, pattern sizes for common rows, cards, calendars, trees, and floating
+launchers, and a `pill` shape. It renders real links with `nativeButton={false}`, styles disabled,
 busy, invalid, pressed, and expanded states, and works as the `render` target of
 Base UI triggers. `buttonVariants()` applies the same classes to other elements.
 Pass `state` (`ready`, `busy`, or `blocked`) for actions that can be busy or

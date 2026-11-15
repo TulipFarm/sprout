@@ -442,7 +442,7 @@ const canvasExports = [
   'canvasSplitMinWidth',
 ];
 
-const noticeBannerExports = ['NoticeBanner'];
+const noticeBannerExports = ['NoticeBanner', 'noticeBannerCompactNames'];
 const resultNoticeExports = ['ResultNotice'];
 
 const recordListExports = ['RecordList', 'recordListDensityNames', 'recordListMaxValues', 'recordListStatusNames'];
@@ -712,6 +712,7 @@ describe('Sidebar public surface', () => {
       'buttonVariants',
       'buttonVariantNames',
       'buttonSizeNames',
+      'buttonShapeNames',
       'ActionGroup',
       'jumpTo',
       'useActionControl',

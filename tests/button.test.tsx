@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import {
   ActionGroup,
   Button,
+  buttonVariants,
   jumpTo,
   useActionControl,
   type ButtonState,
@@ -34,6 +35,22 @@ describe('Button without state', () => {
       ),
     ).toBe(
       '<a href="/x" data-slot="button" data-variant="default" data-size="md" class="sprout-button sprout-button-variant-default sprout-button-size-md">Go</a>',
+    );
+  });
+  it('adds the pill shape class and data-shape only when asked', () => {
+    const html = renderToString(
+      <Button variant="ghost" size="icon-sm" shape="pill" aria-label="Add">
+        +
+      </Button>,
+    );
+    expect(html).toContain('data-shape="pill"');
+    expect(html).toContain(
+      'class="sprout-button sprout-button-variant-ghost sprout-button-size-icon-sm sprout-button-shape-pill"',
+    );
+    for (const shape of [undefined, null, 'default'] as const)
+      expect(renderToString(<Button shape={shape}>Save</Button>)).not.toMatch(/shape/);
+    expect(buttonVariants({ shape: 'pill' })).toBe(
+      'sprout-button sprout-button-variant-default sprout-button-size-md sprout-button-shape-pill',
     );
   });
   it('renders the ghost-destructive variant class', () => {

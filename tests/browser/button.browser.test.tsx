@@ -76,6 +76,51 @@ describe('Button in a real browser', () => {
     expect(getComputedStyle(node('icon-xs').querySelector('svg')!).width).toBe('12px');
   });
 
+  it('pill rounds every variant and size, makes icon sizes circles, and keeps the focus ring', async () => {
+    const screen = await render(
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {buttonVariantNames.map(variant =>
+          buttonSizeNames.map(name => (
+            <Button
+              key={`${variant}-${name}`}
+              variant={variant}
+              size={name}
+              shape="pill"
+              aria-label={`${variant} ${name}`}
+            >
+              {name.startsWith('icon') ? <Plus /> : name}
+            </Button>
+          )),
+        )}
+        <Button size="sm" aria-label="square">
+          sm
+        </Button>
+      </div>,
+    );
+    for (const button of screen.container.querySelectorAll<HTMLElement>('[data-shape="pill"]')) {
+      const [w, h] = size(button);
+      expect(parseFloat(getComputedStyle(button).borderTopLeftRadius), button.ariaLabel!).toBeGreaterThanOrEqual(h / 2);
+      if (button.dataset.size!.startsWith('icon')) expect(w, button.ariaLabel!).toBe(h);
+    }
+    const md = screen.getByRole('button', { name: 'ghost md' }).element();
+    expect(getComputedStyle(md).paddingLeft).toBe('14px');
+    expect(size(md)[1]).toBe(32);
+    expect(getComputedStyle(screen.getByRole('button', { name: 'square' }).element()).borderRadius).not.toBe('9999px');
+    expect(await axeViolations(screen.container)).toEqual([]);
+    await screen.rerender(
+      <Button variant="ghost" size="icon-sm" shape="pill" aria-label="Add">
+        <Plus />
+      </Button>,
+    );
+    const icon = screen.getByRole('button', { name: 'Add' });
+    await userEvent.tab();
+    await expect.element(icon).toHaveFocus();
+    const ring = getComputedStyle(icon.element());
+    expect(ring.outlineStyle).toBe('solid');
+    expect(ring.outlineWidth).toBe(focusWidth());
+    expect(ring.borderRadius).toBe('9999px');
+  });
+
   it('keyboard activates, shows a focus ring, and busy stops the spinner', async () => {
     await emulate({ reducedMotion: true });
     let clicks = 0;
