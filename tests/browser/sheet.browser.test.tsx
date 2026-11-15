@@ -218,7 +218,7 @@ describe('Sheet in a real browser', () => {
     expect(getComputedStyle(title()).fontSize).toBe('16px');
     expect(page.getByRole('button', { name: 'Close', exact: true }).elements()).toHaveLength(0);
     expect(footer().flexDirection).toBe('row');
-    expect(footer().justifyContent).toBe('flex-end');
+    expect(footer().justifyContent).toBe('flow-end');
     await userEvent.keyboard('{Escape}');
     await expect.poll(() => sheets().length).toBe(0);
     await screen.unmount();
