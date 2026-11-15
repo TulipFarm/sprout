@@ -1,6 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
-import ts from 'typescript';
+// TypeScript 7 has no stable JS compiler API yet, so the board parses with TypeScript 6.
+import ts from 'typescript-6';
 
 const ai = new Set(
   'attachment bubble canvas chat-confirmation chat-input chat-plan chat-sources mention-list message message-actions message-response message-rich-text message-scroller plan-outline prompt-list questionnaire reasoning-effort result-card review-card tool-activity typed-text'.split(
