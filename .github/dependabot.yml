@@ -17,6 +17,9 @@ updates:
       # Must match the peer range of @astrojs/react and @vitejs/plugin-react;
       # bump it together with them by hand.
       - dependency-name: oxc-transform-react
+      # Stays on 6: the component board needs its stable JS compiler API.
+      - dependency-name: typescript-6
+        update-types: [version-update:semver-major]
   - package-ecosystem: github-actions
     directory: /
     schedule:

@@ -56,6 +56,7 @@
     "simple-git-hooks": "2.14.0",
     "svgo": "4.1.0",
     "typescript": "7.0.2",
+    "typescript-6": "npm:typescript@6.0.3",
     "vitest": "5.1.0",
     "vitest-browser-react": "2.3.0",
     "zod": "4.6.7"
