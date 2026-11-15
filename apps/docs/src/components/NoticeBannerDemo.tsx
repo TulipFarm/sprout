@@ -232,6 +232,46 @@ function States() {
   );
 }
 
+function Compact() {
+  const fix = (
+    <Button variant="link" size="sm" aria-haspopup="dialog">
+      Fix
+    </Button>
+  );
+  return (
+    <Example
+      title="Compact"
+      description="One line that cuts off with an ellipsis, and one action beside it. Open the details from that action, for example in a sheet."
+    >
+      <div className="notice-banner-demo-gallery">
+        <Frame label="compact · every width">
+          <NoticeBanner compact aria-label="Integration authorization" actions={fix}>
+            <p role="status">
+              <span className="notice-banner-demo-lead">{sample.calendar!.name} needs reauthorization</span>
+            </p>
+          </NoticeBanner>
+        </Frame>
+        <Frame label='compact="lg" · compact below 1024px'>
+          <NoticeBanner
+            compact="lg"
+            aria-label="Integration authorization"
+            actions={
+              <Button variant="outline" size="sm">
+                Update permissions
+              </Button>
+            }
+          >
+            <p role="status">
+              <span className="notice-banner-demo-lead">3 integrations need authorization.</span> Approve the updated
+              permissions to continue.
+            </p>
+          </NoticeBanner>
+        </Frame>
+      </div>
+    </Example>
+  );
+}
+
 type Outcome = 'opens' | 'fails';
 type Refresh = 'succeeds' | 'fails';
 const counts = [
@@ -399,6 +439,7 @@ export default function NoticeBannerDemo() {
     <div id="notice-banner-demo" className="notice-banner-demo">
       <Flow />
       <States />
+      <Compact />
       <Playground />
     </div>
   );

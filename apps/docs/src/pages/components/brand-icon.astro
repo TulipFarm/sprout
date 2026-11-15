@@ -39,10 +39,10 @@ import {
     <p>
       <code>BrandIcon</code> takes a <code>brand</code> and a <code>size</code>.<code>"inline"</code> (16px),{' '}
       <code>"glyph"</code> (20px), and <code>"fill"</code> draw only the logo. <code>"sm"</code> (24px),{' '}
-      <code>"md"</code> (36px, default),
-      <code>"lg"</code> (48px), and <code>"xl"</code> (56px) put it in a tile. Near-black logos such as GitHub, Notion,
-      and OpenAI follow the text color, so they stay visible in dark mode. Logos are decorative; put the app name in
-      nearby text.
+      <code>"md"</code> (36px, default), <code>"md-lg"</code> (40px),
+      <code>"lg"</code> (48px), and <code>"xl"</code> (56px) put it in a tile. <code>"row"</code> is 40px below 640px
+      and 48px from 640px, so app lists fit more rows on a phone. Near-black logos such as GitHub, Notion, and OpenAI
+      follow the text color, so they stay visible in dark mode. Logos are decorative; put the app name in nearby text.
     </p>
     <div class="mt-6 grid gap-4">
       <BrandIconSizes client:load />
@@ -75,9 +75,10 @@ import {
     />
     <p>
       <code>BrandTile</code> is the frame on its own. Put any icon in it. Its
-      <code>size</code> is <code>"sm"</code>, <code>"md"</code>, <code>"lg"</code>, <code>"xl"</code>, or{' '}
-      <code>"action"</code>. An action tile is 36px and grows to 44px on touch screens. Use <code>render</code> to make
-      the tile a button, link, or popover trigger, then fill it with <code>size="fill"</code>.
+      <code>size</code> is <code>"sm"</code>, <code>"md"</code>, <code>"md-lg"</code>, <code>"lg"</code>,{' '}
+      <code>"xl"</code>, <code>"row"</code>, or <code>"action"</code>. An action tile is 36px and grows to 44px on touch
+      screens. Use <code>render</code> to make the tile a button, link, or popover trigger, then fill it with{' '}
+      <code>size="fill"</code>.
     </p>
     <TileCompositions client:load />
     <div class="mt-4">

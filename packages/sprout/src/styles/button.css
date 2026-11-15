@@ -211,6 +211,28 @@
     width: calc(var(--sprout-control-height) + 4px);
     height: calc(var(--sprout-control-height) + 4px);
   }
+  /* Two classes so the pill outranks every per-size radius. Text sizes get 4px more side padding. */
+  .sprout-button.sprout-button-shape-pill {
+    border-radius: 9999px;
+  }
+  .sprout-button-shape-pill:is(.sprout-button-size-md, .sprout-button-size-lg) {
+    padding-inline: 14px;
+  }
+  .sprout-button-shape-pill.sprout-button-size-sm {
+    padding-inline: 12px;
+  }
+  .sprout-button-shape-pill:is(.sprout-button-size-md, .sprout-button-size-lg):has([data-icon='inline-start']) {
+    padding-inline-start: 10px;
+  }
+  .sprout-button-shape-pill:is(.sprout-button-size-md, .sprout-button-size-lg):has([data-icon='inline-end']) {
+    padding-inline-end: 10px;
+  }
+  .sprout-button-shape-pill.sprout-button-size-sm:has([data-icon='inline-start']) {
+    padding-inline-start: 8px;
+  }
+  .sprout-button-shape-pill.sprout-button-size-sm:has([data-icon='inline-end']) {
+    padding-inline-end: 8px;
+  }
   [data-slot='button-group'] .sprout-button-size-sm,
   [data-slot='button-group'] .sprout-button-size-icon-xs,
   [data-slot='button-group'] .sprout-button-size-icon-sm {

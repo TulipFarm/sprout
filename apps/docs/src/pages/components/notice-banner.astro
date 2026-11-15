@@ -41,15 +41,49 @@ import { NoticeBanner } from "@tulipfarm/sprout/notice-banner";
       to show only the message. Other props, like <code>className</code>, go to the <code>section</code>.
     </p>
     <p>
-      There is one size and no variants. Below 640px the message and actions stack, with 8px between them, 16px side
-      padding, and full-width actions. From 640px they sit on one row, centered, with 16px between them and 24px side
-      padding. Long words in the message wrap.
+      By default, below 640px the message and actions stack, with 8px between them, 16px side padding, and full-width
+      actions. From 640px they sit on one row, centered, with 16px between them and 24px side padding. Long words in the
+      message wrap.
     </p>
     <p>
       Use the default outline <code>Button</code>, 28px with 14px text, for the main action, next to a 32px{' '}
       <code>Select</code> when there is a choice. Use
       <code>size="sm"</code>, 28px with 12px text, for a single light action, like Dismiss. To render no banner, do not
       mount it.
+    </p>
+  </section>
+  <section class="prose-section">
+    <h2 class="section-title">Compact</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Compact banner"
+      code={`<NoticeBanner
+  compact
+  aria-label="Integration authorization"
+  actions={
+    <Button variant="link" size="sm" aria-haspopup="dialog" onClick={openDetails}>
+      Fix
+    </Button>
+  }
+>
+  <p role="status">Google Calendar needs reauthorization</p>
+</NoticeBanner>
+
+<NoticeBanner compact="lg" aria-label="Integration authorization" actions={action}>
+  <p role="status">{message}</p>
+</NoticeBanner>`}
+    />
+    <p>
+      <code>compact</code> keeps the message and actions on one row at every width. The message stays on one line and
+      ends with an ellipsis when it does not fit; the actions never wrap or shrink. Keep it to one short action, and put
+      the details and other controls somewhere it opens, such as a sheet. Use a short message, such as "3 apps need
+      reauthorization".
+    </p>
+    <p>
+      Pass <code>"sm"</code>, <code>"md"</code>, or <code>"lg"</code> to be compact only below 640px, 768px, or 1024px.
+      Wider screens get the default layout with the same message and actions. To show different content on small
+      screens, render a second banner with your own media query. The cut-off text stays in the page, so screen readers
+      read all of it.
     </p>
   </section>
   <section class="prose-section">

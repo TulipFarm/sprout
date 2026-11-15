@@ -49,8 +49,9 @@ export const brandNames: Record<Brand, string> = {
   calendly: 'Calendly',
 };
 
-export const brandTileSizeNames = ['sm', 'md', 'lg', 'xl', 'action'] as const;
-export const brandIconSizeNames = ['inline', 'glyph', 'fill', 'sm', 'md', 'lg', 'xl'] as const;
+/** `md-lg` is 40px. `row` is 40px below 640px and 48px (`lg`) from 640px, for app list rows. */
+export const brandTileSizeNames = ['sm', 'md', 'md-lg', 'lg', 'xl', 'action', 'row'] as const;
+export const brandIconSizeNames = ['inline', 'glyph', 'fill', 'sm', 'md', 'md-lg', 'lg', 'xl', 'row'] as const;
 
 export type BrandTileSize = (typeof brandTileSizeNames)[number];
 export type BrandIconSize = (typeof brandIconSizeNames)[number];

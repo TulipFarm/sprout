@@ -19,20 +19,25 @@ export const buttonVariantNames = [
 
 export const buttonSizeNames = ['md', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'] as const;
 
+export const buttonShapeNames = ['default', 'pill'] as const;
+
 export type ButtonVariant = (typeof buttonVariantNames)[number];
 export type ButtonSize = (typeof buttonSizeNames)[number];
+export type ButtonShape = (typeof buttonShapeNames)[number];
 
 export interface ButtonVariantOptions {
   variant?: ButtonVariant | null;
   size?: ButtonSize | null;
+  shape?: ButtonShape | null;
   className?: string;
 }
 
-export function buttonVariants({ variant, size, className }: ButtonVariantOptions = {}) {
+export function buttonVariants({ variant, size, shape, className }: ButtonVariantOptions = {}) {
   return cn(
     'sprout-button',
     `sprout-button-variant-${variant ?? 'default'}`,
     `sprout-button-size-${size ?? 'md'}`,
+    shape === 'pill' && 'sprout-button-shape-pill',
     className,
   );
 }
@@ -52,6 +57,8 @@ export type ButtonState =
 export interface ButtonProps extends BaseButton.Props {
   variant?: ButtonVariant | null;
   size?: ButtonSize | null;
+  /** `pill` fully rounds the ends, and icon sizes become circles. Works with every variant and size. */
+  shape?: ButtonShape | null;
   /**
    * Wraps the button in `data-slot="button-action"`, which also holds the
    * blocked reason; `className` then styles that wrapper. Busy and blocked
@@ -67,14 +74,15 @@ export function Button({ state, pendingLabel, ...props }: ButtonProps) {
   return state ? <StatefulButton state={state} pendingLabel={pendingLabel} {...props} /> : <ButtonElement {...props} />;
 }
 
-function ButtonElement({ variant, size, className, ...props }: Omit<ButtonProps, 'state' | 'pendingLabel'>) {
+function ButtonElement({ variant, size, shape, className, ...props }: Omit<ButtonProps, 'state' | 'pendingLabel'>) {
   return (
     <Pressable
       data-slot="button"
       data-variant={variant ?? 'default'}
       data-size={size ?? 'md'}
+      data-shape={shape === 'pill' ? 'pill' : undefined}
       {...props}
-      className={stateClassName<BaseButton.State>(buttonVariants({ variant, size }), className)}
+      className={stateClassName<BaseButton.State>(buttonVariants({ variant, size, shape }), className)}
     />
   );
 }

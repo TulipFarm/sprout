@@ -24,6 +24,11 @@
     padding: 0.25rem;
     border-radius: 0.375rem;
   }
+  .sprout-brand-tile:is([data-size='md-lg'], [data-size='row']) {
+    --sprout-brand-tile-size: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 0.625rem;
+  }
   .sprout-brand-tile[data-size='lg'] {
     --sprout-brand-tile-size: 3rem;
     padding: 0.625rem;
@@ -33,6 +38,13 @@
     --sprout-brand-tile-size: 3.5rem;
     padding: 0.75rem;
     border-radius: 1rem;
+  }
+  @media (min-width: 640px) {
+    .sprout-brand-tile[data-size='row'] {
+      --sprout-brand-tile-size: 3rem;
+      padding: 0.625rem;
+      border-radius: 0.75rem;
+    }
   }
   @media (pointer: coarse) {
     .sprout-brand-tile[data-size='action'] {

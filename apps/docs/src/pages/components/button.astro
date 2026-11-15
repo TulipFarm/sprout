@@ -39,6 +39,22 @@ import CodeBlock from '../../components/CodeBlock.astro';
     </p>
   </section>
   <section class="prose-section">
+    <h2 class="section-title">Pill shape</h2>
+    <CodeBlock
+      lang="tsx"
+      title="Pill buttons"
+      code={`<Button variant="secondary" shape="pill" size="sm">Connect</Button>
+<Button variant="ghost" shape="pill" size="icon-sm" aria-label="Add app">
+  <PlusIcon />
+</Button>`}
+    />
+    <p>
+      <code>shape="pill"</code> fully rounds the ends. It works with every variant and size. Text sizes get 4px more
+      side padding, and icon sizes become circles. The focus ring follows the round edge. Leave out <code>shape</code>,
+      or pass <code>"default"</code>, for the usual corners. Inside a Button Group the joined edges stay square.
+    </p>
+  </section>
+  <section class="prose-section">
     <h2 class="section-title">Links</h2>
     <CodeBlock
       lang="tsx"
@@ -161,7 +177,7 @@ import { Button, buttonVariants } from "@tulipfarm/sprout/button";
   Sort
 </Menu.Trigger>
 
-<a className={buttonVariants({ variant: "ghost", size: "sm" })} href={url}>
+<a className={buttonVariants({ variant: "ghost", size: "sm", shape: "pill" })} href={url}>
   Open in calendar
 </a>`}
     />
@@ -192,8 +208,9 @@ import { Button, buttonVariants } from "@tulipfarm/sprout/button";
       take 120ms and stop when the user prefers reduced motion.
     </p>
     <p>
-      Button renders <code>data-slot="button"</code>, <code>data-variant</code>, and <code>data-size</code>. Override{' '}
-      <code>data-slot</code> when a wrapping component needs its own hook. Refs reach the rendered element.
+      Button renders <code>data-slot="button"</code>, <code>data-variant</code>, and <code>data-size</code>, and{' '}
+      <code>data-shape="pill"</code> for pills. Override <code>data-slot</code> when a wrapping component needs its own
+      hook. Refs reach the rendered element.
     </p>
   </section>
 </Docs>
