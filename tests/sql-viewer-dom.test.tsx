@@ -250,9 +250,11 @@ describe('SqlViewer in the DOM', () => {
       group.getAttribute('data-tone'),
     );
     expect(tones).toEqual(['1', '2', '3', '4', '5', '1']);
-    const top = (id: string) => node(`~group:${id}`).style.transform;
-    expect(top('a')).toMatch(/,0px\)$/);
-    expect(top('e')).not.toMatch(/,0px\)$/);
+    // A zero y is dropped when serialized: translate(0px, 0px) reads back as translate(0px).
+    const top = (id: string) =>
+      /^translate\([^,)]+(?:,\s*([^)]+))?\)$/.exec(node(`~group:${id}`).style.transform)![1] ?? '0px';
+    expect(top('a')).toBe('0px');
+    expect(top('e')).not.toBe('0px');
   });
 
   it('stacks tables on a phone', async () => {
