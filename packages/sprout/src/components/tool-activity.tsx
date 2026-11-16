@@ -120,7 +120,7 @@ export function ActivityPanel({
         aria-label={working ? `Working…${activityLabel ? ` ${activityLabel}` : ''}` : 'Worked'}
         className="sprout-activity-panel-trigger"
       >
-        {working && <Spinner aria-hidden="true" />}
+        {working && <Spinner variant="thinking" aria-hidden="true" />}
         <span className="sprout-activity-panel-status">{working ? 'Working…' : 'Worked'}</span>
         {working && activityLabel && <span className="sprout-activity-panel-label">{activityLabel}</span>}
         <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
@@ -310,7 +310,7 @@ export function ToolActivity({
   if (items.length === 0)
     return active && variant === 'transcript' ? (
       <div data-slot="reply-progress" role="status" className={cn('sprout-tool-activity-progress', className)}>
-        <Spinner aria-hidden="true" />
+        <Spinner variant="thinking" aria-hidden="true" />
         {activityLabel || 'Thinking…'}
       </div>
     ) : null;
@@ -357,7 +357,7 @@ export function ToolActivity({
       {variant !== 'stepper' && (
         <>
           <CollapsibleTrigger aria-label={title} className="sprout-tool-activity-trigger">
-            {working ? <Spinner aria-hidden="true" /> : <Command size={14} aria-hidden="true" />}
+            {working ? <Spinner variant="thinking" aria-hidden="true" /> : <Command size={14} aria-hidden="true" />}
             <span className="sprout-tool-activity-title">{title}</span>
             <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
           </CollapsibleTrigger>
