@@ -427,6 +427,119 @@ describe('Board drag and drop', () => {
   });
 });
 
+describe('Board move rules', () => {
+  // Only Done takes cards from To do; nothing reorders within its own column.
+  const rules = {
+    canDrop: (item: BoardItem, to: { columnId: string }) => item.columnId === 'todo' && to.columnId === 'done',
+  };
+
+  async function hold(from: Element, to: { x: number; y: number }) {
+    const start = from.getBoundingClientRect();
+    fireEvent.pointerDown(from, { ...pointer, clientX: start.left + 10, clientY: start.top + 10 });
+    fireEvent.pointerMove(document, { ...pointer, clientX: start.left + 18, clientY: start.top + 18 });
+    await frame();
+    fireEvent.pointerMove(document, { ...pointer, clientX: to.x, clientY: to.y });
+    await frame();
+    fireEvent.pointerMove(document, { ...pointer, clientX: to.x + 1, clientY: to.y + 1 });
+    await frame();
+    return async () => {
+      fireEvent.pointerUp(document, { ...pointer, clientX: to.x, clientY: to.y });
+      await frame();
+      await act(() => new Promise<void>(resolve => setTimeout(resolve, 60)));
+    };
+  }
+  const cellOf = (name: string) =>
+    document.querySelector(`[role="list"][aria-label^="${name},"]`)!.closest('.sprout-board-cell')!;
+
+  it('marks allowed and blocked cells while a card is dragged, with the drop text', async () => {
+    render(<Harness withLanes={false} {...rules} dropText={(item, to) => `Drop ${item.title} in ${to.columnId}`} />);
+    const release = await hold(card('Plant tulips'), { x: 100, y: 300 });
+    expect(cellOf('Done').getAttribute('data-drop')).toBe('allowed');
+    expect(cellOf('Doing').getAttribute('data-drop')).toBe('blocked');
+    expect(cellOf('To do').hasAttribute('data-drop')).toBe(false);
+    expect(cellOf('Done').textContent).toContain('Drop Plant tulips in done');
+    expect(cellOf('Doing').textContent).not.toContain('Drop');
+    await release();
+    expect(document.querySelector('[data-drop]')).toBeNull();
+  });
+
+  it('moves a card to an allowed cell', async () => {
+    render(<Harness withLanes={false} {...rules} />);
+    await drag(card('Plant tulips'), { x: 2 * COLUMN_WIDTH + 100, y: 300 });
+    expect(titlesIn('Done')).toEqual(['Plant tulips']);
+  });
+
+  it('puts a card back when it drops on a blocked cell', async () => {
+    const onItemsChange = vi.fn();
+    render(<Board columns={startColumns} items={startItems} onItemsChange={onItemsChange} {...rules} />);
+    await drag(card('Plant tulips'), { x: COLUMN_WIDTH + 100, y: 300 });
+    expect(onItemsChange).not.toHaveBeenCalled();
+    expect(titlesIn('Doing')).toEqual(['Fix gate', 'Paint shed']);
+  });
+
+  it('puts a card back when it passes an allowed cell and drops on a blocked one', async () => {
+    const onItemsChange = vi.fn();
+    render(<Board columns={startColumns} items={startItems} onItemsChange={onItemsChange} {...rules} />);
+    const release = await hold(card('Plant tulips'), { x: 2 * COLUMN_WIDTH + 100, y: 300 });
+    expect(titlesIn('Done')).toEqual(['Plant tulips']);
+    fireEvent.pointerMove(document, { ...pointer, clientX: COLUMN_WIDTH + 100, clientY: 300 });
+    await frame();
+    fireEvent.pointerMove(document, { ...pointer, clientX: COLUMN_WIDTH + 101, clientY: 301 });
+    await frame();
+    expect(titlesIn('Done')).toEqual([]);
+    expect(document.body.textContent).toContain('Card Plant tulips can’t move to Doing.');
+    await release();
+    expect(onItemsChange).not.toHaveBeenCalled();
+  });
+
+  it('does not reorder when the own cell is blocked', async () => {
+    const onItemsChange = vi.fn();
+    render(<Board columns={startColumns} items={startItems} onItemsChange={onItemsChange} {...rules} />);
+    await drag(card('Plant tulips'), { x: 100, y: 110 });
+    expect(onItemsChange).not.toHaveBeenCalled();
+  });
+
+  it('leaves selected cards that may not land where they were', async () => {
+    render(<Harness withLanes={false} canDrop={(item, to) => to.columnId === 'done' && item.id !== 'b'} />);
+    fireEvent.click(card('Plant tulips'), { metaKey: true });
+    fireEvent.click(card('Order soil'), { metaKey: true });
+    await drag(card('Plant tulips'), { x: 2 * COLUMN_WIDTH + 100, y: 300 });
+    expect(titlesIn('Done')).toEqual(['Plant tulips']);
+    expect(titlesIn('To do')).toEqual(['Order soil']);
+  });
+
+  it('keeps cards that canDrag refuses in place, and out of a selection drag', async () => {
+    render(<Harness withLanes={false} canDrag={item => item.id !== 'b'} />);
+    expect(card('Order soil').getAttribute('aria-roledescription')).toBe('card');
+    expect(card('Plant tulips').getAttribute('aria-roledescription')).toBe('draggable card');
+    await drag(card('Order soil'), { x: 2 * COLUMN_WIDTH + 100, y: 300 });
+    expect(titlesIn('Done')).toEqual([]);
+    fireEvent.click(card('Plant tulips'), { metaKey: true });
+    fireEvent.click(card('Order soil'), { metaKey: true });
+    await drag(card('Plant tulips'), { x: 2 * COLUMN_WIDTH + 100, y: 300 });
+    expect(titlesIn('Done')).toEqual(['Plant tulips']);
+    expect(titlesIn('To do')).toEqual(['Order soil']);
+  });
+
+  it('drags without rename when renamable is false', async () => {
+    render(<Harness withLanes={false} renamable={false} />);
+    const target = card('Plant tulips');
+    fireEvent.keyDown(target, { key: 'F2' });
+    fireEvent.doubleClick(target);
+    expect(screen.queryByRole('textbox', { name: 'Card title' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Actions for Plant tulips' })).toBeNull();
+    await drag(target, { x: 2 * COLUMN_WIDTH + 100, y: 300 });
+    expect(titlesIn('Done')).toEqual(['Plant tulips']);
+  });
+
+  it('shows a column icon before the title', () => {
+    render(<Board columns={[{ id: 'todo', title: 'To do', icon: <svg data-testid="todo-icon" /> }]} items={[]} />);
+    const icon = screen.getByTestId('todo-icon').parentElement!;
+    expect(icon.className).toBe('sprout-board-column-icon');
+    expect(icon.getAttribute('aria-hidden')).toBe('true');
+  });
+});
+
 describe('Board read-only', () => {
   const readOnly = (props: Partial<BoardProps<BoardItem>> = {}) =>
     render(

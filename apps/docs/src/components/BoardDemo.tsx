@@ -12,6 +12,11 @@ import {
   DropdownMenuSubTrigger,
 } from '@tulipfarm/sprout/dropdown-menu';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
+import { CheckCircle } from 'reicon-react/icons/CheckCircle';
+import { CircleHalfDottedCheck } from 'reicon-react/icons/CircleHalfDottedCheck';
+import { ClockCircle } from 'reicon-react/icons/ClockCircle';
+import { Eye } from 'reicon-react/icons/Eye';
+import { Lock } from 'reicon-react/icons/Lock';
 
 type Priority = 'Urgent' | 'High' | 'Normal' | 'Low';
 
@@ -344,5 +349,42 @@ export function BoardReadOnly() {
         {opened ?? 'Click a card, Show all, or Try again.'}
       </p>
     </div>
+  );
+}
+
+const ruleColumns: BoardColumn[] = [
+  { id: 'todo', title: 'To do', icon: <CircleHalfDottedCheck /> },
+  { id: 'doing', title: 'In progress', icon: <ClockCircle /> },
+  { id: 'review', title: 'Review', icon: <Eye /> },
+  { id: 'done', title: 'Done', icon: <CheckCircle /> },
+];
+const ruleOrder = ruleColumns.map(column => column.id);
+const lockedIds = new Set(['t2', 't7']);
+
+/** Cards move one column forward, or back to To do. Locked cards stay put. */
+export function BoardRules() {
+  const [tasks, setTasks] = useState(() =>
+    initialTasks.slice(0, 8).map((task, index) => ({ ...task, columnId: ruleOrder[index % 3]! })),
+  );
+  const step = (task: Task, columnId: string) => ruleOrder.indexOf(columnId) - ruleOrder.indexOf(task.columnId);
+  return (
+    <Board
+      label="Review board"
+      columns={ruleColumns}
+      items={tasks}
+      onItemsChange={setTasks}
+      renamable={false}
+      canDrag={task => !lockedIds.has(task.id)}
+      canDrop={(task, to) => step(task, to.columnId) === 1 || (to.columnId === 'todo' && task.columnId !== 'todo')}
+      dropText={(_, to) => (to.columnId === 'todo' ? 'Send back to start' : `Move to ${to.columnId}`)}
+      renderTitle={task => (
+        <>
+          {lockedIds.has(task.id) && <Lock aria-hidden="true" className="me-1 inline size-3.5" />}
+          {task.title}
+        </>
+      )}
+      renderBody={task => <TaskBody task={task} />}
+      className="[--sprout-board-height:26rem]"
+    />
   );
 }

@@ -1,6 +1,13 @@
 ---
 import Docs from '../../layouts/Docs.astro';
-import { BoardCustom, BoardLarge, BoardPlain, BoardPlayground, BoardReadOnly } from '../../components/BoardDemo';
+import {
+  BoardCustom,
+  BoardLarge,
+  BoardPlain,
+  BoardPlayground,
+  BoardReadOnly,
+  BoardRules,
+} from '../../components/BoardDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
@@ -47,8 +54,9 @@ const [items, setItems] = useState<BoardItem[]>([
     />
     <ul>
       <li>
-        <code>columns</code>: <code>{'{ id, title, limit?, total?, status?, error?, tone? }[]'}</code>. Over
-        <code>limit</code>, the header turns amber and says “Over limit”. See “Read-only” for the rest.
+        <code>columns</code>: <code>{'{ id, title, limit?, total?, status?, error?, tone?, icon? }[]'}</code>. Over
+        <code>limit</code>, the header turns amber and says “Over limit”. <code>icon</code> sits before the title. See
+        “Read-only” for the rest.
       </li>
       <li>
         <code>lanes</code>: <code>{'{ id, title }[]'}</code>. Leave it out for a plain board with no lane bars.
@@ -81,6 +89,10 @@ const [items, setItems] = useState<BoardItem[]>([
       <li>
         <code>renderTitle</code> and <code>renderCard</code>: change the title, or draw the whole card. See “Custom
         cards”.
+      </li>
+      <li>
+        <code>canDrag</code>, <code>canDrop</code>, <code>dropText</code>, <code>renamable</code>: which cards move,
+        where they may land, and whether titles rename. See “Move rules”.
       </li>
       <li>
         <code>searchable</code>, <code>searchText</code>, <code>laneBy</code>: the toolbar. Search filters by title and
@@ -178,6 +190,34 @@ const [items, setItems] = useState<BoardItem[]>([
     </div>
   </section>
   <section class="prose-section">
+    <h2 class="section-title">Move rules</h2>
+    <p>
+      Use these when a move means something, such as starting work or closing a task. <code>canDrag</code> keeps a card
+      in place. <code>canDrop</code> says where a card may land: while it is dragged, allowed cells light up and blocked
+      cells dim. A blocked cell does not take the card, and dropping there puts it back. The card's own cell is checked
+      too, so return false for it to stop reordering. <code>dropText</code> shows a line in each allowed cell, such as
+      what the drop will do. Selected cards that may not land stay where they were.
+    </p>
+    <p>
+      <code>renamable={'{false}'}</code> keeps rename off while cards still drag, for titles your app edits elsewhere.
+    </p>
+    <CodeBlock
+      lang="tsx"
+      code={`<Board
+  columns={columns}
+  items={items}
+  onItemsChange={setItems}
+  renamable={false}
+  canDrag={(item) => !item.locked}
+  canDrop={(item, to) => next(item.columnId) === to.columnId || to.columnId === "todo"}
+  dropText={(item, to) => (to.columnId === "todo" ? "Send back to start" : \`Move to \${to.columnId}\`)}
+/>`}
+    />
+    <div class="mt-4">
+      <BoardRules client:load />
+    </div>
+  </section>
+  <section class="prose-section">
     <h2 class="section-title">Large boards</h2>
     <p>
       50 columns, 20 lanes, and 10,000 cards. Only the lanes and cards in view render. The card you drag always stays
@@ -199,7 +239,8 @@ const [items, setItems] = useState<BoardItem[]>([
     <p>
       The board is a named region. Each cell is a list named by its column and lane. Tab moves to a card. Space picks it
       up, arrow keys move it, Space drops it, and Escape puts it back. A screen reader hears each step with the card
-      title and its cell. On touch, press and hold a card to pick it up; a swipe still scrolls.
+      title and its cell, or that the card can’t move to a blocked cell. On touch, press and hold a card to pick it up;
+      a swipe still scrolls.
     </p>
     <p>
       Enter opens a card. F2 or Rename in the card menu renames it. With no
