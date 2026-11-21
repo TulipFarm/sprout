@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.19.0](https://github.com/TulipFarm/sprout/compare/v0.18.1...v0.19.0) (2026-11-21)
+
+### Features
+
+* **icons:** switch to Hugeicons and add a shared icons module ([#93](https://github.com/TulipFarm/sprout/issues/93)) ([e7e2e4f](https://github.com/TulipFarm/sprout/commit/e7e2e4fbd462fd94ee4635647de0588474d75e8e))
+
 ## [0.18.1](https://github.com/TulipFarm/sprout/compare/v0.18.0...v0.18.1) (2026-11-21)
 
 ### Features
