@@ -98,7 +98,7 @@ for notes on each one.
 
 <!-- bundle-size:start -->
 
-Full library: **923.6 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
+Full library: **924.2 kB** gzip. Each component path is smaller. Sizes are minified, with React and other peer dependencies left out.
 
 <details>
 <summary>Size of each component</summary>
@@ -117,7 +117,7 @@ Full library: **923.6 kB** gzip. Each component path is smaller. Sizes are minif
 | `attachment`        |  353.0 kB | 117.7 kB |  98.3 kB |
 | `avatar`            |   44.0 kB |  14.6 kB |  12.9 kB |
 | `badge`             |   35.0 kB |  11.5 kB |  10.0 kB |
-| `board`             |  453.0 kB | 149.7 kB | 125.6 kB |
+| `board`             |  454.4 kB | 150.2 kB | 126.1 kB |
 | `brand-icon`        |  195.2 kB |  70.2 kB |  61.2 kB |
 | `breadcrumb`        |   40.5 kB |  13.4 kB |  11.7 kB |
 | `button`            |   50.5 kB |  16.7 kB |  14.7 kB |

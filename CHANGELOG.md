@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.1](https://github.com/TulipFarm/sprout/compare/v0.18.0...v0.18.1) (2026-11-21)
+
+### Features
+
+* **board:** add move rules, drop text, rename switch and column icons ([#94](https://github.com/TulipFarm/sprout/issues/94)) ([a82fb00](https://github.com/TulipFarm/sprout/commit/a82fb00557475cdfc0a1f19237484700a9a2b295))
+* **tool-activity:** show the thinking orb while work runs ([#92](https://github.com/TulipFarm/sprout/issues/92)) ([3754719](https://github.com/TulipFarm/sprout/commit/3754719736f7a385e4ec9816a6ba688e14429045))
+
 ## [0.18.0](https://github.com/TulipFarm/sprout/compare/v0.17.3...v0.18.0) (2026-11-15)
 
 ### Features
