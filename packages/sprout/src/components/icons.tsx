@@ -37,6 +37,7 @@ import {
   CheckListIcon as HugeCheckList,
   CheckmarkCircle02Icon as HugeCheckmarkCircle02,
   CheckmarkSquare02Icon as HugeCheckmarkSquare02,
+  CircleDashedIcon as HugeCircleDashed,
   Clock01Icon as HugeClock01,
   CommandIcon as HugeCommand,
   CompassIcon as HugeCompass,
@@ -217,6 +218,7 @@ export const ChevronDownIcon = /* @__PURE__ */ createIcon(HugeArrowDown01, 'Chev
 export const ChevronLeftIcon = /* @__PURE__ */ createIcon(HugeArrowLeft01, 'ChevronLeftIcon');
 export const ChevronRightIcon = /* @__PURE__ */ createIcon(HugeArrowRight01, 'ChevronRightIcon');
 export const ChevronUpIcon = /* @__PURE__ */ createIcon(HugeArrowUp01, 'ChevronUpIcon');
+export const CircleDashedIcon = /* @__PURE__ */ createIcon(HugeCircleDashed, 'CircleDashedIcon');
 export const ClockIcon = /* @__PURE__ */ createIcon(HugeClock01, 'ClockIcon');
 export const CloseCircleIcon = /* @__PURE__ */ createIcon(HugeCancelCircle, 'CloseCircleIcon');
 export const CloseIcon = /* @__PURE__ */ createIcon(HugeCancel01, 'CloseIcon');

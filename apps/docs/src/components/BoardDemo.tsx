@@ -11,12 +11,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@tulipfarm/sprout/dropdown-menu';
+import { CheckCircleIcon, CircleDashedIcon, ClockIcon, EyeIcon, LockIcon } from '@tulipfarm/sprout/icons';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
-import { CheckCircle } from 'reicon-react/icons/CheckCircle';
-import { CircleHalfDottedCheck } from 'reicon-react/icons/CircleHalfDottedCheck';
-import { ClockCircle } from 'reicon-react/icons/ClockCircle';
-import { Eye } from 'reicon-react/icons/Eye';
-import { Lock } from 'reicon-react/icons/Lock';
 
 type Priority = 'Urgent' | 'High' | 'Normal' | 'Low';
 
@@ -353,10 +349,10 @@ export function BoardReadOnly() {
 }
 
 const ruleColumns: BoardColumn[] = [
-  { id: 'todo', title: 'To do', icon: <CircleHalfDottedCheck /> },
-  { id: 'doing', title: 'In progress', icon: <ClockCircle /> },
-  { id: 'review', title: 'Review', icon: <Eye /> },
-  { id: 'done', title: 'Done', icon: <CheckCircle /> },
+  { id: 'todo', title: 'To do', icon: <CircleDashedIcon size="md" /> },
+  { id: 'doing', title: 'In progress', icon: <ClockIcon size="md" /> },
+  { id: 'review', title: 'Review', icon: <EyeIcon size="md" /> },
+  { id: 'done', title: 'Done', icon: <CheckCircleIcon size="md" /> },
 ];
 const ruleOrder = ruleColumns.map(column => column.id);
 const lockedIds = new Set(['t2', 't7']);
@@ -379,7 +375,7 @@ export function BoardRules() {
       dropText={(_, to) => (to.columnId === 'todo' ? 'Send back to start' : `Move to ${to.columnId}`)}
       renderTitle={task => (
         <>
-          {lockedIds.has(task.id) && <Lock aria-hidden="true" className="me-1 inline size-3.5" />}
+          {lockedIds.has(task.id) && <LockIcon size="sm" aria-hidden="true" className="me-1 inline" />}
           {task.title}
         </>
       )}
