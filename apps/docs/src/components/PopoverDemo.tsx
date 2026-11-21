@@ -1,25 +1,27 @@
 import { useId, useRef, useState, type KeyboardEvent, type ReactNode, type RefObject } from 'react';
 import { Tabs } from '@base-ui/react/tabs';
 import { Tooltip } from '@base-ui/react/tooltip';
-import { Add } from 'reicon-react/icons/Add';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { DocumentText } from 'reicon-react/icons/DocumentText';
-import { Flash } from 'reicon-react/icons/Flash';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Inbox } from 'reicon-react/icons/Inbox';
-import { Lock } from 'reicon-react/icons/Lock';
-import { Maximize2 } from 'reicon-react/icons/Maximize2';
-import { Minus } from 'reicon-react/icons/Minus';
-import { Plug } from 'reicon-react/icons/Plug';
-import { Search } from 'reicon-react/icons/Search';
-import { SliderHorizontal } from 'reicon-react/icons/SliderHorizontal';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
+import {
+  AddIcon,
+  ArrowUpIcon,
+  CalendarIcon,
+  ChatIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DocumentTextIcon,
+  FolderIcon,
+  InboxIcon,
+  LockIcon,
+  MaximizeIcon,
+  MinusIcon,
+  PlugIcon,
+  SearchIcon,
+  SlidersIcon,
+  SparkleIcon,
+  ZapIcon,
+} from '@tulipfarm/sprout/icons';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { BrandIcon, BrandTile, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
@@ -86,7 +88,7 @@ function SearchInput({
 }) {
   return (
     <div className="popover-demo-search">
-      <Search size={16} aria-hidden="true" />
+      <SearchIcon size="md" aria-hidden="true" />
       <input
         ref={inputRef}
         aria-label={label}
@@ -192,7 +194,7 @@ function ChoiceList({
                     {choice.detail && <span className="popover-demo-muted">{choice.detail}</span>}
                   </span>
                   {choice.value === selected && (
-                    <Check size={16} aria-hidden="true" className="popover-demo-choice-check" />
+                    <CheckIcon size="md" aria-hidden="true" className="popover-demo-choice-check" />
                   )}
                 </button>
               ))}
@@ -341,7 +343,7 @@ function PendingWork({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger render={<Button variant="outline" size="md" aria-label="Pending work" title={description} />}>
-        <Inbox size={14} aria-hidden="true" />
+        <InboxIcon size="sm" aria-hidden="true" />
         <span className="popover-demo-pending-label">Pending work</span>
         <Badge
           variant={
@@ -350,7 +352,7 @@ function PendingWork({
         >
           {label}
         </Badge>
-        <ChevronDown size={14} aria-hidden="true" />
+        <ChevronDownIcon size="sm" aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent size="work-list" align="start" aria-label="Pending work">
         <div className="popover-demo-work-header">
@@ -402,7 +404,7 @@ function PendingWork({
             }}
           >
             View all
-            <ChevronRight size={14} aria-hidden="true" />
+            <ChevronRightIcon size="sm" aria-hidden="true" />
           </Button>
         </footer>
       </PopoverContent>
@@ -466,7 +468,7 @@ function AppActions({
         ) : first.brand ? (
           <BrandIcon brand={first.brand} size="fill" />
         ) : (
-          <Plug size={18} aria-hidden="true" />
+          <PlugIcon size="lg" aria-hidden="true" />
         )}
       </PopoverTrigger>
       <PopoverContent
@@ -481,7 +483,7 @@ function AppActions({
             <section key={app.brand ?? app.name} aria-label={app.name} className="popover-demo-stack-sm">
               {overflow && (
                 <div className="popover-demo-app-name">
-                  {app.brand ? <BrandIcon brand={app.brand} size="glyph" /> : <Plug size={20} aria-hidden="true" />}
+                  {app.brand ? <BrandIcon brand={app.brand} size="glyph" /> : <PlugIcon size="xl" aria-hidden="true" />}
                   <h4>{app.name}</h4>
                 </div>
               )}
@@ -550,7 +552,7 @@ export function PopoverPlayground() {
           <Popover open={budOpen} onOpenChange={setBudOpen}>
             <PopoverTrigger render={<Button variant="outline" size="lg" aria-label="Open Bud quick chat" />}>
               <span className="popover-demo-bud-face" aria-hidden="true">
-                <Sparkle size={16} />
+                <SparkleIcon size="md" />
               </span>
               Bud
             </PopoverTrigger>
@@ -738,7 +740,7 @@ function ProjectSharing({ name, archived }: { name: string; archived?: boolean }
           />
         }
       >
-        <Folder size={16} aria-hidden="true" />
+        <FolderIcon size="md" aria-hidden="true" />
         <span className="popover-demo-ellipsis">
           {name}
           {archived ? ' (archived)' : ''}
@@ -814,19 +816,19 @@ const modes: readonly Choice[] = [
     value: 'mode:ask',
     label: 'Ask',
     detail: 'Answers from your workspace',
-    icon: <ChatRound size={16} aria-hidden="true" />,
+    icon: <ChatIcon size="md" aria-hidden="true" />,
   },
   {
     value: 'mode:research',
     label: 'Research',
     detail: 'Reads widely, cites every source',
-    icon: <Search size={16} aria-hidden="true" />,
+    icon: <SearchIcon size="md" aria-hidden="true" />,
   },
   {
     value: 'mode:quick',
     label: 'Quick',
     detail: 'Short answers, no tools',
-    icon: <Flash size={16} aria-hidden="true" />,
+    icon: <ZapIcon size="md" aria-hidden="true" />,
   },
 ];
 const agents: readonly Choice[] = [
@@ -834,13 +836,13 @@ const agents: readonly Choice[] = [
     value: 'agent:recruiter',
     label: 'Recruiting coordinator',
     detail: 'Schedules interviews and drafts offers',
-    icon: <Sparkle size={16} aria-hidden="true" />,
+    icon: <SparkleIcon size="md" aria-hidden="true" />,
   },
   {
     value: 'agent:finance',
     label: 'Expense reviewer',
     detail: 'Checks receipts against the travel policy',
-    icon: <DocumentText size={16} aria-hidden="true" />,
+    icon: <DocumentTextIcon size="md" aria-hidden="true" />,
   },
 ];
 
@@ -860,9 +862,9 @@ function PersonaPicker() {
       }}
     >
       <PopoverTrigger render={<Button size="sm" variant="ghost" aria-label={`Mode or agent: ${label}`} />}>
-        {value?.icon ?? <Sparkle size={16} aria-hidden="true" />}
+        {value?.icon ?? <SparkleIcon size="md" aria-hidden="true" />}
         {label}
-        <ChevronDown size={12} aria-hidden="true" />
+        <ChevronDownIcon size="xs" aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent size="menu" side="top" align="start" sideOffset={8}>
         <ChoiceList
@@ -946,7 +948,7 @@ function ModelPicker() {
           >
             {current.icon}
             <span className="popover-demo-truncate popover-demo-max-32">{current.label}</span>
-            <ChevronDown size={12} aria-hidden="true" />
+            <ChevronDownIcon size="xs" aria-hidden="true" />
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Positioner sideOffset={6} className="popover-demo-tooltip-positioner">
@@ -1023,7 +1025,7 @@ function ProjectScope({
   const name = value ? (projects.find(p => p.id === value)?.name ?? 'Project') : 'Personal chats';
   const badge = appearance !== 'field';
   const privateBadge = appearance === 'private' && !value;
-  const Icon = value ? Folder : Lock;
+  const Icon = value ? FolderIcon : LockIcon;
   return (
     <Popover
       open={open}
@@ -1045,7 +1047,7 @@ function ProjectScope({
       >
         <Icon size={16} aria-hidden="true" />
         <span className="popover-demo-ellipsis">{privateBadge ? 'Personal chat' : name}</span>
-        <ChevronDown size={12} aria-hidden="true" />
+        <ChevronDownIcon size="xs" aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent size="picker" side={badge ? 'top' : 'bottom'} align="start" sideOffset={8}>
         <ChoiceList
@@ -1060,7 +1062,7 @@ function ProjectScope({
                 {
                   value: 'private',
                   label: 'Personal chats',
-                  icon: <Lock size={16} aria-hidden="true" />,
+                  icon: <LockIcon size="md" aria-hidden="true" />,
                 },
               ],
             },
@@ -1069,7 +1071,7 @@ function ProjectScope({
               choices: list.map(p => ({
                 value: p.id,
                 label: `${p.name}${p.archived ? ' (archived)' : ''}`,
-                icon: <Folder size={16} aria-hidden="true" />,
+                icon: <FolderIcon size="md" aria-hidden="true" />,
               })),
             },
           ]}
@@ -1140,7 +1142,7 @@ export function PopoverPickers() {
             <PersonaPicker />
             <ModelPicker />
             <Button size="icon-sm" aria-label="Send message" disabled>
-              <ArrowUp size={16} aria-hidden="true" />
+              <ArrowUpIcon size="md" aria-hidden="true" />
             </Button>
           </div>
         </div>
@@ -1196,7 +1198,7 @@ function SearchPanel({ searchable = true }: { searchable?: boolean }) {
   return (
     <Popover>
       <PopoverTrigger render={<Button variant={query ? 'secondary' : 'outline'} size="sm" />}>
-        <Search size={14} aria-hidden="true" />
+        <SearchIcon size="sm" aria-hidden="true" />
         {query ? (
           <span title={query} className="popover-demo-truncate popover-demo-max-40">
             “{query}”
@@ -1378,7 +1380,7 @@ function FilterEditor({
           </span>
         ) : (
           <>
-            <Add size={14} aria-hidden="true" />
+            <AddIcon size="sm" aria-hidden="true" />
             Add filter
           </>
         )}
@@ -1467,7 +1469,7 @@ function SummaryMenu() {
   return (
     <Popover>
       <PopoverTrigger render={<Button variant={summarized ? 'secondary' : 'outline'} size="sm" />}>
-        <SliderHorizontal size={14} aria-hidden="true" />
+        <SlidersIcon size="sm" aria-hidden="true" />
         <span className="popover-demo-truncate popover-demo-max-40">{label}</span>
       </PopoverTrigger>
       <PopoverContent size="menu">
@@ -1503,7 +1505,7 @@ function SummaryMenu() {
                     if (!metrics.length) setMetrics(['count']);
                   }}
                 >
-                  <Add size={14} aria-hidden="true" />
+                  <AddIcon size="sm" aria-hidden="true" />
                   Add group
                 </Button>
               </div>
@@ -1536,7 +1538,7 @@ function SummaryMenu() {
                   size="sm"
                   onClick={() => setMetrics([...metrics, metrics.includes('count') ? 'sum' : 'count'])}
                 >
-                  <Add size={14} aria-hidden="true" />
+                  <AddIcon size="sm" aria-hidden="true" />
                   Add calculation
                 </Button>
               </div>
@@ -1616,13 +1618,13 @@ function MonthGrid({ selected, onSelect }: { selected: Date; onSelect: (date: Da
     <div className="popover-demo-month">
       <div className="popover-demo-month-head">
         <Button variant="ghost" size="icon-sm" aria-label="Previous month" onClick={() => move(-1)}>
-          <ChevronLeft size={16} aria-hidden="true" />
+          <ChevronLeftIcon size="md" aria-hidden="true" />
         </Button>
         <p aria-live="polite" className="popover-demo-strong">
           {title}
         </p>
         <Button variant="ghost" size="icon-sm" aria-label="Next month" onClick={() => move(1)}>
-          <ChevronRight size={16} aria-hidden="true" />
+          <ChevronRightIcon size="md" aria-hidden="true" />
         </Button>
       </div>
       <div className="popover-demo-month-grid" role="group" aria-label={title}>
@@ -1662,7 +1664,7 @@ function DatePicker() {
       <h2 className="popover-demo-calendar-title" aria-label={title}>
         <PopoverTrigger render={<Button variant="ghost" size="md" aria-label="Choose date" />}>
           <span>{title}</span>
-          <ChevronDown size={14} aria-hidden="true" />
+          <ChevronDownIcon size="sm" aria-hidden="true" />
         </PopoverTrigger>
       </h2>
       <PopoverContent align="start" aria-label="Choose a calendar date">
@@ -1688,7 +1690,7 @@ function OverlapEvents() {
       >
         <span className="popover-demo-overlap-count">
           {overlapping.length} events
-          <ChevronDown size={12} aria-hidden="true" />
+          <ChevronDownIcon size="xs" aria-hidden="true" />
         </span>
         <span className="popover-demo-overlap-titles">
           {overlapping.slice(0, 2).map(event => (
@@ -1706,7 +1708,7 @@ function OverlapEvents() {
         <div className="popover-demo-work-body">
           {overlapping.map(event => (
             <button key={event.id} type="button" className="popover-demo-event" onClick={() => setOpen(false)}>
-              <Calendar size={14} aria-hidden="true" />
+              <CalendarIcon size="sm" aria-hidden="true" />
               <span className="popover-demo-choice-text">
                 <span>{event.title}</span>
                 <span className="popover-demo-muted">{event.time}</span>
@@ -1821,11 +1823,11 @@ function BudWindow({
               title="Open full chat"
               onClick={onOpenFull}
             >
-              <Maximize2 size={16} aria-hidden="true" />
+              <MaximizeIcon size="md" aria-hidden="true" />
             </Button>
           )}
           <Button size="icon-sm" variant="ghost" aria-label="Minimize chat" title="Minimize chat" onClick={onMinimize}>
-            <Minus size={16} aria-hidden="true" />
+            <MinusIcon size="md" aria-hidden="true" />
           </Button>
         </div>
       </header>
@@ -1859,7 +1861,7 @@ function BudWindow({
               autoComplete="off"
             />
             <Button type="submit" size="icon-sm" aria-label="Send message">
-              <ArrowUp size={16} aria-hidden="true" />
+              <ArrowUpIcon size="md" aria-hidden="true" />
             </Button>
           </form>
         </div>
@@ -1903,7 +1905,7 @@ export function PopoverQuickChat() {
           className="popover-demo-launcher"
         >
           <span className="popover-demo-bud-face" aria-hidden="true">
-            <Sparkle size={16} />
+            <SparkleIcon size="md" />
           </span>
           Bud
         </Button>

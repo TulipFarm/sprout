@@ -1,11 +1,13 @@
 import { useState, type ReactNode } from 'react';
-import { BranchDown } from 'reicon-react/icons/BranchDown';
-import { Command } from 'reicon-react/icons/Command';
-import { Database } from 'reicon-react/icons/Database';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
-import { Tasks } from 'reicon-react/icons/Tasks';
-import { User } from 'reicon-react/icons/User';
+import {
+  BranchIcon,
+  CommandIcon,
+  DatabaseIcon,
+  DocumentTextIcon,
+  SparkleIcon,
+  TasksIcon,
+  UserIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   ResultAppActions,
@@ -156,7 +158,7 @@ const kindSamples: Record<ResultCardKind, KindSample> = {
         actions: [{ label: 'Sent the investor update email', state }],
       },
     ],
-    icon: <Tasks size={18} />,
+    icon: <TasksIcon size="lg" />,
     action: 'Open plan',
     status: {
       default: 'Waiting to start',
@@ -170,7 +172,7 @@ const kindSamples: Record<ResultCardKind, KindSample> = {
   Workflow: {
     title: 'Weekly team update',
     apps: weeklyApps,
-    icon: <BranchDown size={18} />,
+    icon: <BranchIcon size="lg" />,
     action: 'View run',
     status: {
       default: 'Saved definition · Not a completed run',
@@ -222,7 +224,7 @@ const kindSamples: Record<ResultCardKind, KindSample> = {
   Table: {
     title: 'Q4 forecast',
     apps: () => [],
-    icon: <Database size={18} />,
+    icon: <DatabaseIcon size="lg" />,
     action: 'Open Q4 forecast',
     status: {
       default: 'Table results ready.',
@@ -250,7 +252,7 @@ const kindSamples: Record<ResultCardKind, KindSample> = {
         actions: [{ label: 'Looked up the supplier record', state }],
       },
     ],
-    icon: <Command size={18} />,
+    icon: <CommandIcon size="lg" />,
     action: 'View activity',
     status: {
       default: '2 of 3 actions completed',
@@ -270,7 +272,7 @@ const kindSamples: Record<ResultCardKind, KindSample> = {
         actions: [{ label: 'Send follow-up emails to late suppliers', state }],
       },
     ],
-    icon: <User size={18} />,
+    icon: <UserIcon size="lg" />,
     action: 'Open agent',
     status: {
       default: 'Saved · Not running',
@@ -284,7 +286,7 @@ const kindSamples: Record<ResultCardKind, KindSample> = {
   Skill: {
     title: 'Summarize meeting notes',
     apps: () => [],
-    icon: <Sparkle size={18} />,
+    icon: <SparkleIcon size="lg" />,
     action: 'Open skill',
     status: {
       default: 'Draft · Not saved yet',
@@ -510,7 +512,7 @@ export function ResultCardApps() {
           <ResultCard
             title="Supplier follow-up"
             kind="Activity"
-            icon={<Command size={18} />}
+            icon={<CommandIcon size="lg" />}
             apps={[
               {
                 brand: 'gmail',
@@ -531,7 +533,7 @@ export function ResultCardApps() {
           <ResultCard
             title="Ticket triage"
             kind="Activity"
-            icon={<Command size={18} />}
+            icon={<CommandIcon size="lg" />}
             apps={[
               {
                 brand: null,
@@ -557,7 +559,7 @@ export function ResultCardApps() {
               {
                 brand: null,
                 name: 'Pipeline',
-                icon: <Database />,
+                icon: <DatabaseIcon />,
                 actions: [{ label: 'Read 24 open deals', state: 'completed' }],
               },
             ]}
@@ -582,7 +584,7 @@ export function ResultCardApps() {
             title="Supplier price sheet.xlsx"
             kind="File"
             apps={[]}
-            icon={<FileText size={18} />}
+            icon={<DocumentTextIcon size="lg" />}
             status="Saved in Files"
             state="success"
             action={{ label: 'View file', onClick: say('View file') }}
@@ -930,7 +932,7 @@ function ActivityRecipe() {
         kind="Activity"
         title="Recorded activity"
         apps={apps}
-        icon={<Command size={18} />}
+        icon={<CommandIcon size="lg" />}
         status={status}
         state={mode === 'unknown' || mode === 'failed' ? 'error' : mode === 'running' ? 'running' : 'default'}
         action={{
@@ -996,7 +998,7 @@ function FileRecipe() {
         title="Price comparison.xlsx"
         kind="File"
         apps={[]}
-        icon={<FileText size={18} />}
+        icon={<DocumentTextIcon size="lg" />}
         status="Saved in Files"
         state="success"
         action={{ label: 'View file', onClick: say('View file') }}
@@ -1145,7 +1147,7 @@ function PlanRecipe() {
         title="Prepare the board summary"
         kind="Plan"
         apps={apps}
-        icon={<Tasks size={18} />}
+        icon={<TasksIcon size="lg" />}
         status={status}
         state={tone === 'done' ? 'success' : tone === 'failed' ? 'error' : tone === 'active' ? 'running' : 'default'}
         action={{ label: 'Open plan', onClick: say('Open plan') }}
@@ -1189,7 +1191,7 @@ function RecordsRecipe() {
         title="Supplier contacts"
         kind="Table"
         apps={[]}
-        icon={<Database size={18} />}
+        icon={<DatabaseIcon size="lg" />}
         state="success"
         status="12 rows returned."
         action={{
@@ -1201,7 +1203,7 @@ function RecordsRecipe() {
         title="Supplier contacts"
         kind="Table"
         apps={[]}
-        icon={<Database size={18} />}
+        icon={<DatabaseIcon size="lg" />}
         state="success"
         status="1 row added and 3 rows updated in Supplier contacts."
         action={{
@@ -1309,7 +1311,7 @@ function WorkflowCanvasRecipe() {
           title="Weekly team update"
           kind="Workflow"
           apps={[]}
-          icon={<BranchDown size={18} />}
+          icon={<BranchIcon size="lg" />}
           status={status}
           action={{ label, onClick: say(label) }}
         />
@@ -1535,7 +1537,7 @@ function WorkflowViewerRecipe() {
                 ? 'running'
                 : 'default'
         }
-        icon={<BranchDown size={18} />}
+        icon={<BranchIcon size="lg" />}
         apps={nodes}
       />
       <p className="result-demo-meta">

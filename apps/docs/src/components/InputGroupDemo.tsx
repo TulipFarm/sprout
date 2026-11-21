@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { Combobox } from '@base-ui/react/combobox';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Copy } from 'reicon-react/icons/Copy';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Lightbulb } from 'reicon-react/icons/Lightbulb';
-import { Paperclip } from 'reicon-react/icons/Paperclip';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Search } from 'reicon-react/icons/Search';
-import { Search3 } from 'reicon-react/icons/Search3';
-import { Send } from 'reicon-react/icons/Send';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
-import { Stop3 } from 'reicon-react/icons/Stop3';
-import { X } from 'reicon-react/icons/X';
+import {
+  AddIcon,
+  ArrowUpIcon,
+  BookOpenIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  CloseIcon,
+  CopyIcon,
+  CpuIcon,
+  DocumentTextIcon,
+  LightbulbIcon,
+  PaperclipIcon,
+  SearchIcon,
+  SendIcon,
+  SparkleIcon,
+  StopIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,7 +73,7 @@ export function InputGroupSizes() {
         <Sample testId="size-default" note="default · leading icon · trailing shortcut">
           <InputGroup>
             <InputGroupAddon>
-              <Search aria-hidden="true" />
+              <SearchIcon aria-hidden="true" />
             </InputGroupAddon>
             <InputGroupInput aria-label="Search chats" placeholder="Search chats…" />
             <InputGroupAddon align="inline-end">
@@ -83,7 +84,7 @@ export function InputGroupSizes() {
         <Sample testId="size-lg" note="lg · leading icon · trailing shortcut">
           <InputGroup size="lg">
             <InputGroupAddon>
-              <Search aria-hidden="true" />
+              <SearchIcon aria-hidden="true" />
             </InputGroupAddon>
             <InputGroupInput aria-label="Search the workspace" placeholder="Search the workspace…" />
             <InputGroupAddon align="inline-end">
@@ -116,7 +117,7 @@ export function InputGroupSearch() {
         <Sample testId="search-chats" note="Chats · 14px icon · 640 characters">
           <InputGroup>
             <InputGroupAddon>
-              <Search3 size={14} aria-hidden="true" />
+              <SearchIcon size="sm" aria-hidden="true" />
             </InputGroupAddon>
             <InputGroupInput
               ref={chatInput}
@@ -137,7 +138,7 @@ export function InputGroupSearch() {
                     chatInput.current?.focus();
                   }}
                 >
-                  <X aria-hidden="true" />
+                  <CloseIcon aria-hidden="true" />
                 </InputGroupButton>
               )}
             </InputGroupAddon>
@@ -156,7 +157,7 @@ export function InputGroupSearch() {
         <Sample testId="search-agents" note="Search field · long text · 120 characters">
           <InputGroup>
             <InputGroupAddon>
-              <Search aria-hidden="true" />
+              <SearchIcon aria-hidden="true" />
             </InputGroupAddon>
             <InputGroupInput
               ref={agentInput}
@@ -177,7 +178,7 @@ export function InputGroupSearch() {
                     agentInput.current?.focus();
                   }}
                 >
-                  <X aria-hidden="true" />
+                  <CloseIcon aria-hidden="true" />
                 </InputGroupButton>
               </InputGroupAddon>
             )}
@@ -319,7 +320,7 @@ function FruitCombobox({
               className="input-group-demo-combobox-trigger"
               disabled={disabled}
             >
-              <ChevronDown aria-hidden="true" />
+              <ChevronDownIcon aria-hidden="true" />
             </InputGroupButton>
           )}
           {showClear && (
@@ -329,7 +330,7 @@ function FruitCombobox({
               render={<InputGroupButton variant="ghost" size="icon" />}
               disabled={disabled}
             >
-              <X aria-hidden="true" />
+              <CloseIcon aria-hidden="true" />
             </Combobox.Clear>
           )}
         </InputGroupAddon>
@@ -343,7 +344,7 @@ function FruitCombobox({
                 <Combobox.Item key={item} value={item} className="input-group-demo-option">
                   {item}
                   <Combobox.ItemIndicator className="input-group-demo-option-check">
-                    <Check size={14} aria-hidden="true" />
+                    <CheckIcon size="sm" aria-hidden="true" />
                   </Combobox.ItemIndicator>
                 </Combobox.Item>
               )}
@@ -407,7 +408,7 @@ export function InputGroupCommandSearch() {
               onChange={event => setQuery(event.currentTarget.value)}
             />
             <InputGroupAddon>
-              <Search aria-hidden="true" />
+              <SearchIcon aria-hidden="true" />
             </InputGroupAddon>
           </InputGroup>
         </div>
@@ -443,7 +444,7 @@ function FilesMenu({ disabled, onPick }: { disabled: boolean; onPick: (name: str
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={<InputGroupButton variant="ghost" aria-label="Add a file" disabled={disabled} />}>
-        <Paperclip size={16} aria-hidden="true" />
+        <PaperclipIcon size="md" aria-hidden="true" />
         <span className="input-group-demo-wide-only">Files</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent size="menu" side="top">
@@ -475,9 +476,9 @@ function PersonaPicker({ disabled }: { disabled: boolean }) {
       <DropdownMenuTrigger
         render={<InputGroupButton variant="ghost" disabled={disabled} aria-label={`Mode or agent: ${label}`} />}
       >
-        <Sparkle size={16} aria-hidden="true" />
+        <SparkleIcon size="md" aria-hidden="true" />
         {label}
-        <ChevronDown size={12} aria-hidden="true" />
+        <ChevronDownIcon size="xs" aria-hidden="true" />
       </DropdownMenuTrigger>
       <DropdownMenuContent size="menu" side="top" align="start">
         <DropdownMenuGroup>
@@ -513,9 +514,9 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
             />
           }
         >
-          <Cpu size={16} aria-hidden="true" />
+          <CpuIcon size="md" aria-hidden="true" />
           <span className="input-group-demo-truncate">{model.label}</span>
-          <ChevronDown size={12} aria-hidden="true" />
+          <ChevronDownIcon size="xs" aria-hidden="true" />
         </TooltipTrigger>
         <TooltipContent>AI model that writes replies</TooltipContent>
       </Tooltip>
@@ -585,7 +586,7 @@ export function InputGroupComposer() {
             <InputGroupAddon align="block-start">
               {files.map(file => (
                 <span key={file} className="input-group-demo-chip">
-                  <FileText size={14} aria-hidden="true" />
+                  <DocumentTextIcon size="sm" aria-hidden="true" />
                   <span className="input-group-demo-truncate">{file}</span>
                   <InputGroupButton
                     size="icon"
@@ -593,7 +594,7 @@ export function InputGroupComposer() {
                     disabled={sending}
                     onClick={() => setFiles(files.filter(name => name !== file))}
                   >
-                    <X aria-hidden="true" />
+                    <CloseIcon aria-hidden="true" />
                   </InputGroupButton>
                 </span>
               ))}
@@ -625,7 +626,7 @@ export function InputGroupComposer() {
                   />
                 }
               >
-                <BookOpen size={16} aria-hidden="true" />
+                <BookOpenIcon size="md" aria-hidden="true" />
                 <span className="input-group-demo-wide-only">Skills</span>
               </TooltipTrigger>
               <TooltipContent>Skills are saved procedures the agent follows · /</TooltipContent>
@@ -653,7 +654,7 @@ export function InputGroupComposer() {
                   <TooltipTrigger
                     render={<InputGroupButton size="icon" variant="default" aria-label="Stop reply" onClick={stop} />}
                   >
-                    <Stop3 size={16} aria-hidden="true" />
+                    <StopIcon size="md" aria-hidden="true" />
                   </TooltipTrigger>
                   <TooltipContent>Stop reply</TooltipContent>
                 </Tooltip>
@@ -671,7 +672,7 @@ export function InputGroupComposer() {
                       />
                     }
                   >
-                    <ArrowUp size={16} aria-hidden="true" />
+                    <ArrowUpIcon size="md" aria-hidden="true" />
                   </TooltipTrigger>
                   <TooltipContent>Send · Enter</TooltipContent>
                 </Tooltip>
@@ -704,7 +705,7 @@ export function InputGroupQuestionComposer() {
       <div className="input-group-demo-grid">
         <div className="input-group-demo-sample" data-testid="question-composer">
           <p className="input-group-demo-question">
-            <Lightbulb size={14} aria-hidden="true" />
+            <LightbulbIcon size="sm" aria-hidden="true" />
             The agent asked: Which region should the Q3 report cover?
           </p>
           <InputGroup variant="question-composer">
@@ -728,7 +729,7 @@ export function InputGroupQuestionComposer() {
             <InputGroupAddon align="block-end">
               <Tooltip>
                 <TooltipTrigger render={<InputGroupButton size="icon" variant="ghost" aria-label="Attach files" />}>
-                  <Paperclip size={16} aria-hidden="true" />
+                  <PaperclipIcon size="md" aria-hidden="true" />
                 </TooltipTrigger>
                 <TooltipContent>Attach files from your device</TooltipContent>
               </Tooltip>
@@ -745,7 +746,7 @@ export function InputGroupQuestionComposer() {
                     editor.current?.focus();
                   }}
                 >
-                  <ArrowUp size={16} aria-hidden="true" />
+                  <ArrowUpIcon size="md" aria-hidden="true" />
                 </InputGroupButton>
               </div>
             </InputGroupAddon>
@@ -759,11 +760,11 @@ export function InputGroupQuestionComposer() {
             <InputGroupTextarea aria-label="Read-only chat message" placeholder="This chat is read-only" disabled />
             <InputGroupAddon align="block-end">
               <InputGroupButton size="icon" variant="ghost" aria-label="Attach files" disabled>
-                <Paperclip size={16} aria-hidden="true" />
+                <PaperclipIcon size="md" aria-hidden="true" />
               </InputGroupButton>
               <div className="input-group-demo-toolbar-end">
                 <InputGroupButton size="icon" variant="secondary" aria-label="Send message" disabled>
-                  <ArrowUp size={16} aria-hidden="true" />
+                  <ArrowUpIcon size="md" aria-hidden="true" />
                 </InputGroupButton>
               </div>
             </InputGroupAddon>
@@ -798,7 +799,7 @@ export function InputGroupDraft() {
           />
           <InputGroupAddon align="block-end">
             <InputGroupButton size="icon" aria-label="Add attachment">
-              <Plus aria-hidden="true" />
+              <AddIcon aria-hidden="true" />
             </InputGroupButton>
             <InputGroupButton
               variant="default"
@@ -809,7 +810,7 @@ export function InputGroupDraft() {
               }}
             >
               Send
-              <Send aria-hidden="true" />
+              <SendIcon aria-hidden="true" />
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
@@ -853,7 +854,7 @@ export function InputGroupButtons() {
             <InputGroupInput aria-label="Invite by email" placeholder="name@company.com" type="email" />
             <InputGroupAddon align="inline-end">
               <InputGroupButton variant="secondary" onClick={() => setCopied('Invitation queued locally.')}>
-                <Send aria-hidden="true" />
+                <SendIcon aria-hidden="true" />
                 Invite
               </InputGroupButton>
             </InputGroupAddon>
@@ -868,7 +869,7 @@ export function InputGroupButtons() {
                 aria-label="Copy webhook secret"
                 onClick={() => setCopied('Copy pressed for the webhook secret. This sample copies nothing.')}
               >
-                <Copy aria-hidden="true" />
+                <CopyIcon aria-hidden="true" />
               </InputGroupButton>
             </InputGroupAddon>
           </InputGroup>
@@ -883,7 +884,7 @@ export function InputGroupButtons() {
                 aria-label="Copy project name"
                 onClick={() => setCopied('Copy pressed for the project name. This sample copies nothing.')}
               >
-                <Copy aria-hidden="true" />
+                <CopyIcon aria-hidden="true" />
               </InputGroupButton>
             </InputGroupAddon>
           </InputGroup>

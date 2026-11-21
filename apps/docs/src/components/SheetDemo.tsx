@@ -1,10 +1,5 @@
 import { useId, useState, type ReactNode } from 'react';
-import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
-import { Check } from 'reicon-react/icons/Check';
-import { Eye } from 'reicon-react/icons/Eye';
-import { Filter } from 'reicon-react/icons/Filter';
-import { ShieldCheck } from 'reicon-react/icons/ShieldCheck';
-import { Users } from 'reicon-react/icons/Users';
+import { ArrowLeftIcon, CheckIcon, EyeIcon, FilterIcon, ShieldCheckIcon, UsersIcon } from '@tulipfarm/sprout/icons';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
@@ -99,7 +94,7 @@ function FollowWorkflows() {
                 setFollowing(list => (on ? list.filter(name => name !== workflow.name) : [...list, workflow.name]))
               }
             >
-              {on && <Check size={14} aria-hidden="true" />}
+              {on && <CheckIcon size="sm" aria-hidden="true" />}
               {on ? 'Following' : 'Follow'}
             </Button>
           </li>
@@ -257,7 +252,7 @@ export function FilesFilters({ compact = false }: { compact?: boolean }) {
             />
           }
         >
-          <Filter size={14} aria-hidden="true" />
+          <FilterIcon size="sm" aria-hidden="true" />
           {!compact && (count ? `Filters (${count})` : 'Filter and sort')}
         </SheetTrigger>
         <SheetContent side="bottom">
@@ -438,7 +433,7 @@ export function SlackIntegration() {
                   <span>{item.text}</span>
                   {item.asksFirst && (
                     <Badge variant="info">
-                      <ShieldCheck aria-hidden="true" />
+                      <ShieldCheckIcon aria-hidden="true" />
                       Asks first
                     </Badge>
                   )}
@@ -446,7 +441,7 @@ export function SlackIntegration() {
               ))}
             </ul>
             <p className="sheet-demo-audience">
-              <Users size={16} aria-hidden="true" />
+              <UsersIcon size="md" aria-hidden="true" />
               Only you can use your connection.
             </p>
           </section>
@@ -476,7 +471,7 @@ export function CanvasSheet() {
         </div>
         <div className="sheet-demo-canvas-bar">
           <SheetClose render={<Button variant="ghost" size="sm" />}>
-            <ArrowLeft size={14} aria-hidden="true" />
+            <ArrowLeftIcon size="sm" aria-hidden="true" />
             Back to chat
           </SheetClose>
           <span className="sheet-demo-truncate">Harbor Foods proposal</span>
@@ -534,7 +529,7 @@ export function SheetSizes() {
       <Row label="lg" note="Agent builder preview · icon trigger · title default">
         <Sheet>
           <SheetTrigger render={<Button variant="outline" />}>
-            <Eye size={16} aria-hidden="true" />
+            <EyeIcon size="md" aria-hidden="true" />
             View agent
           </SheetTrigger>
           <SheetContent size="lg">

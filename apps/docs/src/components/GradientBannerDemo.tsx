@@ -1,7 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { CheckCircle } from 'reicon-react/icons/CheckCircle';
-import { Pause } from 'reicon-react/icons/Pause';
-import { Play } from 'reicon-react/icons/Play';
+import { CheckCircleIcon, PauseIcon, PlayIcon } from '@tulipfarm/sprout/icons';
 import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
@@ -400,7 +398,7 @@ export function GradientBannerAgentActivity() {
     <Frame title="Sign-in page">
       <div className="gradient-demo-toolbar gradient-demo-toolbar-inset">
         <Button variant="outline" size="sm" aria-pressed={!playing} onClick={() => setPlaying(value => !value)}>
-          {playing ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
+          {playing ? <PauseIcon size="sm" aria-hidden="true" /> : <PlayIcon size="sm" aria-hidden="true" />}
           {playing ? 'Pause' : 'Play'}
         </Button>
         <Button variant="outline" size="sm" onClick={() => setTick(value => value + 1)}>
@@ -442,7 +440,7 @@ export function GradientBannerAgentActivity() {
                         aria-hidden={index > current || undefined}
                       >
                         {index < current ? (
-                          <CheckCircle size={16} aria-hidden="true" />
+                          <CheckCircleIcon size="md" aria-hidden="true" />
                         ) : (
                           <Spinner aria-hidden="true" />
                         )}
@@ -452,7 +450,7 @@ export function GradientBannerAgentActivity() {
                   </ol>
                   <div className="gradient-demo-result" data-shown={done || undefined} aria-hidden={!done || undefined}>
                     <GradientBannerBadge>
-                      <CheckCircle size={14} aria-hidden="true" />
+                      <CheckCircleIcon size="sm" aria-hidden="true" />
                       {agent.result}
                     </GradientBannerBadge>
                   </div>

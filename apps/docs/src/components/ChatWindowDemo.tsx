@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Laptop } from 'reicon-react/icons/Laptop';
-import { Database } from 'reicon-react/icons/Database';
-import { CalendarSearch } from 'reicon-react/icons/CalendarSearch';
-import { FileText } from 'reicon-react/icons/FileText';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { CalendarSearchIcon, DatabaseIcon, DocumentTextIcon, LaptopIcon, MoreIcon } from '@tulipfarm/sprout/icons';
 import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
 import {
@@ -81,11 +77,15 @@ const firstTurns: Turn[] = [
 ];
 
 const suggestions = [
-  { id: 'follow-up', label: 'Draft a follow-up to Harbor Glass', icon: <FileText size={16} aria-hidden="true" /> },
+  {
+    id: 'follow-up',
+    label: 'Draft a follow-up to Harbor Glass',
+    icon: <DocumentTextIcon size="md" aria-hidden="true" />,
+  },
   {
     id: 'calendar',
     label: 'Move Friday’s stock check to Monday',
-    icon: <CalendarSearch size={16} aria-hidden="true" />,
+    icon: <CalendarSearchIcon size="md" aria-hidden="true" />,
   },
 ];
 
@@ -152,13 +152,13 @@ function BudChat() {
                                   id: 'orders',
                                   label: 'Read the Orders table',
                                   status: 'completed',
-                                  visual: <Database size={14} />,
+                                  visual: <DatabaseIcon size="sm" />,
                                 },
                                 {
                                   id: 'suppliers',
                                   label: 'Read the Suppliers table',
                                   status: 'completed',
-                                  visual: <Database size={14} />,
+                                  visual: <DatabaseIcon size="sm" />,
                                 },
                               ]}
                             />
@@ -220,7 +220,7 @@ function BudChat() {
               id: 'computer',
               label: 'Upload from computer',
               description: 'Files and images from this device',
-              icon: icon(Laptop),
+              icon: icon(LaptopIcon),
               onSelect: () => picker.current?.click(),
             },
             {
@@ -271,7 +271,7 @@ function BudHeader() {
                 />
               }
             >
-              <MoreH size={16} aria-hidden="true" />
+              <MoreIcon size="md" aria-hidden="true" />
             </TooltipTrigger>
             <TooltipContent side="bottom">More</TooltipContent>
           </Tooltip>

@@ -1,6 +1,5 @@
 import { useId, useRef, useState, type FormEvent, type MouseEvent } from 'react';
-import { Edit } from 'reicon-react/icons/Edit';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { EditIcon, MoreIcon } from '@tulipfarm/sprout/icons';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -126,13 +125,13 @@ function TicketActions({
         aria-label={`Edit ${ticket.key}`}
         onClick={event => onEdit(ticket, event.currentTarget)}
       >
-        <Edit size={16} aria-hidden="true" />
+        <EditIcon size="md" aria-hidden="true" />
       </Button>
       <DropdownMenu>
         <DropdownMenuTrigger
           render={<Button variant="ghost" size="icon-sm" aria-label={`More actions for ${ticket.key}`} />}
         >
-          <MoreH size={16} aria-hidden="true" />
+          <MoreIcon size="md" aria-hidden="true" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => onHistory(ticket)}>History</DropdownMenuItem>

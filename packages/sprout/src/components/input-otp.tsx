@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useId, type ComponentProps, type ReactNode } from 'react';
 import { OTPField } from '@base-ui/react/otp-field';
-import { Minus } from 'reicon-react/icons/Minus';
+import { MinusIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 
 export const inputOTPSizeNames = ['md', 'sm', 'lg'] as const;
@@ -136,7 +136,7 @@ export function InputOTPSeparator({ className, children, ...props }: InputOTPSep
       {...props}
       className={stateClassName('sprout-input-otp-separator', className)}
     >
-      {children ?? <Minus aria-hidden="true" />}
+      {children ?? <MinusIcon aria-hidden="true" />}
     </OTPField.Separator>
   );
 }

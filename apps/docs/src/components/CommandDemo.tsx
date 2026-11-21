@@ -1,22 +1,23 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { DocumentText } from 'reicon-react/icons/DocumentText';
-import { Flash } from 'reicon-react/icons/Flash';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Home } from 'reicon-react/icons/Home';
-import { Lock } from 'reicon-react/icons/Lock';
-import { Monitor } from 'reicon-react/icons/Monitor';
-import { Moon } from 'reicon-react/icons/Moon';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Search } from 'reicon-react/icons/Search';
-import { Setting2 } from 'reicon-react/icons/Setting2';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
-import { Sun } from 'reicon-react/icons/Sun';
-import { UserAdd } from 'reicon-react/icons/UserAdd';
+import {
+  AddIcon,
+  ArrowUpIcon,
+  CalendarIcon,
+  ChatIcon,
+  ChevronDownIcon,
+  DocumentTextIcon,
+  FolderIcon,
+  HomeIcon,
+  LockIcon,
+  MonitorIcon,
+  MoonIcon,
+  SearchIcon,
+  SettingsIcon,
+  SparkleIcon,
+  SunIcon,
+  UserAddIcon,
+  ZapIcon,
+} from '@tulipfarm/sprout/icons';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -94,19 +95,19 @@ export function CommandPlayground() {
               <CommandEmpty>No matching commands.</CommandEmpty>
               <CommandGroup heading="Suggestions">
                 <CommandItem onSelect={() => setSelected('New draft')}>
-                  <Plus size={16} aria-hidden="true" />
+                  <AddIcon size="md" aria-hidden="true" />
                   New draft
                   <CommandShortcut>⌘ N</CommandShortcut>
                 </CommandItem>
                 <CommandItem onSelect={() => setSelected('Open folder')}>
-                  <Folder size={16} aria-hidden="true" />
+                  <FolderIcon size="md" aria-hidden="true" />
                   Open folder
                 </CommandItem>
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Settings">
                 <CommandItem onSelect={() => setSelected('Preferences')}>
-                  <Setting2 size={16} aria-hidden="true" />
+                  <SettingsIcon size="md" aria-hidden="true" />
                   Preferences
                 </CommandItem>
                 <CommandItem disabled>Unavailable action</CommandItem>
@@ -156,33 +157,33 @@ function Palette({
           <CommandEmpty>No commands found.</CommandEmpty>
           <CommandGroup heading="Go to">
             <CommandItem onSelect={() => run('Opened Home')}>
-              <Home size={16} aria-hidden="true" />
+              <HomeIcon size="md" aria-hidden="true" />
               Home
               <CommandShortcut>G H</CommandShortcut>
             </CommandItem>
             <CommandItem onSelect={() => run('Opened Chats')}>
-              <ChatRound size={16} aria-hidden="true" />
+              <ChatIcon size="md" aria-hidden="true" />
               Chats
               <CommandShortcut>G C</CommandShortcut>
             </CommandItem>
             <CommandItem onSelect={() => run('Opened Calendar')} keywords={['schedule', 'events']}>
-              <Calendar size={16} aria-hidden="true" />
+              <CalendarIcon size="md" aria-hidden="true" />
               Calendar
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Create">
             <CommandItem onSelect={() => run('Started a new chat')}>
-              <Plus size={16} aria-hidden="true" />
+              <AddIcon size="md" aria-hidden="true" />
               New chat
               <CommandShortcut>⌘ N</CommandShortcut>
             </CommandItem>
             <CommandItem onSelect={() => run('Started a new project')}>
-              <Folder size={16} aria-hidden="true" />
+              <FolderIcon size="md" aria-hidden="true" />
               New project
             </CommandItem>
             <CommandItem disabled>
-              <UserAdd size={16} aria-hidden="true" />
+              <UserAddIcon size="md" aria-hidden="true" />
               Invite teammate (admins only)
             </CommandItem>
           </CommandGroup>
@@ -190,9 +191,9 @@ function Palette({
           <CommandGroup heading="Appearance">
             {(
               [
-                ['system', 'Match system', Monitor],
-                ['light', 'Light theme', Sun],
-                ['dark', 'Dark theme', Moon],
+                ['system', 'Match system', MonitorIcon],
+                ['light', 'Light theme', SunIcon],
+                ['dark', 'Dark theme', MoonIcon],
               ] as const
             ).map(([value, label, Icon]) => (
               <CommandItem
@@ -234,7 +235,7 @@ export function CommandPalette() {
     >
       <Row label="Default" note="no close button · ⌘K or Ctrl+K toggles it">
         <Button variant="outline" size="sm" onClick={() => setOpen('default')}>
-          <Search size={16} aria-hidden="true" />
+          <SearchIcon size="md" aria-hidden="true" />
           Search commands
           <kbd className="command-demo-kbd">⌘K</kbd>
         </Button>
@@ -265,7 +266,7 @@ interface Persona {
   kind: 'mode' | 'agent';
   label: string;
   description: string;
-  icon: typeof Sparkle;
+  icon: typeof SparkleIcon;
   tone?: string;
 }
 
@@ -275,7 +276,7 @@ const modes: readonly Persona[] = [
     kind: 'mode',
     label: 'Ask',
     description: 'Answers from your workspace',
-    icon: ChatRound,
+    icon: ChatIcon,
     tone: 'command-demo-tone-info',
   },
   {
@@ -283,7 +284,7 @@ const modes: readonly Persona[] = [
     kind: 'mode',
     label: 'Research',
     description: 'Reads widely and cites every source',
-    icon: Search,
+    icon: SearchIcon,
     tone: 'command-demo-tone-success',
   },
   {
@@ -291,7 +292,7 @@ const modes: readonly Persona[] = [
     kind: 'mode',
     label: 'Quick',
     description: 'Short answers, no tools',
-    icon: Flash,
+    icon: ZapIcon,
     tone: 'command-demo-tone-warning',
   },
 ];
@@ -301,14 +302,14 @@ const agents: readonly Persona[] = [
     kind: 'agent',
     label: 'Recruiting coordinator',
     description: 'Schedules interviews and drafts offers',
-    icon: Sparkle,
+    icon: SparkleIcon,
   },
   {
     id: 'finance',
     kind: 'agent',
     label: 'Expense reviewer',
     description: 'Checks receipts against the travel policy',
-    icon: DocumentText,
+    icon: DocumentTextIcon,
   },
 ];
 const personaKey = (persona: Persona) => `${persona.kind}:${persona.id}`;
@@ -321,7 +322,7 @@ function PersonaPicker() {
     setValue(personaKey(next) === selected ? null : next);
     setOpen(false);
   };
-  const Icon = value?.icon ?? Sparkle;
+  const Icon = value?.icon ?? SparkleIcon;
   const label = value?.label ?? 'Mode';
   const item = (persona: Persona) => (
     <CommandItem
@@ -344,7 +345,7 @@ function PersonaPicker() {
           <Icon size={16} aria-hidden="true" />
         </span>
         {label}
-        <ChevronDown size={12} aria-hidden="true" />
+        <ChevronDownIcon size="xs" aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent size="menu" side="top" align="start" sideOffset={8}>
         <Command>
@@ -419,7 +420,7 @@ function ModelPicker() {
         >
           <BrandIcon brand={model.brand} size="inline" />
           <span className="command-demo-truncate command-demo-max-32">{model.label}</span>
-          <ChevronDown size={12} aria-hidden="true" />
+          <ChevronDownIcon size="xs" aria-hidden="true" />
         </TooltipTrigger>
         <TooltipContent>AI model that writes replies</TooltipContent>
       </Tooltip>
@@ -494,7 +495,7 @@ export function CommandComposer() {
           <span className="command-demo-spacer" />
           <ModelPicker />
           <Button size="icon-sm" aria-label="Send message" disabled>
-            <ArrowUp size={16} aria-hidden="true" />
+            <ArrowUpIcon size="md" aria-hidden="true" />
           </Button>
         </div>
       </div>
@@ -565,7 +566,7 @@ function ProjectScope({
   const badge = appearance !== 'field';
   const privateBadge = appearance === 'private' && !value;
   const failed = state === 'failed' || state === 'stale';
-  const Icon = value ? Folder : Lock;
+  const Icon = value ? FolderIcon : LockIcon;
   const pick = (projectId: string | null) => {
     setOpen(false);
     setValue(projectId);
@@ -592,7 +593,7 @@ function ProjectScope({
       >
         <Icon size={16} aria-hidden="true" />
         <span className="command-demo-truncate">{privateBadge ? 'Personal chat' : name}</span>
-        <ChevronDown size={12} aria-hidden="true" />
+        <ChevronDownIcon size="xs" aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent size="picker" side={badge ? 'top' : 'bottom'} align="start" sideOffset={8}>
         <Command>
@@ -629,7 +630,7 @@ function ProjectScope({
                 data-checked={!value}
                 onSelect={() => pick(null)}
               >
-                <Lock size={16} aria-hidden="true" />
+                <LockIcon size="md" aria-hidden="true" />
                 Personal chats
               </CommandItem>
             </CommandGroup>
@@ -643,7 +644,7 @@ function ProjectScope({
                     data-checked={project.id === value}
                     onSelect={() => pick(project.id)}
                   >
-                    <Folder size={16} aria-hidden="true" />
+                    <FolderIcon size="md" aria-hidden="true" />
                     <span className="command-demo-break">
                       {project.name}
                       {project.archived ? ' (archived)' : ''}
@@ -686,7 +687,7 @@ function ProjectScope({
                 onNewProject();
               }}
             >
-              <Add size={16} aria-hidden="true" />
+              <AddIcon size="md" aria-hidden="true" />
               New project
             </Button>
           </div>

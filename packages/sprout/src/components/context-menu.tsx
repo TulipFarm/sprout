@@ -2,8 +2,7 @@
 
 import type { ComponentProps } from 'react';
 import { ContextMenu as ContextMenuPrimitive } from '@base-ui/react/context-menu';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { CheckIcon, ChevronRightIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 
 export const contextMenuItemVariantNames = ['default', 'destructive'] as const;
@@ -153,7 +152,7 @@ export function ContextMenuSubTrigger({ className, inset, children, ...props }: 
       )}
     >
       {children}
-      <ChevronRight size={16} aria-hidden="true" className="sprout-context-menu-sub-chevron" />
+      <ChevronRightIcon size="md" aria-hidden="true" className="sprout-context-menu-sub-chevron" />
     </ContextMenuPrimitive.SubmenuTrigger>
   );
 }
@@ -193,7 +192,7 @@ export function ContextMenuCheckboxItem({ className, inset, children, ...props }
     >
       <span className="sprout-context-menu-indicator" data-slot="context-menu-checkbox-item-indicator">
         <ContextMenuPrimitive.CheckboxItemIndicator>
-          <Check size={16} aria-hidden="true" />
+          <CheckIcon size="md" aria-hidden="true" />
         </ContextMenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -222,7 +221,7 @@ export function ContextMenuRadioItem({ className, inset, children, ...props }: C
     >
       <span className="sprout-context-menu-indicator" data-slot="context-menu-radio-item-indicator">
         <ContextMenuPrimitive.RadioItemIndicator>
-          <Check size={16} aria-hidden="true" />
+          <CheckIcon size="md" aria-hidden="true" />
         </ContextMenuPrimitive.RadioItemIndicator>
       </span>
       {children}

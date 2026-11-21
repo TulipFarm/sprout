@@ -1,19 +1,21 @@
 import { useRef, useState } from 'react';
 import { Select } from '@base-ui/react/select';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Check } from 'reicon-react/icons/Check';
-import { Checklist } from 'reicon-react/icons/Checklist';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Home } from 'reicon-react/icons/Home';
-import { InfoCircle } from 'reicon-react/icons/InfoCircle';
-import { Logout } from 'reicon-react/icons/Logout';
-import { Paperclip } from 'reicon-react/icons/Paperclip';
-import { Search3 } from 'reicon-react/icons/Search3';
-import { Settings } from 'reicon-react/icons/Settings';
-import { Stop3 } from 'reicon-react/icons/Stop3';
-import { UserCircle } from 'reicon-react/icons/UserCircle';
+import {
+  ArrowUpIcon,
+  BookOpenIcon,
+  ChatIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  HomeIcon,
+  InfoIcon,
+  LogoutIcon,
+  PaperclipIcon,
+  SearchIcon,
+  SettingsIcon,
+  StopIcon,
+  TasksIcon,
+  UserCircleIcon,
+} from '@tulipfarm/sprout/icons';
 import { BrandIcon, BrandStack, BrandTile, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -120,7 +122,7 @@ function ModeSelect({
       <Tooltip>
         <TooltipTrigger render={<Select.Trigger aria-label="Chat mode" className="tooltip-demo-select" />}>
           <Select.Value>{(current: Mode) => (current === 'plan' ? 'Plan' : 'Normal')}</Select.Value>
-          <ChevronDown size={12} aria-hidden="true" />
+          <ChevronDownIcon size="xs" aria-hidden="true" />
         </TooltipTrigger>
         <TooltipContent>Normal acts on your request. Plan only proposes steps first.</TooltipContent>
       </Tooltip>
@@ -138,7 +140,7 @@ function ModeSelect({
                 <Select.Item key={mode.value} value={mode.value} className="tooltip-demo-select-item">
                   <Select.ItemText>{mode.label}</Select.ItemText>
                   <Select.ItemIndicator className="tooltip-demo-select-check">
-                    <Check size={14} aria-hidden="true" />
+                    <CheckIcon size="sm" aria-hidden="true" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}
@@ -166,7 +168,7 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
         >
           <BrandIcon brand={model.brand} size="inline" />
           <span className="tooltip-demo-truncate">{model.label}</span>
-          <ChevronDown size={12} aria-hidden="true" />
+          <ChevronDownIcon size="xs" aria-hidden="true" />
         </TooltipTrigger>
         <TooltipContent>AI model that writes replies</TooltipContent>
       </Tooltip>
@@ -186,7 +188,7 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
             >
               <BrandIcon brand={item.brand} size="inline" />
               <span className="tooltip-demo-truncate">{item.label}</span>
-              {item.id === modelId && <Check size={14} aria-hidden="true" />}
+              {item.id === modelId && <CheckIcon size="sm" aria-hidden="true" />}
             </Button>
           ))}
         </div>
@@ -259,7 +261,7 @@ export function TooltipComposer() {
                   />
                 }
               >
-                <Paperclip size={16} aria-hidden="true" />
+                <PaperclipIcon size="md" aria-hidden="true" />
               </TooltipTrigger>
               <TooltipContent>Attach files from your device</TooltipContent>
             </Tooltip>
@@ -275,7 +277,7 @@ export function TooltipComposer() {
                   />
                 }
               >
-                <BookOpen size={16} aria-hidden="true" />
+                <BookOpenIcon size="md" aria-hidden="true" />
                 <span className="tooltip-demo-wide-only">Skills</span>
               </TooltipTrigger>
               <TooltipContent>Skills are saved procedures the agent follows · /</TooltipContent>
@@ -300,7 +302,7 @@ export function TooltipComposer() {
                       />
                     }
                   >
-                    <Stop3 size={16} aria-hidden="true" />
+                    <StopIcon size="md" aria-hidden="true" />
                   </TooltipTrigger>
                   <TooltipContent>Stop reply</TooltipContent>
                 </Tooltip>
@@ -318,7 +320,7 @@ export function TooltipComposer() {
                       />
                     }
                   >
-                    <ArrowUp size={16} aria-hidden="true" />
+                    <ArrowUpIcon size="md" aria-hidden="true" />
                   </TooltipTrigger>
                   <TooltipContent>Send · Enter</TooltipContent>
                 </Tooltip>
@@ -407,7 +409,7 @@ export function TooltipColumnHints() {
                           <button type="button" aria-label={`About ${heading.label}`} className="tooltip-demo-hint" />
                         }
                       >
-                        <InfoCircle size={14} aria-hidden="true" />
+                        <InfoIcon size="sm" aria-hidden="true" />
                       </TooltipTrigger>
                       <TooltipContent>{heading.hint}</TooltipContent>
                     </Tooltip>
@@ -491,9 +493,9 @@ export function TooltipBrands() {
 /* ------------------------------------------------------------------ */
 
 const pages = [
-  { label: 'Home', icon: <Home size={16} aria-hidden="true" /> },
-  { label: 'Chats', icon: <ChatRound size={16} aria-hidden="true" /> },
-  { label: 'Tasks', icon: <Checklist size={16} aria-hidden="true" /> },
+  { label: 'Home', icon: <HomeIcon size="md" aria-hidden="true" /> },
+  { label: 'Chats', icon: <ChatIcon size="md" aria-hidden="true" /> },
+  { label: 'Tasks', icon: <TasksIcon size="md" aria-hidden="true" /> },
 ];
 
 function RailNavigation({ settings, onSettings }: { settings: boolean; onSettings: (value: boolean) => void }) {
@@ -510,7 +512,7 @@ function RailNavigation({ settings, onSettings }: { settings: boolean; onSetting
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     tooltip="Back to app"
-                    icon={<Home size={16} aria-hidden="true" />}
+                    icon={<HomeIcon size="md" aria-hidden="true" />}
                     nativeButton={false}
                     render={<a href="#tooltip-sidebar" />}
                     onClick={event => {
@@ -549,7 +551,7 @@ function RailNavigation({ settings, onSettings }: { settings: boolean; onSetting
                   }}
                   aria-label="Jump to…"
                   aria-keyshortcuts="Meta+K Control+K"
-                  icon={<Search3 size={16} aria-hidden="true" />}
+                  icon={<SearchIcon size="md" aria-hidden="true" />}
                   onClick={() => setSearches(count => count + 1)}
                 >
                   Jump to…
@@ -564,18 +566,20 @@ function RailNavigation({ settings, onSettings }: { settings: boolean; onSetting
               <DropdownMenu>
                 <DropdownMenuTrigger
                   aria-label="Account menu"
-                  render={<SidebarMenuButton tooltip="Account" icon={<UserCircle size={16} aria-hidden="true" />} />}
+                  render={
+                    <SidebarMenuButton tooltip="Account" icon={<UserCircleIcon size="md" aria-hidden="true" />} />
+                  }
                 >
                   Priya Raman
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="right" align="end">
                   <DropdownMenuItem onClick={() => onSettings(true)}>
-                    <Settings size={16} aria-hidden="true" />
+                    <SettingsIcon size="md" aria-hidden="true" />
                     Settings
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <Logout size={16} aria-hidden="true" />
+                    <LogoutIcon size="md" aria-hidden="true" />
                     Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>

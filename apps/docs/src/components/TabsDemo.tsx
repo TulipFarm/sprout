@@ -1,14 +1,16 @@
 import { useId, useRef, useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { AlertCircle } from 'reicon-react/icons/AlertCircle';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Check } from 'reicon-react/icons/Check';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { Message } from 'reicon-react/icons/Message';
-import { Scroll } from 'reicon-react/icons/Scroll';
-import { Search } from 'reicon-react/icons/Search';
-import { Setting } from 'reicon-react/icons/Setting';
-import { ShieldCheck } from 'reicon-react/icons/ShieldCheck';
+import {
+  AddIcon,
+  AlertCircleIcon,
+  CalendarIcon,
+  CheckIcon,
+  CpuIcon,
+  MessageIcon,
+  ScrollIcon,
+  SearchIcon,
+  SettingsIcon,
+  ShieldCheckIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   Tabs,
   TabsContent,
@@ -152,7 +154,7 @@ export function TabsMembers() {
             )}
             <div>
               <Button onClick={() => setInvites(current => [...current, `guest${current.length + 1}@meadow.example`])}>
-                <Add size={16} aria-hidden="true" />
+                <AddIcon size="md" aria-hidden="true" />
                 Invite members
               </Button>
             </div>
@@ -247,7 +249,7 @@ export function TabsModels() {
               <StatePanel
                 kind="empty"
                 heading="h4"
-                icon={Cpu}
+                icon={CpuIcon}
                 title="No models configured yet"
                 description="Once your operator configures model providers, each model family appears here."
               />
@@ -375,13 +377,13 @@ export function TabsBuilder() {
         [
           {
             edit: 'skills',
-            Icon: Scroll,
+            Icon: ScrollIcon,
             term: 'Skills',
             value: skills.length ? `${skills.length} procedure${skills.length === 1 ? '' : 's'}` : 'No skills selected',
           },
           {
             edit: 'access',
-            Icon: Setting,
+            Icon: SettingsIcon,
             term: 'Actions',
             value: actions.length
               ? `${actions.length} permitted action${actions.length === 1 ? '' : 's'}`
@@ -389,19 +391,19 @@ export function TabsBuilder() {
           },
           {
             edit: 'basics',
-            Icon: ShieldCheck,
+            Icon: ShieldCheckIcon,
             term: 'Team placement',
             value: 'Personal agent',
           },
           {
             edit: 'triggers',
-            Icon: Message,
+            Icon: MessageIcon,
             term: 'Slack',
             value: slack ? '#weekly-reports' : 'Not attached',
           },
           {
             edit: 'triggers',
-            Icon: Calendar,
+            Icon: CalendarIcon,
             term: 'Schedules',
             value: 'Manual use only',
           },
@@ -434,9 +436,9 @@ export function TabsBuilder() {
                   <TabsTrigger key={item.id} value={item.id}>
                     <span aria-hidden="true" className="tabs-demo-step-marker">
                       {errors.has(item.id) ? (
-                        <AlertCircle className="size-4 tabs-demo-danger" />
+                        <AlertCircleIcon className="size-4 tabs-demo-danger" />
                       ) : completed.has(item.id) ? (
-                        <Check className="size-4" />
+                        <CheckIcon className="size-4" />
                       ) : (
                         position + 1
                       )}
@@ -715,7 +717,7 @@ export function TabsSearchPopover() {
       <div>
         <Popover>
           <PopoverTrigger render={<Button variant={applied ? 'secondary' : 'outline'} size="sm" />}>
-            <Search size={14} aria-hidden="true" />
+            <SearchIcon size="sm" aria-hidden="true" />
             {applied ? (
               <span title={applied} className="tabs-demo-truncate">
                 “{applied}”
@@ -833,7 +835,7 @@ export function TabsVariants() {
             {builderSteps.map((item, position) => (
               <TabsTrigger key={item.id} value={item.id}>
                 <span aria-hidden="true" className="tabs-demo-step-marker">
-                  {position === 0 ? <Check className="size-4" /> : position + 1}
+                  {position === 0 ? <CheckIcon className="size-4" /> : position + 1}
                 </span>
                 {item.label}
               </TabsTrigger>

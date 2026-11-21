@@ -9,9 +9,7 @@ import {
   type ReactNode,
   type SyntheticEvent,
 } from 'react';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { Compress } from 'reicon-react/icons/Compress';
-import { X } from 'reicon-react/icons/X';
+import { BookOpenIcon, CloseIcon, MinimizeIcon } from '@tulipfarm/sprout/icons';
 import { FileAttachment, FileTypeIcon } from '@tulipfarm/sprout/attachment';
 import { Avatar, AvatarFallback } from '@tulipfarm/sprout/avatar';
 import { Badge } from '@tulipfarm/sprout/badge';
@@ -540,7 +538,7 @@ export function MentionListSkills() {
             id: 'command:compact',
             title: '/compact',
             description: 'Summarize earlier messages to free context. Add instructions for a handoff.',
-            media: <Compress size={16} aria-hidden="true" />,
+            media: <MinimizeIcon size="md" aria-hidden="true" />,
             apply: () => field.replace('/compact '),
           },
         ]
@@ -553,7 +551,7 @@ export function MentionListSkills() {
             id: skill.id,
             title: skill.name,
             description: `Workspace skill · ${version(skill.revision)}`,
-            media: <BookOpen size={16} aria-hidden="true" />,
+            media: <BookOpenIcon size="md" aria-hidden="true" />,
             apply: () => {
               setStaged(skill);
               field.replace('');
@@ -625,7 +623,7 @@ export function MentionListSkills() {
           <div className="mention-list-demo-staged">
             <div className="mention-list-demo-staged-row">
               <Badge variant="secondary" size="chip" title={staged.name}>
-                <BookOpen aria-hidden="true" />
+                <BookOpenIcon aria-hidden="true" />
                 {staged.name} · {version(staged.revision)}
               </Badge>
               <Button
@@ -634,7 +632,7 @@ export function MentionListSkills() {
                 aria-label={`Remove skill ${staged.name}`}
                 onClick={() => setStaged(null)}
               >
-                <X size={14} aria-hidden="true" />
+                <CloseIcon size="sm" aria-hidden="true" />
               </Button>
             </div>
             <p>The assistant follows this skill for this message only.</p>

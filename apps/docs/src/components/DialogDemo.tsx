@@ -1,14 +1,16 @@
 import { useId, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { Command } from 'reicon-react/icons/Command';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Folder } from 'reicon-react/icons/Folder';
-import { MessageCircle } from 'reicon-react/icons/MessageCircle';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Search3 } from 'reicon-react/icons/Search3';
-import { Settings } from 'reicon-react/icons/Settings';
-import { Users } from 'reicon-react/icons/Users';
-import { X } from 'reicon-react/icons/X';
+import {
+  AddIcon,
+  ArrowUpRightIcon,
+  CloseIcon,
+  CommandIcon,
+  DocumentTextIcon,
+  FolderIcon,
+  MessageCircleIcon,
+  SearchIcon,
+  SettingsIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { EntityAvatar } from '@tulipfarm/sprout/avatar';
 import { Button } from '@tulipfarm/sprout/button';
@@ -286,7 +288,7 @@ function InviteMembersDialog() {
                       disabled={busy || (emails.length === 1 && !email)}
                       onClick={() => setEmails(emails.length === 1 ? [''] : emails.filter((_, at) => at !== index))}
                     >
-                      <X size={16} aria-hidden="true" />
+                      <CloseIcon size="md" aria-hidden="true" />
                     </Button>
                   </div>
                 ))}
@@ -300,7 +302,7 @@ function InviteMembersDialog() {
                     requestAnimationFrame(() => document.getElementById(`invitation-email-${emails.length}`)?.focus());
                   }}
                 >
-                  <Plus size={16} aria-hidden="true" />
+                  <AddIcon size="md" aria-hidden="true" />
                   Add another
                 </Button>
               </div>
@@ -389,12 +391,12 @@ function FileViewerDialog({ kind }: { kind: keyof typeof viewerFiles }) {
                 nativeButton={false}
                 render={<a href={file.google} target="_blank" rel="noopener noreferrer" />}
               >
-                <ArrowUpRight size={16} aria-hidden="true" />
+                <ArrowUpRightIcon size="md" aria-hidden="true" />
                 Open in Google
               </Button>
             )}
             <DialogClose render={<Button variant="ghost" size="icon" aria-label="Close file viewer" />}>
-              <X size={20} aria-hidden="true" />
+              <CloseIcon size="xl" aria-hidden="true" />
             </DialogClose>
           </header>
           <div className="dialog-demo-viewer-body">
@@ -728,14 +730,14 @@ function SearchDemo({ onChoose }: { onChoose: (name: string) => void }) {
       }}
     >
       <DialogTrigger render={<Button variant="outline" />}>
-        <Search3 size={16} aria-hidden="true" />
+        <SearchIcon size="md" aria-hidden="true" />
         Search
       </DialogTrigger>
       <DialogContent data-slot="search-dialog" placement="top" showCloseButton={false} className="dialog-demo-search">
         <DialogTitle className="sr-only">Search Meadow</DialogTitle>
         <DialogDescription className="sr-only">Search files, projects, and agents in this workspace.</DialogDescription>
         <div className="dialog-demo-search-input">
-          <Search3 size={16} aria-hidden="true" />
+          <SearchIcon size="md" aria-hidden="true" />
           <input
             role="combobox"
             aria-label="Search Meadow"
@@ -751,7 +753,7 @@ function SearchDemo({ onChoose }: { onChoose: (name: string) => void }) {
             onKeyDown={nav.onKeyDown}
           />
           <DialogClose render={<Button variant="ghost" size="icon-sm" aria-label="Close search" />}>
-            <X size={16} aria-hidden="true" />
+            <CloseIcon size="md" aria-hidden="true" />
           </DialogClose>
         </div>
         <div className="dialog-demo-search-filters" role="group" aria-label="Record type">
@@ -764,7 +766,7 @@ function SearchDemo({ onChoose }: { onChoose: (name: string) => void }) {
               nav.setActive(0);
             }}
           >
-            <FileText size={14} aria-hidden="true" />
+            <DocumentTextIcon size="sm" aria-hidden="true" />
             Documents only
           </Button>
         </div>
@@ -785,11 +787,11 @@ function SearchDemo({ onChoose }: { onChoose: (name: string) => void }) {
                 >
                   <span className="dialog-demo-search-icon">
                     {record.type === 'project' ? (
-                      <Folder size={16} aria-hidden="true" />
+                      <FolderIcon size="md" aria-hidden="true" />
                     ) : record.type === 'agent' ? (
-                      <Users size={16} aria-hidden="true" />
+                      <UsersIcon size="md" aria-hidden="true" />
                     ) : (
-                      <FileText size={16} aria-hidden="true" />
+                      <DocumentTextIcon size="md" aria-hidden="true" />
                     )}
                   </span>
                   <span className="dialog-demo-search-text">
@@ -835,10 +837,10 @@ function SearchDemo({ onChoose }: { onChoose: (name: string) => void }) {
 }
 
 const commands = [
-  { id: 'c1', label: 'New chat', icon: MessageCircle, hint: 'C' },
-  { id: 'c2', label: 'New project', icon: Folder, hint: 'P' },
-  { id: 'c3', label: 'Invite members', icon: Users, hint: 'I' },
-  { id: 'c4', label: 'Workspace settings', icon: Settings, hint: ',' },
+  { id: 'c1', label: 'New chat', icon: MessageCircleIcon, hint: 'C' },
+  { id: 'c2', label: 'New project', icon: FolderIcon, hint: 'P' },
+  { id: 'c3', label: 'Invite members', icon: UsersIcon, hint: 'I' },
+  { id: 'c4', label: 'Workspace settings', icon: SettingsIcon, hint: ',' },
 ] as const;
 
 function CommandDemo({ onChoose }: { onChoose: (name: string) => void }) {
@@ -851,7 +853,7 @@ function CommandDemo({ onChoose }: { onChoose: (name: string) => void }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button variant="outline" />}>
-        <Command size={16} aria-hidden="true" />
+        <CommandIcon size="md" aria-hidden="true" />
         Command palette
       </DialogTrigger>
       <DialogContent

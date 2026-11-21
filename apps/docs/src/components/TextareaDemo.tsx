@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from 'react';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Send } from 'reicon-react/icons/Send';
+import { AddIcon, SendIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Checkbox } from '@tulipfarm/sprout/checkbox';
 import { Field } from '@tulipfarm/sprout/field';
@@ -81,7 +80,7 @@ function EmbeddedSample() {
         />
         <div className="textarea-demo-composer-actions">
           <Button size="icon-xs" variant="ghost" aria-label="Add attachment">
-            <Plus aria-hidden="true" />
+            <AddIcon aria-hidden="true" />
           </Button>
           <Button
             size="sm"
@@ -92,7 +91,7 @@ function EmbeddedSample() {
             }}
           >
             Send
-            <Send data-icon="inline-end" aria-hidden="true" />
+            <SendIcon data-icon="inline-end" aria-hidden="true" />
           </Button>
         </div>
       </div>

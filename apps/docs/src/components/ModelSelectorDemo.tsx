@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
+import { ArrowUpIcon } from '@tulipfarm/sprout/icons';
 import { ModelSelector, type ModelSelectorModel } from '@tulipfarm/sprout/model-selector';
 import '../styles/model-selector-demo.css';
 
@@ -86,7 +86,7 @@ export function ModelSelectorPlayground() {
         <div className="model-selector-demo-bar">
           <ModelSelector models={demoModels} value={model} onValueChange={setModel} side="top" />
           <span className="model-selector-demo-send" aria-hidden="true">
-            <ArrowUp size={16} />
+            <ArrowUpIcon size="md" />
           </span>
         </div>
       </div>

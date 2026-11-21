@@ -1,16 +1,18 @@
 import { useState, type ReactNode } from 'react';
-import { Bold } from 'reicon-react/icons/Bold';
-import { ChartBar } from 'reicon-react/icons/ChartBar';
-import { Download } from 'reicon-react/icons/Download';
-import { Grid } from 'reicon-react/icons/Grid';
-import { Italic } from 'reicon-react/icons/Italic';
-import { Kanban } from 'reicon-react/icons/Kanban';
-import { List } from 'reicon-react/icons/List';
-import { Monitor } from 'reicon-react/icons/Monitor';
-import { Moon } from 'reicon-react/icons/Moon';
-import { Search } from 'reicon-react/icons/Search';
-import { Sun } from 'reicon-react/icons/Sun';
-import { Underline } from 'reicon-react/icons/Underline';
+import {
+  BoldIcon,
+  ChartBarIcon,
+  DownloadIcon,
+  GridIcon,
+  ItalicIcon,
+  KanbanIcon,
+  ListIcon,
+  MonitorIcon,
+  MoonIcon,
+  SearchIcon,
+  SunIcon,
+  UnderlineIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { SettingsGroup, SettingsRow } from '@tulipfarm/sprout/settings-list';
 import {
@@ -36,9 +38,9 @@ function Example({ title, description, children }: { title: string; description:
 }
 
 const layouts = [
-  { value: 'table', label: 'Table', icon: Grid },
-  { value: 'board', label: 'Board', icon: Kanban },
-  { value: 'list', label: 'List', icon: List },
+  { value: 'table', label: 'Table', icon: GridIcon },
+  { value: 'board', label: 'Board', icon: KanbanIcon },
+  { value: 'list', label: 'List', icon: ListIcon },
 ] as const;
 type Layout = (typeof layouts)[number]['value'];
 
@@ -66,13 +68,13 @@ function SizeSample({ variant, size }: { variant: ToggleGroupVariant; size: Togg
   return (
     <ToggleGroup aria-label={`${variant} default text format`} variant={variant} defaultValue={['bold']}>
       <ToggleGroupItem value="bold" aria-label="Bold">
-        <Bold aria-hidden="true" />
+        <BoldIcon aria-hidden="true" />
       </ToggleGroupItem>
       <ToggleGroupItem value="italic" aria-label="Italic">
-        <Italic aria-hidden="true" />
+        <ItalicIcon aria-hidden="true" />
       </ToggleGroupItem>
       <ToggleGroupItem value="underline" aria-label="Underline" disabled>
-        <Underline aria-hidden="true" />
+        <UnderlineIcon aria-hidden="true" />
       </ToggleGroupItem>
     </ToggleGroup>
   );
@@ -188,7 +190,7 @@ export function ToggleGroupSegmented() {
         </div>
         {rows.length === 0 ? (
           <div className="toggle-group-demo-empty" role="status">
-            <ChartBar size={20} aria-hidden="true" />
+            <ChartBarIcon size="xl" aria-hidden="true" />
             <p className="toggle-group-demo-strong">No usage in the last {range} days</p>
             <p className="toggle-group-demo-muted">Model calls from chats, agents, and knowledge appear here by day.</p>
           </div>
@@ -267,11 +269,11 @@ export function ToggleGroupToolbar() {
           </ToggleGroup>
           <fieldset disabled={disabled} aria-label="Table tools" className="toggle-group-demo-tools">
             <Button variant="outline" size="sm">
-              <Search size={14} aria-hidden="true" />
+              <SearchIcon size="sm" aria-hidden="true" />
               Search
             </Button>
             <Button variant="outline" size="sm">
-              <Download size={14} aria-hidden="true" />
+              <DownloadIcon size="sm" aria-hidden="true" />
               Export
             </Button>
           </fieldset>
@@ -313,9 +315,9 @@ export function ToggleGroupToolbar() {
 }
 
 const themes = [
-  { value: 'system', label: 'System', icon: Monitor },
-  { value: 'light', label: 'Light', icon: Sun },
-  { value: 'dark', label: 'Dark', icon: Moon },
+  { value: 'system', label: 'System', icon: MonitorIcon },
+  { value: 'light', label: 'Light', icon: SunIcon },
+  { value: 'dark', label: 'Dark', icon: MoonIcon },
 ] as const;
 type Theme = (typeof themes)[number]['value'];
 

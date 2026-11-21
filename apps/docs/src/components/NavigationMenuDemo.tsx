@@ -1,12 +1,14 @@
 import { useState, type MouseEvent, type ReactNode } from 'react';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { CalendarDays } from 'reicon-react/icons/CalendarDays';
-import { ChartBar } from 'reicon-react/icons/ChartBar';
-import { FileText } from 'reicon-react/icons/FileText';
-import { FolderOpen } from 'reicon-react/icons/FolderOpen';
-import { HelpCircle } from 'reicon-react/icons/HelpCircle';
-import { Leaf } from 'reicon-react/icons/Leaf';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  BookOpenIcon,
+  CalendarDaysIcon,
+  ChartBarIcon,
+  DocumentTextIcon,
+  FolderOpenIcon,
+  HelpCircleIcon,
+  LeafIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -40,19 +42,19 @@ const projects: Destination[] = [
     href: '#meadow',
     title: 'Meadow project',
     description: 'Spring planting plan and plot assignments.',
-    icon: <Leaf />,
+    icon: <LeafIcon />,
   },
   {
     href: '#garden',
     title: 'Garden notes',
     description: 'Shared notes from the weekly walk-through.',
-    icon: <FileText />,
+    icon: <DocumentTextIcon />,
   },
   {
     href: '#greenhouse',
     title: 'Greenhouse irrigation retrofit — north wing',
     description: 'Long names wrap inside the panel instead of spilling out.',
-    icon: <FolderOpen />,
+    icon: <FolderOpenIcon />,
   },
 ];
 
@@ -61,25 +63,25 @@ const resources: Destination[] = [
     href: '#guides',
     title: 'Planting guides',
     description: 'Step-by-step guides for each season.',
-    icon: <BookOpen />,
+    icon: <BookOpenIcon />,
   },
   {
     href: '#calendar',
     title: 'Harvest calendar',
     description: 'When each crop is ready to pick.',
-    icon: <CalendarDays />,
+    icon: <CalendarDaysIcon />,
   },
   {
     href: '#reports',
     title: 'Yield reports',
     description: 'Monthly totals by plot and crop.',
-    icon: <ChartBar />,
+    icon: <ChartBarIcon />,
   },
   {
     href: '#team',
     title: 'Team directory',
     description: 'Who looks after which beds.',
-    icon: <Users />,
+    icon: <UsersIcon />,
   },
 ];
 
@@ -187,7 +189,7 @@ export function NavigationMenuSiteHeader() {
     <section className="nav-demo-card" aria-label="Site header">
       <header className="nav-demo-header">
         <span className="nav-demo-brand" aria-hidden="true">
-          <Leaf />
+          <LeafIcon />
           Meadow
         </span>
         <NavigationMenu aria-label="Site">
@@ -238,7 +240,7 @@ export function NavigationMenuSiteHeader() {
                 onClick={visit('Help')}
                 className={navigationMenuTriggerStyle()}
               >
-                <HelpCircle />
+                <HelpCircleIcon />
                 Help
               </NavigationMenuLink>
             </NavigationMenuItem>

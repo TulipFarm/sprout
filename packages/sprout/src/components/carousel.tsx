@@ -13,8 +13,7 @@ import {
   type PointerEvent,
   type RefCallback,
 } from 'react';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { ChevronLeftIcon, ChevronRightIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button, type ButtonProps } from './button.js';
 
@@ -565,7 +564,7 @@ export function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      {children ?? <ChevronLeft aria-hidden="true" />}
+      {children ?? <ChevronLeftIcon aria-hidden="true" />}
     </Button>
   );
 }
@@ -591,7 +590,7 @@ export function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      {children ?? <ChevronRight aria-hidden="true" />}
+      {children ?? <ChevronRightIcon aria-hidden="true" />}
     </Button>
   );
 }

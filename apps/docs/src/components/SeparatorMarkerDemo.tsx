@@ -1,8 +1,5 @@
 import type { ReactNode } from 'react';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Check } from 'reicon-react/icons/Check';
-import { History } from 'reicon-react/icons/History';
+import { BookOpenIcon, CalendarIcon, CheckIcon, HistoryIcon } from '@tulipfarm/sprout/icons';
 import { Separator, SeparatorContent, SeparatorIcon } from '@tulipfarm/sprout/separator';
 import '../styles/separator-marker-demo.css';
 
@@ -41,19 +38,19 @@ const rowNotes: Record<RowKind, { code: string; note: string; icon: ReactNode; t
   marker: {
     code: 'variant="marker"',
     note: 'Icon and text on one quiet row. Chat uses it for skill use.',
-    icon: <BookOpen size={16} />,
+    icon: <BookOpenIcon size="md" />,
     text: 'Used skill Weekly report · 3f9a2c1b',
   },
   label: {
     code: '<Separator>',
     note: 'An icon and text centered between two lines. Use it to split a timeline by day.',
-    icon: <Check />,
+    icon: <CheckIcon />,
     text: 'Today',
   },
   'marker-border': {
     code: 'variant="marker-border"',
     note: 'A line under the row. Use it as a heading over a group of events.',
-    icon: <History />,
+    icon: <HistoryIcon />,
     text: 'Yesterday · 4 events',
   },
 };
@@ -89,7 +86,7 @@ function PlaygroundVariants() {
     >
       <div className="separator-marker-demo-preview">
         {rowKinds.map(kind => (
-          <TimelineRow key={kind} kind={kind} icon={<Check />}>
+          <TimelineRow key={kind} kind={kind} icon={<CheckIcon />}>
             {kind} · Today
           </TimelineRow>
         ))}
@@ -109,7 +106,7 @@ function SkillUse({ skill }: { skill: SampleSkill }) {
   return (
     <Separator variant="marker">
       <SeparatorIcon>
-        <BookOpen size={16} />
+        <BookOpenIcon size="md" />
       </SeparatorIcon>
       <SeparatorContent>Used skill {skillLabel(skill)}</SeparatorContent>
     </Separator>
@@ -156,7 +153,7 @@ function ChatTimeline() {
               return (
                 <Separator key={index}>
                   <SeparatorIcon>
-                    <Calendar />
+                    <CalendarIcon />
                   </SeparatorIcon>
                   {part.label}
                 </Separator>
@@ -185,7 +182,7 @@ function Links() {
       <div className="separator-marker-demo-preview">
         <Separator variant="marker">
           <SeparatorIcon>
-            <History />
+            <HistoryIcon />
           </SeparatorIcon>
           <SeparatorContent>
             Robin edited the brief · <a href="#separator-marker-demo">View changes</a>
@@ -193,7 +190,7 @@ function Links() {
         </Separator>
         <Separator variant="marker" render={<a href="#separator-marker-demo" />}>
           <SeparatorIcon>
-            <BookOpen size={16} />
+            <BookOpenIcon size="md" />
           </SeparatorIcon>
           <SeparatorContent>Open skill Weekly report · 3f9a2c1b</SeparatorContent>
         </Separator>
@@ -211,7 +208,7 @@ function Narrow() {
       <div className="separator-marker-demo-narrow">
         {rowKinds.map(kind => (
           <div key={kind} className="separator-marker-demo-narrow-column" data-testid={`narrow-${kind}`}>
-            <TimelineRow kind={kind} icon={<BookOpen size={16} />}>
+            <TimelineRow kind={kind} icon={<BookOpenIcon size="md" />}>
               Used skill Quarterly greenhouse operations summary · 9c04be7f
             </TimelineRow>
           </div>

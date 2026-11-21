@@ -1,7 +1,5 @@
 import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { Inbox } from 'reicon-react/icons/Inbox';
-import { Warning } from 'reicon-react/icons/Warning';
+import { CheckIcon, InboxIcon, WarningIcon } from '../components/icons.js';
 import { cn } from './classes.js';
 import { Spinner } from '../components/spinner.js';
 
@@ -56,9 +54,9 @@ function Media({ kind, Icon }: { kind: StatePanelKind; Icon: StatePanelIcon }) {
       {kind === 'loading' ? (
         <Spinner aria-hidden="true" />
       ) : kind === 'success' ? (
-        <Check size={20} />
+        <CheckIcon size="xl" />
       ) : kind === 'error' ? (
-        <Warning size={20} className="sprout-state-panel-danger" />
+        <WarningIcon size="xl" className="sprout-state-panel-danger" />
       ) : (
         <Icon size={20} />
       )}
@@ -71,14 +69,16 @@ export function StatePanel({
   title,
   description,
   heading: Heading = 'h2',
-  icon = Inbox,
+  icon = InboxIcon,
   children,
   sample,
   className,
   ...props
 }: StatePanelProps) {
   const media =
-    icon === null && (kind === 'empty' || kind === 'unavailable') ? null : <Media kind={kind} Icon={icon ?? Inbox} />;
+    icon === null && (kind === 'empty' || kind === 'unavailable') ? null : (
+      <Media kind={kind} Icon={icon ?? InboxIcon} />
+    );
   const hasActions = children !== undefined && children !== null && children !== false;
 
   if (sample)

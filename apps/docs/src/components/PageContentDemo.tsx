@@ -1,12 +1,14 @@
 import { useRef, useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { FileText } from 'reicon-react/icons/FileText';
-import { FolderAdd } from 'reicon-react/icons/FolderAdd';
-import { Repeat } from 'reicon-react/icons/Repeat';
-import { Upload } from 'reicon-react/icons/Upload';
+import {
+  AddIcon,
+  ArrowUpRightIcon,
+  ChatIcon,
+  ChevronLeftIcon,
+  DocumentTextIcon,
+  FolderAddIcon,
+  RepeatIcon,
+  UploadIcon,
+} from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
@@ -43,11 +45,11 @@ function FilesPage() {
         actions={
           <>
             <Button variant="outline">
-              <FolderAdd aria-hidden="true" />
+              <FolderAddIcon aria-hidden="true" />
               New folder
             </Button>
             <Button>
-              <Upload aria-hidden="true" />
+              <UploadIcon aria-hidden="true" />
               Upload
             </Button>
           </>
@@ -59,7 +61,7 @@ function FilesPage() {
       <ul className="page-content-demo-list" aria-label="My files">
         {files.map(([name, owner, size]) => (
           <li key={name}>
-            <FileText size={16} aria-hidden="true" />
+            <DocumentTextIcon size="md" aria-hidden="true" />
             <span className="page-content-demo-name">{name}</span>
             <span className="page-content-demo-meta">{owner}</span>
             <span className="page-content-demo-meta">{size}</span>
@@ -113,7 +115,7 @@ function TaskPage() {
           nativeButton={false}
           render={<a href="#tasks" onClick={event => event.preventDefault()} />}
         >
-          <ChevronLeft aria-hidden="true" />
+          <ChevronLeftIcon aria-hidden="true" />
           Back to my tasks
         </Button>
       </nav>
@@ -142,7 +144,7 @@ const workflowsHeader = (
     description="See how repeatable work runs. Create and edit workflows in chat."
     actions={
       <Button>
-        <Add aria-hidden="true" />
+        <AddIcon aria-hidden="true" />
         New workflow
       </Button>
     }
@@ -171,7 +173,7 @@ const samples: Record<Sample, { label: string; page: () => ReactNode }> = {
         {workflowsHeader}
         <StatePanel
           kind="empty"
-          icon={Repeat}
+          icon={RepeatIcon}
           title="No workflows yet"
           description="Describe repeatable work in chat. Your assistant drafts the steps for you to review."
         >
@@ -260,7 +262,7 @@ function ChatList() {
             description="Only you can see these chats. Most recently active first."
             actions={
               <Button>
-                <ChatRound aria-hidden="true" />
+                <ChatIcon aria-hidden="true" />
                 New chat
               </Button>
             }
@@ -374,7 +376,7 @@ export function PageContentExamples() {
                 render={<a href="#chat" onClick={event => event.preventDefault()} />}
               >
                 Open in chat
-                <ArrowUpRight aria-hidden="true" />
+                <ArrowUpRightIcon aria-hidden="true" />
               </Button>
             }
           />

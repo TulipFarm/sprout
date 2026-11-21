@@ -19,7 +19,7 @@ import {
 import { Skeleton, SkeletonGroup } from '@tulipfarm/sprout/skeleton';
 import { Switch } from '@tulipfarm/sprout/switch';
 import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
-import { ArrowDown } from 'reicon-react/icons/ArrowDown';
+import { ArrowDownIcon } from '@tulipfarm/sprout/icons';
 import '../styles/message-scroller-demo.css';
 
 function Frame({
@@ -439,7 +439,7 @@ const pairings = [
     note: 'A labeled pill for unread replies.',
     button: (
       <MessageScrollerButton variant="outline" size="sm">
-        <ArrowDown aria-hidden="true" />
+        <ArrowDownIcon aria-hidden="true" />
         New replies
       </MessageScrollerButton>
     ),

@@ -24,7 +24,7 @@ import {
     <CodeBlock
       lang="tsx"
       title="Tooltip usage"
-      code={`import { Paperclip } from "reicon-react/icons/Paperclip";
+      code={`import { PaperclipIcon } from "@tulipfarm/sprout/icons";
 import { Button } from "@tulipfarm/sprout/button";
 import {
   Tooltip,
@@ -38,7 +38,7 @@ import {
     <TooltipTrigger
       render={<Button size="icon-sm" variant="ghost" aria-label="Attach files" />}
     >
-      <Paperclip size={16} aria-hidden="true" />
+      <PaperclipIcon size="md" aria-hidden="true" />
     </TooltipTrigger>
     <TooltipContent>Attach files from your device</TooltipContent>
   </Tooltip>

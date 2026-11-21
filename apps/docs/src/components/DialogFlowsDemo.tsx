@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Book } from 'reicon-react/icons/Book';
-import { Check } from 'reicon-react/icons/Check';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Folder } from 'reicon-react/icons/Folder';
+import { BookIcon, CheckIcon, DocumentTextIcon, FolderIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -619,7 +616,7 @@ function FolderPicker({
             disabled={disabled}
             onChange={() => onChange(folder.id)}
           />
-          <Folder size={16} aria-hidden="true" />
+          <FolderIcon size="md" aria-hidden="true" />
           <span className="dialog-demo-truncate">{folder.label}</span>
         </label>
       ))}
@@ -704,7 +701,7 @@ function SaveCopy({ finish }: { finish: Finish }) {
                   <FolderPicker name="copy-folder" value={destination} onChange={setDestination} disabled={copying} />
                   {folder ? (
                     <p className="dialog-demo-inline-text">
-                      <Check size={14} aria-hidden="true" />
+                      <CheckIcon size="sm" aria-hidden="true" />
                       <span className="dialog-demo-truncate">Saving to {folder.label}</span>
                     </p>
                   ) : (
@@ -1056,7 +1053,7 @@ function AddToKnowledge({ finish }: { finish: Finish }) {
               {knowledgeFiles.map(file => (
                 <li key={file.id} className="dialog-demo-stack-row">
                   <span className="dialog-demo-inline-text dialog-demo-strong">
-                    <FileText size={16} aria-hidden="true" />
+                    <DocumentTextIcon size="md" aria-hidden="true" />
                     <span className="dialog-demo-truncate" title={file.name}>
                       {file.name}
                     </span>
@@ -1094,7 +1091,7 @@ function AddToKnowledge({ finish }: { finish: Finish }) {
                     later(() => setPhase('slow'), 900);
                   }}
                 >
-                  <Book size={16} aria-hidden="true" />
+                  <BookIcon size="md" aria-hidden="true" />
                   Add to Knowledge
                 </Button>
               </>
@@ -1196,7 +1193,7 @@ function FileSource() {
   return (
     <>
       <Button ref={opener.ref} variant="ghost" onClick={() => opener.setOpen(true)}>
-        <FileText size={16} aria-hidden="true" />
+        <DocumentTextIcon size="md" aria-hidden="true" />
         Launch brief
       </Button>
       <Dialog open={opener.open} onOpenChange={opener.setOpen}>

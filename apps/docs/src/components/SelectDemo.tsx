@@ -1,6 +1,5 @@
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
-import { Filter } from 'reicon-react/icons/Filter';
-import { Hashtag } from 'reicon-react/icons/Hashtag';
+import { FilterIcon, HashIcon } from '@tulipfarm/sprout/icons';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
@@ -587,7 +586,7 @@ export function SelectRichItems() {
             <SelectContent>
               {slackChannels.map(item => (
                 <SelectItem key={item.id} value={item.id} disabled={added.has(item.id)}>
-                  <Hashtag size={16} aria-hidden="true" />
+                  <HashIcon size="md" aria-hidden="true" />
                   {item.name}
                   {added.has(item.id) && ' (already added)'}
                 </SelectItem>
@@ -861,7 +860,7 @@ export function SelectCompositions() {
         <div className="select-demo-inline-row">
           <Popover>
             <PopoverTrigger render={<Button size="sm" variant="outline" />}>
-              <Filter size={14} aria-hidden="true" />
+              <FilterIcon size="sm" aria-hidden="true" />
               Filter
             </PopoverTrigger>
             <PopoverContent size="picker" aria-label="Filter rows">

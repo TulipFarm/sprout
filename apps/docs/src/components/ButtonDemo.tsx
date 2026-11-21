@@ -4,23 +4,25 @@ import { Dialog } from '@base-ui/react/dialog';
 import { Menu } from '@base-ui/react/menu';
 import { Popover } from '@base-ui/react/popover';
 import { Tooltip } from '@base-ui/react/tooltip';
-import { ArrowDown as ArrowDownIcon } from 'reicon-react/icons/ArrowDown';
-import { ArrowUp as ArrowUpIcon } from 'reicon-react/icons/ArrowUp';
-import { ArrowUpRight as ArrowUpRightIcon } from 'reicon-react/icons/ArrowUpRight';
-import { Bold as BoldIcon } from 'reicon-react/icons/Bold';
-import { ChevronDown as ChevronDownIcon } from 'reicon-react/icons/ChevronDown';
-import { ChevronLeft as ChevronLeftIcon } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight as ChevronRightIcon } from 'reicon-react/icons/ChevronRight';
-import { Download as DownloadIcon } from 'reicon-react/icons/Download';
-import { FileText as FileTextIcon } from 'reicon-react/icons/FileText';
-import { Folder as FolderIcon } from 'reicon-react/icons/Folder';
-import { Italic as ItalicIcon } from 'reicon-react/icons/Italic';
-import { Loader as LoaderIcon } from 'reicon-react/icons/Loader';
-import { Plus as PlusIcon } from 'reicon-react/icons/Plus';
-import { Send as SendIcon } from 'reicon-react/icons/Send';
-import { Sparkle as SparkleIcon } from 'reicon-react/icons/Sparkle';
-import { Trash as TrashIcon } from 'reicon-react/icons/Trash';
-import { X as XIcon } from 'reicon-react/icons/X';
+import {
+  AddIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ArrowUpRightIcon,
+  BoldIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  DeleteIcon,
+  DocumentTextIcon,
+  DownloadIcon,
+  FolderIcon,
+  ItalicIcon,
+  LoaderIcon,
+  SendIcon,
+  SparkleIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   ActionGroup,
   Button,
@@ -43,7 +45,7 @@ const states: { value: PlaygroundState; label: string }[] = [
   { value: 'expanded', label: 'Expanded' },
 ];
 const iconOnly = (size: ButtonSize) => size.startsWith('icon');
-const sizeContent = (size: ButtonSize) => (iconOnly(size) ? <PlusIcon /> : 'Button');
+const sizeContent = (size: ButtonSize) => (iconOnly(size) ? <AddIcon /> : 'Button');
 
 function Spinner({ still = false }: { still?: boolean }) {
   return <LoaderIcon className={still ? undefined : 'button-demo-spinner'} aria-hidden="true" />;
@@ -129,7 +131,7 @@ function Playground() {
           aria-label={icon ? 'Add item' : undefined}
           onClick={() => setClicks(count => count + 1)}
         >
-          {state === 'busy' ? <Spinner /> : <PlusIcon data-icon={icon ? undefined : 'inline-start'} />}
+          {state === 'busy' ? <Spinner /> : <AddIcon data-icon={icon ? undefined : 'inline-start'} />}
           {!icon && (state === 'busy' ? 'Saving…' : 'Add item')}
         </Button>
         {state === 'invalid' && (
@@ -369,7 +371,7 @@ function FileList() {
         <ul className="button-demo-files" aria-label="Sample files">
           {files.map(file => (
             <li key={file}>
-              <FileTextIcon aria-hidden="true" size={14} />
+              <DocumentTextIcon aria-hidden="true" size="sm" />
               <span>{file}</span>
               <Button
                 variant="ghost"
@@ -381,7 +383,7 @@ function FileList() {
                   add.current?.focus();
                 }}
               >
-                <TrashIcon />
+                <DeleteIcon />
               </Button>
             </li>
           ))}
@@ -393,7 +395,7 @@ function FileList() {
         size="sm"
         onClick={() => setFiles(list => [...list, `Brief ${list.length + 1}.pdf`])}
       >
-        <PlusIcon data-icon="inline-start" />
+        <AddIcon data-icon="inline-start" />
         Add sample file
       </Button>
     </div>
@@ -518,7 +520,7 @@ function Tree() {
                 <FolderIcon />
               </>
             ) : (
-              <FileTextIcon />
+              <DocumentTextIcon />
             )}
             <span className="button-demo-truncate">{node.path.split('/').at(-1)}</span>
           </Button>
@@ -657,7 +659,7 @@ function Overlays() {
       </Tooltip.Provider>
       <Dialog.Root>
         <Dialog.Trigger render={<Button variant="destructive" size="sm" disabled={deleted} />}>
-          <TrashIcon data-icon="inline-start" />
+          <DeleteIcon data-icon="inline-start" />
           Delete draft
         </Dialog.Trigger>
         <Dialog.Portal>
@@ -763,7 +765,7 @@ export default function ButtonDemo() {
             Connect
           </Button>
           <Button variant="ghost" shape="pill" size="sm">
-            <PlusIcon data-icon="inline-start" />
+            <AddIcon data-icon="inline-start" />
             Add
           </Button>
           <Button variant="outline" shape="pill">
@@ -771,10 +773,10 @@ export default function ButtonDemo() {
           </Button>
           <Button shape="pill">Install</Button>
           <Button variant="ghost" shape="pill" size="icon-sm" aria-label="Add app">
-            <PlusIcon />
+            <AddIcon />
           </Button>
           <Button variant="outline" shape="pill" size="icon" aria-label="Add another app">
-            <PlusIcon />
+            <AddIcon />
           </Button>
         </div>
       </Preview>
@@ -909,7 +911,7 @@ export default function ButtonDemo() {
             onClick={() => setScopeAll(value => !value)}
           >
             <span className="button-demo-truncate">{scopeAll ? 'All projects' : 'Project: Website refresh'}</span>
-            {!scopeAll && <XIcon data-icon="inline-end" />}
+            {!scopeAll && <CloseIcon data-icon="inline-end" />}
           </Button>
         </div>
         <p role="status" className="button-demo-note">
@@ -1082,7 +1084,7 @@ export default function ButtonDemo() {
                 </Button>
               ))}
               <Button variant="ghost">
-                <FileTextIcon />
+                <DocumentTextIcon />
                 Quarterly planning document with a long wrapping title
               </Button>
               <div className="button-demo-row">
@@ -1090,7 +1092,7 @@ export default function ButtonDemo() {
                   Open record
                 </Button>
                 <Button variant="outline" size="icon" aria-label="Add record">
-                  <PlusIcon />
+                  <AddIcon />
                 </Button>
               </div>
             </div>

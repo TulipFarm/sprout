@@ -1,7 +1,5 @@
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
-import { Globe } from 'reicon-react/icons/Globe';
-import { Hashtag } from 'reicon-react/icons/Hashtag';
-import { Loader } from 'reicon-react/icons/Loader';
+import { GlobeIcon, HashIcon, LoaderIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   Combobox,
@@ -171,7 +169,7 @@ export function ComboboxPlayground() {
                 <ComboboxList>
                   {(channel: string) => (
                     <ComboboxItem key={channel} value={channel}>
-                      <Hashtag aria-hidden="true" />
+                      <HashIcon aria-hidden="true" />
                       {channel}
                     </ComboboxItem>
                   )}
@@ -282,7 +280,7 @@ export function ComboboxInputOptions() {
         <Combobox items={zones} defaultValue="America/New_York">
           <ComboboxInput aria-label="Billing time zone" placeholder="Search time zones" showClear>
             <InputGroupAddon align="inline-start">
-              <Globe aria-hidden="true" />
+              <GlobeIcon aria-hidden="true" />
             </InputGroupAddon>
           </ComboboxInput>
           <ComboboxContent>
@@ -302,7 +300,7 @@ function ChannelItems() {
       <ComboboxList>
         {(channel: string) => (
           <ComboboxItem key={channel} value={channel}>
-            <Hashtag aria-hidden="true" />
+            <HashIcon aria-hidden="true" />
             {channel}
           </ComboboxItem>
         )}
@@ -384,7 +382,7 @@ export function ComboboxTriggerPicker() {
             render={<Button variant="outline" className="combobox-demo-trigger" />}
             aria-label="Digest time zone"
           >
-            <Globe aria-hidden="true" />
+            <GlobeIcon aria-hidden="true" />
             <ComboboxValue placeholder="Choose time zone">
               {(value: string | null) => value?.replace('_', ' ') ?? 'Choose time zone'}
             </ComboboxValue>
@@ -479,7 +477,7 @@ export function ComboboxStates() {
             <ComboboxContent>
               <ComboboxEmpty>
                 <span className="combobox-demo-loading">
-                  <Loader aria-hidden="true" />
+                  <LoaderIcon aria-hidden="true" />
                   Loading tables…
                 </span>
               </ComboboxEmpty>

@@ -2,11 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { Toast as ToastPrimitive } from '@base-ui/react/toast';
-import { CheckCircle } from 'reicon-react/icons/CheckCircle';
-import { Danger } from 'reicon-react/icons/Danger';
-import { XCircle } from 'reicon-react/icons/XCircle';
-import { InfoCircle } from 'reicon-react/icons/InfoCircle';
-import { X } from 'reicon-react/icons/X';
+import { CheckCircleIcon, CloseCircleIcon, CloseIcon, DangerIcon, InfoIcon } from './icons.js';
 import { stateClassName } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Spinner } from './spinner.js';
@@ -139,16 +135,16 @@ export function ToastClose({
       {...props}
       className={stateClassName<ToastPrimitive.Close.State>('sprout-toast-close', className)}
     >
-      {children ?? <X aria-hidden="true" />}
+      {children ?? <CloseIcon aria-hidden="true" />}
     </ToastPrimitive.Close>
   );
 }
 
 const toastIcons: Record<ToastType, ReactNode> = {
-  success: <CheckCircle aria-hidden="true" />,
-  info: <InfoCircle aria-hidden="true" />,
-  warning: <Danger aria-hidden="true" />,
-  error: <XCircle aria-hidden="true" />,
+  success: <CheckCircleIcon aria-hidden="true" />,
+  info: <InfoIcon aria-hidden="true" />,
+  warning: <DangerIcon aria-hidden="true" />,
+  error: <CloseCircleIcon aria-hidden="true" />,
   loading: <Spinner aria-hidden="true" />,
 };
 

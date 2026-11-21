@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { ArrowRotate } from 'reicon-react/icons/ArrowRotate';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { Command } from 'reicon-react/icons/Command';
-import { Database } from 'reicon-react/icons/Database';
-import { Document } from 'reicon-react/icons/Document';
-import { Globe } from 'reicon-react/icons/Globe';
-import { Plug } from 'reicon-react/icons/Plug';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  BookOpenIcon,
+  CommandIcon,
+  DatabaseIcon,
+  DocumentIcon,
+  GlobeIcon,
+  PlugIcon,
+  RefreshIcon,
+  SparkleIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
 import { CanvasSection } from '@tulipfarm/sprout/canvas';
@@ -66,14 +68,14 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
 
 const brand = (name: Brand) => <BrandIcon brand={name} size="inline" />;
 const icons = {
-  table: <Database size={14} />,
-  knowledge: <BookOpen size={14} />,
-  page: <BookOpen size={14} />,
-  web: <Globe size={14} />,
-  fetch: <Document size={14} />,
-  agent: <Users size={14} />,
-  mcp: <Plug size={14} />,
-  skill: <Sparkle size={14} />,
+  table: <DatabaseIcon size="sm" />,
+  knowledge: <BookOpenIcon size="sm" />,
+  page: <BookOpenIcon size="sm" />,
+  web: <GlobeIcon size="sm" />,
+  fetch: <DocumentIcon size="sm" />,
+  agent: <UsersIcon size="sm" />,
+  mcp: <PlugIcon size="sm" />,
+  skill: <SparkleIcon size="sm" />,
 };
 
 // Local letter tiles stand in for page icons, so the docs never call an icon service.
@@ -274,7 +276,7 @@ export function ToolActivityStatuses() {
           <TooltipTrigger
             render={
               <Button variant="ghost" size="icon-xs" aria-label="Retry update" onClick={() => setRetried(true)}>
-                <ArrowRotate aria-hidden="true" />
+                <RefreshIcon aria-hidden="true" />
               </Button>
             }
           />
@@ -636,7 +638,7 @@ export function ToolActivityRecorded() {
           kind="Activity"
           title="Recorded activity"
           apps={recordedApps()}
-          icon={<Command size={18} />}
+          icon={<CommandIcon size="lg" />}
           status="Some outcomes are unconfirmed"
           state="error"
           action={{

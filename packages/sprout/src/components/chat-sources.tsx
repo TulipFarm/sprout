@@ -1,9 +1,7 @@
 'use client';
 
 import { useRef, type ComponentProps } from 'react';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { FileText } from 'reicon-react/icons/FileText';
+import { ArrowUpRightIcon, ChevronDownIcon, DocumentTextIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
@@ -48,7 +46,7 @@ function SourceContent({ source, number }: { source: ChatSource; number?: number
       <p className="sprout-chat-sources-excerpt">{source.excerpt}</p>
       <a href={source.href} target="_blank" rel="noopener noreferrer" className="sprout-chat-sources-link">
         Open source
-        <ArrowUpRight size={14} aria-hidden="true" />
+        <ArrowUpRightIcon size="sm" aria-hidden="true" />
         <span className="sprout-chat-sources-sr-only"> in a new tab</span>
       </a>
     </div>
@@ -111,11 +109,11 @@ export function ChatSources({ sources, defaultOpen, className, ...props }: ChatS
       className={cn('sprout-chat-sources', className)}
     >
       <CollapsibleTrigger className="sprout-chat-sources-trigger">
-        <FileText size={16} aria-hidden="true" />
+        <DocumentTextIcon size="md" aria-hidden="true" />
         <span>
           {sources.length} {sources.length === 1 ? 'source' : 'sources'}
         </span>
-        <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+        <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
       </CollapsibleTrigger>
       <CollapsibleContent variant="sidebar">
         <ol className="sprout-chat-sources-list">

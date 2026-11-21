@@ -1,8 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { ChevronLeftIcon, ChevronRightIcon } from '../../components/icons.js';
 import { Button } from '../../components/button.js';
 import { ToggleGroup, ToggleGroupItem } from '../../components/toggle-group.js';
 import { cn } from '../classes.js';
@@ -61,7 +60,7 @@ export function TimelineWindowBar({
           disabled={disabled}
           onClick={() => onChange({ zoom, from: shiftTimeline(zoom, from, -1, weekStartsOn) })}
         >
-          <ChevronLeft size={16} aria-hidden="true" />
+          <ChevronLeftIcon size="md" aria-hidden="true" />
         </Button>
         <Button variant="outline" size="sm" disabled={disabled} onClick={() => onChange({ zoom, from: today })}>
           Today
@@ -73,7 +72,7 @@ export function TimelineWindowBar({
           disabled={disabled}
           onClick={() => onChange({ zoom, from: shiftTimeline(zoom, from, 1, weekStartsOn) })}
         >
-          <ChevronRight size={16} aria-hidden="true" />
+          <ChevronRightIcon size="md" aria-hidden="true" />
         </Button>
       </div>
       <p className="sprout-timeline-window-title" aria-live="polite" aria-atomic="true">

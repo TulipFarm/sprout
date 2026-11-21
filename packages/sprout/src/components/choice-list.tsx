@@ -1,8 +1,7 @@
 'use client';
 
 import { useId, type ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { HelpCircle } from 'reicon-react/icons/HelpCircle';
+import { CheckIcon, HelpCircleIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Badge } from './badge.js';
 
@@ -116,7 +115,7 @@ export function ChoiceList({
                 className="sprout-choice-list-input"
               />
               <span aria-hidden="true" className="sprout-choice-list-mark">
-                {checked ? <Check /> : compact ? index + 1 : null}
+                {checked ? <CheckIcon /> : compact ? index + 1 : null}
               </span>
               <span className="sprout-choice-list-label">
                 {label}
@@ -144,7 +143,7 @@ export function ChoiceList({
           className="sprout-choice-list-text"
         >
           <span aria-hidden="true" className="sprout-choice-list-mark">
-            {textOption.active && <Check />}
+            {textOption.active && <CheckIcon />}
           </span>
           <div className="sprout-choice-list-text-body">
             <label htmlFor={textId} className="sprout-choice-list-text-label">
@@ -187,11 +186,11 @@ export interface ChoiceSummaryProps {
 export function ChoiceSummary({ prompt, answer, className, children }: ChoiceSummaryProps) {
   return (
     <div data-slot="choice-summary" className={cn('sprout-choice-summary', className)}>
-      <HelpCircle aria-hidden="true" className="sprout-choice-summary-icon" />
+      <HelpCircleIcon aria-hidden="true" className="sprout-choice-summary-icon" />
       <span className="sprout-choice-summary-prompt">{prompt}</span>
       {answer && (
         <span className="sprout-choice-summary-answer">
-          <Check aria-hidden="true" className="sprout-choice-summary-check" />
+          <CheckIcon aria-hidden="true" className="sprout-choice-summary-check" />
           <span className="sprout-choice-summary-answer-text">{answer}</span>
         </span>
       )}

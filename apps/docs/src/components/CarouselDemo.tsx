@@ -1,7 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { Plus } from 'reicon-react/icons/Plus';
+import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@tulipfarm/sprout/icons';
 import {
   Carousel,
   CarouselContent,
@@ -175,14 +173,14 @@ function AttachmentArrows() {
             className="carousel-demo-edge-arrow"
             onClick={scrollPrev}
           >
-            <ChevronLeft size={12} aria-hidden="true" />
+            <ChevronLeftIcon size="xs" aria-hidden="true" />
           </button>
         </span>
       )}
       {canScrollNext && (
         <span className="carousel-demo-edge" data-side="end">
           <button type="button" aria-label="Next attachments" className="carousel-demo-edge-arrow" onClick={scrollNext}>
-            <ChevronRight size={12} aria-hidden="true" />
+            <ChevronRightIcon size="xs" aria-hidden="true" />
           </button>
         </span>
       )}
@@ -239,7 +237,7 @@ function AttachmentRow() {
         )}
         <div className="carousel-demo-actions">
           <Button size="sm" variant="outline" onClick={add}>
-            <Plus data-icon="inline-start" aria-hidden="true" />
+            <AddIcon data-icon="inline-start" aria-hidden="true" />
             Add file
           </Button>
           <Button size="sm" variant="ghost" disabled={!files.length} onClick={() => setFiles([])}>

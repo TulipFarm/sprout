@@ -1,6 +1,5 @@
 import { useId, useRef, useState, type ReactNode } from 'react';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Trash2 } from 'reicon-react/icons/Trash2';
+import { DeleteIcon, FolderIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import {
   AlertDialog,
@@ -64,7 +63,7 @@ export function AlertDialogPlayground() {
             <AlertDialogHeader>
               {media && (
                 <AlertDialogMedia>
-                  <Folder aria-hidden="true" />
+                  <FolderIcon aria-hidden="true" />
                 </AlertDialogMedia>
               )}
               <AlertDialogTitle>Delete the sample folder?</AlertDialogTitle>
@@ -123,7 +122,7 @@ function SizeExample({ size, onDone }: { size: AlertDialogSize; onDone: (text: s
         <AlertDialogContent size={size}>
           <AlertDialogHeader>
             <AlertDialogMedia>
-              {size === 'sm' ? <Folder aria-hidden="true" /> : <Trash2 aria-hidden="true" />}
+              {size === 'sm' ? <FolderIcon aria-hidden="true" /> : <DeleteIcon aria-hidden="true" />}
             </AlertDialogMedia>
             <AlertDialogTitle>{copy.title}</AlertDialogTitle>
             <AlertDialogDescription>{copy.description}</AlertDialogDescription>

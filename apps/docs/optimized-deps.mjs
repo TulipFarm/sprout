@@ -47,9 +47,9 @@ function bareImports(packageDir, toId) {
   return found;
 }
 
-// Component work keeps importing new icons and Base UI parts. Pre-bundling their whole
+// Component work keeps importing new Base UI parts. Pre-bundling its whole
 // export map keeps the list stable, so an edit never forces a mid-session re-optimize.
-const wholeSurface = ['@base-ui/react', 'reicon-react'];
+const wholeSurface = ['@base-ui/react'];
 
 function exportedEntries(name) {
   const { exports } = JSON.parse(readFileSync(`${packageCopy(sproutDir, name)}/package.json`, 'utf8'));

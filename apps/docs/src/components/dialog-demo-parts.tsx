@@ -6,7 +6,7 @@ import {
   type ReactNode,
   type TextareaHTMLAttributes,
 } from 'react';
-import { Loader } from 'reicon-react/icons/Loader';
+import { LoaderIcon } from '@tulipfarm/sprout/icons';
 import '../styles/dialog-demo.css';
 
 export function Example({
@@ -127,7 +127,7 @@ export function Skeleton() {
 }
 
 export function Spinner() {
-  return <Loader size={16} aria-hidden="true" className="dialog-demo-spinner" />;
+  return <LoaderIcon size="md" aria-hidden="true" className="dialog-demo-spinner" />;
 }
 
 /** Cloud's inline action row for dialogs without a footer bar. */

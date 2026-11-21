@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { navigate } from 'astro:transitions/client';
 import { Popover } from '@base-ui/react/popover';
-import { Search } from 'reicon-react/icons/Search';
-import { DocumentText } from 'reicon-react/icons/DocumentText';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Check } from 'reicon-react/icons/Check';
-import { Moon } from 'reicon-react/icons/Moon';
-import { Sun } from 'reicon-react/icons/Sun';
-import { Shuffle } from 'reicon-react/icons/Shuffle';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  DocumentTextIcon,
+  MoonIcon,
+  SearchIcon,
+  ShuffleIcon,
+  SunIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   Command,
   CommandDialog,
@@ -62,7 +64,7 @@ function SearchPalette() {
         aria-label="Search components"
         onClick={() => setOpen(true)}
       >
-        <Search size={15} aria-hidden="true" />
+        <SearchIcon size="md" aria-hidden="true" />
         <span className="docs-search-label">Search components…</span>
         <kbd aria-hidden="true">⌘K</kbd>
       </button>
@@ -79,7 +81,7 @@ function SearchPalette() {
             <CommandGroup heading="Guides">
               {guides.map(page => (
                 <CommandItem key={page.href} onSelect={() => go(page.href)} keywords={[page.description]}>
-                  <DocumentText size={16} aria-hidden="true" />
+                  <DocumentTextIcon size="md" aria-hidden="true" />
                   {page.name}
                 </CommandItem>
               ))}
@@ -145,7 +147,7 @@ function ThemePicker() {
     >
       <Swatches slug={entry.slug} />
       <span className="docs-theme-name">{entry.name}</span>
-      {entry.slug === theme && <Check size={14} aria-hidden="true" />}
+      {entry.slug === theme && <CheckIcon size="sm" aria-hidden="true" />}
     </CommandItem>
   );
   return (
@@ -160,7 +162,7 @@ function ThemePicker() {
         <Swatches slug={current.slug} />
         <span className="docs-select-value">{current.name}</span>
         <span className="docs-select-chevron">
-          <ChevronDown size={14} aria-hidden="true" />
+          <ChevronDownIcon size="sm" aria-hidden="true" />
         </span>
       </Popover.Trigger>
       <Popover.Portal>
@@ -177,7 +179,7 @@ function ThemePicker() {
                   title="Random theme"
                   onClick={shuffle}
                 >
-                  <Shuffle size={16} aria-hidden="true" />
+                  <ShuffleIcon size="md" aria-hidden="true" />
                 </button>
               </div>
               <CommandList onPointerLeave={() => preview(theme)}>
@@ -218,7 +220,7 @@ function ModeToggle() {
       title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={toggle}
     >
-      {dark ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
+      {dark ? <SunIcon size="md" aria-hidden="true" /> : <MoonIcon size="md" aria-hidden="true" />}
     </button>
   );
 }

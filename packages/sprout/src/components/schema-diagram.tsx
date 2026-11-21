@@ -15,7 +15,7 @@ import {
   type NodeProps,
 } from '@xyflow/react';
 import { useId, useMemo, type HTMLAttributes } from 'react';
-import { Key } from 'reicon-react/icons/Key';
+import { KeyIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import {
   FitOnResize,
@@ -161,7 +161,7 @@ function TableCard({ data: { table, direction } }: NodeProps<TableNode>) {
             <li key={field.id} data-slot="schema-field" data-change={field.change} className="sprout-schema-field">
               <div className="sprout-schema-field-line">
                 <span className="sprout-schema-field-key">
-                  {field.unique && <Key size={11} aria-label="Unique" role="img" />}
+                  {field.unique && <KeyIcon size="xs" aria-label="Unique" role="img" />}
                 </span>
                 <span className="sprout-schema-field-name" title={field.label}>
                   {field.label}
@@ -369,7 +369,7 @@ export function SchemaLegend({ className, ...props }: SchemaLegendProps) {
         </li>
       ))}
       <li className="sprout-schema-legend-item">
-        <Key size={11} aria-hidden="true" />
+        <KeyIcon size="xs" aria-hidden="true" />
         Unique
       </li>
       <li className="sprout-schema-legend-item">* Required</li>

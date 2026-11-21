@@ -4,7 +4,7 @@ import { createContext, useContext, useLayoutEffect, useState, type Dispatch, ty
 import { Drawer as SheetPrimitive } from '@base-ui/react/drawer';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
-import { X } from 'reicon-react/icons/X';
+import { CloseIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 import { Button } from './button.js';
 
@@ -136,7 +136,7 @@ export function SheetContent({
               aria-label={closeLabel}
               render={<Button variant="ghost" size="icon-sm" />}
             >
-              <X size={16} aria-hidden="true" />
+              <CloseIcon size="md" aria-hidden="true" />
             </SheetPrimitive.Close>
           )}
         </SheetPrimitive.Popup>

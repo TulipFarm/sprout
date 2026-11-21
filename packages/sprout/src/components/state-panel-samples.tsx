@@ -1,18 +1,19 @@
 import type { ReactNode } from 'react';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { BranchDown } from 'reicon-react/icons/BranchDown';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Checklist } from 'reicon-react/icons/Checklist';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { Database } from 'reicon-react/icons/Database';
-import { Envelope } from 'reicon-react/icons/Envelope';
-import { Files } from 'reicon-react/icons/Files';
-import { Folder } from 'reicon-react/icons/Folder';
-import { People } from 'reicon-react/icons/People';
-import { Plug } from 'reicon-react/icons/Plug';
-import { ShieldUser } from 'reicon-react/icons/ShieldUser';
-import { User } from 'reicon-react/icons/User';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  BookOpenIcon,
+  BranchIcon,
+  ChatIcon,
+  CpuIcon,
+  DatabaseIcon,
+  FilesIcon,
+  FolderIcon,
+  MailIcon,
+  PlugIcon,
+  ShieldUserIcon,
+  TasksIcon,
+  UserIcon,
+  UsersIcon,
+} from './icons.js';
 import { FileTypeIcon } from './attachment.js';
 import { AgentAvatar } from './agent-avatar.js';
 import { Badge } from './badge.js';
@@ -47,9 +48,9 @@ const badge = (variant: 'success' | 'secondary' | 'warning' | 'info', text: Reac
 );
 
 export function ChatsSample(props: StatePanelSampleProps) {
-  const chat = <SampleIconTile icon={ChatRound} />;
+  const chat = <SampleIconTile icon={ChatIcon} />;
   return (
-    <SampleWindow {...props} icon={ChatRound} trail={['Chats']} tabs={['Active', 'Archived']}>
+    <SampleWindow {...props} icon={ChatIcon} trail={['Chats']} tabs={['Active', 'Archived']}>
       <SampleList
         items={[
           {
@@ -91,9 +92,9 @@ export function ChatsSample(props: StatePanelSampleProps) {
 const file = (name: string, mediaType: string) => <FileTypeIcon name={name} mediaType={mediaType} />;
 
 export function FilesSample(props: StatePanelSampleProps) {
-  const folder = <SampleIconTile icon={Folder} />;
+  const folder = <SampleIconTile icon={FolderIcon} />;
   return (
-    <SampleWindow {...props} icon={Files} trail={['Files', 'My files']}>
+    <SampleWindow {...props} icon={FilesIcon} trail={['Files', 'My files']}>
       <SampleList
         items={[
           {
@@ -137,7 +138,7 @@ export function FilesSample(props: StatePanelSampleProps) {
 
 export function AgentsSample(props: StatePanelSampleProps) {
   return (
-    <SampleWindow {...props} icon={Users} trail={['Agents']}>
+    <SampleWindow {...props} icon={UsersIcon} trail={['Agents']}>
       <SampleList
         items={[
           {
@@ -178,7 +179,7 @@ export function AgentsSample(props: StatePanelSampleProps) {
 
 export function ProjectsSample(props: StatePanelSampleProps) {
   return (
-    <SampleWindow {...props} icon={Folder} trail={['Projects']}>
+    <SampleWindow {...props} icon={FolderIcon} trail={['Projects']}>
       <p className="sprout-state-panel-samples-group">Active projects</p>
       <SampleList
         items={[
@@ -212,7 +213,7 @@ export function ProjectsSample(props: StatePanelSampleProps) {
 
 export function AgentTasksSample(props: StatePanelSampleProps) {
   return (
-    <SampleWindow {...props} icon={Checklist} trail={['My agent tasks']}>
+    <SampleWindow {...props} icon={TasksIcon} trail={['My agent tasks']}>
       <SampleList
         items={[
           {
@@ -246,9 +247,9 @@ export function AgentTasksSample(props: StatePanelSampleProps) {
 }
 
 export function SkillsSample(props: StatePanelSampleProps) {
-  const skill = <SampleIconTile icon={BookOpen} />;
+  const skill = <SampleIconTile icon={BookOpenIcon} />;
   return (
-    <SampleWindow {...props} icon={BookOpen} trail={['Skills']} tabs={['Workspace', 'Built-in']}>
+    <SampleWindow {...props} icon={BookOpenIcon} trail={['Skills']} tabs={['Workspace', 'Built-in']}>
       <SampleList
         items={[
           {
@@ -285,7 +286,7 @@ export function WorkflowsSample(props: StatePanelSampleProps) {
   const active = badge('success', 'Active');
   const draft = badge('secondary', 'Draft');
   return (
-    <SampleWindow {...props} icon={BranchDown} trail={['Workflows']}>
+    <SampleWindow {...props} icon={BranchIcon} trail={['Workflows']}>
       <SampleTable
         columns={[{ label: 'Workflow', size: 'lg' }, { label: 'Trigger' }, { label: 'Status', size: 'sm' }]}
         rows={[
@@ -310,7 +311,7 @@ export function TablesSample(props: StatePanelSampleProps) {
     ['teal', 'Support tickets', '10', '2,031'],
   ] as const;
   return (
-    <SampleWindow {...props} icon={Database} trail={['Tables']}>
+    <SampleWindow {...props} icon={DatabaseIcon} trail={['Tables']}>
       <SampleTable
         columns={[
           { label: 'Table', size: 'lg' },
@@ -352,7 +353,7 @@ export function RecordsSample({ table, fields, ...props }: RecordsSampleProps) {
       }))
     : [{ label: 'Row', size: 'lg' }];
   return (
-    <SampleWindow {...props} icon={Database} trail={['Tables', table]}>
+    <SampleWindow {...props} icon={DatabaseIcon} trail={['Tables', table]}>
       <SampleTable
         columns={columns}
         rows={recordRows.map(([tone, first, rest]) =>
@@ -374,7 +375,7 @@ export function RecordsSample({ table, fields, ...props }: RecordsSampleProps) {
 
 export function CreateInChatSample(props: StatePanelSampleProps) {
   return (
-    <SampleWindow {...props} icon={ChatRound} trail={['New chat']}>
+    <SampleWindow {...props} icon={ChatIcon} trail={['New chat']}>
       <div className="sprout-state-panel-samples-chat">
         <p className="sprout-state-panel-samples-bubble">
           Track our suppliers with a name, contact email, payment terms, and region.
@@ -401,7 +402,7 @@ export function CreateInChatSample(props: StatePanelSampleProps) {
 export function IntegrationsSample(props: StatePanelSampleProps) {
   const connected = badge('success', 'Connected');
   return (
-    <SampleWindow {...props} icon={Plug} trail={['Integrations']} tabs={['Connected', 'All']}>
+    <SampleWindow {...props} icon={PlugIcon} trail={['Integrations']} tabs={['Connected', 'All']}>
       <SampleList
         items={[
           {
@@ -442,7 +443,7 @@ export function IntegrationsSample(props: StatePanelSampleProps) {
 
 export function ModelsSample(props: StatePanelSampleProps) {
   return (
-    <SampleWindow {...props} icon={Cpu} trail={['Settings', 'Models']}>
+    <SampleWindow {...props} icon={CpuIcon} trail={['Settings', 'Models']}>
       <SampleList
         items={[
           {
@@ -479,7 +480,7 @@ export function MembersSample(props: StatePanelSampleProps) {
   const admin = badge('info', 'Admin');
   const member = badge('secondary', 'Member');
   return (
-    <SampleWindow {...props} icon={User} trail={['Settings', 'Members']}>
+    <SampleWindow {...props} icon={UserIcon} trail={['Settings', 'Members']}>
       <SampleTable
         columns={[{ label: 'Member', size: 'lg' }, { label: 'Role', size: 'sm' }, { label: 'Teams' }]}
         rows={[
@@ -496,7 +497,7 @@ export function MembersSample(props: StatePanelSampleProps) {
 
 export function TeamsSample(props: StatePanelSampleProps) {
   return (
-    <SampleWindow {...props} icon={People} trail={['Settings', 'Teams']}>
+    <SampleWindow {...props} icon={UsersIcon} trail={['Settings', 'Teams']}>
       <SampleList
         items={[
           {
@@ -528,7 +529,7 @@ export function TeamsSample(props: StatePanelSampleProps) {
 export function InvitationsSample(props: StatePanelSampleProps) {
   const link = (email: string) => <SampleText tone="link">{email}</SampleText>;
   return (
-    <SampleWindow {...props} icon={Envelope} trail={['Settings', 'Members', 'Invitations']}>
+    <SampleWindow {...props} icon={MailIcon} trail={['Settings', 'Members', 'Invitations']}>
       <SampleTable
         columns={[{ label: 'Email', size: 'lg' }, { label: 'Status', size: 'sm' }, { label: 'Email delivery' }]}
         rows={[
@@ -548,7 +549,7 @@ export function GrantsSample(props: StatePanelSampleProps) {
   return (
     <SampleWindow
       {...props}
-      icon={ShieldUser}
+      icon={ShieldUserIcon}
       trail={['Settings', 'Table access']}
       tabs={['Sales', 'Finance', 'Support']}
     >

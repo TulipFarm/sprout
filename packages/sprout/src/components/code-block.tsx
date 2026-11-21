@@ -1,8 +1,7 @@
 'use client';
 
 import { Fragment, useEffect, useMemo, useRef, useState, type HTMLAttributes } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { Copy } from 'reicon-react/icons/Copy';
+import { CheckIcon, CopyIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { codeLanguageIds, codeLanguageNames, type CodeLanguage } from '../internal/languages.js';
 import { tokenClass, useCodeTokens } from '../internal/code-tokens.js';
@@ -119,7 +118,7 @@ export function CodeBlock({
             className="sprout-code-block-copy"
           >
             <span className="sprout-code-block-icon" aria-hidden="true">
-              {copied ? <Check size={14} /> : <Copy size={14} />}
+              {copied ? <CheckIcon size="sm" /> : <CopyIcon size="sm" />}
             </span>
             {copied ? 'Copied' : 'Copy'}
           </Button>

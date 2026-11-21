@@ -1,7 +1,6 @@
 ---
 import { Code } from 'astro:components';
-import { Copy } from 'reicon-react/icons/Copy';
-import { Check } from 'reicon-react/icons/Check';
+import { CheckIcon, CopyIcon } from '@tulipfarm/sprout/icons';
 
 interface Props {
   code: string;
@@ -22,10 +21,10 @@ const label = title ?? language;
     </span>
     <button type="button" class="code-copy" aria-label={`Copy ${label} code`} hidden>
       <span class="copy-icon">
-        <Copy size={15} aria-hidden="true" />
+        <CopyIcon size="md" aria-hidden="true" />
       </span>
       <span class="copied-icon">
-        <Check size={15} aria-hidden="true" />
+        <CheckIcon size="md" aria-hidden="true" />
       </span>
       <span data-copy-label>Copy</span>
     </button>

@@ -1,5 +1,5 @@
 import { Fragment, useState, type ComponentProps, type CSSProperties, type ReactNode } from 'react';
-import { LinkOff } from 'reicon-react/icons/LinkOff';
+import { LinkOffIcon } from './icons.js';
 import { chatReferenceChars } from '../internal/chat-reference.js';
 import { cn } from '../internal/classes.js';
 import { KeywordHintBody } from '../internal/keyword-hint.js';
@@ -121,7 +121,7 @@ function Keyword({ keyword, children }: { keyword: RichTextKeyword; children: Re
           aria-hidden="true"
         >
           <span className="sprout-rich-text-keyword-glyph">
-            <LinkOff />
+            <LinkOffIcon />
           </span>
         </span>
       )}

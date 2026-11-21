@@ -1,6 +1,5 @@
 import { Fragment, useState, type MouseEvent, type ReactNode } from 'react';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Home } from 'reicon-react/icons/Home';
+import { FolderIcon, HomeIcon } from '@tulipfarm/sprout/icons';
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -291,7 +290,7 @@ function DestinationPicker() {
           {list.map(folder => (
             <li key={folder.id}>
               <Button variant="ghost" size="md" disabled={moving} onClick={() => setPath([...path, folder])}>
-                <Folder size={16} aria-hidden="true" />
+                <FolderIcon size="md" aria-hidden="true" />
                 <span className="breadcrumb-demo-folder-name" title={folder.name}>
                   {folder.name}
                 </span>
@@ -352,7 +351,7 @@ export default function BreadcrumbDemo() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="#home" onClick={stay}>
-                <Home aria-hidden="true" />
+                <HomeIcon aria-hidden="true" />
                 Home
               </BreadcrumbLink>
             </BreadcrumbItem>

@@ -1,21 +1,22 @@
 import { useState, type ComponentType, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { BranchDown } from 'reicon-react/icons/BranchDown';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Checklist } from 'reicon-react/icons/Checklist';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { Database } from 'reicon-react/icons/Database';
-import { Envelope } from 'reicon-react/icons/Envelope';
-import { Files } from 'reicon-react/icons/Files';
-import { Folder } from 'reicon-react/icons/Folder';
-import { FolderAdd } from 'reicon-react/icons/FolderAdd';
-import { People } from 'reicon-react/icons/People';
-import { Plug } from 'reicon-react/icons/Plug';
-import { ShieldUser } from 'reicon-react/icons/ShieldUser';
-import { Upload } from 'reicon-react/icons/Upload';
-import { User } from 'reicon-react/icons/User';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  AddIcon,
+  BookOpenIcon,
+  BranchIcon,
+  ChatIcon,
+  CpuIcon,
+  DatabaseIcon,
+  FilesIcon,
+  FolderAddIcon,
+  FolderIcon,
+  MailIcon,
+  PlugIcon,
+  ShieldUserIcon,
+  TasksIcon,
+  UploadIcon,
+  UserIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   AgentTasksSample,
@@ -48,7 +49,7 @@ const suppliers = {
   fields: ['Name', 'Contact email', 'Payment terms', 'Region'],
 };
 
-const add = <Add size={16} aria-hidden="true" />;
+const add = <AddIcon size="md" aria-hidden="true" />;
 
 interface Variant {
   label: string;
@@ -77,7 +78,7 @@ const scenes = {
     variants: [
       {
         label: 'Personal chats',
-        icon: ChatRound,
+        icon: ChatIcon,
         title: 'No chats yet',
         description:
           'Ask about your customers, orders, or invoices in plain language. Every private conversation is saved here so you can pick it up later.',
@@ -94,7 +95,7 @@ const scenes = {
     variants: [
       {
         label: 'My files',
-        icon: Files,
+        icon: FilesIcon,
         title: 'No files yet',
         description:
           'Upload the documents your work depends on, like price lists, contracts, and policies. Files stay private until you share them.',
@@ -102,11 +103,11 @@ const scenes = {
         actions: (
           <>
             <Button>
-              <Upload size={16} aria-hidden="true" />
+              <UploadIcon size="md" aria-hidden="true" />
               Upload
             </Button>
             <Button variant="outline">
-              <FolderAdd size={16} aria-hidden="true" />
+              <FolderAddIcon size="md" aria-hidden="true" />
               New folder
             </Button>
           </>
@@ -122,7 +123,7 @@ const scenes = {
     variants: [
       {
         label: 'No agents',
-        icon: Users,
+        icon: UsersIcon,
         title: 'No agents yet',
         description:
           "Describe the agent's job in chat, or configure it manually above. Review its tools and access before activation.",
@@ -139,7 +140,7 @@ const scenes = {
     variants: [
       {
         label: 'No projects',
-        icon: Folder,
+        icon: FolderIcon,
         title: 'No projects yet',
         description:
           'Create a project for work that several people share, like a product launch. Add the people, files, and instructions every chat in it should use.',
@@ -156,7 +157,7 @@ const scenes = {
     variants: [
       {
         label: 'No tasks',
-        icon: Checklist,
+        icon: TasksIcon,
         title: 'No agent tasks yet',
         description:
           'Hand a piece of work to an activated agent and follow it here. You review every proposed row change before it runs.',
@@ -174,7 +175,7 @@ const scenes = {
       {
         label: 'Workspace skills',
         heading: 'h3',
-        icon: BookOpen,
+        icon: BookOpenIcon,
         title: 'No workspace skills yet',
         description:
           'Import a skill, or ask chat to make one for a task you repeat. Review it once to save and enable it privately.',
@@ -191,7 +192,7 @@ const scenes = {
     variants: [
       {
         label: 'Current',
-        icon: BranchDown,
+        icon: BranchIcon,
         title: 'No workflows yet',
         description: 'Describe the work in chat, review its diagram, then save and activate it.',
         sample: <WorkflowsSample />,
@@ -199,7 +200,7 @@ const scenes = {
       },
       {
         label: 'Archived',
-        icon: BranchDown,
+        icon: BranchIcon,
         title: 'No archived workflows',
         description: 'Archived workflows keep their run history here.',
         actions: <Button variant="outline">Show current workflows</Button>,
@@ -214,7 +215,7 @@ const scenes = {
     variants: [
       {
         label: 'No tables',
-        icon: Database,
+        icon: DatabaseIcon,
         title: 'No tables yet',
         description:
           'A table holds one kind of business row, such as customers or invoices. Describe the fields in chat, and the table appears here after it is created. Ask an administrator if you need read access.',
@@ -232,7 +233,7 @@ const scenes = {
       {
         label: 'Can add rows',
         heading: 'h3',
-        icon: Database,
+        icon: DatabaseIcon,
         title: 'No rows yet',
         description: `${suppliers.label} is ready for its first row. Add one here, or ask the assistant to add rows or import a file.`,
         sample: <RecordsSample table={suppliers.label} fields={suppliers.fields} />,
@@ -246,7 +247,7 @@ const scenes = {
       {
         label: 'Chat only',
         heading: 'h3',
-        icon: Database,
+        icon: DatabaseIcon,
         title: 'No rows yet',
         description: `${suppliers.label} is ready for its first row. Ask the assistant to add rows or import a file. You review the exact changes before approval.`,
         sample: <RecordsSample table={suppliers.label} fields={suppliers.fields} />,
@@ -262,28 +263,28 @@ const scenes = {
     variants: [
       {
         label: 'Create table',
-        icon: ChatRound,
+        icon: ChatIcon,
         title: 'Build tables in chat',
         description:
           'Describe the fields and changes you need to the built-in assistant. Review the exact schema and row effects in your chat before approving execution.',
         sample: <CreateInChatSample />,
         actions: (
           <Button>
-            <ChatRound size={16} aria-hidden="true" />
+            <ChatIcon size="md" aria-hidden="true" />
             Create table in chat
           </Button>
         ),
       },
       {
         label: 'Change fields',
-        icon: ChatRound,
+        icon: ChatIcon,
         title: 'Build tables in chat',
         description:
           'Describe the fields and changes you need to the built-in assistant. Review the exact schema and row effects in your chat before approving execution.',
         sample: <CreateInChatSample />,
         actions: (
           <Button>
-            <ChatRound size={16} aria-hidden="true" />
+            <ChatIcon size="md" aria-hidden="true" />
             Change fields in chat
           </Button>
         ),
@@ -299,7 +300,7 @@ const scenes = {
       {
         label: 'Nothing connected',
         heading: 'h3',
-        icon: Plug,
+        icon: PlugIcon,
         title: 'Nothing connected yet',
         description:
           'Connect the apps your team already uses, like Slack, Gmail, or GitHub. Agents can then read and act there, always within the access you approve.',
@@ -316,7 +317,7 @@ const scenes = {
     variants: [
       {
         label: 'No models',
-        icon: Cpu,
+        icon: CpuIcon,
         title: 'No models configured yet',
         description:
           'Once your operator configures model providers, each model family appears here. Admins then choose which teams can use it and pick a fallback if it becomes unavailable.',
@@ -332,7 +333,7 @@ const scenes = {
     variants: [
       {
         label: 'No members',
-        icon: User,
+        icon: UserIcon,
         title: 'No members yet',
         description:
           'Invite the people you work with. Each member gets a role, joins teams, and sees only what those teams can access.',
@@ -348,7 +349,7 @@ const scenes = {
     variants: [
       {
         label: 'No teams',
-        icon: People,
+        icon: UsersIcon,
         title: 'No teams yet',
         description:
           'Create a team to collaborate and share access. A team manager can also add you to an existing team.',
@@ -366,7 +367,7 @@ const scenes = {
       {
         label: 'Admin',
         heading: 'h3',
-        icon: Envelope,
+        icon: MailIcon,
         title: 'No invitations yet',
         description:
           'Send each teammate a personal link to join this workspace. You can track whether the email arrived, resend it, or revoke it here.',
@@ -376,7 +377,7 @@ const scenes = {
       {
         label: 'Read only',
         heading: 'h3',
-        icon: Envelope,
+        icon: MailIcon,
         title: 'No invitations yet',
         description:
           'Send each teammate a personal link to join this workspace. You can track whether the email arrived, resend it, or revoke it here.',
@@ -393,14 +394,14 @@ const scenes = {
       {
         label: 'No teams',
         heading: 'h3',
-        icon: ShieldUser,
+        icon: ShieldUserIcon,
         title: 'No team grants yet',
         description:
           'Team grants give everyone in a team the same table access. Create a team to grant access to several people at once, or give one person access in Individual table grants below.',
         sample: <GrantsSample />,
         actions: (
           <Button>
-            <People size={16} aria-hidden="true" />
+            <UsersIcon size="md" aria-hidden="true" />
             Go to Teams
           </Button>
         ),

@@ -1,21 +1,22 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { Book } from 'reicon-react/icons/Book';
-import { Briefcase } from 'reicon-react/icons/Briefcase';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Download } from 'reicon-react/icons/Download';
-import { Eye } from 'reicon-react/icons/Eye';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Filter } from 'reicon-react/icons/Filter';
-import { Folder } from 'reicon-react/icons/Folder';
-import { FolderMove } from 'reicon-react/icons/FolderMove';
-import { Grid } from 'reicon-react/icons/Grid';
-import { Kanban } from 'reicon-react/icons/Kanban';
-import { List } from 'reicon-react/icons/List';
-import { Search } from 'reicon-react/icons/Search';
-import { SliderHorizontal } from 'reicon-react/icons/SliderHorizontal';
-import { Trash } from 'reicon-react/icons/Trash';
-import { Trash2 } from 'reicon-react/icons/Trash2';
+import {
+  AddIcon,
+  BookIcon,
+  BriefcaseIcon,
+  ChatIcon,
+  DeleteIcon,
+  DocumentTextIcon,
+  DownloadIcon,
+  EyeIcon,
+  FilterIcon,
+  FolderIcon,
+  FolderMoveIcon,
+  GridIcon,
+  KanbanIcon,
+  ListIcon,
+  SearchIcon,
+  SlidersIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Checkbox } from '@tulipfarm/sprout/checkbox';
 import {
@@ -118,9 +119,9 @@ function SwapExample() {
 /* ------------------------------------------------------------------ */
 
 const layouts = [
-  { value: 'table', label: 'Table', icon: Grid },
-  { value: 'board', label: 'Board', icon: Kanban },
-  { value: 'list', label: 'List', icon: List },
+  { value: 'table', label: 'Table', icon: GridIcon },
+  { value: 'board', label: 'Board', icon: KanbanIcon },
+  { value: 'list', label: 'List', icon: ListIcon },
 ] as const;
 type Layout = (typeof layouts)[number]['value'];
 
@@ -218,13 +219,13 @@ function BulkRecordActions({
       <div className="selection-slot-demo-wide" data-at="sm">
         {outcome ?? (
           <Button variant="outline" size="sm" disabled={disabled} aria-busy={loading} onClick={run}>
-            <Download size={16} aria-hidden="true" />
+            <DownloadIcon size="md" aria-hidden="true" />
             {loading ? 'Exporting...' : 'Export selected'}
           </Button>
         )}
         {canDelete && (
           <Button variant="destructive" size="sm" disabled={disabled} onClick={remove}>
-            <Trash2 size={16} aria-hidden="true" />
+            <DeleteIcon size="md" aria-hidden="true" />
             Delete selected
           </Button>
         )}
@@ -333,12 +334,12 @@ function QueryBarExample() {
           <SelectionSlot active={!!selection} selection={selection}>
             <fieldset disabled={disabled} aria-label="Table tools" className="selection-slot-demo-tools">
               <Button variant="outline" size="sm">
-                <Search size={14} aria-hidden="true" />
+                <SearchIcon size="sm" aria-hidden="true" />
                 Search
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger render={<Button variant="outline" size="sm" />}>
-                  <Eye size={14} aria-hidden="true" />
+                  <EyeIcon size="sm" aria-hidden="true" />
                   Columns
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -364,16 +365,16 @@ function QueryBarExample() {
               </DropdownMenu>
               {layout === 'table' && (
                 <Button variant="outline" size="sm">
-                  <SliderHorizontal size={14} aria-hidden="true" />
+                  <SlidersIcon size="sm" aria-hidden="true" />
                   Summary
                 </Button>
               )}
               <Button variant="outline" size="sm">
-                <Download size={14} aria-hidden="true" />
+                <DownloadIcon size="sm" aria-hidden="true" />
                 Export
               </Button>
               <Button size="sm">
-                <Add size={14} aria-hidden="true" />
+                <AddIcon size="sm" aria-hidden="true" />
                 Add row
               </Button>
             </fieldset>
@@ -605,7 +606,7 @@ function FilterBar({
               />
             }
           >
-            <Filter size={14} aria-hidden="true" />
+            <FilterIcon size="sm" aria-hidden="true" />
             {!compact && (count ? `Filters (${count})` : 'Filter and sort')}
           </SheetTrigger>
           <SheetContent side="bottom">
@@ -690,21 +691,21 @@ function FilesExample() {
               {hasFile && (
                 <>
                   <Button variant="outline" size="sm" disabled={busy} onClick={() => open('Use in chat')}>
-                    <ChatRound size={14} aria-hidden="true" />
+                    <ChatIcon size="sm" aria-hidden="true" />
                     Use in chat
                   </Button>
                   <Button variant="outline" size="sm" disabled={busy} onClick={() => open('Add to Knowledge')}>
-                    <Book size={14} aria-hidden="true" />
+                    <BookIcon size="sm" aria-hidden="true" />
                     Add to Knowledge
                   </Button>
                   <Button variant="outline" size="sm" disabled={busy} onClick={() => open('Add to project')}>
-                    <Briefcase size={14} aria-hidden="true" />
+                    <BriefcaseIcon size="sm" aria-hidden="true" />
                     Add to project
                   </Button>
                 </>
               )}
               <Button variant="outline" size="sm" disabled={busy} onClick={() => open('Move')}>
-                <FolderMove size={14} aria-hidden="true" />
+                <FolderMoveIcon size="sm" aria-hidden="true" />
                 Move
               </Button>
               <Button
@@ -714,7 +715,7 @@ function FilesExample() {
                 aria-busy={pending === 'selection'}
                 onClick={trashSelected}
               >
-                <Trash size={14} aria-hidden="true" />
+                <DeleteIcon size="sm" aria-hidden="true" />
                 {pending === 'selection' ? 'Moving to Trash…' : 'Move to trash'}
               </Button>
             </div>
@@ -776,7 +777,7 @@ function FilesExample() {
       {list.length ? (
         <ul className="selection-slot-demo-files" aria-label="Items">
           {list.map(item => {
-            const Icon = item.kind === 'folder' ? Folder : FileText;
+            const Icon = item.kind === 'folder' ? FolderIcon : DocumentTextIcon;
             return (
               <li key={item.id} data-selected={selected.includes(item.id) || undefined}>
                 <Checkbox

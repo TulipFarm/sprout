@@ -2,14 +2,16 @@
 
 import { Collapsible } from '@base-ui/react/collapsible';
 import { createContext, useContext, useId, type ComponentProps, type ReactNode } from 'react';
-import { Ban } from 'reicon-react/icons/Ban';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { Clock } from 'reicon-react/icons/Clock';
-import { HelpCircle } from 'reicon-react/icons/HelpCircle';
-import { Lock } from 'reicon-react/icons/Lock';
-import { User } from 'reicon-react/icons/User';
-import { Warning } from 'reicon-react/icons/Warning';
+import {
+  BanIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  ClockIcon,
+  HelpCircleIcon,
+  LockIcon,
+  UserIcon,
+  WarningIcon,
+} from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Badge, type BadgeVariant } from './badge.js';
 import { Spinner } from './spinner.js';
@@ -84,12 +86,12 @@ export interface PlanOutlineProps extends Omit<ComponentProps<'section'>, 'title
 }
 
 const markIcons: Record<Exclude<PlanOutlineMark, 'running'>, ReactNode> = {
-  pending: <Clock size={14} />,
-  attention: <HelpCircle size={14} />,
-  blocked: <Lock size={14} />,
-  done: <Check size={14} />,
-  failed: <Warning size={14} />,
-  cancelled: <Ban size={14} />,
+  pending: <ClockIcon size="sm" />,
+  attention: <HelpCircleIcon size="sm" />,
+  blocked: <LockIcon size="sm" />,
+  done: <CheckIcon size="sm" />,
+  failed: <WarningIcon size="sm" />,
+  cancelled: <BanIcon size="sm" />,
 };
 
 const toneBadges: Record<PlanOutlineTone, BadgeVariant> = {
@@ -210,13 +212,13 @@ function TaskRow({ task, level }: { task: PlanOutlineTask; level: number }) {
         <span className="sprout-plan-outline-task-title">{task.title}</span>
         {task.assignee && (
           <span className="sprout-plan-outline-assignee">
-            <User size={12} aria-hidden="true" />
+            <UserIcon size="xs" aria-hidden="true" />
             <span>{task.assignee}</span>
           </span>
         )}
       </span>
       <span className="sprout-plan-outline-label">{task.label}</span>
-      {hasDetail && <ChevronRight size={14} aria-hidden="true" className="sprout-plan-outline-chevron" />}
+      {hasDetail && <ChevronRightIcon size="sm" aria-hidden="true" className="sprout-plan-outline-chevron" />}
     </>
   );
   const rowProps = {

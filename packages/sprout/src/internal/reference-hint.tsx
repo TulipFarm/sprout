@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { FileText } from 'reicon-react/icons/FileText';
-import { User } from 'reicon-react/icons/User';
+import { BookOpenIcon, DocumentTextIcon, UserIcon } from '../components/icons.js';
 import { FilePreview, isPreviewableFile, type ViewableFile } from '../components/file-viewer.js';
 import { HoverCardContent, type HoverCardContentProps } from '../components/hover-card.js';
 import type { ChatReferenceKind } from './chat-reference.js';
@@ -20,11 +18,11 @@ export interface ChatReferenceResolved {
   file?: ViewableFile | undefined;
 }
 
-const fallbackIcons = { agent: User, skill: BookOpen } as const;
+const fallbackIcons = { agent: UserIcon, skill: BookOpenIcon } as const;
 
 /** What an `@` or `/` chip says on hover, in the composer and in sent messages alike. */
 export function ReferenceHintBody({ reference, media }: { reference: ChatReferenceDetail; media?: ReactNode }) {
-  const Fallback = reference.kind === 'file' ? FileText : fallbackIcons[reference.kind];
+  const Fallback = reference.kind === 'file' ? DocumentTextIcon : fallbackIcons[reference.kind];
   return (
     <>
       <span className="sprout-rich-text-keyword-hint-icon" aria-hidden="true">

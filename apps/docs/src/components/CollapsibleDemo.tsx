@@ -1,14 +1,16 @@
 import { useEffect, useId, useState, type ReactNode } from 'react';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { ChevronUp } from 'reicon-react/icons/ChevronUp';
-import { Code } from 'reicon-react/icons/Code';
-import { Command } from 'reicon-react/icons/Command';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Inbox } from 'reicon-react/icons/Inbox';
-import { Refresh } from 'reicon-react/icons/Refresh';
-import { ShieldCheck } from 'reicon-react/icons/ShieldCheck';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  CodeIcon,
+  CommandIcon,
+  DocumentTextIcon,
+  InboxIcon,
+  RefreshIcon,
+  ShieldCheckIcon,
+  SparkleIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   Collapsible,
   CollapsibleContent,
@@ -78,7 +80,7 @@ export function CollapsibleHero() {
             onOpenChange={next => setOpen(current => ({ ...current, [example]: next }))}
           >
             <CollapsibleTrigger render={<Button variant="outline" />}>
-              {open[example] ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+              {open[example] ? <ChevronUpIcon aria-hidden="true" /> : <ChevronDownIcon aria-hidden="true" />}
               {open[example] ? 'Hide project details' : 'Show project details'}
             </CollapsibleTrigger>
             <CollapsibleContent>
@@ -109,7 +111,7 @@ function CheckStatus() {
       disabled={busy}
       onClick={() => setBusy(true)}
     >
-      <Refresh size={14} aria-hidden="true" />
+      <RefreshIcon size="sm" aria-hidden="true" />
       {busy ? 'Checking…' : 'Check status'}
     </Button>
   );
@@ -150,7 +152,7 @@ export function CollapsibleTriggers() {
         <Collapsible defaultOpen>
           <CollapsibleTrigger render={<Button variant="ghost" />}>
             Knowledge
-            <ChevronDown aria-hidden="true" data-slot="collapsible-indicator" />
+            <ChevronDownIcon aria-hidden="true" data-slot="collapsible-indicator" />
           </CollapsibleTrigger>
           <CollapsibleContent keepMounted>
             <p className="collapsible-demo-text collapsible-demo-gap-lg">
@@ -299,7 +301,7 @@ function ToolPickerRow({ app, label, defaultOpen = false }: { app: Brand; label:
                   ? `${selected.length} of ${total} selected${changing ? `, ${changing} change data` : ''}`
                   : `${total} available`}
               </span>
-              <ChevronDown aria-hidden="true" data-slot="collapsible-indicator" />
+              <ChevronDownIcon aria-hidden="true" data-slot="collapsible-indicator" />
             </span>
           </CollapsibleTrigger>
         </h4>
@@ -347,7 +349,7 @@ export function CollapsibleMotion() {
               <Collapsible defaultOpen>
                 <CollapsibleTrigger className="collapsible-demo-inline-trigger">
                   {content.trigger}
-                  <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+                  <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
                 </CollapsibleTrigger>
                 <CollapsibleContent variant={variant}>
                   <ul className="collapsible-demo-motion-list">
@@ -377,9 +379,9 @@ function Reasoning({ state, defaultOpen = false }: { state: ReasoningState; defa
   return (
     <Collapsible defaultOpen={defaultOpen}>
       <CollapsibleTrigger className="collapsible-demo-inline-trigger">
-        <Sparkle size={16} aria-hidden="true" />
+        <SparkleIcon size="md" aria-hidden="true" />
         <span className={state.kind === 'thinking' ? 'collapsible-demo-thinking' : undefined}>{label}</span>
-        <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+        <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
       </CollapsibleTrigger>
       <CollapsibleContent>
         <div className="collapsible-demo-reasoning">
@@ -418,11 +420,11 @@ function Sources({ count }: { count: number }) {
   return (
     <Collapsible>
       <CollapsibleTrigger className="collapsible-demo-inline-trigger">
-        <FileText size={16} aria-hidden="true" />
+        <DocumentTextIcon size="md" aria-hidden="true" />
         <span>
           {list.length} {list.length === 1 ? 'source' : 'sources'}
         </span>
-        <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+        <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
       </CollapsibleTrigger>
       <CollapsibleContent>
         <ol className="collapsible-demo-sources">
@@ -469,14 +471,14 @@ function ActivityPanel({ working }: { working: boolean }) {
         {working && <Spinner />}
         <span role="status">{working ? 'Working…' : 'Worked'}</span>
         {working && <span className="collapsible-demo-truncate">{label}</span>}
-        <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+        <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
       </CollapsibleTrigger>
       <CollapsibleContent keepMounted className="collapsible-demo-activity-content">
         <div role="region" aria-label="Activity timeline" tabIndex={0} className="collapsible-demo-activity-viewport">
           <ol>
             {activity.slice(0, working ? 3 : 5).map((item, index, list) => (
               <li key={item}>
-                {working && index === list.length - 1 ? <Spinner /> : <Command size={14} aria-hidden="true" />}
+                {working && index === list.length - 1 ? <Spinner /> : <CommandIcon size="sm" aria-hidden="true" />}
                 {item}
               </li>
             ))}
@@ -509,10 +511,10 @@ function ToolCall({ kind, defaultOpen = false }: { kind: ToolKind; defaultOpen?:
     <div className="collapsible-demo-tool-call" data-kind={kind}>
       <Collapsible defaultOpen={defaultOpen}>
         <CollapsibleTrigger className="collapsible-demo-tool-call-trigger">
-          {kind === 'running' ? <Spinner /> : <Code size={16} aria-hidden="true" />}
+          {kind === 'running' ? <Spinner /> : <CodeIcon size="md" aria-hidden="true" />}
           <span className="collapsible-demo-tool-call-name">invoices.query</span>
           <Badge variant={toolBadges[kind]}>{toolLabels[kind]}</Badge>
-          <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+          <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
           <span className="collapsible-demo-tool-call-summary">Find invoices past their due date</span>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -635,7 +637,7 @@ export function CollapsibleReviewCard() {
         <Collapsible open={open} onOpenChange={setOpen}>
           <div className="collapsible-demo-review-header">
             <span aria-hidden="true" className="collapsible-demo-review-icon">
-              <ShieldCheck size={16} />
+              <ShieldCheckIcon size="md" />
             </span>
             <h4 id={titleId}>
               <CollapsibleTrigger className="collapsible-demo-review-trigger">
@@ -643,7 +645,7 @@ export function CollapsibleReviewCard() {
               </CollapsibleTrigger>
             </h4>
             <Badge variant={settled ? 'success' : 'warning'}>{settled ? 'Approved' : 'Needs review'}</Badge>
-            <ChevronDown size={16} aria-hidden="true" data-slot="collapsible-indicator" />
+            <ChevronDownIcon size="md" aria-hidden="true" data-slot="collapsible-indicator" />
           </div>
           <CollapsibleContent variant="card">
             <div className="collapsible-demo-review-body">
@@ -696,7 +698,7 @@ function RecentItem({ state, retry }: { state: RecentState; retry: () => void })
       <Collapsible open={visible} onOpenChange={setOpen}>
         <div className="collapsible-demo-recent-heading">
           <SidebarMenuButton
-            icon={<Inbox aria-hidden="true" />}
+            icon={<InboxIcon aria-hidden="true" />}
             tooltip={label}
             isActive={active === label}
             aria-current={active === label ? 'page' : undefined}
@@ -711,7 +713,7 @@ function RecentItem({ state, retry }: { state: RecentState; retry: () => void })
             {label}
           </SidebarMenuButton>
           <CollapsibleTrigger aria-label={`${visible ? 'Collapse' : 'Expand'} ${label}`} render={<SidebarMenuAction />}>
-            <ChevronRight size={16} aria-hidden="true" data-slot="collapsible-indicator" data-direction="right" />
+            <ChevronRightIcon size="md" aria-hidden="true" data-slot="collapsible-indicator" data-direction="right" />
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent variant="sidebar">
@@ -833,7 +835,7 @@ function LazyKnowledge() {
         <div className="collapsible-demo-pull">
           <CollapsibleTrigger render={<Button variant="ghost" />}>
             Knowledge
-            <ChevronDown aria-hidden="true" data-slot="collapsible-indicator" />
+            <ChevronDownIcon aria-hidden="true" data-slot="collapsible-indicator" />
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent keepMounted>
@@ -859,7 +861,7 @@ export function CollapsibleStates() {
         <div className="collapsible-demo-stack">
           <Collapsible disabled>
             <CollapsibleTrigger aria-describedby="collapsible-disabled-reason" render={<Button variant="outline" />}>
-              <ChevronDown aria-hidden="true" />
+              <ChevronDownIcon aria-hidden="true" />
               Show unavailable details
             </CollapsibleTrigger>
             <CollapsibleContent>Unavailable</CollapsibleContent>
@@ -889,7 +891,7 @@ export function CollapsibleStates() {
             </CollapsibleContent>
             <div className="collapsible-demo-px">
               <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
-                {moreOpen ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+                {moreOpen ? <ChevronUpIcon aria-hidden="true" /> : <ChevronDownIcon aria-hidden="true" />}
                 {moreOpen ? 'Fewer tasks' : `More tasks (${moreTasks.length})`}
               </CollapsibleTrigger>
             </div>
@@ -935,7 +937,7 @@ export function CollapsibleStates() {
             <ol aria-label="Tool activity" className="collapsible-demo-steps">
               {activity.slice(0, 3).map(item => (
                 <li key={item}>
-                  <Command size={14} aria-hidden="true" />
+                  <CommandIcon size="sm" aria-hidden="true" />
                   {item}
                 </li>
               ))}

@@ -34,7 +34,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
   CanvasToggle,
   ChatSplit,
 } from "@tulipfarm/sprout/canvas";
-import { Database } from "reicon-react/icons/Database";
+import { DatabaseIcon } from "@tulipfarm/sprout/icons";
 
 <header>
   <h1>Launch week planning</h1>
@@ -50,7 +50,7 @@ import { Database } from "reicon-react/icons/Database";
       tabs={items.map((item) => ({
         id: item.id,
         title: item.title,
-        icon: Database,
+        icon: DatabaseIcon,
         busy: item.loading,
       }))}
       activeId={activeId}

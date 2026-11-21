@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ArrowUpIcon, ChevronDownIcon } from '@tulipfarm/sprout/icons';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@tulipfarm/sprout/command';
@@ -107,7 +106,7 @@ function ModelPicker() {
         >
           <BrandIcon brand={model.brand} size="inline" />
           <span className="reasoning-effort-demo-truncate">{model.label}</span>
-          <ChevronDown size={12} aria-hidden="true" />
+          <ChevronDownIcon size="xs" aria-hidden="true" />
         </TooltipTrigger>
         <TooltipContent>AI model that writes replies</TooltipContent>
       </Tooltip>
@@ -172,7 +171,7 @@ export function ReasoningEffortComposer() {
           <span className="reasoning-effort-demo-spacer" />
           <ModelPicker />
           <Button size="icon-sm" aria-label="Send message" disabled>
-            <ArrowUp size={16} aria-hidden="true" />
+            <ArrowUpIcon size="md" aria-hidden="true" />
           </Button>
         </div>
       </div>

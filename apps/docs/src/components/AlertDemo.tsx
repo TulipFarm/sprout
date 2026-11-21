@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { AlertTriangle } from 'reicon-react/icons/AlertTriangle';
-import { InfoCircle } from 'reicon-react/icons/InfoCircle';
+import { InfoIcon, WarningIcon } from '@tulipfarm/sprout/icons';
 import {
   Alert,
   AlertAction,
@@ -102,7 +101,7 @@ export function AlertVariants() {
       </Pair>
       <Pair label="Icon">
         {alertVariantNames.map(variant => {
-          const Icon = variant === 'default' ? InfoCircle : AlertTriangle;
+          const Icon = variant === 'default' ? InfoIcon : WarningIcon;
           return (
             <Alert key={variant} variant={variant}>
               <Icon aria-hidden="true" />
@@ -115,14 +114,14 @@ export function AlertVariants() {
       <Pair label="Icon only">
         {alertVariantNames.map(variant => (
           <Alert key={variant} variant={variant} role={variant === 'default' ? 'note' : 'status'}>
-            <AlertTriangle aria-hidden="true" />
+            <WarningIcon aria-hidden="true" />
             <AlertDescription>{variantContent[variant].iconOnly}</AlertDescription>
           </Alert>
         ))}
       </Pair>
       <Pair label="Action">
         {alertVariantNames.map(variant => {
-          const Icon = variant === 'default' ? InfoCircle : AlertTriangle;
+          const Icon = variant === 'default' ? InfoIcon : WarningIcon;
           const [title, body, label] = variantContent[variant].action;
           return (
             <Alert key={variant} variant={variant}>
@@ -488,7 +487,7 @@ export function AlertStates() {
         ) : (
           uploads.map(upload => (
             <Alert key={upload.id} variant="destructive">
-              <AlertTriangle aria-hidden="true" />
+              <WarningIcon aria-hidden="true" />
               <AlertTitle className="wrap-anywhere">{upload.name}</AlertTitle>
               <AlertDescription>{upload.message}</AlertDescription>
               <AlertAction>

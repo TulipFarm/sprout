@@ -2,20 +2,22 @@ import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type Reac
 import { Extension, Node, mergeAttributes, type Editor, type Extensions, type Range } from '@tiptap/core';
 import { PluginKey } from '@tiptap/pm/state';
 import Suggestion, { type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { Bold } from 'reicon-react/icons/Bold';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Italic } from 'reicon-react/icons/Italic';
-import { Lightbulb } from 'reicon-react/icons/Lightbulb';
-import { List } from 'reicon-react/icons/List';
-import { Paperclip } from 'reicon-react/icons/Paperclip';
-import { Send } from 'reicon-react/icons/Send';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
-import { Stop3 } from 'reicon-react/icons/Stop3';
-import { X } from 'reicon-react/icons/X';
+import {
+  ArrowUpIcon,
+  BoldIcon,
+  BookOpenIcon,
+  ChevronDownIcon,
+  CloseIcon,
+  CpuIcon,
+  DocumentTextIcon,
+  ItalicIcon,
+  LightbulbIcon,
+  ListIcon,
+  PaperclipIcon,
+  SendIcon,
+  SparkleIcon,
+  StopIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   Command,
@@ -137,16 +139,18 @@ function FormatToolbar({
   );
   return (
     <>
-      {format('Bold', 'bold', <Bold size={16} aria-hidden="true" />, e => e.chain().focus().toggleMark('bold').run())}
-      {format('Italic', 'italic', <Italic size={16} aria-hidden="true" />, e =>
+      {format('Bold', 'bold', <BoldIcon size="md" aria-hidden="true" />, e =>
+        e.chain().focus().toggleMark('bold').run(),
+      )}
+      {format('Italic', 'italic', <ItalicIcon size="md" aria-hidden="true" />, e =>
         e.chain().focus().toggleMark('italic').run(),
       )}
-      {format('Bulleted list', 'bulletList', <List size={16} aria-hidden="true" />, e =>
+      {format('Bulleted list', 'bulletList', <ListIcon size="md" aria-hidden="true" />, e =>
         e.chain().focus().toggleList('bulletList', 'listItem').run(),
       )}
       <Button variant="outline" size="sm" className="rte-demo-push" disabled={disabled} onClick={onSend}>
         Send
-        <Send size={16} aria-hidden="true" />
+        <SendIcon size="md" aria-hidden="true" />
       </Button>
     </>
   );
@@ -515,7 +519,7 @@ function useChatExtensions(onState: (state: SuggestionState) => void) {
               id: file.name,
               title: file.name,
               description: file.detail,
-              media: <FileText size={16} aria-hidden="true" />,
+              media: <DocumentTextIcon size="md" aria-hidden="true" />,
               apply: insertReference('file', file.name),
             })),
       }),
@@ -531,7 +535,7 @@ function useChatExtensions(onState: (state: SuggestionState) => void) {
               id: skill.name,
               title: skill.name,
               description: skill.detail,
-              media: <BookOpen size={16} aria-hidden="true" />,
+              media: <BookOpenIcon size="md" aria-hidden="true" />,
               apply: insertReference('skill', skill.name),
             })),
       }),
@@ -637,9 +641,9 @@ function PersonaPicker({
       <PopoverTrigger
         render={<InputGroupButton variant="ghost" disabled={disabled} aria-label={`Mode or agent: ${label}`} />}
       >
-        <Sparkle size={16} aria-hidden="true" />
+        <SparkleIcon size="md" aria-hidden="true" />
         <span className="rte-demo-truncate">{label}</span>
-        <ChevronDown size={12} aria-hidden="true" />
+        <ChevronDownIcon size="xs" aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent size="menu" side="top" align="start" sideOffset={8}>
         <Command>
@@ -654,7 +658,7 @@ function PersonaPicker({
                   data-checked={value?.id === mode.id}
                   onSelect={() => pick({ kind: 'mode', id: mode.id, label: mode.label })}
                 >
-                  <Sparkle size={16} aria-hidden="true" />
+                  <SparkleIcon size="md" aria-hidden="true" />
                   <span className="rte-demo-nowrap">{mode.label}</span>
                   <span className="rte-demo-option-detail">{mode.description}</span>
                 </CommandItem>
@@ -669,7 +673,7 @@ function PersonaPicker({
                   data-checked={value?.id === agent.id}
                   onSelect={() => pick({ kind: 'agent', id: agent.id, label: agent.label })}
                 >
-                  <Lightbulb size={16} aria-hidden="true" />
+                  <LightbulbIcon size="md" aria-hidden="true" />
                   <span className="rte-demo-nowrap">{agent.label}</span>
                   <span className="rte-demo-option-detail">{agent.description}</span>
                 </CommandItem>
@@ -703,9 +707,9 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
             />
           }
         >
-          <Cpu size={16} aria-hidden="true" />
+          <CpuIcon size="md" aria-hidden="true" />
           <span className="rte-demo-truncate rte-demo-model">{model.label}</span>
-          <ChevronDown size={12} aria-hidden="true" />
+          <ChevronDownIcon size="xs" aria-hidden="true" />
         </TooltipTrigger>
         <TooltipContent>AI model that writes replies</TooltipContent>
       </Tooltip>
@@ -723,7 +727,7 @@ function ModelPicker({ disabled }: { disabled: boolean }) {
                   disabled={'disabled' in candidate}
                   onSelect={() => setModel(candidate)}
                 >
-                  <Cpu size={16} aria-hidden="true" />
+                  <CpuIcon size="md" aria-hidden="true" />
                   <span>
                     {candidate.label}
                     {'reason' in candidate ? ` (${candidate.reason})` : ''}
@@ -796,7 +800,7 @@ function FileChoices({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={<InputGroupButton variant="ghost" aria-label="Add a file" disabled={disabled} />}>
-        <Paperclip size={16} aria-hidden="true" />
+        <PaperclipIcon size="md" aria-hidden="true" />
         <span className="rte-demo-wide-only">Files</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent size="menu" side="top">
@@ -929,7 +933,7 @@ function ChatComposer({
           <InputGroupAddon align="block-start">
             {attachments.map(file => (
               <span key={file} className="rte-demo-chip">
-                <FileText size={14} aria-hidden="true" />
+                <DocumentTextIcon size="sm" aria-hidden="true" />
                 <span className="rte-demo-truncate">{file}</span>
                 <InputGroupButton
                   size="icon"
@@ -937,7 +941,7 @@ function ChatComposer({
                   disabled={busy}
                   onClick={() => onAttachmentsChange(attachments.filter(name => name !== file))}
                 >
-                  <X aria-hidden="true" />
+                  <CloseIcon aria-hidden="true" />
                 </InputGroupButton>
               </span>
             ))}
@@ -982,7 +986,7 @@ function ChatComposer({
                         />
                       }
                     >
-                      <BookOpen size={16} aria-hidden="true" />
+                      <BookOpenIcon size="md" aria-hidden="true" />
                       <span className="rte-demo-wide-only">Skills</span>
                     </TooltipTrigger>
                     <TooltipContent>Skills are saved procedures the agent follows · /</TooltipContent>
@@ -1024,7 +1028,7 @@ function ChatComposer({
                         />
                       }
                     >
-                      <Stop3 size={16} aria-hidden="true" />
+                      <StopIcon size="md" aria-hidden="true" />
                     </TooltipTrigger>
                     <TooltipContent>Stop reply</TooltipContent>
                   </Tooltip>
@@ -1042,7 +1046,7 @@ function ChatComposer({
                         />
                       }
                     >
-                      <ArrowUp size={16} aria-hidden="true" />
+                      <ArrowUpIcon size="md" aria-hidden="true" />
                     </TooltipTrigger>
                     <TooltipContent>Send · Enter</TooltipContent>
                   </Tooltip>
@@ -1189,7 +1193,7 @@ export function RichTextEditorQuestionComposer() {
         <div className="rte-demo-sample" data-testid="question-composer">
           <div className="rte-demo-question">
             <p>
-              <Lightbulb size={14} aria-hidden="true" />
+              <LightbulbIcon size="sm" aria-hidden="true" />
               The agent asked: Which region should the Q3 report cover?
             </p>
             <Label className="rte-demo-switch">

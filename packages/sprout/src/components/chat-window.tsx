@@ -4,11 +4,7 @@ import { createContext, useCallback, useContext, useRef, useState, type ReactNod
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
-import { Maximize } from 'reicon-react/icons/Maximize';
-import { Minus } from 'reicon-react/icons/Minus';
-import { SidebarRight } from 'reicon-react/icons/SidebarRight';
-import { Window } from 'reicon-react/icons/Window';
-import { X } from 'reicon-react/icons/X';
+import { CloseIcon, MaximizeIcon, MinusIcon, SidebarRightIcon, WindowIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 import { Button } from './button.js';
 import {
@@ -257,7 +253,7 @@ export function ChatWindowClose({ label = 'Close', render, ...props }: ChatWindo
           />
         }
       >
-        <X size={16} aria-hidden="true" />
+        <CloseIcon size="md" aria-hidden="true" />
       </TooltipTrigger>
       <TooltipContent side="bottom">{label}</TooltipContent>
     </Tooltip>
@@ -265,9 +261,9 @@ export function ChatWindowClose({ label = 'Close', render, ...props }: ChatWindo
 }
 
 const layoutIcons: Record<ChatWindowLayout, ReactNode> = {
-  drawer: <SidebarRight size={16} aria-hidden="true" />,
-  page: <Maximize size={16} aria-hidden="true" />,
-  window: <Window size={16} aria-hidden="true" />,
+  drawer: <SidebarRightIcon size="md" aria-hidden="true" />,
+  page: <MaximizeIcon size="md" aria-hidden="true" />,
+  window: <WindowIcon size="md" aria-hidden="true" />,
 };
 
 export interface ChatWindowLayoutMenuLabels {
@@ -368,7 +364,7 @@ export function ChatWindowLayoutMenu({
                 minimizing.current = true;
               }}
             >
-              <Minus size={16} aria-hidden="true" />
+              <MinusIcon size="md" aria-hidden="true" />
               {labels.minimize}
             </DropdownMenuItem>
           </>

@@ -1,14 +1,16 @@
 import { useState, type ReactNode } from 'react';
-import { Copy } from 'reicon-react/icons/Copy';
-import { Export } from 'reicon-react/icons/Export';
-import { FilePlus } from 'reicon-react/icons/FilePlus';
-import { History } from 'reicon-react/icons/History';
-import { Keyboard } from 'reicon-react/icons/Keyboard';
-import { Printer } from 'reicon-react/icons/Printer';
-import { Redo } from 'reicon-react/icons/Redo';
-import { Scissors } from 'reicon-react/icons/Scissors';
-import { Trash } from 'reicon-react/icons/Trash';
-import { Undo } from 'reicon-react/icons/Undo';
+import {
+  CopyIcon,
+  DeleteIcon,
+  ExportIcon,
+  FileAddIcon,
+  HistoryIcon,
+  KeyboardIcon,
+  PrinterIcon,
+  RedoIcon,
+  ScissorsIcon,
+  UndoIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -120,12 +122,12 @@ export function MenubarEditor() {
             <MenubarTrigger>File</MenubarTrigger>
             <MenubarContent>
               <MenubarItem onClick={act('New draft selected.')}>
-                <FilePlus aria-hidden="true" />
+                <FileAddIcon aria-hidden="true" />
                 New draft<MenubarShortcut>⌘ N</MenubarShortcut>
               </MenubarItem>
               <MenubarSub>
                 <MenubarSubTrigger>
-                  <History aria-hidden="true" />
+                  <HistoryIcon aria-hidden="true" />
                   Open recent
                 </MenubarSubTrigger>
                 <MenubarSubContent>
@@ -137,16 +139,16 @@ export function MenubarEditor() {
                 </MenubarSubContent>
               </MenubarSub>
               <MenubarItem onClick={act('Export as PDF selected.')}>
-                <Export aria-hidden="true" />
+                <ExportIcon aria-hidden="true" />
                 Export as PDF<MenubarShortcut>⇧ ⌘ E</MenubarShortcut>
               </MenubarItem>
               <MenubarItem disabled>
-                <Printer aria-hidden="true" />
+                <PrinterIcon aria-hidden="true" />
                 Print<MenubarShortcut>⌘ P</MenubarShortcut>
               </MenubarItem>
               <MenubarSeparator />
               <MenubarItem variant="destructive" onClick={act('Move to trash selected. Nothing was deleted.')}>
-                <Trash aria-hidden="true" />
+                <DeleteIcon aria-hidden="true" />
                 Move to trash<MenubarShortcut>⌘ ⌫</MenubarShortcut>
               </MenubarItem>
             </MenubarContent>
@@ -155,20 +157,20 @@ export function MenubarEditor() {
             <MenubarTrigger>Edit</MenubarTrigger>
             <MenubarContent>
               <MenubarItem onClick={act('Undo selected.')}>
-                <Undo aria-hidden="true" />
+                <UndoIcon aria-hidden="true" />
                 Undo<MenubarShortcut>⌘ Z</MenubarShortcut>
               </MenubarItem>
               <MenubarItem disabled>
-                <Redo aria-hidden="true" />
+                <RedoIcon aria-hidden="true" />
                 Redo<MenubarShortcut>⇧ ⌘ Z</MenubarShortcut>
               </MenubarItem>
               <MenubarSeparator />
               <MenubarItem onClick={act('Cut selected.')}>
-                <Scissors aria-hidden="true" />
+                <ScissorsIcon aria-hidden="true" />
                 Cut<MenubarShortcut>⌘ X</MenubarShortcut>
               </MenubarItem>
               <MenubarItem onClick={act('Copy selected.')}>
-                <Copy aria-hidden="true" />
+                <CopyIcon aria-hidden="true" />
                 Copy<MenubarShortcut>⌘ C</MenubarShortcut>
               </MenubarItem>
             </MenubarContent>
@@ -219,7 +221,7 @@ export function MenubarEditor() {
             <MenubarTrigger>Help</MenubarTrigger>
             <MenubarContent align="end" alignOffset={-4}>
               <MenubarItem onClick={act('Keyboard shortcuts selected.')}>
-                <Keyboard aria-hidden="true" />
+                <KeyboardIcon aria-hidden="true" />
                 Keyboard shortcuts<MenubarShortcut>⌘ /</MenubarShortcut>
               </MenubarItem>
             </MenubarContent>

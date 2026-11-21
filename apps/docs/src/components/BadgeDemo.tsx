@@ -1,18 +1,20 @@
 import { useState, type ReactNode } from 'react';
-import { AddCircle } from 'reicon-react/icons/AddCircle';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { Bell } from 'reicon-react/icons/Bell';
-import { BellOff } from 'reicon-react/icons/BellOff';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Check } from 'reicon-react/icons/Check';
-import { Edit2 } from 'reicon-react/icons/Edit2';
-import { Eye } from 'reicon-react/icons/Eye';
-import { Loader } from 'reicon-react/icons/Loader';
-import { Repeat } from 'reicon-react/icons/Repeat';
-import { Trash } from 'reicon-react/icons/Trash';
-import { Video } from 'reicon-react/icons/Video';
-import { X } from 'reicon-react/icons/X';
+import {
+  AddCircleIcon,
+  ArrowUpRightIcon,
+  BellIcon,
+  BellOffIcon,
+  BookOpenIcon,
+  CalendarIcon,
+  CheckIcon,
+  CloseIcon,
+  DeleteIcon,
+  EditIcon,
+  EyeIcon,
+  LoaderIcon,
+  RepeatIcon,
+  VideoIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   Badge,
   badgeSizeNames,
@@ -57,7 +59,7 @@ function ConnectionBadge({ state }: { state: ConnectionState }) {
     case 'connected':
       return (
         <Badge variant="success">
-          <Check aria-hidden="true" />
+          <CheckIcon aria-hidden="true" />
           Connected
         </Badge>
       );
@@ -168,7 +170,7 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
     default: 'Pinned',
     success: (
       <>
-        <Check aria-hidden="true" />
+        <CheckIcon aria-hidden="true" />
         Connected
       </>
     ),
@@ -177,7 +179,7 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
     secondary: 'Draft',
     destructive: (
       <>
-        <Trash aria-hidden="true" />
+        <DeleteIcon aria-hidden="true" />
         Will be deleted
       </>
     ),
@@ -186,7 +188,7 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
     link: (
       <>
         View workflow
-        <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+        <ArrowUpRightIcon data-icon="inline-end" aria-hidden="true" />
       </>
     ),
   },
@@ -194,26 +196,26 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
     default: 'Pinned · Brand guidelines 2026.pdf',
     success: (
       <>
-        <AddCircle aria-hidden="true" />
+        <AddCircleIcon aria-hidden="true" />
         Leo Martins · leo@example.com
       </>
     ),
     warning: 'Needs your input · Approve a refund over $500',
     info: (
       <>
-        <Calendar aria-hidden="true" />
+        <CalendarIcon aria-hidden="true" />
         team-planning@group.calendar.example.com
       </>
     ),
     secondary: (
       <>
-        <BookOpen aria-hidden="true" />
+        <BookOpenIcon aria-hidden="true" />
         Qualify an inbound lead
       </>
     ),
     destructive: (
       <>
-        <Trash aria-hidden="true" />
+        <DeleteIcon aria-hidden="true" />
         Priya Nair · priya.nair@example.com · declined
       </>
     ),
@@ -222,7 +224,7 @@ const matrix: Record<BadgeSize, Record<BadgeVariant, ReactNode>> = {
     link: (
       <>
         billing-runbook.md
-        <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+        <ArrowUpRightIcon data-icon="inline-end" aria-hidden="true" />
       </>
     ),
   },
@@ -302,7 +304,7 @@ export default function BadgeDemo() {
                 </span>
                 {scenario === 'loading' ? (
                   <Badge variant="secondary">
-                    <Loader aria-hidden="true" className="badge-demo-spin" />
+                    <LoaderIcon aria-hidden="true" className="badge-demo-spin" />
                     Checking
                   </Badge>
                 ) : scenario === 'error' ? (
@@ -347,54 +349,54 @@ export default function BadgeDemo() {
         <ul className="badge-demo-wrap" aria-label="Proposed changes">
           <li>
             <Badge variant="success">
-              <AddCircle aria-hidden="true" />3 added
+              <AddCircleIcon aria-hidden="true" />3 added
             </Badge>
           </li>
           <li>
             <Badge variant="info">
-              <Edit2 aria-hidden="true" />2 updated
+              <EditIcon aria-hidden="true" />2 updated
             </Badge>
           </li>
           <li>
             <Badge variant="destructive">
-              <Trash aria-hidden="true" />
+              <DeleteIcon aria-hidden="true" />
               Will be deleted
             </Badge>
           </li>
           <li>
             <Badge variant="info">
-              <Video aria-hidden="true" />
+              <VideoIcon aria-hidden="true" />
               Adds video call
             </Badge>
           </li>
           <li>
             <Badge variant="secondary">
-              <Bell aria-hidden="true" />
+              <BellIcon aria-hidden="true" />
               Notify guests
             </Badge>
           </li>
           <li>
             <Badge variant="secondary">
-              <BellOff aria-hidden="true" />
+              <BellOffIcon aria-hidden="true" />
               Don’t notify
             </Badge>
           </li>
           <li>
             <Badge variant="secondary">
-              <Repeat aria-hidden="true" />
+              <RepeatIcon aria-hidden="true" />
               Repeats
             </Badge>
           </li>
           <li>
             <Badge variant="secondary">
-              <Eye aria-hidden="true" />
+              <EyeIcon aria-hidden="true" />
               Private
             </Badge>
           </li>
           <li>
             <Badge variant="outline">
               Open
-              <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+              <ArrowUpRightIcon data-icon="inline-end" aria-hidden="true" />
             </Badge>
           </li>
         </ul>
@@ -448,7 +450,7 @@ export default function BadgeDemo() {
           {skills.map(skill => (
             <li key={skill.id} className="badge-demo-chip-item badge-demo-removable">
               <Badge variant="secondary" size="chip" title={skill.name}>
-                <BookOpen aria-hidden="true" />
+                <BookOpenIcon aria-hidden="true" />
                 {skill.name}
               </Badge>
               <Button
@@ -458,7 +460,7 @@ export default function BadgeDemo() {
                 aria-label={`Remove skill ${skill.name}`}
                 onClick={() => setSkills(list => list.filter(item => item.id !== skill.id))}
               >
-                <X size={14} aria-hidden="true" />
+                <CloseIcon size="sm" aria-hidden="true" />
               </Button>
             </li>
           ))}
@@ -469,14 +471,14 @@ export default function BadgeDemo() {
               role="img"
               aria-label="Skill Handle a refund request, version 9f8e7d6c"
             >
-              <BookOpen aria-hidden="true" />
+              <BookOpenIcon aria-hidden="true" />
               Handle a refund request
             </Badge>
           </li>
         </ul>
         <div className="badge-demo-narrow">
           <Badge variant="secondary" size="chip">
-            <Calendar aria-hidden="true" />
+            <CalendarIcon aria-hidden="true" />
             <span className="badge-demo-break">c_9f3a1e0b7d2c4a58b6e1f0d9a7c3b2e1@group.calendar.example.com</span>
           </Badge>
         </div>
@@ -555,7 +557,7 @@ export default function BadgeDemo() {
         <div className="badge-demo-wrap">
           <Badge variant="link" render={<a href="#badge-api" />}>
             View workflow
-            <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+            <ArrowUpRightIcon data-icon="inline-end" aria-hidden="true" />
           </Badge>
           <Badge variant="outline" render={<a href="#badge-api" />}>
             Outline link

@@ -1,12 +1,14 @@
 import { useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react';
-import { Copy } from 'reicon-react/icons/Copy';
-import { Download } from 'reicon-react/icons/Download';
-import { Edit } from 'reicon-react/icons/Edit';
-import { FolderMove } from 'reicon-react/icons/FolderMove';
-import { Link } from 'reicon-react/icons/Link';
-import { MoreH } from 'reicon-react/icons/MoreH';
-import { Pin } from 'reicon-react/icons/Pin';
-import { Trash } from 'reicon-react/icons/Trash';
+import {
+  CopyIcon,
+  DeleteIcon,
+  DownloadIcon,
+  EditIcon,
+  FolderMoveIcon,
+  LinkIcon,
+  MoreIcon,
+  PinIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   ContextMenu,
@@ -161,12 +163,12 @@ function FileRow({ file, onResult }: { file: File; onResult: (text: string) => v
       <ContextMenuGroup>
         <ContextMenuLabel inset>{file.name}</ContextMenuLabel>
         <ContextMenuItem disabled={locked} onClick={done(`Opened ${file.name}.`)}>
-          <Download size={14} aria-hidden="true" />
+          <DownloadIcon size="sm" aria-hidden="true" />
           Download
           <ContextMenuShortcut>⌘ D</ContextMenuShortcut>
         </ContextMenuItem>
         <ContextMenuItem onClick={done(`Link to ${file.name} copied.`)}>
-          <Link size={14} aria-hidden="true" />
+          <LinkIcon size="sm" aria-hidden="true" />
           Copy link
           <ContextMenuShortcut>⌘ L</ContextMenuShortcut>
         </ContextMenuItem>
@@ -176,23 +178,23 @@ function FileRow({ file, onResult }: { file: File; onResult: (text: string) => v
             onResult(pinned ? `${file.name} unpinned.` : `${file.name} pinned to top.`);
           }}
         >
-          <Pin size={14} aria-hidden="true" />
+          <PinIcon size="sm" aria-hidden="true" />
           {pinned ? 'Unpin' : 'Pin to top'}
         </ContextMenuItem>
       </ContextMenuGroup>
       <ContextMenuSeparator />
       <ContextMenuItem disabled={locked} onClick={done(`Rename ${file.name} would open.`)}>
-        <Edit size={14} aria-hidden="true" />
+        <EditIcon size="sm" aria-hidden="true" />
         Rename
         <ContextMenuShortcut>F2</ContextMenuShortcut>
       </ContextMenuItem>
       <ContextMenuItem disabled={locked} onClick={done(`Copy of ${file.name} created.`)}>
-        <Copy size={14} aria-hidden="true" />
+        <CopyIcon size="sm" aria-hidden="true" />
         Make a copy
       </ContextMenuItem>
       <ContextMenuSub>
         <ContextMenuSubTrigger disabled={locked}>
-          <FolderMove size={14} aria-hidden="true" />
+          <FolderMoveIcon size="sm" aria-hidden="true" />
           Move to
         </ContextMenuSubTrigger>
         <ContextMenuSubContent className="context-demo-move-menu">
@@ -208,7 +210,7 @@ function FileRow({ file, onResult }: { file: File; onResult: (text: string) => v
       </ContextMenuSub>
       <ContextMenuSeparator />
       <ContextMenuItem variant="destructive" disabled={locked} onClick={done(`${file.name} moved to trash.`)}>
-        <Trash size={14} aria-hidden="true" />
+        <DeleteIcon size="sm" aria-hidden="true" />
         Move to trash
         <ContextMenuShortcut>⌫</ContextMenuShortcut>
       </ContextMenuItem>
@@ -226,7 +228,7 @@ function FileRow({ file, onResult }: { file: File; onResult: (text: string) => v
           onKeyDown={keyboard.onKeyDown}
         >
           <span className="context-demo-file-name">
-            {pinned && <Pin size={12} aria-hidden="true" />}
+            {pinned && <PinIcon size="xs" aria-hidden="true" />}
             <span className="context-demo-truncate">{file.name}</span>
           </span>
           <span className="context-demo-file-meta">{pinned ? `Pinned · ${file.meta}` : file.meta}</span>
@@ -238,7 +240,7 @@ function FileRow({ file, onResult }: { file: File; onResult: (text: string) => v
           render={<Button variant="ghost" size="icon-sm" aria-label={`More actions for ${file.name}`} />}
           onClick={keyboard.onButtonClick}
         >
-          <MoreH size={16} aria-hidden="true" />
+          <MoreIcon size="md" aria-hidden="true" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" size="menu" finalFocus={keyboard.finalFocus}>
           {items}

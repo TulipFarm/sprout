@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ComponentProps } from 'react';
-import { Loader } from 'reicon-react/icons/Loader';
+import { LoaderIcon } from './icons.js';
 import type { OrbState } from 'thinking-orbs';
 import { cn } from '../internal/classes.js';
 
@@ -75,7 +75,7 @@ export function Spinner(props: SpinnerProps) {
   } = props;
   const decorative = hidden === true || hidden === 'true';
   return (
-    <Loader
+    <LoaderIcon
       data-slot="spinner"
       data-variant="default"
       data-size={size}

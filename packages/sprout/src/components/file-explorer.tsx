@@ -12,12 +12,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Folder } from 'reicon-react/icons/Folder';
-import { FolderOpen } from 'reicon-react/icons/FolderOpen';
-import { MinusSquare } from 'reicon-react/icons/MinusSquare';
-import { X } from 'reicon-react/icons/X';
+import { ChevronRightIcon, CloseIcon, DocumentTextIcon, FolderIcon, FolderOpenIcon, MinusSquareIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { tokenClass, useCodeTokens } from '../internal/code-tokens.js';
 import { codeLanguageNames, type CodeLanguage } from '../internal/languages.js';
@@ -198,7 +193,7 @@ function FileGlyph({ name }: { name: string }) {
   const language = languageForFilename(name);
   const extension = name.includes('.') ? (name.split('.').at(-1) ?? '') : '';
   const [label, tone] = (language && glyphs[language]) ?? [extension.slice(0, 3).toUpperCase(), 'muted' as const];
-  if (!label) return <FileText size={16} aria-hidden="true" className="sprout-file-explorer-glyph" />;
+  if (!label) return <DocumentTextIcon size="md" aria-hidden="true" className="sprout-file-explorer-glyph" />;
   return (
     <svg
       viewBox="0 0 16 16"
@@ -395,7 +390,7 @@ export function FileExplorer({ files, label = 'Files', defaultPath, className, .
             disabled={expanded.size === 0}
             onClick={() => setExpanded(new Set())}
           >
-            <MinusSquare size={14} aria-hidden="true" />
+            <MinusSquareIcon size="sm" aria-hidden="true" />
           </button>
         </div>
         <div className="sprout-file-explorer-search">
@@ -518,13 +513,13 @@ export function FileExplorer({ files, label = 'Files', defaultPath, className, .
                     <span key={at} aria-hidden="true" className="sprout-file-explorer-guide" />
                   ))}
                   <span aria-hidden="true" className="sprout-file-explorer-chevron">
-                    {folder && <ChevronRight size={12} />}
+                    {folder && <ChevronRightIcon size="xs" />}
                   </span>
                   {folder ? (
                     isOpen ? (
-                      <FolderOpen size={16} aria-hidden="true" className="sprout-file-explorer-folder" />
+                      <FolderOpenIcon size="md" aria-hidden="true" className="sprout-file-explorer-folder" />
                     ) : (
-                      <Folder size={16} aria-hidden="true" className="sprout-file-explorer-folder" />
+                      <FolderIcon size="md" aria-hidden="true" className="sprout-file-explorer-folder" />
                     )
                   ) : (
                     <FileGlyph name={node.name} />
@@ -565,7 +560,7 @@ export function FileExplorer({ files, label = 'Files', defaultPath, className, .
                   aria-label={`Close ${nameOf(path)}`}
                   onClick={() => close(path)}
                 >
-                  <X size={12} aria-hidden="true" />
+                  <CloseIcon size="xs" aria-hidden="true" />
                 </button>
               </div>
             ))}
@@ -578,7 +573,7 @@ export function FileExplorer({ files, label = 'Files', defaultPath, className, .
                 {activeFile.path.split('/').map((part, index, parts) => (
                   <li key={index} aria-current={index === parts.length - 1 ? 'page' : undefined}>
                     {index > 0 && (
-                      <ChevronRight size={10} aria-hidden="true" className="sprout-file-explorer-crumb-separator" />
+                      <ChevronRightIcon size="xs" aria-hidden="true" className="sprout-file-explorer-crumb-separator" />
                     )}
                     {part}
                   </li>
@@ -614,7 +609,7 @@ export function FileExplorer({ files, label = 'Files', defaultPath, className, .
             heading="h3"
             title="Open a file"
             description="Choose a file in the tree, or search names and text."
-            icon={FileText}
+            icon={DocumentTextIcon}
           />
         )}
       </section>

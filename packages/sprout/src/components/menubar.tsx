@@ -3,8 +3,7 @@
 import type { ComponentProps } from 'react';
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { Menubar as MenubarPrimitive } from '@base-ui/react/menubar';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { CheckIcon, ChevronRightIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 
 export const menubarItemVariantNames = ['default', 'destructive'] as const;
@@ -165,7 +164,7 @@ export function MenubarCheckboxItem({ className, inset, children, ...props }: Me
     >
       <span className="sprout-menubar-indicator" data-slot="menubar-checkbox-item-indicator">
         <MenuPrimitive.CheckboxItemIndicator>
-          <Check size={16} aria-hidden="true" />
+          <CheckIcon size="md" aria-hidden="true" />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -191,7 +190,7 @@ export function MenubarRadioItem({ className, inset, children, ...props }: Menub
     >
       <span className="sprout-menubar-indicator" data-slot="menubar-radio-item-indicator">
         <MenuPrimitive.RadioItemIndicator>
-          <Check size={16} aria-hidden="true" />
+          <CheckIcon size="md" aria-hidden="true" />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}
@@ -238,7 +237,7 @@ export function MenubarSubTrigger({ className, inset, children, ...props }: Menu
       )}
     >
       {children}
-      <ChevronRight size={16} aria-hidden="true" className="sprout-menubar-sub-chevron" />
+      <ChevronRightIcon size="md" aria-hidden="true" className="sprout-menubar-sub-chevron" />
     </MenuPrimitive.SubmenuTrigger>
   );
 }

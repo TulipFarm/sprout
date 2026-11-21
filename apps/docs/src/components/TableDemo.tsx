@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { MoreIcon } from '@tulipfarm/sprout/icons';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -182,7 +182,7 @@ function RowsGrid() {
         actions={row => (
           <DropdownMenu>
             <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" aria-label={`More for ${row.name}`} />}>
-              <MoreH />
+              <MoreIcon />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Open</DropdownMenuItem>

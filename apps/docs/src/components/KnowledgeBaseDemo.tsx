@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
-import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
-import { Copy } from 'reicon-react/icons/Copy';
-import { Link } from 'reicon-react/icons/Link';
-import { Refresh } from 'reicon-react/icons/Refresh';
-import { Upload } from 'reicon-react/icons/Upload';
+import { ArrowLeftIcon, CopyIcon, LinkIcon, RefreshIcon, UploadIcon } from '@tulipfarm/sprout/icons';
 import { BrandIcon, brandNames, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -207,7 +203,7 @@ export function KnowledgeBasePlayground() {
       {
         id,
         name,
-        icon: <Upload aria-hidden="true" />,
+        icon: <UploadIcon aria-hidden="true" />,
         detail: 'Uploaded files',
         status: 'syncing',
         progress: 0,
@@ -256,11 +252,11 @@ export function KnowledgeBasePlayground() {
           </KnowledgeBaseDiagram>
           <KnowledgeBaseSummary>
             <Button size="sm" nativeButton={false} render={<a href={integrationHash(firstAvailable?.id ?? 'slack')} />}>
-              <Link data-icon="inline-start" aria-hidden="true" />
+              <LinkIcon data-icon="inline-start" aria-hidden="true" />
               Connect source
             </Button>
             <Button variant="outline" size="sm" onClick={() => upload.current?.click()}>
-              <Upload data-icon="inline-start" aria-hidden="true" />
+              <UploadIcon data-icon="inline-start" aria-hidden="true" />
               Upload files
             </Button>
             <input
@@ -318,7 +314,7 @@ export function KnowledgeBasePlayground() {
           </Tabs>
           <KnowledgeBaseFooter>
             <Button variant="ghost" size="sm" onClick={() => choose(scenario)}>
-              <Refresh data-icon="inline-start" aria-hidden="true" />
+              <RefreshIcon data-icon="inline-start" aria-hidden="true" />
               Reset demo
             </Button>
           </KnowledgeBaseFooter>
@@ -441,7 +437,7 @@ function IntegrationPage({ id, connected, onAuthorize }: { id: string; connected
     <section className="knowledge-base-demo-integrations" aria-labelledby="kb-integration-title">
       <header className="knowledge-base-demo-integrations-header">
         <Button variant="ghost" size="sm" nativeButton={false} render={<a href="#knowledge-base" />}>
-          <ArrowLeft data-icon="inline-start" aria-hidden="true" />
+          <ArrowLeftIcon data-icon="inline-start" aria-hidden="true" />
           Knowledge base
         </Button>
         <span className="knowledge-base-demo-crumb">Integrations</span>
@@ -485,7 +481,7 @@ function IntegrationPage({ id, connected, onAuthorize }: { id: string; connected
               setCopied(true);
             }}
           >
-            <Copy data-icon="inline-start" aria-hidden="true" />
+            <CopyIcon data-icon="inline-start" aria-hidden="true" />
             {copied ? 'Copied' : 'Copy'}
           </Button>
         </div>

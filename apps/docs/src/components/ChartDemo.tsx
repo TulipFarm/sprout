@@ -1,8 +1,6 @@
 import { useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
-import { ChartBar } from 'reicon-react/icons/ChartBar';
-import { Globe } from 'reicon-react/icons/Globe';
-import { Tasks } from 'reicon-react/icons/Tasks';
+import { ChartBarIcon, GlobeIcon, TasksIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { CanvasSection } from '@tulipfarm/sprout/canvas';
 import {
@@ -271,7 +269,7 @@ export function ChartCredits() {
           <StatePanel
             kind="empty"
             heading="h4"
-            icon={ChartBar}
+            icon={ChartBarIcon}
             title={`No usage in the last ${range} days`}
             description="Model calls from chats, agents, and knowledge appear here by day. Send a chat message to start using your credits."
           >
@@ -480,8 +478,8 @@ export function ChartPlayground() {
 /* ---------- Tooltip and legend options ---------- */
 
 const optionConfig = {
-  chat: { label: 'Normal chat', color: 'var(--sprout-chart-1)', icon: Globe },
-  agent: { label: 'Agent', color: 'var(--sprout-chart-4)', icon: Tasks },
+  chat: { label: 'Normal chat', color: 'var(--sprout-chart-1)', icon: GlobeIcon },
+  agent: { label: 'Agent', color: 'var(--sprout-chart-4)', icon: TasksIcon },
 } satisfies ChartConfig;
 
 const optionPayload = [
@@ -593,12 +591,12 @@ const trendConfig = {
   chats: {
     label: 'Chats',
     theme: { light: '#245cba', dark: '#9cbdff' },
-    icon: Globe,
+    icon: GlobeIcon,
   },
   agentRuns: {
     label: 'Agent runs',
     theme: { light: '#7c4eb0', dark: '#c6a4ed' },
-    icon: Tasks,
+    icon: TasksIcon,
   },
 } satisfies ChartConfig;
 

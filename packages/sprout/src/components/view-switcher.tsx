@@ -10,9 +10,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { Plus } from 'reicon-react/icons/Plus';
-import { X } from 'reicon-react/icons/X';
+import { AddIcon, CheckIcon, CloseIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu.js';
@@ -204,7 +202,7 @@ export function ViewSwitcher({
                       close(index);
                     }}
                   >
-                    <X size={12} />
+                    <CloseIcon size="xs" />
                   </span>
                 )}
               </TabsTrigger>
@@ -219,7 +217,7 @@ export function ViewSwitcher({
             render={<Button variant="ghost" size="sm" className="sprout-view-switcher-add" />}
             data-slot="view-switcher-add"
           >
-            <Plus size={14} aria-hidden="true" data-icon="inline-start" />
+            <AddIcon size="sm" aria-hidden="true" data-icon="inline-start" />
             <span className="sprout-view-switcher-add-label">{addLabel}</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" size="menu" className="sprout-view-switcher-menu">
@@ -289,7 +287,7 @@ function ViewOption({
       </span>
       {isOpen && (
         <span className="sprout-view-switcher-check">
-          <Check size={16} aria-hidden="true" />
+          <CheckIcon size="md" aria-hidden="true" />
           <span id={openId} className="sprout-view-switcher-sr-only">
             Already open.
           </span>

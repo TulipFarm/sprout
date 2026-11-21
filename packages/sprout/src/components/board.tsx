@@ -44,11 +44,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { defaultRangeExtractor, useVirtualizer, type Range } from '@tanstack/react-virtual';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { MoreH } from 'reicon-react/icons/MoreH';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Reorder } from 'reicon-react/icons/Reorder';
+import { AddIcon, ChevronDownIcon, ChevronRightIcon, DragHandleIcon, MoreIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import {
   AlertDialog,
@@ -866,7 +862,11 @@ export function Board<T extends BoardItem>({
                             aria-expanded={!collapsed}
                             onClick={() => setCollapsedLanes(s => toggle(s, lane.id))}
                           >
-                            {collapsed ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+                            {collapsed ? (
+                              <ChevronRightIcon aria-hidden="true" />
+                            ) : (
+                              <ChevronDownIcon aria-hidden="true" />
+                            )}
                             <span className="sprout-board-lane-title">{lane.title}</span>
                             <span className="sprout-board-count">{count}</span>
                           </button>
@@ -1142,7 +1142,7 @@ const BoardCell = memo(function BoardCell<T extends BoardItem>({
             onClick={() => setAdding(true)}
             aria-label={`Add card to ${name}`}
           >
-            <Plus aria-hidden="true" data-icon="inline-start" />
+            <AddIcon aria-hidden="true" data-icon="inline-start" />
             Add card
           </Button>
         ))}
@@ -1257,7 +1257,7 @@ const BoardCard = memo(function BoardCard<T extends BoardItem>({
                     />
                   }
                 >
-                  <MoreH aria-hidden="true" />
+                  <MoreIcon aria-hidden="true" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   {onRename && <DropdownMenuItem onClick={() => setEditing(true)}>Rename</DropdownMenuItem>}
@@ -1320,7 +1320,7 @@ function BoardColumnHeader({ column, loaded, collapsed, onCollapse, onRename, on
       aria-label={`${collapsed ? 'Expand' : 'Collapse'} ${column.title}`}
       onClick={onCollapse}
     >
-      {collapsed ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+      {collapsed ? <ChevronRightIcon aria-hidden="true" /> : <ChevronDownIcon aria-hidden="true" />}
     </button>
   );
 
@@ -1394,7 +1394,7 @@ function BoardColumnHeader({ column, loaded, collapsed, onCollapse, onRename, on
                 className="sprout-board-grip"
                 aria-label={`Move ${column.title}`}
               >
-                <Reorder aria-hidden="true" />
+                <DragHandleIcon aria-hidden="true" />
               </button>
               <DropdownMenu>
                 <DropdownMenuTrigger
@@ -1407,7 +1407,7 @@ function BoardColumnHeader({ column, loaded, collapsed, onCollapse, onRename, on
                     />
                   }
                 >
-                  <MoreH aria-hidden="true" />
+                  <MoreIcon aria-hidden="true" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={() => setEditing(true)}>Rename</DropdownMenuItem>
@@ -1545,7 +1545,7 @@ function AddColumn({ onAdd }: { onAdd: (title: string) => void }) {
         />
       ) : (
         <Button variant="ghost" size="sm" onClick={() => setAdding(true)}>
-          <Plus aria-hidden="true" data-icon="inline-start" />
+          <AddIcon aria-hidden="true" data-icon="inline-start" />
           Add column
         </Button>
       )}

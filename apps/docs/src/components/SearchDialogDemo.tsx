@@ -1,20 +1,22 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { CalendarDays } from 'reicon-react/icons/CalendarDays';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { CheckSquare } from 'reicon-react/icons/CheckSquare';
-import { Command } from 'reicon-react/icons/Command';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { DocumentText } from 'reicon-react/icons/DocumentText';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Hierarchy } from 'reicon-react/icons/Hierarchy';
-import { Home } from 'reicon-react/icons/Home';
-import { Inbox } from 'reicon-react/icons/Inbox';
-import { Page } from 'reicon-react/icons/Page';
-import { Search3 } from 'reicon-react/icons/Search3';
-import { Setting2 } from 'reicon-react/icons/Setting2';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  AddIcon,
+  CalendarDaysIcon,
+  CalendarIcon,
+  ChatIcon,
+  CheckSquareIcon,
+  CommandIcon,
+  CpuIcon,
+  DocumentIcon,
+  DocumentTextIcon,
+  FolderIcon,
+  HierarchyIcon,
+  HomeIcon,
+  InboxIcon,
+  SearchIcon,
+  SettingsIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   SearchDialog,
@@ -32,7 +34,7 @@ import {
 import { Example, Row } from './dialog-demo-parts';
 import '../styles/search-dialog-demo.css';
 
-type Icon = typeof Add;
+type Icon = typeof AddIcon;
 
 function Status({ children }: { children: ReactNode }) {
   return (
@@ -52,25 +54,25 @@ const matchesAll = (text: string, terms: string[]) => terms.every(term => text.t
 type Entry = { id: string; title: string; icon?: Icon | undefined };
 
 const workspacePages: Entry[] = [
-  { id: 'page-home', title: 'Home', icon: Home },
-  { id: 'page-chats', title: 'Chats', icon: ChatRound },
-  { id: 'page-inbox', title: 'Inbox', icon: Inbox },
-  { id: 'page-agents', title: 'Agents', icon: Cpu },
-  { id: 'page-workflows', title: 'Workflows', icon: Hierarchy },
+  { id: 'page-home', title: 'Home', icon: HomeIcon },
+  { id: 'page-chats', title: 'Chats', icon: ChatIcon },
+  { id: 'page-inbox', title: 'Inbox', icon: InboxIcon },
+  { id: 'page-agents', title: 'Agents', icon: CpuIcon },
+  { id: 'page-workflows', title: 'Workflows', icon: HierarchyIcon },
   { id: 'page-tables', title: 'Tables' },
-  { id: 'page-calendar', title: 'Calendar', icon: Calendar },
-  { id: 'page-files', title: 'Files', icon: Folder },
-  { id: 'page-members', title: 'Members', icon: Users },
-  { id: 'page-settings', title: 'Workspace settings', icon: Setting2 },
+  { id: 'page-calendar', title: 'Calendar', icon: CalendarIcon },
+  { id: 'page-files', title: 'Files', icon: FolderIcon },
+  { id: 'page-members', title: 'Members', icon: UsersIcon },
+  { id: 'page-settings', title: 'Workspace settings', icon: SettingsIcon },
 ];
 const quickActions: Entry[] = [
-  { id: 'action-chat', title: 'New chat', icon: Add },
-  { id: 'action-agent', title: 'Create agent', icon: Add },
-  { id: 'action-table', title: 'Create table', icon: Add },
+  { id: 'action-chat', title: 'New chat', icon: AddIcon },
+  { id: 'action-agent', title: 'Create agent', icon: AddIcon },
+  { id: 'action-table', title: 'Create table', icon: AddIcon },
 ];
 
 function EntryMedia({ entry }: { entry: Entry }) {
-  const Glyph = entry.icon ?? Page;
+  const Glyph = entry.icon ?? DocumentIcon;
   return (
     <SearchItemIcon>
       <Glyph size={14} aria-hidden="true" />
@@ -134,7 +136,7 @@ export function SearchDialogPlayground() {
     >
       <Row label="Workspace search" note="title only · SearchItemIcon media · recents after you open something">
         <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
-          <Search3 size={16} aria-hidden="true" />
+          <SearchIcon size="md" aria-hidden="true" />
           Search
           <kbd className="search-dialog-demo-kbd">⌘K</kbd>
         </Button>
@@ -203,10 +205,10 @@ export function SearchDialogPlayground() {
 
 type Kind = 'meeting' | 'task' | 'agent' | 'workflow';
 const kindIcons: Record<Kind, Icon> = {
-  meeting: CalendarDays,
-  task: CheckSquare,
-  agent: Cpu,
-  workflow: Hierarchy,
+  meeting: CalendarDaysIcon,
+  task: CheckSquareIcon,
+  agent: CpuIcon,
+  workflow: HierarchyIcon,
 };
 
 const calendarEvents: {
@@ -314,7 +316,7 @@ export function SearchDialogCalendar() {
           title="Search events and commands (/)"
           onClick={() => setOpen(true)}
         >
-          <Search3 size={14} aria-hidden="true" />
+          <SearchIcon size="sm" aria-hidden="true" />
           Search
         </Button>
       </Row>
@@ -338,7 +340,7 @@ export function SearchDialogCalendar() {
                 key={option.id}
                 value={option.id}
                 title={option.title}
-                media={<Command size={16} aria-hidden="true" />}
+                media={<CommandIcon size="md" aria-hidden="true" />}
                 trailing={option.key}
                 onSelect={() => {
                   setOpen(false);
@@ -367,7 +369,7 @@ export function SearchDialogCalendar() {
           </SearchGroup>
           {!commandOptions.length && !matchingItems.length && (
             <SearchEmpty
-              media={<Search3 aria-hidden="true" />}
+              media={<SearchIcon aria-hidden="true" />}
               title="No matches"
               description="Try another title or calendar command."
             />
@@ -474,10 +476,10 @@ export function SearchDialogRecords() {
           placeholder="Search notes or projects…"
         />
         <SearchFilters label="Record type">
-          <SearchFilter pressed={onlyDocs} onPressedChange={setOnlyDocs} icon={<DocumentText aria-hidden="true" />}>
+          <SearchFilter pressed={onlyDocs} onPressedChange={setOnlyDocs} icon={<DocumentTextIcon aria-hidden="true" />}>
             Documents only
           </SearchFilter>
-          <SearchFilter pressed={onlyShared} onPressedChange={setOnlyShared} icon={<Users aria-hidden="true" />}>
+          <SearchFilter pressed={onlyShared} onPressedChange={setOnlyShared} icon={<UsersIcon aria-hidden="true" />}>
             Shared with me
           </SearchFilter>
         </SearchFilters>
@@ -485,7 +487,7 @@ export function SearchDialogRecords() {
           {matches.length ? (
             <SearchGroup heading="Records" count={matches.length}>
               {matches.map(record => {
-                const Glyph = record.kind === 'Document' ? DocumentText : Folder;
+                const Glyph = record.kind === 'Document' ? DocumentTextIcon : FolderIcon;
                 return (
                   <SearchItem
                     key={record.id}
@@ -510,9 +512,9 @@ export function SearchDialogRecords() {
             <SearchEmpty
               media={
                 <>
-                  <DocumentText aria-hidden="true" />
-                  <Search3 aria-hidden="true" />
-                  <Folder aria-hidden="true" />
+                  <DocumentTextIcon aria-hidden="true" />
+                  <SearchIcon aria-hidden="true" />
+                  <FolderIcon aria-hidden="true" />
                 </>
               }
               title="No matches"

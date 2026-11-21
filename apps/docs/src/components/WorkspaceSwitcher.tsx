@@ -1,10 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { Menu } from '@base-ui/react/menu';
 import { Dialog } from '@base-ui/react/dialog';
-import { Buildings } from 'reicon-react/icons/Buildings';
-import { UserCircle } from 'reicon-react/icons/UserCircle';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Plus } from 'reicon-react/icons/Plus';
+import { AddIcon, BuildingsIcon, ChevronDownIcon, UserCircleIcon } from '@tulipfarm/sprout/icons';
 import { useSidebar } from '@tulipfarm/sprout/sidebar';
 import '../styles/workspace-switcher.css';
 
@@ -24,7 +21,7 @@ interface Props {
 }
 
 function WorkspaceIcon({ workspace }: { workspace: Workspace }) {
-  const Icon = workspace.icon === 'personal' ? UserCircle : Buildings;
+  const Icon = workspace.icon === 'personal' ? UserCircleIcon : BuildingsIcon;
   return <Icon size={18} aria-hidden="true" />;
 }
 
@@ -67,8 +64,8 @@ export default function WorkspaceSwitcher({ workspaces, workspace, side, onSelec
             <span className="workspace-plan">{workspace.plan}</span>
           </span>
           <span className="workspace-caret" aria-hidden="true">
-            <ChevronDown size={13} />
-            <ChevronDown size={13} />
+            <ChevronDownIcon size="sm" />
+            <ChevronDownIcon size="sm" />
           </span>
         </Menu.Trigger>
         <Menu.Portal>
@@ -129,7 +126,7 @@ export default function WorkspaceSwitcher({ workspaces, workspace, side, onSelec
                 }}
               >
                 <span className="workspace-avatar">
-                  <Plus size={18} aria-hidden="true" />
+                  <AddIcon size="lg" aria-hidden="true" />
                 </span>
                 <span>Add workspace</span>
               </Menu.Item>

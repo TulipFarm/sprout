@@ -30,17 +30,16 @@ import CodeBlock from '../../components/CodeBlock.astro';
       lang="tsx"
       title="Prompt List usage"
       code={`import { PromptList, type PromptListItem } from "@tulipfarm/sprout/prompt-list";
-import { CalendarSearch } from "reicon-react/icons/CalendarSearch";
-import { Checklist } from "reicon-react/icons/Checklist";
+import { CalendarSearchIcon, TasksIcon } from "@tulipfarm/sprout/icons";
 
 const items: PromptListItem[] = [
   {
     id: "meetings",
     label: "Prepare me for tomorrow's meetings",
-    icon: <CalendarSearch />,
+    icon: <CalendarSearchIcon />,
     brands: [{ brand: "google-calendar", name: "Google Calendar" }],
   },
-  { id: "follow-ups", label: "Plan customer follow-ups", icon: <Checklist /> },
+  { id: "follow-ups", label: "Plan customer follow-ups", icon: <TasksIcon /> },
 ];
 
 <PromptList

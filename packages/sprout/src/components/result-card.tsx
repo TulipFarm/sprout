@@ -1,9 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { Danger } from 'reicon-react/icons/Danger';
-import { Plug } from 'reicon-react/icons/Plug';
+import { CheckIcon, DangerIcon, PlugIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { BrandIcon, BrandTile, type Brand } from './brand-icon.js';
 import { Button } from './button.js';
@@ -170,9 +168,9 @@ export function ResultCard({
                 {busy ? (
                   <Spinner aria-hidden="true" />
                 ) : state === 'success' ? (
-                  <Check size={14} aria-hidden="true" />
+                  <CheckIcon size="sm" aria-hidden="true" />
                 ) : state === 'error' ? (
-                  <Danger size={14} aria-hidden="true" />
+                  <DangerIcon size="sm" aria-hidden="true" />
                 ) : null}
                 {status}
               </span>
@@ -226,7 +224,7 @@ function AppActionsPopover({
             {first.icon}
           </span>
         ) : (
-          <Plug size={18} aria-hidden="true" />
+          <PlugIcon size="lg" aria-hidden="true" />
         )}
       </PopoverTrigger>
       <PopoverContent
@@ -266,7 +264,7 @@ export function ResultAppActions({ apps, showAppNames = true, className, ...prop
                   {app.icon}
                 </span>
               ) : (
-                <Plug size={20} aria-hidden="true" />
+                <PlugIcon size="xl" aria-hidden="true" />
               )}
               <h4>{app.name}</h4>
             </div>
@@ -279,7 +277,7 @@ export function ResultAppActions({ apps, showAppNames = true, className, ...prop
                 <li key={`${action.label}:${index}`} data-state={action.state} className="sprout-result-app-action">
                   {action.state === 'completed' ? (
                     <span className="sprout-result-app-check">
-                      <Check size={16} aria-hidden="true" />
+                      <CheckIcon size="md" aria-hidden="true" />
                       <span className="sprout-result-sr-only">Completed:</span>
                     </span>
                   ) : (

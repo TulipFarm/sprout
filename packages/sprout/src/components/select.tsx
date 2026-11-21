@@ -1,9 +1,7 @@
 'use client';
 
 import { Select as SelectPrimitive } from '@base-ui/react/select';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronUp } from 'reicon-react/icons/ChevronUp';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 import { useFieldControl } from './field.js';
 
@@ -75,7 +73,7 @@ export function SelectTrigger({ className, size = 'md', width = 'fit', children,
     >
       {children}
       <SelectPrimitive.Icon className="sprout-select-icon">
-        <ChevronDown aria-hidden="true" />
+        <ChevronDownIcon aria-hidden="true" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -175,7 +173,7 @@ export function SelectItem({ className, children, ...props }: SelectItemProps) {
     >
       <SelectPrimitive.ItemText className="sprout-select-item-text">{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator className="sprout-select-item-indicator">
-        <Check aria-hidden="true" />
+        <CheckIcon aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );
@@ -205,7 +203,7 @@ export function SelectScrollUpButton({ className, ...props }: SelectScrollUpButt
         className,
       )}
     >
-      <ChevronUp aria-hidden="true" />
+      <ChevronUpIcon aria-hidden="true" />
     </SelectPrimitive.ScrollUpArrow>
   );
 }
@@ -222,7 +220,7 @@ export function SelectScrollDownButton({ className, ...props }: SelectScrollDown
         className,
       )}
     >
-      <ChevronDown aria-hidden="true" />
+      <ChevronDownIcon aria-hidden="true" />
     </SelectPrimitive.ScrollDownArrow>
   );
 }
