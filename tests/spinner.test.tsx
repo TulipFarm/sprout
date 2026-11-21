@@ -36,7 +36,7 @@ describe('Spinner', () => {
     expect(html).toContain('role="status"');
     expect(html).toContain('aria-label="Loading"');
     expect(html).toContain('focusable="false"');
-    expect(html).toContain('class="reicon sprout-spinner sprout-spinner-size-md"');
+    expect(html).toContain('class="sprout-spinner sprout-spinner-size-md"');
     expect(html).not.toContain('aria-hidden');
   });
 
@@ -84,7 +84,7 @@ describe('Spinner', () => {
         id="step-spinner"
       />,
     );
-    expect(html).toContain('class="reicon sprout-spinner sprout-spinner-size-md text-sprout-info"');
+    expect(html).toContain('class="sprout-spinner sprout-spinner-size-md text-sprout-info"');
     expect(html).toContain('style="margin-top:2px"');
     expect(html).toContain('data-testid="plan-step"');
     expect(html).toContain('id="step-spinner"');

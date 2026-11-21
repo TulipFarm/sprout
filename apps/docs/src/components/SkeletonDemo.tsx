@@ -1,11 +1,5 @@
 import { useState, type CSSProperties, type ReactNode } from 'react';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Chat } from 'reicon-react/icons/Chat';
-import { Edit } from 'reicon-react/icons/Edit';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Home } from 'reicon-react/icons/Home';
-import { Inbox } from 'reicon-react/icons/Inbox';
-import { Trash } from 'reicon-react/icons/Trash';
+import { CalendarIcon, ChatIcon, DeleteIcon, EditIcon, FolderIcon, HomeIcon, InboxIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Skeleton, SkeletonGroup, skeletonShapeNames, type SkeletonShape } from '@tulipfarm/sprout/skeleton';
 import { StatePanel } from '@tulipfarm/sprout/state-panel';
@@ -266,7 +260,7 @@ function Cards() {
         </SkeletonGroup>
         <div className="skeleton-demo-event">
           <span className="skeleton-demo-event-icon" aria-hidden="true">
-            <Calendar size={16} />
+            <CalendarIcon size="md" />
           </span>
           <SkeletonGroup label="Loading event details" gap="sm" className="skeleton-demo-grow">
             <Skeleton />
@@ -286,7 +280,7 @@ function Cards() {
 }
 
 const menuWidths = ['72%', '56%', '84%', '64%'];
-const menuIcons = [Home, Chat, Folder, Inbox];
+const menuIcons = [HomeIcon, ChatIcon, FolderIcon, InboxIcon];
 
 function MenuRows() {
   const [showIcon, setShowIcon] = useState(true);
@@ -375,10 +369,10 @@ function LoadStates() {
                 </span>
                 <span className="skeleton-demo-row-actions">
                   <Button variant="ghost" size="icon-sm" aria-label={`Rename ${project.name}`}>
-                    <Edit size={16} aria-hidden="true" />
+                    <EditIcon size="md" aria-hidden="true" />
                   </Button>
                   <Button variant="ghost" size="icon-sm" aria-label={`Delete ${project.name}`}>
-                    <Trash size={16} aria-hidden="true" />
+                    <DeleteIcon size="md" aria-hidden="true" />
                   </Button>
                 </span>
               </li>

@@ -3,8 +3,7 @@ import { Checkbox } from '@base-ui/react/checkbox';
 import { Radio } from '@base-ui/react/radio';
 import { RadioGroup } from '@base-ui/react/radio-group';
 import { Switch } from '@base-ui/react/switch';
-import { Check } from 'reicon-react/icons/Check';
-import { Minus } from 'reicon-react/icons/Minus';
+import { CheckIcon, MinusIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Input } from '@tulipfarm/sprout/input';
 import { Label } from '@tulipfarm/sprout/label';
@@ -30,8 +29,8 @@ function DemoCheckbox(props: Checkbox.Root.Props) {
   return (
     <Checkbox.Root className="label-demo-checkbox" {...props}>
       <Checkbox.Indicator className="label-demo-checkbox-indicator">
-        <Check aria-hidden="true" className="label-demo-check" />
-        <Minus aria-hidden="true" className="label-demo-minus" />
+        <CheckIcon aria-hidden="true" className="label-demo-check" />
+        <MinusIcon aria-hidden="true" className="label-demo-minus" />
       </Checkbox.Indicator>
     </Checkbox.Root>
   );

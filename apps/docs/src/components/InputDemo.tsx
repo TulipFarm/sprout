@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactElement, type ReactNode } from 'react';
 import { Field } from '@base-ui/react/field';
-import { ImageUp } from 'reicon-react/icons/ImageUp';
-import { Search3 as SearchIcon } from 'reicon-react/icons/Search3';
+import { ImageUploadIcon, SearchIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Input, type InputScale } from '@tulipfarm/sprout/input';
 import { Kbd } from '@tulipfarm/sprout/kbd';
@@ -484,7 +483,7 @@ export function InputFileChooser() {
     >
       <div className="input-demo-row">
         <Button variant="outline" size="sm" onClick={() => chooser.current?.click()}>
-          <ImageUp data-icon="inline-start" aria-hidden="true" />
+          <ImageUploadIcon data-icon="inline-start" aria-hidden="true" />
           Upload image
         </Button>
         <Input
@@ -541,7 +540,7 @@ export function InputCompositions() {
             data-testid="group-sample"
             onClick={() => search.current?.focus()}
           >
-            <SearchIcon size={16} aria-hidden="true" />
+            <SearchIcon size="md" aria-hidden="true" />
             <Input
               ref={search}
               data-slot="input-group-control"

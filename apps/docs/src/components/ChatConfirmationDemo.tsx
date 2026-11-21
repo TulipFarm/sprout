@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Refresh } from 'reicon-react/icons/Refresh';
+import { RefreshIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -364,7 +364,7 @@ export function ChatConfirmationTableApproval() {
       disabled={checking || state.kind === 'submitting'}
       onClick={checkStatus}
     >
-      <Refresh size={14} aria-hidden="true" />
+      <RefreshIcon size="sm" aria-hidden="true" />
       Check status
     </Button>
   );

@@ -1,4 +1,4 @@
-import { LinkOff } from 'reicon-react/icons/LinkOff';
+import { LinkOffIcon } from '../components/icons.js';
 import type { RichTextKeyword } from '../components/rich-text-editor.js';
 import { accountLabel } from './keywords.js';
 
@@ -7,7 +7,7 @@ export function KeywordHintBody({ keyword }: { keyword: RichTextKeyword }) {
   if (keyword.connected === false)
     return (
       <>
-        <LinkOff size={14} aria-hidden="true" />
+        <LinkOffIcon size="sm" aria-hidden="true" />
         <span>{keyword.label} isn't connected</span>
       </>
     );

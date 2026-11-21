@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, type ComponentProps, type CSSProperties, type ReactNode } from 'react';
-import { ArrowRight } from 'reicon-react/icons/ArrowRight';
+import { ArrowRightIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { BrandStack, type BrandStackItem } from './brand-icon.js';
 
@@ -72,7 +72,7 @@ export function PromptList({
               {item.label}
             </button>
             {!!item.brands?.length && <BrandStack brands={item.brands} className="sprout-prompt-list-brands" />}
-            <ArrowRight aria-hidden="true" className="sprout-prompt-list-arrow" />
+            <ArrowRightIcon aria-hidden="true" className="sprout-prompt-list-arrow" />
           </li>
         ))}
       </ul>

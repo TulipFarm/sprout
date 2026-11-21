@@ -3,7 +3,7 @@
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
-import { X } from 'reicon-react/icons/X';
+import { CloseIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 import { Button } from './button.js';
 
@@ -96,7 +96,7 @@ export function DialogContent({
             aria-label={closeLabel}
             render={<Button variant="ghost" size="icon-sm" />}
           >
-            <X size={16} aria-hidden="true" />
+            <CloseIcon size="md" aria-hidden="true" />
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Popup>

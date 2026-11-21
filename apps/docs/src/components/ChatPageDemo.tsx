@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
-import { Database } from 'reicon-react/icons/Database';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Globe } from 'reicon-react/icons/Globe';
-import { Laptop } from 'reicon-react/icons/Laptop';
-import { MoreH } from 'reicon-react/icons/MoreH';
-import { Plus } from 'reicon-react/icons/Plus';
+import {
+  AddIcon,
+  ArrowLeftIcon,
+  DatabaseIcon,
+  DocumentTextIcon,
+  GlobeIcon,
+  LaptopIcon,
+  MoreIcon,
+} from '@tulipfarm/sprout/icons';
 import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import { FileAttachment, type AttachmentFile } from '@tulipfarm/sprout/attachment';
 import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
@@ -180,7 +182,7 @@ const initialTurns: Turn[] = [
         id: 'sheet',
         label: 'Read Q3-forecast.csv',
         status: 'completed',
-        visual: <Database size={14} />,
+        visual: <DatabaseIcon size="sm" />,
       },
     ],
     sources,
@@ -235,8 +237,8 @@ const cannedReply = `This is a demo, so nothing was searched. A real reply strea
 - Another point`;
 
 const suggestions = [
-  { id: 'note', label: 'Draft the #ops note now', icon: <FileText size={16} aria-hidden="true" /> },
-  { id: 'web', label: 'Check supplier news on the web', icon: <Globe size={16} aria-hidden="true" /> },
+  { id: 'note', label: 'Draft the #ops note now', icon: <DocumentTextIcon size="md" aria-hidden="true" /> },
+  { id: 'web', label: 'Check supplier news on the web', icon: <GlobeIcon size="md" aria-hidden="true" /> },
 ];
 
 const history = [
@@ -335,7 +337,7 @@ function ChatHeader() {
               />
             }
           >
-            <ArrowLeft size={16} aria-hidden="true" />
+            <ArrowLeftIcon size="md" aria-hidden="true" />
           </TooltipTrigger>
           <TooltipContent side="bottom">Back to the docs</TooltipContent>
         </Tooltip>
@@ -353,7 +355,7 @@ function ChatHeader() {
                 />
               }
             >
-              <MoreH size={16} aria-hidden="true" />
+              <MoreIcon size="md" aria-hidden="true" />
             </TooltipTrigger>
             <TooltipContent side="bottom">More</TooltipContent>
           </Tooltip>
@@ -373,7 +375,7 @@ function ChatHistory({ onNewChat }: { onNewChat: () => void }) {
   return (
     <nav className="chat-page-history" aria-label="Chats">
       <Button variant="outline" size="sm" onClick={onNewChat}>
-        <Plus size={16} aria-hidden="true" />
+        <AddIcon size="md" aria-hidden="true" />
         New chat
       </Button>
       <ul>
@@ -427,7 +429,7 @@ export function ChatPageDemo() {
         text: '',
         streaming: true,
         createdAt: new Date().toISOString(),
-        tools: [{ id: 'think', label: 'Reading the chat', status: 'running', visual: <Database size={14} /> }],
+        tools: [{ id: 'think', label: 'Reading the chat', status: 'running', visual: <DatabaseIcon size="sm" /> }],
       },
     ]);
     const words = cannedReply.split(/(?<=\s)/);
@@ -582,7 +584,7 @@ export function ChatPageDemo() {
                     id: 'computer',
                     label: 'Upload from computer',
                     description: 'Files and images from this device',
-                    icon: icon(Laptop),
+                    icon: icon(LaptopIcon),
                     onSelect: () => picker.current?.click(),
                   },
                   {

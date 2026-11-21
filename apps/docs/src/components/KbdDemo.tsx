@@ -1,11 +1,13 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowDown } from 'reicon-react/icons/ArrowDown';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { Backspace } from 'reicon-react/icons/Backspace';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Command as CommandIcon } from 'reicon-react/icons/Command';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Search3 } from 'reicon-react/icons/Search3';
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  BackspaceIcon,
+  CalendarIcon,
+  CommandIcon,
+  DocumentTextIcon,
+  SearchIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@tulipfarm/sprout/command';
 import { Kbd, KbdGroup, type KbdVariant } from '@tulipfarm/sprout/kbd';
@@ -92,11 +94,11 @@ function Groups() {
           <dd>
             <KbdGroup>
               <Kbd>
-                <ArrowUp aria-hidden="true" />
+                <ArrowUpIcon aria-hidden="true" />
                 <span className="kbd-demo-sr">Up arrow</span>
               </Kbd>
               <Kbd>
-                <ArrowDown aria-hidden="true" />
+                <ArrowDownIcon aria-hidden="true" />
                 <span className="kbd-demo-sr">Down arrow</span>
               </Kbd>
             </KbdGroup>
@@ -111,7 +113,7 @@ function Groups() {
                 Cmd
               </Kbd>
               <Kbd>
-                <Backspace aria-hidden="true" />
+                <BackspaceIcon aria-hidden="true" />
                 <span className="kbd-demo-sr">Backspace</span>
               </Kbd>
             </KbdGroup>
@@ -195,13 +197,13 @@ const results = [
   {
     id: 'planting',
     title: 'Spring planting review',
-    media: <Calendar />,
+    media: <CalendarIcon />,
     detail: 'Tue 14 Apr · 10:00–10:45',
   },
   {
     id: 'notes',
     title: 'Greenhouse notes',
-    media: <FileText />,
+    media: <DocumentTextIcon />,
     detail: 'Meadow · Edited yesterday',
   },
 ];
@@ -260,7 +262,7 @@ function InTooltip() {
         <div className="kbd-demo-tooltips">
           <Tooltip>
             <TooltipTrigger render={<Button variant="outline" size="icon" aria-label="Search" />}>
-              <Search3 aria-hidden="true" />
+              <SearchIcon aria-hidden="true" />
             </TooltipTrigger>
             <TooltipContent>
               Search

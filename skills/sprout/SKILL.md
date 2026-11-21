@@ -35,7 +35,9 @@ Presets: `neutral` (default), `tulipfarm`, `claude`, `chatgpt`, `cloudflare`,
   Router links go in `render={<Link to="…" />}`.
 - **A link styled as a button** needs `nativeButton={false}`:
   `<Button nativeButton={false} render={<a href="/x" />}>`.
-- **Icons** come from `reicon-react/icons/<Name>`. Mark decorative icons
+- **Icons** come from `@tulipfarm/sprout/icons` (Hugeicons), such as
+  `<AddIcon size="md" />`. Sizes are tokens: `xs` 12px, `sm` 14px, `md`
+  16px, `lg` 18px, `xl` 20px, `2xl` 24px. Mark decorative icons
   `aria-hidden="true"`. Put `data-icon="inline-start"` or `"inline-end"` on an
   icon next to text to tighten padding.
 - **Icon-only controls** need an `aria-label`. Add a `Tooltip` to show it.

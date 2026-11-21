@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { ChevronRightIcon } from './icons.js';
 
 import {
   createContext,
@@ -423,7 +423,7 @@ export function SidebarSection({
         <div className="sprout-sidebar-section-heading">
           <SidebarMenuButton {...props}>{label}</SidebarMenuButton>
           <Collapsible.Trigger render={<SidebarMenuAction aria-label={`${open ? 'Collapse' : 'Expand'} ${label}`} />}>
-            <ChevronRight size={16} aria-hidden="true" className="sprout-sidebar-chevron" />
+            <ChevronRightIcon size="md" aria-hidden="true" className="sprout-sidebar-chevron" />
           </Collapsible.Trigger>
         </div>
         <Collapsible.Panel className="sprout-sidebar-section-content" inert={!open}>

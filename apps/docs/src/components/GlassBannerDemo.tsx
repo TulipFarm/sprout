@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Plus } from 'reicon-react/icons/Plus';
+import { AddIcon, DocumentTextIcon } from '@tulipfarm/sprout/icons';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import { GlassBanner, GlassChip } from '@tulipfarm/sprout/glass-banner';
 import { SearchField } from '@tulipfarm/sprout/search-field';
@@ -37,8 +36,8 @@ function ActivityChips({ icons }: { icons: boolean }) {
 function StarterChips({ icons }: { icons: boolean }) {
   return (
     <>
-      <GlassChip icon={icons ? <FileText size={16} aria-hidden="true" /> : undefined}>Garden notes</GlassChip>
-      <GlassChip icon={icons ? <Plus size={16} aria-hidden="true" /> : undefined}>Plan a project</GlassChip>
+      <GlassChip icon={icons ? <DocumentTextIcon size="md" aria-hidden="true" /> : undefined}>Garden notes</GlassChip>
+      <GlassChip icon={icons ? <AddIcon size="md" aria-hidden="true" /> : undefined}>Plan a project</GlassChip>
       <GlassChip>Try a new workflow</GlassChip>
     </>
   );
@@ -141,7 +140,7 @@ export function GlassBannerLayouts() {
         <Frame title="No caption · list named by the title">
           <GlassBanner title="Grow your next idea">
             <GlassChip>Try a new workflow</GlassChip>
-            <GlassChip icon={<FileText size={16} aria-hidden="true" />}>
+            <GlassChip icon={<DocumentTextIcon size="md" aria-hidden="true" />}>
               Summarize the quarterly garden-planning notes for the whole team
             </GlassChip>
           </GlassBanner>

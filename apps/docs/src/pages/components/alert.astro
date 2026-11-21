@@ -23,7 +23,7 @@ import { AlertVariants, AlertActions, AlertContent, AlertStates } from '../../co
   AlertDescription,
   AlertTitle,
 } from "@tulipfarm/sprout/alert";
-import { InfoCircle } from "reicon-react/icons/InfoCircle";
+import { InfoIcon } from "@tulipfarm/sprout/icons";
 
 <Alert variant="destructive">
   <AlertTitle>This table is unavailable</AlertTitle>
@@ -33,7 +33,7 @@ import { InfoCircle } from "reicon-react/icons/InfoCircle";
 </Alert>
 
 <Alert role="status">
-  <InfoCircle aria-hidden="true" />
+  <InfoIcon aria-hidden="true" />
   <AlertTitle>Chat archived</AlertTitle>
   <AlertDescription>It moved to Archived chats.</AlertDescription>
   <AlertAction>

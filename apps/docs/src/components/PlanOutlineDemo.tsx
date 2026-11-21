@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Tasks } from 'reicon-react/icons/Tasks';
+import { TasksIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription, AlertTitle } from '@tulipfarm/sprout/alert';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
@@ -766,7 +766,7 @@ export function PlanOutlineStates() {
           <StatePanel
             kind="unavailable"
             heading="h3"
-            icon={Tasks}
+            icon={TasksIcon}
             title="Plan unavailable"
             description="This plan was removed or your access to its chat changed. Nothing from it is shown here."
           />

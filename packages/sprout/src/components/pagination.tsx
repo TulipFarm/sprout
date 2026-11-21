@@ -1,9 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { ChevronLeftIcon, ChevronRightIcon, MoreIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button, type ButtonProps, type ButtonSize } from './button.js';
 
@@ -74,7 +72,7 @@ export function PaginationPrevious({ className, text = 'Previous', ...props }: P
       className={cn('sprout-pagination-previous', className)}
       {...props}
     >
-      <ChevronLeft data-icon="inline-start" aria-hidden="true" />
+      <ChevronLeftIcon data-icon="inline-start" aria-hidden="true" />
       <span className="sprout-pagination-label">{text}</span>
     </PaginationLink>
   );
@@ -89,7 +87,7 @@ export function PaginationNext({ className, text = 'Next', ...props }: Paginatio
       {...props}
     >
       <span className="sprout-pagination-label">{text}</span>
-      <ChevronRight data-icon="inline-end" aria-hidden="true" />
+      <ChevronRightIcon data-icon="inline-end" aria-hidden="true" />
     </PaginationLink>
   );
 }
@@ -105,7 +103,7 @@ export function PaginationEllipsis({ className, ...props }: PaginationEllipsisPr
       className={cn('sprout-pagination-ellipsis', className)}
       {...props}
     >
-      <MoreH />
+      <MoreIcon />
       <span className="sprout-pagination-sr-only">More pages</span>
     </span>
   );

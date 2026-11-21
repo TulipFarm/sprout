@@ -14,8 +14,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { Search } from 'reicon-react/icons/Search';
+import { CheckIcon, SearchIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import {
   Dialog,
@@ -386,7 +385,7 @@ export function CommandInput({ value, onValueChange, onChange, className, id, ..
   return (
     <div data-slot="command-input-wrapper" className="sprout-command-input-wrapper">
       <div data-slot="command-input-group" className="sprout-command-input-group">
-        <Search size={16} aria-hidden="true" className="sprout-command-input-icon" />
+        <SearchIcon size="md" aria-hidden="true" className="sprout-command-input-icon" />
         <input
           id={id ?? inputId}
           type="text"
@@ -625,7 +624,7 @@ export function CommandItem({
       }}
     >
       {children}
-      <Check size={16} aria-hidden="true" className="sprout-command-item-check" />
+      <CheckIcon size="md" aria-hidden="true" className="sprout-command-item-check" />
     </div>
   );
 }

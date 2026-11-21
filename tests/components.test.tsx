@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import * as sprout from '../packages/sprout/src/index.js';
+import * as icons from '../packages/sprout/src/components/icons.js';
 import {
   Sidebar,
   SidebarProvider,
@@ -311,6 +312,8 @@ const fieldExports = [
 const formExports = ['Form', 'FormFooter', 'FormSection', 'formFooterLayoutNames', 'formSectionLevelNames'];
 
 const hoverCardExports = ['HoverCard', 'HoverCardContent', 'HoverCardTrigger'];
+
+const iconExports = Object.keys(icons);
 
 const inputExports = ['Input', 'inputScaleNames'];
 
@@ -705,7 +708,7 @@ const viewSwitcherExports = ['ViewSwitcher', 'viewSwitcherTabId'];
 const webSourceExports = ['WebSource', 'webSourceIcon'];
 
 describe('Sidebar public surface', () => {
-  it('exports only Accordion, Agent Avatar, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Chat Window, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Input, Input Group, Input OTP, Kbd, Knowledge Base, Label, Menubar, Message, Message Actions, Message Response, Message Rich Text, Message Scroller, Monster Avatar, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Status, Switch, Table, Tables Feedback, Tabs, Task Tree, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, View Switcher, and Web Source parts', () => {
+  it('exports only Accordion, Agent Avatar, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge, Board, Brand Icon, Breadcrumb, Button, Button Group, Canvas, Card, Carousel, Chart, Chat Confirmation, Chat Plan, Chat Sources, Chat Window, Checkbox, Choice List, Code Block, Collapsible, Combobox, Command, Context Menu, Dialog, Direction, Dropdown Menu, File Viewer, Form, Glass Banner, Gradient Banner, Hover Card, Icons, Input, Input Group, Input OTP, Kbd, Knowledge Base, Label, Menubar, Message, Message Actions, Message Response, Message Rich Text, Message Scroller, Monster Avatar, Navigation Menu, Notice Banner, Page Content, Page Header, Pagination, Plan Outline, Popover, Progress, Prompt List, Questionnaire, Radio Group, Reasoning Effort, Result Card, Result Notice, Review Card, Rich Text Editor, Schema Diagram, Scroll Area, Search Field, Select, Selection Slot, Separator, Settings List, Sheet, Sidebar, Skeleton, Slider, Spinner, State Panel, State Sample, Status, Switch, Table, Tables Feedback, Tabs, Task Tree, Textarea, Toggle, Toggle Group, Toast, Tool Activity, Tooltip, Typed Text, View Switcher, and Web Source parts', () => {
     const names = Object.keys(sprout);
     const buttonExports = [
       'Button',
@@ -801,6 +804,7 @@ describe('Sidebar public surface', () => {
           tooltipExports.includes(name) ||
           toastExports.includes(name) ||
           hoverCardExports.includes(name) ||
+          iconExports.includes(name) ||
           inputExports.includes(name) ||
           inputGroupExports.includes(name) ||
           inputOtpExports.includes(name) ||
@@ -917,6 +921,7 @@ describe('Sidebar public surface', () => {
         ...tooltipExports,
         ...toastExports,
         ...hoverCardExports,
+        ...iconExports,
         ...inputExports,
         ...inputGroupExports,
         ...inputOtpExports,

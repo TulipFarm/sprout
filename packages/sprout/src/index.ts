@@ -41,6 +41,7 @@ export * from './components/form.js';
 export * from './components/glass-banner.js';
 export * from './components/gradient-banner.js';
 export * from './components/hover-card.js';
+export * from './components/icons.js';
 export * from './components/input.js';
 export * from './components/input-group.js';
 export * from './components/input-otp.js';

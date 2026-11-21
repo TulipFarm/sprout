@@ -1,8 +1,7 @@
 'use client';
 
 import { useRef, type KeyboardEvent } from 'react';
-import { Search } from 'reicon-react/icons/Search';
-import { X } from 'reicon-react/icons/X';
+import { CloseIcon, SearchIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from './input-group.js';
 
@@ -35,7 +34,7 @@ export function SearchField({ label, value, onChange, placeholder, maxLength, id
   return (
     <InputGroup data-slot="search-field" className={cn('sprout-search-field', className)}>
       <InputGroupAddon>
-        <Search size={16} aria-hidden="true" />
+        <SearchIcon size="md" aria-hidden="true" />
       </InputGroupAddon>
       <InputGroupInput
         ref={input}
@@ -62,7 +61,7 @@ export function SearchField({ label, value, onChange, placeholder, maxLength, id
               input.current?.focus();
             }}
           >
-            <X size={14} aria-hidden="true" />
+            <CloseIcon size="sm" aria-hidden="true" />
           </InputGroupButton>
         </InputGroupAddon>
       )}

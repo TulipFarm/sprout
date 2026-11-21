@@ -21,8 +21,7 @@ import { canSplit } from '@tiptap/pm/transform';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
-import { Check } from 'reicon-react/icons/Check';
-import { LinkOff } from 'reicon-react/icons/LinkOff';
+import { CheckIcon, LinkOffIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { KeywordHintBody } from '../internal/keyword-hint.js';
 import {
@@ -858,7 +857,7 @@ export function RichTextEditor({
               ) : null,
             )}
             <span data-keyword-template={statusTemplate}>
-              <LinkOff aria-hidden="true" />
+              <LinkOffIcon aria-hidden="true" />
             </span>
           </span>
           <span className="sprout-rich-text-editor-sr-only" role="status" aria-live="polite">
@@ -944,7 +943,7 @@ export function RichTextEditor({
                           {pending === account.id ? (
                             <Spinner size="sm" aria-hidden="true" />
                           ) : (
-                            current && <Check size={14} aria-hidden="true" />
+                            current && <CheckIcon size="sm" aria-hidden="true" />
                           )}
                         </span>
                       </button>

@@ -2,8 +2,7 @@
 
 import type { ComponentProps } from 'react';
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { CheckIcon, ChevronRightIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 
 export const dropdownMenuContentSizeNames = ['anchor', 'menu'] as const;
@@ -157,7 +156,7 @@ export function DropdownMenuSubTrigger({ className, inset, children, ...props }:
       )}
     >
       {children}
-      <ChevronRight size={16} aria-hidden="true" className="sprout-dropdown-menu-sub-chevron" />
+      <ChevronRightIcon size="md" aria-hidden="true" className="sprout-dropdown-menu-sub-chevron" />
     </MenuPrimitive.SubmenuTrigger>
   );
 }
@@ -201,7 +200,7 @@ export function DropdownMenuCheckboxItem({ className, inset, children, ...props 
     >
       <span className="sprout-dropdown-menu-indicator" data-slot="dropdown-menu-checkbox-item-indicator">
         <MenuPrimitive.CheckboxItemIndicator>
-          <Check size={16} aria-hidden="true" />
+          <CheckIcon size="md" aria-hidden="true" />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -230,7 +229,7 @@ export function DropdownMenuRadioItem({ className, inset, children, ...props }: 
     >
       <span className="sprout-dropdown-menu-indicator" data-slot="dropdown-menu-radio-item-indicator">
         <MenuPrimitive.RadioItemIndicator>
-          <Check size={16} aria-hidden="true" />
+          <CheckIcon size="md" aria-hidden="true" />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}

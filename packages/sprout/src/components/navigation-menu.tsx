@@ -1,7 +1,7 @@
 'use client';
 
 import { NavigationMenu as NavigationMenuPrimitive } from '@base-ui/react/navigation-menu';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronDownIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 
 type Align = NonNullable<NavigationMenuPrimitive.Positioner.Props['align']>;
@@ -72,7 +72,7 @@ export function NavigationMenuTrigger({ className, children, ...props }: Navigat
     >
       {children}
       <NavigationMenuPrimitive.Icon data-slot="navigation-menu-chevron" className="sprout-navigation-menu-chevron">
-        <ChevronDown />
+        <ChevronDownIcon />
       </NavigationMenuPrimitive.Icon>
     </NavigationMenuPrimitive.Trigger>
   );

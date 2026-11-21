@@ -1,7 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { Clock } from 'reicon-react/icons/Clock';
-import { Warning } from 'reicon-react/icons/Warning';
+import { CheckIcon, ClockIcon, WarningIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Spinner } from './spinner.js';
 
@@ -33,9 +31,9 @@ const stateLabels: Record<ChatPlanStepState, string> = {
 
 function StepIcon({ state }: { state: ChatPlanStepState }) {
   if (state === 'running') return <Spinner aria-hidden="true" />;
-  if (state === 'complete') return <Check size={16} aria-hidden="true" />;
-  if (state === 'error') return <Warning size={16} aria-hidden="true" />;
-  return <Clock size={16} aria-hidden="true" />;
+  if (state === 'complete') return <CheckIcon size="md" aria-hidden="true" />;
+  if (state === 'error') return <WarningIcon size="md" aria-hidden="true" />;
+  return <ClockIcon size="md" aria-hidden="true" />;
 }
 
 /**

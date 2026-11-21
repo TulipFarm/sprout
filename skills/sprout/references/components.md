@@ -1,7 +1,7 @@
 # Sprout component usage
 
 One minimal example per component. Import path is `@tulipfarm/sprout/<slug>`.
-Icons come from `reicon-react/icons/<Name>`.
+Icons come from `@tulipfarm/sprout/icons`, such as `AddIcon`.
 
 ## Actions
 

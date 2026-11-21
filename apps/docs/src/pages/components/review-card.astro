@@ -32,7 +32,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <CodeBlock
       lang="tsx"
       title="A row change waiting for approval"
-      code={`import { Database } from "reicon-react/icons/Database";
+      code={`import { DatabaseIcon } from "@tulipfarm/sprout/icons";
 import {
   ReviewCard,
   ReviewRow,
@@ -41,7 +41,7 @@ import {
 
 <ReviewCard
   label="Review row change"
-  icon={<Database size={16} />}
+  icon={<DatabaseIcon size="md" />}
   title="Update a row in Supplier deliveries"
   badge={{ label: "Needs approval", variant: "warning" }}
   settled={status !== "pending"}

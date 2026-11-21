@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { Copy } from 'reicon-react/icons/Copy';
+import { CheckIcon, CopyIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Button } from '@tulipfarm/sprout/button';
 import { FileRenderersProvider, ViewableFileContent, type ViewableFile } from '@tulipfarm/sprout/file-viewer';
@@ -647,7 +646,7 @@ function CopyHandoff({ text }: { text: string }) {
           )
         }
       >
-        {copied ? <Check size={14} /> : <Copy size={14} />}
+        {copied ? <CheckIcon size="sm" /> : <CopyIcon size="sm" />}
       </Button>
     </div>
   );

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { Refresh } from 'reicon-react/icons/Refresh';
+import { ArrowUpRightIcon, RefreshIcon } from '@tulipfarm/sprout/icons';
 import { AttachmentGroup, FileAttachment, type AttachmentFile } from '@tulipfarm/sprout/attachment';
 import { AvatarGroup, AvatarGroupCount, EntityAvatar } from '@tulipfarm/sprout/avatar';
 import { Button } from '@tulipfarm/sprout/button';
@@ -664,7 +663,7 @@ function GoogleFileCanvas() {
               aria-busy={refreshing}
               onClick={retry}
             >
-              <Refresh size={16} aria-hidden="true" />
+              <RefreshIcon size="md" aria-hidden="true" />
             </Button>
           </div>
           <div className="file-viewer-demo-row">
@@ -680,7 +679,7 @@ function GoogleFileCanvas() {
                 />
               }
             >
-              <ArrowUpRight size={14} aria-hidden="true" />
+              <ArrowUpRightIcon size="sm" aria-hidden="true" />
               Open in Google
             </Button>
             <Button variant="outline" size="sm" nativeButton={false} render={<a href="#file-viewer-demo" />}>

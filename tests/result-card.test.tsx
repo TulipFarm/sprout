@@ -129,7 +129,7 @@ describe('ResultCard', () => {
   });
 
   it("shows an unbranded app's icon in place of the plug", () => {
-    const plug = 'class="reicon';
+    const plug = 'M15.5 2V6M8.5 6V2';
     const pipeline: ResultApp = {
       brand: null,
       name: 'Pipeline',

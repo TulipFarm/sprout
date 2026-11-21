@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { ChatDots } from 'reicon-react/icons/ChatDots';
-import { Compass } from 'reicon-react/icons/Compass';
-import { GraduationCap } from 'reicon-react/icons/GraduationCap';
-import { Laptop } from 'reicon-react/icons/Laptop';
-import { Lightbulb } from 'reicon-react/icons/Lightbulb';
-import { Link } from 'reicon-react/icons/Link';
-import { Map } from 'reicon-react/icons/Map';
-import { Sparkles } from 'reicon-react/icons/Sparkles';
-import { Target } from 'reicon-react/icons/Target';
-import { Telescope } from 'reicon-react/icons/Telescope';
-import { User } from 'reicon-react/icons/User';
+import {
+  BookOpenIcon,
+  ChatIcon,
+  CompassIcon,
+  GraduationCapIcon,
+  LaptopIcon,
+  LightbulbIcon,
+  LinkIcon,
+  MapIcon,
+  SparklesIcon,
+  TargetIcon,
+  TelescopeIcon,
+  UserIcon,
+} from '@tulipfarm/sprout/icons';
 import { FileTypeIcon, type AttachmentFile } from '@tulipfarm/sprout/attachment';
 import { BrandIcon, type Brand } from '@tulipfarm/sprout/brand-icon';
 import {
@@ -40,7 +42,7 @@ function Example({ title, description, children }: { title: string; description:
   );
 }
 
-export const icon = (Icon: typeof Map) => <Icon size={16} aria-hidden="true" />;
+export const icon = (Icon: typeof MapIcon) => <Icon size={16} aria-hidden="true" />;
 
 const emptyDoc = (): RichTextValue => ({
   type: 'doc',
@@ -56,19 +58,19 @@ export const agents: ChatInputSuggestion[] = [
     id: 'researcher',
     label: 'Researcher',
     description: 'Finds and cites sources',
-    media: icon(Telescope),
+    media: icon(TelescopeIcon),
   },
   {
     id: 'designer',
     label: 'Designer',
     description: 'Reviews layouts and flows',
-    media: icon(Compass),
+    media: icon(CompassIcon),
   },
   {
     id: 'pm',
     label: 'Product manager',
     description: 'Writes specs and plans',
-    media: icon(User),
+    media: icon(UserIcon),
   },
 ];
 export const skills: ChatInputSuggestion[] = [
@@ -76,19 +78,19 @@ export const skills: ChatInputSuggestion[] = [
     id: 'usability-review',
     label: 'usability-review',
     description: 'Heuristic review of a screen',
-    media: icon(BookOpen),
+    media: icon(BookOpenIcon),
   },
   {
     id: 'user-interview',
     label: 'user-interview',
     description: 'Draft an interview guide',
-    media: icon(BookOpen),
+    media: icon(BookOpenIcon),
   },
   {
     id: 'prd',
     label: 'prd',
     description: 'Turn notes into a product spec',
-    media: icon(BookOpen),
+    media: icon(BookOpenIcon),
   },
 ];
 const sample = (name: string) => `/file-viewer-samples/${name.toLowerCase()}`;
@@ -114,28 +116,28 @@ export const modes: ChatInputOption[] = [
     id: 'plan',
     label: 'Plan',
     description: 'Proposes steps before it acts',
-    icon: icon(Map),
+    icon: icon(MapIcon),
     color: '#3b9ef5',
   },
   {
     id: 'research',
     label: 'Deep research',
     description: 'Reads many sources, takes longer',
-    icon: icon(Telescope),
+    icon: icon(TelescopeIcon),
     color: '#6366f1',
   },
   {
     id: 'ask',
     label: 'Ask',
     description: 'Answers without making edits',
-    icon: icon(ChatDots),
+    icon: icon(ChatIcon),
     color: '#10b981',
   },
   {
     id: 'learn',
     label: 'Learn',
     description: 'Explains step by step',
-    icon: icon(GraduationCap),
+    icon: icon(GraduationCapIcon),
     color: '#f97316',
   },
 ];
@@ -211,25 +213,25 @@ const prompts: ChatInputPrompt[] = [
   {
     id: 'clarify',
     label: 'Clarify user problem',
-    icon: icon(Lightbulb),
+    icon: icon(LightbulbIcon),
     prompt: 'Help me clarify the user problem we are solving.',
   },
   {
     id: 'context',
     label: 'Define user context',
-    icon: icon(Target),
+    icon: icon(TargetIcon),
     prompt: 'Describe who the users are and where they use this.',
   },
   {
     id: 'deliverable',
     label: 'Select deliverable',
-    icon: icon(BookOpen),
+    icon: icon(BookOpenIcon),
     prompt: 'Which deliverable fits best: a spec, a prototype, or a report?',
   },
   {
     id: 'refine',
     label: 'Refine requirements',
-    icon: icon(Sparkles),
+    icon: icon(SparklesIcon),
     prompt: 'Refine these requirements and list open questions.',
   },
 ];
@@ -420,7 +422,7 @@ function Composer({
             id: 'computer',
             label: 'Upload from computer',
             description: 'Files and images from this device',
-            icon: icon(Laptop),
+            icon: icon(LaptopIcon),
             onSelect: () => picker.current?.click(),
           },
           {
@@ -434,7 +436,7 @@ function Composer({
             id: 'url',
             label: 'Add a web page',
             description: 'Reads the page at a URL',
-            icon: icon(Link),
+            icon: icon(LinkIcon),
             onSelect: () => add(ready('sprout.dev', 'text/html', 'Web page')),
           },
         ]}

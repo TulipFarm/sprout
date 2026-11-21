@@ -1,7 +1,7 @@
 'use client';
 
 import { Children, Fragment, isValidElement, type ReactElement, type ReactNode, type Ref } from 'react';
-import { X } from 'reicon-react/icons/X';
+import { CloseIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Kbd } from './kbd.js';
@@ -91,7 +91,7 @@ export function SearchInput({
         aria-label={label}
       />
       <DialogClose render={<Button variant="ghost" size="icon-sm" aria-label={closeLabel} />}>
-        <X size={16} aria-hidden="true" />
+        <CloseIcon size="md" aria-hidden="true" />
       </DialogClose>
     </div>
   );

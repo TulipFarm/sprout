@@ -1,9 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ChartBar } from 'reicon-react/icons/ChartBar';
-import { Grid } from 'reicon-react/icons/Grid';
-import { Kanban } from 'reicon-react/icons/Kanban';
-import { List } from 'reicon-react/icons/List';
-import { Settings } from 'reicon-react/icons/Settings';
+import { ChartBarIcon, GridIcon, KanbanIcon, ListIcon, TimelineIcon, SettingsIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   ViewSwitcher,
@@ -15,24 +11,12 @@ import '../styles/view-switcher-demo.css';
 
 type ViewId = 'table' | 'list' | 'board' | 'chart' | 'timeline';
 
-// reicon has no gantt glyph, so this one is drawn on its 24px grid with its 1.5 stroke.
-function Timeline({ size = 24 }: { size?: number }) {
-  const bar = { stroke: 'currentColor', strokeWidth: 1.5, strokeLinejoin: 'round' } as const;
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="2.75" width="8" height="4" rx="2" {...bar} />
-      <rect x="8" y="10" width="9" height="4" rx="2" {...bar} />
-      <rect x="15" y="17.25" width="7" height="4" rx="2" {...bar} />
-    </svg>
-  );
-}
-
 const catalog: Record<ViewId, Omit<ViewSwitcherOption, 'unavailable'>> = {
-  table: { id: 'table', label: 'Table', icon: Grid, description: 'Rows and columns. Edit, group and sum.' },
-  list: { id: 'list', label: 'List', icon: List, description: 'One item per row for quick reading.' },
-  board: { id: 'board', label: 'Board', icon: Kanban, description: 'Cards in lanes, one lane per stage.' },
-  chart: { id: 'chart', label: 'Chart', icon: ChartBar, description: 'Totals and counts for each group.' },
-  timeline: { id: 'timeline', label: 'Timeline', icon: Timeline, description: 'Rows placed on their dates.' },
+  table: { id: 'table', label: 'Table', icon: GridIcon, description: 'Rows and columns. Edit, group and sum.' },
+  list: { id: 'list', label: 'List', icon: ListIcon, description: 'One item per row for quick reading.' },
+  board: { id: 'board', label: 'Board', icon: KanbanIcon, description: 'Cards in lanes, one lane per stage.' },
+  chart: { id: 'chart', label: 'Chart', icon: ChartBarIcon, description: 'Totals and counts for each group.' },
+  timeline: { id: 'timeline', label: 'Timeline', icon: TimelineIcon, description: 'Rows placed on their dates.' },
 };
 
 const order: ViewId[] = ['table', 'list', 'board', 'chart', 'timeline'];
@@ -265,7 +249,7 @@ export function ViewSwitcherUnavailable() {
             panelId="greenhouse-log"
             actions={
               <Button variant="ghost" size="icon-sm" aria-label="View settings">
-                <Settings size={16} aria-hidden="true" />
+                <SettingsIcon size="md" aria-hidden="true" />
               </Button>
             }
           />

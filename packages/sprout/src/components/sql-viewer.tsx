@@ -29,10 +29,7 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from 'react';
-import { Fingerprint } from 'reicon-react/icons/Fingerprint';
-import { Key } from 'reicon-react/icons/Key';
-import { Layers } from 'reicon-react/icons/Layers';
-import { Link } from 'reicon-react/icons/Link';
+import { FingerprintIcon, KeyIcon, LayersIcon, LinkIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import {
   FitOnResize,
@@ -387,7 +384,7 @@ function TableCard({ id, data: { table, tone } }: NodeProps<TableNode>) {
         <li className="sprout-sql-column" data-key="primary">
           {sideHandles('target', 'id')}
           <span className="sprout-sql-column-icon">
-            <Key size={12} role="img" aria-label="Primary key" />
+            <KeyIcon size="xs" role="img" aria-label="Primary key" />
           </span>
           <span className="sprout-sql-column-name">id</span>
           <span className="sprout-sql-column-type">uuid</span>
@@ -423,9 +420,9 @@ function TableCard({ id, data: { table, tone } }: NodeProps<TableNode>) {
               {join && sideHandles('source', field.id)}
               <span className="sprout-sql-column-icon">
                 {join ? (
-                  <Link size={12} role="img" aria-label="Foreign key" />
+                  <LinkIcon size="xs" role="img" aria-label="Foreign key" />
                 ) : unique.has(field.id) ? (
-                  <Fingerprint size={12} role="img" aria-label="Unique" />
+                  <FingerprintIcon size="xs" role="img" aria-label="Unique" />
                 ) : null}
               </span>
               <span className="sprout-sql-column-name" title={field.label}>
@@ -450,7 +447,7 @@ function TableCard({ id, data: { table, tone } }: NodeProps<TableNode>) {
           <ul className="sprout-sql-keys-list">
             {composite.map(key => (
               <li key={key.id} className="sprout-sql-key">
-                <Fingerprint size={12} aria-hidden="true" />
+                <FingerprintIcon size="xs" aria-hidden="true" />
                 <span>{key.fieldIds.map(field => labels.get(field) ?? field).join(', ')}</span>
               </li>
             ))}
@@ -470,7 +467,7 @@ function GroupFrame({ data: { label, tone, count } }: NodeProps<GroupNode>) {
       className="sprout-sql-group"
     >
       <header className="sprout-sql-group-label">
-        <Layers size={14} aria-hidden="true" />
+        <LayersIcon size="sm" aria-hidden="true" />
         <span className="sprout-sql-group-name">{label}</span>
         <span className="sprout-sql-group-count">{count}</span>
       </header>

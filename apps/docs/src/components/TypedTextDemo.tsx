@@ -1,7 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Edit } from 'reicon-react/icons/Edit';
-import { MagicStar } from 'reicon-react/icons/MagicStar';
-import { Refresh } from 'reicon-react/icons/Refresh';
+import { EditIcon, RefreshIcon, SparklesIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { TypedText } from '@tulipfarm/sprout/typed-text';
 import '../styles/typed-text-demo.css';
@@ -79,7 +77,7 @@ function ChatTitle() {
             setNext(next + 1);
           }}
         >
-          <MagicStar aria-hidden="true" />
+          <SparklesIcon aria-hidden="true" />
           Agent renames
         </Button>
         <Button
@@ -93,7 +91,7 @@ function ChatTitle() {
             }))
           }
         >
-          <Edit aria-hidden="true" />
+          <EditIcon aria-hidden="true" />
           Edit title
         </Button>
         <Button
@@ -104,7 +102,7 @@ function ChatTitle() {
             setNext(0);
           }}
         >
-          <Refresh aria-hidden="true" />
+          <RefreshIcon aria-hidden="true" />
           Reset
         </Button>
       </div>

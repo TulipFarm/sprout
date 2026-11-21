@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft as ArrowLeftIcon } from 'reicon-react/icons/ArrowLeft';
-import { Bell as BellIcon } from 'reicon-react/icons/Bell';
-import { ChevronRight as ChevronRightIcon } from 'reicon-react/icons/ChevronRight';
-import { FileText as FileTextIcon } from 'reicon-react/icons/FileText';
-import { Folder as FolderIcon } from 'reicon-react/icons/Folder';
-import { Home as HomeIcon } from 'reicon-react/icons/Home';
-import { Search3 as SearchIcon } from 'reicon-react/icons/Search3';
-import { SidebarLeft as SidebarIcon } from 'reicon-react/icons/SidebarLeft';
-import { Settings as SettingsIcon } from 'reicon-react/icons/Settings';
-import { Users as UsersIcon } from 'reicon-react/icons/Users';
-import { UserCircle as UserCircleIcon } from 'reicon-react/icons/UserCircle';
-import { Grid as GridIcon } from 'reicon-react/icons/Grid';
+import {
+  ArrowLeftIcon,
+  BellIcon,
+  ChevronRightIcon,
+  DocumentTextIcon,
+  FolderIcon,
+  GridIcon,
+  HomeIcon,
+  SearchIcon,
+  SettingsIcon,
+  SidebarLeftIcon,
+  UserCircleIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   Sidebar,
   SidebarContent,
@@ -273,7 +275,7 @@ function DemoNavigation({
             <>
               <SidebarGroup>
                 <div className="sidebar-demo-search">
-                  <SearchIcon size={16} aria-hidden="true" />
+                  <SearchIcon size="md" aria-hidden="true" />
                   <label className="sr-only" htmlFor="sidebar-demo-filter">
                     Filter navigation
                   </label>
@@ -355,7 +357,7 @@ function DemoNavigation({
                       )}
                     </SidebarSection>
                   )}
-                  {'files'.includes(query.toLowerCase()) && navItem('Files', <FileTextIcon />)}
+                  {'files'.includes(query.toLowerCase()) && navItem('Files', <DocumentTextIcon />)}
                   {'members'.includes(query.toLowerCase()) && navItem('Members', <UsersIcon />)}
                   {'integrations'.includes(query.toLowerCase()) && navItem('Integrations', <GridIcon />, true)}
                 </SidebarMenu>
@@ -407,19 +409,19 @@ function DemoNavigation({
         <header className="sidebar-demo-page-header">
           {collapsible !== 'none' && (
             <SidebarTrigger>
-              <SidebarIcon size={18} aria-hidden="true" />
+              <SidebarLeftIcon size="lg" aria-hidden="true" />
             </SidebarTrigger>
           )}
           <span className="sidebar-demo-breadcrumb">
             {workspace.name}
-            <ChevronRightIcon size={12} aria-hidden="true" />
+            <ChevronRightIcon size="xs" aria-hidden="true" />
             <span>{settings ? 'Settings' : active}</span>
           </span>
           <span className="sidebar-demo-preview-label">Preview</span>
         </header>
         <section className="sidebar-demo-page-content" aria-label="Selected page" aria-live="polite">
           <div className="sidebar-demo-page-symbol" aria-hidden="true">
-            {settings ? <SettingsIcon size={26} /> : <FolderIcon size={26} />}
+            {settings ? <SettingsIcon size="2xl" /> : <FolderIcon size="2xl" />}
           </div>
           <p className="sidebar-demo-selected">{workspace.name}</p>
           <h2>{active}</h2>
@@ -429,7 +431,7 @@ function DemoNavigation({
             Try a page, open a group, or collapse the sidebar.
           </p>
           <a href="/components/sidebar/" className="sidebar-demo-usage-link">
-            Explore the Sidebar API <ChevronRightIcon size={14} aria-hidden="true" />
+            Explore the Sidebar API <ChevronRightIcon size="sm" aria-hidden="true" />
           </a>
         </section>
         <div className="sidebar-demo-page-footer">

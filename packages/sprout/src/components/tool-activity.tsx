@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Command } from 'reicon-react/icons/Command';
+import { ChevronDownIcon, CommandIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
@@ -123,7 +122,7 @@ export function ActivityPanel({
         {working && <Spinner variant="thinking" aria-hidden="true" />}
         <span className="sprout-activity-panel-status">{working ? 'Working…' : 'Worked'}</span>
         {working && activityLabel && <span className="sprout-activity-panel-label">{activityLabel}</span>}
-        <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+        <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
       </CollapsibleTrigger>
       {/* Button children are presentational, so the live region sits beside the trigger. */}
       <span role="status" className="sprout-tool-activity-sr-only">
@@ -357,9 +356,9 @@ export function ToolActivity({
       {variant !== 'stepper' && (
         <>
           <CollapsibleTrigger aria-label={title} className="sprout-tool-activity-trigger">
-            {working ? <Spinner variant="thinking" aria-hidden="true" /> : <Command size={14} aria-hidden="true" />}
+            {working ? <Spinner variant="thinking" aria-hidden="true" /> : <CommandIcon size="sm" aria-hidden="true" />}
             <span className="sprout-tool-activity-title">{title}</span>
-            <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+            <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
           </CollapsibleTrigger>
           <span role="status" className="sprout-tool-activity-sr-only">
             {title}

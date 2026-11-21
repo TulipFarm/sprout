@@ -1,7 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Upload } from 'reicon-react/icons/Upload';
+import { CheckIcon, DocumentTextIcon, UploadIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   Toast,
@@ -139,7 +137,7 @@ export function ToastWithAction() {
             });
           }}
         >
-          <Check />
+          <CheckIcon />
           Save sample
         </Button>
       </div>
@@ -222,7 +220,7 @@ export function ToastPromise() {
                 .catch(() => {})
             }
           >
-            <Upload />
+            <UploadIcon />
             {fail ? 'Upload that fails' : 'Upload file'}
           </Button>
         ))}
@@ -255,7 +253,7 @@ function QueueList() {
     <Toast key={item.id} toast={item} swipeDirection={['right', 'down']}>
       <ToastContent>
         <span className="toast-demo-file" aria-hidden="true">
-          <FileText />
+          <DocumentTextIcon />
         </span>
         <div className="toast-demo-text">
           <ToastTitle />
@@ -275,7 +273,7 @@ function QueueEmpty({ onRestore }: { onRestore: () => void }) {
     <div className="toast-demo-empty">
       <p>Upload queue is empty</p>
       <Button variant="outline" size="sm" onClick={onRestore}>
-        <Upload />
+        <UploadIcon />
         Add uploads
       </Button>
     </div>

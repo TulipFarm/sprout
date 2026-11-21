@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Refresh } from 'reicon-react/icons/Refresh';
-import { SidebarRight } from 'reicon-react/icons/SidebarRight';
+import { ArrowLeftIcon, DocumentTextIcon, RefreshIcon, SidebarRightIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   ResizableHandle,
@@ -183,7 +180,7 @@ function ChatCanvas() {
     >
       <div className="resizable-demo-toolbar">
         <Button variant="outline" size="sm" onClick={() => setOpen(!open)}>
-          <SidebarRight size={14} aria-hidden="true" />
+          <SidebarRightIcon size="sm" aria-hidden="true" />
           {open ? 'Close canvas' : 'Open canvas'}
         </Button>
         <Button
@@ -277,7 +274,7 @@ function FileExplorer() {
               aria-current={selected === path ? 'true' : undefined}
               onClick={() => setSelected(path)}
             >
-              <FileText size={14} aria-hidden="true" />
+              <DocumentTextIcon size="sm" aria-hidden="true" />
               <span>{path}</span>
             </button>
           </li>
@@ -325,12 +322,12 @@ function FileExplorer() {
           <div className="resizable-demo-explorer-actions">
             {mobile && selected && state === 'ready' && (
               <Button variant="ghost" size="sm" onClick={() => setSelected(null)}>
-                <ArrowLeft size={14} aria-hidden="true" />
+                <ArrowLeftIcon size="sm" aria-hidden="true" />
                 Back
               </Button>
             )}
             <Button variant="outline" size="sm" onClick={() => setState('ready')}>
-              <Refresh size={14} aria-hidden="true" />
+              <RefreshIcon size="sm" aria-hidden="true" />
               Refresh
             </Button>
           </div>
@@ -351,7 +348,7 @@ function FileExplorer() {
               description="The saved files did not load. Try again in a moment."
             >
               <Button size="sm" onClick={() => setState('ready')}>
-                <Refresh size={14} aria-hidden="true" />
+                <RefreshIcon size="sm" aria-hidden="true" />
                 Try again
               </Button>
             </StatePanel>

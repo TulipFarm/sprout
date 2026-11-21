@@ -3,10 +3,7 @@ import { Checkbox } from '@base-ui/react/checkbox';
 import { Switch } from '@base-ui/react/switch';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
-import { Check } from 'reicon-react/icons/Check';
-import { Monitor } from 'reicon-react/icons/Monitor';
-import { Moon } from 'reicon-react/icons/Moon';
-import { Sun } from 'reicon-react/icons/Sun';
+import { CheckIcon, MonitorIcon, MoonIcon, SunIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { EntityAvatar } from '@tulipfarm/sprout/avatar';
 import { Badge } from '@tulipfarm/sprout/badge';
@@ -39,7 +36,7 @@ function SampleCheckbox(props: Checkbox.Root.Props) {
   return (
     <Checkbox.Root className="settings-list-demo-checkbox" {...props}>
       <Checkbox.Indicator className="settings-list-demo-checkbox-indicator">
-        <Check size={12} aria-hidden="true" />
+        <CheckIcon size="xs" aria-hidden="true" />
       </Checkbox.Indicator>
     </Checkbox.Root>
   );
@@ -205,10 +202,10 @@ function SignInMethods({ state, retry }: { state: SignIn; retry: () => void }) {
 }
 
 type Theme = 'system' | 'light' | 'dark';
-const themes: Record<Theme, { label: string; icon: typeof Sun }> = {
-  system: { label: 'System', icon: Monitor },
-  light: { label: 'Light', icon: Sun },
-  dark: { label: 'Dark', icon: Moon },
+const themes: Record<Theme, { label: string; icon: typeof SunIcon }> = {
+  system: { label: 'System', icon: MonitorIcon },
+  light: { label: 'Light', icon: SunIcon },
+  dark: { label: 'Dark', icon: MoonIcon },
 };
 
 function NameForm({

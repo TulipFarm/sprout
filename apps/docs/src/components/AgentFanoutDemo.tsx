@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AgentFanout, type AgentFanoutAgent, type AgentFanoutStatus } from '@tulipfarm/sprout/agent-fanout';
 import type { Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
-import { Refresh } from 'reicon-react/icons/Refresh';
+import { RefreshIcon } from '@tulipfarm/sprout/icons';
 import '../styles/agent-fanout-demo.css';
 
 interface Run {
@@ -214,7 +214,7 @@ export function AgentFanoutPlayground() {
       </div>
       <div className="fanout-demo-controls">
         <Button variant="outline" size="sm" onClick={() => setRound(value => value + 1)}>
-          <Refresh data-icon="inline-start" aria-hidden="true" />
+          <RefreshIcon data-icon="inline-start" aria-hidden="true" />
           Replay
         </Button>
       </div>

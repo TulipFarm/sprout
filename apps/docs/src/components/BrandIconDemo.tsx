@@ -1,12 +1,14 @@
 import { useState, type ReactNode } from 'react';
 import { Popover } from '@base-ui/react/popover';
-import { ArrowRight } from 'reicon-react/icons/ArrowRight';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Check } from 'reicon-react/icons/Check';
-import { Database } from 'reicon-react/icons/Database';
-import { FilePdf } from 'reicon-react/icons/FilePdf';
-import { Plug } from 'reicon-react/icons/Plug';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
+import {
+  ArrowRightIcon,
+  CalendarIcon,
+  CheckIcon,
+  DatabaseIcon,
+  FilePdfIcon,
+  PlugIcon,
+  SparkleIcon,
+} from '@tulipfarm/sprout/icons';
 import { Badge, type BadgeVariant } from '@tulipfarm/sprout/badge';
 import {
   BrandIcon,
@@ -249,7 +251,11 @@ export function InlineCompositions() {
         <ul className="brand-demo-list" aria-label="Tool activity">
           {toolRows.map(row => (
             <li key={row.label} className="brand-demo-option">
-              {row.brand ? <BrandIcon brand={row.brand} size="inline" /> : <Database size={14} aria-hidden="true" />}
+              {row.brand ? (
+                <BrandIcon brand={row.brand} size="inline" />
+              ) : (
+                <DatabaseIcon size="sm" aria-hidden="true" />
+              )}
               <span className="brand-demo-truncate">{row.label}</span>
             </li>
           ))}
@@ -309,7 +315,11 @@ export function GlyphCompositions() {
         <ul className="brand-demo-list" aria-label="Google Drive files">
           {driveFiles.map(file => (
             <li key={file.name} className="brand-demo-option">
-              {file.brand ? <BrandIcon brand={file.brand} size="glyph" /> : <FilePdf size={20} aria-hidden="true" />}
+              {file.brand ? (
+                <BrandIcon brand={file.brand} size="glyph" />
+              ) : (
+                <FilePdfIcon size="xl" aria-hidden="true" />
+              )}
               <span className="brand-demo-truncate">{file.name}</span>
             </li>
           ))}
@@ -534,7 +544,7 @@ function AppActions({ apps, showNames }: { apps: ResultApp[]; showNames: boolean
         <section key={app.brand ?? app.name} aria-label={app.name}>
           {showNames && (
             <div className="brand-demo-actions-head">
-              {app.brand ? <BrandIcon brand={app.brand} size="glyph" /> : <Plug size={20} aria-hidden="true" />}
+              {app.brand ? <BrandIcon brand={app.brand} size="glyph" /> : <PlugIcon size="xl" aria-hidden="true" />}
               <h4>{app.name}</h4>
             </div>
           )}
@@ -543,7 +553,7 @@ function AppActions({ apps, showNames }: { apps: ResultApp[]; showNames: boolean
               <li key={action.label} data-state={action.state}>
                 {action.state === 'completed' ? (
                   <span className="brand-demo-done">
-                    <Check size={16} aria-hidden="true" />
+                    <CheckIcon size="md" aria-hidden="true" />
                     <span className="sr-only">Completed:</span>
                   </span>
                 ) : (
@@ -585,7 +595,7 @@ function AppTile({
           ) : first.brand ? (
             <BrandIcon brand={first.brand} size="fill" />
           ) : (
-            <Plug size={18} aria-hidden="true" />
+            <PlugIcon size="lg" aria-hidden="true" />
           )}
         </Popover.Trigger>
         <Popover.Portal>
@@ -683,7 +693,7 @@ export function ResultCardCompositions() {
           kind="Calendar"
           status="Ready"
           apps={[]}
-          icon={<Calendar size={18} aria-hidden="true" />}
+          icon={<CalendarIcon size="lg" aria-hidden="true" />}
         />
       </div>
     </Frame>
@@ -723,7 +733,7 @@ export function StackCompositions() {
         <ul className="brand-demo-prompts" aria-label="Suggested prompts">
           {prompts.map(prompt => (
             <li key={prompt.label}>
-              <Sparkle size={16} aria-hidden="true" />
+              <SparkleIcon size="md" aria-hidden="true" />
               <button type="button" title={prompt.label}>
                 {prompt.label}
               </button>
@@ -732,7 +742,7 @@ export function StackCompositions() {
                   <BrandStack brands={prompt.brands} />
                 </span>
               )}
-              <ArrowRight size={14} aria-hidden="true" />
+              <ArrowRightIcon size="sm" aria-hidden="true" />
             </li>
           ))}
         </ul>

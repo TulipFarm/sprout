@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ClockCircle } from 'reicon-react/icons/ClockCircle';
-import { Danger } from 'reicon-react/icons/Danger';
-import { Hourglass } from 'reicon-react/icons/Hourglass';
-import { Sparkle } from 'reicon-react/icons/Sparkle';
-import { StopCircle } from 'reicon-react/icons/StopCircle';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ClockIcon,
+  DangerIcon,
+  HourglassIcon,
+  SparkleIcon,
+  StopCircleIcon,
+} from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Badge, type BadgeVariant } from './badge.js';
 import { BrandIcon, BrandStack, BrandTile, brandNames, type Brand } from './brand-icon.js';
@@ -125,15 +127,15 @@ function StatusIcon({ status }: { status: AgentFanoutStatus }) {
     case 'running':
       return <Arc />;
     case 'needs-you':
-      return <ClockCircle {...props} />;
+      return <ClockIcon {...props} />;
     case 'done':
-      return <Check {...props} />;
+      return <CheckIcon {...props} />;
     case 'failed':
-      return <Danger {...props} />;
+      return <DangerIcon {...props} />;
     case 'stopped':
-      return <StopCircle {...props} />;
+      return <StopCircleIcon {...props} />;
     default:
-      return <Hourglass {...props} />;
+      return <HourglassIcon {...props} />;
   }
 }
 
@@ -154,7 +156,7 @@ function Mark({ agent }: { agent: AgentFanoutAgent }) {
   return (
     <BrandTile size="md" data-slot="agent-fanout-mark" className="sprout-agent-fanout-mark">
       <span aria-hidden="true" className="sprout-agent-fanout-mark-icon">
-        {agent.icon ?? <Sparkle size={16} />}
+        {agent.icon ?? <SparkleIcon size="md" />}
       </span>
     </BrandTile>
   );
@@ -238,7 +240,7 @@ function Branch({ agent, depth, row, collapsed, onToggle }: BranchProps) {
               onClick={() => onToggle(agent.id)}
             >
               {open ? count : `+${count}`}
-              <ChevronDown size={14} aria-hidden="true" data-icon="inline-end" />
+              <ChevronDownIcon size="sm" aria-hidden="true" data-icon="inline-end" />
             </button>
           )}
         </div>
@@ -279,7 +281,7 @@ function Issues({
       <PopoverTrigger data-slot="agent-fanout-issues" data-kind={kind} className="sprout-agent-fanout-chip">
         <Count value={agents.length} />
         {` ${label}`}
-        <ChevronDown size={14} aria-hidden="true" data-icon="inline-end" />
+        <ChevronDownIcon size="sm" aria-hidden="true" data-icon="inline-end" />
       </PopoverTrigger>
       <PopoverContent
         align="end"
@@ -291,7 +293,7 @@ function Issues({
           {agents.map(agent => (
             <li key={agent.id} data-kind={kind} className="sprout-agent-fanout-issue">
               <span aria-hidden="true" className="sprout-agent-fanout-issue-mark">
-                {kind === 'failed' ? <Danger size={16} /> : <ClockCircle size={16} />}
+                {kind === 'failed' ? <DangerIcon size="md" /> : <ClockIcon size="md" />}
               </span>
               <div className="sprout-agent-fanout-issue-body">
                 <p className="sprout-agent-fanout-issue-title">
@@ -683,7 +685,7 @@ export function AgentFanout({
     >
       <header className="sprout-agent-fanout-header">
         <h2 id={titleId} className="sprout-agent-fanout-title">
-          <Sparkle size={16} aria-hidden="true" className="sprout-agent-fanout-title-icon" />
+          <SparkleIcon size="md" aria-hidden="true" className="sprout-agent-fanout-title-icon" />
           {title}
         </h2>
         <div className="sprout-agent-fanout-summary">

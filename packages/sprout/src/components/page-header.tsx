@@ -3,8 +3,7 @@
 import { createContext, useContext, useEffect, type ReactElement, type ReactNode, type Ref } from 'react';
 import { createPortal } from 'react-dom';
 import { useRender } from '@base-ui/react/use-render';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { ChevronLeftIcon, ChevronRightIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 
@@ -105,7 +104,7 @@ export function PageHeader({
           <ParentLink {...parent} />
         </li>
         <li role="presentation" aria-hidden="true" className="sprout-page-header-breadcrumb-separator">
-          <ChevronRight size={14} />
+          <ChevronRightIcon size="sm" />
         </li>
         <li aria-current="page" className="sprout-page-header-breadcrumb-item sprout-page-header-breadcrumb-current">
           {heading}
@@ -122,7 +121,7 @@ export function PageHeader({
       data-slot="page-back"
       className="sprout-page-header-back"
     >
-      <ChevronLeft data-icon="inline-start" aria-hidden="true" />
+      <ChevronLeftIcon data-icon="inline-start" aria-hidden="true" />
       <span className="sprout-page-header-back-label">{back.label}</span>
     </Button>
   );

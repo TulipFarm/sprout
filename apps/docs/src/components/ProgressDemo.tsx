@@ -1,8 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { DocumentText } from 'reicon-react/icons/DocumentText';
-import { FilePdf } from 'reicon-react/icons/FilePdf';
-import { FileZip } from 'reicon-react/icons/FileZip';
-import { Gallery } from 'reicon-react/icons/Gallery';
+import { DocumentTextIcon, FilePdfIcon, FileZipIcon, ImageIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Progress, ProgressLabel, ProgressValue } from '@tulipfarm/sprout/progress';
 import { Skeleton } from '@tulipfarm/sprout/skeleton';
@@ -138,7 +135,7 @@ interface Upload {
   name: string;
   size: number;
   destination: string;
-  icon: typeof FilePdf;
+  icon: typeof FilePdfIcon;
   state: UploadState;
 }
 
@@ -148,7 +145,7 @@ const initialUploads: Upload[] = [
     name: 'Q3 board deck.pdf',
     size: 8.4 * MB,
     destination: 'Reports',
-    icon: FilePdf,
+    icon: FilePdfIcon,
     state: { kind: 'sending', sent: 3.1 * MB },
   },
   {
@@ -156,7 +153,7 @@ const initialUploads: Upload[] = [
     name: 'Team offsite photos – Lisbon 2026 – final selects.zip',
     size: 46.2 * MB,
     destination: 'Shared / Events',
-    icon: FileZip,
+    icon: FileZipIcon,
     state: { kind: 'sending', sent: 46.2 * MB },
   },
   {
@@ -164,7 +161,7 @@ const initialUploads: Upload[] = [
     name: 'Interview notes.docx',
     size: 0.2 * MB,
     destination: 'Research',
-    icon: DocumentText,
+    icon: DocumentTextIcon,
     state: { kind: 'waiting' },
   },
   {
@@ -172,7 +169,7 @@ const initialUploads: Upload[] = [
     name: 'logo-dark.png',
     size: 0.4 * MB,
     destination: 'Brand',
-    icon: Gallery,
+    icon: ImageIcon,
     state: { kind: 'ready' },
   },
 ];

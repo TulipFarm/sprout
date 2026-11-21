@@ -1,21 +1,28 @@
 import { lazy, Suspense, useState, type ReactNode } from 'react';
-import { Bold } from 'reicon-react/icons/Bold';
-import { Check } from 'reicon-react/icons/Check';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Database } from 'reicon-react/icons/Database';
-import { DocumentText } from 'reicon-react/icons/DocumentText';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Home } from 'reicon-react/icons/Home';
-import { InfoCircle } from 'reicon-react/icons/InfoCircle';
-import { Italic } from 'reicon-react/icons/Italic';
-import { MoreH } from 'reicon-react/icons/MoreH';
-import { Paperclip } from 'reicon-react/icons/Paperclip';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Search } from 'reicon-react/icons/Search';
-import { Settings } from 'reicon-react/icons/Settings';
-import { Star } from 'reicon-react/icons/Star';
-import { Underline } from 'reicon-react/icons/Underline';
-import { Upload } from 'reicon-react/icons/Upload';
+import {
+  AddIcon,
+  BoldIcon,
+  BookOpenIcon,
+  ChartBarIcon,
+  ChatIcon,
+  CheckIcon,
+  DatabaseIcon,
+  DocumentTextIcon,
+  FolderIcon,
+  GridIcon,
+  HomeIcon,
+  InfoIcon,
+  ItalicIcon,
+  KanbanIcon,
+  ListIcon,
+  MoreIcon,
+  PaperclipIcon,
+  SearchIcon,
+  SettingsIcon,
+  StarIcon,
+  UnderlineIcon,
+  UploadIcon,
+} from '@tulipfarm/sprout/icons';
 import { AgentFanout } from '@tulipfarm/sprout/agent-fanout';
 import { ModelSelector, type ModelSelectorModel } from '@tulipfarm/sprout/model-selector';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@tulipfarm/sprout/accordion';
@@ -195,10 +202,6 @@ import { TaskTree, type TaskTreeTask } from '@tulipfarm/sprout/task-tree';
 import { Table } from '@tulipfarm/sprout/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tulipfarm/sprout/tabs';
 import { ViewSwitcher } from '@tulipfarm/sprout/view-switcher';
-import { ChartBar } from 'reicon-react/icons/ChartBar';
-import { Grid } from 'reicon-react/icons/Grid';
-import { Kanban } from 'reicon-react/icons/Kanban';
-import { List } from 'reicon-react/icons/List';
 import { Textarea } from '@tulipfarm/sprout/textarea';
 import { Toggle } from '@tulipfarm/sprout/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
@@ -206,7 +209,6 @@ import { ToolbarStatus } from '@tulipfarm/sprout/toolbar-status';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@tulipfarm/sprout/tooltip';
 import { Message, MessageBubble, MessageContent, MessageReactions } from '@tulipfarm/sprout/message';
 import { MentionList, MentionOption } from '@tulipfarm/sprout/mention-list';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
 
 const RichTextEditor = lazy(() =>
   import('@tulipfarm/sprout/rich-text-editor').then(m => ({
@@ -239,7 +241,7 @@ function ButtonPreview() {
     <Stack row>
       <Button onClick={() => setCount(count + 1)}>Saved {count}×</Button>
       <Button variant="outline">
-        <Plus data-icon="inline-start" />
+        <AddIcon data-icon="inline-start" />
         Add item
       </Button>
     </Stack>
@@ -404,7 +406,7 @@ function InputGroupPreview() {
   return (
     <InputGroup>
       <InputGroupAddon>
-        <Search size={14} aria-hidden="true" />
+        <SearchIcon size="sm" aria-hidden="true" />
       </InputGroupAddon>
       <InputGroupInput aria-label="Search chats" placeholder="Search chats" />
     </InputGroup>
@@ -546,16 +548,16 @@ function CommandPreview() {
           <CommandEmpty>No matching commands.</CommandEmpty>
           <CommandGroup heading="Suggestions">
             <CommandItem>
-              <Plus size={16} aria-hidden="true" />
+              <AddIcon size="md" aria-hidden="true" />
               New draft
               <CommandShortcut>⌘ N</CommandShortcut>
             </CommandItem>
             <CommandItem>
-              <Folder size={16} aria-hidden="true" />
+              <FolderIcon size="md" aria-hidden="true" />
               Open folder
             </CommandItem>
             <CommandItem>
-              <Settings size={16} aria-hidden="true" />
+              <SettingsIcon size="md" aria-hidden="true" />
               Settings
             </CommandItem>
           </CommandGroup>
@@ -613,7 +615,7 @@ function DropdownMenuPreview() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="outline" size="icon" aria-label="Row actions" />}>
-        <MoreH size={16} aria-hidden="true" />
+        <MoreIcon size="md" aria-hidden="true" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuGroup>
@@ -689,7 +691,7 @@ function SearchDialogPreview() {
   return (
     <>
       <Button variant="outline" onClick={() => setOpen(true)}>
-        <Search data-icon="inline-start" aria-hidden="true" />
+        <SearchIcon data-icon="inline-start" aria-hidden="true" />
         Jump to…
       </Button>
       <SearchDialog open={open} onOpenChange={setOpen} title="Jump to…" description="Find workspace pages.">
@@ -704,7 +706,7 @@ function SearchDialogPreview() {
                 onSelect={() => setOpen(false)}
                 media={
                   <SearchItemIcon>
-                    <DocumentText size={16} aria-hidden="true" />
+                    <DocumentTextIcon size="md" aria-hidden="true" />
                   </SearchItemIcon>
                 }
                 title={page.title}
@@ -747,9 +749,9 @@ function TooltipPreview() {
     <TooltipProvider>
       <Stack row>
         {[
-          { label: 'Attach files', icon: Paperclip },
-          { label: 'Bold', icon: Bold },
-          { label: 'Add to favorites', icon: Star },
+          { label: 'Attach files', icon: PaperclipIcon },
+          { label: 'Bold', icon: BoldIcon },
+          { label: 'Add to favorites', icon: StarIcon },
         ].map(({ label, icon: Icon }) => (
           <Tooltip key={label}>
             <TooltipTrigger render={<Button size="icon" variant="outline" aria-label={label} />}>
@@ -841,9 +843,9 @@ function SidebarPreview() {
             <SidebarGroup>
               <SidebarMenu>
                 {[
-                  { label: 'Overview', icon: <Home /> },
-                  { label: 'Chats', icon: <ChatRound /> },
-                  { label: 'Settings', icon: <Settings /> },
+                  { label: 'Overview', icon: <HomeIcon /> },
+                  { label: 'Chats', icon: <ChatIcon /> },
+                  { label: 'Settings', icon: <SettingsIcon /> },
                 ].map(item => (
                   <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton
@@ -882,10 +884,10 @@ function TabsPreview() {
 }
 
 const previewViews = [
-  { id: 'table', label: 'Table', icon: Grid, description: 'Rows and columns.' },
-  { id: 'list', label: 'List', icon: List, description: 'One item per row.' },
-  { id: 'board', label: 'Board', icon: Kanban, description: 'Cards in lanes.' },
-  { id: 'chart', label: 'Chart', icon: ChartBar, description: 'Totals by group.' },
+  { id: 'table', label: 'Table', icon: GridIcon, description: 'Rows and columns.' },
+  { id: 'list', label: 'List', icon: ListIcon, description: 'One item per row.' },
+  { id: 'board', label: 'Board', icon: KanbanIcon, description: 'Cards in lanes.' },
+  { id: 'chart', label: 'Chart', icon: ChartBarIcon, description: 'Totals by group.' },
 ];
 
 function ViewSwitcherPreview() {
@@ -1012,7 +1014,7 @@ function PageHeaderPreview() {
         description="Find and organize files."
         actions={
           <Button size="sm">
-            <Upload aria-hidden="true" />
+            <UploadIcon aria-hidden="true" />
             Upload
           </Button>
         }
@@ -1114,7 +1116,7 @@ function AlertPreview() {
   return (
     <div className="home-p-wide">
       <Alert role="status">
-        <InfoCircle aria-hidden="true" />
+        <InfoIcon aria-hidden="true" />
         <AlertTitle>{archived ? 'Chat archived' : 'Chat restored'}</AlertTitle>
         <AlertDescription>{archived ? 'It moved to Archived chats.' : 'It is back in your list.'}</AlertDescription>
         <AlertAction>
@@ -1285,11 +1287,11 @@ function StatePanelPreview() {
 function StateSamplePreview() {
   return (
     <div className="home-p-zoom home-p-wide">
-      <SampleWindow icon={ChatRound} trail={['Chats']} tabs={['Active', 'Archived']}>
+      <SampleWindow icon={ChatIcon} trail={['Chats']} tabs={['Active', 'Archived']}>
         <SampleList
           items={[
             {
-              leading: <SampleIconTile icon={ChatRound} />,
+              leading: <SampleIconTile icon={ChatIcon} />,
               title: 'Follow up with Northwind',
               detail: 'Draft ready for review',
               trailing: <SampleText tone="muted">1h ago</SampleText>,
@@ -1366,7 +1368,7 @@ function AvatarPreview() {
       <Avatar size="lg">
         <AvatarFallback>AM</AvatarFallback>
         <AvatarBadge role="img" aria-label="Verified">
-          <Check aria-hidden="true" />
+          <CheckIcon aria-hidden="true" />
         </AvatarBadge>
       </Avatar>
       <Avatar>
@@ -1383,7 +1385,7 @@ function BadgePreview() {
   return (
     <Stack row>
       <Badge variant="success">
-        <Check aria-hidden="true" />
+        <CheckIcon aria-hidden="true" />
         Connected
       </Badge>
       <Badge variant="secondary">Draft</Badge>
@@ -1415,7 +1417,7 @@ function FileViewerPreview() {
   return (
     <>
       <Button variant="outline" onClick={() => setOpen(true)}>
-        <DocumentText data-icon="inline-start" aria-hidden="true" />
+        <DocumentTextIcon data-icon="inline-start" aria-hidden="true" />
         Open Returns policy.txt
       </Button>
       {open && (
@@ -1612,8 +1614,8 @@ function TablePreview() {
 }
 
 const canvasTabs = [
-  { id: 'rows', title: 'Customers', icon: Database },
-  { id: 'doc', title: 'Launch notes', icon: DocumentText },
+  { id: 'rows', title: 'Customers', icon: DatabaseIcon },
+  { id: 'doc', title: 'Launch notes', icon: DocumentTextIcon },
 ];
 
 function CanvasPreview() {
@@ -1729,10 +1731,10 @@ const previews: Record<string, () => ReactNode> = {
   toggle: () => (
     <Stack row>
       <Toggle aria-label="Bold" defaultPressed>
-        <Bold />
+        <BoldIcon />
       </Toggle>
       <Toggle variant="outline">
-        <Star data-icon="inline-start" />
+        <StarIcon data-icon="inline-start" />
         Starred
       </Toggle>
     </Stack>
@@ -1740,13 +1742,13 @@ const previews: Record<string, () => ReactNode> = {
   'toggle-group': () => (
     <ToggleGroup aria-label="Text style" multiple defaultValue={['bold']}>
       <ToggleGroupItem value="bold" aria-label="Bold">
-        <Bold />
+        <BoldIcon />
       </ToggleGroupItem>
       <ToggleGroupItem value="italic" aria-label="Italic">
-        <Italic />
+        <ItalicIcon />
       </ToggleGroupItem>
       <ToggleGroupItem value="underline" aria-label="Underline">
-        <Underline />
+        <UnderlineIcon />
       </ToggleGroupItem>
     </ToggleGroup>
   ),
@@ -1880,7 +1882,7 @@ function MentionListPreview() {
           id={`home-mention-${index}`}
           active={index === active}
           onSelect={() => setActive(index)}
-          media={<BookOpen size={16} aria-hidden="true" />}
+          media={<BookOpenIcon size="md" aria-hidden="true" />}
           title={name}
           description="Workspace skill"
         />

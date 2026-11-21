@@ -30,14 +30,14 @@ import CodeBlock from '../../components/CodeBlock.astro';
       lang="tsx"
       title="A running plan with one group"
       code={`import { PlanOutline, type PlanOutlineTask } from "@tulipfarm/sprout/plan-outline";
-import { Database } from "reicon-react/icons/Database";
+import { DatabaseIcon } from "@tulipfarm/sprout/icons";
 
 const tasks: PlanOutlineTask[] = [
   {
     id: "research", title: "Research", mark: "running", label: "1 of 2 done",
     children: [
       { id: "audit", title: "Audit last spring's catalog", mark: "done", label: "Done", assignee: "Main agent",
-        typeIcon: { icon: <Database />, label: "Table" } },
+        typeIcon: { icon: <DatabaseIcon />, label: "Table" } },
       {
         id: "suppliers", title: "Confirm supplier stock", mark: "running", label: "Working",
         criteria: ["Each variety has a confirmed count."],

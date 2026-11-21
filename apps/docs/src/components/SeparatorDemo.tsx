@@ -1,10 +1,12 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
-import { Bell } from 'reicon-react/icons/Bell';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Settings } from 'reicon-react/icons/Settings';
-import { UserCircle } from 'reicon-react/icons/UserCircle';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  ArrowLeftIcon,
+  BellIcon,
+  DocumentTextIcon,
+  SettingsIcon,
+  UserCircleIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Separator } from '@tulipfarm/sprout/separator';
 import {
@@ -209,7 +211,7 @@ function ItemList() {
             <div key={file.name} role="listitem">
               {index > 0 && <Separator className="separator-demo-item-gap" />}
               <div className="separator-demo-item">
-                <FileText size={16} aria-hidden="true" />
+                <DocumentTextIcon size="md" aria-hidden="true" />
                 <div className="separator-demo-item-text">
                   <p title={file.name}>{file.name}</p>
                   <p>{file.detail}</p>
@@ -239,24 +241,24 @@ function SidebarExample() {
           <Sidebar collapsible="none" label="Settings navigation">
             <SidebarContent>
               <SidebarGroup>
-                <SidebarMenu>{item('Back to workspace', <ArrowLeft />)}</SidebarMenu>
+                <SidebarMenu>{item('Back to workspace', <ArrowLeftIcon />)}</SidebarMenu>
               </SidebarGroup>
               <SidebarSeparator />
               <SidebarGroup>
                 <SidebarGroupLabel>Personal</SidebarGroupLabel>
                 <SidebarMenu>
-                  {item('Profile', <UserCircle />)}
-                  {item('Notifications', <Bell />)}
+                  {item('Profile', <UserCircleIcon />)}
+                  {item('Notifications', <BellIcon />)}
                 </SidebarMenu>
               </SidebarGroup>
               <SidebarSeparator />
               <SidebarGroup>
                 <SidebarGroupLabel>Workspace</SidebarGroupLabel>
-                <SidebarMenu>{item('Members', <Users />)}</SidebarMenu>
+                <SidebarMenu>{item('Members', <UsersIcon />)}</SidebarMenu>
               </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-              <SidebarMenu>{item('Preferences', <Settings />)}</SidebarMenu>
+              <SidebarMenu>{item('Preferences', <SettingsIcon />)}</SidebarMenu>
             </SidebarFooter>
           </Sidebar>
           <div className="separator-demo-sidebar-main">

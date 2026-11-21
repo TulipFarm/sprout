@@ -1,11 +1,13 @@
 import { useState, type ReactNode } from 'react';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { Copy } from 'reicon-react/icons/Copy';
-import { Download } from 'reicon-react/icons/Download';
-import { Minus } from 'reicon-react/icons/Minus';
-import { Plus } from 'reicon-react/icons/Plus';
+import {
+  AddIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CopyIcon,
+  DownloadIcon,
+  MinusIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   ButtonGroup,
@@ -102,7 +104,7 @@ function Orientations() {
                     }))
                   }
                 >
-                  <Plus aria-hidden="true" />
+                  <AddIcon aria-hidden="true" />
                 </Button>
               </ButtonGroup>
               <p role="status" className="button-group-demo-muted">
@@ -129,7 +131,7 @@ function Sizes() {
           <Label code='size="xs" · "icon-xs"' note="Split share action in a dense row." />
           <ButtonGroup aria-label="Share note">
             <Button variant="outline" size="sm" onClick={say('Copied link to Greenhouse notes.')}>
-              <Copy data-icon="inline-start" aria-hidden="true" />
+              <CopyIcon data-icon="inline-start" aria-hidden="true" />
               Copy link
             </Button>
             <Button
@@ -138,7 +140,7 @@ function Sizes() {
               aria-label="More share options"
               onClick={say('Opened share options.')}
             >
-              <ChevronDown aria-hidden="true" />
+              <ChevronDownIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -146,13 +148,13 @@ function Sizes() {
           <Label code='size="sm" · "icon-sm"' note="Week stepper in a calendar header." />
           <ButtonGroup aria-label="Week">
             <Button variant="outline" size="icon-sm" aria-label="Previous week" onClick={say('Showing 6–12 Apr.')}>
-              <ChevronLeft aria-hidden="true" />
+              <ChevronLeftIcon aria-hidden="true" />
             </Button>
             <Button variant="outline" size="sm" onClick={say('Showing this week.')}>
               Today
             </Button>
             <Button variant="outline" size="icon-sm" aria-label="Next week" onClick={say('Showing 20–26 Apr.')}>
-              <ChevronRight aria-hidden="true" />
+              <ChevronRightIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -164,7 +166,7 @@ function Sizes() {
               25
             </Button>
             <Button variant="outline" aria-label="More row counts" onClick={say('Opened row counts.')}>
-              <ChevronDown aria-hidden="true" />
+              <ChevronDownIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -172,10 +174,10 @@ function Sizes() {
           <Label code='size="icon"' note="Square month pager in a date picker." />
           <ButtonGroup aria-label="Month">
             <Button variant="outline" size="icon" aria-label="Previous month" onClick={say('Showing March 2026.')}>
-              <ChevronLeft aria-hidden="true" />
+              <ChevronLeftIcon aria-hidden="true" />
             </Button>
             <Button variant="outline" size="icon" aria-label="Next month" onClick={say('Showing May 2026.')}>
-              <ChevronRight aria-hidden="true" />
+              <ChevronRightIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -183,7 +185,7 @@ function Sizes() {
           <Label code='size="lg" · "icon-lg"' note="Export with a format menu trigger." />
           <ButtonGroup aria-label="Export report">
             <Button variant="outline" size="lg" onClick={say('Exported Spring harvest.csv.')}>
-              <Download data-icon="inline-start" aria-hidden="true" />
+              <DownloadIcon data-icon="inline-start" aria-hidden="true" />
               Export CSV
             </Button>
             <Button
@@ -192,7 +194,7 @@ function Sizes() {
               aria-label="More export formats"
               onClick={say('Opened export formats.')}
             >
-              <ChevronDown aria-hidden="true" />
+              <ChevronDownIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -236,7 +238,7 @@ function Variants() {
               aria-label="More publish options"
               onClick={() => setMessage('Opened publish options.')}
             >
-              <ChevronDown aria-hidden="true" />
+              <ChevronDownIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -250,7 +252,7 @@ function Variants() {
               aria-label="More invite options"
               onClick={() => setMessage('Opened invite options.')}
             >
-              <ChevronDown aria-hidden="true" />
+              <ChevronDownIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -281,7 +283,7 @@ function TextAndNesting() {
               disabled={seats === 1}
               onClick={() => setSeats(value => value - 1)}
             >
-              <Minus aria-hidden="true" />
+              <MinusIcon aria-hidden="true" />
             </Button>
             <ButtonGroupText render={<output aria-live="polite" />}>
               {seats} {seats === 1 ? 'seat' : 'seats'}
@@ -293,7 +295,7 @@ function TextAndNesting() {
               disabled={seats === 10}
               onClick={() => setSeats(value => value + 1)}
             >
-              <Plus aria-hidden="true" />
+              <AddIcon aria-hidden="true" />
             </Button>
           </ButtonGroup>
         </div>
@@ -301,7 +303,7 @@ function TextAndNesting() {
           <Label code="ButtonGroupText + svg" note="Icons in a text cell are 16px." />
           <ButtonGroup aria-label="Attachments">
             <ButtonGroupText>
-              <Download aria-hidden="true" />
+              <DownloadIcon aria-hidden="true" />
               12 files
             </ButtonGroupText>
             <Button variant="outline">Download all</Button>
@@ -317,7 +319,7 @@ function TextAndNesting() {
                 aria-label="Previous week"
                 onClick={() => setWeek(value => value - 1)}
               >
-                <ChevronLeft aria-hidden="true" />
+                <ChevronLeftIcon aria-hidden="true" />
               </Button>
               <ButtonGroupText render={<output aria-live="polite" />}>Week {week}</ButtonGroupText>
               <Button
@@ -326,7 +328,7 @@ function TextAndNesting() {
                 aria-label="Next week"
                 onClick={() => setWeek(value => value + 1)}
               >
-                <ChevronRight aria-hidden="true" />
+                <ChevronRightIcon aria-hidden="true" />
               </Button>
             </ButtonGroup>
             <ButtonGroup aria-label="Jump to date">

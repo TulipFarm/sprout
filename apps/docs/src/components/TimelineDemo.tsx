@@ -10,8 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@tulipfarm/sprout/dropdown-menu';
 import { ToggleGroup, ToggleGroupItem } from '@tulipfarm/sprout/toggle-group';
-import { Edit } from 'reicon-react/icons/Edit';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { EditIcon, MoreIcon } from '@tulipfarm/sprout/icons';
 import '../styles/chart-demo.css';
 
 type Task = { id: string; title: string; team: string; start: string; end: string };
@@ -131,13 +130,13 @@ export function RecordTimelineDemo() {
                 aria-label={`Edit ${task.title}`}
                 onClick={() => setSaid(`Editing “${task.title}”.`)}
               >
-                <Edit aria-hidden="true" />
+                <EditIcon aria-hidden="true" />
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={<Button variant="ghost" size="icon-sm" aria-label={`More actions for ${task.title}`} />}
                 >
-                  <MoreH aria-hidden="true" />
+                  <MoreIcon aria-hidden="true" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={() => setSaid(`Opened “${task.title}”.`)}>Open</DropdownMenuItem>

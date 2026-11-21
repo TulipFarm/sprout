@@ -11,9 +11,7 @@ import {
   type WeekNumberProps,
   useDayPicker,
 } from 'react-day-picker';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button, buttonVariants, type ButtonVariant } from './button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select.js';
@@ -36,7 +34,7 @@ function CalendarRoot({ className, rootRef, ...props }: RootProps) {
 }
 
 function CalendarChevron({ className, orientation, size: _size, disabled: _disabled, ...props }: ChevronProps) {
-  const Icon = orientation === 'left' ? ChevronLeft : orientation === 'right' ? ChevronRight : ChevronDown;
+  const Icon = orientation === 'left' ? ChevronLeftIcon : orientation === 'right' ? ChevronRightIcon : ChevronDownIcon;
   return <Icon aria-hidden="true" className={cn('sprout-calendar-chevron', className)} {...props} />;
 }
 

@@ -20,7 +20,7 @@ import {
   type MouseEvent,
   type Ref,
 } from 'react';
-import { Check } from 'reicon-react/icons/Check';
+import { CheckIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { buttonVariants, type ButtonSize, type ButtonVariant } from './button.js';
 import { Kbd } from './kbd.js';
@@ -1153,7 +1153,7 @@ export function QuestionnaireChoice({
               className="sprout-questionnaire-choice-indicator"
             >
               <span className="sprout-questionnaire-choice-dot" />
-              <Check className="sprout-questionnaire-choice-check" />
+              <CheckIcon className="sprout-questionnaire-choice-check" />
             </span>
             <span data-slot="questionnaire-choice-label" className="sprout-questionnaire-choice-label">
               {children}

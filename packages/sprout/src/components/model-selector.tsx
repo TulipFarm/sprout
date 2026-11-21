@@ -2,9 +2,7 @@
 
 import { type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Search } from 'reicon-react/icons/Search';
+import { CheckIcon, ChevronDownIcon, SearchIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { BrandIcon, type Brand } from './brand-icon.js';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip.js';
@@ -224,7 +222,7 @@ export function ModelSelector({
         <span data-slot="model-selector-value" className="sprout-model-selector-value" data-empty={!selected}>
           {selected?.label ?? label}
         </span>
-        <ChevronDown aria-hidden="true" className="sprout-model-selector-chevron" />
+        <ChevronDownIcon aria-hidden="true" className="sprout-model-selector-chevron" />
       </ComboboxPrimitive.Trigger>
       <ComboboxPrimitive.Portal>
         <ComboboxPrimitive.Positioner
@@ -241,7 +239,7 @@ export function ModelSelector({
             style={{ '--sprout-model-selector-columns': metrics.length } as CSSProperties}
           >
             <div data-slot="model-selector-search" className="sprout-model-selector-search">
-              <Search aria-hidden="true" />
+              <SearchIcon aria-hidden="true" />
               <ComboboxPrimitive.Input
                 aria-label={searchPlaceholder}
                 placeholder={searchPlaceholder}
@@ -277,7 +275,7 @@ export function ModelSelector({
                       <span className="sprout-model-selector-name">
                         <span className="sprout-model-selector-name-text">{model.label}</span>
                         <ComboboxPrimitive.ItemIndicator className="sprout-model-selector-check">
-                          <Check size={14} aria-hidden="true" />
+                          <CheckIcon size="sm" aria-hidden="true" />
                         </ComboboxPrimitive.ItemIndicator>
                       </span>
                       {model.description && (

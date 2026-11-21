@@ -1,6 +1,5 @@
 import { Select } from '@base-ui/react/select';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Check } from 'reicon-react/icons/Check';
+import { CheckIcon, ChevronDownIcon } from '@tulipfarm/sprout/icons';
 import '../styles/docs-select.css';
 
 interface DocsSelectProps<Value extends string> {
@@ -29,7 +28,7 @@ export default function DocsSelect<Value extends string>({
       <Select.Trigger aria-label={label} className={`docs-select-trigger ${className}`}>
         <Select.Value className="docs-select-value" />
         <Select.Icon className="docs-select-chevron">
-          <ChevronDown size={14} aria-hidden="true" />
+          <ChevronDownIcon size="sm" aria-hidden="true" />
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
@@ -40,7 +39,7 @@ export default function DocsSelect<Value extends string>({
                 <Select.Item key={item.value} value={item.value} className="docs-select-item">
                   <Select.ItemText>{item.label}</Select.ItemText>
                   <Select.ItemIndicator className="docs-select-indicator">
-                    <Check size={14} aria-hidden="true" />
+                    <CheckIcon size="sm" aria-hidden="true" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}

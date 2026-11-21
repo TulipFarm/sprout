@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useState, type ComponentProps, type ReactNode } from 'react';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { Copy3 } from 'reicon-react/icons/Copy3';
-import { RotateRight } from 'reicon-react/icons/RotateRight';
-import { ThumbsDown } from 'reicon-react/icons/ThumbsDown';
-import { ThumbsUp } from 'reicon-react/icons/ThumbsUp';
+import {
+  CheckIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CopyIcon,
+  RotateRightIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+} from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card.js';
@@ -223,7 +225,7 @@ export function MessageActions({
           data-copied={copy === 'copied' ? '' : undefined}
           onClick={() => void copyText()}
         >
-          {copy === 'copied' ? <Check size={16} aria-hidden="true" /> : <Copy3 size={16} aria-hidden="true" />}
+          {copy === 'copied' ? <CheckIcon size="md" aria-hidden="true" /> : <CopyIcon size="md" aria-hidden="true" />}
         </ActionButton>
         {onFeedback && (
           <>
@@ -234,7 +236,7 @@ export function MessageActions({
               aria-pressed={feedback === 'up'}
               onClick={() => rate('up')}
             >
-              <ThumbsUp size={16} aria-hidden="true" />
+              <ThumbsUpIcon size="md" aria-hidden="true" />
             </ActionButton>
             <ActionButton
               label="Unhelpful"
@@ -243,13 +245,13 @@ export function MessageActions({
               aria-pressed={feedback === 'down'}
               onClick={() => rate('down')}
             >
-              <ThumbsDown size={16} aria-hidden="true" />
+              <ThumbsDownIcon size="md" aria-hidden="true" />
             </ActionButton>
           </>
         )}
         {onRetry && (
           <ActionButton label="Regenerate" disabled={disabled} aria-label="Regenerate response" onClick={onRetry}>
-            <RotateRight size={16} aria-hidden="true" />
+            <RotateRightIcon size="md" aria-hidden="true" />
           </ActionButton>
         )}
         {createdAt && (
@@ -293,7 +295,7 @@ export function MessageBranch({ index, total, onChange, className }: MessageBran
         disabled={index <= 0}
         onClick={() => onChange(index - 1)}
       >
-        <ChevronLeft size={14} aria-hidden="true" />
+        <ChevronLeftIcon size="sm" aria-hidden="true" />
       </Button>
       <span aria-live="polite" className="sprout-message-branch-count">
         {index + 1} / {total}
@@ -305,7 +307,7 @@ export function MessageBranch({ index, total, onChange, className }: MessageBran
         disabled={index >= total - 1}
         onClick={() => onChange(index + 1)}
       >
-        <ChevronRight size={14} aria-hidden="true" />
+        <ChevronRightIcon size="sm" aria-hidden="true" />
       </Button>
     </div>
   );

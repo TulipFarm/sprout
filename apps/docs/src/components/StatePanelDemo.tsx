@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
-import { BranchDown } from 'reicon-react/icons/BranchDown';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { Database } from 'reicon-react/icons/Database';
-import { Files } from 'reicon-react/icons/Files';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Inbox } from 'reicon-react/icons/Inbox';
-import { Loader } from 'reicon-react/icons/Loader';
-import { Plug } from 'reicon-react/icons/Plug';
+import {
+  AddIcon,
+  ArrowLeftIcon,
+  BranchIcon,
+  ChatIcon,
+  CpuIcon,
+  DatabaseIcon,
+  FilesIcon,
+  FolderIcon,
+  InboxIcon,
+  LoaderIcon,
+  PlugIcon,
+} from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Toggle } from '@tulipfarm/sprout/toggle';
 import {
@@ -43,10 +45,10 @@ function DriveGlyph({ size = 20 }: { size?: number }) {
 }
 
 const icons = {
-  inbox: { label: 'Inbox (default)', icon: Inbox },
-  files: { label: 'Files', icon: Files },
-  database: { label: 'Database', icon: Database },
-  folder: { label: 'Folder', icon: Folder },
+  inbox: { label: 'Inbox (default)', icon: InboxIcon },
+  files: { label: 'Files', icon: FilesIcon },
+  database: { label: 'Database', icon: DatabaseIcon },
+  folder: { label: 'Folder', icon: FolderIcon },
   glyph: { label: 'Custom glyph', icon: DriveGlyph },
 } satisfies Record<string, { label: string; icon: StatePanelIcon }>;
 type IconName = keyof typeof icons;
@@ -112,7 +114,7 @@ const fileRows: [string, string, string][] = [
 ];
 
 function FilesSample() {
-  return <SampleRows rows={fileRows} icon={Files} />;
+  return <SampleRows rows={fileRows} icon={FilesIcon} />;
 }
 
 function PlaygroundPanel({
@@ -133,7 +135,7 @@ function PlaygroundPanel({
     actions === 'buttons' ? (
       <>
         <Button>
-          <Add aria-hidden="true" />
+          <AddIcon aria-hidden="true" />
           Upload files
         </Button>
         <Button variant="outline">Try again</Button>
@@ -302,17 +304,17 @@ export function StatePanelSamples() {
             <StatePanel
               kind="empty"
               heading="h3"
-              icon={Files}
+              icon={FilesIcon}
               title="No files yet"
               description="Upload the documents your work depends on, like price lists, contracts, and policies. Files stay private until you share them."
               sample={<FilesSample />}
             >
               <Button>
-                <Add aria-hidden="true" />
+                <AddIcon aria-hidden="true" />
                 Upload files
               </Button>
               <Button variant="outline">
-                <Folder aria-hidden="true" />
+                <FolderIcon aria-hidden="true" />
                 New folder
               </Button>
             </StatePanel>
@@ -324,12 +326,12 @@ export function StatePanelSamples() {
           <StatePanel
             kind="empty"
             heading="h3"
-            icon={Cpu}
+            icon={CpuIcon}
             title="No models configured yet"
             description="Once your operator configures model providers, each model family appears here."
             sample={
               <SampleRows
-                icon={Cpu}
+                icon={CpuIcon}
                 rows={[
                   ['Fast model', 'General chat and drafting', 'Default'],
                   ['Reasoning model', 'Planning and analysis', 'Enabled'],
@@ -357,7 +359,7 @@ export function StatePanelSamples() {
           <StatePanel
             kind="empty"
             heading="h3"
-            icon={BranchDown}
+            icon={BranchIcon}
             title={shelf === 'archived' ? 'No archived workflows' : 'No workflows yet'}
             description={
               shelf === 'archived'
@@ -367,7 +369,7 @@ export function StatePanelSamples() {
             sample={
               shelf === 'current' ? (
                 <SampleRows
-                  icon={BranchDown}
+                  icon={BranchIcon}
                   rows={[
                     ['Invoice reminders', 'Every weekday at 9:00', 'Active'],
                     ['New customer kickoff', 'When a deal closes', 'Active'],
@@ -521,7 +523,7 @@ function BusyAction() {
     <StatePanel
       kind="unavailable"
       heading="h3"
-      icon={Plug}
+      icon={PlugIcon}
       title="No default knowledge"
       description="Choose a shared drive that every new chat can read."
     >
@@ -530,7 +532,7 @@ function BusyAction() {
         aria-busy={state === 'pending' || undefined}
         onClick={() => setState('pending')}
       >
-        {state === 'pending' && <Loader aria-hidden="true" className="state-demo-spin" />}
+        {state === 'pending' && <LoaderIcon aria-hidden="true" className="state-demo-spin" />}
         {state === 'pending' ? 'Turning on' : 'Use as default'}
       </Button>
     </StatePanel>
@@ -568,7 +570,7 @@ export function StatePanelCompositions() {
         <StatePanel
           kind="unavailable"
           heading="h3"
-          icon={Inbox}
+          icon={InboxIcon}
           title="Inbox isn’t available yet"
           description="Tasks waiting for you are in Tasks, and your conversations are in Chats."
         >
@@ -577,7 +579,7 @@ export function StatePanelCompositions() {
               Open tasks
             </Button>
             <Button variant="outline" nativeButton={false} render={<a href="#main" />}>
-              <ChatRound aria-hidden="true" />
+              <ChatIcon aria-hidden="true" />
               Open chats
             </Button>
           </div>
@@ -597,7 +599,7 @@ export function StatePanelCompositions() {
         <StatePanel
           kind="empty"
           heading="h3"
-          icon={Plug}
+          icon={PlugIcon}
           title="Slack isn’t connected"
           description="Connect Slack so agents can read and post in channels."
         >
@@ -617,7 +619,7 @@ export function StatePanelCompositions() {
           description="Ask the owner to share it with you."
         >
           <Button variant="outline" nativeButton={false} render={<a href="#main" />}>
-            <ArrowLeft aria-hidden="true" />
+            <ArrowLeftIcon aria-hidden="true" />
             Back to My Drive
           </Button>
           <Button variant="ghost">Check access again</Button>
@@ -649,7 +651,7 @@ export function StatePanelCompositions() {
         <StatePanel
           kind="unavailable"
           heading="h3"
-          icon={Database}
+          icon={DatabaseIcon}
           title="Channels are still syncing"
           description="Slack channels appear once the first sync finishes."
         >

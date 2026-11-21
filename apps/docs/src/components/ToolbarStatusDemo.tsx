@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Download } from 'reicon-react/icons/Download';
-import { Filter } from 'reicon-react/icons/Filter';
-import { Trash } from 'reicon-react/icons/Trash';
+import { DeleteIcon, DownloadIcon, FilterIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   DropdownMenu,
@@ -128,7 +126,7 @@ function ExportSlot({ outcome, disabled }: { outcome: Outcome; disabled: boolean
         </ToolbarStatus>
       ) : (
         <Button variant="outline" size="sm" disabled={disabled} onClick={run}>
-          <Download data-icon="inline-start" size={14} aria-hidden="true" />
+          <DownloadIcon data-icon="inline-start" size="sm" aria-hidden="true" />
           Export
         </Button>
       )}
@@ -166,7 +164,7 @@ export function ToolbarStatusPlayground() {
             defaultValue="stage==Interview"
           />
           <Button variant="outline" size="sm">
-            <Filter data-icon="inline-start" size={14} aria-hidden="true" />
+            <FilterIcon data-icon="inline-start" size="sm" aria-hidden="true" />
             Filters
           </Button>
           <ExportSlot key={round} outcome={outcome} disabled={busy === 'busy'} />
@@ -336,13 +334,13 @@ function SelectedRows({ count, fail, canDelete }: { count: number; fail: boolean
       <div className="toolbar-status-demo-wide">
         {outcome ?? (
           <Button variant="outline" size="sm" disabled={disabled} aria-busy={disabled} onClick={run}>
-            <Download data-icon="inline-start" size={14} aria-hidden="true" />
+            <DownloadIcon data-icon="inline-start" size="sm" aria-hidden="true" />
             {disabled ? 'Exporting...' : 'Export selected'}
           </Button>
         )}
         {canDelete && (
           <Button variant="destructive" size="sm" disabled={disabled}>
-            <Trash data-icon="inline-start" size={14} aria-hidden="true" />
+            <DeleteIcon data-icon="inline-start" size="sm" aria-hidden="true" />
             Delete selected
           </Button>
         )}

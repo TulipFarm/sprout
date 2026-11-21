@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, type ComponentProps } from 'react';
-import { Danger } from 'reicon-react/icons/Danger';
-import { Globe } from 'reicon-react/icons/Globe';
+import { DangerIcon, GlobeIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 
 /** Returns an image address for a page's icon, or nothing to show the site's first letter. */
@@ -37,7 +36,7 @@ function WebSourceFavicon({ src, letter }: { src: string | null; letter: string 
       className="sprout-web-source-favicon"
     >
       {(!src || status === 'failed') &&
-        (letter ? <span className="sprout-web-source-letter">{letter}</span> : <Globe size={16} />)}
+        (letter ? <span className="sprout-web-source-letter">{letter}</span> : <GlobeIcon size="md" />)}
       {src && status !== 'failed' && (
         <img
           src={src}
@@ -104,7 +103,7 @@ export function WebSource({
       <span className="sprout-web-source-title">{label}</span>
       {failed && (
         <>
-          <Danger size={14} aria-hidden="true" className="sprout-web-source-failed" />
+          <DangerIcon size="sm" aria-hidden="true" className="sprout-web-source-failed" />
           <span className="sprout-web-source-sr-only">Page unavailable. Retry or paste the text.</span>
         </>
       )}

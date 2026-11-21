@@ -174,7 +174,9 @@ Text has four levels: `text`, `body`, `muted`, `faint` (`faint` is for placehold
 - **Records:** `Table` is the only table component. It has no public row or cell parts. See `GLOSSARY.md` and `docs/adr/0001-one-table-component.md`.
 - **Selects:** Use the custom `Select` or `Combobox` only. Never use a native `<select>`.
 - **States:** The app owns loading, empty, and error states and shows them with `StatePanel`, `Skeleton`, or `Spinner`.
-- **Icons:** Use `reicon-react` (`reicon-react/icons/<Name>`).
+- **Icons:** Use `@tulipfarm/sprout/icons`, which wraps Hugeicons (Stroke Rounded).
+  - Size icons with a token: `xs` 12px, `sm` 14px, `md` 16px, `lg` 18px, `xl` 20px, `2xl` 24px. Inside components, CSS may set the size instead.
+  - To change an icon or a size everywhere, edit `packages/sprout/src/components/icons.tsx`.
   - Mark decorative icons `aria-hidden="true"`.
   - Put `data-icon="inline-start|inline-end"` on an icon next to text.
   - Icon-only controls need an `aria-label` and a `Tooltip`.

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useId, type AriaAttributes, type ReactElement, type ReactNode } from 'react';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
-import { Check } from 'reicon-react/icons/Check';
+import { CheckIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Badge } from './badge.js';
 import { RadioGroup, RadioGroupItem } from './radio-group.js';
@@ -183,7 +183,7 @@ function FieldCheckbox({
       {...props}
     >
       <BaseCheckbox.Indicator data-slot="checkbox-indicator" className="sprout-field-checkbox-indicator">
-        <Check aria-hidden="true" />
+        <CheckIcon aria-hidden="true" />
       </BaseCheckbox.Indicator>
     </BaseCheckbox.Root>
   );

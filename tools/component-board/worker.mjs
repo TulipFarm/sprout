@@ -53,7 +53,7 @@ function constraints(job) {
   return `You are a Sprout component worker using Opus 5.5. The current user selected this component on their local board.
 Build Sprout only. Cloud at ${job.cloudRoot} is READ-ONLY reference. No Cloud edits or migration.
 NEVER commit, push, publish, deploy, create a PR, or rewrite git history. All current Sprout work must remain uncommitted.
-Use Base UI behavior, React 19, Tailwind4/CSS-only namespaced tokens, reicon-react icons. Preserve neutral light/dark and opt-in brand.
+Use Base UI behavior, React 19, Tailwind4/CSS-only namespaced tokens, icons from src/components/icons.tsx. Preserve neutral light/dark and opt-in brand.
 Polished compact UI, subtle 120–180ms transitions, reduced-motion support, accessible full keyboard/focus behavior. NEVER native select dropdowns.
 Docs examples must show each variant/size in the variant pairing and realistic content Cloud actually uses (never one generic label/variant for every size); check spacing, padding and overflow in screenshots.
 Read existing Sprout code, package manifests, and user instructions before editing. Follow prior art, not generic demo styling.

@@ -1,8 +1,5 @@
 import { useId, useRef, useState, type CSSProperties, type FormEvent } from 'react';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Menu } from 'reicon-react/icons/Menu';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { ArrowUpRightIcon, CalendarIcon, MenuIcon, MoreIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
@@ -54,7 +51,7 @@ function NavigationDrawer({ side }: { side: Extract<SheetSide, 'left' | 'right'>
         ref={trigger}
         render={<Button variant="ghost" size="icon-sm" aria-label={`Open navigation on the ${side}`} />}
       >
-        <Menu size={16} aria-hidden="true" />
+        <MenuIcon size="md" aria-hidden="true" />
       </SheetTrigger>
       <SheetContent
         side={side}
@@ -120,7 +117,7 @@ function TableMore() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger render={<Button variant="outline" size="icon-sm" aria-label="More table options" />}>
-          <MoreH size={16} aria-hidden="true" />
+          <MoreIcon size="md" aria-hidden="true" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" size="menu">
           <DropdownMenuGroup>
@@ -363,7 +360,7 @@ function CalendarEvent() {
   return (
     <Sheet>
       <SheetTrigger render={<Button variant="outline" />}>
-        <Calendar size={16} aria-hidden="true" />
+        <CalendarIcon size="md" aria-hidden="true" />
         Supplier sync
       </SheetTrigger>
       <SheetContent size="lg">
@@ -388,7 +385,7 @@ function CalendarEvent() {
           <div className="sheet-demo-inline">
             <Button nativeButton={false} render={<a href="#join-meeting" onClick={event => event.preventDefault()} />}>
               Join meeting
-              <ArrowUpRight size={14} aria-hidden="true" />
+              <ArrowUpRightIcon size="sm" aria-hidden="true" />
             </Button>
             <Button
               variant="outline"
@@ -396,7 +393,7 @@ function CalendarEvent() {
               render={<a href="#open-original" onClick={event => event.preventDefault()} />}
             >
               Open original
-              <ArrowUpRight size={14} aria-hidden="true" />
+              <ArrowUpRightIcon size="sm" aria-hidden="true" />
             </Button>
           </div>
           <p className="sheet-demo-note">Blocks your personal free time.</p>

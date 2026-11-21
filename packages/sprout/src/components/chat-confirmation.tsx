@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, type ComponentProps, type ReactNode } from 'react';
-import { ShieldUser } from 'reicon-react/icons/ShieldUser';
+import { ShieldUserIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { ReviewCard, ReviewRow, ReviewRows, type ReviewCardBadge } from './review-card.js';
@@ -103,7 +103,7 @@ export function ChatConfirmation({
       className={cn('sprout-chat-confirmation', className)}
     >
       <ReviewCard
-        icon={<ShieldUser size={16} />}
+        icon={<ShieldUserIcon size="md" />}
         title={title}
         badge={badges[state.kind]}
         settled={done}

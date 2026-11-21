@@ -85,15 +85,17 @@ import {
   type Updater,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { ArrowDown } from 'reicon-react/icons/ArrowDown';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { InfoCircle } from 'reicon-react/icons/InfoCircle';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Reorder } from 'reicon-react/icons/Reorder';
-import { SortV } from 'reicon-react/icons/SortV';
-import { X } from 'reicon-react/icons/X';
+import {
+  AddIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  DragHandleIcon,
+  InfoIcon,
+  SortIcon,
+} from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Checkbox } from './checkbox.js';
@@ -957,7 +959,7 @@ function HeadCell<R extends RowData>({
       : sorted === 'desc'
         ? `, descending. ${next === 'asc' ? 'Select for ascending' : 'Select to clear'}`
         : '';
-  const Icon = sorted === 'asc' ? ArrowUp : sorted === 'desc' ? ArrowDown : SortV;
+  const Icon = sorted === 'asc' ? ArrowUpIcon : sorted === 'desc' ? ArrowDownIcon : SortIcon;
 
   const onResizeKey = (event: KeyboardEvent<HTMLDivElement>) => {
     const step = event.shiftKey ? 40 : 10;
@@ -992,7 +994,7 @@ function HeadCell<R extends RowData>({
             {...sortable_.attributes}
             {...sortable_.listeners}
           >
-            <Reorder size={14} aria-hidden="true" />
+            <DragHandleIcon size="sm" aria-hidden="true" />
           </button>
         )}
         {sortable ? (
@@ -1015,7 +1017,7 @@ function HeadCell<R extends RowData>({
             <TooltipTrigger
               render={<button type="button" aria-label={`About ${title}`} className="sprout-table-hint" />}
             >
-              <InfoCircle size={14} aria-hidden="true" />
+              <InfoIcon size="sm" aria-hidden="true" />
             </TooltipTrigger>
             <TooltipContent>{config.hint}</TooltipContent>
           </Tooltip>
@@ -1091,9 +1093,9 @@ function GroupRow<R extends RowData>({
                 style={{ paddingInlineStart: row.depth * 16 }}
               >
                 {expanded ? (
-                  <ChevronDown size={14} aria-hidden="true" />
+                  <ChevronDownIcon size="sm" aria-hidden="true" />
                 ) : (
-                  <ChevronRight size={14} aria-hidden="true" />
+                  <ChevronRightIcon size="sm" aria-hidden="true" />
                 )}
                 <span className="sprout-table-group-name">
                   {groupColumn?.header}: {name}
@@ -1243,7 +1245,7 @@ function BodyRow<R extends RowData>({
               {...sortable.attributes}
               {...sortable.listeners}
             >
-              <Reorder size={14} aria-hidden="true" />
+              <DragHandleIcon size="sm" aria-hidden="true" />
             </button>
           </td>
         )}
@@ -1297,9 +1299,9 @@ function BodyRow<R extends RowData>({
                       onClick={row.getToggleExpandedHandler()}
                     >
                       {row.getIsExpanded() ? (
-                        <ChevronDown size={14} aria-hidden="true" />
+                        <ChevronDownIcon size="sm" aria-hidden="true" />
                       ) : (
-                        <ChevronRight size={14} aria-hidden="true" />
+                        <ChevronRightIcon size="sm" aria-hidden="true" />
                       )}
                     </button>
                   )}
@@ -1467,7 +1469,7 @@ function Toolbar<R extends RowData>({
                 setPending(p => p.filter(k => k !== c.key));
               }}
             >
-              <X size={12} aria-hidden="true" />
+              <CloseIcon size="xs" aria-hidden="true" />
             </button>
           </span>
         );
@@ -1475,7 +1477,7 @@ function Toolbar<R extends RowData>({
       {filterable.length > chips.length && (
         <DropdownMenu>
           <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
-            <Plus size={14} aria-hidden="true" />
+            <AddIcon size="sm" aria-hidden="true" />
             Filter
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" size="menu">
@@ -1500,7 +1502,7 @@ function Toolbar<R extends RowData>({
           <DropdownMenu>
             <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
               {grouping.length ? `Group: ${grouping.length}` : 'Group'}
-              <ChevronDown size={14} aria-hidden="true" />
+              <ChevronDownIcon size="sm" aria-hidden="true" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" size="menu">
               {groupable.map(c => (
@@ -1519,7 +1521,7 @@ function Toolbar<R extends RowData>({
           <DropdownMenu>
             <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
               Columns
-              <ChevronDown size={14} aria-hidden="true" />
+              <ChevronDownIcon size="sm" aria-hidden="true" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" size="menu">
               {columns.map(c => {

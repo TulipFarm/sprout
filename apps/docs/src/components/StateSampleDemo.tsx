@@ -1,19 +1,20 @@
 import { useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { BranchDown } from 'reicon-react/icons/BranchDown';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Checklist } from 'reicon-react/icons/Checklist';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { Database } from 'reicon-react/icons/Database';
-import { Envelope } from 'reicon-react/icons/Envelope';
-import { Files } from 'reicon-react/icons/Files';
-import { Folder } from 'reicon-react/icons/Folder';
-import { People } from 'reicon-react/icons/People';
-import { Plug } from 'reicon-react/icons/Plug';
-import { ShieldUser } from 'reicon-react/icons/ShieldUser';
-import { User } from 'reicon-react/icons/User';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  AddIcon,
+  BookOpenIcon,
+  BranchIcon,
+  ChatIcon,
+  CpuIcon,
+  DatabaseIcon,
+  FilesIcon,
+  FolderIcon,
+  MailIcon,
+  PlugIcon,
+  ShieldUserIcon,
+  TasksIcon,
+  UserIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
@@ -70,35 +71,35 @@ const named = (tone: Parameters<typeof SampleMark>[0]['tone'], text: string) => 
 
 function ChatsSample() {
   return (
-    <SampleWindow icon={ChatRound} trail={['Chats']} tabs={['Active', 'Archived']}>
+    <SampleWindow icon={ChatIcon} trail={['Chats']} tabs={['Active', 'Archived']}>
       <SampleList
         items={[
           {
-            leading: <SampleIconTile icon={ChatRound} />,
+            leading: <SampleIconTile icon={ChatIcon} />,
             title: 'Which invoices are overdue this week?',
             detail: 'Found 7 invoices across 4 customers',
             trailing: muted('2m ago'),
           },
           {
-            leading: <SampleIconTile icon={ChatRound} />,
+            leading: <SampleIconTile icon={ChatIcon} />,
             title: 'Draft a follow-up for Northwind',
             detail: 'Draft ready for your review',
             trailing: muted('1h ago'),
           },
           {
-            leading: <SampleIconTile icon={ChatRound} />,
+            leading: <SampleIconTile icon={ChatIcon} />,
             title: 'Add a Suppliers table',
             detail: 'Name, contact, payment terms, region',
             trailing: muted('Yesterday'),
           },
           {
-            leading: <SampleIconTile icon={ChatRound} />,
+            leading: <SampleIconTile icon={ChatIcon} />,
             title: 'Summarize last month’s orders',
             detail: '312 orders, up 18% on September',
             trailing: muted('Sep 30'),
           },
           {
-            leading: <SampleIconTile icon={ChatRound} />,
+            leading: <SampleIconTile icon={ChatIcon} />,
             title: 'Who owns the Acme renewal?',
             detail: 'Assigned to the Sales team',
             trailing: muted('Sep 28'),
@@ -111,17 +112,17 @@ function ChatsSample() {
 
 function FilesSample() {
   return (
-    <SampleWindow icon={Files} trail={['Files', 'My files']}>
+    <SampleWindow icon={FilesIcon} trail={['Files', 'My files']}>
       <SampleList
         items={[
           {
-            leading: <SampleIconTile icon={Folder} />,
+            leading: <SampleIconTile icon={FolderIcon} />,
             title: 'Supplier contracts',
             detail: 'Folder · Shared with Purchasing',
             trailing: muted('You'),
           },
           {
-            leading: <SampleIconTile icon={Folder} />,
+            leading: <SampleIconTile icon={FolderIcon} />,
             title: 'Month-end close',
             detail: 'Folder',
             trailing: muted('You'),
@@ -154,7 +155,7 @@ const agent = (id: string, name: string) => <AgentAvatar agentId={id} name={name
 
 function AgentsSample() {
   return (
-    <SampleWindow icon={Users} trail={['Agents']}>
+    <SampleWindow icon={UsersIcon} trail={['Agents']}>
       <SampleList
         items={[
           {
@@ -195,7 +196,7 @@ function AgentsSample() {
 
 function ProjectsSample() {
   return (
-    <SampleWindow icon={Folder} trail={['Projects']}>
+    <SampleWindow icon={FolderIcon} trail={['Projects']}>
       <p className="state-sample-demo-group">Active projects</p>
       <SampleList
         items={[
@@ -229,7 +230,7 @@ function ProjectsSample() {
 
 function AgentTasksSample() {
   return (
-    <SampleWindow icon={Checklist} trail={['My agent tasks']}>
+    <SampleWindow icon={TasksIcon} trail={['My agent tasks']}>
       <SampleList
         items={[
           {
@@ -264,29 +265,29 @@ function AgentTasksSample() {
 
 function SkillsSample() {
   return (
-    <SampleWindow icon={BookOpen} trail={['Skills']} tabs={['Workspace', 'Built-in']}>
+    <SampleWindow icon={BookOpenIcon} trail={['Skills']} tabs={['Workspace', 'Built-in']}>
       <SampleList
         items={[
           {
-            leading: <SampleIconTile icon={BookOpen} />,
+            leading: <SampleIconTile icon={BookOpenIcon} />,
             title: 'Qualify an inbound lead',
             detail: 'Check budget, timeline, and decision maker',
             trailing: <Badge variant="success">Approved</Badge>,
           },
           {
-            leading: <SampleIconTile icon={BookOpen} />,
+            leading: <SampleIconTile icon={BookOpenIcon} />,
             title: 'Prepare a quarterly review',
             detail: 'Pull revenue, churn, and open risks',
             trailing: <Badge variant="success">Approved</Badge>,
           },
           {
-            leading: <SampleIconTile icon={BookOpen} />,
+            leading: <SampleIconTile icon={BookOpenIcon} />,
             title: 'Handle a refund request',
             detail: 'Verify the order, then propose a refund',
             trailing: <Badge variant="warning">In review</Badge>,
           },
           {
-            leading: <SampleIconTile icon={BookOpen} />,
+            leading: <SampleIconTile icon={BookOpenIcon} />,
             title: 'Write a supplier follow-up',
             detail: 'Friendly tone, confirm delivery dates',
             trailing: <Badge variant="secondary">Draft</Badge>,
@@ -299,7 +300,7 @@ function SkillsSample() {
 
 function WorkflowsSample() {
   return (
-    <SampleWindow icon={BranchDown} trail={['Workflows']}>
+    <SampleWindow icon={BranchIcon} trail={['Workflows']}>
       <SampleTable
         columns={[{ label: 'Workflow', size: 'lg' }, { label: 'Trigger' }, { label: 'Status', size: 'sm' }]}
         rows={[
@@ -324,7 +325,7 @@ function TablesSample() {
     ['teal', 'Support tickets', '10', '2,031'],
   ] as const;
   return (
-    <SampleWindow icon={Database} trail={['Tables']}>
+    <SampleWindow icon={DatabaseIcon} trail={['Tables']}>
       <SampleTable
         columns={[
           { label: 'Table', size: 'lg' },
@@ -358,7 +359,7 @@ function RecordsSample({ table, fields }: { table: string; fields: readonly stri
     ['teal', 'sm', 'md'],
   ] as const;
   return (
-    <SampleWindow icon={Database} trail={['Tables', table]}>
+    <SampleWindow icon={DatabaseIcon} trail={['Tables', table]}>
       <SampleTable
         columns={columns}
         rows={rows.map(([tone, first, rest]) =>
@@ -380,7 +381,7 @@ function RecordsSample({ table, fields }: { table: string; fields: readonly stri
 
 function CreateInChatSample() {
   return (
-    <SampleWindow icon={ChatRound} trail={['New chat']}>
+    <SampleWindow icon={ChatIcon} trail={['New chat']}>
       <div className="state-sample-demo-chat">
         <p className="state-sample-demo-bubble">
           Track our suppliers with a name, contact email, payment terms, and region.
@@ -406,7 +407,7 @@ function CreateInChatSample() {
 
 function IntegrationsSample() {
   return (
-    <SampleWindow icon={Plug} trail={['Integrations']} tabs={['Connected', 'All']}>
+    <SampleWindow icon={PlugIcon} trail={['Integrations']} tabs={['Connected', 'All']}>
       <SampleList
         items={[
           {
@@ -447,7 +448,7 @@ function IntegrationsSample() {
 
 function ModelsSample() {
   return (
-    <SampleWindow icon={Cpu} trail={['Settings', 'Models']}>
+    <SampleWindow icon={CpuIcon} trail={['Settings', 'Models']}>
       <SampleList
         items={[
           {
@@ -482,7 +483,7 @@ function ModelsSample() {
 
 function MembersSample() {
   return (
-    <SampleWindow icon={User} trail={['Settings', 'Members']}>
+    <SampleWindow icon={UserIcon} trail={['Settings', 'Members']}>
       <SampleTable
         columns={[{ label: 'Member', size: 'lg' }, { label: 'Role', size: 'sm' }, { label: 'Teams' }]}
         rows={[
@@ -499,7 +500,7 @@ function MembersSample() {
 
 function TeamsSample() {
   return (
-    <SampleWindow icon={People} trail={['Settings', 'Teams']}>
+    <SampleWindow icon={UsersIcon} trail={['Settings', 'Teams']}>
       <SampleList
         items={[
           {
@@ -531,7 +532,7 @@ function TeamsSample() {
 function InvitationsSample() {
   const link = (email: string) => <SampleText tone="link">{email}</SampleText>;
   return (
-    <SampleWindow icon={Envelope} trail={['Settings', 'Members', 'Invitations']}>
+    <SampleWindow icon={MailIcon} trail={['Settings', 'Members', 'Invitations']}>
       <SampleTable
         columns={[{ label: 'Email', size: 'lg' }, { label: 'Status', size: 'sm' }, { label: 'Email delivery' }]}
         rows={[
@@ -548,7 +549,7 @@ function InvitationsSample() {
 function GrantsSample() {
   const granted = <Badge variant="success">Granted</Badge>;
   return (
-    <SampleWindow icon={ShieldUser} trail={['Settings', 'Table access']} tabs={['Sales', 'Finance', 'Support']}>
+    <SampleWindow icon={ShieldUserIcon} trail={['Settings', 'Table access']} tabs={['Sales', 'Finance', 'Support']}>
       <SampleTable
         columns={[
           { label: 'Table', size: 'lg' },
@@ -580,7 +581,7 @@ interface Scene {
 const scenes = {
   chats: {
     label: 'Chats',
-    icon: ChatRound,
+    icon: ChatIcon,
     parts: 'List · icon tiles · two tabs · muted times',
     title: 'No chats yet',
     description:
@@ -590,7 +591,7 @@ const scenes = {
   },
   files: {
     label: 'Files',
-    icon: Files,
+    icon: FilesIcon,
     parts: 'List · folder tiles and file glyphs · two-part trail',
     title: 'No files yet',
     description:
@@ -600,7 +601,7 @@ const scenes = {
   },
   agents: {
     label: 'Agents',
-    icon: Users,
+    icon: UsersIcon,
     parts: 'List · agent avatars · status badges',
     title: 'No agents yet',
     description:
@@ -610,7 +611,7 @@ const scenes = {
   },
   projects: {
     label: 'Projects',
-    icon: Folder,
+    icon: FolderIcon,
     parts: 'Grouped lists · text-only rows · one trailing badge',
     title: 'No projects yet',
     description:
@@ -620,7 +621,7 @@ const scenes = {
   },
   tasks: {
     label: 'Agent tasks',
-    icon: Checklist,
+    icon: TasksIcon,
     parts: 'List · agent avatars · warning, success, and pending badges',
     title: 'No agent tasks yet',
     description:
@@ -630,7 +631,7 @@ const scenes = {
   },
   skills: {
     label: 'Skills',
-    icon: BookOpen,
+    icon: BookOpenIcon,
     parts: 'List · icon tiles · two tabs · review badges',
     title: 'No workspace skills yet',
     description:
@@ -640,7 +641,7 @@ const scenes = {
   },
   workflows: {
     label: 'Workflows',
-    icon: BranchDown,
+    icon: BranchIcon,
     parts: 'Table · wide, default, and narrow columns · marks',
     title: 'No workflows yet',
     description: 'Describe the work in chat, review its diagram, then save and activate it.',
@@ -649,7 +650,7 @@ const scenes = {
   },
   tables: {
     label: 'Tables',
-    icon: Database,
+    icon: DatabaseIcon,
     parts: 'Table · one wide and two narrow columns · default text',
     title: 'No tables yet',
     description:
@@ -659,7 +660,7 @@ const scenes = {
   },
   records: {
     label: 'Rows',
-    icon: Database,
+    icon: DatabaseIcon,
     parts: 'Table · columns from field names · bar placeholders',
     title: 'No rows yet',
     description:
@@ -669,7 +670,7 @@ const scenes = {
   },
   create: {
     label: 'Create in chat',
-    icon: ChatRound,
+    icon: ChatIcon,
     parts: 'Free content · chat bubbles · nested table',
     title: 'Build tables in chat',
     description:
@@ -679,7 +680,7 @@ const scenes = {
   },
   integrations: {
     label: 'Integrations',
-    icon: Plug,
+    icon: PlugIcon,
     parts: 'List · brand icons · two tabs',
     title: 'Nothing connected yet',
     description:
@@ -689,7 +690,7 @@ const scenes = {
   },
   models: {
     label: 'Models',
-    icon: Cpu,
+    icon: CpuIcon,
     parts: 'List · model brand icons · enabled and off badges · no action',
     title: 'No models configured yet',
     description:
@@ -698,7 +699,7 @@ const scenes = {
   },
   members: {
     label: 'Members',
-    icon: User,
+    icon: UserIcon,
     parts: 'Table · role badges · muted teams · no action',
     title: 'No members yet',
     description:
@@ -707,7 +708,7 @@ const scenes = {
   },
   teams: {
     label: 'Teams',
-    icon: People,
+    icon: UsersIcon,
     parts: 'List · medium marks · no trailing slot',
     title: 'No teams yet',
     description: 'Create a team to collaborate and share access. A team manager can also add you to an existing team.',
@@ -716,7 +717,7 @@ const scenes = {
   },
   invitations: {
     label: 'Invitations',
-    icon: Envelope,
+    icon: MailIcon,
     parts: 'Table · link text · three-part trail',
     title: 'No invitations yet',
     description:
@@ -726,7 +727,7 @@ const scenes = {
   },
   grants: {
     label: 'Team grants',
-    icon: ShieldUser,
+    icon: ShieldUserIcon,
     parts: 'Table · three tabs · two narrow columns',
     title: 'No team grants yet',
     description:
@@ -753,7 +754,7 @@ function Panel({ name }: { name: SceneName }) {
     >
       {scene.action && (
         <Button>
-          <Add size={16} aria-hidden="true" />
+          <AddIcon size="md" aria-hidden="true" />
           {scene.action}
         </Button>
       )}
@@ -854,11 +855,11 @@ export function StateSampleWindows() {
     <div className="state-sample-demo-gallery" data-testid="windows">
       <Example title="One-part trail, two tabs">
         <div className="state-sample-demo-window">
-          <SampleWindow icon={ChatRound} trail={['Chats']} tabs={['Active', 'Archived']}>
+          <SampleWindow icon={ChatIcon} trail={['Chats']} tabs={['Active', 'Archived']}>
             <SampleList
               items={[
                 {
-                  leading: <SampleIconTile icon={ChatRound} />,
+                  leading: <SampleIconTile icon={ChatIcon} />,
                   title: 'Draft a follow-up for Northwind',
                   detail: 'Draft ready for your review',
                   trailing: muted('1h ago'),
@@ -870,7 +871,7 @@ export function StateSampleWindows() {
       </Example>
       <Example title="Two-part trail, no tabs">
         <div className="state-sample-demo-window">
-          <SampleWindow icon={Cpu} trail={['Settings', 'Models']}>
+          <SampleWindow icon={CpuIcon} trail={['Settings', 'Models']}>
             <SampleList
               items={[
                 {
@@ -887,7 +888,7 @@ export function StateSampleWindows() {
       <Example title="Three-part trail, three tabs">
         <div className="state-sample-demo-window">
           <SampleWindow
-            icon={Envelope}
+            icon={MailIcon}
             trail={['Settings', 'Members', 'Invitations']}
             tabs={['Sales', 'Finance', 'Support']}
           >
@@ -904,14 +905,14 @@ export function StateSampleWindows() {
       <Example title="Long names truncate">
         <div className="state-sample-demo-window state-sample-demo-narrow">
           <SampleWindow
-            icon={Database}
+            icon={DatabaseIcon}
             trail={['Tables', 'Quarterly supplier performance review']}
             tabs={['Workspace', 'Built-in', 'Archived', 'Shared with me']}
           >
             <SampleList
               items={[
                 {
-                  leading: <SampleIconTile icon={BookOpen} />,
+                  leading: <SampleIconTile icon={BookOpenIcon} />,
                   title: 'Prepare a quarterly review for every regional supplier',
                   detail: 'Pull revenue, churn, open risks, and delivery delays',
                   trailing: <Badge variant="warning">Needs attention</Badge>,
@@ -978,7 +979,7 @@ export function StateSampleParts() {
         <div className="state-sample-demo-rows">
           <div className="state-sample-demo-row">
             <code>SampleIconTile</code>
-            <SampleIconTile icon={Folder} />
+            <SampleIconTile icon={FolderIcon} />
           </div>
           <div className="state-sample-demo-row">
             <code>SampleMark md</code>

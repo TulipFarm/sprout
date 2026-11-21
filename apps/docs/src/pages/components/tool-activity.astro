@@ -29,7 +29,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <CodeBlock
       lang="tsx"
       title="Tools behind a reply"
-      code={`import { ArrowRotate } from "reicon-react/icons/ArrowRotate";
+      code={`import { RefreshIcon } from "@tulipfarm/sprout/icons";
 import { BrandIcon } from "@tulipfarm/sprout/brand-icon";
 import { Button } from "@tulipfarm/sprout/button";
 import { ToolActivity } from "@tulipfarm/sprout/tool-activity";
@@ -55,7 +55,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@tulipfarm/sprout/toolt
           <TooltipTrigger
             render={
               <Button variant="ghost" size="icon-xs" aria-label="Retry update" onClick={retry}>
-                <ArrowRotate aria-hidden="true" />
+                <RefreshIcon aria-hidden="true" />
               </Button>
             }
           />

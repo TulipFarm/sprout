@@ -2,9 +2,7 @@
 
 import { Panel, useReactFlow, useStore, type FitViewOptions, type Node, type ReactFlowState } from '@xyflow/react';
 import { useEffect, useSyncExternalStore, type KeyboardEvent } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { Minus } from 'reicon-react/icons/Minus';
-import { Scan } from 'reicon-react/icons/Scan';
+import { AddIcon, MinusIcon, ScanIcon } from '../components/icons.js';
 import { Button } from '../components/button.js';
 
 export const flowMinZoom = 0.2;
@@ -92,7 +90,7 @@ export function ZoomControls({
         disabled={zoom >= flowMaxZoom}
         onClick={() => void zoomIn({ duration: motion(160) })}
       >
-        <Add size={16} aria-hidden="true" />
+        <AddIcon size="md" aria-hidden="true" />
       </Button>
       <Button
         variant="ghost"
@@ -102,7 +100,7 @@ export function ZoomControls({
         disabled={zoom <= flowMinZoom}
         onClick={() => void zoomOut({ duration: motion(160) })}
       >
-        <Minus size={16} aria-hidden="true" />
+        <MinusIcon size="md" aria-hidden="true" />
       </Button>
       <Button
         variant="ghost"
@@ -111,7 +109,7 @@ export function ZoomControls({
         title="Fit to view"
         onClick={() => void fitView({ ...fit, duration: motion(180) })}
       >
-        <Scan size={16} aria-hidden="true" />
+        <ScanIcon size="md" aria-hidden="true" />
       </Button>
     </Panel>
   );

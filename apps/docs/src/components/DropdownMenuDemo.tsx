@@ -1,38 +1,39 @@
 import { useRef, useState, type ReactNode } from 'react';
 import { Menubar } from '@base-ui/react/menubar';
-import { Add } from 'reicon-react/icons/Add';
-import { Archive } from 'reicon-react/icons/Archive';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { Book } from 'reicon-react/icons/Book';
-import { Briefcase } from 'reicon-react/icons/Briefcase';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Clock3 } from 'reicon-react/icons/Clock3';
-import { Copy } from 'reicon-react/icons/Copy';
-import { DocumentText } from 'reicon-react/icons/DocumentText';
-import { Download } from 'reicon-react/icons/Download';
-import { Edit } from 'reicon-react/icons/Edit';
-import { Eye } from 'reicon-react/icons/Eye';
-import { FolderMove } from 'reicon-react/icons/FolderMove';
-import { HelpCircle } from 'reicon-react/icons/HelpCircle';
-import { InfoCircle } from 'reicon-react/icons/InfoCircle';
-import { Link } from 'reicon-react/icons/Link';
-import { Logout } from 'reicon-react/icons/Logout';
-import { Monitor } from 'reicon-react/icons/Monitor';
-import { Moon } from 'reicon-react/icons/Moon';
-import { MoreH } from 'reicon-react/icons/MoreH';
-import { Paperclip } from 'reicon-react/icons/Paperclip';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Refresh } from 'reicon-react/icons/Refresh';
-import { Search } from 'reicon-react/icons/Search';
-import { Setting2 } from 'reicon-react/icons/Setting2';
-import { Share } from 'reicon-react/icons/Share';
-import { Sun } from 'reicon-react/icons/Sun';
-import { Trash } from 'reicon-react/icons/Trash';
-import { Upload } from 'reicon-react/icons/Upload';
-import { UserAdd } from 'reicon-react/icons/UserAdd';
-import { UserCircle } from 'reicon-react/icons/UserCircle';
+import {
+  AddIcon,
+  ArchiveIcon,
+  ArrowUpRightIcon,
+  BookIcon,
+  BriefcaseIcon,
+  ChatIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  ClockIcon,
+  CopyIcon,
+  DeleteIcon,
+  DocumentTextIcon,
+  DownloadIcon,
+  EditIcon,
+  EyeIcon,
+  FolderMoveIcon,
+  HelpCircleIcon,
+  InfoIcon,
+  LinkIcon,
+  LogoutIcon,
+  MonitorIcon,
+  MoonIcon,
+  MoreIcon,
+  PaperclipIcon,
+  RefreshIcon,
+  SearchIcon,
+  SettingsIcon,
+  ShareIcon,
+  SunIcon,
+  UploadIcon,
+  UserAddIcon,
+  UserCircleIcon,
+} from '@tulipfarm/sprout/icons';
 import { EntityAvatar } from '@tulipfarm/sprout/avatar';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
@@ -91,7 +92,7 @@ export function DropdownMenuPlayground() {
                 <DropdownMenuGroup>
                   <DropdownMenuLabel>Sample project</DropdownMenuLabel>
                   <DropdownMenuItem onClick={() => setResult('New task selected locally.')}>
-                    <Plus size={14} aria-hidden="true" />
+                    <AddIcon size="sm" aria-hidden="true" />
                     New task
                     <DropdownMenuShortcut>⌘ N</DropdownMenuShortcut>
                   </DropdownMenuItem>
@@ -155,7 +156,7 @@ export function DropdownMenuActions() {
       <Row label="Table row" note="ghost icon-sm · anchor · group, separator, destructive">
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('Actions for row 1042', 'ghost', 'icon-sm')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuGroup>
@@ -173,7 +174,7 @@ export function DropdownMenuActions() {
       <Row label="Table options" note="outline icon-sm · anchor">
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('More table options', 'outline', 'icon-sm')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuGroup>
@@ -186,35 +187,35 @@ export function DropdownMenuActions() {
       <Row label="File page" note="outline icon · menu · icon items">
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('File actions', 'outline', 'icon')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem onClick={done('Use Q3 budget.xlsx in chat.')}>
-              <ChatRound size={14} aria-hidden="true" />
+              <ChatIcon size="sm" aria-hidden="true" />
               Use in chat
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Downloading Q3 budget.xlsx.')}>
-              <Download size={14} aria-hidden="true" />
+              <DownloadIcon size="sm" aria-hidden="true" />
               Download
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Add to Knowledge would open.')}>
-              <Book size={14} aria-hidden="true" />
+              <BookIcon size="sm" aria-hidden="true" />
               Add to Knowledge
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Add to project would open.')}>
-              <Briefcase size={14} aria-hidden="true" />
+              <BriefcaseIcon size="sm" aria-hidden="true" />
               Add to project
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Details would open.')}>
-              <InfoCircle size={14} aria-hidden="true" />
+              <InfoIcon size="sm" aria-hidden="true" />
               Details
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Link copied.')}>
-              <Link size={14} aria-hidden="true" />
+              <LinkIcon size="sm" aria-hidden="true" />
               Copy link
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Share would open.')}>
-              <Share size={14} aria-hidden="true" />
+              <ShareIcon size="sm" aria-hidden="true" />
               Share
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -223,52 +224,52 @@ export function DropdownMenuActions() {
       <Row label="Files row" note="ghost icon-sm · menu · two separators · busy row disables the trigger">
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('More actions for Field notes.pdf', 'ghost', 'icon-sm')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem onClick={done('Use Field notes.pdf in chat.')}>
-              <ChatRound size={14} aria-hidden="true" />
+              <ChatIcon size="sm" aria-hidden="true" />
               Use in chat
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Add to Knowledge would open.')}>
-              <Book size={14} aria-hidden="true" />
+              <BookIcon size="sm" aria-hidden="true" />
               Add to Knowledge
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Add to project would open.')}>
-              <Briefcase size={14} aria-hidden="true" />
+              <BriefcaseIcon size="sm" aria-hidden="true" />
               Add to project
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Details would open.')}>
-              <InfoCircle size={14} aria-hidden="true" />
+              <InfoIcon size="sm" aria-hidden="true" />
               Details
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Link copied.')}>
-              <Link size={14} aria-hidden="true" />
+              <LinkIcon size="sm" aria-hidden="true" />
               Copy link
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Share would open.')}>
-              <Share size={14} aria-hidden="true" />
+              <ShareIcon size="sm" aria-hidden="true" />
               Share
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={done('Rename would open.')}>
-              <Edit size={14} aria-hidden="true" />
+              <EditIcon size="sm" aria-hidden="true" />
               Rename
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Move would open.')}>
-              <FolderMove size={14} aria-hidden="true" />
+              <FolderMoveIcon size="sm" aria-hidden="true" />
               Move
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem variant="destructive" onClick={done('Field notes.pdf moved to trash.')}>
-              <Trash size={14} aria-hidden="true" />
+              <DeleteIcon size="sm" aria-hidden="true" />
               Move to trash
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger disabled render={moreTrigger('More actions for Contracts', 'ghost', 'icon-sm')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem>Details</DropdownMenuItem>
@@ -278,23 +279,23 @@ export function DropdownMenuActions() {
       <Row label="Project files" note="ghost sm Add · ghost icon-sm row · disabled item">
         <DropdownMenu>
           <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
-            <Add size={16} aria-hidden="true" />
+            <AddIcon size="md" aria-hidden="true" />
             Add
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem onClick={done('File picker would open.')}>
-              <Upload size={14} aria-hidden="true" />
+              <UploadIcon size="sm" aria-hidden="true" />
               Upload files
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Paste text would open.')}>
-              <DocumentText size={14} aria-hidden="true" />
+              <DocumentTextIcon size="sm" aria-hidden="true" />
               Paste text
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('Actions for Planting calendar', 'ghost', 'icon-sm')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem disabled>View text</DropdownMenuItem>
@@ -316,11 +317,11 @@ export function DropdownMenuActions() {
       <Row label="Chat list row" note="ghost icon-sm · menu · label changes with state">
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('More actions for Seed order follow-up', 'ghost', 'icon-sm')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem onClick={done('Rename Seed order follow-up.')}>
-              <Edit size={14} aria-hidden="true" />
+              <EditIcon size="sm" aria-hidden="true" />
               Rename
             </DropdownMenuItem>
             <DropdownMenuItem
@@ -329,12 +330,12 @@ export function DropdownMenuActions() {
                 setResult(archived ? 'Chat restored.' : 'Chat archived.');
               }}
             >
-              <Archive size={14} aria-hidden="true" />
+              <ArchiveIcon size="sm" aria-hidden="true" />
               {archived ? 'Restore' : 'Archive'}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem variant="destructive" onClick={done('Delete chat confirmation would open.')}>
-              <Trash size={14} aria-hidden="true" />
+              <DeleteIcon size="sm" aria-hidden="true" />
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -343,19 +344,19 @@ export function DropdownMenuActions() {
       <Row label="Calendar" note="ghost icon · menu">
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('More calendar actions', 'ghost', 'icon')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent size="menu" align="end">
             <DropdownMenuItem onClick={done('Calendar search would open.')}>
-              <Search size={14} aria-hidden="true" />
+              <SearchIcon size="sm" aria-hidden="true" />
               Search calendar
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Find time panel would open.')}>
-              <Clock3 size={14} aria-hidden="true" />
+              <ClockIcon size="sm" aria-hidden="true" />
               Find time
             </DropdownMenuItem>
             <DropdownMenuItem onClick={done('Calendar refreshed.')}>
-              <Refresh size={14} aria-hidden="true" />
+              <RefreshIcon size="sm" aria-hidden="true" />
               Refresh calendar
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -367,38 +368,38 @@ export function DropdownMenuActions() {
             ref={driveTrigger}
             render={moreTrigger('More actions for Harvest plan', 'ghost', 'icon-sm')}
           >
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem onClick={done('Use Harvest plan in chat would open.')}>
-              <ChatRound size={14} aria-hidden="true" />
+              <ChatIcon size="sm" aria-hidden="true" />
               Use in chat
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setCopyOpen(true)}>
-              <Copy size={14} aria-hidden="true" />
+              <CopyIcon size="sm" aria-hidden="true" />
               Save a copy to TulipFarm
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger render={moreTrigger('Google file actions', 'outline', 'icon')}>
-            <MoreH size={16} aria-hidden="true" />
+            <MoreIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" size="menu">
             <DropdownMenuItem onClick={done('Use Harvest plan in chat would open.')}>
-              <ChatRound size={14} aria-hidden="true" />
+              <ChatIcon size="sm" aria-hidden="true" />
               Use in chat
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setCopyOpen(true)}>
-              <Copy size={14} aria-hidden="true" />
+              <CopyIcon size="sm" aria-hidden="true" />
               Save a copy
             </DropdownMenuItem>
             <DropdownMenuItem render={<a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer" />}>
-              <ArrowUpRight size={14} aria-hidden="true" />
+              <ArrowUpRightIcon size="sm" aria-hidden="true" />
               Open in Google
             </DropdownMenuItem>
             <DropdownMenuItem disabled>
-              <Refresh size={14} aria-hidden="true" />
+              <RefreshIcon size="sm" aria-hidden="true" />
               Refreshing…
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -450,7 +451,7 @@ export function DropdownMenuChat() {
       <Row label="Composer files" note="ghost sm · menu · side top · label">
         <DropdownMenu>
           <DropdownMenuTrigger render={<Button size="sm" variant="ghost" aria-label="Add a file" />}>
-            <Paperclip size={16} aria-hidden="true" />
+            <PaperclipIcon size="md" aria-hidden="true" />
             <span className="hidden sm:inline">Files</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent size="menu" side="top">
@@ -476,7 +477,7 @@ export function DropdownMenuChat() {
           <DropdownMenuTrigger
             render={<Button size="icon-sm" variant="ghost" aria-label="Chat actions" title="Chat actions" />}
           >
-            <ChevronDown size={16} aria-hidden="true" />
+            <ChevronDownIcon size="md" aria-hidden="true" />
           </DropdownMenuTrigger>
           <DropdownMenuContent size="menu" align="end">
             <DropdownMenuItem disabled={locked} onClick={() => setResult('Edit title form opened.')}>
@@ -658,7 +659,7 @@ export function DropdownMenuChecks() {
       <Row label="Columns" note="outline sm with icon and count badge · label">
         <DropdownMenu>
           <DropdownMenuTrigger render={<Button variant="outline" size="sm" />}>
-            <Eye size={14} aria-hidden="true" />
+            <EyeIcon size="sm" aria-hidden="true" />
             Columns
             {shown.length < fields.length && (
               <Badge variant="secondary">
@@ -700,9 +701,9 @@ const workspaces = [
   { id: 'ws-kofi', slug: 'kofi', name: 'Kofi’s workspace' },
 ];
 const themes = [
-  { value: 'system', label: 'System', icon: Monitor },
-  { value: 'light', label: 'Light', icon: Sun },
-  { value: 'dark', label: 'Dark', icon: Moon },
+  { value: 'system', label: 'System', icon: MonitorIcon },
+  { value: 'light', label: 'Light', icon: SunIcon },
+  { value: 'dark', label: 'Dark', icon: MoonIcon },
 ] as const;
 
 /* Sidebar workspace and account menus. Links stay on this page. */
@@ -732,16 +733,16 @@ export function DropdownMenuSidebar() {
               >
                 <EntityAvatar seed={current.id} name={current.name} size="sm" shape="square" />
                 <span className="truncate">{current.name}</span>
-                <ChevronDown size={12} aria-hidden="true" />
+                <ChevronDownIcon size="xs" aria-hidden="true" />
               </DropdownMenuTrigger>
               <DropdownMenuContent size="menu">
                 <DropdownMenuItem {...link('Settings link chosen.')}>
-                  <Setting2 size={14} aria-hidden="true" />
+                  <SettingsIcon size="sm" aria-hidden="true" />
                   Settings
                   <DropdownMenuShortcut>G then S</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem {...link('Members link chosen.')}>
-                  <UserAdd size={14} aria-hidden="true" />
+                  <UserAddIcon size="sm" aria-hidden="true" />
                   Invite and manage members
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -760,12 +761,12 @@ export function DropdownMenuSidebar() {
                       >
                         <EntityAvatar seed={item.id} name={item.name} size="sm" shape="square" />
                         <span className="dropdown-demo-workspace-name">{item.name}</span>
-                        {item.slug === current.slug && <Check size={14} aria-label="Current workspace" />}
+                        {item.slug === current.slug && <CheckIcon size="sm" aria-label="Current workspace" />}
                       </DropdownMenuItem>
                     ))}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem {...link('Create workspace link chosen.')}>
-                      <Add size={14} aria-hidden="true" />
+                      <AddIcon size="sm" aria-hidden="true" />
                       Create workspace
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
@@ -785,18 +786,18 @@ export function DropdownMenuSidebar() {
                     <span className="block truncate">ama.owusu@meadow-farm-cooperative.example</span>
                   </DropdownMenuLabel>
                   <DropdownMenuItem {...link('Account settings link chosen.')}>
-                    <UserCircle size={14} aria-hidden="true" />
+                    <UserCircleIcon size="sm" aria-hidden="true" />
                     Account settings
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem {...link('Help link chosen.')}>
-                  <HelpCircle size={14} aria-hidden="true" />
+                  <HelpCircleIcon size="sm" aria-hidden="true" />
                   Help and support
                 </DropdownMenuItem>
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger>
-                    <Monitor size={14} aria-hidden="true" />
+                    <MonitorIcon size="sm" aria-hidden="true" />
                     Theme
                   </DropdownMenuSubTrigger>
                   <DropdownMenuSubContent>
@@ -818,7 +819,7 @@ export function DropdownMenuSidebar() {
                 </DropdownMenuSub>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem {...link('Log out link chosen.')}>
-                  <Logout size={14} aria-hidden="true" />
+                  <LogoutIcon size="sm" aria-hidden="true" />
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -923,7 +924,7 @@ export function DropdownMenuMenubar() {
           <DropdownMenuTrigger className="dropdown-demo-menubar-trigger">File</DropdownMenuTrigger>
           <DropdownMenuContent {...content}>
             <DropdownMenuItem onClick={() => setResult('New task.')}>
-              <Plus size={14} aria-hidden="true" />
+              <AddIcon size="sm" aria-hidden="true" />
               New task
               <DropdownMenuShortcut>⌘ N</DropdownMenuShortcut>
             </DropdownMenuItem>

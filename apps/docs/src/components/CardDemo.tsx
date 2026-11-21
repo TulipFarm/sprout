@@ -1,8 +1,5 @@
 import { useRef, useState, type ReactNode } from 'react';
-import { CheckSquare } from 'reicon-react/icons/CheckSquare';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { Clock3 } from 'reicon-react/icons/Clock3';
-import { Route } from 'reicon-react/icons/Route';
+import { CheckSquareIcon, ChevronRightIcon, ClockIcon, RouteIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Badge, type BadgeVariant } from '@tulipfarm/sprout/badge';
 import { BrandIcon } from '@tulipfarm/sprout/brand-icon';
@@ -582,7 +579,7 @@ function PendingCards() {
     >
       <div className="card-demo-pending">
         {pendingItems.map(item => {
-          const Icon = item.kind === 'task' ? CheckSquare : Route;
+          const Icon = item.kind === 'task' ? CheckSquareIcon : RouteIcon;
           const open = (event: { preventDefault(): void }) => {
             event.preventDefault();
             setMessage(`Opened ${item.title}.`);
@@ -615,7 +612,7 @@ function PendingCards() {
                           size="md"
                           onClick={() => setMessage(`Reserved 09:00 tomorrow for ${item.title}.`)}
                         >
-                          <Clock3 size={14} aria-hidden="true" />
+                          <ClockIcon size="sm" aria-hidden="true" />
                           Reserve time
                         </Button>
                       ) : (
@@ -628,7 +625,7 @@ function PendingCards() {
                           render={<a href={`#review-${item.id}`} />}
                         >
                           Review
-                          <ChevronRight size={14} aria-hidden="true" />
+                          <ChevronRightIcon size="sm" aria-hidden="true" />
                         </Button>
                       )}
                     </div>

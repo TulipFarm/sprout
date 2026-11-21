@@ -1,8 +1,5 @@
 import { useEffect, useId, useRef, useState, type ComponentProps, type ReactNode } from 'react';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Refresh } from 'reicon-react/icons/Refresh';
-import { Send } from 'reicon-react/icons/Send';
-import { X } from 'reicon-react/icons/X';
+import { AddIcon, CloseIcon, RefreshIcon, SendIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -1313,12 +1310,12 @@ function TestChat() {
           </Field>
           <div className="form-demo-row">
             <Button type="submit" disabled={send.busy || !text.trim()}>
-              <Send aria-hidden="true" />
+              <SendIcon aria-hidden="true" />
               {send.busy ? 'Testing…' : 'Send test'}
             </Button>
             {messages.length > 0 && !send.busy && (
               <Button variant="ghost" onClick={() => setMessages([])}>
-                <Refresh aria-hidden="true" />
+                <RefreshIcon aria-hidden="true" />
                 Reset test
               </Button>
             )}
@@ -1441,7 +1438,7 @@ function InviteMembersDialog() {
       >
         <div>
           <DialogTrigger render={<Button />}>
-            <Plus aria-hidden="true" />
+            <AddIcon aria-hidden="true" />
             Invite members
           </DialogTrigger>
         </div>
@@ -1505,7 +1502,7 @@ function InviteMembersDialog() {
                           )
                         }
                       >
-                        <X size={16} aria-hidden="true" />
+                        <CloseIcon size="md" aria-hidden="true" />
                       </Button>
                     </div>
                   ))}
@@ -1521,7 +1518,7 @@ function InviteMembersDialog() {
                       );
                     }}
                   >
-                    <Plus size={16} aria-hidden="true" />
+                    <AddIcon size="md" aria-hidden="true" />
                     Add another
                   </Button>
                 </div>

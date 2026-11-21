@@ -1,8 +1,7 @@
 'use client';
 
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
-import { Check } from 'reicon-react/icons/Check';
-import { Minus } from 'reicon-react/icons/Minus';
+import { CheckIcon, MinusIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 import { useFieldsetDisabled } from '../internal/fieldset.js';
 
@@ -46,7 +45,7 @@ export function Checkbox({
       )}
     >
       <BaseCheckbox.Indicator data-slot="checkbox-indicator" className="sprout-checkbox-indicator">
-        {indeterminate ? <Minus aria-hidden="true" /> : <Check aria-hidden="true" />}
+        {indeterminate ? <MinusIcon aria-hidden="true" /> : <CheckIcon aria-hidden="true" />}
       </BaseCheckbox.Indicator>
     </BaseCheckbox.Root>
   );

@@ -12,7 +12,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { MoreIcon } from './icons.js';
 import { brandGlyphs } from '../internal/brand-glyphs.js';
 import { cn } from '../internal/classes.js';
 import { Badge, type BadgeVariant } from './badge.js';
@@ -462,7 +462,7 @@ export function KnowledgeBaseSources({
                       />
                     }
                   >
-                    <MoreH aria-hidden="true" />
+                    <MoreIcon aria-hidden="true" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     {canSync && <DropdownMenuItem onClick={() => onSync?.(source)}>Sync now</DropdownMenuItem>}

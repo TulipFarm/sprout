@@ -1,10 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Menu } from '@base-ui/react/menu';
-import { Check } from 'reicon-react/icons/Check';
-import { CheckCircle } from 'reicon-react/icons/CheckCircle';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Cursor } from 'reicon-react/icons/Cursor';
-import { UserAdd } from 'reicon-react/icons/UserAdd';
+import { CheckCircleIcon, CheckIcon, ChevronDownIcon, CursorIcon, UserAddIcon } from '@tulipfarm/sprout/icons';
 import { AgentAvatar } from '@tulipfarm/sprout/agent-avatar';
 import {
   Avatar,
@@ -146,7 +142,7 @@ export function AvatarPlayground() {
           <AvatarFallback>AM</AvatarFallback>
           {badge && (
             <AvatarBadge role="img" aria-label="Verified">
-              <Check aria-hidden="true" />
+              <CheckIcon aria-hidden="true" />
             </AvatarBadge>
           )}
         </Avatar>
@@ -168,7 +164,7 @@ export function AvatarSizes() {
               <AvatarImage src={sample.landscape} alt="Green landscape" />
               <AvatarFallback>AM</AvatarFallback>
               <AvatarBadge role="img" aria-label="Verified">
-                <Check aria-hidden="true" />
+                <CheckIcon aria-hidden="true" />
               </AvatarBadge>
             </Avatar>
             <Avatar size={size}>
@@ -259,7 +255,7 @@ export function AvatarGroups() {
               <AvatarFallback>R</AvatarFallback>
             </Avatar>
             <AvatarGroupCount>
-              <UserAdd aria-label="Invite people" />
+              <UserAddIcon aria-label="Invite people" />
             </AvatarGroupCount>
           </AvatarGroup>
           <span>icon count</span>
@@ -413,7 +409,7 @@ export function AgentCompositions() {
           </li>
           <li>
             <span className="avatar-workflow-identity" aria-hidden="true">
-              <CheckCircle size={18} />
+              <CheckCircleIcon size="lg" />
             </span>
             <span className="avatar-list-copy">
               <span className="avatar-list-title">Review</span>
@@ -591,7 +587,7 @@ export function EntityCompositions() {
         <ul className="avatar-invite">
           {sampleMembers.slice(0, 2).map(member => (
             <li key={member.id}>
-              <Cursor size={18} aria-hidden="true" />
+              <CursorIcon size="lg" aria-hidden="true" />
               <span className="avatar-invite-label">
                 <EntityAvatar seed={member.id} name={member.name} image={member.image} size="sm" />
                 <span>{member.name}</span>
@@ -599,7 +595,7 @@ export function EntityCompositions() {
             </li>
           ))}
           <li>
-            <Cursor size={18} aria-hidden="true" />
+            <CursorIcon size="lg" aria-hidden="true" />
             <span className="avatar-invite-label">
               <span>robin@example.com</span>
             </span>
@@ -630,7 +626,7 @@ export function EntityCompositions() {
                       }
                     >
                       {workspace.name}
-                      <ChevronDown size={12} aria-hidden="true" />
+                      <ChevronDownIcon size="xs" aria-hidden="true" />
                     </Menu.Trigger>
                     <Menu.Portal>
                       <Menu.Positioner className="workspace-menu-positioner" align="start" sideOffset={6}>
@@ -651,7 +647,7 @@ export function EntityCompositions() {
                                   shape="square"
                                 />
                                 <span className="avatar-truncate">{item.name}</span>
-                                {item.id === workspace.id && <Check size={14} aria-label="Current workspace" />}
+                                {item.id === workspace.id && <CheckIcon size="sm" aria-label="Current workspace" />}
                               </Menu.Item>
                             ))}
                           </Menu.Group>

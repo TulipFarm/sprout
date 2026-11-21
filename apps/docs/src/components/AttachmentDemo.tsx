@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { Download } from 'reicon-react/icons/Download';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Paperclip } from 'reicon-react/icons/Paperclip';
-import { X } from 'reicon-react/icons/X';
+import { CloseIcon, DownloadIcon, FolderIcon, PaperclipIcon } from '@tulipfarm/sprout/icons';
 import {
   Attachment,
   AttachmentAction,
@@ -140,7 +137,7 @@ function PrimitivesExample() {
                       aria-label={`Remove ${item.name}`}
                       onClick={() => setRemoved(current => [...current, item.state])}
                     >
-                      <X aria-hidden="true" />
+                      <CloseIcon aria-hidden="true" />
                     </AttachmentAction>
                   </AttachmentActions>
                 </Attachment>
@@ -197,7 +194,7 @@ function PrimitivesExample() {
                 aria-label="Download Q3 launch deck.pptx"
                 onClick={() => setOpened('Downloaded Q3 launch deck.pptx')}
               >
-                <Download aria-hidden="true" />
+                <DownloadIcon aria-hidden="true" />
               </AttachmentAction>
             </AttachmentActions>
           </Attachment>
@@ -727,7 +724,7 @@ function FileTypeIconExample() {
               <li key={item.name}>
                 <span className="attachment-demo-table-icon" aria-hidden="true">
                   {item.kind === 'folder' ? (
-                    <Folder size={20} />
+                    <FolderIcon size="xl" />
                   ) : (
                     <FileTypeIcon name={item.name} mediaType={item.type ?? 'application/octet-stream'} />
                   )}
@@ -825,7 +822,7 @@ function FileTypeIconExample() {
             size="sm"
             onClick={() => setFieldFiles(current => [...current, `Receipt ${current.length + 1}.pdf`])}
           >
-            <Paperclip aria-hidden="true" />
+            <PaperclipIcon aria-hidden="true" />
             Attach file
           </Button>
         </Pane>

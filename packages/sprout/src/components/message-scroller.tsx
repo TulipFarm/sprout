@@ -20,7 +20,7 @@ import {
 } from 'react';
 import { useRender } from '@base-ui/react/use-render';
 import { mergeProps } from '@base-ui/react/merge-props';
-import { ArrowDown } from 'reicon-react/icons/ArrowDown';
+import { ArrowDownIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import {
   MessageScrollerController,
@@ -372,7 +372,7 @@ export function MessageScrollerButton({
         },
         children: children ?? (
           <>
-            <ArrowDown aria-hidden="true" />
+            <ArrowDownIcon aria-hidden="true" />
             <span className="sprout-message-scroller-sr-only">
               {direction === 'end' ? 'Scroll to end' : 'Scroll to start'}
             </span>

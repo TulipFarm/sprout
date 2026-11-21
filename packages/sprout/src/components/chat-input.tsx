@@ -13,12 +13,7 @@ import {
 import { Extension, Node, mergeAttributes, type Extensions } from '@tiptap/core';
 import { PluginKey } from '@tiptap/pm/state';
 import Suggestion, { exitSuggestion, type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Folder } from 'reicon-react/icons/Folder';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Sliders } from 'reicon-react/icons/Sliders';
-import { X } from 'reicon-react/icons/X';
+import { AddIcon, ArrowUpIcon, ChevronDownIcon, CloseIcon, FolderIcon, SlidersIcon } from './icons.js';
 import { chatReferenceChars } from '../internal/chat-reference.js';
 import { cn } from '../internal/classes.js';
 import {
@@ -394,7 +389,7 @@ function OptionPicker({
       >
         {icon(selected)}
         <span className="sprout-chat-input-picker-label">{selected?.label ?? label}</span>
-        <ChevronDown size={12} aria-hidden="true" />
+        <ChevronDownIcon size="xs" aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent size="picker" side="top" align={align} sideOffset={8} className="sprout-chat-input-menu">
         <Command>
@@ -638,7 +633,7 @@ export function ChatInput({
                             />
                           }
                         >
-                          <Plus size={16} aria-hidden="true" />
+                          <AddIcon size="md" aria-hidden="true" />
                         </TooltipTrigger>
                         <TooltipContent>Add files and more</TooltipContent>
                       </Tooltip>
@@ -676,7 +671,7 @@ export function ChatInput({
                             />
                           }
                         >
-                          <Sliders size={16} aria-hidden="true" />
+                          <SlidersIcon size="md" aria-hidden="true" />
                         </TooltipTrigger>
                         <TooltipContent>Modes</TooltipContent>
                       </Tooltip>
@@ -725,7 +720,7 @@ export function ChatInput({
                     >
                       {activeMode.icon}
                       <span className="sprout-chat-input-picker-label">{activeMode.label}</span>
-                      <X size={12} aria-hidden="true" />
+                      <CloseIcon size="xs" aria-hidden="true" />
                     </InputGroupButton>
                   )}
                   {projects && projects.length > 0 && (
@@ -738,7 +733,7 @@ export function ChatInput({
                         value={project}
                         onChange={id => onProjectChange?.(id)}
                         disabled={disabled}
-                        icon={option => option?.icon ?? <Folder size={16} aria-hidden="true" />}
+                        icon={option => option?.icon ?? <FolderIcon size="md" aria-hidden="true" />}
                         align="start"
                       />
                     </>
@@ -775,7 +770,7 @@ export function ChatInput({
                       aria-label="Send message"
                       disabled={!canSend}
                     >
-                      <ArrowUp size={16} aria-hidden="true" />
+                      <ArrowUpIcon size="md" aria-hidden="true" />
                     </InputGroupButton>
                   )}
                 </div>

@@ -1,7 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import { Calendar, CalendarDayButton, type CalendarDayButtonProps, type DateRange } from '@tulipfarm/sprout/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@tulipfarm/sprout/popover';
@@ -257,14 +255,14 @@ export function CalendarDatePicker() {
       <Row label="Toolbar title" note="ghost calendar-title trigger · PopoverContent align start · weekStartsOn 1">
         <div className="calendar-demo-toolbar">
           <Button variant="ghost" size="icon" aria-label="Previous range" onClick={() => setDay(moveWeek(day, -1))}>
-            <ChevronLeft size={16} aria-hidden="true" />
+            <ChevronLeftIcon size="md" aria-hidden="true" />
           </Button>
           <Popover open={open} onOpenChange={setOpen}>
             <h2 className="calendar-demo-title" aria-label={title}>
               <PopoverTrigger render={<Button variant="ghost" size="md" aria-label="Choose date" />}>
                 <span className="calendar-demo-title-full">{title}</span>
                 <span className="calendar-demo-title-short">{monthShort(day)}</span>
-                <ChevronDown size={14} aria-hidden="true" />
+                <ChevronDownIcon size="sm" aria-hidden="true" />
               </PopoverTrigger>
             </h2>
             <PopoverContent align="start" aria-label="Choose a calendar date">
@@ -284,7 +282,7 @@ export function CalendarDatePicker() {
             </PopoverContent>
           </Popover>
           <Button variant="ghost" size="icon" aria-label="Next range" onClick={() => setDay(moveWeek(day, 1))}>
-            <ChevronRight size={16} aria-hidden="true" />
+            <ChevronRightIcon size="md" aria-hidden="true" />
           </Button>
         </div>
         <Status>Showing the week of {long(day)}.</Status>

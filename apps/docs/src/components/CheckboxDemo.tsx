@@ -1,6 +1,5 @@
 import { useId, useState, type ReactNode } from 'react';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Folder } from 'reicon-react/icons/Folder';
+import { DocumentTextIcon, FolderIcon } from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Button } from '@tulipfarm/sprout/button';
 import { Checkbox, checkboxVariantNames, type CheckboxVariant } from '@tulipfarm/sprout/checkbox';
@@ -411,7 +410,7 @@ export function CheckboxFiles() {
       <ul className="checkbox-demo-files" aria-label="Files">
         {files.map(item => {
           const checked = selected.includes(item.id);
-          const Icon = item.kind === 'folder' ? Folder : FileText;
+          const Icon = item.kind === 'folder' ? FolderIcon : DocumentTextIcon;
           return (
             <li key={item.id} className="checkbox-demo-file" data-selected={checked || undefined}>
               <span className="checkbox-demo-file-select">

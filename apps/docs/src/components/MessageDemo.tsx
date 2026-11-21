@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from 'react';
-import { ArrowUp } from 'reicon-react/icons/ArrowUp';
-import { Check } from 'reicon-react/icons/Check';
-import { Copy } from 'reicon-react/icons/Copy';
-import { Danger } from 'reicon-react/icons/Danger';
-import { Database } from 'reicon-react/icons/Database';
-import { Plus } from 'reicon-react/icons/Plus';
-import { Refresh } from 'reicon-react/icons/Refresh';
+import {
+  AddIcon,
+  ArrowUpIcon,
+  CheckIcon,
+  CopyIcon,
+  DangerIcon,
+  DatabaseIcon,
+  RefreshIcon,
+} from '@tulipfarm/sprout/icons';
 import { FileTypeIcon } from '@tulipfarm/sprout/attachment';
 import { Avatar, AvatarFallback } from '@tulipfarm/sprout/avatar';
 import { Badge } from '@tulipfarm/sprout/badge';
@@ -298,7 +300,7 @@ function LinksAndButtons() {
           {failed ? (
             <MessageBubble variant="destructive" render={<button type="button" />} onClick={() => setFailed(false)}>
               <span className="message-demo-inline">
-                <Refresh aria-hidden="true" />
+                <RefreshIcon aria-hidden="true" />
                 Couldn't send "Notify #engineering". Retry
               </span>
             </MessageBubble>
@@ -411,7 +413,7 @@ function Conversation() {
                           </MessageBubble>
                           {index === 1 && at === 0 && (
                             <div className="message-demo-change">
-                              <Database size={18} aria-hidden="true" />
+                              <DatabaseIcon size="lg" aria-hidden="true" />
                               <div>
                                 <p className="message-demo-change-title">Customers</p>
                                 <p className="message-demo-change-meta">1 new table · No rows added</p>
@@ -463,7 +465,7 @@ function Conversation() {
               Clear
             </Button>
             <Button type="submit" size="icon-sm" aria-label="Send message" disabled={!draft.trim() || !!pending}>
-              <ArrowUp aria-hidden="true" />
+              <ArrowUpIcon aria-hidden="true" />
             </Button>
           </div>
         </form>
@@ -544,7 +546,7 @@ function RichMessages() {
                 aria-label={copied === 'copied' ? 'Copied' : 'Copy message'}
                 onClick={copy}
               >
-                {copied === 'copied' ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                {copied === 'copied' ? <CheckIcon aria-hidden="true" /> : <CopyIcon aria-hidden="true" />}
               </Button>
               <span role="status" className="message-demo-footnote">
                 {copied === 'copied' ? 'Copied' : copied === 'failed' ? "Couldn't copy" : ''}
@@ -668,7 +670,7 @@ function ReplyStatusDemo() {
               <div className="message-demo-footer-stack">
                 {status === 'failed' ? (
                   <p role="status" className="message-demo-failed">
-                    <Danger size={14} aria-hidden="true" />
+                    <DangerIcon size="sm" aria-hidden="true" />
                     {replyLabels.failed}
                   </p>
                 ) : (
@@ -769,7 +771,7 @@ function ScrollableHistory() {
     >
       <div className="message-demo-history-tools">
         <Button variant="outline" size="sm" onClick={() => setCount(count + 1)}>
-          <Plus aria-hidden="true" />
+          <AddIcon aria-hidden="true" />
           Add message
         </Button>
         <span className="message-demo-footnote">{count} messages</span>

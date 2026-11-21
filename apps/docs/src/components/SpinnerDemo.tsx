@@ -1,13 +1,15 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowRight } from 'reicon-react/icons/ArrowRight';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { Check } from 'reicon-react/icons/Check';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Clock } from 'reicon-react/icons/Clock';
-import { Code } from 'reicon-react/icons/Code';
-import { Danger } from 'reicon-react/icons/Danger';
-import { Database } from 'reicon-react/icons/Database';
-import { Warning } from 'reicon-react/icons/Warning';
+import {
+  ArrowRightIcon,
+  CalendarIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  ClockIcon,
+  CodeIcon,
+  DangerIcon,
+  DatabaseIcon,
+  WarningIcon,
+} from '@tulipfarm/sprout/icons';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@tulipfarm/sprout/collapsible';
@@ -189,7 +191,7 @@ function Buttons() {
               {busy ? 'Opening sign-in…' : 'Connect account'}
             </Button>
             <Button disabled={busy} aria-busy={busy}>
-              {busy ? <Spinner aria-hidden="true" /> : <ArrowRight aria-hidden="true" />}
+              {busy ? <Spinner aria-hidden="true" /> : <ArrowRightIcon aria-hidden="true" />}
               {busy ? 'Creating workspace…' : 'Create workspace'}
             </Button>
           </div>
@@ -309,11 +311,11 @@ function StatusLines() {
           </p>
           <ul className="spinner-demo-events" aria-label="Calendar">
             <li>
-              <Calendar size={16} aria-hidden="true" />
+              <CalendarIcon size="md" aria-hidden="true" />
               Seed order review · 10:00
             </li>
             <li>
-              <Calendar size={16} aria-hidden="true" />
+              <CalendarIcon size="md" aria-hidden="true" />
               Greenhouse walk · 14:30
             </li>
           </ul>
@@ -362,11 +364,11 @@ function StatusIcons() {
               {running ? (
                 <Spinner />
               ) : phase === 'done' ? (
-                <Check size={16} />
+                <CheckIcon size="md" />
               ) : phase === 'failed' ? (
-                <Warning size={16} />
+                <WarningIcon size="md" />
               ) : (
-                <Clock size={16} />
+                <ClockIcon size="md" />
               )}
             </span>
             <span>
@@ -378,12 +380,12 @@ function StatusIcons() {
         <Pane caption="Tool call" testId="icon-tool">
           <Collapsible className="spinner-demo-tool">
             <CollapsibleTrigger className="spinner-demo-tool-trigger">
-              {running ? <Spinner aria-hidden="true" /> : <Code size={16} aria-hidden="true" />}
+              {running ? <Spinner aria-hidden="true" /> : <CodeIcon size="md" aria-hidden="true" />}
               <span className="spinner-demo-tool-name">search_tables</span>
               <Badge variant={phase === 'failed' ? 'destructive' : phase === 'done' ? 'success' : 'secondary'}>
                 {phaseLabel[phase]}
               </Badge>
-              <ChevronDown size={14} aria-hidden="true" data-slot="collapsible-indicator" />
+              <ChevronDownIcon size="sm" aria-hidden="true" data-slot="collapsible-indicator" />
             </CollapsibleTrigger>
             <CollapsibleContent>
               <pre className="spinner-demo-tool-input">{`{ "query": "beds sown this week" }`}</pre>
@@ -395,9 +397,9 @@ function StatusIcons() {
             {running ? (
               <Spinner aria-hidden="true" />
             ) : phase === 'done' ? (
-              <Check size={14} aria-hidden="true" />
+              <CheckIcon size="sm" aria-hidden="true" />
             ) : phase === 'failed' ? (
-              <Danger size={14} aria-hidden="true" />
+              <DangerIcon size="sm" aria-hidden="true" />
             ) : null}
             {running
               ? 'Saving to Notion…'
@@ -414,11 +416,11 @@ function StatusIcons() {
               {running ? (
                 <Spinner size="lg" aria-hidden="true" />
               ) : phase === 'done' ? (
-                <Check size={20} aria-hidden="true" />
+                <CheckIcon size="xl" aria-hidden="true" />
               ) : phase === 'failed' ? (
-                <Danger size={20} aria-hidden="true" />
+                <DangerIcon size="xl" aria-hidden="true" />
               ) : (
-                <Database size={20} aria-hidden="true" />
+                <DatabaseIcon size="xl" aria-hidden="true" />
               )}
             </span>
             <span role="status">

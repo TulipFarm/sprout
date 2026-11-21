@@ -1,6 +1,5 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { Cpu } from 'reicon-react/icons/Cpu';
-import { Users } from 'reicon-react/icons/Users';
+import { CpuIcon, UsersIcon } from '@tulipfarm/sprout/icons';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -142,7 +141,7 @@ export function SearchFieldListFilter() {
           <StatePanel
             kind="empty"
             heading="h3"
-            icon={Cpu}
+            icon={CpuIcon}
             title={`No agents match “${search}”`}
             description="Try another name or clear the search."
           >
@@ -650,7 +649,7 @@ export function SearchFieldPickers() {
             <StatePanel
               kind="empty"
               heading="h4"
-              icon={Users}
+              icon={UsersIcon}
               title="No members match"
               description="Try another name or email."
             >

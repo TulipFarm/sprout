@@ -1,5 +1,5 @@
 import { useId, useState, type ComponentProps, type FormEvent, type ReactNode } from 'react';
-import { Key } from 'reicon-react/icons/Key';
+import { KeyIcon } from '@tulipfarm/sprout/icons';
 import { Button } from '@tulipfarm/sprout/button';
 import {
   CheckboxField,
@@ -562,7 +562,7 @@ function CredentialControl({
   const { 'aria-required': _required, ...props } = useFieldControl(rest);
   return (
     <Button type="button" variant="outline" className="field-demo-credential" {...props} onClick={onChoose}>
-      <Key aria-hidden="true" />
+      <KeyIcon aria-hidden="true" />
       <span>{value ?? 'Choose a credential'}</span>
     </Button>
   );

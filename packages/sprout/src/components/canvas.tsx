@@ -14,9 +14,7 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowLeft } from 'reicon-react/icons/ArrowLeft';
-import { SidebarRight } from 'reicon-react/icons/SidebarRight';
-import { X } from 'reicon-react/icons/X';
+import { ArrowLeftIcon, CloseIcon, SidebarRightIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Button } from './button.js';
 import { Spinner } from './spinner.js';
@@ -275,7 +273,7 @@ export function CanvasPanel({
       {mobile && (
         <div className="sprout-canvas-back">
           <Button variant="ghost" size="sm" onClick={onClose}>
-            <ArrowLeft size={16} aria-hidden="true" />
+            <ArrowLeftIcon size="md" aria-hidden="true" />
             Back to chat
           </Button>
         </div>
@@ -346,7 +344,7 @@ export function CanvasPanel({
                   onPointerLeave={() => setHovered(null)}
                   className="sprout-canvas-tab-close"
                 >
-                  <X size={12} aria-hidden="true" />
+                  <CloseIcon size="xs" aria-hidden="true" />
                 </button>
               );
             })}
@@ -361,7 +359,7 @@ export function CanvasPanel({
             title="Close canvas (Esc)"
             onClick={onClose}
           >
-            <X size={16} aria-hidden="true" />
+            <CloseIcon size="md" aria-hidden="true" />
           </Button>
         )}
       </header>
@@ -400,7 +398,7 @@ export function CanvasToggle({ open, count, onToggle, className }: CanvasToggleP
       onClick={onToggle}
       className={cn('sprout-canvas-toggle', className)}
     >
-      <SidebarRight size={16} aria-hidden="true" />
+      <SidebarRightIcon size="md" aria-hidden="true" />
       <span className="sprout-canvas-toggle-label">{open ? 'Hide canvas' : 'Show canvas'}</span>
       {count > 0 && (
         <span aria-hidden="true" className="sprout-canvas-toggle-count">

@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState, type ComponentType, type ReactNode } from 'react';
-import { AddCircle } from 'reicon-react/icons/AddCircle';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { BranchDown } from 'reicon-react/icons/BranchDown';
-import { Calendar } from 'reicon-react/icons/Calendar';
-import { ChartBar } from 'reicon-react/icons/ChartBar';
-import { Code } from 'reicon-react/icons/Code';
-import { Database } from 'reicon-react/icons/Database';
-import { Edit2 } from 'reicon-react/icons/Edit2';
-import { File } from 'reicon-react/icons/File';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Globe } from 'reicon-react/icons/Globe';
-import { Inbox } from 'reicon-react/icons/Inbox';
-import { Refresh } from 'reicon-react/icons/Refresh';
-import { Tasks } from 'reicon-react/icons/Tasks';
+import {
+  AddCircleIcon,
+  ArrowUpRightIcon,
+  BranchIcon,
+  CalendarIcon,
+  ChartBarIcon,
+  CodeIcon,
+  DatabaseIcon,
+  DocumentTextIcon,
+  EditIcon,
+  FileIcon,
+  GlobeIcon,
+  InboxIcon,
+  RefreshIcon,
+  TasksIcon,
+} from '@tulipfarm/sprout/icons';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
 import {
@@ -136,10 +138,10 @@ function ChangedRowsResult() {
               window.setTimeout(() => setBusy(false), 700);
             }}
           >
-            <Refresh size={16} aria-hidden="true" />
+            <RefreshIcon size="md" aria-hidden="true" />
           </Button>
           <Button variant="outline" size="sm" nativeButton={false} render={<a href="#records" />}>
-            <ArrowUpRight size={14} aria-hidden="true" />
+            <ArrowUpRightIcon size="sm" aria-hidden="true" />
             Open current table
           </Button>
         </>
@@ -148,12 +150,12 @@ function ChangedRowsResult() {
       <ul aria-label="Changes" className="canvas-demo-badges">
         <li>
           <Badge variant="success">
-            <AddCircle size={12} aria-hidden="true" />2 added
+            <AddCircleIcon size="xs" aria-hidden="true" />2 added
           </Badge>
         </li>
         <li>
           <Badge variant="info">
-            <Edit2 size={12} aria-hidden="true" />1 updated
+            <EditIcon size="xs" aria-hidden="true" />1 updated
           </Badge>
         </li>
       </ul>
@@ -313,7 +315,7 @@ function BrowserResult() {
           nativeButton={false}
           render={<a href={frameSrc} target="_blank" rel="noopener noreferrer" />}
         >
-          <ArrowUpRight size={14} aria-hidden="true" />
+          <ArrowUpRightIcon size="sm" aria-hidden="true" />
           Open in new tab
         </Button>
       }
@@ -382,7 +384,7 @@ function SchemaResult() {
       <div className="canvas-demo-schema" aria-label="Schema diagram for Customer storage" role="img">
         {['Customers', 'Orders', 'Invoices'].map(name => (
           <span key={name} className="canvas-demo-schema-table">
-            <Database size={14} aria-hidden="true" />
+            <DatabaseIcon size="sm" aria-hidden="true" />
             {name}
           </span>
         ))}
@@ -462,13 +464,13 @@ type Item = {
 };
 
 const kindIcon: Record<Kind, Icon> = {
-  records: Database,
-  calendar: Calendar,
-  chart: ChartBar,
-  browser: Globe,
-  code: Code,
-  plan: Tasks,
-  report: FileText,
+  records: DatabaseIcon,
+  calendar: CalendarIcon,
+  chart: ChartBarIcon,
+  browser: GlobeIcon,
+  code: CodeIcon,
+  plan: TasksIcon,
+  report: DocumentTextIcon,
 };
 
 const kindLabel: Record<Kind, ResultCardKind> = {
@@ -833,7 +835,7 @@ function ApprovalRecipe() {
                 {
                   id: 'approval',
                   title: created ? 'Created tables' : 'Proposed changes',
-                  icon: Database,
+                  icon: DatabaseIcon,
                 },
               ]}
               activeId="approval"
@@ -852,7 +854,7 @@ function ApprovalRecipe() {
                 <div className="canvas-demo-approval-body">
                   <section aria-label="Customers schema" className="canvas-demo-approval-table">
                     <header>
-                      <Database size={18} aria-hidden="true" />
+                      <DatabaseIcon size="lg" aria-hidden="true" />
                       <h3>Customers</h3>
                       <span className="canvas-demo-muted">5 fields</span>
                     </header>
@@ -917,13 +919,13 @@ function WorkflowRecipe() {
               </UserMessage>
               <p>The workflow is ready to review. Select a step in Canvas to see what it does.</p>
               <div className="canvas-demo-workflow-card">
-                <BranchDown size={20} aria-hidden="true" />
+                <BranchIcon size="xl" aria-hidden="true" />
                 <div>
                   <p className="canvas-demo-field">New pull request alert</p>
                   <p className="canvas-demo-muted">3 steps / view only</p>
                   <Button variant="link" size="sm" onClick={showWorkflow}>
                     View workflow
-                    <ArrowUpRight size={14} aria-hidden="true" />
+                    <ArrowUpRightIcon size="sm" aria-hidden="true" />
                   </Button>
                 </div>
               </div>
@@ -931,7 +933,7 @@ function WorkflowRecipe() {
           }
           canvas={
             <CanvasPanel
-              tabs={tabOpen ? [{ id: 'workflow', title: 'Workflow', icon: BranchDown }] : []}
+              tabs={tabOpen ? [{ id: 'workflow', title: 'Workflow', icon: BranchIcon }] : []}
               activeId={tabOpen ? 'workflow' : null}
               onSelect={showWorkflow}
               onCloseTab={() => setTabOpen(false)}
@@ -1061,7 +1063,7 @@ function ResultCardsRecipe() {
           canvas={
             selected && (
               <CanvasPanel
-                tabs={[{ id: selected.id, title: selected.title, icon: File }]}
+                tabs={[{ id: selected.id, title: selected.title, icon: FileIcon }]}
                 activeId={selected.id}
                 onSelect={() => {}}
                 onCloseTab={() => setSelected(null)}
@@ -1089,8 +1091,8 @@ function ResultCardsRecipe() {
 }
 
 const gardenTabs: CanvasTab[] = [
-  { id: 'record', title: 'Garden plan', icon: FileText },
-  { id: 'notes', title: 'Notes', icon: Inbox },
+  { id: 'record', title: 'Garden plan', icon: DocumentTextIcon },
+  { id: 'notes', title: 'Notes', icon: InboxIcon },
 ];
 
 function CardRecipe() {

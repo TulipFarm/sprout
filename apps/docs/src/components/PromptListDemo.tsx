@@ -1,18 +1,20 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { Book } from 'reicon-react/icons/Book';
-import { CalendarSearch } from 'reicon-react/icons/CalendarSearch';
-import { Checklist } from 'reicon-react/icons/Checklist';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { ChevronUp } from 'reicon-react/icons/ChevronUp';
-import { Clock } from 'reicon-react/icons/Clock';
-import { Database } from 'reicon-react/icons/Database';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Leaf } from 'reicon-react/icons/Leaf';
-import { MessageEdit } from 'reicon-react/icons/MessageEdit';
-import { Note } from 'reicon-react/icons/Note';
-import { Plug } from 'reicon-react/icons/Plug';
-import { Repeat } from 'reicon-react/icons/Repeat';
-import { UserAdd } from 'reicon-react/icons/UserAdd';
+import {
+  BookIcon,
+  CalendarSearchIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ClockIcon,
+  DatabaseIcon,
+  DocumentTextIcon,
+  LeafIcon,
+  MessageEditIcon,
+  NoteIcon,
+  PlugIcon,
+  RepeatIcon,
+  TasksIcon,
+  UserAddIcon,
+} from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import type { Brand } from '@tulipfarm/sprout/brand-icon';
 import { Button } from '@tulipfarm/sprout/button';
@@ -202,27 +204,27 @@ const setup: Recommendation[] = [
 ];
 
 const icons: Record<string, ReactNode> = {
-  'personalize-bud': <MessageEdit />,
-  'connect-apps': <Plug />,
-  'create-table': <Database />,
-  'create-workflow': <Repeat />,
-  'add-knowledge': <Book />,
-  'invite-teammate': <UserAdd />,
-  meetings: <CalendarSearch />,
-  inbox: <MessageEdit />,
-  'table-review': <Database />,
-  github: <Checklist />,
-  'slack-update': <MessageEdit />,
-  'follow-ups': <Checklist />,
-  support: <MessageEdit />,
-  week: <CalendarSearch />,
-  standup: <Clock />,
-  process: <Note />,
+  'personalize-bud': <MessageEditIcon />,
+  'connect-apps': <PlugIcon />,
+  'create-table': <DatabaseIcon />,
+  'create-workflow': <RepeatIcon />,
+  'add-knowledge': <BookIcon />,
+  'invite-teammate': <UserAddIcon />,
+  meetings: <CalendarSearchIcon />,
+  inbox: <MessageEditIcon />,
+  'table-review': <DatabaseIcon />,
+  github: <TasksIcon />,
+  'slack-update': <MessageEditIcon />,
+  'follow-ups': <TasksIcon />,
+  support: <MessageEditIcon />,
+  week: <CalendarSearchIcon />,
+  standup: <ClockIcon />,
+  process: <NoteIcon />,
 };
 const destinationIcons: Record<Destination, ReactNode> = {
-  integrations: <Plug />,
-  files: <Book />,
-  members: <UserAdd />,
+  integrations: <PlugIcon />,
+  files: <BookIcon />,
+  members: <UserAddIcon />,
 };
 const destinationNames: Record<Destination, string> = {
   integrations: 'Integrations',
@@ -251,12 +253,12 @@ function rows(recommendations: Recommendation[]): PromptListItem[] {
       icon:
         action.kind === 'open' ? (
           source ? (
-            <Book />
+            <BookIcon />
           ) : (
             destinationIcons[action.destination]
           )
         ) : (
-          (icons[item.id] ?? <MessageEdit />)
+          (icons[item.id] ?? <MessageEditIcon />)
         ),
       brands: source
         ? [{ brand: source, name: sourceNames[source] }]
@@ -375,7 +377,7 @@ export function PromptListStartingTasks() {
                   </CollapsibleContent>
                   <div className="prompt-demo-trigger">
                     <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
-                      {moreOpen ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+                      {moreOpen ? <ChevronUpIcon aria-hidden="true" /> : <ChevronDownIcon aria-hidden="true" />}
                       {moreOpen ? 'Fewer tasks' : `More tasks (${more.length})`}
                     </CollapsibleTrigger>
                   </div>
@@ -394,7 +396,7 @@ export function PromptListStartingTasks() {
                   <Collapsible open={setupOpen} onOpenChange={setSetupOpen}>
                     <div className="prompt-demo-trigger">
                       <CollapsibleTrigger render={<Button variant="ghost" size="sm" />}>
-                        {setupOpen ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
+                        {setupOpen ? <ChevronUpIcon aria-hidden="true" /> : <ChevronDownIcon aria-hidden="true" />}
                         {setupOpen ? 'Fewer setup options' : `More setup options (${steps.length - 1})`}
                       </CollapsibleTrigger>
                     </div>
@@ -472,17 +474,17 @@ export function PromptListTitles() {
 /* Brands ------------------------------------------------------------------- */
 
 const brandRows: PromptListItem[] = [
-  { id: 'process', label: 'Write down a business process', icon: <Note /> },
+  { id: 'process', label: 'Write down a business process', icon: <NoteIcon /> },
   {
     id: 'meetings',
     label: "Prepare me for tomorrow's meetings",
-    icon: <CalendarSearch />,
+    icon: <CalendarSearchIcon />,
     brands: [{ brand: 'google-calendar', name: 'Google Calendar' }],
   },
   {
     id: 'standup',
     label: 'Prepare a daily team update',
-    icon: <Clock />,
+    icon: <ClockIcon />,
     brands: [
       { brand: 'github', name: 'GitHub' },
       { brand: 'slack', name: 'Slack' },
@@ -528,18 +530,18 @@ const longRows: PromptListItem[] = [
   {
     id: 'long-table',
     label: 'Review rows in Supplier deliveries from the legacy accounting export',
-    icon: <Database />,
+    icon: <DatabaseIcon />,
   },
   {
     id: 'long-inbox',
     label: 'Draft replies to recent customer emails about delayed spring bulb orders',
-    icon: <MessageEdit />,
+    icon: <MessageEditIcon />,
     brands: [{ brand: 'gmail', name: 'Gmail' }],
   },
   {
     id: 'long-sources',
     label: 'Choose Google sources for knowledge',
-    icon: <Book />,
+    icon: <BookIcon />,
     brands: [{ brand: 'google', name: 'Google' }],
   },
 ];
@@ -557,11 +559,11 @@ export function PromptListLongLabels() {
 /* Playground: fictional starter prompts ------------------------------------ */
 
 const fictional: PromptListItem[] = [
-  { id: 'notes', label: 'Summarize garden notes', icon: <FileText /> },
+  { id: 'notes', label: 'Summarize garden notes', icon: <DocumentTextIcon /> },
   {
     id: 'plan',
     label: 'Plan a garden project',
-    icon: <Leaf />,
+    icon: <LeafIcon />,
     brands: [{ brand: 'notion', name: 'Notion' }],
   },
 ];

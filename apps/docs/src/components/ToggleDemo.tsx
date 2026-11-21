@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
-import { Bell } from 'reicon-react/icons/Bell';
-import { Bold } from 'reicon-react/icons/Bold';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
-import { Code } from 'reicon-react/icons/Code';
-import { Eye } from 'reicon-react/icons/Eye';
-import { Filter } from 'reicon-react/icons/Filter';
-import { Italic } from 'reicon-react/icons/Italic';
-import { Pin } from 'reicon-react/icons/Pin';
-import { Star } from 'reicon-react/icons/Star';
-import { Underline } from 'reicon-react/icons/Underline';
+import {
+  BellIcon,
+  BoldIcon,
+  ChevronDownIcon,
+  CodeIcon,
+  EyeIcon,
+  FilterIcon,
+  ItalicIcon,
+  PinIcon,
+  StarIcon,
+  UnderlineIcon,
+} from '@tulipfarm/sprout/icons';
 import {
   Toggle,
   toggleVariantNames,
@@ -45,31 +47,31 @@ function SizeSample({ variant, size }: { variant: ToggleVariant; size: ToggleSiz
       {size === 'sm' ? (
         <>
           <Toggle variant={variant} size="sm" defaultPressed>
-            <Star data-icon="inline-start" aria-hidden="true" />
+            <StarIcon data-icon="inline-start" aria-hidden="true" />
             Starred
           </Toggle>
           <Toggle variant={variant} size="sm" aria-label="Small bold">
-            <Bold aria-hidden="true" />
+            <BoldIcon aria-hidden="true" />
           </Toggle>
         </>
       ) : size === 'lg' ? (
         <>
           <Toggle variant={variant} size="lg" defaultPressed>
-            <Eye data-icon="inline-start" aria-hidden="true" />
+            <EyeIcon data-icon="inline-start" aria-hidden="true" />
             Show archived
           </Toggle>
           <Toggle variant={variant} size="lg" aria-label="Large bold">
-            <Bold aria-hidden="true" />
+            <BoldIcon aria-hidden="true" />
           </Toggle>
         </>
       ) : (
         <>
           <Toggle variant={variant} defaultPressed>
-            <Bold data-icon="inline-start" aria-hidden="true" />
+            <BoldIcon data-icon="inline-start" aria-hidden="true" />
             Bold
           </Toggle>
           <Toggle variant={variant} aria-label="Italic">
-            <Italic aria-hidden="true" />
+            <ItalicIcon aria-hidden="true" />
           </Toggle>
         </>
       )}
@@ -114,16 +116,16 @@ export function ToggleStates() {
           <span className="toggle-demo-caption">{variant}</span>
           <div className="toggle-demo-row">
             <Toggle variant={variant} aria-label={`${variant} bold off`}>
-              <Bold aria-hidden="true" />
+              <BoldIcon aria-hidden="true" />
             </Toggle>
             <Toggle variant={variant} defaultPressed aria-label={`${variant} bold on`}>
-              <Bold aria-hidden="true" />
+              <BoldIcon aria-hidden="true" />
             </Toggle>
             <Toggle variant={variant} disabled aria-label={`${variant} italic disabled`}>
-              <Italic aria-hidden="true" />
+              <ItalicIcon aria-hidden="true" />
             </Toggle>
             <Toggle variant={variant} disabled defaultPressed aria-label={`${variant} italic disabled on`}>
-              <Italic aria-hidden="true" />
+              <ItalicIcon aria-hidden="true" />
             </Toggle>
           </div>
         </div>
@@ -133,11 +135,11 @@ export function ToggleStates() {
 }
 
 type Format = 'bold' | 'italic' | 'underline' | 'code';
-const formats: { value: Format; label: string; icon: typeof Bold }[] = [
-  { value: 'bold', label: 'Bold', icon: Bold },
-  { value: 'italic', label: 'Italic', icon: Italic },
-  { value: 'underline', label: 'Underline', icon: Underline },
-  { value: 'code', label: 'Inline code', icon: Code },
+const formats: { value: Format; label: string; icon: typeof BoldIcon }[] = [
+  { value: 'bold', label: 'Bold', icon: BoldIcon },
+  { value: 'italic', label: 'Italic', icon: ItalicIcon },
+  { value: 'underline', label: 'Underline', icon: UnderlineIcon },
+  { value: 'code', label: 'Inline code', icon: CodeIcon },
 ];
 
 export function ToggleToolbar() {
@@ -184,15 +186,15 @@ export function ToggleIcons() {
     >
       <div className="toggle-demo-row">
         <Toggle variant="outline" size="sm">
-          <Filter data-icon="inline-start" aria-hidden="true" />
+          <FilterIcon data-icon="inline-start" aria-hidden="true" />
           Open only
         </Toggle>
         <Toggle variant="outline">
           Group by owner
-          <ChevronDown data-icon="inline-end" aria-hidden="true" />
+          <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
         </Toggle>
         <Toggle variant="outline" size="lg" defaultPressed>
-          <Pin data-icon="inline-start" aria-hidden="true" />
+          <PinIcon data-icon="inline-start" aria-hidden="true" />
           Pinned to sidebar
         </Toggle>
       </div>
@@ -226,7 +228,7 @@ export function ToggleSaving() {
               }, 700);
             }}
           >
-            <Bell data-icon="inline-start" aria-hidden="true" />
+            <BellIcon data-icon="inline-start" aria-hidden="true" />
             Follow table
           </Toggle>
           <span className="toggle-demo-muted" role="status">
@@ -242,7 +244,7 @@ export function ToggleSaving() {
               onPressedChange={pressed => setFailed(pressed)}
               pressed={failed}
             >
-              <Pin data-icon="inline-start" aria-hidden="true" />
+              <PinIcon data-icon="inline-start" aria-hidden="true" />
               Pin to sidebar
             </Toggle>
           </div>

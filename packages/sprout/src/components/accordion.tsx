@@ -1,7 +1,7 @@
 'use client';
 
 import { Accordion as BaseAccordion } from '@base-ui/react/accordion';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronDownIcon } from './icons.js';
 import { cn, stateClassName } from '../internal/classes.js';
 
 export const accordionTriggerVariantNames = ['default', 'quiet'] as const;
@@ -60,8 +60,8 @@ export function AccordionTrigger({ className, children, variant = 'default', ...
         )}
       >
         {children}
-        <ChevronDown
-          size={16}
+        <ChevronDownIcon
+          size="md"
           aria-hidden="true"
           data-slot="accordion-trigger-icon"
           className="sprout-accordion-trigger-icon"

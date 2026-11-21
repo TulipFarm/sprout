@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { InfoCircle } from 'reicon-react/icons/InfoCircle';
+import { InfoIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 
 export interface ResultNoticeProps extends Omit<ComponentProps<'div'>, 'children'> {
@@ -40,7 +40,7 @@ export function ResultNotice({ shown, total, noun, action, className, ...props }
   return (
     <div data-slot="result-notice" className={cn('sprout-result-notice', className)} {...props}>
       <div className="sprout-result-notice-content">
-        <InfoCircle aria-hidden="true" className="sprout-result-notice-icon" />
+        <InfoIcon aria-hidden="true" className="sprout-result-notice-icon" />
         <p role="status" data-slot="result-notice-message" className="sprout-result-notice-message">
           {shown === 1 ? (
             'Showing the first of '

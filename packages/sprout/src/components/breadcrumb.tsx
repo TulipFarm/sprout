@@ -1,8 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { MoreH } from 'reicon-react/icons/MoreH';
+import { ChevronRightIcon, MoreIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 
 export type BreadcrumbProps = ComponentProps<'nav'>;
@@ -102,7 +101,7 @@ export function BreadcrumbSeparator({ children, className, ...props }: Breadcrum
       className={cn('sprout-breadcrumb-separator', className)}
       {...props}
     >
-      {children ?? <ChevronRight />}
+      {children ?? <ChevronRightIcon />}
     </li>
   );
 }
@@ -119,7 +118,7 @@ export function BreadcrumbEllipsis({ className, ...props }: BreadcrumbEllipsisPr
       className={cn('sprout-breadcrumb-ellipsis', className)}
       {...props}
     >
-      <MoreH />
+      <MoreIcon />
       <span className="sprout-breadcrumb-sr-only">More</span>
     </span>
   );

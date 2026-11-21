@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useState, type ComponentProps, type ReactNode } from 'react';
-import { ChevronDown } from 'reicon-react/icons/ChevronDown';
+import { ChevronDownIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { Badge, type BadgeVariant } from './badge.js';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible.js';
@@ -90,8 +90,8 @@ export function ReviewCard({
           <Badge variant={badge.variant} className="sprout-review-card-badge">
             {badge.label}
           </Badge>
-          <ChevronDown
-            size={16}
+          <ChevronDownIcon
+            size="md"
             aria-hidden="true"
             data-slot="collapsible-indicator"
             className="sprout-review-card-chevron"

@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { BookOpen } from 'reicon-react/icons/BookOpen';
-import { BranchDown } from 'reicon-react/icons/BranchDown';
-import { Check } from 'reicon-react/icons/Check';
-import { Database } from 'reicon-react/icons/Database';
-import { FileText } from 'reicon-react/icons/FileText';
-import { Refresh } from 'reicon-react/icons/Refresh';
-import { ShieldUser } from 'reicon-react/icons/ShieldUser';
-import { Users } from 'reicon-react/icons/Users';
+import {
+  BookOpenIcon,
+  BranchIcon,
+  CheckIcon,
+  DatabaseIcon,
+  DocumentTextIcon,
+  RefreshIcon,
+  ShieldUserIcon,
+  UsersIcon,
+} from '@tulipfarm/sprout/icons';
 import { Alert, AlertDescription } from '@tulipfarm/sprout/alert';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { BrandStack, type Brand } from '@tulipfarm/sprout/brand-icon';
@@ -198,7 +200,7 @@ export function ReviewCardPlayground() {
         <div className="review-demo-chat">
           <ReviewCard
             label="Review row change"
-            icon={<Database size={16} />}
+            icon={<DatabaseIcon size="md" />}
             title={`${rowVerbs[kind]} a row in Supplier deliveries`}
             badge={rowBadges[status]}
             settled={settled}
@@ -301,37 +303,37 @@ const badgeSamples: {
   {
     badge: { label: 'Needs approval', variant: 'warning' },
     title: 'Update a row in Supplier deliveries',
-    icon: <Database size={16} />,
+    icon: <DatabaseIcon size="md" />,
   },
   {
     badge: { label: 'Awaiting your review', variant: 'info' },
     title: 'Add a Priority field to Customer accounts',
-    icon: <Database size={14} />,
+    icon: <DatabaseIcon size="sm" />,
   },
   {
     badge: { label: 'Active', variant: 'success' },
     title: 'Supplier follow-up',
-    icon: <Users size={16} />,
+    icon: <UsersIcon size="md" />,
   },
   {
     badge: { label: 'Draft', variant: 'secondary' },
     title: 'Summarize meeting notes',
-    icon: <BookOpen size={16} />,
+    icon: <BookOpenIcon size="md" />,
   },
   {
     badge: { label: 'Not applied', variant: 'destructive' },
     title: 'Delete a row in Supplier deliveries',
-    icon: <Database size={16} />,
+    icon: <DatabaseIcon size="md" />,
   },
   {
     badge: { label: 'Ready for your approval', variant: 'default' },
     title: 'Weekly team update',
-    icon: <BranchDown size={16} />,
+    icon: <BranchIcon size="md" />,
   },
   {
     badge: { label: 'Partially completed', variant: 'outline' },
     title: 'Import 1,284 rows into Customer accounts and update the matching invoices',
-    icon: <Database size={14} />,
+    icon: <DatabaseIcon size="sm" />,
   },
 ];
 
@@ -413,7 +415,7 @@ function ChatConfirmationSample({
   return (
     <div ref={section} data-slot="chat-confirmation">
       <ReviewCard
-        icon={<ShieldUser size={16} />}
+        icon={<ShieldUserIcon size="md" />}
         title="Reply in #supplier-updates"
         badge={badge}
         settled={done}
@@ -641,7 +643,7 @@ export function ReviewCardAuthoring() {
       <div className="review-demo-chat">
         <ReviewCard
           label={`Review ${noun} draft`}
-          icon={workflow ? <BranchDown size={16} /> : agent ? <Users size={16} /> : <BookOpen size={16} />}
+          icon={workflow ? <BranchIcon size="md" /> : agent ? <UsersIcon size="md" /> : <BookOpenIcon size="md" />}
           title={workflow ? 'Weekly team update' : agent ? 'Supplier follow-up' : 'Summarize meeting notes'}
           badge={authoringBadges[status]}
           settled={settled}
@@ -857,7 +859,7 @@ export function ReviewCardAgentSetup() {
       <div className="review-demo-chat">
         <ReviewCard
           label="Review agent draft"
-          icon={<Users size={16} />}
+          icon={<UsersIcon size="md" />}
           title="Supplier follow-up"
           badge={setupBadges[status]}
           settled={settled}
@@ -1108,7 +1110,7 @@ export function ReviewCardWorkflow() {
       <div className="review-demo-chat">
         <ReviewCard
           label="Review workflow draft"
-          icon={<BranchDown size={16} />}
+          icon={<BranchIcon size="md" />}
           title="Late supplier follow-up"
           badge={{ label: 'Draft', variant: 'secondary' }}
           actions={
@@ -1202,7 +1204,7 @@ export function ReviewCardTableProposal() {
       <div className="review-demo-chat">
         <div className="review-demo-bounded" tabIndex={0} aria-label="Table change proposal">
           <ReviewCard
-            icon={<Database size={14} />}
+            icon={<DatabaseIcon size="sm" />}
             title="Table changes"
             badge={{
               label: proposalLabels[status],
@@ -1225,7 +1227,7 @@ export function ReviewCardTableProposal() {
                     disabled={refreshing}
                     onClick={() => setRefreshing(true)}
                   >
-                    <Refresh size={16} aria-hidden="true" />
+                    <RefreshIcon size="md" aria-hidden="true" />
                   </Button>
                 </div>
               </>
@@ -1258,7 +1260,7 @@ export function ReviewCardComposition() {
     <Frame id="composition" title="Rows, steps, and values" note="The plain parts together, open and settled">
       <div className="review-demo-chat review-demo-stack-lg">
         <ReviewCard
-          icon={<FileText size={16} />}
+          icon={<DocumentTextIcon size="md" />}
           title="Review garden plan"
           badge={{ label: 'Needs review', variant: 'warning' }}
           actions={
@@ -1298,7 +1300,7 @@ export function ReviewCardComposition() {
           {decision}
         </p>
         <ReviewCard
-          icon={<Check size={16} />}
+          icon={<CheckIcon size="md" />}
           title="Reviewed garden plan"
           badge={{ label: 'Accepted', variant: 'success' }}
           settled

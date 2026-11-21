@@ -1,13 +1,15 @@
 import { useMemo, useRef, useState, type ReactNode } from 'react';
-import { Add } from 'reicon-react/icons/Add';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { ChatRound } from 'reicon-react/icons/ChatRound';
-import { Download } from 'reicon-react/icons/Download';
-import { FolderAdd } from 'reicon-react/icons/FolderAdd';
-import { MoreH } from 'reicon-react/icons/MoreH';
-import { Search } from 'reicon-react/icons/Search';
-import { Settings } from 'reicon-react/icons/Settings';
-import { Upload } from 'reicon-react/icons/Upload';
+import {
+  AddIcon,
+  ArrowUpRightIcon,
+  ChatIcon,
+  DownloadIcon,
+  FolderAddIcon,
+  MoreIcon,
+  SearchIcon,
+  SettingsIcon,
+  UploadIcon,
+} from '@tulipfarm/sprout/icons';
 import { Badge } from '@tulipfarm/sprout/badge';
 import { Button } from '@tulipfarm/sprout/button';
 import { PageActions, PageChromeContext, PageHeader, type PageLink } from '@tulipfarm/sprout/page-header';
@@ -49,14 +51,14 @@ export function PageHeaderPlayground() {
       actions={
         actions === 'primary' ? (
           <Button>
-            <Add aria-hidden="true" />
+            <AddIcon aria-hidden="true" />
             New chat
           </Button>
         ) : actions === 'pair' ? (
           <>
             <Button variant="outline">Invite people</Button>
             <Button>
-              <Add aria-hidden="true" />
+              <AddIcon aria-hidden="true" />
               New chat
             </Button>
           </>
@@ -190,11 +192,11 @@ export function PageHeaderExamples() {
           actions={
             <>
               <Button>
-                <Upload aria-hidden="true" />
+                <UploadIcon aria-hidden="true" />
                 Upload
               </Button>
               <Button variant="outline">
-                <FolderAdd aria-hidden="true" />
+                <FolderAddIcon aria-hidden="true" />
                 New folder
               </Button>
             </>
@@ -232,7 +234,7 @@ export function PageHeaderExamples() {
               render={<a href="#chat" onClick={e => e.preventDefault()} />}
             >
               Open in chat
-              <ArrowUpRight size={14} aria-hidden="true" />
+              <ArrowUpRightIcon size="sm" aria-hidden="true" />
             </Button>
           }
         />
@@ -244,12 +246,12 @@ export function PageHeaderExamples() {
             <>
               <span className="page-demo-wide-only">
                 <Button variant="ghost" size="md" aria-label="Calendar commands" title="Search events and commands (/)">
-                  <Search size={14} aria-hidden="true" />
+                  <SearchIcon size="sm" aria-hidden="true" />
                   Search
                 </Button>
               </span>
               <Button size="md">
-                <Add size={14} aria-hidden="true" />
+                <AddIcon size="sm" aria-hidden="true" />
                 Create
               </Button>
             </>
@@ -263,7 +265,7 @@ export function PageHeaderExamples() {
           actions={
             <>
               <Button>
-                <ChatRound size={16} aria-hidden="true" />
+                <ChatIcon size="md" aria-hidden="true" />
                 Use in chat
               </Button>
               <Button
@@ -275,11 +277,11 @@ export function PageHeaderExamples() {
                   setTimeout(() => setDownloading(false), 1500);
                 }}
               >
-                <Download size={16} aria-hidden="true" />
+                <DownloadIcon size="md" aria-hidden="true" />
                 {downloading ? 'Downloading…' : 'Download'}
               </Button>
               <Button variant="outline" size="icon" aria-label="More file actions">
-                <MoreH size={16} aria-hidden="true" />
+                <MoreIcon size="md" aria-hidden="true" />
               </Button>
             </>
           }
@@ -310,7 +312,7 @@ export function PageHeaderExamples() {
           back={link('Back to projects', '#projects')}
           actions={
             <Button variant="ghost" size="sm">
-              <Settings size={16} aria-hidden="true" />
+              <SettingsIcon size="md" aria-hidden="true" />
               Edit project
             </Button>
           }
@@ -326,7 +328,7 @@ export function PageHeaderExamples() {
                 Change fields in chat
               </Button>
               <Button variant="outline" size="icon-sm" aria-label="More table options">
-                <MoreH size={16} aria-hidden="true" />
+                <MoreIcon size="md" aria-hidden="true" />
               </Button>
             </>
           }
@@ -430,7 +432,7 @@ export function PageHeaderChrome() {
                       Change fields in chat
                     </Button>
                     <Button variant="outline" size="icon-sm" aria-label="More table options">
-                      <MoreH size={16} aria-hidden="true" />
+                      <MoreIcon size="md" aria-hidden="true" />
                     </Button>
                   </>
                 }
@@ -456,12 +458,12 @@ export function PageHeaderChrome() {
                   <>
                     <span className="page-demo-wide-only">
                       <Button variant="ghost" size="md" aria-label="Calendar commands">
-                        <Search size={14} aria-hidden="true" />
+                        <SearchIcon size="sm" aria-hidden="true" />
                         Search
                       </Button>
                     </span>
                     <Button size="md">
-                      <Add size={14} aria-hidden="true" />
+                      <AddIcon size="sm" aria-hidden="true" />
                       Create
                     </Button>
                   </>

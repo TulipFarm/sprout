@@ -18,11 +18,7 @@ import {
 } from 'react';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { Image } from 'reicon-react/icons/Image';
-import { Upload } from 'reicon-react/icons/Upload';
-import { X } from 'reicon-react/icons/X';
+import { ChevronLeftIcon, ChevronRightIcon, CloseIcon, ImageIcon, UploadIcon } from './icons.js';
 import { cn } from '../internal/classes.js';
 import { defaultFileAccept, fileKind, formatFileSize, type FileKind } from '../internal/file-kind.js';
 import { Button, type ButtonProps } from './button.js';
@@ -318,7 +314,7 @@ function AttachmentCarousel({ className, children, onKeyDownCapture, ...props }:
             className="sprout-attachment-carousel-arrow"
             onClick={() => scroll(-1)}
           >
-            <ChevronLeft aria-hidden="true" />
+            <ChevronLeftIcon aria-hidden="true" />
           </Button>
         </span>
       )}
@@ -332,7 +328,7 @@ function AttachmentCarousel({ className, children, onKeyDownCapture, ...props }:
             className="sprout-attachment-carousel-arrow"
             onClick={() => scroll(1)}
           >
-            <ChevronRight aria-hidden="true" />
+            <ChevronRightIcon aria-hidden="true" />
           </Button>
         </span>
       )}
@@ -426,7 +422,7 @@ function AttachmentImage({ src, name }: { src: string; name: string }) {
   const [failed, setFailed] = useState(false);
   return failed ? (
     <span className="sprout-attachment-image-failed">
-      <Image size={16} aria-hidden="true" />
+      <ImageIcon size="md" aria-hidden="true" />
       Image unavailable
     </span>
   ) : (
@@ -509,7 +505,7 @@ export function FileAttachment({
   const remove = (size: 'icon-xs' | 'icon-sm') =>
     onRemove && (
       <Button variant="ghost" size={size} aria-label={`Remove ${file.name}`} onClick={onRemove}>
-        <X size={14} aria-hidden="true" />
+        <CloseIcon size="sm" aria-hidden="true" />
       </Button>
     );
   const viewer = inViewer && !shared && <FileViewer file={target} open={open} onOpenChange={setOpen} />;
@@ -683,7 +679,7 @@ export function AttachmentDropzone({
           event.target.value = '';
         }}
       />
-      <Upload size={20} aria-hidden="true" className="sprout-attachment-dropzone-icon" />
+      <UploadIcon size="xl" aria-hidden="true" className="sprout-attachment-dropzone-icon" />
       <p className="sprout-attachment-dropzone-text">Drop files here, or choose them from your device.</p>
       <Button variant="outline" disabled={disabled} onClick={() => input.current?.click()}>
         Choose files

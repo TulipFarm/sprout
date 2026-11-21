@@ -11,13 +11,15 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { ArrowUpRight } from 'reicon-react/icons/ArrowUpRight';
-import { ChevronLeft } from 'reicon-react/icons/ChevronLeft';
-import { ChevronRight } from 'reicon-react/icons/ChevronRight';
-import { Download } from 'reicon-react/icons/Download';
-import { MoreH } from 'reicon-react/icons/MoreH';
-import { SidebarRight } from 'reicon-react/icons/SidebarRight';
-import { X } from 'reicon-react/icons/X';
+import {
+  ArrowUpRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  DownloadIcon,
+  MoreIcon,
+  SidebarRightIcon,
+} from './icons.js';
 import { cn } from '../internal/classes.js';
 import { fileKind, type FileKind } from '../internal/file-kind.js';
 import { Button } from './button.js';
@@ -443,7 +445,7 @@ function SelectedFile({
                 disabled={!step.previous}
                 onClick={step.previous}
               >
-                <ChevronLeft size={16} aria-hidden="true" />
+                <ChevronLeftIcon size="md" aria-hidden="true" />
               </Button>
               <span className="sprout-file-viewer-position" aria-hidden="true">
                 {step.position} of {step.count}
@@ -456,7 +458,7 @@ function SelectedFile({
                 disabled={!step.next}
                 onClick={step.next}
               >
-                <ChevronRight size={16} aria-hidden="true" />
+                <ChevronRightIcon size="md" aria-hidden="true" />
               </Button>
               <span aria-live="polite" className="sprout-file-viewer-sr-only">
                 {file.name}, file {step.position} of {step.count}
@@ -475,7 +477,7 @@ function SelectedFile({
               nativeButton={false}
               render={<a href={google.url} target="_blank" rel="noopener noreferrer" />}
             >
-              <ArrowUpRight size={16} aria-hidden="true" />
+              <ArrowUpRightIcon size="md" aria-hidden="true" />
               Open in Google
             </Button>
           ) : loaded.kind === 'ready' ? (
@@ -486,18 +488,18 @@ function SelectedFile({
               nativeButton={false}
               render={<a href={loaded.url} download={file.name} />}
             >
-              <Download size={16} aria-hidden="true" />
+              <DownloadIcon size="md" aria-hidden="true" />
               <span className="sprout-file-viewer-label">Download</span>
             </Button>
           ) : (
             <Button variant="outline" size="sm" aria-label="Download" disabled>
-              <Download size={16} aria-hidden="true" />
+              <DownloadIcon size="md" aria-hidden="true" />
               <span className="sprout-file-viewer-label">Download</span>
             </Button>
           )}
           <DropdownMenu>
             <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" aria-label="More actions" />}>
-              <MoreH size={16} aria-hidden="true" />
+              <MoreIcon size="md" aria-hidden="true" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" size="menu">
               <DropdownMenuItem onClick={retry}>{google ? 'Reload viewer' : 'Reload file'}</DropdownMenuItem>
@@ -520,11 +522,11 @@ function SelectedFile({
               aria-controls={panel.id}
               onClick={panel.toggle}
             >
-              <SidebarRight size={16} aria-hidden="true" />
+              <SidebarRightIcon size="md" aria-hidden="true" />
             </Button>
           )}
           <DialogClose render={<Button variant="ghost" size="icon-sm" aria-label="Close file viewer" />}>
-            <X size={18} aria-hidden="true" />
+            <CloseIcon size="lg" aria-hidden="true" />
           </DialogClose>
         </div>
       </header>
@@ -595,7 +597,7 @@ function LocalFile({
             nativeButton={false}
             render={<a href={loaded.url} download={file.name} />}
           >
-            <Download size={16} aria-hidden="true" />
+            <DownloadIcon size="md" aria-hidden="true" />
             Download
           </Button>
         </div>
