@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { contrast } from './color';
 
-const css = readFileSync(new URL('../packages/sprout/src/styles/index.css', import.meta.url), 'utf8');
+const css = readFileSync(new URL('../packages/sprout/src/styles/base.css', import.meta.url), 'utf8');
 const tulipfarm = readFileSync(new URL('../packages/sprout/src/styles/themes/tulipfarm.css', import.meta.url), 'utf8');
 
 function tokens(selector: string, source = css) {
