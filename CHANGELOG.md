@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.19.1](https://github.com/TulipFarm/sprout/compare/v0.19.0...v0.19.1) (2026-11-22)
+
+### Bug Fixes
+
+* **icons:** give each icon its own module so pages load only the icons they use ([#97](https://github.com/TulipFarm/sprout/issues/97)) ([9346f1a](https://github.com/TulipFarm/sprout/commit/9346f1a5501d5499a470800731197eac83e6d4bb))
+
 ## [0.19.0](https://github.com/TulipFarm/sprout/compare/v0.18.1...v0.19.0) (2026-11-21)
 
 ### Features
