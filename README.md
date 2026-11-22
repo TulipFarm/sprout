@@ -66,6 +66,10 @@ Add the styles to your CSS entry:
 @import '@tulipfarm/sprout/styles.css';
 ```
 
+A page that uses only a few components can import their styles one by one from
+`@tulipfarm/sprout/styles/<component>.css`, in the order `styles.css` lists them, and then
+`@tulipfarm/sprout/styles/base.css` last. It loads less CSS and keeps the same cascade.
+
 Use a component:
 
 ```tsx

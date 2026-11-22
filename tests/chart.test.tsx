@@ -105,9 +105,10 @@ describe('Chart', () => {
     });
     expect(manifest.dependencies.recharts).toBe('3.10.1');
     const index = read('../packages/sprout/src/styles/index.css');
+    const base = read('../packages/sprout/src/styles/base.css');
     expect(index).toContain("@import './chart.css';");
     for (let step = 1; step <= 10; step++)
-      expect(index).toContain(`--color-sprout-chart-${step}: var(--sprout-chart-${step});`);
+      expect(base).toContain(`--color-sprout-chart-${step}: var(--sprout-chart-${step});`);
     expect(chartIndicatorNames).toEqual(['dot', 'line', 'dashed']);
     expect(ChartLegend).toBeTruthy();
     expect(ChartTooltip).toBeTypeOf('function');

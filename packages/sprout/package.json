@@ -481,6 +481,7 @@
       "import": "./dist/components/web-source.js"
     },
     "./styles.css": "./dist/styles/index.css",
+    "./styles/*": "./dist/styles/*",
     "./themes/*": "./dist/styles/themes/*",
     "./package.json": "./package.json"
   },
