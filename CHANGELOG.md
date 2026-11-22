@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.19.2](https://github.com/TulipFarm/sprout/compare/v0.19.1...v0.19.2) (2026-11-22)
+
+### Features
+
+* **styles:** export per-component styles and base.css ([#98](https://github.com/TulipFarm/sprout/issues/98)) ([8722b5d](https://github.com/TulipFarm/sprout/commit/8722b5d620ddea6a21a89619a5f0f889d37d3825))
+
 ## [0.19.1](https://github.com/TulipFarm/sprout/compare/v0.19.0...v0.19.1) (2026-11-22)
 
 ### Bug Fixes
