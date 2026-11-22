@@ -176,7 +176,7 @@ Text has four levels: `text`, `body`, `muted`, `faint` (`faint` is for placehold
 - **States:** The app owns loading, empty, and error states and shows them with `StatePanel`, `Skeleton`, or `Spinner`.
 - **Icons:** Use `@tulipfarm/sprout/icons`, which wraps Hugeicons (Stroke Rounded).
   - Size icons with a token: `xs` 12px, `sm` 14px, `md` 16px, `lg` 18px, `xl` 20px, `2xl` 24px. Inside components, CSS may set the size instead.
-  - To change an icon or a size everywhere, edit `packages/sprout/src/components/icons.tsx`.
+  - Each icon has its own module in `packages/sprout/src/components/icons/`, so a page loads only the icons it uses. To change an icon everywhere, edit its module, such as `icons/chat.tsx`. Sizes and stroke width live in `icons/create-icon.tsx`.
   - Mark decorative icons `aria-hidden="true"`.
   - Put `data-icon="inline-start|inline-end"` on an icon next to text.
   - Icon-only controls need an `aria-label` and a `Tooltip`.
