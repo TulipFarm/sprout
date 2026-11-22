@@ -54,10 +54,11 @@ try {
   await run('node', ['smoke.mjs'], fixture);
   assert.deepEqual(
     (await readdir(path.join(fixture, 'node_modules/@tulipfarm/sprout/dist/components'))).sort(),
-    (await readdir(path.join(root, 'packages/sprout/src/components')))
-      .filter(name => /\.tsx?$/.test(name))
-      .flatMap(name => {
-        const base = name.replace(/\.tsx?$/, '');
+    (await readdir(path.join(root, 'packages/sprout/src/components'), { withFileTypes: true }))
+      .filter(entry => entry.isDirectory() || /\.tsx?$/.test(entry.name))
+      .flatMap(entry => {
+        if (entry.isDirectory()) return [entry.name];
+        const base = entry.name.replace(/\.tsx?$/, '');
         return [`${base}.d.ts`, `${base}.js`];
       })
       .sort(),
