@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   SelectCompositions,
@@ -19,6 +21,8 @@ import {
     compact toolbars. The chosen item lines up over the trigger, arrow keys move through the list, and typing jumps to a
     match.
   </p>
+  <ComponentMeta name="select" />
+  <InstallSection name="select" />
   <div class="mt-8" id="select-demo">
     <SelectPlayground client:load />
   </div>

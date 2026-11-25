@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import FieldDemo from '../../components/FieldDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A labeled row for one form control, with a required or optional marker, a counter, and a helper or error line.
     ChoiceGroup and CheckboxField cover radios and checkboxes. FieldsDisabled locks a whole form while it saves.
   </p>
+  <ComponentMeta name="field" />
+  <InstallSection name="field" />
   <div class="mt-8">
     <FieldDemo client:load />
   </div>

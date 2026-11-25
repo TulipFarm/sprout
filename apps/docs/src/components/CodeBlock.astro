@@ -4,30 +4,46 @@ import { CheckIcon, CopyIcon } from '@tulipfarm/sprout/icons';
 
 interface Props {
   code: string;
-  lang: 'tsx' | 'css' | 'bash';
+  lang: 'tsx' | 'css' | 'bash' | 'json';
   title?: string;
+  /** Show the first lines with an Expand button when the code is long. */
+  collapse?: boolean;
 }
 
-const { code, lang, title } = Astro.props;
-const language = { tsx: 'TSX', css: 'CSS', bash: 'Terminal' }[lang];
+const { code, lang, title, collapse = false } = Astro.props;
+const collapsible = collapse && code.split('\n').length > 16;
+const language = { tsx: 'TSX', css: 'CSS', bash: 'Terminal', json: 'JSON' }[lang];
 const label = title ?? language;
 ---
 
-<sprout-code-block class="code-block" data-code={code} role="group" aria-label={label}>
+<sprout-code-block
+  class="code-block"
+  data-code={code}
+  data-collapsible={collapsible ? '' : undefined}
+  role="group"
+  aria-label={label}
+>
   <div class="code-toolbar">
     <span class="code-heading">
       {label}
       {title && <span class="code-language">{language}</span>}
     </span>
-    <button type="button" class="code-copy" aria-label={`Copy ${label} code`} hidden>
-      <span class="copy-icon">
-        <CopyIcon size="md" aria-hidden="true" />
-      </span>
-      <span class="copied-icon">
-        <CheckIcon size="md" aria-hidden="true" />
-      </span>
-      <span data-copy-label>Copy</span>
-    </button>
+    <span class="code-actions">
+      {collapsible && (
+        <button type="button" class="code-copy code-expand" aria-expanded="false" hidden>
+          Expand
+        </button>
+      )}
+      <button type="button" class="code-copy" aria-label={`Copy ${label} code`} hidden>
+        <span class="copy-icon">
+          <CopyIcon size="md" aria-hidden="true" />
+        </span>
+        <span class="copied-icon">
+          <CheckIcon size="md" aria-hidden="true" />
+        </span>
+        <span data-copy-label>Copy</span>
+      </button>
+    </span>
   </div>
   <Code
     code={code}
@@ -48,15 +64,30 @@ const label = title ?? language;
     private timer: ReturnType<typeof setTimeout> | undefined;
 
     connectedCallback() {
-      const button = this.querySelector<HTMLButtonElement>('.code-copy')!;
+      const button = this.querySelector<HTMLButtonElement>('.code-copy:not(.code-expand)')!;
       button.hidden = false;
       button.addEventListener('click', this.copy);
+      const expand = this.querySelector<HTMLButtonElement>('.code-expand');
+      if (expand) {
+        expand.hidden = false;
+        this.dataset.collapsed = 'true';
+        expand.addEventListener('click', this.toggle);
+      }
     }
 
     disconnectedCallback() {
       clearTimeout(this.timer);
-      this.querySelector('.code-copy')?.removeEventListener('click', this.copy);
+      this.querySelector('.code-copy:not(.code-expand)')?.removeEventListener('click', this.copy);
+      this.querySelector('.code-expand')?.removeEventListener('click', this.toggle);
     }
+
+    private toggle = () => {
+      const expand = this.querySelector<HTMLButtonElement>('.code-expand')!;
+      const collapsed = this.dataset.collapsed !== 'true';
+      this.dataset.collapsed = String(collapsed);
+      expand.setAttribute('aria-expanded', String(!collapsed));
+      expand.textContent = collapsed ? 'Expand' : 'Collapse';
+    };
 
     private setFeedback(state: 'idle' | 'copied' | 'error', message = '') {
       this.dataset.copyState = state;
@@ -68,7 +99,7 @@ const label = title ?? language;
     }
 
     private copy = async () => {
-      const button = this.querySelector<HTMLButtonElement>('.code-copy')!;
+      const button = this.querySelector<HTMLButtonElement>('.code-copy:not(.code-expand)')!;
       clearTimeout(this.timer);
       this.setFeedback('idle');
       button.disabled = true;
@@ -128,6 +159,27 @@ const label = title ?? language;
     border-radius: var(--sprout-radius-control);
     color: var(--sprout-muted);
     cursor: pointer;
+  }
+  .code-heading {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .code-actions {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .code-expand {
+    min-width: 0;
+    padding-inline: 10px;
+  }
+  .code-block[data-collapsed='true'] :global(pre) {
+    max-height: 288px;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
   }
   .code-heading {
     display: flex;

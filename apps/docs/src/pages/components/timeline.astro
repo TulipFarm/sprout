@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import { RecordTimelineDemo } from '../../components/TimelineDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     The Timeline view of a table. Each record is a bar from its start to its end, or a diamond on its one date, inside a
     week, month, or quarter window. It is read only and has a text list of the same rows in start order.
   </p>
+  <ComponentMeta name="timeline" />
+  <InstallSection name="timeline" />
   <div class="mt-8">
     <RecordTimelineDemo client:load />
   </div>

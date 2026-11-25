@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { AlertVariants, AlertActions, AlertContent, AlertStates } from '../../components/AlertDemo';
 ---
@@ -9,6 +11,8 @@ import { AlertVariants, AlertActions, AlertContent, AlertStates } from '../../co
   <p class="docs-lead">
     An inline message that stays in place. Use it for errors, conflicts, and notes next to the content they affect.
   </p>
+  <ComponentMeta name="alert" />
+  <InstallSection name="alert" />
   <div class="mt-8" id="alert-demo">
     <AlertVariants client:load />
   </div>

@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import SelectionSlotDemo from '../../components/SelectionSlotDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows your normal tools until something is selected. Then it shows the selection toolbar in the same place. The row
     keeps its height, so nothing below it moves.
   </p>
+  <ComponentMeta name="selection-slot" />
+  <InstallSection name="selection-slot" />
   <div class="mt-8">
     <SelectionSlotDemo client:load />
   </div>

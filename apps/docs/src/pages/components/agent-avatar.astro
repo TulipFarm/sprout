@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { AgentAvatarGallery, AgentAvatarSizes } from '../../components/AgentAvatarDemo';
 import { AgentCompositions } from '../../components/AvatarDemo';
@@ -11,6 +13,8 @@ import { AgentCompositions } from '../../components/AvatarDemo';
     A picture for each agent, chosen from its id. 100 hand-drawn objects in eight colors ship inside the package, so
     there is nothing to host and no network request.
   </p>
+  <ComponentMeta name="agent-avatar" />
+  <InstallSection name="agent-avatar" />
   <div class="mt-8">
     <AgentAvatarSizes client:load />
   </div>

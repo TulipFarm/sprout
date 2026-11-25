@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   GlassBannerPlayground,
@@ -15,6 +17,8 @@ import {
     A soft blue glass panel for a page's opening moment. A title and caption sit on bubble art, and a few glass chips
     show what happens next. Drag a chip and let go: it stretches with its speed and springs home.
   </p>
+  <ComponentMeta name="glass-banner" />
+  <InstallSection name="glass-banner" />
   <div class="mt-8">
     <GlassBannerPlayground client:load />
   </div>

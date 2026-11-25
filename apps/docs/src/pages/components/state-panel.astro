@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   StatePanelPlayground,
@@ -22,6 +24,8 @@ import {
     One calm place for empty, loading, success, unavailable, and error states. It explains what happened and offers the
     next step.
   </p>
+  <ComponentMeta name="state-panel" />
+  <InstallSection name="state-panel" />
   <div class="mt-8">
     <StatePanelPlayground client:load />
   </div>

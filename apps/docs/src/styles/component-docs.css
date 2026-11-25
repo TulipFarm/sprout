@@ -1,0 +1,301 @@
+/* Quality badge and source links under each component page's lead. */
+.component-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.component-quality-trigger[data-verified='true'] .component-quality-icon {
+  color: var(--sprout-success);
+}
+.component-quality-trigger[data-verified='false'] .component-quality-icon {
+  color: var(--sprout-warning);
+}
+.component-meta-link,
+.component-meta-link:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 999px;
+  color: var(--sprout-muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+.component-meta-link svg {
+  width: 14px;
+  height: 14px;
+}
+.component-meta-link:hover {
+  border-color: var(--sprout-border-strong);
+  color: var(--sprout-text);
+}
+
+.component-quality {
+  width: min(280px, calc(100vw - 32px));
+  padding: 12px 0 0;
+}
+.component-quality-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.component-quality[data-verified='true'] .component-quality-icon {
+  color: var(--sprout-success);
+}
+.component-quality[data-verified='false'] .component-quality-icon {
+  color: var(--sprout-warning);
+}
+.component-quality-list {
+  display: grid;
+  padding: 0 6px;
+}
+.component-quality-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.component-quality-row dt {
+  color: var(--sprout-muted);
+}
+.component-quality-row dd {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--sprout-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.component-quality-row dd svg {
+  flex: none;
+}
+.component-quality-row[data-tone='pass'] dd svg {
+  color: var(--sprout-success);
+}
+.component-quality-row[data-tone='warn'] dd svg {
+  color: var(--sprout-warning);
+}
+.component-quality-footnote {
+  margin-top: 8px;
+  padding: 8px 14px 10px;
+  border-top: 1px solid var(--sprout-line);
+  color: var(--sprout-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Installation tabs: shadcn CLI, manual, and npm. */
+.component-install {
+  margin-top: 16px;
+}
+.install-panel {
+  display: grid;
+  gap: 16px;
+  padding-top: 20px;
+}
+.install-code {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: 8px;
+  background: var(--sprout-surface);
+}
+.install-code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 8px 0 12px;
+  border-bottom: 1px solid var(--sprout-line);
+}
+.install-code-label {
+  padding-left: 8px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+}
+.install-managers {
+  min-height: 0;
+  padding: 2px;
+}
+.install-managers .sprout-tabs-trigger {
+  min-height: 26px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+.install-code pre {
+  margin: 0;
+  padding: 16px 20px;
+  overflow-x: auto;
+  background: transparent;
+  color: var(--sprout-text);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.install-code pre:focus-visible {
+  outline-offset: -1px;
+}
+.install-copy {
+  min-width: 80px;
+  color: var(--sprout-muted);
+}
+.install-copy[data-state='copied'] {
+  color: var(--sprout-success);
+}
+.install-copy[data-state='error'] {
+  color: var(--sprout-danger);
+}
+.install-note {
+  max-width: 70ch;
+  color: var(--sprout-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.install-note a {
+  color: var(--sprout-text);
+  text-decoration: underline;
+  text-decoration-color: var(--sprout-border-strong);
+  text-underline-offset: 3px;
+}
+
+.install-steps {
+  display: grid;
+  gap: 28px;
+  counter-reset: install-step;
+}
+.install-step {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding-left: 40px;
+  counter-increment: install-step;
+}
+.install-step::before {
+  content: counter(install-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--sprout-line);
+  border-radius: 999px;
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+/* A thin rail joins the numbered circles, like a vertical stepper. */
+.install-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 32px;
+  bottom: -20px;
+  left: 11.5px;
+  width: 1px;
+  background: var(--sprout-line);
+}
+.install-step-title {
+  font-size: 15px;
+  line-height: 24px;
+  text-wrap: pretty;
+}
+.install-step-title a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.install-step sprout-code-block.code-block {
+  margin-top: 0;
+}
+.install-list {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--sprout-line);
+  border-radius: 8px;
+}
+.install-list > li,
+div.install-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 8px 6px 16px;
+  font-size: 13px;
+}
+.install-list > li + li {
+  border-top: 1px solid var(--sprout-line);
+}
+.install-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 12px;
+  min-width: 0;
+}
+.docs-main .install-list code {
+  min-width: 0;
+  padding: 0;
+  background: none;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.install-item-meta {
+  color: var(--sprout-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.install-copy {
+  flex: none;
+}
+
+@media (max-width: 767px) {
+  .install-copy,
+  .component-meta-link {
+    min-height: 44px;
+  }
+  .install-step {
+    padding-left: 32px;
+  }
+  .install-step:not(:last-child)::after {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .component-meta-link,
+  .install-copy {
+    transition:
+      color var(--sprout-motion-fast) ease-out,
+      text-decoration-color var(--sprout-motion-fast) ease-out,
+      background-color var(--sprout-motion-fast) ease-out;
+  }
+}
+.install-code-panel {
+  border-radius: 0;
+}
+.install-code pre span {
+  color: var(--shiki-light);
+}
+.dark .install-code pre span {
+  color: var(--shiki-dark);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not(.dark) .install-code pre span {
+    color: var(--shiki-dark);
+  }
+}
+.install-panel sprout-code-block.code-block {
+  margin-top: 0;
+}

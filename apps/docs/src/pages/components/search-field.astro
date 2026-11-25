@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import SearchFieldDemo from '../../components/SearchFieldDemo';
 ---
@@ -12,6 +14,8 @@ import SearchFieldDemo from '../../components/SearchFieldDemo';
   <p class="docs-lead">
     A search input with a magnifier and a clear button. Use it to filter a page list, a picker, or a catalog.
   </p>
+  <ComponentMeta name="search-field" />
+  <InstallSection name="search-field" />
   <div class="mt-8">
     <SearchFieldDemo client:load />
   </div>

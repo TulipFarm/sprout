@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   MentionListEditor,
@@ -17,6 +19,8 @@ import {
     moves through the options with the arrow keys. Options can sit in groups, and status rows say when a source is
     loading, empty, or failed.
   </p>
+  <ComponentMeta name="mention-list" />
+  <InstallSection name="mention-list" />
   <section class="prose-section" id="mention-list-files">
     <h2 class="section-title">Files with @</h2>
     <p>

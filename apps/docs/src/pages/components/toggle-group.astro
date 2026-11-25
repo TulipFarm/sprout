@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ToggleGroupDemo from '../../components/ToggleGroupDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Toggle buttons that share one value. Use it to pick a layout, a time range, or a theme, or to turn several text
     styles on at once.
   </p>
+  <ComponentMeta name="toggle-group" />
+  <InstallSection name="toggle-group" />
   <div class="mt-8">
     <ToggleGroupDemo client:load />
   </div>

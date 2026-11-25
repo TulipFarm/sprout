@@ -23,10 +23,21 @@ pnpm lint
 pnpm test
 pnpm test:browser   # needs: pnpm exec playwright install chromium
 pnpm test:install
+pnpm test:registry  # installs every shadcn registry item with the real CLI
+pnpm stats --check
 ```
 
 `pnpm lint` checks formatting with Oxfmt and runs Oxlint. `pnpm format` fixes
 formatting. The shared rules live in TulipFarm/root `docs/code-style.md`.
+
+The shadcn registry in `apps/docs/public/r` is generated from the package
+source by `pnpm registry`; the docs scripts run it, and it is not committed.
+Give every new file a name no other component file uses, since shadcn
+resolves imports by file name.
+
+`pnpm stats` writes `apps/docs/src/data/component-stats.json`, the size, test,
+React Compiler, and React Doctor numbers on each component page. Run it after
+you change a component or its tests, and commit the result.
 
 While you work, run one test file at a time: `pnpm vitest run tests/sprout/button.test.tsx`.
 

@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import MessageDemo from '../../components/MessageDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Lays out one chat message: an avatar beside a column of bubbles, cards, and actions, with a small name line above
     and a status line below. Bubbles come in seven fills and can carry a pill of reactions.
   </p>
+  <ComponentMeta name="message" />
+  <InstallSection name="message" />
   <div class="mt-8">
     <MessageDemo client:load />
   </div>

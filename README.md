@@ -260,9 +260,20 @@ there.
 
 ### shadcn
 
-A shadcn registry item is at `apps/docs/public/r/sprout.json`. It works with
-`shadcn add` (tested with shadcn 4.22.0). A public URL will come with the docs
-release.
+Every component is a shadcn registry item. The CLI copies the source into your
+app, with the Sprõut components it uses and the CSS it needs:
+
+```sh
+pnpm dlx shadcn@latest add https://sprout.tulipfarm.ai/r/button.json
+```
+
+Or add `"registries": { "@sprout": "https://sprout.tulipfarm.ai/r/{name}.json" }`
+to `components.json` and run `shadcn add @sprout/button`. Themes are
+`@sprout/theme-<name>`. Each component page lists the command and the manual
+steps. `sprout.json` installs the npm package instead of copying source.
+
+The registry is built from the package source by `pnpm registry`, and
+`pnpm test:registry` installs every item into a fresh app with the real CLI.
 
 ## Develop
 

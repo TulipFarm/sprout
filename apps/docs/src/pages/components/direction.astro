@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import DirectionDemo from '../../components/DirectionDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Tells Sprõut's Base UI parts whether text reads left to right or right to left, so arrow keys, indicators, and
     popups follow the language on the page.
   </p>
+  <ComponentMeta name="direction" />
+  <InstallSection name="direction" />
   <div class="mt-8">
     <DirectionDemo client:load />
   </div>

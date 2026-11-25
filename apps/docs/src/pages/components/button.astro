@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ButtonDemo from '../../components/ButtonDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Compact actions, links, and toggles. Seven variants, sizes for common layouts, and Base UI focus and disabled
     behavior.
   </p>
+  <ComponentMeta name="button" />
+  <InstallSection name="button" />
   <div class="mt-8">
     <ButtonDemo client:load />
   </div>

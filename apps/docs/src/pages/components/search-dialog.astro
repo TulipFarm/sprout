@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { SearchDialogCalendar, SearchDialogPlayground, SearchDialogRecords } from '../../components/SearchDialogDemo';
 ---
@@ -13,6 +15,8 @@ import { SearchDialogCalendar, SearchDialogPlayground, SearchDialogRecords } fro
     A search palette pinned near the top of the screen. You filter the results; it groups them with counts, moves
     through them with the arrow keys, and opens the active one with Enter.
   </p>
+  <ComponentMeta name="search-dialog" />
+  <InstallSection name="search-dialog" />
   <div class="mt-8 search-dialog-demo" id="search-dialog-demo">
     <SearchDialogPlayground client:load />
   </div>

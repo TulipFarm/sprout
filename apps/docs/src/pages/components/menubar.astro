@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { MenubarEditor, MenubarPlayground } from '../../components/MenubarDemo';
 ---
@@ -10,6 +12,8 @@ import { MenubarEditor, MenubarPlayground } from '../../components/MenubarDemo';
     A row of menus, like the File and View menus of a desktop app. Use it for an editor or tool that has many commands.
     For one set of actions, use a Dropdown Menu.
   </p>
+  <ComponentMeta name="menubar" />
+  <InstallSection name="menubar" />
   <div class="mt-8" id="menubar-demo">
     <MenubarPlayground client:load />
   </div>

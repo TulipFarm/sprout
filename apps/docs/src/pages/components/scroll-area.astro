@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ScrollAreaDemo from '../../components/ScrollAreaDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A scrolling region with thin scrollbars that follow the theme. Fixed or content heights, vertical, horizontal, or
     both bars, and a bordered table frame for wide data grids.
   </p>
+  <ComponentMeta name="scroll-area" />
+  <InstallSection name="scroll-area" />
   <div class="mt-8">
     <ScrollAreaDemo client:load />
   </div>

@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   QuestionnaireControlled,
   QuestionnairePlayground,
@@ -19,6 +21,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A form that asks one question at a time. Each item holds radio or checkbox choices, or a typed answer. Next checks
     required answers, Skip clears optional ones, and the last item submits the form.
   </p>
+  <ComponentMeta name="questionnaire" />
+  <InstallSection name="questionnaire" />
   <div id="questionnaire-demo">
     <div class="mt-8">
       <QuestionnairePlayground client:load />

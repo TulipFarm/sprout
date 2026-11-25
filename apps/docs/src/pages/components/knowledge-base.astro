@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import { KnowledgeBasePlayground } from '../../components/KnowledgeBaseDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A panel for the apps a knowledge base reads from, such as Slack, GitHub, and Jira. Each source draws a line into the
     index as it syncs, and the list beside it says what is connected, syncing, paused, or failed.
   </p>
+  <ComponentMeta name="knowledge-base" />
+  <InstallSection name="knowledge-base" />
   <div class="mt-8 flex justify-center">
     <KnowledgeBasePlayground client:load />
   </div>

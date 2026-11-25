@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   ComboboxBasics,
@@ -18,6 +20,8 @@ import {
     A text field that filters a list as you type. Pick one value, or many as chips. Use it when a list is too long to
     scan, such as teammates, channels, or time zones. For a short fixed list, use Select.
   </p>
+  <ComponentMeta name="combobox" />
+  <InstallSection name="combobox" />
   <div class="mt-8" id="combobox-demo">
     <ComboboxPlayground client:load />
   </div>

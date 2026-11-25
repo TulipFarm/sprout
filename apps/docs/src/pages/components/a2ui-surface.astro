@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import A2uiSurfaceDemo from '../../components/A2uiSurfaceDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -15,6 +17,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     messages that name components from a catalog. Your app checks them and draws them with real Sprõut components. The
     agent never sends code, styles or class names.
   </p>
+  <ComponentMeta name="a2ui-surface" />
+  <InstallSection name="a2ui-surface" />
   <div class="mt-8">
     <A2uiSurfaceDemo client:load />
   </div>

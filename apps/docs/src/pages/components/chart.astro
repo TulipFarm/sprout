@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import { ChartCanvas, ChartComposition, ChartCredits, ChartOptions, ChartPlayground } from '../../components/ChartDemo';
 import { BusinessCharts } from '../../components/BusinessChartsDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
@@ -14,6 +16,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Draws usage over days and values across categories. Two ready charts cover the common cases;{' '}
     <code>ChartContainer</code> wraps any other Recharts chart with the same colors, tooltip, and legend.
   </p>
+  <ComponentMeta name="chart" />
+  <InstallSection name="chart" />
   <div class="mt-8" id="chart-demo">
     <ChartCredits client:load />
   </div>

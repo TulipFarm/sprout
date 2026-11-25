@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { NavigationMenuPlayground, NavigationMenuSiteHeader } from '../../components/NavigationMenuDemo';
 ---
@@ -10,6 +12,8 @@ import { NavigationMenuPlayground, NavigationMenuSiteHeader } from '../../compon
     A row of site links. Some items are plain links; others open a panel of more links. Every panel shares one popup
     that resizes and slides as you move between triggers.
   </p>
+  <ComponentMeta name="navigation-menu" />
+  <InstallSection name="navigation-menu" />
   <div class="mt-8" id="navigation-menu-demo">
     <NavigationMenuPlayground client:load />
   </div>

@@ -5,6 +5,7 @@ import { mkdir, mkdtemp, cp, readdir, readFile, rm, writeFile } from 'node:fs/pr
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { registryItemSchema } from 'shadcn/schema';
+import { buildRegistry } from '../tools/registry/build.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const artifacts = path.join(root, '.artifacts');
@@ -12,7 +13,7 @@ await mkdir(artifacts, { recursive: true });
 const work = await mkdtemp(path.join(artifacts, 'install-'));
 const fixture = path.join(work, 'consumer');
 const shadcn = path.join(root, 'node_modules/.bin/shadcn');
-const registry = JSON.parse(await readFile(path.join(root, 'apps/docs/public/r/sprout.json'), 'utf8'));
+const registry = (await buildRegistry()).items.find(item => item.name === 'sprout');
 registryItemSchema.parse(registry);
 
 function run(command, args, cwd = root) {

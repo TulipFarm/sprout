@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import SliderDemo from '../../components/SliderDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -9,6 +11,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
   <p class="docs-lead">
     A track with a draggable thumb. Use it to pick one number, such as a volume, or a range between two numbers.
   </p>
+  <ComponentMeta name="slider" />
+  <InstallSection name="slider" />
   <div class="mt-8">
     <SliderDemo client:load />
   </div>

@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import AspectRatioDemo from '../../components/AspectRatioDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Keeps content at a fixed shape as its width changes. Use it for images, video, and the placeholders that hold their
     space.
   </p>
+  <ComponentMeta name="aspect-ratio" />
+  <InstallSection name="aspect-ratio" />
   <div class="mt-8">
     <AspectRatioDemo client:load />
   </div>

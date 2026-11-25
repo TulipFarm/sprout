@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import StatusDemo from '../../components/StatusDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -11,6 +13,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Running fills eight segments as a known amount grows, or spins like Spinner when the amount is unknown. For a
     page-level wait, use Progress or Spinner.
   </p>
+  <ComponentMeta name="status" />
+  <InstallSection name="status" />
   <div class="mt-8">
     <StatusDemo client:load />
   </div>

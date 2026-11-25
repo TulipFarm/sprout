@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   MessageResponseFile,
   MessageResponseHandoff,
@@ -22,6 +24,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Turns the Markdown an agent writes into a readable reply. It supports GitHub tables and task lists, shows fenced
     code in a Code Block, drops raw HTML and images, and lets you replace links with citations or downloads.
   </p>
+  <ComponentMeta name="message-response" />
+  <InstallSection name="message-response" />
   <div class="mt-8">
     <MessageResponsePlayground client:load />
   </div>

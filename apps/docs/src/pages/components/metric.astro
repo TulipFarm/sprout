@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import MetricDemo from '../../components/MetricDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows one number that matters, such as memory used or weekly signups, with how it changed and a small trend. Put a
     few in a row for a summary. For many numbers, use Table.
   </p>
+  <ComponentMeta name="metric" />
+  <InstallSection name="metric" />
   <div class="mt-8">
     <MetricDemo client:load />
   </div>

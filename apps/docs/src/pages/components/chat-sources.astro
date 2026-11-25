@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   ChatSourcesCitationStates,
   ChatSourcesEmpty,
@@ -20,6 +22,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows where a reply came from. Hovering or clicking a citation previews the cited passage and its source. Checked
     citations recheck access each time they open, and a count opens the list of every source the reply used.
   </p>
+  <ComponentMeta name="chat-sources" />
+  <InstallSection name="chat-sources" />
   <div class="mt-8">
     <ChatSourcesPlayground client:load />
   </div>

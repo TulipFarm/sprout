@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import { ViewSwitcherNarrow, ViewSwitcherPlayground, ViewSwitcherUnavailable } from '../../components/ViewSwitcherDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -11,6 +13,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     view. Your app decides which views exist, which are open and which can close. The switcher shows exactly what you
     pass and calls you back.
   </p>
+  <ComponentMeta name="view-switcher" />
+  <InstallSection name="view-switcher" />
   <div class="mt-8">
     <ViewSwitcherPlayground client:load />
   </div>

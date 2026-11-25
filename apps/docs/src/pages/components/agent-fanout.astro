@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   AgentFanoutList,
   AgentFanoutPlayground,
@@ -15,6 +17,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     One agent starts others, and they start more. Each agent is a card with its model, tools, task, status, and run
     time. Lines draw in as agents start, and the header counts what is running, needs you, or failed.
   </p>
+  <ComponentMeta name="agent-fanout" />
+  <InstallSection name="agent-fanout" />
   <div class="mt-8">
     <AgentFanoutPlayground client:load />
   </div>

@@ -1,0 +1,47 @@
+---
+import CodeBlock from './CodeBlock.astro';
+import ComponentInstall from './ComponentInstall';
+import { cssText } from '../data/css-text';
+import { highlight } from '../data/highlight';
+import { installCommands, managers, type CommandSet } from '../data/install-commands';
+import { installInfo, registryItem, registryUrl } from '../data/registry';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+const info = installInfo(name);
+const item = registryItem(name);
+const main = item.files?.[0];
+const css = item.css ? cssText(item.css) : '';
+const commands = Object.fromEntries(
+  await Promise.all(
+    Object.entries(installCommands(info, registryUrl)).map(async ([key, texts]) => [
+      key,
+      Object.fromEntries(
+        await Promise.all(
+          managers.map(async manager => [
+            manager,
+            { text: texts[manager], html: await highlight(texts[manager], 'bash') },
+          ]),
+        ),
+      ) as CommandSet,
+    ]),
+  ),
+) as Record<'cli' | 'deps' | 'npm', CommandSet>;
+---
+
+<section class="prose-section">
+  <h2 class="section-title">Installation</h2>
+  <ComponentInstall client:load info={info} commands={commands}>
+    {main && <CodeBlock slot="source" lang="tsx" title={main.target} code={main.content} collapse />}
+    {css && <CodeBlock slot="css" lang="css" title="globals.css" code={css} collapse />}
+    <CodeBlock
+      slot="packageCss"
+      lang="css"
+      title="globals.css"
+      code={'@import "tailwindcss";\n@import "@tulipfarm/sprout/styles.css";'}
+    />
+  </ComponentInstall>
+</section>

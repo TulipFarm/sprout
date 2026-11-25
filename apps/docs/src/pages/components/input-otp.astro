@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import InputOTPDemo from '../../components/InputOTPDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -11,6 +13,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     into groups such as
     <code>123–456</code>.
   </p>
+  <ComponentMeta name="input-otp" />
+  <InstallSection name="input-otp" />
   <div class="mt-8">
     <InputOTPDemo client:load />
   </div>

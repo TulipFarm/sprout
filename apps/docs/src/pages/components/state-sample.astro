@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   StateSamplePlayground,
@@ -15,6 +17,8 @@ import {
     Draws a small picture of a page once it has content. Pass it to an empty{' '}
     <a href="/components/state-panel/">State Panel</a> so people see what they will get before they add anything.
   </p>
+  <ComponentMeta name="state-sample" />
+  <InstallSection name="state-sample" />
   <div class="mt-8">
     <StateSamplePlayground client:load />
   </div>

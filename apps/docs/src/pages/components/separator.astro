@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import SeparatorDemo from '../../components/SeparatorDemo';
 import SeparatorFadeDemo from '../../components/SeparatorFadeDemo';
 import SeparatorMarkerDemo from '../../components/SeparatorMarkerDemo';
@@ -15,6 +17,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A thin line that divides related content. It can be horizontal or vertical, carry a centered label, fade toward a
     transcript label, or become a quiet timeline note.
   </p>
+  <ComponentMeta name="separator" />
+  <InstallSection name="separator" />
   <div class="mt-8">
     <SeparatorDemo client:load />
   </div>

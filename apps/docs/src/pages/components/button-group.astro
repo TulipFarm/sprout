@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ButtonGroupDemo from '../../components/ButtonGroupDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -9,6 +11,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
   <p class="docs-lead">
     Joins related buttons into one control. Use it for pagers, steppers, split actions, and toolbars.
   </p>
+  <ComponentMeta name="button-group" />
+  <InstallSection name="button-group" />
   <div class="mt-8">
     <ButtonGroupDemo client:load />
   </div>

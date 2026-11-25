@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   ChatInputAttachments,
@@ -19,6 +21,8 @@ import {
     to add a skill, or <code>#</code> to add a file. Markdown and shortcuts format text. The bar holds attach and mode
     menus, a project picker, a model picker, and send.
   </p>
+  <ComponentMeta name="chat-input" />
+  <InstallSection name="chat-input" />
   <section class="prose-section" id="chat-input-composer">
     <h2 class="section-title">Chat input</h2>
     <ChatInputComposer client:load />

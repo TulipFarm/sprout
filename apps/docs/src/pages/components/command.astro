@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { CommandComposer, CommandPalette, CommandPlayground, CommandProjects } from '../../components/CommandDemo';
 ---
@@ -10,6 +12,8 @@ import { CommandComposer, CommandPalette, CommandPlayground, CommandProjects } f
     A search field over a list of actions or choices. Type to filter, move with the arrow keys, and press Enter to
     choose. Put it inline, inside a popover picker, or in a command palette dialog.
   </p>
+  <ComponentMeta name="command" />
+  <InstallSection name="command" />
   <div class="mt-8" id="command-demo">
     <CommandPlayground client:load />
   </div>

@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import SidebarDemo from '../../components/SidebarDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -9,6 +11,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
   <p class="docs-lead">
     A home for your navigation. Collapsible groups, an icon rail, and a mobile drawer, built with Base UI.
   </p>
+  <ComponentMeta name="sidebar" />
+  <InstallSection name="sidebar" />
   <div class="mt-8">
     <SidebarDemo client:load />
   </div>

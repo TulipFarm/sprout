@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   GradientBannerPlayground,
@@ -20,6 +22,8 @@ import {
     Soft gradient art for prompt cards, onboarding, and showcase panels. Put text on a panel so it stays readable on
     every color.
   </p>
+  <ComponentMeta name="gradient-banner" />
+  <InstallSection name="gradient-banner" />
   <div class="mt-8">
     <GradientBannerPlayground client:load />
   </div>

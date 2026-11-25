@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { ContextMenuColumns, ContextMenuFiles, ContextMenuPlayground } from '../../components/ContextMenuDemo';
 ---
@@ -13,6 +15,8 @@ import { ContextMenuColumns, ContextMenuFiles, ContextMenuPlayground } from '../
     A menu that opens where the pointer is. Right-click a target, or long-press it on a touch screen. Use it for
     shortcuts to actions that are also reachable another way, such as a More button or a keyboard shortcut.
   </p>
+  <ComponentMeta name="context-menu" />
+  <InstallSection name="context-menu" />
   <div class="mt-8" id="context-menu-demo">
     <ContextMenuPlayground client:load />
   </div>

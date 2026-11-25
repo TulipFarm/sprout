@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { DialogConfirmations, DialogPlayground, DialogSearch, DialogSizes } from '../../components/DialogDemo';
 import { DialogFlows, DialogStates } from '../../components/DialogFlowsDemo';
@@ -11,6 +13,8 @@ import { DialogFlows, DialogStates } from '../../components/DialogFlowsDemo';
     A modal window over the page. Use it for decisions that need an answer now, short forms, previews, and search. Focus
     stays inside until it closes, then returns to where it was.
   </p>
+  <ComponentMeta name="dialog" />
+  <InstallSection name="dialog" />
   <div class="mt-8" id="dialog-demo">
     <DialogPlayground client:load />
   </div>

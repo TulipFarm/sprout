@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import RadioGroupDemo from '../../components/RadioGroupDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A set of round buttons where only one can be on. Use it for a short list of choices, such as how often to send a
     digest or when an agent replies.
   </p>
+  <ComponentMeta name="radio-group" />
+  <InstallSection name="radio-group" />
   <div class="mt-8">
     <RadioGroupDemo client:load />
   </div>

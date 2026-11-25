@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import AttachmentDemo from '../../components/AttachmentDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -14,6 +16,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <code>FileAttachment</code> for a ready-made row, card, mention, or chip, and the <code>Attachment</code> parts when
     you need your own layout.
   </p>
+  <ComponentMeta name="attachment" />
+  <InstallSection name="attachment" />
   <div class="mt-8">
     <AttachmentDemo client:load />
   </div>

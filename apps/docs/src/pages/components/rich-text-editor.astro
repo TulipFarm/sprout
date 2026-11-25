@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import RichTextEditorDemo from '../../components/RichTextEditorDemo';
 ---
@@ -13,6 +15,8 @@ import RichTextEditorDemo from '../../components/RichTextEditorDemo';
     The message box behind the chat composer. Enter sends, Shift+Enter adds a line, and headings, lists, links, and code
     fences work as you type. Put it in a composer <code>InputGroup</code> and hand it a toolbar.
   </p>
+  <ComponentMeta name="rich-text-editor" />
+  <InstallSection name="rich-text-editor" />
   <div class="mt-8">
     <RichTextEditorDemo client:load />
   </div>

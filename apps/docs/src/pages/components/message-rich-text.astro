@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import { MessageRichTextAccounts, MessageRichTextPlayground } from '../../components/MessageRichTextDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Renders the rich text a Chat Input sends, so a sent message looks the way it did in the composer. Apps, tagged
     agents, skills, and files keep their chips, hints, and previews, and a tagged file opens in the File Viewer.
   </p>
+  <ComponentMeta name="message-rich-text" />
+  <InstallSection name="message-rich-text" />
   <div class="mt-8">
     <MessageRichTextPlayground client:only="react" />
   </div>

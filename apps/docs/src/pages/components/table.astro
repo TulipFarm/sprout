@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import TableDemo from '../../components/TableDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     One table for every list of records. Pass rows and columns. Turn on the features you need: sorting, search and
     filter chips, group rows with totals, row edit, column layout, virtual rows, and row drag.
   </p>
+  <ComponentMeta name="table" />
+  <InstallSection name="table" />
   <div class="mt-8">
     <TableDemo client:load />
   </div>

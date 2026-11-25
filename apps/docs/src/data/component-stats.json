@@ -1,0 +1,1810 @@
+{
+  "a2ui-surface": {
+    "size": {
+      "own": 23762,
+      "total": 477875
+    },
+    "accessibility": 0,
+    "behavior": 31,
+    "compiler": {
+      "compiled": 29,
+      "bailouts": 7
+    },
+    "doctor": {
+      "errors": 5,
+      "warnings": 13
+    }
+  },
+  "accordion": {
+    "size": {
+      "own": 1971,
+      "total": 19379
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "agent-avatar": {
+    "size": {
+      "own": 25220,
+      "total": 38680
+    },
+    "accessibility": 0,
+    "behavior": 6,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "agent-fanout": {
+    "size": {
+      "own": 6723,
+      "total": 77535
+    },
+    "accessibility": 1,
+    "behavior": 19,
+    "compiler": {
+      "compiled": 8,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 2,
+      "warnings": 1
+    }
+  },
+  "alert": {
+    "size": {
+      "own": 513,
+      "total": 10862
+    },
+    "accessibility": 1,
+    "behavior": 10,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "alert-dialog": {
+    "size": {
+      "own": 815,
+      "total": 35312
+    },
+    "accessibility": 1,
+    "behavior": 9,
+    "compiler": {
+      "compiled": 9,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "aspect-ratio": {
+    "size": {
+      "own": 305,
+      "total": 9130
+    },
+    "accessibility": 1,
+    "behavior": 11,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "attachment": {
+    "size": {
+      "own": 9376,
+      "total": 97619
+    },
+    "accessibility": 1,
+    "behavior": 24,
+    "compiler": {
+      "compiled": 16,
+      "bailouts": 3
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 1
+    }
+  },
+  "avatar": {
+    "size": {
+      "own": 836,
+      "total": 13803
+    },
+    "accessibility": 1,
+    "behavior": 9,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "badge": {
+    "size": {
+      "own": 485,
+      "total": 10823
+    },
+    "accessibility": 1,
+    "behavior": 8,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "board": {
+    "size": {
+      "own": 10202,
+      "total": 127473
+    },
+    "accessibility": 3,
+    "behavior": 20,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 19
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 13
+    }
+  },
+  "brand-icon": {
+    "size": {
+      "own": 13055,
+      "total": 57433
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "breadcrumb": {
+    "size": {
+      "own": 2176,
+      "total": 11971
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 8,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "button": {
+    "size": {
+      "own": 1486,
+      "total": 14256
+    },
+    "accessibility": 1,
+    "behavior": 23,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "button-group": {
+    "size": {
+      "own": 580,
+      "total": 11387
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "calendar": {
+    "size": {
+      "own": 2934,
+      "total": 78922
+    },
+    "accessibility": 1,
+    "behavior": 21,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "canvas": {
+    "size": {
+      "own": 4211,
+      "total": 56687
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "card": {
+    "size": {
+      "own": 594,
+      "total": 10926
+    },
+    "accessibility": 1,
+    "behavior": 11,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "carousel": {
+    "size": {
+      "own": 4895,
+      "total": 17186
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 7
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 0
+    }
+  },
+  "chart": {
+    "size": {
+      "own": 7531,
+      "total": 167350
+    },
+    "accessibility": 1,
+    "behavior": 24,
+    "compiler": {
+      "compiled": 20,
+      "bailouts": 2
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 5
+    }
+  },
+  "chat-confirmation": {
+    "size": {
+      "own": 2528,
+      "total": 20492
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "chat-input": {
+    "size": {
+      "own": 6477,
+      "total": 283909
+    },
+    "accessibility": 1,
+    "behavior": 14,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 4
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 6
+    }
+  },
+  "chat-plan": {
+    "size": {
+      "own": 2154,
+      "total": 11110
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "chat-sources": {
+    "size": {
+      "own": 2901,
+      "total": 56497
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "chat-window": {
+    "size": {
+      "own": 3358,
+      "total": 83628
+    },
+    "accessibility": 1,
+    "behavior": 11,
+    "compiler": {
+      "compiled": 9,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 2
+    }
+  },
+  "checkbox": {
+    "size": {
+      "own": 2151,
+      "total": 18241
+    },
+    "accessibility": 1,
+    "behavior": 14,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 0
+    }
+  },
+  "choice-list": {
+    "size": {
+      "own": 2635,
+      "total": 12628
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 2
+    }
+  },
+  "code-block": {
+    "size": {
+      "own": 9153,
+      "total": 21977
+    },
+    "accessibility": 1,
+    "behavior": 23,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 2
+    }
+  },
+  "collapsible": {
+    "size": {
+      "own": 462,
+      "total": 16789
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "combobox": {
+    "size": {
+      "own": 2713,
+      "total": 69191
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 17,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "command": {
+    "size": {
+      "own": 5235,
+      "total": 38633
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 9,
+      "bailouts": 4
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 0
+    }
+  },
+  "context-menu": {
+    "size": {
+      "own": 2438,
+      "total": 72714
+    },
+    "accessibility": 1,
+    "behavior": 11,
+    "compiler": {
+      "compiled": 16,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "dialog": {
+    "size": {
+      "own": 2408,
+      "total": 35655
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 10,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "direction": {
+    "size": {
+      "own": 106,
+      "total": 231
+    },
+    "accessibility": 1,
+    "behavior": 9,
+    "compiler": {
+      "compiled": 0,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "dropdown-menu": {
+    "size": {
+      "own": 2491,
+      "total": 71968
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 16,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "field": {
+    "size": {
+      "own": 3395,
+      "total": 26155
+    },
+    "accessibility": 1,
+    "behavior": 20,
+    "compiler": {
+      "compiled": 8,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "file-explorer": {
+    "size": {
+      "own": 11754,
+      "total": 34270
+    },
+    "accessibility": 0,
+    "behavior": 11,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 5
+    }
+  },
+  "file-viewer": {
+    "size": {
+      "own": 11291,
+      "total": 90447
+    },
+    "accessibility": 1,
+    "behavior": 20,
+    "compiler": {
+      "compiled": 19,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 8
+    }
+  },
+  "form": {
+    "size": {
+      "own": 1283,
+      "total": 15150
+    },
+    "accessibility": 1,
+    "behavior": 20,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 3
+    }
+  },
+  "glass-banner": {
+    "size": {
+      "own": 1305,
+      "total": 10141
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "gradient-banner": {
+    "size": {
+      "own": 951,
+      "total": 9759
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "hover-card": {
+    "size": {
+      "own": 575,
+      "total": 42312
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "icons": {
+    "size": {
+      "own": 3552,
+      "total": 31420
+    },
+    "accessibility": 0,
+    "behavior": 0,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "input": {
+    "size": {
+      "own": 415,
+      "total": 18980
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "input-group": {
+    "size": {
+      "own": 919,
+      "total": 22397
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 6,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "input-otp": {
+    "size": {
+      "own": 2327,
+      "total": 19682
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "kbd": {
+    "size": {
+      "own": 344,
+      "total": 9165
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "knowledge-base": {
+    "size": {
+      "own": 20476,
+      "total": 91915
+    },
+    "accessibility": 0,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 13,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 4
+    }
+  },
+  "label": {
+    "size": {
+      "own": 269,
+      "total": 9096
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "mention-list": {
+    "size": {
+      "own": 1031,
+      "total": 14660
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "menubar": {
+    "size": {
+      "own": 2461,
+      "total": 74002
+    },
+    "accessibility": 1,
+    "behavior": 10,
+    "compiler": {
+      "compiled": 17,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "message": {
+    "size": {
+      "own": 761,
+      "total": 11074
+    },
+    "accessibility": 1,
+    "behavior": 26,
+    "compiler": {
+      "compiled": 8,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "message-actions": {
+    "size": {
+      "own": 3710,
+      "total": 52386
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 2
+    }
+  },
+  "message-response": {
+    "size": {
+      "own": 958,
+      "total": 69506
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "message-rich-text": {
+    "size": {
+      "own": 4148,
+      "total": 100890
+    },
+    "accessibility": 0,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 8,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 3
+    }
+  },
+  "message-scroller": {
+    "size": {
+      "own": 7060,
+      "total": 19289
+    },
+    "accessibility": 1,
+    "behavior": 21,
+    "compiler": {
+      "compiled": 10,
+      "bailouts": 2
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "metric": {
+    "size": {
+      "own": 592,
+      "total": 9422
+    },
+    "accessibility": 0,
+    "behavior": 0,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "model-selector": {
+    "size": {
+      "own": 3461,
+      "total": 90042
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "monster-avatar": {
+    "size": {
+      "own": 13036,
+      "total": 22143
+    },
+    "accessibility": 0,
+    "behavior": 5,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "navigation-menu": {
+    "size": {
+      "own": 2153,
+      "total": 48912
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 9,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "notice-banner": {
+    "size": {
+      "own": 412,
+      "total": 9234
+    },
+    "accessibility": 1,
+    "behavior": 14,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "page-content": {
+    "size": {
+      "own": 282,
+      "total": 9105
+    },
+    "accessibility": 1,
+    "behavior": 6,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "page-header": {
+    "size": {
+      "own": 2490,
+      "total": 14968
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "pagination": {
+    "size": {
+      "own": 2123,
+      "total": 14822
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 8,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "plan-outline": {
+    "size": {
+      "own": 3341,
+      "total": 20627
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "popover": {
+    "size": {
+      "own": 713,
+      "total": 50385
+    },
+    "accessibility": 1,
+    "behavior": 14,
+    "compiler": {
+      "compiled": 6,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "presence-cursor": {
+    "size": {
+      "own": 509,
+      "total": 9328
+    },
+    "accessibility": 1,
+    "behavior": 10,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "progress": {
+    "size": {
+      "own": 477,
+      "total": 12485
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "prompt-list": {
+    "size": {
+      "own": 2009,
+      "total": 58392
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "questionnaire": {
+    "size": {
+      "own": 7900,
+      "total": 17505
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 15,
+      "bailouts": 4
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 7
+    }
+  },
+  "radio-group": {
+    "size": {
+      "own": 401,
+      "total": 21229
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "reasoning-effort": {
+    "size": {
+      "own": 2649,
+      "total": 11520
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "record-list": {
+    "size": {
+      "own": 4225,
+      "total": 17123
+    },
+    "accessibility": 1,
+    "behavior": 29,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 3
+    }
+  },
+  "resizable": {
+    "size": {
+      "own": 4111,
+      "total": 12898
+    },
+    "accessibility": 1,
+    "behavior": 14,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 3
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 0
+    }
+  },
+  "result-card": {
+    "size": {
+      "own": 3164,
+      "total": 67917
+    },
+    "accessibility": 1,
+    "behavior": 18,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "result-notice": {
+    "size": {
+      "own": 2011,
+      "total": 10187
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "review-card": {
+    "size": {
+      "own": 2479,
+      "total": 18264
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 6,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "rich-text-editor": {
+    "size": {
+      "own": 8516,
+      "total": 147985
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 2
+    },
+    "doctor": {
+      "errors": 8,
+      "warnings": 5
+    }
+  },
+  "schema-diagram": {
+    "size": {
+      "own": 4806,
+      "total": 79325
+    },
+    "accessibility": 1,
+    "behavior": 11,
+    "compiler": {
+      "compiled": 10,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 2
+    }
+  },
+  "scroll-area": {
+    "size": {
+      "own": 632,
+      "total": 17300
+    },
+    "accessibility": 1,
+    "behavior": 14,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "search-dialog": {
+    "size": {
+      "own": 2779,
+      "total": 40330
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 12,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "search-field": {
+    "size": {
+      "own": 2063,
+      "total": 22596
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "select": {
+    "size": {
+      "own": 2431,
+      "total": 56045
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 10,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "selection-slot": {
+    "size": {
+      "own": 833,
+      "total": 9676
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "separator": {
+    "size": {
+      "own": 897,
+      "total": 11282
+    },
+    "accessibility": 1,
+    "behavior": 26,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "settings-list": {
+    "size": {
+      "own": 532,
+      "total": 9357
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "sheet": {
+    "size": {
+      "own": 2577,
+      "total": 50771
+    },
+    "accessibility": 1,
+    "behavior": 18,
+    "compiler": {
+      "compiled": 9,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "sidebar": {
+    "size": {
+      "own": 4196,
+      "total": 66263
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 22,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 3
+    }
+  },
+  "skeleton": {
+    "size": {
+      "own": 577,
+      "total": 10922
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "slider": {
+    "size": {
+      "own": 641,
+      "total": 23929
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "spinner": {
+    "size": {
+      "own": 2098,
+      "total": 10295
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "sql-viewer": {
+    "size": {
+      "own": 7262,
+      "total": 82578
+    },
+    "accessibility": 1,
+    "behavior": 10,
+    "compiler": {
+      "compiled": 12,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 2
+    }
+  },
+  "state-panel": {
+    "size": {
+      "own": 2143,
+      "total": 65821
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "state-panel-samples": {
+    "size": {
+      "own": 5252,
+      "total": 64205
+    },
+    "accessibility": 1,
+    "behavior": 19,
+    "compiler": {
+      "compiled": 17,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 3,
+      "warnings": 0
+    }
+  },
+  "state-sample": {
+    "size": {
+      "own": 1070,
+      "total": 9891
+    },
+    "accessibility": 1,
+    "behavior": 11,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 3
+    }
+  },
+  "status": {
+    "size": {
+      "own": 1780,
+      "total": 11095
+    },
+    "accessibility": 1,
+    "behavior": 16,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "status-tooltip": {
+    "size": {
+      "own": 182,
+      "total": 43623
+    },
+    "accessibility": 0,
+    "behavior": 0,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "switch": {
+    "size": {
+      "own": 687,
+      "total": 15558
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 0
+    }
+  },
+  "table": {
+    "size": {
+      "own": 10226,
+      "total": 151636
+    },
+    "accessibility": 1,
+    "behavior": 20,
+    "compiler": {
+      "compiled": 7,
+      "bailouts": 1
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 10
+    }
+  },
+  "table-nuqs": {
+    "size": {
+      "own": 617,
+      "total": 5786
+    },
+    "accessibility": 0,
+    "behavior": 0,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "tabs": {
+    "size": {
+      "own": 539,
+      "total": 22737
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "task-tree": {
+    "size": {
+      "own": 4414,
+      "total": 74789
+    },
+    "accessibility": 1,
+    "behavior": 12,
+    "compiler": {
+      "compiled": 11,
+      "bailouts": 2
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 1
+    }
+  },
+  "textarea": {
+    "size": {
+      "own": 405,
+      "total": 9451
+    },
+    "accessibility": 1,
+    "behavior": 18,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "timeline": {
+    "size": {
+      "own": 9251,
+      "total": 145987
+    },
+    "accessibility": 1,
+    "behavior": 22,
+    "compiler": {
+      "compiled": 13,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 7
+    }
+  },
+  "toast": {
+    "size": {
+      "own": 2425,
+      "total": 38804
+    },
+    "accessibility": 1,
+    "behavior": 14,
+    "compiler": {
+      "compiled": 11,
+      "bailouts": 2
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "toggle": {
+    "size": {
+      "own": 451,
+      "total": 14022
+    },
+    "accessibility": 1,
+    "behavior": 17,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "toggle-group": {
+    "size": {
+      "own": 649,
+      "total": 17745
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 2,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "tool-activity": {
+    "size": {
+      "own": 4275,
+      "total": 25704
+    },
+    "accessibility": 1,
+    "behavior": 23,
+    "compiler": {
+      "compiled": 4,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 1,
+      "warnings": 4
+    }
+  },
+  "toolbar-status": {
+    "size": {
+      "own": 489,
+      "total": 52647
+    },
+    "accessibility": 1,
+    "behavior": 10,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "tooltip": {
+    "size": {
+      "own": 1164,
+      "total": 43745
+    },
+    "accessibility": 1,
+    "behavior": 15,
+    "compiler": {
+      "compiled": 5,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "typed-text": {
+    "size": {
+      "own": 788,
+      "total": 9609
+    },
+    "accessibility": 1,
+    "behavior": 13,
+    "compiler": {
+      "compiled": 1,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "view-switcher": {
+    "size": {
+      "own": 3381,
+      "total": 80325
+    },
+    "accessibility": 1,
+    "behavior": 21,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 1
+    }
+  },
+  "web-source": {
+    "size": {
+      "own": 2466,
+      "total": 11279
+    },
+    "accessibility": 0,
+    "behavior": 6,
+    "compiler": {
+      "compiled": 3,
+      "bailouts": 0
+    },
+    "doctor": {
+      "errors": 0,
+      "warnings": 0
+    }
+  }
+}

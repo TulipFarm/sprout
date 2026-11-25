@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { HoverCardInText, HoverCardPlayground } from '../../components/HoverCardDemo';
 ---
@@ -10,6 +12,8 @@ import { HoverCardInText, HoverCardPlayground } from '../../components/HoverCard
     A small card that previews what a link points to. It opens when the link is hovered or keyboard-focused. Use it for
     a profile or a page summary; the link itself must still work without it.
   </p>
+  <ComponentMeta name="hover-card" />
+  <InstallSection name="hover-card" />
   <div class="mt-8" id="hover-card-demo">
     <HoverCardPlayground client:load />
   </div>

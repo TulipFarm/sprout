@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   MessageScrollerButtons,
   MessageScrollerConversation,
@@ -19,6 +21,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     reply reads from the start, keeps your place when older messages load, and shows a jump button when there is more
     history below.
   </p>
+  <ComponentMeta name="message-scroller" />
+  <InstallSection name="message-scroller" />
   <div class="mt-8">
     <MessageScrollerConversation client:only="react" />
   </div>

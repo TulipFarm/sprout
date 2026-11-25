@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { SheetPlayground, SheetSides, SheetSizes, SheetSwipe } from '../../components/SheetDemo';
 import { SheetPatterns, SheetStates } from '../../components/SheetPatternsDemo';
@@ -15,6 +17,8 @@ import { SheetPatterns, SheetStates } from '../../components/SheetPatternsDemo';
     room than a dialog but should keep the page behind in view. Focus stays inside until it closes. On a touch screen,
     swipe it back toward its edge to close it.
   </p>
+  <ComponentMeta name="sheet" />
+  <InstallSection name="sheet" />
   <div class="mt-8" id="sheet-demo">
     <SheetPlayground client:load />
   </div>

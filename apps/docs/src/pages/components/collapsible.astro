@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   CollapsibleHero,
@@ -18,6 +20,8 @@ import {
     A trigger that shows and hides one region in place. Use it for details, longer lists, and settings that most people
     do not need every time.
   </p>
+  <ComponentMeta name="collapsible" />
+  <InstallSection name="collapsible" />
   <div class="mt-8" id="collapsible-demo">
     <CollapsibleHero client:load />
   </div>

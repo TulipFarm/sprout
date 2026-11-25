@@ -1,0 +1,16 @@
+{
+  "name": "sprout-shadcn-fixture",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "tailwindcss": "4.3.5",
+    "typescript": "6.0.3"
+  }
+}

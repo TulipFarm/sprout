@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ModelSelectorDemo from '../../components/ModelSelectorDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -11,6 +13,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     shows each model with its logo, a short description, and three colored meters for speed, quality, and cost, rated
     against the other models in the list.
   </p>
+  <ComponentMeta name="model-selector" />
+  <InstallSection name="model-selector" />
   <div class="mt-8">
     <ModelSelectorDemo client:load />
   </div>

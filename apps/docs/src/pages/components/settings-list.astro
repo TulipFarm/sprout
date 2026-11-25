@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { SettingsListPlayground, SettingsListRows } from '../../components/SettingsListDemo';
 ---
@@ -9,6 +11,8 @@ import { SettingsListPlayground, SettingsListRows } from '../../components/Setti
   <p class="docs-lead">
     Titled groups of settings. Each row names a setting, explains it, and puts its value or control beside it.
   </p>
+  <ComponentMeta name="settings-list" />
+  <InstallSection name="settings-list" />
   <div class="mt-8">
     <SettingsListPlayground client:load />
   </div>
