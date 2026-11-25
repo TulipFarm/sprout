@@ -27,6 +27,7 @@ jobs:
       - run: pnpm build
       - run: pnpm typecheck
       - run: pnpm lint
+      - run: pnpm stats --check
 
   coverage:
     runs-on: ubuntu-latest
@@ -142,3 +143,4 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:install
+      - run: pnpm test:registry

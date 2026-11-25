@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   MonsterAvatarBuilder,
@@ -15,6 +17,8 @@ import {
     A friendly monster for each agent. Pick a body, color, pattern, ears, eyes, mouth, hat, and the thing it holds, or
     let the agent id choose. Each one breathes, blinks, and moves the thing it holds.
   </p>
+  <ComponentMeta name="monster-avatar" />
+  <InstallSection name="monster-avatar" />
   <div class="mt-8">
     <MonsterAvatarSizes client:load />
   </div>

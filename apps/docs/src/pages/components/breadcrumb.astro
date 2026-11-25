@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import BreadcrumbDemo from '../../components/BreadcrumbDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A path of links that shows where a page or folder sits. Seven small parts you compose yourself, with router links,
     button crumbs, hidden folders, and one-line trails.
   </p>
+  <ComponentMeta name="breadcrumb" />
+  <InstallSection name="breadcrumb" />
   <div class="mt-8">
     <BreadcrumbDemo client:load />
   </div>

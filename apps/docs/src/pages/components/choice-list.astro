@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ChoiceListDemo from '../../components/ChoiceListDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A list of answers to pick from, with an optional typed answer. Use it for preference questions and for questions an
     assistant asks in a chat. When the question is done, show the answer with Choice Summary.
   </p>
+  <ComponentMeta name="choice-list" />
+  <InstallSection name="choice-list" />
   <div class="mt-8">
     <ChoiceListDemo client:load />
   </div>

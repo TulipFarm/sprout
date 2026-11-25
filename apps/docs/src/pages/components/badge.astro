@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import BadgeDemo from '../../components/BadgeDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A small label for status, counts, and metadata. Nine tones, a wrapping chip size, and a render prop for links and
     buttons.
   </p>
+  <ComponentMeta name="badge" />
+  <InstallSection name="badge" />
   <div class="mt-8">
     <BadgeDemo client:load />
   </div>

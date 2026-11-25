@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   AlertDialogConfirmations,
@@ -18,6 +20,8 @@ import {
     A modal question before something hard to undo: delete, disconnect, leave, or discard. Outside clicks do not close
     it. Focus stays inside until the person answers, then returns to where it was.
   </p>
+  <ComponentMeta name="alert-dialog" />
+  <InstallSection name="alert-dialog" />
   <div class="mt-8" id="alert-dialog-demo">
     <AlertDialogPlayground client:load />
   </div>

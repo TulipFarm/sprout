@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CardDemo from '../../components/CardDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A bordered panel that groups related content. Two sizes, a flat or raised surface, and parts for a header, content,
     and a footer.
   </p>
+  <ComponentMeta name="card" />
+  <InstallSection name="card" />
   <div class="mt-8">
     <CardDemo client:load />
   </div>

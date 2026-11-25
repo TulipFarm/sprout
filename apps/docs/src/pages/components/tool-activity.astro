@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   ToolActivityEmpty,
   ToolActivityReceipt,
@@ -21,6 +23,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows the tools an agent called while it worked: what ran, what is waiting, and what needs attention.{' '}
     <code>ActivityPanel</code> frames a live run above its result.
   </p>
+  <ComponentMeta name="tool-activity" />
+  <InstallSection name="tool-activity" />
   <div class="mt-8">
     <ToolActivityStatuses client:load />
   </div>

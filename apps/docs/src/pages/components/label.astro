@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import LabelDemo from '../../components/LabelDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Names one form control. Put it above an input or select, wrap a checkbox, switch, or radio with it, or place it
     beside a long confirmation.
   </p>
+  <ComponentMeta name="label" />
+  <InstallSection name="label" />
   <div class="mt-8">
     <LabelDemo client:load />
   </div>

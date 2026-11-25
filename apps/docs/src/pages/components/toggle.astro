@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ToggleDemo from '../../components/ToggleDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -7,6 +9,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
 <Docs title="Toggle" description="A two-state button for text styles, filters, and view options.">
   <h1 class="docs-title">Toggle</h1>
   <p class="docs-lead">A button that stays on or off. Use it to turn on a text style, a filter, or a view option.</p>
+  <ComponentMeta name="toggle" />
+  <InstallSection name="toggle" />
   <div class="mt-8">
     <ToggleDemo client:load />
   </div>

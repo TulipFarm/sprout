@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { PageContentPlayground, PageContentExamples } from '../../components/PageContentDemo';
 ---
@@ -10,6 +12,8 @@ import { PageContentPlayground, PageContentExamples } from '../../components/Pag
     The padded column that holds a page's header and sections. It gives every page the same edges and the same space
     between blocks.
   </p>
+  <ComponentMeta name="page-content" />
+  <InstallSection name="page-content" />
   <div class="mt-8">
     <PageContentPlayground client:load />
   </div>

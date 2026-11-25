@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   ReviewCardAgentSetup,
   ReviewCardAuthoring,
@@ -24,6 +26,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <code>ReviewRows</code>, <code>ReviewSteps</code>, and
     <code>ReviewValues</code> lay out what will change.
   </p>
+  <ComponentMeta name="review-card" />
+  <InstallSection name="review-card" />
   <div class="mt-8">
     <ReviewCardPlayground client:load />
   </div>

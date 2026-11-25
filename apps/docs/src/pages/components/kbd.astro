@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import KbdDemo from '../../components/KbdDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -7,6 +9,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
 <Docs title="Kbd" description="Keyboard keys and shortcut groups for hints, tooltips, and search footers.">
   <h1 class="docs-title">Kbd</h1>
   <p class="docs-lead">Shows a keyboard key or a shortcut. Use it in text, tooltips, menu rows, and footer hints.</p>
+  <ComponentMeta name="kbd" />
+  <InstallSection name="kbd" />
   <div class="mt-8">
     <KbdDemo client:load />
   </div>

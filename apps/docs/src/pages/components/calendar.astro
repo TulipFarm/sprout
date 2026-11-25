@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   CalendarCaptions,
@@ -16,6 +18,8 @@ import {
     A month grid for picking one date, several dates, or a range. Use it on its own in a form, or inside a popover as a
     date picker.
   </p>
+  <ComponentMeta name="calendar" />
+  <InstallSection name="calendar" />
   <div class="mt-8" id="calendar-demo">
     <CalendarPlayground client:load />
   </div>

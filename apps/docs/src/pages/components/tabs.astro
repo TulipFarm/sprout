@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   TabsHero,
@@ -18,6 +20,8 @@ import {
     A list of tabs that shows one panel at a time. Use it for sections of one page, views inside a panel, and the steps
     of a setup flow.
   </p>
+  <ComponentMeta name="tabs" />
+  <InstallSection name="tabs" />
   <div class="mt-8" id="tabs-demo">
     <TabsHero client:load />
   </div>

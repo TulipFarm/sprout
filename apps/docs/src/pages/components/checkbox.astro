@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CheckboxDemo from '../../components/CheckboxDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A small box that is on, off, or mixed. Use it to confirm an action, grant a permission, pick items from a list, or
     select table rows.
   </p>
+  <ComponentMeta name="checkbox" />
+  <InstallSection name="checkbox" />
   <div class="mt-8">
     <CheckboxDemo client:load />
   </div>

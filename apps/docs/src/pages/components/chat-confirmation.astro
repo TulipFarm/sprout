@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   ChatConfirmationPlayground,
   ChatConfirmationReminder,
@@ -19,6 +21,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     <a href="/components/review-card/">Review Card</a> with a shield icon, a status badge, the facts as rows, and two
     buttons. Once decided it folds and shows the outcome.
   </p>
+  <ComponentMeta name="chat-confirmation" />
+  <InstallSection name="chat-confirmation" />
   <div class="mt-8">
     <ChatConfirmationPlayground client:load />
   </div>

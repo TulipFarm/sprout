@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import { ChatWindowPlayground } from '../../components/ChatWindowDemo';
 ---
@@ -14,6 +16,8 @@ import { ChatWindowPlayground } from '../../components/ChatWindowDemo';
     box. Switch it to a side drawer or a full page, or minimize it back into its launcher. The page behind stays usable
     the whole time.
   </p>
+  <ComponentMeta name="chat-window" />
+  <InstallSection name="chat-window" />
   <div class="mt-8" id="chat-window-demo">
     <ChatWindowPlayground client:load />
   </div>

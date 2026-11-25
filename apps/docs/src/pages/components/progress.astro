@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ProgressDemo from '../../components/ProgressDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows how much of a task is done, such as an upload or storage that fills up. When the amount is not known yet, pass{' '}
     <code>null</code> and the bar slides. For a short wait with no amount, use Spinner.
   </p>
+  <ComponentMeta name="progress" />
+  <InstallSection name="progress" />
   <div class="mt-8">
     <ProgressDemo client:load />
   </div>

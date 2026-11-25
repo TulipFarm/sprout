@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   ToastCustomList,
@@ -16,6 +18,8 @@ import {
     A short notice about something that just happened: a save, a failed upload, a sent invite. Toasts stack in the
     bottom corner, close on their own, and never take focus away from what someone is doing.
   </p>
+  <ComponentMeta name="toast" />
+  <InstallSection name="toast" />
   <div class="mt-8" id="toast-demo">
     <ToastPlayground client:load />
   </div>

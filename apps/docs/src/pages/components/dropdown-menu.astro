@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   DropdownMenuActions,
@@ -19,6 +21,8 @@ import {
     A list of actions behind a button. Use it for row and page actions, bulk actions on a narrow toolbar, filters, and
     account menus. Arrow keys move through items, and focus returns to the trigger when it closes.
   </p>
+  <ComponentMeta name="dropdown-menu" />
+  <InstallSection name="dropdown-menu" />
   <div class="mt-8" id="dropdown-menu-demo">
     <DropdownMenuPlayground client:load />
   </div>

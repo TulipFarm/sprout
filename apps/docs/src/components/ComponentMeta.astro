@@ -1,0 +1,27 @@
+---
+import { ArrowUpRightIcon, CodeIcon } from '@tulipfarm/sprout/icons';
+import ComponentQuality from './ComponentQuality';
+import { componentStats, installInfo } from '../data/registry';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+const stats = componentStats(name);
+const { title, source } = installInfo(name);
+---
+
+<div class="component-meta">
+  {stats && <ComponentQuality client:load title={title} stats={stats} />}
+  {source && (
+    <a class="component-meta-link" href={source}>
+      <CodeIcon aria-hidden="true" />
+      Source
+      <ArrowUpRightIcon aria-hidden="true" />
+    </a>
+  )}
+  <a class="component-meta-link" href={`/r/${name}.json`}>
+    Registry JSON
+  </a>
+</div>

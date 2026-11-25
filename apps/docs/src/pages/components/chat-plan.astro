@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   ChatPlanCanvas,
   ChatPlanEmpty,
@@ -19,6 +21,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A plan an agent proposed in chat. Each step shows if it is not started, in progress, complete, or failed. The header
     counts completed steps.
   </p>
+  <ComponentMeta name="chat-plan" />
+  <InstallSection name="chat-plan" />
   <div class="mt-8">
     <ChatPlanPlayground client:load />
   </div>

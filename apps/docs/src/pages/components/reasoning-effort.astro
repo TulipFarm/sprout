@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ReasoningEffortDemo from '../../components/ReasoningEffortDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A pill-shaped slider that picks one of a few effort levels, such as Low, Medium, High, and Max. While you drag, a
     bubble grows out of the track and names the level.
   </p>
+  <ComponentMeta name="reasoning-effort" />
+  <InstallSection name="reasoning-effort" />
   <div class="mt-8">
     <ReasoningEffortDemo client:load />
   </div>

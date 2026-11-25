@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import SpinnerDemo from '../../components/SpinnerDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows that something is working when you cannot show its shape. Use it in busy buttons, short status lines, and in
     place of a status icon while a step runs. To hold the space of content that is loading, use Skeleton.
   </p>
+  <ComponentMeta name="spinner" />
+  <InstallSection name="spinner" />
   <div class="mt-8">
     <SpinnerDemo client:load />
   </div>

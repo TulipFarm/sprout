@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import TypedTextDemo from '../../components/TypedTextDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Types new text in, one character at a time, when it changes. Use it for short text an agent rewrites while someone
     watches, such as a chat title. The first render shows the text at once.
   </p>
+  <ComponentMeta name="typed-text" />
+  <InstallSection name="typed-text" />
   <div class="mt-8">
     <TypedTextDemo client:load />
   </div>

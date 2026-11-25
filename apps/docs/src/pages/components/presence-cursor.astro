@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import PresenceCursorDemo from '../../components/PresenceCursorDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Another person's pointer on a shared surface, like a canvas or a document. It shows a colored arrow with a name tag,
     or with an avatar.
   </p>
+  <ComponentMeta name="presence-cursor" />
+  <InstallSection name="presence-cursor" />
   <div class="mt-8">
     <PresenceCursorDemo client:load />
   </div>

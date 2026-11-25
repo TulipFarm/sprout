@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import SwitchDemo from '../../components/SwitchDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A track and thumb that turns one setting on or off. Use it for settings that take effect at once, such as
     notifications or model access.
   </p>
+  <ComponentMeta name="switch" />
+  <InstallSection name="switch" />
   <div class="mt-8">
     <SwitchDemo client:load />
   </div>

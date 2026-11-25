@@ -25,6 +25,20 @@ Presets: `neutral` (default), `tulipfarm`, `claude`, `chatgpt`, `cloudflare`,
 `discord`, `github`, `grok`, `linear`, `notion`, `perplexity`, `raycast`,
 `spotify`, `stripe`, `supabase`, `vercel`.
 
+### Source copy with shadcn
+
+When the app has a shadcn `components.json`, a component can be copied in
+instead of imported from the package. It brings the Sprout components it uses
+and its CSS:
+
+```sh
+pnpm dlx shadcn@latest add https://sprout.tulipfarm.ai/r/<slug>.json
+```
+
+Copied components import from `@/components/ui/<slug>` instead of
+`@tulipfarm/sprout/<slug>`; props are the same. Themes are
+`theme-<preset>.json`. Don't mix both styles for one component in an app.
+
 ## Rules
 
 - **One entry per component.** Import from `@tulipfarm/sprout/<slug>`, for

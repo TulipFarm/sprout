@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import WebSourceDemo from '../../components/WebSourceDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -9,6 +11,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
   <p class="docs-lead">
     Shows a web page an agent searched or read: the site's favicon and the page title, linking to the page in a new tab.
   </p>
+  <ComponentMeta name="web-source" />
+  <InstallSection name="web-source" />
   <div class="mt-8">
     <WebSourceDemo client:load />
   </div>

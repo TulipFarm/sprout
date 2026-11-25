@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CarouselDemo from '../../components/CarouselDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A row or column of slides that scrolls one stop at a time. Use it for step cards, a strip of attachments, or a few
     cards side by side.
   </p>
+  <ComponentMeta name="carousel" />
+  <InstallSection name="carousel" />
   <div class="mt-8">
     <CarouselDemo client:load />
   </div>

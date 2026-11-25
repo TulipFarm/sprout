@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import FileViewerDemo from '../../components/FileViewerDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -15,6 +17,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     for a full-screen dialog, <code>ViewableFileContent</code> inline, and
     <code>FileContent</code> when you load the bytes yourself.
   </p>
+  <ComponentMeta name="file-viewer" />
+  <InstallSection name="file-viewer" />
   <div class="mt-8">
     <FileViewerDemo client:load />
   </div>

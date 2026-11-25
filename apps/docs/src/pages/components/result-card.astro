@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   ResultAppActionsDemo,
   ResultCardApps,
@@ -19,6 +21,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows something an agent made or did in chat. It names the apps used, shows a live status, and offers one action,
     such as opening the result in a canvas. <code>ResultAppActions</code> lists what each app did.
   </p>
+  <ComponentMeta name="result-card" />
+  <InstallSection name="result-card" />
   <div class="mt-8">
     <ResultCardPlayground client:load />
   </div>

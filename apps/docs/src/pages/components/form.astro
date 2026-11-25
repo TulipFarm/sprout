@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   FormCompositions,
@@ -17,6 +19,8 @@ import {
     A form that locks its fields while saving, moves focus to the first error, and ends with a save area that explains
     why it cannot save yet.
   </p>
+  <ComponentMeta name="form" />
+  <InstallSection name="form" />
   <div class="mt-8">
     <FormPlayground client:load />
   </div>

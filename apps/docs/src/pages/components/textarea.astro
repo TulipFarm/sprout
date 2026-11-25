@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import TextareaDemo from '../../components/TextareaDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 
@@ -33,6 +35,8 @@ const [prompt, setPrompt] = useState("");
     A multi-line text field. Use it for agent instructions, task prompts, notes, replies, and pasted text. It grows with
     its content.
   </p>
+  <ComponentMeta name="textarea" />
+  <InstallSection name="textarea" />
   <div class="mt-8">
     <TextareaDemo client:load />
   </div>

@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   AvatarPlayground,
@@ -16,6 +18,8 @@ import {
   <p class="docs-lead">
     Pictures for people and workspaces. Shows initials when there is no image or the image fails. Built with Base UI.
   </p>
+  <ComponentMeta name="avatar" />
+  <InstallSection name="avatar" />
   <div class="mt-8">
     <AvatarPlayground client:load />
   </div>

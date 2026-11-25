@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import { SqlViewerLayouts, SqlViewerPlayground } from '../../components/SqlViewerDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -14,6 +16,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     table or a foreign key to light up its joins. Up to four tables show at once; the rest wait behind a "+N tables"
     card.
   </p>
+  <ComponentMeta name="sql-viewer" />
+  <InstallSection name="sql-viewer" />
   <div class="mt-8">
     <SqlViewerPlayground client:load />
   </div>

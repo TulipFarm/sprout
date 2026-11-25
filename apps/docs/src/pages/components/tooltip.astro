@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   TooltipBrands,
@@ -16,6 +18,8 @@ import {
     A short label that appears when a control is hovered or focused. Use it to name icon buttons, explain a column, or
     show a shortcut. Keep the text to one line or two; anything longer belongs in a popover.
   </p>
+  <ComponentMeta name="tooltip" />
+  <InstallSection name="tooltip" />
   <div class="mt-8" id="tooltip-demo">
     <TooltipPlayground client:load />
   </div>

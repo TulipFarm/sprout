@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   PopoverCalendar,
@@ -20,6 +22,8 @@ import {
     A floating panel tied to a button. Use it for source details, pickers, filters, and short forms. Unlike a menu it
     can hold any content, and unlike a dialog it leaves the rest of the page usable.
   </p>
+  <ComponentMeta name="popover" />
+  <InstallSection name="popover" />
   <div class="mt-8" id="popover-demo">
     <PopoverPlayground client:load />
   </div>

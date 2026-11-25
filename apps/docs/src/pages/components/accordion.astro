@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   AccordionHero,
@@ -17,6 +19,8 @@ import {
     A stack of sections that open in place. Use it for filters, settings, and background details that most people do not
     need every time.
   </p>
+  <ComponentMeta name="accordion" />
+  <InstallSection name="accordion" />
   <div class="mt-8" id="accordion-demo">
     <AccordionHero client:load />
   </div>

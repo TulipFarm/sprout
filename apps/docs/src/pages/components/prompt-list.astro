@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   PromptListBrands,
   PromptListDisabled,
@@ -21,6 +23,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     uses, and an arrow. Choosing a row hands its id back to you, so you decide whether it sends a message or opens a
     page.
   </p>
+  <ComponentMeta name="prompt-list" />
+  <InstallSection name="prompt-list" />
   <div class="mt-8">
     <PromptListStartingTasks client:load />
   </div>

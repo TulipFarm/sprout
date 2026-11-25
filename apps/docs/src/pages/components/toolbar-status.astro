@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   ToolbarStatusOutcomes,
@@ -17,6 +19,8 @@ import {
     A small button that takes the place of an action once it finishes. It says what happened in a word or two, announces
     the full message, and opens a popover with the details and a follow-up action.
   </p>
+  <ComponentMeta name="toolbar-status" />
+  <InstallSection name="toolbar-status" />
   <div class="mt-8">
     <ToolbarStatusPlayground client:load />
   </div>

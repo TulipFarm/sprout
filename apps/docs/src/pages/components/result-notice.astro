@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import ResultNoticeDemo from '../../components/ResultNoticeDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -13,6 +15,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A quiet strip inside a view that says the view shows only the first part of the result, such as "Showing the first
     100 of 2,431 rows." Use it so a chart or timeline never passes off part of a table as the whole.
   </p>
+  <ComponentMeta name="result-notice" />
+  <InstallSection name="result-notice" />
   <div class="mt-8">
     <ResultNoticeDemo client:load />
   </div>

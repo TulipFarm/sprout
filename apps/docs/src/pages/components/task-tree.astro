@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import TaskTreeDemo from '../../components/TaskTreeDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -11,6 +13,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     several branches them out. Each row has a Status mark, so the tree updates as your app changes task states. For a
     saved plan with criteria and dependencies, use Plan Outline. For agents that start other agents, use Agent Fanout.
   </p>
+  <ComponentMeta name="task-tree" />
+  <InstallSection name="task-tree" />
   <div class="mt-8">
     <TaskTreeDemo client:load />
   </div>

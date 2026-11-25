@@ -13,3 +13,4 @@ test-results/
 .release/
 packages/sprout/README.md
 .pristine/
+apps/docs/public/r/

@@ -3,10 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev --host 127.0.0.1",
-    "build": "astro build",
+    "dev": "pnpm registry && astro dev --host 127.0.0.1",
+    "build": "pnpm registry && astro build",
     "typecheck": "astro check",
-    "preview": "astro preview --host 127.0.0.1"
+    "preview": "astro preview --host 127.0.0.1",
+    "registry": "node ../../tools/registry/build.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.1.9",

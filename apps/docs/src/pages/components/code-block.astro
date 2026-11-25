@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   CodeBlockCanvas,
   CodeBlockChatResponse,
@@ -22,6 +24,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows code from a reply, a canvas, a workflow step, or a file. It colors every language Shiki knows, over 240, picks
     the language from the file name, and copies the exact source with one button.
   </p>
+  <ComponentMeta name="code-block" />
+  <InstallSection name="code-block" />
   <div class="mt-8">
     <CodeBlockPlayground client:load />
   </div>

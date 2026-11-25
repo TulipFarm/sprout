@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import InputGroupDemo from '../../components/InputGroupDemo';
 ---
@@ -13,6 +15,8 @@ import InputGroupDemo from '../../components/InputGroupDemo';
     One bordered field made of a control and its additions: icons, prefixes, shortcuts, and buttons. It powers search
     boxes, the workspace URL field, combobox inputs, picker searches, and the chat composer.
   </p>
+  <ComponentMeta name="input-group" />
+  <InstallSection name="input-group" />
   <div class="mt-8">
     <InputGroupDemo client:load />
   </div>

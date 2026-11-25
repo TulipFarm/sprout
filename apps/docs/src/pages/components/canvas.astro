@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   CanvasFrameDemo,
   CanvasPlayground,
@@ -19,6 +21,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Shows results next to the chat: tables, calendar reads, plans, charts, and web pages. Each result gets a tab. When
     the split is narrower than 720px, or the screen is phone-sized, the canvas opens as a full sheet instead.
   </p>
+  <ComponentMeta name="canvas" />
+  <InstallSection name="canvas" />
   <div class="mt-8">
     <CanvasPlayground client:load />
   </div>

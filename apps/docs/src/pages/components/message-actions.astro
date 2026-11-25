@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   MessageActionsConversation,
   MessageActionsHandoff,
@@ -21,6 +23,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     time reads as Today, Yesterday, or a date; assistant replies can be rated and regenerated. Message Branch steps
     between regenerated versions.
   </p>
+  <ComponentMeta name="message-actions" />
+  <InstallSection name="message-actions" />
   <div class="mt-8">
     <MessageActionsPlayground client:only="react" />
   </div>

@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import { RecordListPlayground } from '../../components/RecordListDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -14,6 +16,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     badges, and row actions. Use it to read and triage records. Use Table to compare values in columns, edit, or select
     rows in bulk.
   </p>
+  <ComponentMeta name="record-list" />
+  <InstallSection name="record-list" />
   <div class="mt-8">
     <RecordListPlayground client:load />
   </div>

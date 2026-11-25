@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   PageHeaderPlayground,
@@ -15,6 +17,8 @@ import {
     The title, description, and main actions at the top of a page. Inside an app shell it moves its title and actions
     into the shared header bar.
   </p>
+  <ComponentMeta name="page-header" />
+  <InstallSection name="page-header" />
   <div class="mt-8">
     <PageHeaderPlayground client:load />
   </div>

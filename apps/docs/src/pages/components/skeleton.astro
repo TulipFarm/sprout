@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import SkeletonDemo from '../../components/SkeletonDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Holds the space of content that is still loading. Use it for rows, titles, panels, and table cells, so the page does
     not jump when data arrives.
   </p>
+  <ComponentMeta name="skeleton" />
+  <InstallSection name="skeleton" />
   <div class="mt-8">
     <SkeletonDemo client:load />
   </div>

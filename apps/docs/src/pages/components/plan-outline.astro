@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   PlanOutlineLongContent,
   PlanOutlineMarks,
@@ -21,6 +23,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A saved agent plan as a read-only outline. The header shows the plan's status, a progress bar, and notices. Groups
     list their tasks. Each task opens to show its brief, what “done” means, what it waits for, and actions.
   </p>
+  <ComponentMeta name="plan-outline" />
+  <InstallSection name="plan-outline" />
   <div class="mt-8">
     <PlanOutlinePlayground client:load />
   </div>

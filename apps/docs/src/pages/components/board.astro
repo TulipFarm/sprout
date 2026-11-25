@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   BoardCustom,
   BoardLarge,
@@ -20,6 +22,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A Kanban board. Columns go across. Lanes go down. Each card sits in the cell where its column and lane meet. Drag
     cards to any cell, drag columns by their grip, and click a card to open it.
   </p>
+  <ComponentMeta name="board" />
+  <InstallSection name="board" />
   <div class="mt-8">
     <BoardPlayground client:load />
   </div>

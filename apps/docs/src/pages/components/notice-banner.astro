@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import NoticeBannerDemo from '../../components/NoticeBannerDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     A full-width strip at the top of a page. Use it when something needs action, such as an integration that needs
     authorization. The message is on the left and the actions follow it.
   </p>
+  <ComponentMeta name="notice-banner" />
+  <InstallSection name="notice-banner" />
   <div class="mt-8">
     <NoticeBannerDemo client:load />
   </div>

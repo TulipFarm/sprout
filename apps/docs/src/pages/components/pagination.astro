@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import PaginationDemo from '../../components/PaginationDemo';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
@@ -10,6 +12,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     Previous, next, numbered pages, and skipped pages for long lists. Seven small parts you compose yourself, with plain
     links or router links.
   </p>
+  <ComponentMeta name="pagination" />
+  <InstallSection name="pagination" />
   <div class="mt-8">
     <PaginationDemo client:load />
   </div>

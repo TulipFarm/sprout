@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import {
   SchemaDiagramEdgeCases,
   SchemaDiagramLayouts,
@@ -19,6 +21,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
     so someone can review a proposed schema before it is applied. Tables sit in columns on wide screens and stack on
     phones.
   </p>
+  <ComponentMeta name="schema-diagram" />
+  <InstallSection name="schema-diagram" />
   <div class="mt-8">
     <SchemaDiagramPlayground client:load />
   </div>

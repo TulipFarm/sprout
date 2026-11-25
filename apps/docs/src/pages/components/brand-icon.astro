@@ -1,5 +1,7 @@
 ---
 import Docs from '../../layouts/Docs.astro';
+import ComponentMeta from '../../components/ComponentMeta.astro';
+import InstallSection from '../../components/InstallSection.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import {
   BrandIconPlayground,
@@ -20,6 +22,8 @@ import {
     Logos for the apps and models your product connects to. Draw a bare glyph in text, a framed tile in lists, or a
     stack of tiles with names on hover.
   </p>
+  <ComponentMeta name="brand-icon" />
+  <InstallSection name="brand-icon" />
   <div class="mt-8">
     <BrandIconPlayground client:load />
   </div>

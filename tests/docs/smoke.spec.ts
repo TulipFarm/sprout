@@ -97,6 +97,40 @@ test('code blocks copy their exact source', async ({ page, context }) => {
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await block.getAttribute('data-code'));
 });
 
+test('component pages install through shadcn, by hand, or from npm', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await open(page, '/components/button/');
+  const install = page.locator('.component-install');
+  await install.getByRole('tab', { name: 'npm', exact: true }).first().click();
+  await install.getByRole('button', { name: 'Copy shadcn command' }).click();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+    'npx shadcn@latest add https://sprout.tulipfarm.ai/r/button.json',
+  );
+
+  await install.getByRole('tab', { name: 'Manual' }).click();
+  const item = await (await page.request.get('/r/button.json')).json();
+  const source = install.getByRole('group', { name: 'components/ui/button.tsx' });
+  await source.getByRole('button', { name: 'Expand' }).click();
+  await expect(source.getByRole('button', { name: 'Collapse' })).toHaveAttribute('aria-expanded', 'true');
+  const main = source.getByRole('button', { name: 'Copy components/ui/button.tsx code' });
+  await main.click();
+  await expect(main).toHaveText('Copied');
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(item.files[0].content);
+  const helper = install.getByRole('button', { name: 'Copy lib/sprout/pressable.tsx' });
+  await helper.click();
+  await expect(helper).toHaveText('Copied');
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(item.files[1].content);
+
+  await page.reload();
+  await expect(page.locator('.component-install').getByRole('tab', { name: 'Manual' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
+  await page.locator('.component-quality-trigger').click();
+  await expect(page.getByRole('dialog', { name: 'Verified' })).toContainText('React Doctor');
+  await expectAxeClean(page);
+});
+
 for (const width of [390, 1440])
   for (const mode of ['light', 'dark'] as const)
     test(`key pages pass axe at ${width}px in ${mode} mode`, async ({ page }) => {
