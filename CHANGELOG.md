@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.20.0](https://github.com/TulipFarm/sprout/compare/v0.19.2...v0.20.0) (2026-11-25)
+
+### Features
+
+* **registry:** install Sprout components with the shadcn CLI ([#101](https://github.com/TulipFarm/sprout/issues/101)) ([bd40c57](https://github.com/TulipFarm/sprout/commit/bd40c5700047a4cd62803fea4ff13aea96add70a))
+
+### Bug Fixes
+
+* **themes:** match the fallback font to Inter so text doesn't shift when it loads ([#99](https://github.com/TulipFarm/sprout/issues/99)) ([db8b3a6](https://github.com/TulipFarm/sprout/commit/db8b3a693177e98fd583d439a5b0b7a65fa39d97))
+
+### Performance Improvements
+
+* **state-panel:** split samples into one module per sample ([#100](https://github.com/TulipFarm/sprout/issues/100)) ([44f68d7](https://github.com/TulipFarm/sprout/commit/44f68d7af0cb92c9c8d38cd50570f2f8f4ffcb5d))
+
 ## [0.19.2](https://github.com/TulipFarm/sprout/compare/v0.19.1...v0.19.2) (2026-11-22)
 
 ### Features
