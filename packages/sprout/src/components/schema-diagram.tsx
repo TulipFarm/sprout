@@ -70,7 +70,7 @@ type LinkEdge = Edge<{ label: string }, 'link'>;
 const tableWidth = 264;
 const columnGap = 80;
 const rowGap = 48;
-const fitOptions = { padding: 0.15, maxZoom: 1 };
+const fitOptions = { padding: '6.5%', maxZoom: 1 } as const;
 
 const tableHeight = (table: SchemaTable) =>
   44 + (table.fields.length === 0 ? 32 : table.fields.reduce((sum, field) => sum + (field.detail ? 48 : 32), 0));
