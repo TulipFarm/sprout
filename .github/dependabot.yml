@@ -20,6 +20,15 @@ updates:
       # Stays on 6: the component board needs its stable JS compiler API.
       - dependency-name: typescript-6
         update-types: [version-update:semver-major]
+      # 3.11 adds ~23 kB gzip to the chart entries (past the 10% size gate) and
+      # inlines text fill styles that override Sprout's chart CSS. Upgrade by
+      # hand once the charts move to RechartsThemeProvider.
+      - dependency-name: recharts
+        versions: ['>= 3.11.0']
+      # babel-plugin-react-compiler (component stats) is built on Babel 7's AST
+      # and bails out of most components under Babel 8.
+      - dependency-name: '@babel/*'
+        update-types: [version-update:semver-major]
   - package-ecosystem: github-actions
     directory: /
     schedule:

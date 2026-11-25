@@ -1,6 +1,14 @@
 'use client';
 
-import { Panel, useReactFlow, useStore, type FitViewOptions, type Node, type ReactFlowState } from '@xyflow/react';
+import {
+  Panel,
+  useNodesStore,
+  useReactFlow,
+  useViewportStore,
+  type FitViewOptions,
+  type Node,
+  type NodesStore,
+} from '@xyflow/react';
 import { useEffect, useSyncExternalStore, type KeyboardEvent } from 'react';
 import { AddIcon, MinusIcon, ScanIcon } from '../components/icons.js';
 import { Button } from '../components/button.js';
@@ -34,7 +42,7 @@ export const motion = (ms: number) =>
  * stays false for controlled nodes without `onNodesChange`, because measured
  * sizes never reach the caller's node objects.
  */
-function nodesMeasured(state: ReactFlowState) {
+function nodesMeasured(state: NodesStore) {
   if (state.nodeLookup.size === 0) return false;
   for (const node of state.nodeLookup.values()) {
     if (node.hidden) continue;
@@ -49,9 +57,9 @@ function nodesMeasured(state: ReactFlowState) {
  */
 export function FitOnResize({ nodes, fit }: { nodes: readonly Node[]; fit: FitViewOptions }) {
   const { fitView } = useReactFlow();
-  const width = useStore(state => state.width);
-  const height = useStore(state => state.height);
-  const measured = useStore(nodesMeasured);
+  const width = useViewportStore(state => state.width);
+  const height = useViewportStore(state => state.height);
+  const measured = useNodesStore(nodesMeasured);
   useEffect(() => {
     if (!measured) return;
     const frame = requestAnimationFrame(() => void fitView(fit));
@@ -72,7 +80,7 @@ export function ZoomControls({
   slot: string;
 }) {
   const { zoomIn, zoomOut, fitView } = useReactFlow();
-  const zoom = useStore(state => state.transform[2]);
+  const zoom = useViewportStore(state => state.transform[2]);
   return (
     <Panel
       position={position}

@@ -2,7 +2,7 @@
   "a2ui-surface": {
     "size": {
       "own": 23762,
-      "total": 477875
+      "total": 482743
     },
     "accessibility": 0,
     "behavior": 31,
@@ -18,7 +18,7 @@
   "accordion": {
     "size": {
       "own": 1971,
-      "total": 19379
+      "total": 19718
     },
     "accessibility": 1,
     "behavior": 13,
@@ -34,7 +34,7 @@
   "agent-avatar": {
     "size": {
       "own": 25220,
-      "total": 38680
+      "total": 39021
     },
     "accessibility": 0,
     "behavior": 6,
@@ -50,7 +50,7 @@
   "agent-fanout": {
     "size": {
       "own": 6723,
-      "total": 77535
+      "total": 77882
     },
     "accessibility": 1,
     "behavior": 19,
@@ -66,7 +66,7 @@
   "alert": {
     "size": {
       "own": 513,
-      "total": 10862
+      "total": 11188
     },
     "accessibility": 1,
     "behavior": 10,
@@ -82,7 +82,7 @@
   "alert-dialog": {
     "size": {
       "own": 815,
-      "total": 35312
+      "total": 35658
     },
     "accessibility": 1,
     "behavior": 9,
@@ -98,7 +98,7 @@
   "aspect-ratio": {
     "size": {
       "own": 305,
-      "total": 9130
+      "total": 9455
     },
     "accessibility": 1,
     "behavior": 11,
@@ -114,7 +114,7 @@
   "attachment": {
     "size": {
       "own": 9376,
-      "total": 97619
+      "total": 97957
     },
     "accessibility": 1,
     "behavior": 24,
@@ -130,7 +130,7 @@
   "avatar": {
     "size": {
       "own": 836,
-      "total": 13803
+      "total": 14135
     },
     "accessibility": 1,
     "behavior": 9,
@@ -146,7 +146,7 @@
   "badge": {
     "size": {
       "own": 485,
-      "total": 10823
+      "total": 11145
     },
     "accessibility": 1,
     "behavior": 8,
@@ -162,7 +162,7 @@
   "board": {
     "size": {
       "own": 10202,
-      "total": 127473
+      "total": 128239
     },
     "accessibility": 3,
     "behavior": 20,
@@ -178,7 +178,7 @@
   "brand-icon": {
     "size": {
       "own": 13055,
-      "total": 57433
+      "total": 57783
     },
     "accessibility": 1,
     "behavior": 17,
@@ -194,7 +194,7 @@
   "breadcrumb": {
     "size": {
       "own": 2176,
-      "total": 11971
+      "total": 12304
     },
     "accessibility": 1,
     "behavior": 13,
@@ -210,7 +210,7 @@
   "button": {
     "size": {
       "own": 1486,
-      "total": 14256
+      "total": 14591
     },
     "accessibility": 1,
     "behavior": 23,
@@ -226,7 +226,7 @@
   "button-group": {
     "size": {
       "own": 580,
-      "total": 11387
+      "total": 11711
     },
     "accessibility": 1,
     "behavior": 16,
@@ -242,7 +242,7 @@
   "calendar": {
     "size": {
       "own": 2934,
-      "total": 78922
+      "total": 79289
     },
     "accessibility": 1,
     "behavior": 21,
@@ -258,7 +258,7 @@
   "canvas": {
     "size": {
       "own": 4211,
-      "total": 56687
+      "total": 57027
     },
     "accessibility": 1,
     "behavior": 13,
@@ -274,7 +274,7 @@
   "card": {
     "size": {
       "own": 594,
-      "total": 10926
+      "total": 11249
     },
     "accessibility": 1,
     "behavior": 11,
@@ -290,7 +290,7 @@
   "carousel": {
     "size": {
       "own": 4895,
-      "total": 17186
+      "total": 17522
     },
     "accessibility": 1,
     "behavior": 17,
@@ -306,7 +306,7 @@
   "chart": {
     "size": {
       "own": 7531,
-      "total": 167350
+      "total": 169012
     },
     "accessibility": 1,
     "behavior": 24,
@@ -322,7 +322,7 @@
   "chat-confirmation": {
     "size": {
       "own": 2528,
-      "total": 20492
+      "total": 20839
     },
     "accessibility": 1,
     "behavior": 16,
@@ -338,7 +338,7 @@
   "chat-input": {
     "size": {
       "own": 6477,
-      "total": 283909
+      "total": 284587
     },
     "accessibility": 1,
     "behavior": 14,
@@ -354,7 +354,7 @@
   "chat-plan": {
     "size": {
       "own": 2154,
-      "total": 11110
+      "total": 11449
     },
     "accessibility": 1,
     "behavior": 13,
@@ -370,7 +370,7 @@
   "chat-sources": {
     "size": {
       "own": 2901,
-      "total": 56497
+      "total": 56828
     },
     "accessibility": 1,
     "behavior": 16,
@@ -386,7 +386,7 @@
   "chat-window": {
     "size": {
       "own": 3358,
-      "total": 83628
+      "total": 83947
     },
     "accessibility": 1,
     "behavior": 11,
@@ -402,7 +402,7 @@
   "checkbox": {
     "size": {
       "own": 2151,
-      "total": 18241
+      "total": 18602
     },
     "accessibility": 1,
     "behavior": 14,
@@ -418,7 +418,7 @@
   "choice-list": {
     "size": {
       "own": 2635,
-      "total": 12628
+      "total": 12965
     },
     "accessibility": 1,
     "behavior": 16,
@@ -434,7 +434,7 @@
   "code-block": {
     "size": {
       "own": 9153,
-      "total": 21977
+      "total": 22309
     },
     "accessibility": 1,
     "behavior": 23,
@@ -450,7 +450,7 @@
   "collapsible": {
     "size": {
       "own": 462,
-      "total": 16789
+      "total": 17116
     },
     "accessibility": 1,
     "behavior": 17,
@@ -466,7 +466,7 @@
   "combobox": {
     "size": {
       "own": 2713,
-      "total": 69191
+      "total": 69562
     },
     "accessibility": 1,
     "behavior": 17,
@@ -482,7 +482,7 @@
   "command": {
     "size": {
       "own": 5235,
-      "total": 38633
+      "total": 38964
     },
     "accessibility": 1,
     "behavior": 16,
@@ -498,7 +498,7 @@
   "context-menu": {
     "size": {
       "own": 2438,
-      "total": 72714
+      "total": 73037
     },
     "accessibility": 1,
     "behavior": 11,
@@ -514,7 +514,7 @@
   "dialog": {
     "size": {
       "own": 2408,
-      "total": 35655
+      "total": 36032
     },
     "accessibility": 1,
     "behavior": 15,
@@ -546,7 +546,7 @@
   "dropdown-menu": {
     "size": {
       "own": 2491,
-      "total": 71968
+      "total": 72285
     },
     "accessibility": 1,
     "behavior": 17,
@@ -562,7 +562,7 @@
   "field": {
     "size": {
       "own": 3395,
-      "total": 26155
+      "total": 26529
     },
     "accessibility": 1,
     "behavior": 20,
@@ -578,7 +578,7 @@
   "file-explorer": {
     "size": {
       "own": 11754,
-      "total": 34270
+      "total": 34600
     },
     "accessibility": 0,
     "behavior": 11,
@@ -594,7 +594,7 @@
   "file-viewer": {
     "size": {
       "own": 11291,
-      "total": 90447
+      "total": 90789
     },
     "accessibility": 1,
     "behavior": 20,
@@ -610,7 +610,7 @@
   "form": {
     "size": {
       "own": 1283,
-      "total": 15150
+      "total": 15477
     },
     "accessibility": 1,
     "behavior": 20,
@@ -626,7 +626,7 @@
   "glass-banner": {
     "size": {
       "own": 1305,
-      "total": 10141
+      "total": 10469
     },
     "accessibility": 1,
     "behavior": 16,
@@ -642,7 +642,7 @@
   "gradient-banner": {
     "size": {
       "own": 951,
-      "total": 9759
+      "total": 10088
     },
     "accessibility": 1,
     "behavior": 16,
@@ -658,7 +658,7 @@
   "hover-card": {
     "size": {
       "own": 575,
-      "total": 42312
+      "total": 42646
     },
     "accessibility": 1,
     "behavior": 12,
@@ -690,7 +690,7 @@
   "input": {
     "size": {
       "own": 415,
-      "total": 18980
+      "total": 19296
     },
     "accessibility": 1,
     "behavior": 15,
@@ -706,7 +706,7 @@
   "input-group": {
     "size": {
       "own": 919,
-      "total": 22397
+      "total": 22731
     },
     "accessibility": 1,
     "behavior": 16,
@@ -722,7 +722,7 @@
   "input-otp": {
     "size": {
       "own": 2327,
-      "total": 19682
+      "total": 20033
     },
     "accessibility": 1,
     "behavior": 15,
@@ -738,7 +738,7 @@
   "kbd": {
     "size": {
       "own": 344,
-      "total": 9165
+      "total": 9489
     },
     "accessibility": 1,
     "behavior": 12,
@@ -754,7 +754,7 @@
   "knowledge-base": {
     "size": {
       "own": 20476,
-      "total": 91915
+      "total": 92232
     },
     "accessibility": 0,
     "behavior": 16,
@@ -770,7 +770,7 @@
   "label": {
     "size": {
       "own": 269,
-      "total": 9096
+      "total": 9421
     },
     "accessibility": 1,
     "behavior": 13,
@@ -786,7 +786,7 @@
   "mention-list": {
     "size": {
       "own": 1031,
-      "total": 14660
+      "total": 14990
     },
     "accessibility": 1,
     "behavior": 12,
@@ -802,7 +802,7 @@
   "menubar": {
     "size": {
       "own": 2461,
-      "total": 74002
+      "total": 74327
     },
     "accessibility": 1,
     "behavior": 10,
@@ -818,7 +818,7 @@
   "message": {
     "size": {
       "own": 761,
-      "total": 11074
+      "total": 11398
     },
     "accessibility": 1,
     "behavior": 26,
@@ -834,7 +834,7 @@
   "message-actions": {
     "size": {
       "own": 3710,
-      "total": 52386
+      "total": 52725
     },
     "accessibility": 1,
     "behavior": 17,
@@ -850,7 +850,7 @@
   "message-response": {
     "size": {
       "own": 958,
-      "total": 69506
+      "total": 72464
     },
     "accessibility": 1,
     "behavior": 17,
@@ -866,7 +866,7 @@
   "message-rich-text": {
     "size": {
       "own": 4148,
-      "total": 100890
+      "total": 101201
     },
     "accessibility": 0,
     "behavior": 16,
@@ -882,7 +882,7 @@
   "message-scroller": {
     "size": {
       "own": 7060,
-      "total": 19289
+      "total": 19634
     },
     "accessibility": 1,
     "behavior": 21,
@@ -898,7 +898,7 @@
   "metric": {
     "size": {
       "own": 592,
-      "total": 9422
+      "total": 9742
     },
     "accessibility": 0,
     "behavior": 0,
@@ -914,7 +914,7 @@
   "model-selector": {
     "size": {
       "own": 3461,
-      "total": 90042
+      "total": 90379
     },
     "accessibility": 1,
     "behavior": 17,
@@ -930,7 +930,7 @@
   "monster-avatar": {
     "size": {
       "own": 13036,
-      "total": 22143
+      "total": 22469
     },
     "accessibility": 0,
     "behavior": 5,
@@ -946,7 +946,7 @@
   "navigation-menu": {
     "size": {
       "own": 2153,
-      "total": 48912
+      "total": 49229
     },
     "accessibility": 1,
     "behavior": 13,
@@ -962,7 +962,7 @@
   "notice-banner": {
     "size": {
       "own": 412,
-      "total": 9234
+      "total": 9557
     },
     "accessibility": 1,
     "behavior": 14,
@@ -978,7 +978,7 @@
   "page-content": {
     "size": {
       "own": 282,
-      "total": 9105
+      "total": 9429
     },
     "accessibility": 1,
     "behavior": 6,
@@ -994,7 +994,7 @@
   "page-header": {
     "size": {
       "own": 2490,
-      "total": 14968
+      "total": 15298
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1010,7 +1010,7 @@
   "pagination": {
     "size": {
       "own": 2123,
-      "total": 14822
+      "total": 15160
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1026,7 +1026,7 @@
   "plan-outline": {
     "size": {
       "own": 3341,
-      "total": 20627
+      "total": 20960
     },
     "accessibility": 1,
     "behavior": 17,
@@ -1042,7 +1042,7 @@
   "popover": {
     "size": {
       "own": 713,
-      "total": 50385
+      "total": 50719
     },
     "accessibility": 1,
     "behavior": 14,
@@ -1058,7 +1058,7 @@
   "presence-cursor": {
     "size": {
       "own": 509,
-      "total": 9328
+      "total": 9655
     },
     "accessibility": 1,
     "behavior": 10,
@@ -1074,7 +1074,7 @@
   "progress": {
     "size": {
       "own": 477,
-      "total": 12485
+      "total": 12824
     },
     "accessibility": 1,
     "behavior": 13,
@@ -1090,7 +1090,7 @@
   "prompt-list": {
     "size": {
       "own": 2009,
-      "total": 58392
+      "total": 58758
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1106,7 +1106,7 @@
   "questionnaire": {
     "size": {
       "own": 7900,
-      "total": 17505
+      "total": 17846
     },
     "accessibility": 1,
     "behavior": 13,
@@ -1122,7 +1122,7 @@
   "radio-group": {
     "size": {
       "own": 401,
-      "total": 21229
+      "total": 21541
     },
     "accessibility": 1,
     "behavior": 13,
@@ -1138,7 +1138,7 @@
   "reasoning-effort": {
     "size": {
       "own": 2649,
-      "total": 11520
+      "total": 11842
     },
     "accessibility": 1,
     "behavior": 16,
@@ -1154,7 +1154,7 @@
   "record-list": {
     "size": {
       "own": 4225,
-      "total": 17123
+      "total": 17456
     },
     "accessibility": 1,
     "behavior": 29,
@@ -1170,7 +1170,7 @@
   "resizable": {
     "size": {
       "own": 4111,
-      "total": 12898
+      "total": 13233
     },
     "accessibility": 1,
     "behavior": 14,
@@ -1186,7 +1186,7 @@
   "result-card": {
     "size": {
       "own": 3164,
-      "total": 67917
+      "total": 68276
     },
     "accessibility": 1,
     "behavior": 18,
@@ -1202,7 +1202,7 @@
   "result-notice": {
     "size": {
       "own": 2011,
-      "total": 10187
+      "total": 10508
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1218,7 +1218,7 @@
   "review-card": {
     "size": {
       "own": 2479,
-      "total": 18264
+      "total": 18590
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1234,7 +1234,7 @@
   "rich-text-editor": {
     "size": {
       "own": 8516,
-      "total": 147985
+      "total": 148656
     },
     "accessibility": 1,
     "behavior": 17,
@@ -1249,8 +1249,8 @@
   },
   "schema-diagram": {
     "size": {
-      "own": 4806,
-      "total": 79325
+      "own": 4824,
+      "total": 104694
     },
     "accessibility": 1,
     "behavior": 11,
@@ -1266,7 +1266,7 @@
   "scroll-area": {
     "size": {
       "own": 632,
-      "total": 17300
+      "total": 17638
     },
     "accessibility": 1,
     "behavior": 14,
@@ -1282,7 +1282,7 @@
   "search-dialog": {
     "size": {
       "own": 2779,
-      "total": 40330
+      "total": 40696
     },
     "accessibility": 1,
     "behavior": 16,
@@ -1298,7 +1298,7 @@
   "search-field": {
     "size": {
       "own": 2063,
-      "total": 22596
+      "total": 22945
     },
     "accessibility": 1,
     "behavior": 13,
@@ -1314,7 +1314,7 @@
   "select": {
     "size": {
       "own": 2431,
-      "total": 56045
+      "total": 56399
     },
     "accessibility": 1,
     "behavior": 17,
@@ -1330,7 +1330,7 @@
   "selection-slot": {
     "size": {
       "own": 833,
-      "total": 9676
+      "total": 9990
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1346,7 +1346,7 @@
   "separator": {
     "size": {
       "own": 897,
-      "total": 11282
+      "total": 11615
     },
     "accessibility": 1,
     "behavior": 26,
@@ -1362,7 +1362,7 @@
   "settings-list": {
     "size": {
       "own": 532,
-      "total": 9357
+      "total": 9681
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1378,7 +1378,7 @@
   "sheet": {
     "size": {
       "own": 2577,
-      "total": 50771
+      "total": 51096
     },
     "accessibility": 1,
     "behavior": 18,
@@ -1394,7 +1394,7 @@
   "sidebar": {
     "size": {
       "own": 4196,
-      "total": 66263
+      "total": 66607
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1410,7 +1410,7 @@
   "skeleton": {
     "size": {
       "own": 577,
-      "total": 10922
+      "total": 11248
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1426,7 +1426,7 @@
   "slider": {
     "size": {
       "own": 641,
-      "total": 23929
+      "total": 24240
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1442,7 +1442,7 @@
   "spinner": {
     "size": {
       "own": 2098,
-      "total": 10295
+      "total": 10616
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1457,8 +1457,8 @@
   },
   "sql-viewer": {
     "size": {
-      "own": 7262,
-      "total": 82578
+      "own": 7274,
+      "total": 107858
     },
     "accessibility": 1,
     "behavior": 10,
@@ -1474,7 +1474,7 @@
   "state-panel": {
     "size": {
       "own": 2143,
-      "total": 65821
+      "total": 66188
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1490,7 +1490,7 @@
   "state-panel-samples": {
     "size": {
       "own": 5252,
-      "total": 64205
+      "total": 64623
     },
     "accessibility": 1,
     "behavior": 19,
@@ -1506,7 +1506,7 @@
   "state-sample": {
     "size": {
       "own": 1070,
-      "total": 9891
+      "total": 10208
     },
     "accessibility": 1,
     "behavior": 11,
@@ -1522,7 +1522,7 @@
   "status": {
     "size": {
       "own": 1780,
-      "total": 11095
+      "total": 11420
     },
     "accessibility": 1,
     "behavior": 16,
@@ -1538,7 +1538,7 @@
   "status-tooltip": {
     "size": {
       "own": 182,
-      "total": 43623
+      "total": 43959
     },
     "accessibility": 0,
     "behavior": 0,
@@ -1554,7 +1554,7 @@
   "switch": {
     "size": {
       "own": 687,
-      "total": 15558
+      "total": 15893
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1570,7 +1570,7 @@
   "table": {
     "size": {
       "own": 10226,
-      "total": 151636
+      "total": 152424
     },
     "accessibility": 1,
     "behavior": 20,
@@ -1602,7 +1602,7 @@
   "tabs": {
     "size": {
       "own": 539,
-      "total": 22737
+      "total": 23046
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1617,8 +1617,8 @@
   },
   "task-tree": {
     "size": {
-      "own": 4414,
-      "total": 74789
+      "own": 4424,
+      "total": 100228
     },
     "accessibility": 1,
     "behavior": 12,
@@ -1634,7 +1634,7 @@
   "textarea": {
     "size": {
       "own": 405,
-      "total": 9451
+      "total": 9777
     },
     "accessibility": 1,
     "behavior": 18,
@@ -1650,7 +1650,7 @@
   "timeline": {
     "size": {
       "own": 9251,
-      "total": 145987
+      "total": 147599
     },
     "accessibility": 1,
     "behavior": 22,
@@ -1666,7 +1666,7 @@
   "toast": {
     "size": {
       "own": 2425,
-      "total": 38804
+      "total": 39134
     },
     "accessibility": 1,
     "behavior": 14,
@@ -1682,7 +1682,7 @@
   "toggle": {
     "size": {
       "own": 451,
-      "total": 14022
+      "total": 14339
     },
     "accessibility": 1,
     "behavior": 17,
@@ -1698,7 +1698,7 @@
   "toggle-group": {
     "size": {
       "own": 649,
-      "total": 17745
+      "total": 18073
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1714,7 +1714,7 @@
   "tool-activity": {
     "size": {
       "own": 4275,
-      "total": 25704
+      "total": 26032
     },
     "accessibility": 1,
     "behavior": 23,
@@ -1730,7 +1730,7 @@
   "toolbar-status": {
     "size": {
       "own": 489,
-      "total": 52647
+      "total": 52992
     },
     "accessibility": 1,
     "behavior": 10,
@@ -1746,7 +1746,7 @@
   "tooltip": {
     "size": {
       "own": 1164,
-      "total": 43745
+      "total": 44093
     },
     "accessibility": 1,
     "behavior": 15,
@@ -1762,7 +1762,7 @@
   "typed-text": {
     "size": {
       "own": 788,
-      "total": 9609
+      "total": 9933
     },
     "accessibility": 1,
     "behavior": 13,
@@ -1778,7 +1778,7 @@
   "view-switcher": {
     "size": {
       "own": 3381,
-      "total": 80325
+      "total": 80673
     },
     "accessibility": 1,
     "behavior": 21,
@@ -1794,7 +1794,7 @@
   "web-source": {
     "size": {
       "own": 2466,
-      "total": 11279
+      "total": 11608
     },
     "accessibility": 0,
     "behavior": 6,

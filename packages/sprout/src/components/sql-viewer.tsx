@@ -12,6 +12,7 @@ import {
   useNodesState,
   type Edge,
   type EdgeProps,
+  type FitViewOptions,
   type InternalNode,
   type Node,
   type NodeMouseHandler,
@@ -135,7 +136,7 @@ const groupGap = 56;
 const wrapWidth = 1400;
 const tones = 5;
 
-const fitAll = { padding: 0.12, maxZoom: 1 };
+const fitAll: FitViewOptions = { padding: '5.4%', maxZoom: 1 };
 
 const compositeKeys = (table: SqlViewerTable) => (table.uniqueKeys ?? []).filter(key => key.fieldIds.length > 1);
 
@@ -637,10 +638,10 @@ function ViewerFlow({
   );
 
   // Phones fit the first block to the width and let people pan down; wider panes fit everything.
-  const fitFirst = useMemo(
+  const fitFirst = useMemo<FitViewOptions>(
     () =>
       direction === 'vertical' && layoutNodes[0]
-        ? { padding: 0.06, maxZoom: 1, nodes: [{ id: layoutNodes[0].id }] }
+        ? { padding: '2.8%', maxZoom: 1, nodes: [{ id: layoutNodes[0].id }] }
         : fitAll,
     [direction, layoutNodes],
   );
