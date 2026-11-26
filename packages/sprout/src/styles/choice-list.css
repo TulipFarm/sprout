@@ -198,6 +198,8 @@
   /* Compact: numbered rows in a short scrolling list, for chat questions. */
   .sprout-choice-list[data-layout='compact'] .sprout-choice-list-options {
     gap: 0;
+    /* Without this, the height cap shrinks rows below their text and wrapped labels overlap. */
+    grid-auto-rows: max-content;
     max-height: max(76px, min(224px, calc(34dvh - 96px)));
     overflow-y: auto;
     overscroll-behavior: contain;

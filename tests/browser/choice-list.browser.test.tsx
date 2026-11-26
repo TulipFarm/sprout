@@ -134,6 +134,30 @@ describe('ChoiceList in a real browser', () => {
     expect(list.scrollHeight).toBeGreaterThan(list.clientHeight);
   });
 
+  it('wrapped compact rows keep their full height and scroll instead of overlapping', async () => {
+    await page.viewport(390, 900);
+    const long = 'Code review finished for TulipFarm/tulipfarm #142, Add retry to webhook sender, with 3 comments.';
+    const screen = await render(
+      <List
+        legend="Message"
+        options={['a', 'b', 'c', 'd'].map(id => ({ id, label: `${id}: ${long} ${long}` }))}
+        layout="compact"
+      />,
+    );
+    await settle();
+    const rows = rowsOf(screen.container, 'compact');
+    for (const row of rows) {
+      const label = row.querySelector('.sprout-choice-list-label')!;
+      expect(row.getBoundingClientRect().height).toBeGreaterThanOrEqual(label.getBoundingClientRect().height);
+    }
+    for (let i = 1; i < rows.length; i++)
+      expect(rows[i]!.getBoundingClientRect().top).toBeGreaterThanOrEqual(
+        rows[i - 1]!.getBoundingClientRect().bottom - 1,
+      );
+    const list = screen.container.querySelector('.sprout-choice-list-options')!;
+    expect(list.scrollHeight).toBeGreaterThan(list.clientHeight);
+  });
+
   it('keyboard moves through radios with a row focus ring and toggles checkboxes', async () => {
     const screen = await render(<Gallery />);
     await tabFromStart();
